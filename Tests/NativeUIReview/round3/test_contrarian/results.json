@@ -1,0 +1,36 @@
+[
+  {
+    "name": "acceptance-baseline",
+    "launcher_exit": 0,
+    "fixture_passed": true,
+    "passed_assertions": 68,
+    "activated_fault_calls": 0,
+    "failures": []
+  },
+  {
+    "name": "acceptance-fault",
+    "launcher_exit": 0,
+    "fixture_passed": true,
+    "passed_assertions": 68,
+    "activated_fault_calls": 4,
+    "failures": []
+  },
+  {
+    "name": "pixels-baseline",
+    "launcher_exit": 0,
+    "fixture_passed": true,
+    "passed_assertions": 13,
+    "activated_fault_calls": 0,
+    "failures": []
+  },
+  {
+    "name": "pixels-fault",
+    "launcher_exit": 0,
+    "fixture_passed": false,
+    "passed_assertions": 11,
+    "activated_fault_calls": 1,
+    "failures": [
+      "unselected alternating note rows retain a pale background under the window appearance"
+    ]
+  }
+]

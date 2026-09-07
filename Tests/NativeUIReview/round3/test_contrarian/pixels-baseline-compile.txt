@@ -1,0 +1,11 @@
+In file included from /var/folders/20/4zczrx1s3lq2fv0xmm0gj1fr0000gn/T/nvalt-native-r3-canary-44ptm6hw/probes.m:74:
+/var/folders/20/4zczrx1s3lq2fv0xmm0gj1fr0000gn/T/nvalt-native-r3-canary-44ptm6hw/checks.inc:27:62: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+        for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
+                                                             ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+                                     ^
+/var/folders/20/4zczrx1s3lq2fv0xmm0gj1fr0000gn/T/nvalt-native-r3-canary-44ptm6hw/checks.inc:27:62: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+        for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
+                                                             ^~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
