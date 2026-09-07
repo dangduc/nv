@@ -138,6 +138,8 @@ The preview also supports JavaScript in the template. Missing custom files use t
 
 ## Contribute and credits
 
+[architecture.md](architecture.md) explains controller ownership, shared editing, storage, and window lifecycle.
+
 [AGENTS.md](AGENTS.md) describes the source layout, coding conventions, and pull request requirements. Reports about this fork belong in [dangduc/nv issues](https://github.com/dangduc/nv/issues).
 
 nvALT comes from Brett Terpstra and David Halter. It builds on Zachary Schneirov's [Notational Velocity](https://github.com/scrod/nv) and [DivineDominion's MultiMarkdown fork](https://github.com/DivineDominion/nv).
