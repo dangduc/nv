@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 //
 //  PreviewController.m
 //  Notation
@@ -65,9 +66,10 @@
 
 }
 
--(id)init
+- (id)initWithBrowserController:(AppController *)controller
 {
     if ((self = [super initWithWindowNibName:@"MarkupPreview" owner:self])) {
+        browserController = controller;
         self.isPreviewOutdated = YES;
         self.isPreviewSticky = NO;
         //        [[self class] createCustomFiles];
@@ -160,7 +162,7 @@
 {
     cssString = [[[self class] css] retain];
     htmlString = [[[self class] html] retain];
-    lastNote = [[NSApp delegate] selectedNoteObject];
+    lastNote = [[browserController selectedNoteObject] retain];
     [sourceView setTextContainerInset:NSMakeSize(10.0,12.0)];
     NSScrollView *scrlView=[sourceView enclosingScrollView];
     if (!IsLionOrLater) {
@@ -232,9 +234,11 @@
 {
     AppController *app = [notification object];
     NSString *rawString = [app noteContent];
-    NSPasteboard* pb = [NSPasteboard pasteboardWithName:@"mkStreamingPreview"];
-    [pb clearContents];
-    [pb setString:rawString forType:(NSString*)kUTTypeUTF8PlainText];
+    if (app == [[NVApplicationController sharedController] activeBrowser]) {
+        NSPasteboard *pb = [NSPasteboard pasteboardWithName:@"mkStreamingPreview"];
+        [pb clearContents];
+        [pb setString:rawString ?: @"" forType:(NSString *)kUTTypeUTF8PlainText];
+    }
 
     if (![[self window] isVisible]) {
         self.isPreviewOutdated = YES;
@@ -274,7 +278,7 @@
     } else {
         if (self.isPreviewOutdated) {
             // TODO high coupling; too many assumptions on architecture:
-            [self performSelector:@selector(preview:) withObject:[[NSApplication sharedApplication] delegate] afterDelay:0.0];
+            [self performSelector:@selector(preview:) withObject:browserController afterDelay:0.0];
         }
         [tabView selectTabViewItem:[tabView tabViewItemAtIndex:0]];
         [tabSwitcher setTitle:@"View Source"];
@@ -359,7 +363,8 @@
         [htmlString release];
         cssString = [[[self class] css] retain];
         htmlString = [[[self class] html] retain];
-        lastNote = [app selectedNoteObject];
+        [lastNote release];
+        lastNote = [[app selectedNoteObject] retain];
     }
     NSString *nvSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
 
@@ -454,7 +459,7 @@
     [shareButton setEnabled:YES];
     [saveButton setEnabled:YES];
     self.isPreviewOutdated = YES;
-    [self performSelector:@selector(preview:) withObject:[[NSApplication sharedApplication] delegate] afterDelay:0.0];
+    [self performSelector:@selector(preview:) withObject:browserController afterDelay:0.0];
     [[self window] setHidesOnDeactivate:YES];
 }
 
@@ -482,7 +487,7 @@
 
 -(IBAction)shareNote:(id)sender
 {
-    AppController *app = [NSApp delegate];
+    AppController *app = browserController;
     NSString *noteTitle = [NSString stringWithFormat:@"%@",titleOfNote([app selectedNoteObject])];
     NSString *rawString = [app noteContent];
     SEL mode = [self markupProcessorSelector:[app currentPreviewMode]];
@@ -541,7 +546,7 @@
 - (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSFileHandlingPanelOKButton) {
 
-        AppController *app = [[NSApplication sharedApplication] delegate];
+        AppController *app = browserController;
         NSString *rawString = [app noteContent];
         NSString *processedString = [[[NSString alloc] init] autorelease];
 
@@ -569,7 +574,7 @@
 
     }
     // TODO high coupling; too many assumptions on architecture:
-    AppController *app = [NSApp delegate];
+    AppController *app = browserController;
 
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAccessoryView:accessoryView];
@@ -738,16 +743,14 @@
 }
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [htmlString release];
     [cssString release];
     [lastNote release];
-    [shareButton release];
-    [saveButton release];
-    [tabSwitcher release];
     [viewOnWebButton release];
     [shareCancel release];
     [shareConfirm release];
-    [preview release];
     [super dealloc];
 }
 

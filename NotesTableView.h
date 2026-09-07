@@ -88,6 +88,8 @@ typedef struct _ViewLocationContext {
 - (BOOL)addPermanentTableColumn:(NSTableColumn*)column;
 - (IBAction)actionHideShowColumn:(id)sender;
 - (IBAction)toggleNoteBodyPreviews:(id)sender;
+- (void)invalidateViewMenus;
+- (void)menuNeedsUpdate:(NSMenu *)menu;
 - (void)setStatusForSortedColumn:(id)item;
 - (void)setSortDirection:(BOOL)direction inTableColumn:(NSTableColumn*)tableColumn;
 - (NSMenu *)defaultNoteCommandsMenuWithTarget:(id)target;

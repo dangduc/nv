@@ -15,6 +15,7 @@
 
 @interface PreviewController : NSWindowController 
 {
+    AppController *browserController;
   IBOutlet WebView *preview;
 	IBOutlet NSTextView *sourceView;
 	IBOutlet NSTabView *tabView;
@@ -50,6 +51,7 @@
 @property (retain) WebView *preview;
 @property (assign) BOOL isPreviewSticky;
 
+- (id)initWithBrowserController:(AppController *)controller;
 -(IBAction)saveHTML:(id)sender;
 -(IBAction)switchTabs:(id)sender;
 -(IBAction)shareNote:(id)sender;

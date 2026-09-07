@@ -69,6 +69,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 
 - (void)registerWithTarget:(id)sender forChangesInSettings:(SEL)firstSEL, ...;
 - (void)registerForSettingChange:(SEL)selector withTarget:(id)sender;
+- (void)unregisterTarget:(id)target;
 - (void)unregisterForNotificationsFromSelector:(SEL)selector sender:(id)sender;
 - (void)notifyCallbacksForSelector:(SEL)selector excludingSender:(id)sender;
 

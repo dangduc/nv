@@ -226,6 +226,13 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	[self registerWithTarget:sender forChangesInSettings:selector, nil];
 }
 
+- (void)unregisterTarget:(id)target {
+    for (NSString *key in [selectorObservers allKeys]) {
+        [[selectorObservers objectForKey:key] removeObjectIdenticalTo:target];
+        if (![[selectorObservers objectForKey:key] count]) [selectorObservers removeObjectForKey:key];
+    }
+}
+
 - (void)unregisterForNotificationsFromSelector:(SEL)selector sender:(id)sender {
 	NSString *selectorKey = NSStringFromSelector(selector);
 	

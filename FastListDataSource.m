@@ -22,6 +22,11 @@
 
 @implementation FastListDataSource
 
+- (void)dealloc {
+    free(objects);
+    [super dealloc];
+}
+
 - (const id *)immutableObjects {
 	return (const id *)objects;
 }
@@ -141,4 +146,3 @@
 }
 
 @end
-

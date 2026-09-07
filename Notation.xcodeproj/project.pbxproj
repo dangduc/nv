@@ -269,6 +269,11 @@
 		B69E26F616F0B523001C6E4B /* Pencil@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26EE16F0B523001C6E4B /* Pencil@2x.png */; };
 		B69E26F716F0B523001C6E4B /* Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26EF16F0B523001C6E4B /* Search@2x.png */; };
 		D3EECA00106F66C70023D7F8 /* NVPasswordGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EEC9FE106F66C70023D7F8 /* NVPasswordGenerator.m */; };
+		1623951E9A281E87B499BE94 /* NVApplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D669932DCF1684BC0183288 /* NVApplicationController.m */; };
+		6B68E49DBA31ABFE2D588493 /* NVBrowserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */; };
+		3FAC17CB2473CC51FC413902 /* NVNoteEditingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */; };
+		C758EB1A9F06DE97368E4DA6 /* AppController_MultipleWindows.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D570B8108A120C467618881 /* AppController_MultipleWindows.m */; };
+		1A0BAA6D664FEF99048FB496 /* BrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58D99272893A708C9D5118A9 /* BrowserWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -825,6 +830,19 @@
 		B69E26EF16F0B523001C6E4B /* Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Search@2x.png"; path = "Images/Search@2x.png"; sourceTree = "<group>"; };
 		D3EEC9FE106F66C70023D7F8 /* NVPasswordGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVPasswordGenerator.m; sourceTree = "<group>"; };
 		D3EEC9FF106F66C70023D7F8 /* NVPasswordGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVPasswordGenerator.h; sourceTree = "<group>"; };
+		1812F2B568444172B0960021 /* NVApplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVApplicationController.h; sourceTree = "<group>"; };
+		6D669932DCF1684BC0183288 /* NVApplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVApplicationController.m; sourceTree = "<group>"; };
+		42687BEEE57B81B142B0EFAB /* NVBrowserSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBrowserSession.h; sourceTree = "<group>"; };
+		E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBrowserSession.m; sourceTree = "<group>"; };
+		6570F437CC66EC34D8B00059 /* NVNoteEditingSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVNoteEditingSession.h; sourceTree = "<group>"; };
+		ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVNoteEditingSession.m; sourceTree = "<group>"; };
+		1D570B8108A120C467618881 /* AppController_MultipleWindows.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController_MultipleWindows.m; sourceTree = "<group>"; };
+		7C2CA15976675FAF0D739723 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "en"; path = "en.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
+		E05D473E1D4F745B0DE2E409 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "de"; path = "de.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
+		2BACAACC4469D6D5B714EBA8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "fr"; path = "fr.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
+		9079499920632A356F90B0FA /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "it"; path = "it.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
+		4629B55C2D60AE93673268B1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "pt-PT"; path = "pt-PT.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
+		BEB38FCF22A23E64C58789F0 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh"; path = "zh.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -857,6 +875,13 @@
 			children = (
 				2114C11409575BD400614E74 /* AppController.h */,
 				2114C11509575BD400614E74 /* AppController.m */,
+				1D570B8108A120C467618881 /* AppController_MultipleWindows.m */,
+				ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */,
+				6570F437CC66EC34D8B00059 /* NVNoteEditingSession.h */,
+				E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */,
+				42687BEEE57B81B142B0EFAB /* NVBrowserSession.h */,
+				6D669932DCF1684BC0183288 /* NVApplicationController.m */,
+				1812F2B568444172B0960021 /* NVApplicationController.h */,
 				5CA10F30131C29E900DE1F91 /* AppController_Preview.h */,
 				5CA10F31131C29E900DE1F91 /* AppController_Preview.m */,
 				2155DF42097C992800163A10 /* AttributedPlainText.h */,
@@ -1305,6 +1330,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				212850860B56E549005F6E34 /* CarbonErrorStrings.plist */,
 				5CF96BFD132EA0300079B3FD /* MainMenu.xib */,
+				58D99272893A708C9D5118A9 /* BrowserWindow.xib */,
 				5C1830CC132EA675005E2210 /* MarkupPreview.xib */,
 				5C1830CF132EA687005E2210 /* SaveHTMLPreview.nib */,
 				5CBA7A8F1305E2DF004ADEBB /* TagEditingManager.xib */,
@@ -1544,6 +1570,7 @@
 				5C943771132A0C9E00B08B80 /* greyscrollerverttop3.tif in Resources */,
 				5CF96CBD132EA1890079B3FD /* PassphrasePicker.nib in Resources */,
 				5CF96DA8132EA29D0079B3FD /* MainMenu.xib in Resources */,
+				1A0BAA6D664FEF99048FB496 /* BrowserWindow.xib in Resources */,
 				5CF96DA9132EA29D0079B3FD /* dsa_pub.pem in Resources */,
 				5CF96DAA132EA29D0079B3FD /* Acknowledgments.txt in Resources */,
 				5CF96DBC132EA29D0079B3FD /* greyscrollervertfill3.tif in Resources */,
@@ -1642,6 +1669,10 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				2114C11609575BD400614E74 /* AppController.m in Sources */,
+				C758EB1A9F06DE97368E4DA6 /* AppController_MultipleWindows.m in Sources */,
+				3FAC17CB2473CC51FC413902 /* NVNoteEditingSession.m in Sources */,
+				6B68E49DBA31ABFE2D588493 /* NVBrowserSession.m in Sources */,
+				1623951E9A281E87B499BE94 /* NVApplicationController.m in Sources */,
 				2114C13F0957732800614E74 /* NotationController.m in Sources */,
 				2114C1460957733200614E74 /* NoteObject.m in Sources */,
 				2114C23E095883A600614E74 /* NSData_transformations.m in Sources */,
@@ -2099,6 +2130,19 @@
 				5C4366741DA267B60086FF84 /* fr */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		58D99272893A708C9D5118A9 /* BrowserWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7C2CA15976675FAF0D739723 /* en */,
+				E05D473E1D4F745B0DE2E409 /* de */,
+				2BACAACC4469D6D5B714EBA8 /* fr */,
+				9079499920632A356F90B0FA /* it */,
+				4629B55C2D60AE93673268B1 /* pt-PT */,
+				BEB38FCF22A23E64C58789F0 /* zh */,
+			);
+			name = BrowserWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

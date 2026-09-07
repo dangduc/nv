@@ -1487,6 +1487,10 @@ bail:
 	return [allNotes count];
 }
 
+- (NSArray *)allNotes {
+    return [[allNotes copy] autorelease];
+}
+
 - (NoteAttributeColumn*)sortColumn {
 	return sortColumn;
 }
@@ -1649,5 +1653,4 @@ bail:
 }
 
 @end
-
 

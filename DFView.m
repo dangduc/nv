@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 //
 //  DFView.m
 //  Notation
@@ -15,7 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {        
         if (!vColor) {
-            [self setBackgroundColor:[[NSApp delegate] backgrndColor]];
+            [self setBackgroundColor:[NVControllerForView(self) backgrndColor]];
         }
         // Initialization code here.
     }
@@ -29,7 +30,7 @@
 
 - (void)drawRect:(NSRect)rect {
     [super drawRect:rect];
-    if (!IsLionOrLater&&([[NSApp delegate]isInFullScreen])){        
+    if (!IsLionOrLater&&([NVControllerForView(self)isInFullScreen])){
         NSRect bounds = [self bounds];
         bounds.origin.x -=2.0f;
         bounds.size.width +=4.0f;

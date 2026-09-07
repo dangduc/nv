@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
   provided that the following conditions are met:
@@ -310,8 +311,8 @@
 	NoteBookmark *aBookmark = [[followedLinks lastObject] retain];
 	[followedLinks removeLastObject];
 	 
-	[[NSApp delegate] searchForString:[aBookmark searchString]];
-	[[NSApp delegate] revealNote:[aBookmark noteObject] options:0];
+	[NVControllerForView(self) searchForString:[aBookmark searchString]];
+	[NVControllerForView(self) revealNote:[aBookmark noteObject] options:0];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearFollowedLinks) object:nil];
 
 	return [aBookmark autorelease];
@@ -339,7 +340,7 @@
 }
 
 /*- (BOOL)becomeFirstResponder {
-	[[NSApp delegate] updateEmptyViewStatus];
+	[NVControllerForView(self) updateEmptyViewStatus];
 	return [super becomeFirstResponder];
 }*/
 
@@ -498,7 +499,7 @@
     
 //    NSLog(@"df mouse down");
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
-    [[NSApp delegate] setIsEditing:NO];
+    [NVControllerForView(self) setIsEditing:NO];
 	
 	if ([[self cell] handleMouseDown:anEvent])
 		return;
@@ -508,7 +509,7 @@
 }
 
 - (void)flagsChanged:(NSEvent *)theEvent{
-	[[NSApp delegate] flagsChanged:theEvent];
+	[NVControllerForView(self) flagsChanged:theEvent];
 }
 
 @end

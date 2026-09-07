@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
   provided that the following conditions are met:
@@ -28,13 +29,13 @@
 	outletObjectAwoke(self);
 	/*
 	if (!bgCol) {
-		bgCol = [[[NSApp delegate] backgrndColor] retain];
+		bgCol = [[NVControllerForView(self) backgrndColor] retain];
 	}*/
 
 }
 
 - (void)mouseDown:(NSEvent*)anEvent {
-	[[NSApp delegate] performSelector:@selector(bringFocusToControlField:) withObject:nil];
+	[NVControllerForView(self) performSelector:@selector(bringFocusToControlField:) withObject:nil];
 }
 
 - (void)setLabelStatus:(NSInteger)notesNumber {
@@ -72,7 +73,7 @@
 - (void)drawRect:(NSRect)rect {
 	//NSRect bounds = [self bounds];
 	if (!bgCol) {
-		bgCol = [[[NSApp delegate] backgrndColor] retain];
+		bgCol = [[NVControllerForView(self) backgrndColor] retain];
 	}
 	//[bgCol set];
     //NSRectFill(bounds);

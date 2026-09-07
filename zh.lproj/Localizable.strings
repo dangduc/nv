@@ -659,3 +659,9 @@
 /* Menu Item for Use Selection for Find */
 "Use Selection for Find" = "Use Selection for Find";
 
+
+/* Multiple browser windows */
+"New Window" = "新建窗口";
+"Show Active Window" = "显示活动窗口";
+"Edit Note" = "编辑笔记";
+"external changes" = "外部更改";

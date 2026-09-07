@@ -1,3 +1,6 @@
+#import "NVApplicationController.h"
+#import "NVBrowserSession.h"
+#import "NVNoteEditingSession.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
  Redistribution and use in source and binary forms, with or without modification, are permitted
  provided that the following conditions are met:
@@ -71,15 +74,15 @@
 
 #define k_FinderTaggingReset 0
 
-NSWindow *normalWindow;
-NSInteger ModFlagger;
-NSInteger popped;
-BOOL splitViewAwoke;
+
 
 
 @implementation AppController
 
 @synthesize isEditing;
+
+- (void)setWindow:(NSWindow *)aWindow { window = aWindow; [super setWindow:aWindow]; }
+- (BOOL)horizontalLayout { return browserHorizontalLayout; }
 
 //an instance of this class is designated in the nib as the delegate of the window, nstextfield and two nstextviews
 /*
@@ -92,7 +95,7 @@ BOOL splitViewAwoke;
 
 
 - (id)init {
-    self = [super init];
+    self = [super initWithWindow:nil];
     if (self) {
 
         if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_11) {
@@ -103,8 +106,14 @@ BOOL splitViewAwoke;
 #endif
         
         hasLaunched=NO;
-        
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowDockIcon"]){
+        prefsController = [GlobalPrefs defaultPrefs];
+        applicationOwner = [NVApplicationController sharedController] == nil;
+        browserHorizontalLayout = [[GlobalPrefs defaultPrefs] horizontalLayout];
+        browserIdentifier = [[[NSUUID UUID] UUIDString] copy];
+        noteSelections = [[NSMutableDictionary alloc] init];
+        emptyEditorStorage = [[NSTextStorage alloc] init];
+
+        if (applicationOwner && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowDockIcon"]){
             if (IsLionOrLater) {
                 ProcessSerialNumber psn = { 0, kCurrentProcess };
                 OSStatus returnCode = TransformProcessType(&psn, kProcessTransformToUIElementApplication);
@@ -126,7 +135,7 @@ BOOL splitViewAwoke;
         splitViewAwoke = NO;
         windowUndoManager = [[NSUndoManager alloc] init];
         
-        previewController = [[PreviewController alloc] init];
+        previewController = [[PreviewController alloc] initWithBrowserController:self];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
@@ -143,18 +152,22 @@ BOOL splitViewAwoke;
         
         NSNotificationCenter *nc=[NSNotificationCenter defaultCenter];
         [nc addObserver:previewController selector:@selector(requestPreviewUpdate:) name:@"TextViewHasChangedContents" object:self];
+        if (applicationOwner) {
         [nc addObserver:self selector:@selector(togDockIcon:) name:@"AppShouldToggleDockIcon" object:nil];
         [nc addObserver:self selector:@selector(toggleStatusItem:) name:@"AppShouldToggleStatusItem" object:nil];
+        }
         
         [nc addObserver:self selector:@selector(resetModTimers:) name:@"ModTimersShouldReset" object:nil];
         [nc addObserver:self selector:@selector(releaseTagEditor:) name:@"TagEditorShouldRelease" object:nil];
         // Setup URL Handling
+        if (applicationOwner) {
         NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
         [appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+        }
         
         //	dividerShader = [[LinearDividerShader alloc] initWithStartColor:[NSColor colorWithCalibratedWhite:0.988 alpha:1.0]
         //														   endColor:[NSColor colorWithCalibratedWhite:0.875 alpha:1.0]];
-        dividerShader = [[[LinearDividerShader alloc] initWithBaseColors:self] retain];
+        dividerShader = [[LinearDividerShader alloc] initWithBaseColors:self];
         isCreatingANote = isFilteringFromTyping = typedStringIsCached = NO;
         typedString = @"";
         self.isEditing=NO;
@@ -164,17 +177,18 @@ BOOL splitViewAwoke;
 
 - (void)awakeFromNib {
     splitViewIsChangingLayout=NO;
-    theFieldEditor = [[[NSTextView alloc]initWithFrame:[window frame]] retain];
+    theFieldEditor = [[NSTextView alloc] initWithFrame:[window frame]];
 	[theFieldEditor setFieldEditor:YES];
     // [theFieldEditor setDelegate:self];
     [self updateFieldAttributes];
     
-	[NSApp setDelegate:self];
+	if (applicationOwner) [NSApp setDelegate:[NVApplicationController controllerWithInitialBrowser:self]];
+    [super setWindow:window];
 	[window setDelegate:self];
     
     //ElasticThreads>> set up the rbsplitview programatically to remove dependency on IBPlugin
-    splitView = [[[RBSplitView alloc] initWithFrame:[mainView frame] andSubviews:2] retain];
-    [splitView setAutosaveName:@"centralSplitView" recursively:NO];
+    splitView = [[RBSplitView alloc] initWithFrame:[mainView frame] andSubviews:2];
+    [splitView setAutosaveName:applicationOwner ? @"centralSplitView" : browserIdentifier recursively:NO];
     [splitView setDelegate:self];
 //here
     NSImage *image = [[[NSImage alloc] initWithSize:NSMakeSize(1.0,1.0)] autorelease];
@@ -246,7 +260,7 @@ BOOL splitViewAwoke;
    
     
 	// Create elasticthreads' NSStatusItem.
-	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"StatusBarItem"]) {
+	if (applicationOwner && [[NSUserDefaults standardUserDefaults] boolForKey:@"StatusBarItem"]) {
 		[self setUpStatusBarItem];
 	}
 	
@@ -264,7 +278,7 @@ BOOL splitViewAwoke;
 
 //really need make AppController a subclass of NSWindowController and stick this junk in windowDidLoad
 - (void)setupViewsAfterAppAwakened {
-	static BOOL awakenedViews = NO;
+
 	if (!awakenedViews) {
 		//NSLog(@"all (hopefully relevant) views awakend!");
 		[self _configureDividerForCurrentLayout];
@@ -321,21 +335,8 @@ BOOL splitViewAwoke;
 
 //what a hack
 void outletObjectAwoke(id sender) {
-	static NSMutableSet *awokenOutlets = nil;
-	if (!awokenOutlets) awokenOutlets = [[NSMutableSet alloc] initWithCapacity:5];
-    
-    
-	[awokenOutlets addObject:sender];
-	
-	AppController* appDelegate = (AppController*)[NSApp delegate];
-	
-	if ((appDelegate) && ([awokenOutlets containsObject:appDelegate] &&
-                          [awokenOutlets containsObject:appDelegate->notesTableView] &&
-                          [awokenOutlets containsObject:appDelegate->textView] &&
-                          [awokenOutlets containsObject:appDelegate->editorStatusView]) &&(splitViewAwoke)) {
-		// && [awokenOutlets containsObject:appDelegate->splitView])
-		[appDelegate setupViewsAfterAppAwakened];
-	}
+    if ([sender isKindOfClass:[AppController class]])
+        [sender performSelector:@selector(setupViewsAfterAppAwakened) withObject:nil afterDelay:0.0];
 }
 
 - (void)runDelayedUIActionsAfterLaunch {
@@ -427,6 +428,7 @@ void outletObjectAwoke(id sender) {
 
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNote {
+    [self setupViewsAfterAppAwakened];
 	//on tiger dualfield is often not ready to add tracking tracks until this point:
 	
 	[field setTrackingRect];
@@ -543,63 +545,8 @@ terminateApp:
 	}
 }
 
-- (void)setNotationController:(NotationController*)newNotation {
-	
-    if (newNotation) {
-		if (notationController) {
-			[notationController closeAllResources];
-			[[NSNotificationCenter defaultCenter] removeObserver:self name:SyncSessionsChangedVisibleStatusNotification
-														  object:[notationController syncSessionController]];
-		}
-		
-		NotationController *oldNotation = notationController;
-		notationController = [newNotation retain];
-		
-		if (oldNotation) {
-			[notesTableView abortEditing];
-			[prefsController setLastSearchString:[self fieldSearchString] selectedNote:currentNote
-						scrollOffsetForTableView:notesTableView sender:self];
-			//if we already had a notation, appController should already be bookmarksController's delegate
-			[[prefsController bookmarksController] performSelector:@selector(updateBookmarksUI) withObject:nil afterDelay:0.0];
-		}
-		[notationController setSortColumn:[notesTableView noteAttributeColumnForIdentifier:[prefsController sortedTableColumnKey]]];
-		[notesTableView setDataSource:[notationController notesListDataSource]];
-		[notesTableView setLabelsListSource:[notationController labelsListDataSource]];
-		[notationController setDelegate:self];
-		
-		//allow resolution of UUIDs to NoteObjects from saved searches
-		[[prefsController bookmarksController] setDataSource:notationController];
-		
-		//update the list using the new notation and saved settings
-		[self restoreListStateUsingPreferences];
-		
-		//window's undomanager could be referencing actions from the old notation object
-		[[window undoManager] removeAllActions];
-		[notationController setUndoManager:[window undoManager]];
-		
-		if ([notationController aliasNeedsUpdating]) {
-			[prefsController setAliasDataForDefaultDirectory:[notationController aliasDataForNoteDirectory] sender:self];
-		}
-		if ([prefsController tableColumnsShowPreview] || [prefsController horizontalLayout]) {
-			[self _forceRegeneratePreviewsForTitleColumn];
-			[notesTableView setNeedsDisplay:YES];
-		}
-		[titleBarButton setMenu:[[notationController syncSessionController] syncStatusMenu]];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncSessionsChangedVisibleStatus:)
-													 name:SyncSessionsChangedVisibleStatusNotification
-												   object:[notationController syncSessionController]];
-		[notationController performSelector:@selector(startSyncServices) withObject:nil afterDelay:0.0];
-		
-		if ([[notationController notationPrefs] secureTextEntry]) {
-			[[SecureTextEntryManager sharedInstance] enableSecureTextEntry];
-		} else {
-			[[SecureTextEntryManager sharedInstance] disableSecureTextEntry];
-		}
-		
-		[field selectText:nil];
-		
-		[oldNotation autorelease];
-    }
+- (void)setNotationController:(NotationController *)newNotation {
+    if (newNotation) [[NVApplicationController sharedController] setLibrary:newNotation];
 }
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)sender {
@@ -716,9 +663,10 @@ terminateApp:
 }
 
 - (void)updateNoteMenus {
+    if ([[NVApplicationController sharedController] activeBrowser] != self) return;
 	NSMenu *notesMenu = [[[NSApp mainMenu] itemWithTag:NOTES_MENU_ID] submenu];
 	
-	NSInteger menuIndex = [notesMenu indexOfItemWithTarget:self andAction:@selector(deleteNote:)];
+	NSInteger menuIndex = [notesMenu indexOfItemWithTarget:[NVApplicationController sharedController] andAction:@selector(deleteNote:)];
 	NSMenuItem *deleteItem = nil;
 	if (menuIndex > -1 && (deleteItem = [notesMenu itemAtIndex:menuIndex]))	{
 		NSString *trailingQualifier = [prefsController confirmNoteDeletion] ? NSLocalizedString(@"...", @"ellipsis character") : @"";
@@ -729,16 +677,16 @@ terminateApp:
     [notesMenu setSubmenu:[[ExternalEditorListController sharedInstance] addEditNotesMenu] forItem:[notesMenu itemWithTag:88]];
 	NSMenu *viewMenu = [[[NSApp mainMenu] itemWithTag:VIEW_MENU_ID] submenu];
 	
-	menuIndex = [viewMenu indexOfItemWithTarget:notesTableView andAction:@selector(toggleNoteBodyPreviews:)];
+	menuIndex = [viewMenu indexOfItemWithTarget:[NVApplicationController sharedController] andAction:@selector(toggleNoteBodyPreviews:)];
 	NSMenuItem *bodyPreviewItem = nil;
 	if (menuIndex > -1 && (bodyPreviewItem = [viewMenu itemAtIndex:menuIndex])) {
 		[bodyPreviewItem setTitle: [prefsController tableColumnsShowPreview] ?
 		 NSLocalizedString(@"Hide Note Previews in Title", @"menu item in the View menu to turn off note-body previews in the Title column") :
 		 NSLocalizedString(@"Show Note Previews in Title", @"menu item in the View menu to turn on note-body previews in the Title column")];
 	}
-	menuIndex = [viewMenu indexOfItemWithTarget:self andAction:@selector(switchViewLayout:)];
+	menuIndex = [viewMenu indexOfItemWithTarget:[NVApplicationController sharedController] andAction:@selector(switchViewLayout:)];
 	NSMenuItem *switchLayoutItem = nil;
-	NSString *switchStr = [prefsController horizontalLayout] ?
+	NSString *switchStr = [self horizontalLayout] ?
 	NSLocalizedString(@"Switch to Vertical Layout", @"title of alternate view layout menu item") :
 	NSLocalizedString(@"Switch to Horizontal Layout", @"title of view layout menu item");
 	
@@ -746,7 +694,7 @@ terminateApp:
 		[switchLayoutItem setTitle:switchStr];
 	}
 	// add to elasticthreads' statusbar menu
-	menuIndex = [statBarMenu indexOfItemWithTarget:self andAction:@selector(switchViewLayout:)];
+	menuIndex = [statBarMenu indexOfItemWithTarget:[NVApplicationController sharedController] andAction:@selector(switchViewLayout:)];
 	if (menuIndex>-1) {
 		NSMenuItem *anxItem = [statBarMenu itemAtIndex:menuIndex];
 		[anxItem setTitle:switchStr];
@@ -762,7 +710,7 @@ terminateApp:
 - (void)_configureDividerForCurrentLayout {
     splitViewIsChangingLayout=YES;
     self.isEditing = NO;
-	BOOL horiz = [prefsController horizontalLayout];
+	BOOL horiz = [self horizontalLayout];
 	if ([notesSubview isCollapsed]) {
 		[notesSubview expand];
 		[splitView setVertical:horiz];
@@ -796,7 +744,8 @@ terminateApp:
         colW -= 30.0f;
     }
 	
-	[prefsController setHorizontalLayout:![prefsController horizontalLayout] sender:self];
+	browserHorizontalLayout = !browserHorizontalLayout;
+    [notesTableView settingChangedForSelectorString:@"setHorizontalLayout:sender:"];
 	[notationController updateDateStringsIfNecessary];
 	[self _configureDividerForCurrentLayout];
     //	[notesTableView noteFirstVisibleRow];
@@ -1058,9 +1007,9 @@ terminateApp:
 	} else if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 		
 		[notationController restyleAllNotes];
-		if (currentNote) {
-			[self contentsUpdatedForNote:currentNote];
-		}
+        for (AppController *browser in [[NVApplicationController sharedController] browserControllers]) {
+            if ([browser selectedNoteObject]) [browser contentsUpdatedForNote:[browser selectedNoteObject]];
+        }
 	} else if ([selectorString isEqualToString:SEL_STR(setForegroundTextColor:sender:)]) {
 		if (userScheme!=2) {
 			[self setUserColorScheme:self];
@@ -1108,7 +1057,7 @@ terminateApp:
 
 - (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn {
     if (tableView == notesTableView) {
-		//this sets global prefs options, which ultimately calls back to us
+		//Sorting belongs to this browser session.
 		[notesTableView setStatusForSortedColumn:tableColumn];
     }
 }
@@ -1358,20 +1307,25 @@ terminateApp:
 	return NO;
 }
 
-- (void)_setCurrentNote:(NoteObject*)aNote {
-	//save range of old current note
-	//we really only want to save the insertion point position if it's currently invisible
-	//how do we test that?
-	BOOL wasAutomatic = NO;
-	NSRange currentRange = [textView selectedRangeWasAutomatic:&wasAutomatic];
-	if (!wasAutomatic) [currentNote setSelectedRange:currentRange];
-	
-	//regenerate content cache before switching to new note
-	[currentNote updateContentCacheCStringIfNecessary];
-	
-	
-	[currentNote release];
-	currentNote = [aNote retain];
+- (void)_setCurrentNote:(NoteObject *)aNote {
+    if (currentNote == aNote) return;
+    [self finishEditing];
+    if (currentNote) {
+        NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];
+        [noteSelections setObject:NSStringFromRange([textView selectedRange]) forKey:key];
+    }
+    [currentNote release];
+    currentNote = [aNote retain];
+    [editingSession release];
+    editingSession = [[[NVApplicationController sharedController] editingSessionForNote:aNote] retain];
+    NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;
+    NSLayoutManager *layout = [[textView layoutManager] retain];
+    // replaceTextStorage: moves every layout manager from the old storage.
+    // Detach only this window's layout manager when switching notes.
+    [[layout textStorage] removeLayoutManager:layout];
+    [storage addLayoutManager:layout];
+    [layout release];
+    [textView setAllowsUndo:NO];
 }
 
 - (NoteObject*)selectedNoteObject {
@@ -1503,6 +1457,7 @@ terminateApp:
 }
 
 - (void)tableViewSelectionIsChanging:(NSNotification *)aNotification {
+    if (reloadingNotesList) return;
 	
     if (IsLionOrLater) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TextFindContextShouldReset" object:self];
@@ -1546,6 +1501,7 @@ terminateApp:
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+    if (reloadingNotesList) return;
     if (IsLionOrLater) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TextFindContextShouldUpdate" object:self];
     }
@@ -1559,6 +1515,7 @@ terminateApp:
 }
 
 - (void)processChangedSelectionForTable:(NSTableView*)table {
+    if (reloadingNotesList) return;
 	NSInteger selectedRow = [table selectedRow];
 	NSInteger numberSelected = [table numberOfSelectedRows];
 	
@@ -1693,7 +1650,8 @@ terminateApp:
 		[self _setCurrentNote:note];
 		
 		NSRange firstFoundTermRange = NSMakeRange(NSNotFound,0);
-		NSRange noteSelectionRange = [currentNote lastSelectedRange];
+		NSString *selection = [noteSelections objectForKey:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]]];
+        NSRange noteSelectionRange = selection ? NSRangeFromString(selection) : [currentNote lastSelectedRange];
 		
 		if (noteSelectionRange.location == NSNotFound ||
 			NSMaxRange(noteSelectionRange) > [[note contentString] length]) {
@@ -1712,7 +1670,7 @@ terminateApp:
 		}
 		
 		//restore string
-		[[textView textStorage] setAttributedString:[note contentString]];
+		// The note session supplies the shared text storage; this view keeps its layout manager.
 		[self postTextUpdate];
 		[self updateWordCount:(![prefsController showWordCount])];
 		//[textView setAutomaticallySelectedRange:NSMakeRange(0,0)];
@@ -1746,7 +1704,7 @@ terminateApp:
 	id textObject = [aNotification object];
     //[self resetModTimers];
 	if (textObject == textView) {
-		[currentNote setContentString:[textView textStorage]];
+		[editingSession commitTextChanges];
 		[self postTextUpdate];
 		[self updateWordCount:(![prefsController showWordCount])];
         if (IsLionOrLater) {
@@ -1832,7 +1790,7 @@ terminateApp:
 		if (undoMan)
 			return undoMan;
 	}
-	return windowUndoManager;
+	return notationController ? [[self sharedNotationController] undoManager] : windowUndoManager;
 }
 
 - (NSUndoManager *)undoManagerForTextView:(NSTextView *)aTextView {
@@ -1855,7 +1813,7 @@ terminateApp:
 		NSString *title = [[field stringValue] length] ? [field stringValue] : NSLocalizedString(@"Untitled Note", @"Title of a nameless note");
 		NSAttributedString *attributedContents = [textView textStorage] ? [textView textStorage] : [[[NSAttributedString alloc] initWithString:@"" attributes:
 																									 [prefsController noteBodyAttributes]] autorelease];
-		NoteObject *note = [[[NoteObject alloc] initWithNoteBody:attributedContents title:title delegate:notationController
+		NoteObject *note = [[[NoteObject alloc] initWithNoteBody:attributedContents title:title delegate:[self sharedNotationController]
 														  format:[notationController currentNoteStorageFormat] labels:nil] autorelease];
 		[notationController addNewNote:note];
 		
@@ -1969,7 +1927,7 @@ terminateApp:
 }
 
 - (NSSize)windowWillResize:(NSWindow *)window toSize:(NSSize)proposedFrameSize {
-	if ([prefsController horizontalLayout]) {
+	if ([self horizontalLayout]) {
 		[notesTableView makeFirstPreviouslyVisibleRowVisibleIfNecessary];
 	}
 	return proposedFrameSize;
@@ -2049,7 +2007,8 @@ terminateApp:
 	if (someNotation == notationController) {
 		//deal with one notation at a time
         
-		[notesTableView reloadData];
+		reloadingNotesList = YES;
+        [notesTableView reloadData];
 		//[notesTableView noteNumberOfRowsChanged];
 		
 		if (!isFilteringFromTyping) {
@@ -2063,6 +2022,8 @@ terminateApp:
 			
 			[notesTableView setViewingLocation:listUpdateViewCtx];
 		}
+        reloadingNotesList = NO;
+        if (!isFilteringFromTyping) [self processChangedSelectionForTable:notesTableView];
 	}
 }
 
@@ -2078,21 +2039,9 @@ terminateApp:
 	[[prefsController bookmarksController] updateBookmarksUI];
 }
 
-- (void)contentsUpdatedForNote:(NoteObject*)aNoteObject {
-	if (aNoteObject == currentNote) {
-		NSArray *selRanges=[textView selectedRanges];
-		[[textView textStorage] setAttributedString:[aNoteObject contentString]];
-        if (![selRanges isEqualToArray:[textView selectedRanges]]) {
-            NSRange testEnd=[[selRanges lastObject] rangeValue];
-            NSUInteger test=testEnd.location+testEnd.length;
-            
-            if (test<=[textView string].length) {
-                [textView setSelectedRanges:selRanges];
-            }
-        }
-		[self postTextUpdate];
-		[self updateWordCount:(![prefsController showWordCount])];
-	}
+- (void)contentsUpdatedForNote:(NoteObject *)note {
+    if (note == currentNote) [editingSession reloadFromNote];
+    [self refreshEditorForNote:note];
 }
 
 - (void)rowShouldUpdate:(NSInteger)affectedRow {
@@ -2129,13 +2078,17 @@ terminateApp:
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];    
 }
 
-- (void)windowWillClose:(NSNotification *)aNotification {
-    
-    //	[self resetModTimers];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
-    if ([prefsController quitWhenClosingWindow]){
-		[NSApp terminate:nil];
-    }
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+    [[NVApplicationController sharedController] browserBecameActive:self];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [self finishEditing];
+    [previewController close];
+    [notesTableView deselectAll:self];
+    [self _setCurrentNote:nil];
+    if (!applicationOwner) [self unregisterBrowserObservers];
+    [[NVApplicationController sharedController] browserWillClose:self];
 }
 
 - (void)_finishSyncWait {
@@ -2203,25 +2156,35 @@ terminateApp:
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    [fsMenuItem release];
-    [mainView release];
-    [dualFieldView release];
-    [wordCounter release];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [window setDelegate:nil];
+    [textView setDelegate:nil];
+    [notesTableView setDelegate:nil];
+    [field setDelegate:nil];
+    [(NVBrowserSession *)notationController setDelegate:nil];
+    [notationController release];
+    [editingSession release];
+    [emptyEditorStorage release];
+    [currentNote release];
+    [savedSelectedNotes release];
+    [typedString release];
+    [noteSelections release];
+    [browserIdentifier release];
+    [previewController release];
+    [windowUndoManager release];
+    [dividerShader release];
     [splitView release];
     [splitSubview release];
     [notesSubview release];
-    [notesScrollView release];
-    [textScrollView release];
-    [previewController release];
-	[windowUndoManager release];
-	[dividerShader release];
-	[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-    [statusItem release];
-    [statBarMenu release];
-	[self postTextUpdate];
-	
-	[super dealloc];
+    [theFieldEditor release];
+    [dualFieldView release];
+    [titleBarButton release];
+    [fieldAttributes release];
+    [backgrndColor release];
+    [foregrndColor release];
+    [windowObjects release];
+    [super dealloc];
 }
 
 - (IBAction)showPreferencesWindow:(id)sender {
@@ -2253,6 +2216,7 @@ terminateApp:
 }
 
 - (void)makeActiveAndShowWindowByFocusingControlField:(BOOL)focus andForcingActivation:(BOOL)activate{
+    [[NVApplicationController sharedController] browserBecameActive:self];
 
     if (focus) {
         if ([notesSubview isCollapsed]) {
@@ -2310,7 +2274,7 @@ terminateApp:
 //mail.app-like resizing behavior wrt item selections
 - (void)willAdjustSubviews:(RBSplitView*)sender {
 	//problem: don't do this if the horizontal splitview is being resized; in horizontal layout, only do this when resizing the window
-	if (![prefsController horizontalLayout]) {
+	if (![self horizontalLayout]) {
 		[notesTableView makeFirstPreviouslyVisibleRowVisibleIfNecessary];
 	}
 }
@@ -2341,7 +2305,7 @@ terminateApp:
 
 - (NSRect)splitView:(RBSplitView*)sender willDrawDividerInRect:(NSRect)dividerRect betweenView:(RBSplitSubview*)leading
 			andView:(RBSplitSubview*)trailing withProposedRect:(NSRect)imageRect {
-	[dividerShader drawDividerInRect:dividerRect withDimpleRect:imageRect blendVertically:![prefsController horizontalLayout]];
+	[dividerShader drawDividerInRect:dividerRect withDimpleRect:imageRect blendVertically:![self horizontalLayout]];
 	
 	return NSZeroRect;
 }
@@ -2357,7 +2321,7 @@ terminateApp:
 	if ([sender subviewAtPosition:0] == subview) {
 		return currentNote != nil;
 		//this is the list view; let it collapse in horizontal layout when a note is being edited
-		//return [prefsController horizontalLayout] && currentNote != nil;
+		//return [self horizontalLayout] && currentNote != nil;
 	}
 	return NO;
 }
@@ -2584,7 +2548,7 @@ terminateApp:
 	NSRect dfViewFrame = [splitView frame];
 	dfViewFrame.size.height = kDualFieldHeight;
 	dfViewFrame.origin.y = [splitView frame].size.height;
-	dualFieldView = [[[DFView alloc] initWithFrame:dfViewFrame] retain];
+	dualFieldView = [[DFView alloc] initWithFrame:dfViewFrame];
     [dualFieldView setAutoresizingMask:NSViewWidthSizable|NSViewMinYMargin];
     [dualFieldView setAutoresizesSubviews:YES];
     [mainView addSubview:dualFieldView positioned:NSWindowAbove relativeTo:splitView];

@@ -139,7 +139,7 @@
 		}
 		[newString santizeForeignStylesForImporting];
 		
-		NoteObject *note = [[[NoteObject alloc] initWithNoteBody:newString title:noteTitle delegate:notationController
+		NoteObject *note = [[[NoteObject alloc] initWithNoteBody:newString title:noteTitle delegate:[self sharedNotationController]
 														  format:[notationController currentNoteStorageFormat] labels:nil] autorelease];
 		if (bodyLoc > 0 && [newString length] >= bodyLoc + prefixedSourceLength) [note setSelectedRange:NSMakeRange(prefixedSourceLength, bodyLoc)];
 		[notationController addNewNote:note];
@@ -253,7 +253,7 @@
                 [attributedContents removeAttachments];
                 [attributedContents santizeForeignStylesForImporting];
                 
-                NoteObject *note = [[[NoteObject alloc] initWithNoteBody:[attributedContents autorelease] title:title delegate:notationController
+                NoteObject *note = [[[NoteObject alloc] initWithNoteBody:[attributedContents autorelease] title:title delegate:[self sharedNotationController]
                                                                   format:[notationController currentNoteStorageFormat] labels:tags] autorelease];
                 [notationController addNewNote:note];
                 return YES;

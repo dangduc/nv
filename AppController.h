@@ -18,6 +18,7 @@
 #import "NotesTableView.h"
 //#import "Spaces.h"
 
+@class NVBrowserSession, NVNoteEditingSession;
 @class LinkingEditor;
 @class EmptyView;
 @class NotesTableView;
@@ -49,11 +50,20 @@
 #define TextilePreview 13373
 #endif
 
-@interface AppController : NSObject 
+@interface AppController : NSWindowController
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 <NSToolbarDelegate, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 #endif
 {
+    BOOL applicationOwner, awakenedViews, browserHorizontalLayout, reloadingNotesList;
+    NSWindow *normalWindow;
+    NSInteger ModFlagger, popped;
+    BOOL splitViewAwoke;
+    NSArray *windowObjects;
+    NSMutableDictionary *noteSelections;
+    NVNoteEditingSession *editingSession;
+    NSTextStorage *emptyEditorStorage;
+    NSString *browserIdentifier;
 	IBOutlet NSMenuItem *fsMenuItem;
 	BOOL wasVert;
     BOOL wasDFVisible;
@@ -129,6 +139,15 @@
 
 void outletObjectAwoke(id sender);
 
+- (void)application:(NSApplication *)sender openFiles:(NSArray *)files;
+- (void)applicationDidFinishLaunching:(NSNotification *)notification;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
+- (BOOL)horizontalLayout;
+- (BOOL)validateMenuItem:(NSMenuItem *)item;
+- (void)syncSessionsChangedVisibleStatus:(NSNotification *)notification;
+- (void)titleUpdatedForNote:(NoteObject *)note;
+- (void)notation:(NotationController *)notation revealNotes:(NSArray *)notes;
 - (void)setNotationController:(NotationController*)newNotation;
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
 
@@ -243,4 +262,19 @@ void outletObjectAwoke(id sender);
 - (void)postToggleToolbar:(NSNumber *)boolNum;
 #endif
 
+@end
+
+@interface AppController (MultipleWindows)
+- (NVBrowserSession *)browserSession;
+- (NotationController *)sharedNotationController;
+- (void)attachLibrary:(NotationController *)library;
+- (void)retainWindowObjects:(NSArray *)objects;
+- (void)prepareAdditionalWindow;
+- (void)finishEditing;
+- (void)refreshEditorForNote:(NoteObject *)note;
+- (NSDictionary *)browserWindowState;
+- (void)restoreBrowserWindowState:(NSDictionary *)state;
+- (NSString *)browserIdentifier;
+- (id)tablePreviewForNote:(NoteObject *)note;
+- (void)unregisterBrowserObservers;
 @end

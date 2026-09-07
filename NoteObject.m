@@ -1,3 +1,5 @@
+#import "AppController.h"
+#import "NVApplicationController.h"
 //
 //  NoteObject.m
 //  Notation
@@ -22,6 +24,7 @@
 
 
 #import "NoteObject.h"
+#import "NVNoteEditingSession.h"
 #import "GlobalPrefs.h"
 #import "LabelObject.h"
 #import "WALController.h"
@@ -267,17 +270,13 @@ DefColAttrAccessor(dateCreatedStringOfNote, dateCreatedString)
 DefColAttrAccessor(dateModifiedStringOfNote, dateModifiedString)
 
 force_inline id tableTitleOfNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
-	if (note->tableTitleString) return note->tableTitleString;
+	id preview = [NVControllerForView(tv) tablePreviewForNote:note];
+    if (preview) return preview;
 	return titleOfNote(note);
 }
 force_inline id properlyHighlightingTableTitleOfNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
-	if (note->tableTitleString) {
-		if ([tv isRowSelected:row]) {
-			return [note->tableTitleString string];
-		}
-		return note->tableTitleString;
-	}	
-	return titleOfNote(note);
+    id preview = tableTitleOfNote(tv, note, row);
+    return [tv isRowSelected:row] && [preview isKindOfClass:[NSAttributedString class]] ? [preview string] : preview;
 }
 
 force_inline id labelColumnCellForNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
@@ -290,7 +289,7 @@ force_inline id labelColumnCellForNote(NotesTableView *tv, NoteObject *note, NSI
 
 force_inline id unifiedCellSingleLineForNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
 	
-	id obj = note->tableTitleString ? (id)note->tableTitleString : (id)titleOfNote(note);
+	id obj = tableTitleOfNote(tv, note, row);
 	
 	UnifiedCell *cell = [[[tv tableColumns] objectAtIndex:0] dataCellForRow:row];
 	[cell setNoteObject:note];
@@ -310,8 +309,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	BOOL rowSelected = [tv isRowSelected:row];
 	BOOL drawShadow = IsSnowLeopardOrLater || (IsLeopardOrLater && rowSelected && [tv currentEditor]);
 	
-	id obj = note->tableTitleString ? (rowSelected ? (id)AttributedStringForSelection(note->tableTitleString, drawShadow) : 
-									   (id)note->tableTitleString) : (id)titleOfNote(note);
+	id preview = tableTitleOfNote(tv, note, row);
+    id obj = rowSelected && [preview isKindOfClass:[NSAttributedString class]] ? AttributedStringForSelection(preview, drawShadow) : preview;
 	
 	
 	return obj;
@@ -614,6 +613,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		[delegate note:self attributeChanged:NotePreviewString];
 	
 		[self makeNoteDirtyUpdateTime:updateTime updateFile:YES];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:NVNoteContentsDidChangeNotification object:self];
 	}
 }
 - (NSAttributedString*)contentString {
