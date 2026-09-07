@@ -55,9 +55,28 @@ These screenshots use sample notes on macOS 13.7.8. Control appearance can diffe
 | Use system colors | Select **Follow System Appearance** in the color menu. |
 | Open a preview | Click **Preview** in the toolbar. |
 
+## Automated builds
+
+The [macOS build workflow](https://github.com/dangduc/nv/actions/workflows/macos.yml) runs for pull requests to `master`, pushes to `master`, and manual runs.
+It uses an Intel macOS 15 runner with Xcode 16.4.
+
+1. Open a successful workflow run.
+2. Download `nvALT-macos-x86_64-<run number>-<attempt>.zip` from **Artifacts**.
+3. Extract `nvALT.app` from the ZIP file.
+
+Downloads require a GitHub login. App archives expire after 30 days.
+These are unsigned Development builds without notarization or Simplenote credentials. Apple Silicon Macs require Rosetta.
+
+Successful `master` builds create a `build-<run number>` tag at the built commit.
+A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
+Build tags do not change the app version or create GitHub Releases.
+
+CI checks the tag logic, builds the app, and checks that the archive retains executable permissions and framework symlinks.
+The desktop integration suites remain separate. [Tests/CI/README.md](Tests/CI/README.md) describes the CI checks and tag rules.
+
 ## Build and run
 
-This fork currently distributes source code. The [official nvALT download](https://brettterpstra.com/projects/nvalt/) contains upstream nvALT, without these fork changes.
+The [official nvALT download](https://brettterpstra.com/projects/nvalt/) contains upstream nvALT, without these fork changes.
 
 The build requires full Xcode. Command Line Tools alone are insufficient. Bundled frameworks require an Intel build, so Apple Silicon Macs need Rosetta.
 
@@ -94,7 +113,7 @@ The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK.
    open build/DerivedData/Build/Products/Development/nvALT.app
    ```
 
-The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater still points to upstream. Updates to this fork require a new build from this repository.
+The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater still points to upstream. Updates to this fork require a new local build or CI artifact.
 
 ## Development checks
 

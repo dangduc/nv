@@ -1,0 +1,101 @@
+name: macOS build
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build Intel app
+    runs-on: macos-15-intel
+    timeout-minutes: 30
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check automatic tagging
+        run: python3 -m unittest discover -s Tests/CI -v
+
+      - name: Build without sync credentials or signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          cp SimperiumConfig-example.h SimperiumConfig.h
+          xcodebuild -version
+          xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
+            -derivedDataPath build/DerivedData ARCHS=x86_64 \
+            MACOSX_DEPLOYMENT_TARGET=10.13 CODE_SIGNING_ALLOWED=NO \
+            GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build \
+            2>&1 | tee build/macos-build.log
+
+      - name: Package the app
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          app=build/DerivedData/Build/Products/Development/nvALT.app
+          archive="build/nvALT-macos-x86_64-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}.zip"
+          test -x "$app/Contents/MacOS/nvALT"
+          lipo -verify_arch x86_64 "$app/Contents/MacOS/nvALT"
+          ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
+          python3 .github/scripts/check-app-archive.py "$archive"
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the app
+        id: upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.package.outputs.archive }}
+          archive: false
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Record the build
+        env:
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+        run: |
+          printf 'Commit: `%s`\n\n[Download the Intel app](%s)\n\nUnsigned Development build. Apple Silicon requires Rosetta.\n' \
+            "$GITHUB_SHA" "$ARTIFACT_URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the build log
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: macos-build-log-${{ github.run_number }}-${{ github.run_attempt }}
+          path: build/macos-build.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+  tag:
+    name: Tag successful master build
+    needs: build
+    if: >-
+      github.ref == 'refs/heads/master' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Create an immutable build tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/tag-build.py
