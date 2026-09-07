@@ -50,7 +50,7 @@ jobs:
           app=build/DerivedData/Build/Products/Development/nvALT.app
           archive="build/nvALT-macos-x86_64-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}.zip"
           test -x "$app/Contents/MacOS/nvALT"
-          lipo -verify_arch x86_64 "$app/Contents/MacOS/nvALT"
+          lipo "$app/Contents/MacOS/nvALT" -verify_arch x86_64
           ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
           python3 .github/scripts/check-app-archive.py "$archive"
           echo "archive=$archive" >> "$GITHUB_OUTPUT"
