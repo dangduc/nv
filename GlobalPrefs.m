@@ -151,15 +151,15 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:NO], StatusBarItem, 
 			[NSNumber numberWithBool:NO], KeepsMaxTextWidth,
 			[NSNumber numberWithFloat:660.0], NoteBodyMaxWidth,
-			[NSNumber numberWithInt:2], ColorScheme,
+			[NSNumber numberWithInt:3], ColorScheme,
             [NSNumber numberWithBool:YES],ShowDockIcon,
 			[NSNumber numberWithBool:NO], RTLKey,
             [NSNumber numberWithBool:YES], ShowWordCount,
             [NSNumber numberWithInt:MultiMarkdownPreview], markupPreviewMode,
 			[NSNumber numberWithBool:NO], UseMarkdownImportKey,
 			[NSNumber numberWithBool:NO], UseReadabilityKey,
-            [NSNumber numberWithBool:YES], ShowGridKey,
-            [NSNumber numberWithBool:NO], AlternatingRowsKey,
+            [NSNumber numberWithBool:NO], ShowGridKey,
+            [NSNumber numberWithBool:YES], AlternatingRowsKey,
             [NSNumber numberWithBool:NO], UseAutoPairing,
             [NSNumber numberWithBool:NO], UseETScrollbarsOnLion,
             [NSNumber numberWithBool:NO], UsesMarkdownCompletions,
@@ -863,7 +863,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	}
 }
 - (BOOL)horizontalLayout {
-	return [defaults boolForKey:HorizontalLayoutKey];
+	return NO; // Legacy orientation preferences cannot change the stacked browser layout.
 }
 
 - (NSString*)lastSelectedPreferencesPane {

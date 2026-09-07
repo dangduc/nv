@@ -124,16 +124,16 @@ static NSDictionary *RoundTripState(AppController *browser) {
         [restoredSecond restoreBrowserWindowState:secondState]; Pump();
         NotesTableView *restoredSecondTable = [restoredSecond valueForKey:@"notesTableView"];
         Check(fabs(TitleWidth(restoredSecondTable)-secondWidth) < 1 && [ColumnOrder(restoredSecondTable) isEqual:secondOrder], @"second browser restores its independent width and order");
-        [restoredFirst switchViewLayout:self]; Pump();
-        Check([[restoredFirstTable tableColumns] count] == 1, @"horizontal layout uses one column");
-        [restoredFirst switchViewLayout:self]; Pump();
-        Check(fabs(TitleWidth(restoredFirstTable)-firstWidth) < 1 && [ColumnOrder(restoredFirstTable) isEqual:firstOrder], @"vertical columns survive a layout round trip");
-        Check(fabs(TitleWidth(restoredSecondTable)-secondWidth) < 1, @"layout switching leaves another browser width unchanged");
-        [restoredFirst switchViewLayout:self]; Pump();
-        NSDictionary *horizontalState = [RoundTripState(restoredFirst) retain];
+        NSMutableDictionary *horizontalState = [[firstState mutableCopy] autorelease];
+        [horizontalState setObject:@YES forKey:@"horizontalLayout"];
+        [horizontalState setObject:@900 forKey:@"divider"];
+        [horizontalState removeObjectForKey:@"layoutVersion"];
         [restoredSecond restoreBrowserWindowState:horizontalState]; Pump();
-        [restoredSecond switchViewLayout:self]; Pump();
-        Check(fabs(TitleWidth(restoredSecondTable)-firstWidth) < 1 && [ColumnOrder(restoredSecondTable) isEqual:firstOrder], @"saved horizontal state also preserves its dormant vertical columns");
+        Check(![restoredSecond horizontalLayout], @"legacy side-by-side windows migrate to the stacked layout");
+        Check([restoredSecond notesListHeight] < 900 && [restoredSecond notesListHeight] >= 84,
+            @"legacy divider width is replaced by a usable list height");
+        Check(fabs(TitleWidth(restoredSecondTable)-firstWidth) < 1 && [ColumnOrder(restoredSecondTable) isEqual:firstOrder],
+            @"legacy state preserves its stored vertical columns");
         // Exercise the actual shared preference callbacks through generated menu items.
         [[first tableColumnWithIdentifier:NoteDateModifiedColumnString] setWidth:120];
         [[second tableColumnWithIdentifier:NoteDateModifiedColumnString] setWidth:150];
@@ -161,19 +161,17 @@ static NSDictionary *RoundTripState(AppController *browser) {
         Check(HasUniqueColumns(second), @"adding an already-visible column is idempotent");
         [app newWindow:self]; Pump();
         AppController *mixedBrowser = [[app browserControllers] lastObject];
-        if (![mixedBrowser horizontalLayout]) [mixedBrowser switchViewLayout:self];
         NotesTableView *mixedTable = [mixedBrowser valueForKey:@"notesTableView"];
         [[mixedBrowser browserSession] setSortColumn:[mixedTable noteAttributeColumnForIdentifier:NoteDateModifiedColumnString] reversed:YES];
         [first actionHideShowColumn:ColumnMenuItem(first, NoteDateModifiedColumnString)]; Pump();
         Check([[mixedTable tableColumns] count] == 1 && [mixedTable tableColumnWithIdentifier:NoteTitleColumnString] != nil,
-            @"global visibility changes keep horizontal layout's single title column");
-        Check([[[[mixedBrowser browserSession] sortColumn] identifier] isEqualToString:NoteTitleColumnString], @"horizontal browser also replaces a globally hidden sort column");
+            @"hiding Modified leaves the title column in every stacked browser");
+        Check([[[[mixedBrowser browserSession] sortColumn] identifier] isEqualToString:NoteTitleColumnString], @"new browser also replaces a globally hidden sort column");
         [mixedTable actionHideShowColumn:ColumnMenuItem(mixedTable, NoteDateModifiedColumnString)]; Pump();
-        Check([[mixedTable tableColumns] count] == 1 && [first tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil,
-            @"showing a column from horizontal layout updates vertical browsers only");
-        [mixedBrowser switchViewLayout:self]; Pump();
+        Check([mixedTable tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil && [first tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil,
+            @"showing a column updates all stacked browsers");
         Check([mixedTable tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil && HasUniqueColumns(mixedTable),
-            @"switching back to vertical uses the current global visible columns");
+            @"new browser uses the current global visible columns");
         NSMutableDictionary *oldState = [[firstState mutableCopy] autorelease];
         [oldState removeObjectForKey:@"columns"];
         [restoredFirst restoreBrowserWindowState:oldState]; Pump();
@@ -193,7 +191,7 @@ static NSDictionary *RoundTripState(AppController *browser) {
         [restoredFirstTable removeTableColumn:date];
         [restoredFirstTable restoreColumnLayoutState:[firstState objectForKey:@"columns"]];
         Check([restoredFirstTable tableColumnWithIdentifier:NoteDateModifiedColumnString] == nil, @"saved layout does not re-add hidden columns");
-        [firstState release]; [secondState release]; [horizontalState release];
+        [firstState release]; [secondState release];
         [library flushAllNoteChanges]; [library closeJournal];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
         [[NSUserDefaults standardUserDefaults] synchronize];

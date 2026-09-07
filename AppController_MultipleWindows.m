@@ -10,9 +10,6 @@
 #import "NotationPrefs.h"
 #import "BookmarksController.h"
 #import "NSString_NV.h"
-#import "RBSplitView.h"
-#import "RBSplitSubview.h"
-#import "TitlebarButton.h"
 #import "SyncSessionController.h"
 #import "SecureTextEntryManager.h"
 
@@ -52,7 +49,7 @@
         if ([library aliasNeedsUpdating]) [prefsController setAliasDataForDefaultDirectory:[library aliasDataForNoteDirectory] sender:self];
         if (!oldQuery) [self restoreListStateUsingPreferences];
     }
-    [titleBarButton setMenu:[[library syncSessionController] syncStatusMenu]];
+    [self updateSyncToolbarItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncSessionsChangedVisibleStatus:)
         name:SyncSessionsChangedVisibleStatusNotification object:[library syncSessionController]];
     if ([[library notationPrefs] secureTextEntry]) [[SecureTextEntryManager sharedInstance] enableSecureTextEntry];
@@ -63,8 +60,6 @@
 }
 - (void)prepareAdditionalWindow {
     hasLaunched = YES;
-    [field setTrackingRect];
-    [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [window makeFirstResponder:field];
     // Visual preferences are global; changing libraries and starting services remain application-owned.
     for (NSString *selector in @[@"setForegroundTextColor:sender:", @"setBackgroundTextColor:sender:",
@@ -73,11 +68,13 @@
     }
 }
 - (void)finishEditing {
+    [self commitNoteMetadata];
     if ([textView hasMarkedText]) [textView unmarkText];
     [editingSession commitPendingTextChanges];
 }
 - (void)refreshEditorForNote:(NoteObject *)note {
     if (note == currentNote) {
+        [self updateNoteHeader];
         [textView setNeedsDisplay:YES];
         [self postTextUpdate];
         [self updateWordCount:![prefsController showWordCount]];
@@ -100,11 +97,12 @@
 - (NSDictionary *)browserWindowState {
     NSMutableDictionary *state = [NSMutableDictionary dictionary];
     [state setObject:[window stringWithSavedFrame] ?: @"" forKey:@"frame"];
-    [state setObject:@(browserHorizontalLayout) forKey:@"horizontalLayout"];
+    [state setObject:@2 forKey:@"layoutVersion"];
+    [state setObject:@NO forKey:@"horizontalLayout"];
     [state setObject:[[self browserSession] searchString] ?: @"" forKey:@"search"];
     [state setObject:[[[self browserSession] sortColumn] identifier] ?: NoteTitleColumnString forKey:@"sort"];
     [state setObject:@([[self browserSession] reverseSorted]) forKey:@"reverse"];
-    [state setObject:@([notesSubview dimension]) forKey:@"divider"];
+    [state setObject:@([self notesListHeight]) forKey:@"divider"];
     [state setObject:[notesTableView columnLayoutState] forKey:@"columns"];
     [state setObject:NSStringFromPoint([[notesScrollView contentView] bounds].origin) forKey:@"listScroll"];
     if (currentNote) {
@@ -116,7 +114,7 @@
 }
 - (void)restoreBrowserWindowState:(NSDictionary *)state {
     if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:[state objectForKey:@"frame"]];
-    if ([state objectForKey:@"horizontalLayout"] && [[state objectForKey:@"horizontalLayout"] boolValue] != browserHorizontalLayout) [self switchViewLayout:self];
+    browserHorizontalLayout = NO;
     NSString *query = [state objectForKey:@"search"];
     if (![query isKindOfClass:[NSString class]]) query = @"";
     [typedString release];
@@ -143,9 +141,18 @@
         if (range.location <= [[textView string] length] && range.length <= [[textView string] length] - range.location) [textView setSelectedRange:range];
     }
     id divider = [state objectForKey:@"divider"];
-    if ([divider isKindOfClass:[NSNumber class]]) { [notesSubview setDimension:MAX(80, [divider doubleValue])]; [splitView adjustSubviews]; }
+    // A legacy side-by-side divider is a width, not a usable list height.
+    if ([[state objectForKey:@"horizontalLayout"] boolValue]) [self setNotesListHeight:NSHeight([splitView bounds]) / 3.0];
+    else if ([divider isKindOfClass:[NSNumber class]]) [self setNotesListHeight:[divider doubleValue]];
     [notesTableView restoreColumnLayoutState:[state objectForKey:@"columns"]];
     if ([[state objectForKey:@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString([state objectForKey:@"listScroll"])];
     if (currentNote && [[state objectForKey:@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString([state objectForKey:@"editorScroll"])];
+    // AppKit finishes restoring the toolbar and window constraints on the next
+    // run-loop turn. Apply the saved divider after that final content resize.
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restoreNotesListHeight) object:nil];
+    if (![[state objectForKey:@"horizontalLayout"] boolValue] && [divider isKindOfClass:[NSNumber class]]) {
+        pendingListHeight = [divider doubleValue];
+        [self performSelector:@selector(restoreNotesListHeight) withObject:nil afterDelay:0];
+    }
 }
 @end
