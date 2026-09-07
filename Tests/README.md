@@ -25,12 +25,14 @@ The regression runner checks editor and preview ownership, incremental search, u
 
 ## Native browser UI
 
-The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Every browser keeps the notes list above the editor. Old side-by-side layouts restore as a vertical stack.
+The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Control checks exercise menu dispatch, keyboard focus, and tag completion. Rendering checks compare URL and ordinary-text pixels across two windows. Every browser keeps the notes list above the editor. Old side-by-side layouts restore as a vertical stack.
 
 Run the focused checks after a Development build:
 
 ```sh
 python3 Tests/Regression/native-ui/run.py
+python3 Tests/Regression/native-controls/run.py
+python3 Tests/Regression/native-rendering/run.py
 ```
 
 For full-screen transitions and light/dark snapshots, use an unlocked desktop session:

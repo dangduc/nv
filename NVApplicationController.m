@@ -247,13 +247,7 @@ AppController *NVControllerForView(NSView *view) {
 }
 - (void)setNote:(NoteObject *)note metadataValue:(NSString *)value isTitle:(BOOL)isTitle {
     if (![[library allNotes] containsObject:note]) return;
-    NSString *oldValue = isTitle ? titleOfNote(note) : labelsOfNote(note) ?: @"";
-    if ([oldValue isEqualToString:value]) return;
-    NSUndoManager *undo = [library undoManager];
-    [[undo prepareWithInvocationTarget:self] setNote:note metadataValue:oldValue isTitle:isTitle];
-    if (isTitle) [note setTitleString:value];
-    else [note setLabelString:value];
-    [undo setActionName:isTitle ? NSLocalizedString(@"Rename Note", nil) : NSLocalizedString(@"Edit Tags", nil)];
+    [[self editingSessionForNote:note] setMetadataValue:value isTitle:isTitle];
 }
 - (void)titleUpdatedForNote:(NoteObject *)note {
     for (AppController *browser in [self browserControllers]) [browser titleUpdatedForNote:note];

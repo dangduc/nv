@@ -403,8 +403,8 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     NSRange linkRange;
     id link = [[manager textStorage] attribute:NSLinkAttributeName atIndex:index effectiveRange:&linkRange];
     if (range) *range = NSIntersectionRange(*range, linkRange);
-    NSColor *color = link ? [[self preferredLinkAttributes] objectForKey:NSForegroundColorAttributeName] :
-        [NVControllerForView(self) foregrndColor];
+    NSColor *color = link ? [[self preferredLinkAttributes] objectForKey:NSForegroundColorAttributeName] : nil;
+    if (!color) color = [NVControllerForView(self) foregrndColor];
     if (!color) return attributes;
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:attributes ?: @{}];
     [result setObject:color forKey:NSForegroundColorAttributeName];
