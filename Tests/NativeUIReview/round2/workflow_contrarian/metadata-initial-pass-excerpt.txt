@@ -1,0 +1,19 @@
+Excerpt copied from the tool output of the successful initial metadata run.
+The initial full log was replaced by a later activation attempt.
+Command: python3 Tests/NativeUIReview/round2/workflow_contrarian/run.py --probe metadata
+Exit status: 0
+APP /Users/ducnguyen/dev/nv/build/DerivedData/Build/Products/Development/nvALT.app EXECUTABLE_SHA256 f9d0a299a852c80fae0574722776d5e732031fec6f4c328861e57d74d9d00228
+2026-09-07 14:02:59.572 nvALT[30764:964188] PASS: native field editor accepts text from the isolated pasteboard
+2026-09-07 14:02:59.626 nvALT[30764:964188] METADATA_PASTE field=title expected=Pasted title
+Second line actual=Pasted title
+Second line
+2026-09-07 14:02:59.627 nvALT[30764:964188] PASS: metadata commit preserves the field editor's pasted text after outer whitespace trim
+2026-09-07 14:02:59.680 nvALT[30764:964188] PASS: pasted metadata survives selection away and back
+2026-09-07 14:02:59.689 nvALT[30764:964188] PASS: native field editor accepts text from the isolated pasteboard
+2026-09-07 14:02:59.742 nvALT[30764:964188] METADATA_PASTE field=tags expected=first,second
+third actual=first,second
+third
+2026-09-07 14:02:59.742 nvALT[30764:964188] PASS: metadata commit preserves the field editor's pasted text after outer whitespace trim
+2026-09-07 14:02:59.797 nvALT[30764:964188] PASS: pasted metadata survives selection away and back
+2026-09-07 14:02:59.797 nvALT[30764:964188] PASS: metadata paste leaves both note bodies unchanged
+2026-09-07 14:02:59.801 nvALT[30764:964188] WORKFLOW PROBES PASSED (15 checks)
