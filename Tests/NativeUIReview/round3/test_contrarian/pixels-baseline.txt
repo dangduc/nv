@@ -1,0 +1,46 @@
+2026-09-07 14:24:17.590 nvALT[37897:999675] ISOLATION: sync startup explicitly disabled; fixture disables external editor initialization
+2026-09-07 14:24:17.895 nvALT[37897:999675] PASS: temporary library directory exists
+2026-09-07 14:24:17.896 nvALT[37897:999675] PASS: temporary library opens
+2026-09-07 14:24:18.219 nvALT[37897:999675] PASS: native activation makes the pixel fixture browser key and active
+2026-09-07 14:24:18.617 nvALT[37897:999675] PASS: six real note rows use the native alternating background preference
+2026-09-07 14:24:18.620 nvALT[37897:999675] PASS: the visible list contains the title column
+2026-09-07 14:24:18.878 nvALT[37897:999675] ROW_APPEARANCE window=NSAppearanceNameAqua list=NSAppearanceNameAqua table=NSAppearanceNameAqua alternating=1 selected=0
+2026-09-07 14:24:18.878 nvALT[37897:999675] PASS: pixel sample contains an unselected populated row
+2026-09-07 14:24:18.898 nvALT[37897:999675] ROW_PIXELS NSAppearanceNameAqua-row-1 {
+    darkTitlePixels = 162;
+    lightTitlePixels = 2657;
+    medianBrightness = "0.9529411764705882";
+    opaque = 18000;
+    paleFraction = "0.9422222222222222";
+}
+2026-09-07 14:24:18.898 nvALT[37897:999675] PASS: pixel sample contains an unselected populated row
+2026-09-07 14:24:18.912 nvALT[37897:999675] ROW_PIXELS NSAppearanceNameAqua-row-2 {
+    darkTitlePixels = 155;
+    lightTitlePixels = 2685;
+    medianBrightness = 1;
+    opaque = 18000;
+    paleFraction = "0.9461666666666667";
+}
+2026-09-07 14:24:18.912 nvALT[37897:999675] PASS: unselected alternating note rows retain a pale background under the window appearance
+2026-09-07 14:24:18.912 nvALT[37897:999675] PASS: the pale note rows contain visible dark title glyph pixels
+2026-09-07 14:24:19.173 nvALT[37897:999675] ROW_APPEARANCE window=NSAppearanceNameDarkAqua list=NSAppearanceNameAqua table=NSAppearanceNameAqua alternating=1 selected=0
+2026-09-07 14:24:19.173 nvALT[37897:999675] PASS: pixel sample contains an unselected populated row
+2026-09-07 14:24:19.202 nvALT[37897:999675] ROW_PIXELS NSAppearanceNameDarkAqua-row-1 {
+    darkTitlePixels = 162;
+    lightTitlePixels = 2657;
+    medianBrightness = "0.9529411764705882";
+    opaque = 18000;
+    paleFraction = "0.9422222222222222";
+}
+2026-09-07 14:24:19.202 nvALT[37897:999675] PASS: pixel sample contains an unselected populated row
+2026-09-07 14:24:19.218 nvALT[37897:999675] ROW_PIXELS NSAppearanceNameDarkAqua-row-2 {
+    darkTitlePixels = 155;
+    lightTitlePixels = 2685;
+    medianBrightness = 1;
+    opaque = 18000;
+    paleFraction = "0.9461666666666667";
+}
+2026-09-07 14:24:19.218 nvALT[37897:999675] PASS: unselected alternating note rows retain a pale background under the window appearance
+2026-09-07 14:24:19.218 nvALT[37897:999675] PASS: the pale note rows contain visible dark title glyph pixels
+2026-09-07 14:24:19.220 nvALT[37897:999675] verified 6 notes in 0.000540972 s
+2026-09-07 14:24:19.221 nvALT[37897:999675] ROW PIXEL TESTS PASSED (13 checks)

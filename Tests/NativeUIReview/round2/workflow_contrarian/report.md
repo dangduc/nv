@@ -42,3 +42,12 @@ python3 Tests/NativeUIReview/round2/workflow_contrarian/run.py --probe search --
 ```
 
 The runner logs record each assertion and executable hash. The baseline activation failures are in `bulk-baseline.log` and `search-baseline.log`. The initial loader failures remain in the two `*-baseline-loader-attempt.log` files. The later current-app activation failures are in `metadata-current-activation-attempt.log` and `metadata-current.log`.
+
+## Subsequent parent verification
+
+After the round 2 report, the parent ran the final committed metadata fixture at `0afeb03`.
+The same command, `python3 Tests/NativeUIReview/round2/workflow_contrarian/run.py --probe metadata`, passed all 15 checks.
+The log records native activation with all four prerequisite values equal to 1.
+This run includes the fixture-derived expected values and explicit sync suppression.
+`metadata-final-parent-verification.txt` preserves its output.
+This resolves the final metadata fixture limit above; the baseline comparison remains inconclusive.

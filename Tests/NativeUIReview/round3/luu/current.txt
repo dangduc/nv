@@ -1,0 +1,267 @@
+2026-09-07 14:15:52.659 nvALT[35023:981630] PASS: temporary library directory exists
+2026-09-07 14:15:52.660 nvALT[35023:981630] PASS: temporary library opens
+2026-09-07 14:15:53.088 nvALT[35023:981630] PASS: the fixture has exactly two browser windows
+2026-09-07 14:15:53.091 nvALT[35023:981630] PASS: native activation makes the fixture key and active
+2026-09-07 14:15:53.096 nvALT[35023:981630] PASS: the fixture uses an explicit editor color scheme
+2026-09-07 14:15:53.100 nvALT[35023:981630] PASS: the fixture uses an explicit editor color scheme
+2026-09-07 14:15:53.437 nvALT[35023:981630] PASS: the primary query matches every fixture note
+2026-09-07 14:15:53.437 nvALT[35023:981630] PASS: both browsers select their intended fixture notes
+2026-09-07 14:15:53.437 nvALT[35023:981630] COST_FIXTURE notes=1000 primary_query=bench peer_query=watch primary_sort=Date Modified peer_sort=Date Modified autocomplete=1
+2026-09-07 14:15:53.440 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:53.598 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:53.598 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:53.598 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:53.598 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:53.598 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:53.598 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=0 warmup=1 dispatch_ms=4.766 refresh_ms=3.200 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:53.600 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:53.756 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:53.756 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:53.756 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:53.756 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:53.756 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:53.757 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=1 warmup=0 dispatch_ms=3.195 refresh_ms=2.855 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:53.759 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:53.914 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:53.914 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:53.914 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:53.914 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:53.914 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:53.914 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=2 warmup=0 dispatch_ms=3.125 refresh_ms=3.140 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:53.917 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.077 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.077 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.077 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.077 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.077 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.077 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=3 warmup=0 dispatch_ms=5.958 refresh_ms=4.631 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:54.080 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.241 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.241 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.241 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.241 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.241 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.241 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=4 warmup=0 dispatch_ms=6.765 refresh_ms=5.795 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:54.244 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.405 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.405 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.405 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.405 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.405 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.405 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=title pass=5 warmup=0 dispatch_ms=6.909 refresh_ms=5.640 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:54.405 nvALT[35023:981630] METADATA_COST notes=1000 windows=2 kind=title operation=Return_dispatch samples=5 median_ms=5.958 min_ms=3.125 max_ms=6.909 values=(
+    "3.195047378540039",
+    "3.12507152557373",
+    "5.957961082458496",
+    "6.765007972717285",
+    "6.909012794494629"
+)
+2026-09-07 14:15:54.405 nvALT[35023:981630] METADATA_COST notes=1000 windows=2 kind=title operation=deferred_refresh samples=5 median_ms=4.631 min_ms=2.855 max_ms=5.795 values=(
+    "2.85494327545166",
+    "3.139972686767578",
+    "4.630923271179199",
+    "5.795001983642578",
+    "5.640029907226562"
+)
+2026-09-07 14:15:54.405 nvALT[35023:981630] COST_REFRESH_CALLS notes=1000 kind=title values=(
+    1,
+    1,
+    1,
+    1,
+    1
+)
+2026-09-07 14:15:54.408 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.563 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.563 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.563 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.563 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.563 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.563 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=0 warmup=1 dispatch_ms=2.594 refresh_ms=5.009 refresh_calls=1 peer_rows=2
+2026-09-07 14:15:54.566 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.723 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.723 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.723 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.723 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.723 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.723 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=1 warmup=0 dispatch_ms=4.441 refresh_ms=3.624 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:54.725 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:54.880 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:54.881 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:54.881 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:54.881 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:54.881 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:54.881 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=2 warmup=0 dispatch_ms=1.840 refresh_ms=3.121 refresh_calls=1 peer_rows=2
+2026-09-07 14:15:54.882 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:55.038 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:55.038 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:55.038 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:55.038 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:55.038 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:55.039 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=3 warmup=0 dispatch_ms=2.294 refresh_ms=4.150 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:55.041 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:55.197 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:55.197 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:55.197 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:55.197 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:55.197 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:55.197 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=4 warmup=0 dispatch_ms=2.645 refresh_ms=3.367 refresh_calls=1 peer_rows=2
+2026-09-07 14:15:55.200 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:15:55.359 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:15:55.359 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:15:55.359 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:15:55.359 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:15:55.359 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:15:55.359 nvALT[35023:981630] COST_SAMPLE notes=1000 kind=tags pass=5 warmup=0 dispatch_ms=5.361 refresh_ms=3.199 refresh_calls=1 peer_rows=1
+2026-09-07 14:15:55.360 nvALT[35023:981630] METADATA_COST notes=1000 windows=2 kind=tags operation=Return_dispatch samples=5 median_ms=2.645 min_ms=1.840 max_ms=5.361 values=(
+    "4.441022872924805",
+    "1.839995384216309",
+    "2.293944358825684",
+    "2.645015716552734",
+    "5.360960960388184"
+)
+2026-09-07 14:15:55.360 nvALT[35023:981630] METADATA_COST notes=1000 windows=2 kind=tags operation=deferred_refresh samples=5 median_ms=3.367 min_ms=3.121 max_ms=4.150 values=(
+    "3.62396240234375",
+    "3.121018409729004",
+    "4.149913787841797",
+    "3.366947174072266",
+    "3.198981285095215"
+)
+2026-09-07 14:15:55.360 nvALT[35023:981630] COST_REFRESH_CALLS notes=1000 kind=tags values=(
+    1,
+    1,
+    1,
+    1,
+    1
+)
+2026-09-07 14:16:00.386 nvALT[35023:981630] PASS: the primary query matches every fixture note
+2026-09-07 14:16:00.387 nvALT[35023:981630] PASS: both browsers select their intended fixture notes
+2026-09-07 14:16:00.387 nvALT[35023:981630] COST_FIXTURE notes=10000 primary_query=bench peer_query=watch primary_sort=Date Modified peer_sort=Date Modified autocomplete=1
+2026-09-07 14:16:00.389 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:00.566 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:00.566 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:00.566 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:00.566 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:00.566 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:00.566 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=0 warmup=1 dispatch_ms=13.802 refresh_ms=39.294 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:00.568 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:00.740 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:00.740 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:00.740 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:00.740 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:00.740 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:00.740 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=1 warmup=0 dispatch_ms=12.013 refresh_ms=39.823 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:00.743 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:00.912 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:00.912 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:00.912 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:00.912 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:00.912 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:00.912 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=2 warmup=0 dispatch_ms=11.732 refresh_ms=36.330 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:00.915 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.086 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.086 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.086 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.086 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.086 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.086 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=3 warmup=0 dispatch_ms=15.255 refresh_ms=36.392 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:01.089 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.264 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.264 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.264 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.264 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.264 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.264 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=4 warmup=0 dispatch_ms=15.776 refresh_ms=39.179 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:01.267 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.439 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.439 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.439 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.439 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.439 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.439 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=title pass=5 warmup=0 dispatch_ms=15.920 refresh_ms=37.885 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:01.439 nvALT[35023:981630] METADATA_COST notes=10000 windows=2 kind=title operation=Return_dispatch samples=5 median_ms=15.255 min_ms=11.732 max_ms=15.920 values=(
+    "12.01295852661133",
+    "11.73198223114014",
+    "15.25497436523438",
+    "15.77603816986084",
+    "15.92004299163818"
+)
+2026-09-07 14:16:01.439 nvALT[35023:981630] METADATA_COST notes=10000 windows=2 kind=title operation=deferred_refresh samples=5 median_ms=37.885 min_ms=36.330 max_ms=39.823 values=(
+    "39.82293605804443",
+    "36.32998466491699",
+    "36.3919734954834",
+    "39.17908668518066",
+    "37.88495063781738"
+)
+2026-09-07 14:16:01.439 nvALT[35023:981630] COST_REFRESH_CALLS notes=10000 kind=title values=(
+    1,
+    1,
+    1,
+    1,
+    1
+)
+2026-09-07 14:16:01.442 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.604 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.604 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.604 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.604 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.604 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.604 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=0 warmup=1 dispatch_ms=2.128 refresh_ms=42.917 refresh_calls=1 peer_rows=2
+2026-09-07 14:16:01.607 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.763 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.763 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.763 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.763 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.763 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.763 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=1 warmup=0 dispatch_ms=1.961 refresh_ms=37.010 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:01.766 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:01.920 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:01.920 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:01.920 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:01.920 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:01.920 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:01.920 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=2 warmup=0 dispatch_ms=1.809 refresh_ms=36.330 refresh_calls=1 peer_rows=2
+2026-09-07 14:16:01.922 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:02.084 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:02.084 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:02.084 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:02.084 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:02.084 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:02.084 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=3 warmup=0 dispatch_ms=2.474 refresh_ms=41.442 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:02.086 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:02.249 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:02.249 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:02.249 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:02.249 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:02.249 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:02.249 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=4 warmup=0 dispatch_ms=2.644 refresh_ms=43.334 refresh_calls=1 peer_rows=2
+2026-09-07 14:16:02.252 nvALT[35023:981630] PASS: native metadata field editor owns the prepared edit
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: Return commits metadata and deferred browser refresh settles in the first drain
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: the note contains the committed metadata value
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: metadata refresh preserves both browser selections and the primary result count
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: the peer query gains or loses the tagged target without changing either query
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: metadata commits preserve the body text
+2026-09-07 14:16:02.414 nvALT[35023:981630] COST_SAMPLE notes=10000 kind=tags pass=5 warmup=0 dispatch_ms=2.582 refresh_ms=42.086 refresh_calls=1 peer_rows=1
+2026-09-07 14:16:02.414 nvALT[35023:981630] METADATA_COST notes=10000 windows=2 kind=tags operation=Return_dispatch samples=5 median_ms=2.474 min_ms=1.809 max_ms=2.644 values=(
+    "1.960992813110352",
+    "1.809000968933105",
+    "2.473950386047363",
+    "2.644062042236328",
+    "2.581954002380371"
+)
+2026-09-07 14:16:02.414 nvALT[35023:981630] METADATA_COST notes=10000 windows=2 kind=tags operation=deferred_refresh samples=5 median_ms=41.442 min_ms=36.330 max_ms=43.334 values=(
+    "37.0100736618042",
+    "36.32998466491699",
+    "41.44191741943359",
+    "43.33400726318359",
+    "42.08588600158691"
+)
+2026-09-07 14:16:02.414 nvALT[35023:981630] COST_REFRESH_CALLS notes=10000 kind=tags values=(
+    1,
+    1,
+    1,
+    1,
+    1
+)
+2026-09-07 14:16:02.414 nvALT[35023:981630] PASS: metadata edits never create or delete fixture notes
+2026-09-07 14:16:02.900 nvALT[35023:981630] verified 10000 notes in 0.129126 s
+2026-09-07 14:16:02.901 nvALT[35023:981630] ROUND3 LUU METADATA COST PASSED (155 checks)
