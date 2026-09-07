@@ -745,6 +745,7 @@
 - (void)dealloc {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [preview release];
     [htmlString release];
     [cssString release];
     [lastNote release];

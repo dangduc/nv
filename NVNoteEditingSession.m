@@ -44,18 +44,39 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
 - (void)broadcastChange {
     [[NSNotificationCenter defaultCenter] postNotificationName:NVNoteEditorDidChangeNotification object:note];
 }
+- (void)applyContents:(NSAttributedString *)contents {
+    NSAttributedString *snapshot = [contents copy];
+    NSRange replacement;
+    NSRange changed = NVChangedRange([textStorage string], [snapshot string], &replacement);
+    // Character edits let Cocoa adjust every attached editor's selections.
+    if (changed.length || replacement.length) {
+        [textStorage replaceCharactersInRange:changed withAttributedString:[snapshot attributedSubstringFromRange:replacement]];
+    }
+    // Style changes can extend beyond the changed characters.
+    // Keep their edit range separate from the character replacement.
+    [textStorage beginEditing];
+    NSUInteger index = 0;
+    while (index < [snapshot length]) {
+        NSRange range;
+        NSDictionary *attributes = [snapshot attributesAtIndex:index effectiveRange:&range];
+        [textStorage setAttributes:attributes range:range];
+        index = NSMaxRange(range);
+    }
+    [textStorage endEditing];
+    [snapshot release];
+}
 - (void)reloadFromNote {
     if (writingNote) return;
     if ([self hasMarkedText]) {
         [pendingExternalContents release];
-        pendingExternalContents = [[note contentString] copy];
+        pendingExternalContents = [[note contentString] isEqualToAttributedString:committedContents] ? nil : [[note contentString] copy];
         return;
     }
     [pendingExternalContents release];
     pendingExternalContents = nil;
     if ([[note contentString] isEqualToAttributedString:committedContents]) return;
     [[note undoManager] removeAllActionsWithTarget:self];
-    [textStorage setAttributedString:[note contentString]];
+    [self applyContents:[note contentString]];
     [committedContents release];
     committedContents = [[note contentString] copy];
     [self broadcastChange];
@@ -73,7 +94,7 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
 - (void)restoreContents:(NSAttributedString *)contents {
     NSAttributedString *previous = [[textStorage copy] autorelease];
     [[note undoManager] registerUndoWithTarget:self selector:@selector(restoreContents:) object:previous];
-    [textStorage setAttributedString:contents];
+    [self applyContents:contents];
     [self writeContentsToNote];
 }
 - (void)finishEditingForHistoryChange {
@@ -121,13 +142,13 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
         NSRange local = NVChangedRange([committedContents string], [textStorage string], &localReplacement);
         NSRange remote = NVChangedRange([committedContents string], [pendingExternalContents string], &remoteReplacement);
         BOOL separate = NSMaxRange(local) <= remote.location || local.location >= NSMaxRange(remote);
-        // Two insertions at the same position require an explicit preserved copy.
-        if (local.location == remote.location && !local.length && !remote.length) separate = NO;
+        // Attribute-only changes have no replacement text and cannot conflict here.
+        if (local.location == remote.location && !local.length && !remote.length && localReplacement.length && remoteReplacement.length) separate = NO;
         if (separate) {
             NSMutableAttributedString *merged = [pendingExternalContents mutableCopy];
             if (local.location >= NSMaxRange(remote)) local.location += (NSInteger)remoteReplacement.length - (NSInteger)remote.length;
             [merged replaceCharactersInRange:local withAttributedString:[textStorage attributedSubstringFromRange:localReplacement]];
-            [textStorage setAttributedString:merged];
+            [self applyContents:merged];
             [merged release];
             undoContents = [[pendingExternalContents copy] autorelease];
         } else {

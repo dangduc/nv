@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify that the required suite detects removed query and field restoration.
+"""Verify query, field, and edited-body restoration through behavior-removal canaries.
 
 Uses test-only runtime swizzling in copied apps, never production source or app.
 All generated data is temporary. Run outside the sandbox for Rosetta/Cocoa.
@@ -43,11 +43,14 @@ def run_case(name, mutation=None):
             '-I', str(REPO), '-I', str(REPO / 'RBSplitView'), '-I', str(REPO / 'PTHotKeys'),
             '-I', str(REPO / 'ODBEditor'), '-include', str(REPO / 'Notation_Prefix.pch'),
             '-framework', 'Cocoa', '-framework', 'Carbon', '-o', str(dylib), str(harness_path),
-            str(HERE / 'query_mutation.m')], check=True, capture_output=True, text=True)
+            str(HERE / 'query_mutation.m'), str(HERE / 'body_mutation.m')], check=True, capture_output=True, text=True)
         environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
         environment.pop('NV_WINDOW_TEST_RELAUNCH', None)
         environment.pop('NV_RESTORE_MUTATION', None)
-        if mutation:
+        environment.pop('NV_BODY_MUTATION', None)
+        if mutation == 'body':
+            environment['NV_BODY_MUTATION'] = 'replace'
+        elif mutation:
             environment['NV_RESTORE_MUTATION'] = mutation
         args = [str(app / 'Contents/MacOS' / info['CFBundleExecutable']), '-ShowDockIcon', 'YES',
             '-StatusBarItem', 'NO', '-QuitWhenClosingMainWindow', 'NO', '-SUEnableAutomaticChecks', 'NO']
@@ -84,4 +87,7 @@ with LOCK_PATH.open('w') as lock:
     field = run_case('search field restoration removed', mutation='field')
     assert field[0] != 0 and field[2] > 0 and \
         'FAIL: relaunch restores each browser search field' in field[3], field[3]
-    print('RESTORATION CANARIES PASSED: query and visible-field behavior removal both fail the required suite.')
+    body = run_case('same-length archived body substitution', mutation='body')
+    assert body[0] != 0 and body[2] > 0 and \
+        'FAIL: relaunch preserves the exact body edited in a browser' in body[3], body[3]
+    print('RESTORATION CANARIES PASSED: query, visible-field, and archived-body mutations each fail their intended assertion.')

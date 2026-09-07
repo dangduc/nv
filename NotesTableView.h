@@ -82,6 +82,7 @@ typedef struct _ViewLocationContext {
 - (void)reloadDataIfNotEditing;
 
 - (void)restoreColumns;
+- (void)synchronizeColumnVisibility;
 - (NSDictionary *)columnLayoutState;
 - (void)restoreColumnLayoutState:(id)state;
 - (void)applySavedColumnLayout;

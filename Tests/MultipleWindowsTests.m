@@ -78,6 +78,8 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         if (getenv("NV_WINDOW_TEST_RELAUNCH")) {
             Check([[app browserControllers] count] == 2, @"relaunch restores both browser windows");
             Check([[library allNotes] count] == 1 && [((NoteObject *)[[library allNotes] lastObject])->titleString isEqualToString:@"Beta"], @"relaunch reads the saved library");
+            Check([[[((NoteObject *)[[library allNotes] lastObject]) contentString] string] isEqualToString:@"beta only persisted edit"],
+                @"relaunch preserves the exact body edited in a browser");
             Check([[app browserControllers][0] selectedNoteObject] != nil, @"relaunch restores the first window selection");
             Check([[[app browserControllers][1] browserSession] reverseSorted], @"relaunch restores second window sort");
             AppController *first = [app browserControllers][0];
@@ -210,6 +212,9 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [app newWindow:self]; Pump();
         [[[app browserControllers] lastObject] restoreBrowserWindowState:state];
         [[reopened window] makeKeyAndOrderFront:self]; [reopened searchForString:@"beta"]; Pump();
+        LinkingEditor *durableEditor = [reopened valueForKey:@"textView"];
+        [[reopened window] makeFirstResponder:durableEditor];
+        [durableEditor insertText:@" persisted edit" replacementRange:NSMakeRange([[durableEditor string] length], 0)]; Pump();
         AppController *secondRestored = [[app browserControllers] lastObject];
         [[secondRestored window] makeKeyAndOrderFront:self]; [secondRestored searchForString:@"only"]; Pump();
         [app saveWindowStates];
