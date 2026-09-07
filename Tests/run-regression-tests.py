@@ -7,8 +7,10 @@ import sys
 repo = Path(__file__).resolve().parents[1]
 checks = [
     'ownership/run.py',
+    'preview-lifetime/run.py',
     'search/run.py',
     'editing/run-probes.py',
+    'selections/run-probes.py',
     'fonts/run-probes.py',
     'columns/run-probes.py',
     'restoration/run-canaries.py',

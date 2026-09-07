@@ -6,7 +6,12 @@ The six AI perspectives use methods associated with John Ousterhout, Dan Luu, Li
 
 ## Reproduce a historical finding
 
-Use the source revision named in the report and its matching Development build. Round 1 programs include assertions that confirm defects. They can fail after a fix, which does not indicate a new regression. Some runners read the integration harness from the checkout, so keep source, harness, and app revisions together.
+Use the evidence commit below and build its Development app. Each evidence commit retains the reviewed production source and harness. Round 1 programs include assertions that confirm defects. They can fail after a fix, which does not indicate a new regression. Some runners read the integration harness from the checkout, so keep source, harness, and app revisions together.
+
+| Round | Reviewed source | Evidence commit |
+| --- | --- | --- |
+| 1 | `30791c5` | `8e400d4` |
+| 2 | `4008592` | `201c5f5` |
 
 Reports preserve measured results. Timings depend on the machine; deterministic content and access-count assertions provide the stronger checks.
 

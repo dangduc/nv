@@ -44,6 +44,14 @@ static void Swap(Class cls, SEL original, SEL replacement) {
 
 
 static NSArray *ColumnOrder(NotesTableView *table) { return [[table tableColumns] valueForKey:@"identifier"]; }
+static NSMenuItem *ColumnMenuItem(NotesTableView *table, NSString *identifier) {
+    for (NSMenuItem *item in [[table menuForColumnConfiguration:nil] itemArray])
+        if ([[[item representedObject] identifier] isEqualToString:identifier]) return item;
+    return nil;
+}
+static BOOL HasUniqueColumns(NotesTableView *table) {
+    return [[NSSet setWithArray:ColumnOrder(table)] count] == [[table tableColumns] count];
+}
 static CGFloat TitleWidth(NotesTableView *table) { return [[table tableColumnWithIdentifier:NoteTitleColumnString] width]; }
 static NSDictionary *RoundTripState(AppController *browser) {
     NSData *data = [NSPropertyListSerialization dataWithPropertyList:[browser browserWindowState]
@@ -126,6 +134,46 @@ static NSDictionary *RoundTripState(AppController *browser) {
         [restoredSecond restoreBrowserWindowState:horizontalState]; Pump();
         [restoredSecond switchViewLayout:self]; Pump();
         Check(fabs(TitleWidth(restoredSecondTable)-firstWidth) < 1 && [ColumnOrder(restoredSecondTable) isEqual:firstOrder], @"saved horizontal state also preserves its dormant vertical columns");
+        // Exercise the actual shared preference callbacks through generated menu items.
+        [[first tableColumnWithIdentifier:NoteDateModifiedColumnString] setWidth:120];
+        [[second tableColumnWithIdentifier:NoteDateModifiedColumnString] setWidth:150];
+        [first columnLayoutState]; [second columnLayoutState];
+        NSArray *beforeVisibilityOrder = [[ColumnOrder(first) copy] autorelease];
+        [[self browserSession] setSortColumn:[first noteAttributeColumnForIdentifier:NoteDateModifiedColumnString] reversed:NO];
+        [[secondBrowser browserSession] setSortColumn:[second noteAttributeColumnForIdentifier:NoteDateModifiedColumnString] reversed:YES];
+        [first actionHideShowColumn:ColumnMenuItem(first, NoteDateModifiedColumnString)]; Pump();
+        Check([first tableColumnWithIdentifier:NoteDateModifiedColumnString] == nil && [second tableColumnWithIdentifier:NoteDateModifiedColumnString] == nil,
+            @"hiding a column in one browser hides it in the other browser");
+        Check([ColumnMenuItem(second, NoteDateModifiedColumnString) state] == NSOffState, @"other browser menu agrees with hidden column");
+        Check([[[[self browserSession] sortColumn] identifier] isEqualToString:NoteTitleColumnString]
+            && [[[[secondBrowser browserSession] sortColumn] identifier] isEqualToString:NoteTitleColumnString],
+            @"all browsers replace a removed sort column with a visible column");
+        Check(![[self browserSession] reverseSorted] && [[secondBrowser browserSession] reverseSorted], @"sort fallback preserves each browser direction");
+        [second actionHideShowColumn:ColumnMenuItem(second, NoteDateModifiedColumnString)]; Pump();
+        Check([first tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil && [second tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil,
+            @"showing the column in the other browser updates both browsers");
+        Check(HasUniqueColumns(first) && HasUniqueColumns(second), @"cross-browser toggles never duplicate table columns");
+        Check(fabs([[first tableColumnWithIdentifier:NoteDateModifiedColumnString] width]-120) < 1
+            && fabs([[second tableColumnWithIdentifier:NoteDateModifiedColumnString] width]-150) < 1,
+            @"hidden and restored columns retain independent browser widths");
+        Check([ColumnOrder(first) isEqual:beforeVisibilityOrder], @"another browser's visibility toggle preserves this browser's column order");
+        [second addPermanentTableColumn:[second noteAttributeColumnForIdentifier:NoteDateModifiedColumnString]];
+        Check(HasUniqueColumns(second), @"adding an already-visible column is idempotent");
+        [app newWindow:self]; Pump();
+        AppController *mixedBrowser = [[app browserControllers] lastObject];
+        if (![mixedBrowser horizontalLayout]) [mixedBrowser switchViewLayout:self];
+        NotesTableView *mixedTable = [mixedBrowser valueForKey:@"notesTableView"];
+        [[mixedBrowser browserSession] setSortColumn:[mixedTable noteAttributeColumnForIdentifier:NoteDateModifiedColumnString] reversed:YES];
+        [first actionHideShowColumn:ColumnMenuItem(first, NoteDateModifiedColumnString)]; Pump();
+        Check([[mixedTable tableColumns] count] == 1 && [mixedTable tableColumnWithIdentifier:NoteTitleColumnString] != nil,
+            @"global visibility changes keep horizontal layout's single title column");
+        Check([[[[mixedBrowser browserSession] sortColumn] identifier] isEqualToString:NoteTitleColumnString], @"horizontal browser also replaces a globally hidden sort column");
+        [mixedTable actionHideShowColumn:ColumnMenuItem(mixedTable, NoteDateModifiedColumnString)]; Pump();
+        Check([[mixedTable tableColumns] count] == 1 && [first tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil,
+            @"showing a column from horizontal layout updates vertical browsers only");
+        [mixedBrowser switchViewLayout:self]; Pump();
+        Check([mixedTable tableColumnWithIdentifier:NoteDateModifiedColumnString] != nil && HasUniqueColumns(mixedTable),
+            @"switching back to vertical uses the current global visible columns");
         NSMutableDictionary *oldState = [[firstState mutableCopy] autorelease];
         [oldState removeObjectForKey:@"columns"];
         [restoredFirst restoreBrowserWindowState:oldState]; Pump();

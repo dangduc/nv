@@ -1036,6 +1036,7 @@ terminateApp:
 		[notesTableView performSelector:@selector(reloadData) withObject:nil afterDelay:0];
 	} else if ([selectorString isEqualToString:SEL_STR(addTableColumn:sender:)] || [selectorString isEqualToString:SEL_STR(removeTableColumn:sender:)]) {
 		
+		[notesTableView synchronizeColumnVisibility];
 		ResetFontRelatedTableAttributes();
 		[self _forceRegeneratePreviewsForTitleColumn];
 		[notesTableView performSelector:@selector(reloadDataIfNotEditing) withObject:nil afterDelay:0];

@@ -150,9 +150,11 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
         [order addObject:[column identifier]];
         [widths setObject:@([column width]) forKey:[column identifier]];
     }
-    // Retain dimensions of hidden columns without changing global visibility.
+    // Keep hidden columns in their saved slots while respecting visible-column moves.
+    NSUInteger previousPosition = 0;
     for (NSString *identifier in [previous objectForKey:@"order"]) {
-        if (![order containsObject:identifier]) [order addObject:identifier];
+        if (![order containsObject:identifier]) [order insertObject:identifier atIndex:MIN(previousPosition, [order count])];
+        previousPosition++;
     }
     [columnLayouts setObject:@{@"order": order, @"widths": widths} forKey:key];
 }
@@ -208,12 +210,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	unsigned int i;
 	[self rememberColumnLayout];
 	
-	//if columns currently exist, then remove them first, so that nstableview's autosave/restore works properly
-	if ([[self tableColumns] count]) {
-		for (i=0; i<[allColumns count]; i++) {
-			[self removeTableColumn:[allColumns objectAtIndex:i]];
-		}
-	}
+    // Rebuild from known columns, including cleanup of any repeated entries.
+    while ([[self tableColumns] count]) [self removeTableColumn:[[self tableColumns] objectAtIndex:0]];
 	
 	//horizontal view has only a single column; store column widths separately for it
 	NSArray *columnsToDisplay = [self browserHorizontalLayout] ? [NSArray arrayWithObject:NoteTitleColumnString] : [globalPrefs visibleTableColumns];
@@ -236,6 +234,24 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     columnLayoutHorizontal = [self browserHorizontalLayout];
     hasColumnLayout = YES;
     [self applySavedColumnLayout];
+}
+
+- (void)synchronizeColumnVisibility {
+    [self abortEditing];
+    [self restoreColumns];
+    NSArray *visible = [globalPrefs visibleTableColumns];
+    if (![visible containsObject:[self browserSortKey]]) {
+        NSString *fallback = [visible containsObject:NoteTitleColumnString] ? NoteTitleColumnString : [visible firstObject];
+        NoteAttributeColumn *column = [self noteAttributeColumnForIdentifier:fallback];
+        if (column) {
+            [[NVControllerForView(self) browserSession] setSortColumn:column reversed:[self browserReverseSorted]];
+            [self setSortDirection:[self browserReverseSorted] inTableColumn:column];
+        }
+    }
+    [self _configureAttributesForCurrentLayout];
+    [self updateHeaderViewForColumns];
+    [self applySavedColumnLayout];
+    viewMenusValid = NO;
 }
 
 
@@ -514,23 +530,12 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (BOOL)addPermanentTableColumn:(NSTableColumn*)column {
-	if (![self browserHorizontalLayout]) {
-		[self addTableColumn:column];
-	}
+    column = [self noteAttributeColumnForIdentifier:[column identifier]];
+    if (!column) return NO;
+	[self rememberColumnLayout];
 	[globalPrefs addTableColumn:[column identifier] sender:self];
-	
-	if ([self browserHorizontalLayout]) //for now, for extending rowheight when tags are shown/hidden
-		[self _configureAttributesForCurrentLayout];
-	
-	if ([[column identifier] isEqualToString:[self browserSortKey]]) {
-		[(NoteAttributeColumn*)[self highlightedTableColumn] updateWidthForHighlight];
-		[self setHighlightedTableColumn:column];
-		[(NoteAttributeColumn*)column updateWidthForHighlight];
-	}
-	
-	[self updateHeaderViewForColumns];
-	
-	viewMenusValid = NO;
+    // Adding an already-visible preference sends no callback.
+    [self synchronizeColumnVisibility];
 	return YES;
 }
 
@@ -574,7 +579,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (IBAction)actionHideShowColumn:(id)sender {
-    NSTableColumn *column = [sender representedObject]; 
+    NSTableColumn *column = [self noteAttributeColumnForIdentifier:[[sender representedObject] identifier]];
+    if (!column) return;
 	
 	if ([self browserHorizontalLayout] && [[column identifier] isEqualToString:NoteTitleColumnString]) {
 		NSBeep();
@@ -585,24 +591,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		
 		if ([[globalPrefs visibleTableColumns] count] > 1) {
 			[self abortEditing];
-            if([[self browserSortKey] isEqualToString:[column identifier]]){
-                if(![[column identifier] isEqualToString:NoteTitleColumnString]&&[[globalPrefs visibleTableColumns] containsObject:NoteTitleColumnString]){
-                    [self setStatusForSortedColumn: [self tableColumnWithIdentifier:NoteTitleColumnString]];
-                }else{
-                    NSUInteger idex=[[globalPrefs visibleTableColumns]indexOfObjectPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
-                        return ![obj isEqualToString:[column identifier]];
-                    }];
-                    if(idex!=NSNotFound){
-                        [self setStatusForSortedColumn:[self tableColumnWithIdentifier:[[globalPrefs visibleTableColumns]objectAtIndex:idex]]];
-                    }
-                }                
-            }
-
-			[self removeTableColumn:column];
+			[self rememberColumnLayout];
 			[globalPrefs removeTableColumn:[column identifier] sender:self];
-			viewMenusValid = NO;
-			if ([self browserHorizontalLayout]) //for now, in case we are hiding tags when previews are not visible
-				[self _configureAttributesForCurrentLayout];
 		} else {
 			NSBeep();
 		}
@@ -617,11 +607,14 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		NSUInteger addedColIndex = [cols indexOfObjectIdenticalTo:column];
 		NSInteger clickedColIndex = [sender tag];
 		
-		if ((NSUInteger)clickedColIndex < [cols count] && addedColIndex < [cols count])
-			[self moveColumn:addedColIndex toColumn:clickedColIndex + 1];
+        if ((NSUInteger)clickedColIndex < [cols count] && addedColIndex < [cols count]) {
+			[self moveColumn:addedColIndex toColumn:MIN(clickedColIndex + 1, [cols count] - 1)];
+            [self rememberColumnLayout];
+        }
     }
     
     [self sizeToFit];
+    [self applySavedColumnLayout];
 }
 
 - (void)sizeToFit{
