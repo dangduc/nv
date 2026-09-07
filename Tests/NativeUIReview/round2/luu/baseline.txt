@@ -1,0 +1,116 @@
+2026-09-07 13:59:51.706 nvALT[29528:958773] PASS: temporary library directory exists
+2026-09-07 13:59:51.707 nvALT[29528:958773] PASS: temporary library opens
+2026-09-07 13:59:52.032 nvALT[29528:958773] PASS: native activation makes the fixture key and active
+2026-09-07 13:59:52.037 nvALT[29528:958773] PASS: explicit color scheme is established before custom colors
+2026-09-07 13:59:52.144 nvALT[29528:958773] PASS: fixture selects the expected note
+2026-09-07 13:59:52.144 nvALT[29528:958773] PASS: body editor owns keyboard input
+2026-09-07 13:59:52.210 nvALT[29528:958773] PASS: the body Bold action creates a bold run
+2026-09-07 13:59:52.210 nvALT[29528:958773] PASS: the body Italic action creates an italic run
+2026-09-07 13:59:52.210 nvALT[29528:958773] PASS: the body Strikethrough action creates a struck run
+2026-09-07 13:59:52.210 nvALT[29528:958773] PASS: typing the body creates the URL attribute
+2026-09-07 13:59:52.264 nvALT[29528:958773] PASS: full rich body remains actively selected before capture
+2026-09-07 13:59:52.264 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.264 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.270 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.270 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-0-Bold foreground_pixels=265 selection_pixels=620 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.270 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.270 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.270 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.270 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.276 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.276 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-0-Italic foreground_pixels=162 selection_pixels=618 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.276 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.276 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.276 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.276 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.282 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.282 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-0-Struck foreground_pixels=246 selection_pixels=690 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.282 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.282 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.282 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.282 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.291 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.291 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-0-https://example.invalid/path foreground_pixels=316 selection_pixels=1253 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.291 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.291 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.291 nvALT[29528:958773] PASS: baseline appearance preserves rich attributes apart from its stored foreground
+2026-09-07 13:59:52.344 nvALT[29528:958773] PASS: full rich body remains actively selected before capture
+2026-09-07 13:59:52.344 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.344 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.351 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.351 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-1-Bold foreground_pixels=265 selection_pixels=620 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.351 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.351 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.351 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.351 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.356 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.356 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-1-Italic foreground_pixels=162 selection_pixels=618 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.356 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.356 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.356 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.357 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.362 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.362 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-1-Struck foreground_pixels=246 selection_pixels=690 closest_foreground_distance=0.000 closest_selection_distance=0.040 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 0 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.362 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.362 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.362 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.362 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.371 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.371 nvALT[29528:958773] SELECTED_BITMAP dark-0-clickable-1-https://example.invalid/path foreground_pixels=195 selection_pixels=1153 closest_foreground_distance=0.243 closest_selection_distance=0.038 expected_foreground=sRGB IEC61966-2.1 colorspace 0 0 1 1 expected_selection=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 corner=NSCalibratedRGBColorSpace 0.709804 0.807843 0.992157 1
+2026-09-07 13:59:52.371 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.371 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.371 nvALT[29528:958773] PASS: baseline appearance preserves rich attributes apart from its stored foreground
+2026-09-07 13:59:52.424 nvALT[29528:958773] PASS: full rich body remains actively selected before capture
+2026-09-07 13:59:52.424 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.425 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.431 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.431 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-0-Bold foreground_pixels=365 selection_pixels=600 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.431 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.431 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.431 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.431 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.436 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.436 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-0-Italic foreground_pixels=247 selection_pixels=565 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.436 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.436 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.436 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.436 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.441 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.441 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-0-Struck foreground_pixels=314 selection_pixels=637 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.441 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.441 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.441 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.441 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.449 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.449 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-0-https://example.invalid/path foreground_pixels=496 selection_pixels=1170 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.449 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.449 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.449 nvALT[29528:958773] PASS: baseline appearance preserves rich attributes apart from its stored foreground
+2026-09-07 13:59:52.503 nvALT[29528:958773] PASS: full rich body remains actively selected before capture
+2026-09-07 13:59:52.503 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.503 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.509 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.509 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-1-Bold foreground_pixels=365 selection_pixels=600 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.509 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.509 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.509 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.509 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.514 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.514 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-1-Italic foreground_pixels=247 selection_pixels=565 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.514 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.514 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.514 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.514 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.519 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.519 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-1-Struck foreground_pixels=314 selection_pixels=637 closest_foreground_distance=0.000 closest_selection_distance=0.031 expected_foreground=Generic Gray Gamma 2.2 Profile colorspace 1 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.519 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.519 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.520 nvALT[29528:958773] PASS: selection has a distinct background before capture
+2026-09-07 13:59:52.520 nvALT[29528:958773] PASS: the selected run is visible in the bitmap capture
+2026-09-07 13:59:52.524 nvALT[29528:958773] PASS: selected text bitmap writes successfully
+2026-09-07 13:59:52.524 nvALT[29528:958773] SELECTED_BITMAP dark-1-clickable-1-https://example.invalid/path foreground_pixels=610 selection_pixels=1051 closest_foreground_distance=0.069 closest_selection_distance=0.031 expected_foreground=NSCalibratedRGBColorSpace 0.5 1 0.625 1 expected_selection=NSCalibratedRGBColorSpace 0.31 0.31 0.31 1 corner=NSCalibratedRGBColorSpace 0.341176 0.341176 0.341176 1
+2026-09-07 13:59:52.524 nvALT[29528:958773] PASS: capture contains the active selection background
+2026-09-07 13:59:52.524 nvALT[29528:958773] PASS: selected text contains visible glyphs in the expected foreground
+2026-09-07 13:59:52.524 nvALT[29528:958773] PASS: baseline appearance preserves rich attributes apart from its stored foreground
+2026-09-07 13:59:52.526 nvALT[29528:958773] verified 1 notes in 0.000539064 s
+2026-09-07 13:59:52.527 nvALT[29528:958773] ROUND2 LUU SELECTION PASSED (98 checks)
