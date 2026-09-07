@@ -89,10 +89,14 @@ The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK.
    cd nv
    ```
 
-2. If `SimperiumConfig.h` is absent, create it from the example:
+2. Prepare the sync configuration:
+
+   For an existing checkout, move your local `SimperiumConfig.h` into `Config/` before you build.
+
+   If `Config/SimperiumConfig.h` is absent, create it from the example:
 
    ```sh
-   test -e SimperiumConfig.h || cp SimperiumConfig-example.h SimperiumConfig.h
+   test -e Config/SimperiumConfig.h || cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
    ```
 
    The placeholder supports local use without sync. Simplenote sync requires your own API key.
@@ -116,6 +120,22 @@ The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK.
 The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater still points to upstream. Updates to this fork require a new local build or CI artifact.
 
 ## Development checks
+
+### Project layout
+
+| Directory | Contents |
+| --- | --- |
+| `Sources/` | Application code, grouped by responsibility. Headers stay beside their implementations. |
+| `Resources/` | Images, help, preview templates, interfaces, and localized resources in `Localization/*.lproj/`. |
+| `Config/` | Application plist, prefix header, sync configuration, and linker order files. |
+| `ThirdParty/` | Bundled source dependencies, frameworks, markup processors, and OpenSSL. |
+| `Scripts/` | Development utilities. |
+| `Tests/` | Cocoa integration suites, regression checks, CI checks, and review records. |
+| `docs/` | Documentation assets and screenshots. |
+
+`Notation.xcodeproj` stays at the repository root. Its navigator groups match the directories on disk.
+
+### Run the suites
 
 After a Development build, run these commands from an active desktop session:
 

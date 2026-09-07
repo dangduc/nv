@@ -31,17 +31,17 @@ Solid arrows show ownership or control. Dashed arrows show access to shared stat
 
 | Component | Responsibility |
 | --- | --- |
-| [NVApplicationController](NVApplicationController.m) | Owns the library, browser controllers, and editing-session cache. Routes application actions and library notifications. |
-| [AppController](AppController.m) | Owns one browser window, its views, selection, and preview controller. The initial instance also handles legacy application services. |
-| [NVBrowserSession](NVBrowserSession.m) | Holds one window's query, matching notes, visible rows, sort order, and list-preview cache. |
-| [NotationController](NotationController.m) | Owns notes, labels, storage, journal recovery, and sync services. |
-| [NoteObject](NoteObject.m) | Stores a note's UUID, title, body, tags, dates, file identity, sync metadata, and undo manager. |
-| [NVNoteEditingSession](NVNoteEditingSession.m) | Owns shared `NSTextStorage`, committed snapshots, and deferred external content. Coordinates body and metadata edits. |
-| [GlobalPrefs](GlobalPrefs.m) / [NotationPrefs](NotationPrefs.m) | Manage application settings and library-specific settings, respectively. |
+| [NVApplicationController](Sources/Application/NVApplicationController.m) | Owns the library, browser controllers, and editing-session cache. Routes application actions and library notifications. |
+| [AppController](Sources/Browser/AppController.m) | Owns one browser window, its views, selection, and preview controller. The initial instance also handles legacy application services. |
+| [NVBrowserSession](Sources/Browser/NVBrowserSession.m) | Holds one window's query, matching notes, visible rows, sort order, and list-preview cache. |
+| [NotationController](Sources/Storage/NotationController.m) | Owns notes, labels, storage, journal recovery, and sync services. |
+| [NoteObject](Sources/Model/NoteObject.m) | Stores a note's UUID, title, body, tags, dates, file identity, sync metadata, and undo manager. |
+| [NVNoteEditingSession](Sources/Editor/NVNoteEditingSession.m) | Owns shared `NSTextStorage`, committed snapshots, and deferred external content. Coordinates body and metadata edits. |
+| [GlobalPrefs](Sources/Preferences/GlobalPrefs.m) / [NotationPrefs](Sources/Preferences/NotationPrefs.m) | Manage application settings and library-specific settings, respectively. |
 
 ## Startup and command routing
 
-[main.m](main.m) enters `NSApplicationMain`.
+[main.m](Sources/Application/main.m) enters `NSApplicationMain`.
 The localized `MainMenu.xib` creates the initial `AppController`.
 That controller installs `NVApplicationController` as the application delegate.
 The coordinator delegates existing startup work to the initial controller, then configures menus, services, hotkeys, and window restoration.
@@ -112,39 +112,39 @@ Editing sessions remain cached until library replacement or application terminat
 ## Persistence and external changes
 
 `NotationController` owns the write queue and journal lifecycle.
-[NotationFileManager](NotationFileManager.m) handles file operations.
-[NotationDirectoryManager](NotationDirectoryManager.m) handles directory monitoring and reconciliation.
+[NotationFileManager](Sources/Storage/NotationFileManager.m) handles file operations.
+[NotationDirectoryManager](Sources/Storage/NotationDirectoryManager.m) handles directory monitoring and reconciliation.
 Storage can use a single database or separate note files, according to `NotationPrefs`.
 
 `NoteObject` marks changed content dirty and requests a write.
 The library batches writes using a delay after the latest change and a separate timer during continued editing.
-It writes note files when required and appends journal records through [WALController](WALController.m).
-[FrozenNotation](FrozenNotation.m) serializes the library snapshot and its settings.
+It writes note files when required and appends journal records through [WALController](Sources/Storage/WALController.m).
+[FrozenNotation](Sources/Storage/FrozenNotation.m) serializes the library snapshot and its settings.
 `flushAllNoteChanges` drains pending writes and stores that snapshot atomically.
 A visible editor change does not mean the disk write has finished.
 
-[NotationSyncServiceManager](NotationSyncServiceManager.m) integrates service changes into the library.
-[SyncSessionController](SyncSessionController.m) manages service sessions, scheduled pushes, status, and pending-change waits.
+[NotationSyncServiceManager](Sources/Sync/NotationSyncServiceManager.m) integrates service changes into the library.
+[SyncSessionController](Sources/Sync/SyncSessionController.m) manages service sessions, scheduled pushes, status, and pending-change waits.
 File changes and sync updates reach editors through the note model and editing sessions.
 Windows observe shared sync status rather than owning separate service connections.
 
 ## Browser UI and previews
 
-[AppController_BrowserUI.m](AppController_BrowserUI.m) builds the native toolbar, title and tag fields, and `NSSplitViewController` layout.
+[AppController_BrowserUI.m](Sources/Browser/AppController_BrowserUI.m) builds the native toolbar, title and tag fields, and `NSSplitViewController` layout.
 The localized nibs supply reusable views and connections.
 The split view uses `setVertical:NO`: its horizontal divider keeps the list above the body.
 Automatic macOS window tabbing is disabled.
 
 The notes list uses a white background and an explicit Aqua appearance in both light and dark modes.
 The editor can follow system appearance or use configured colors.
-[LinkingEditor](LinkingEditor.m) applies display colors and search highlights through each editor's layout manager.
+[LinkingEditor](Sources/Editor/LinkingEditor.m) applies display colors and search highlights through each editor's layout manager.
 An appearance change must not rewrite shared note content.
 
 The search field holds a query independently of the selected note's title.
 Title and tag controls commit through the editing session and retain the original target note during an edit.
 New Note creates a blank note. Creation from search uses the query as the title.
 
-Each browser owns a [PreviewController](PreviewController.m) with a separate preview window.
+Each browser owns a [PreviewController](Sources/Preview/PreviewController.m) with a separate preview window.
 Browser-scoped notifications request delayed preview updates.
 The controller converts markup to HTML and renders it with the legacy WebKit `WebView`.
 Custom `template.html` and `custom.css` files override bundled defaults.
@@ -161,15 +161,18 @@ Additional browsers also unregister their observers. The initial controller rema
 The application can remain open without visible browsers, depending on the quit-on-close setting.
 Termination saves window state, commits editing sessions, and uses the existing application shutdown and sync-wait paths.
 
-[AppController_MultipleWindows.m](AppController_MultipleWindows.m) serializes browser state.
+[AppController_MultipleWindows.m](Sources/Browser/AppController_MultipleWindows.m) serializes browser state.
 `NVApplicationController` stores it under the `NVBrowserWindows` defaults key and restores up to 20 windows.
 Saved state includes the query, sort, selected note UUID, selection range, scroll positions, frame, columns, and divider height.
 Restoration checks selection bounds and converts old side-by-side layouts into a vertical stack.
 
 ## Working on the architecture
 
-Most source files live at the repository root.
+Application source files live in `Sources/`, grouped by responsibility.
 Objective-C categories divide existing controllers across files such as `AppController_Importing.m` and `NotationDirectoryManager.m`.
+Headers stay beside their implementations. Xcode navigator groups match the directories on disk.
+`Resources/` contains application assets and localized interfaces. `Config/` contains build configuration files.
+`ThirdParty/` contains bundled dependencies, including frameworks and OpenSSL. `Scripts/` contains development utilities.
 Add new source files and resources to [Notation.xcodeproj](Notation.xcodeproj).
 
 Preserve manual `retain`/`release` ownership.

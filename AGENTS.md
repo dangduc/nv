@@ -2,9 +2,16 @@
 
 ## Project Structure & Module Organization
 
-nvALT is a macOS Cocoa application written primarily in Objective-C, with C utilities. Most `.h`, `.m`, and `.c` files live at the repository root.
+nvALT is a macOS Cocoa application written primarily in Objective-C, with C utilities. Application code lives in `Sources/`, grouped by responsibility.
 
-`Notation.xcodeproj` defines the application target and shared schemes. Localized interfaces and resources live in `*.lproj/`. Images live in `Images/` and the root.
+`Notation.xcodeproj` defines the application target and shared schemes. Its navigator groups match the directories on disk.
+
+- `Sources/`: application, browser, editor, model, storage, sync, preferences, import/export, preview, UI, and utility code.
+- `Resources/`: images, preview templates, help, and interfaces. Localized resources live in `Resources/Localization/*.lproj/`.
+- `Config/`: application plist, prefix header, sync configuration, and linker order files.
+- `ThirdParty/`: bundled source dependencies, frameworks, markup processors, and OpenSSL headers and libraries.
+- `Scripts/`: development utilities.
+- `Tests/` and `docs/`: test suites, review records, and documentation assets.
 
 Read [architecture.md](architecture.md) before changing controller ownership, shared editing, or window lifecycle. Keep one shared library across browser windows. Keep the notes list above the editor. Add new source files and resources to the Xcode target.
 
@@ -12,10 +19,12 @@ Read [architecture.md](architecture.md) before changing controller ownership, sh
 
 Use macOS with full Xcode. Bundled frameworks require an Intel build. Apple Silicon Macs require Rosetta.
 
-If `SimperiumConfig.h` is absent, create it from the example:
+For an existing checkout, move your local `SimperiumConfig.h` into `Config/` before you build.
+
+If `Config/SimperiumConfig.h` is absent, create it from the example:
 
 ```sh
-test -e SimperiumConfig.h || cp SimperiumConfig-example.h SimperiumConfig.h
+test -e Config/SimperiumConfig.h || cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
 ```
 
 Keep the placeholder for local work without sync. Simplenote syncing requires your own API key.

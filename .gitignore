@@ -49,9 +49,13 @@ build/*
 =======
 
 >>>>>>> another gitignore
+# Local sync credentials, including files left at the root by older checkouts
 SimperiumConfig.h
 
 *.pbxproj
 nvalt.taskpaper
 
 *.pbxproj
+
+# Python test harness caches
+__pycache__/

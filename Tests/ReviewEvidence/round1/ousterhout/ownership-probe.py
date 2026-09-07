@@ -6,8 +6,8 @@ import subprocess
 import tempfile
 
 repo = Path(__file__).resolve().parents[4]
-prefs = (repo / 'GlobalPrefs.m').read_text()
-editor = (repo / 'LinkingEditor.m').read_text()
+prefs = (repo / 'Sources/Preferences/GlobalPrefs.m').read_text()
+editor = (repo / 'Sources/Editor/LinkingEditor.m').read_text()
 accessor = re.search(r'\+ \(GlobalPrefs \*\)defaultPrefs \{.*?\n\}', prefs, re.S).group(0)
 assignment = re.search(r'prefsController = \[GlobalPrefs defaultPrefs\];', editor).group(0)
 release = re.search(r'\[prefsController release\];', editor).group(0)
