@@ -30,7 +30,7 @@ Match surrounding indentation: existing files mix tabs and four-space indentatio
 
 ## Testing Guidelines
 
-Run `python3 Tests/run-multiple-windows-tests.py` after a Development build into `build/DerivedData`. See `Tests/README.md` for compatible build commands. The Cocoa integration suite uses temporary notes and a copied app. No coverage threshold is configured. Manually check affected preview, import/export, and sync paths with disposable notes. Record results in the PR.
+Run `python3 Tests/run-multiple-windows-tests.py` and `python3 Tests/run-regression-tests.py` after a Development build into `build/DerivedData`. See `Tests/README.md` for compatible build commands. The Cocoa integration suite uses temporary notes and a copied app. No coverage threshold is configured. Manually check affected preview, import/export, and sync paths with disposable notes. Record results in the PR.
 
 ## Commit & Pull Request Guidelines
 

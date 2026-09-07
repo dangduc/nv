@@ -9,6 +9,7 @@
 #import "NoteObject.h"
 #import "NoteAttributeColumn.h"
 #import "LinkingEditor.h"
+#import "DualField.h"
 #import "GlobalPrefs.h"
 #import "NSFileManager_NV.h"
 #import "ODBEditor.h"
@@ -80,6 +81,19 @@ static void Swap(Class cls, SEL original, SEL replacement) {
             Check([[app browserControllers][0] selectedNoteObject] != nil, @"relaunch restores the first window selection");
             Check([[[app browserControllers][1] browserSession] reverseSorted], @"relaunch restores second window sort");
             AppController *first = [app browserControllers][0];
+            AppController *second = [app browserControllers][1];
+            Check([[[first browserSession] searchString] isEqualToString:@"beta"] &&
+                [[[second browserSession] searchString] isEqualToString:@"only"],
+                @"relaunch restores distinct non-empty browser queries");
+            DualField *firstField = [first valueForKey:@"field"], *secondField = [second valueForKey:@"field"];
+            Check([[firstField stringValue] isEqualToString:@"Beta"] && [[secondField stringValue] isEqualToString:@"only"] &&
+                [[firstField snapbackString] isEqualToString:@"beta"],
+                @"relaunch restores each browser search field");
+            if ([[firstField snapbackString] length]) [firstField snapback:self];
+            if ([[secondField snapbackString] length]) [secondField snapback:self];
+            Pump();
+            Check([[firstField stringValue] isEqualToString:@"beta"] && [[secondField stringValue] isEqualToString:@"only"],
+                @"snapback returns each restored field to its own query");
             [[first window] makeKeyAndOrderFront:self]; [first searchForString:@"needle"]; Pump();
             // Match the preference-change path: the cache journal belongs to the application.
             [library flushAllNoteChanges];
@@ -195,6 +209,9 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [reopened revealNote:beta options:0];
         [app newWindow:self]; Pump();
         [[[app browserControllers] lastObject] restoreBrowserWindowState:state];
+        [[reopened window] makeKeyAndOrderFront:self]; [reopened searchForString:@"beta"]; Pump();
+        AppController *secondRestored = [[app browserControllers] lastObject];
+        [[secondRestored window] makeKeyAndOrderFront:self]; [secondRestored searchForString:@"only"]; Pump();
         [app saveWindowStates];
         Check([[[NSUserDefaults standardUserDefaults] arrayForKey:@"NVBrowserWindows"] count] == 2, @"persistence records only open browser windows");
         Check([library flushAllNoteChanges], @"shared library flushes successfully");

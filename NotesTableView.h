@@ -34,6 +34,8 @@ typedef struct _ViewLocationContext {
 	IBOutlet NSTextField *controlField;
 	NSMutableArray *allColumns;
 	NSMutableDictionary *allColsDict;
+	NSMutableDictionary *columnLayouts;
+	BOOL hasColumnLayout, columnLayoutHorizontal;
 	
 	NSInteger firstRowIndexBeforeSplitResize;
 	
@@ -80,6 +82,9 @@ typedef struct _ViewLocationContext {
 - (void)reloadDataIfNotEditing;
 
 - (void)restoreColumns;
+- (NSDictionary *)columnLayoutState;
+- (void)restoreColumnLayoutState:(id)state;
+- (void)applySavedColumnLayout;
 - (void)_configureAttributesForCurrentLayout;
 - (void)updateHeaderViewForColumns;
 - (BOOL)eventIsTagEdit:(NSEvent*)event forColumn:(NSInteger)columnIndex row:(NSInteger)rowIndex;

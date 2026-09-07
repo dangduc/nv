@@ -76,9 +76,36 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
     [textStorage setAttributedString:contents];
     [self writeContentsToNote];
 }
+- (void)finishEditingForHistoryChange {
+    // Any browser can invoke history while another attached editor is composing.
+    for (NSLayoutManager *layout in [[[textStorage layoutManagers] copy] autorelease]) {
+        for (NSTextContainer *container in [[[layout textContainers] copy] autorelease]) {
+            NSTextView *view = [container textView];
+            if ([view hasMarkedText]) [view unmarkText];
+        }
+    }
+    [self commitPendingTextChanges];
+}
+- (BOOL)hasPendingTextChanges {
+    return ![[textStorage string] isEqualToString:[committedContents string]];
+}
+- (BOOL)canUndo {
+    return [self hasPendingTextChanges] || (!pendingExternalContents && [[note undoManager] canUndo]);
+}
+- (BOOL)canRedo {
+    return !pendingExternalContents && ![self hasPendingTextChanges] && [[note undoManager] canRedo];
+}
+- (void)undo {
+    [self finishEditingForHistoryChange];
+    if ([[note undoManager] canUndo]) [[note undoManager] undo];
+}
+- (void)redo {
+    [self finishEditingForHistoryChange];
+    if ([[note undoManager] canRedo]) [[note undoManager] redo];
+}
 - (void)commitPendingTextChanges {
     // Layout and attachment can normalize attributes without a user edit.
-    if (pendingExternalContents || ![[textStorage string] isEqualToString:[committedContents string]]) [self commitTextChanges];
+    if (pendingExternalContents || [self hasPendingTextChanges]) [self commitTextChanges];
 }
 - (void)commitTextChanges {
     if (writingNote || [self hasMarkedText]) return;
@@ -88,6 +115,8 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
     }
     NSAttributedString *undoContents = [[committedContents copy] autorelease];
     if (pendingExternalContents) {
+        // Older snapshots predate this external update and cannot undo it safely.
+        [[note undoManager] removeAllActionsWithTarget:self];
         NSRange localReplacement, remoteReplacement;
         NSRange local = NVChangedRange([committedContents string], [textStorage string], &localReplacement);
         NSRange remote = NVChangedRange([committedContents string], [pendingExternalContents string], &remoteReplacement);

@@ -18,7 +18,7 @@ Reviewed `4c6cf45...30791c5` for PR https://github.com/dangduc/nv/pull/1. Produc
 python3 Tests/ReviewEvidence/round1/ousterhout/ownership-probe.py
 ```
 
-Output in `ownership.log`:
+Captured output at the reviewed snapshot (`30791c5`):
 
 ```text
 current:
@@ -29,7 +29,14 @@ before editor closes: singleton retain count=1
 after editor closes: singleton deallocated=NO; accessor still returns same pointer=YES
 ```
 
-The real Cocoa probe separately confirms reachability: eight opened and closed additional windows yield eight `AppController` deallocations. A `LinkingEditor` then reaches its production `dealloc` during subsequent run-loop work. The application's observed singleton retain count remains one until that point. This is logged in `results.log` and `singleton.log`.
+The real Cocoa probe separately confirms reachability: eight opened and closed additional windows yield eight `AppController` deallocations. A `LinkingEditor` then reaches its production `dealloc` during subsequent run-loop work. The application's observed singleton retain count remains one until that point. Essential output is included here because local `.log` files are ignored:
+
+```text
+LIFECYCLE before open=1 windows=3 prefs-retain=1
+LIFECYCLE cycle=8 open=1 windows=3 prefs-retain=1
+LIFECYCLE closed=8 browser-deallocations=8 editor-deallocations=0
+dealloc linkinged
+```
 
 **Repair:** make the editor's preferences ownership consistent. Audit adjacent `controlField` and `notesTableView` releases as borrowed nib outlets, and exercise delayed editor destruction after closing windows. Do not retain the singleton merely to conceal unbalanced releases.
 
