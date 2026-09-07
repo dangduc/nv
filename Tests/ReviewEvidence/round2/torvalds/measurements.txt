@@ -1,0 +1,5 @@
+EVIDENCE B range after A appends X: {1, 3}
+EVIDENCE B range after A undo: {10, 0}; A range: {10, 0}; string=abcdefghij
+EVIDENCE B range after A redo: {11, 0}; A range: {11, 0}; string=abcdefghijX
+EVIDENCE B range after suffix-only external update: {12, 0}
+TORVALDS ROUND 2 PROBES COMPLETED (9 checks)
