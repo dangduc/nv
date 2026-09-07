@@ -7,7 +7,7 @@ import tempfile
 
 here = Path(__file__).resolve().parent
 repo = here.parents[2]
-source = (repo / 'NVNoteEditingSession.m').read_text()
+source = (repo / 'Sources/Editor/NVNoteEditingSession.m').read_text()
 start = source.index('static NSRange NVChangedRange(')
 end = source.index('\n@implementation NVNoteEditingSession', start)
 helper = source[start:end]
@@ -19,5 +19,5 @@ with tempfile.TemporaryDirectory(prefix='nv-snapshot-diff-') as temporary:
     subprocess.run(['xcrun', 'clang', '-O2', '-fno-objc-arc', '-framework', 'Foundation',
         '-I', str(root), str(here / 'probe.m'), '-o', str(binary)], check=True)
     subprocess.run([str(binary)], check=True, timeout=45)
-if (repo / 'NVNoteEditingSession.m').read_text()[start:end] != helper:
+if (repo / 'Sources/Editor/NVNoteEditingSession.m').read_text()[start:end] != helper:
     raise SystemExit('Production helper changed while tests ran; rerun against the final source.')

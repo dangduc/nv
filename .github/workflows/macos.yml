@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build
-          cp SimperiumConfig-example.h SimperiumConfig.h
+          cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
           xcodebuild -version
           xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
             -derivedDataPath build/DerivedData ARCHS=x86_64 \

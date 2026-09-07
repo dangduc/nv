@@ -7,6 +7,7 @@ All generated data is temporary. Run outside the sandbox for Rosetta/Cocoa.
 import fcntl
 import os
 from pathlib import Path
+import sys
 import plistlib
 import shutil
 import subprocess
@@ -15,6 +16,9 @@ import uuid
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
+sys.path.insert(0, str(REPO / "Tests"))
+from compiler_support import include_flags
+
 SOURCE = REPO / 'build/DerivedData/Build/Products/Development/nvALT.app'
 LOCK_PATH = REPO / 'build/pr-review/gui.lock'
 LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -40,8 +44,7 @@ def run_case(name, mutation=None):
         dylib = root / 'Canary.dylib'
         subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
             '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
-            '-I', str(REPO), '-I', str(REPO / 'RBSplitView'), '-I', str(REPO / 'PTHotKeys'),
-            '-I', str(REPO / 'ODBEditor'), '-include', str(REPO / 'Notation_Prefix.pch'),
+            *include_flags(REPO), '-include', str(REPO / 'Config/Notation_Prefix.pch'),
             '-framework', 'Cocoa', '-framework', 'Carbon', '-o', str(dylib), str(harness_path),
             str(HERE / 'query_mutation.m'), str(HERE / 'body_mutation.m')], check=True, capture_output=True, text=True)
         environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')

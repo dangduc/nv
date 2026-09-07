@@ -4,6 +4,7 @@ import argparse
 import fcntl
 import os
 from pathlib import Path
+import sys
 import plistlib
 import shutil
 import subprocess
@@ -11,6 +12,9 @@ import tempfile
 import uuid
 
 repo = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(repo / "Tests"))
+from compiler_support import include_flags
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
 arguments = parser.parse_args()
@@ -32,8 +36,7 @@ with lock_path.open('w') as lock, tempfile.TemporaryDirectory(prefix='nvalt-r2-t
     dylib = root / 'NativeControlsTests.dylib'
     subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
         '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
-        '-I', str(repo), '-I', str(repo / 'RBSplitView'), '-I', str(repo / 'PTHotKeys'),
-        '-I', str(repo / 'ODBEditor'), '-include', str(repo / 'Notation_Prefix.pch'),
+        *include_flags(repo), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-o', str(dylib),
         str(Path(__file__).with_name('probes.m'))], check=True)
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib),

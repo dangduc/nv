@@ -1,7 +1,7 @@
 # CI checks
 
 The [macOS workflow](../../.github/workflows/macos.yml) builds an Intel Development app with Xcode 16.4 on `macos-15-intel`.
-CI copies the placeholder `SimperiumConfig-example.h` and disables code signing. It does not require repository secrets.
+CI copies the placeholder `Config/SimperiumConfig-example.h` and disables code signing. It does not require repository secrets.
 
 The workflow runs for pull requests to `master`, pushes to `master`, and manual runs.
 The build job has read access to the repository. A separate tag job has write access after a successful build and artifact upload.
