@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 //
 //  WordCountToken.m
 //  Notation
@@ -22,13 +23,13 @@
 	[self refusesFirstResponder];
 	//theGrad =  [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.2f alpha:0.28f] endingColor:[NSColor colorWithCalibratedWhite:0.74f alpha:0.18f]] retain];
 	
-	//[self setTxtColor:[[NSApp delegate] foregrndColor]];
-	//[self setFldColor:[[NSApp delegate] backgrndColor]];
+	//[self setTxtColor:[NVControllerForView(self) foregrndColor]];
+	//[self setFldColor:[NVControllerForView(self) backgrndColor]];
 	
 }
 
 - (void)mouseDown:(NSEvent *)theEvent{
-	[[NSApp delegate] toggleWordCount:self];
+	[NVControllerForView(self) toggleWordCount:self];
 }
 /*
 - (void)drawRect:(NSRect)dirtyRect {
@@ -40,7 +41,7 @@
 	//NSRectFill([self bounds]);
 	NSString *text = [self stringValue];
 	if ([text isEqualToString:@""]) {
-		[[NSApp delegate] updateWordCount];
+		[NVControllerForView(self) updateWordCount];
 	}
 	static NSMutableParagraphStyle *alignStyle = nil;
 	if (!alignStyle) {

@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
   provided that the following conditions are met:
@@ -57,6 +58,9 @@ static long (*GetGetScriptManagerVariablePointer())(short);
 
 
 @implementation LinkingEditor
+- (void)undo:(id)sender { [[[NVControllerForView(self) selectedNoteObject] undoManager] undo]; }
+- (void)redo:(id)sender { [[[NVControllerForView(self) selectedNoteObject] undoManager] redo]; }
+
 
 @synthesize beforeString;
 @synthesize afterString;
@@ -152,7 +156,7 @@ if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 		if (![prefsController highlightSearchTerms]) {
 			[self removeHighlightedTerms];
 		} else {
-			NSString *typedString = [(AppController *)[NSApp delegate] typedString];
+			NSString *typedString = [(AppController *)NVControllerForView(self) typedString];
 			if (typedString)
 				[self highlightTermsTemporarilyReturningFirstRange:typedString avoidHighlight:NO];
 		}
@@ -205,10 +209,10 @@ if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 }
 
 - (void)updateTextColors {
-	NSColor *fgColor = [(AppController *)[NSApp delegate] foregrndColor];
+	NSColor *fgColor = [NVControllerForView(self) foregrndColor] ?: [NSColor textColor];
 	NSColor *bgColor = [self backgroundColor];
-    if (bgColor!=[(AppController *)[NSApp delegate]backgrndColor]) {
-        bgColor=[(AppController *)[NSApp delegate]backgrndColor];
+    if (bgColor!=[(AppController *)NVControllerForView(self)backgrndColor]) {
+        bgColor=[NVControllerForView(self) backgrndColor] ?: [NSColor textBackgroundColor];
         [self setBackgroundColor:bgColor];
     }
 	[[self enclosingScrollView] setBackgroundColor:bgColor];
@@ -329,7 +333,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSCursor pointingHandCursor], NSCursorAttributeName,
 			[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName,
-			[self _linkColorForForegroundColor:[(AppController *)[NSApp delegate] foregrndColor] backgroundColor:[(AppController *)[NSApp delegate] backgrndColor]],
+			[self _linkColorForForegroundColor:[(AppController *)NVControllerForView(self) foregrndColor] backgroundColor:[(AppController *)NVControllerForView(self) backgrndColor]],
 			NSForegroundColorAttributeName, nil];
 	
 	/*
@@ -394,7 +398,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	
 	if ([type isEqualToString:NSFilenamesPboardType]) {
 		//paste as a file:// URL, so that it can be linked
-		NSString *allURLsString = [(AppController *)[NSApp delegate] stringWithNoteURLsOnPasteboard:pboard];
+		NSString *allURLsString = [(AppController *)NVControllerForView(self) stringWithNoteURLsOnPasteboard:pboard];
 		
 		if ([allURLsString length]) {
 			NSRange selectedRange = [self rangeForUserTextChange];
@@ -680,7 +684,7 @@ copyRTFType:
 
 - (NSRange)selectionRangeForProposedRange:(NSRange)proposedSelRange granularity:(NSSelectionGranularity)granularity {
     
-   // [[NSApp delegate] updateWordCount:YES];
+   // [NVControllerForView(self) updateWordCount:YES];
 	if (granularity != NSSelectByWord || [[self string] length] == proposedSelRange.location) {
 		// If it's not a double-click return unchanged
 		return [super selectionRangeForProposedRange:proposedSelRange granularity:granularity];
@@ -768,7 +772,7 @@ copyRTFType:
 
     
 - (BOOL)performKeyEquivalent:(NSEvent *)anEvent {
-//    [[NSApp delegate] resetModTimers];
+//    [NVControllerForView(self) resetModTimers];
     //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
     NSUInteger modFlags=[anEvent modifierFlags];
     if((modFlags&NSControlKeyMask)||(modFlags&NSAlternateKeyMask)){
@@ -846,7 +850,7 @@ copyRTFType:
 	NSEvent *event = [[self window] currentEvent];
 	if ([event type] == NSKeyDown && ![event isARepeat] && NSEqualRanges([self selectedRange], NSMakeRange(0, 0))) {
 		//command-left at the beginning of the note--jump to editing the title!
-		[(AppController *)[NSApp delegate] renameNote:nil];
+		[(AppController *)NVControllerForView(self) renameNote:nil];
 		NSText *editor = [notesTableView currentEditor];
 		NSRange endRange = NSMakeRange([[editor string] length], 0);
 		[editor setSelectedRange:endRange];
@@ -1153,6 +1157,8 @@ copyRTFType:
 	//need to fix this for better style detection
 	
 	SEL action = [menuItem action];
+    if (action == @selector(undo:)) return [[[NVControllerForView(self) selectedNoteObject] undoManager] canUndo];
+    if (action == @selector(redo:)) return [[[NVControllerForView(self) selectedNoteObject] undoManager] canRedo];
 	if (action == @selector(defaultStyle:) ||
 		action == @selector(bold:) ||
 		action == @selector(italic:) ||
@@ -1291,7 +1297,7 @@ copyRTFType:
 //            NSLog(@"interpret from cmd-keydown OLD URL:||%@||  AND NEW URL:|%@|",[aLink absoluteString],[newURL absoluteString]);
             aLink=newURL;
         }
-		[(AppController *)[NSApp delegate] interpretNVURL:aLink];
+		[(AppController *)NVControllerForView(self) interpretNVURL:aLink];
 	} else {
 		[super clickedOnLink:aLink atIndex:charIndex];
 	}
@@ -1612,7 +1618,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 	if(IsLeopardOrLater){
         
         theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Enter Full Screen",@"menu item title for entering fullscreen") action:@selector(switchFullScreen:) keyEquivalent:@""] autorelease];
-        [theMenuItem setTarget:[NSApp delegate]];
+        [theMenuItem setTarget:NVControllerForView(self)];
         [theMenu addItem:theMenuItem];         
 	}
     theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Link",@"insert link menu item title") action:@selector(insertLink:) keyEquivalent:@""] autorelease];
@@ -1775,7 +1781,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)flagsChanged:(NSEvent *)theEvent{
-	[(AppController *)[NSApp delegate] flagsChanged:theEvent];
+	[(AppController *)NVControllerForView(self) flagsChanged:theEvent];
 }
 
 - (BOOL)mouseIsHere{
@@ -1810,8 +1816,8 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 
 - (void)selectRangeAndRegisterUndo:(NSRange)selRange{
     if (!NSEqualRanges([self selectedRange], selRange)) {
-        [[[self undoManager] prepareWithInvocationTarget:self]
-         selectRangeAndRegisterUndo:[self selectedRange]];
+        if ([self allowsUndo]) [[[self undoManager] prepareWithInvocationTarget:self]
+            selectRangeAndRegisterUndo:[self selectedRange]];
         [self setSelectedRange:selRange];
     }
 }
@@ -1883,7 +1889,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
             }
             if (autoPair==1) {
                 if (selRange.length>0) {
-                    [[[self undoManager] prepareWithInvocationTarget:self] setSelectedRange:selRange];
+                    if ([self allowsUndo]) [[[self undoManager] prepareWithInvocationTarget:self] setSelectedRange:selRange];
                     NSRange insRange=selRange;
                     insRange.length=0;
                     [super insertText:appendString replacementRange:insRange];
@@ -2126,7 +2132,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)updateInsetForFrame:(NSRect)frameRect andForceLayout:(BOOL)force{
-    if (managesTextWidth||([(AppController *)[NSApp delegate]isInFullScreen])) {
+    if (managesTextWidth||([(AppController *)NVControllerForView(self)isInFullScreen])) {
         [self setInsetForFrame:frameRect alwaysSet:force];
     }else{
         [self resetInset];
@@ -2391,6 +2397,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 - (void)textFinderShouldResetContext:(NSNotification *)aNotification{
+    if ([aNotification object] != NVControllerForView(self)) return;
     
     if (IsLionOrLater){
         [textFinder cancelFindIndicator];
@@ -2399,12 +2406,14 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)textFinderShouldNoteChanges:(NSNotification *)aNotification{
+    if ([aNotification object] != NVControllerForView(self)) return;
     if (IsLionOrLater){
         [textFinder noteClientStringWillChange];
     }
 }
 
 - (void)textFinderShouldUpdateContext:(NSNotification *)aNotification{
+    if ([aNotification object] != NVControllerForView(self)) return;
     
     if (IsLionOrLater){
         [textFinder setFindIndicatorNeedsUpdate:YES];
@@ -2412,6 +2421,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)hideTextFinderIfNecessary:(NSNotification *)aNotification{
+    if ([aNotification object] != NVControllerForView(self)) return;
     if (IsLionOrLater){        
         if([self textFinderIsVisible]){            
             [textFinder setFindIndicatorNeedsUpdate:YES];
@@ -2432,13 +2442,13 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (IBAction)performFindPanelAction:(id)sender {
-    id controller = [NSApp delegate];
+    id controller = NVControllerForView(self);
     if(![controller setNoteIfNecessary])
         return;
     
     NSInteger findTag=[sender tag];
     
-    [sender setTarget:self];
+    [sender setTarget:nil];
     if(!IsLionOrLater||([sender tag]!=7)){
         NSString *pbType;
         if (IsSnowLeopardOrLater) {

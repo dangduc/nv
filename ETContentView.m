@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 //
 //  ETContentView.m
 //  Notation
@@ -31,7 +32,7 @@
 {
 //    [super drawRect:dirtyRect];
     if (!backColor) {
-        backColor = [[[NSApp delegate] backgrndColor] retain];
+        backColor = [[NVControllerForView(self) backgrndColor] retain];
     }
     [backColor set];
     NSRectFill([self bounds]);
@@ -48,7 +49,7 @@
 
 - (NSColor *)backgroundColor{    
     if (!backColor) {
-        backColor = [[[NSApp delegate] backgrndColor] retain];
+        backColor = [[NVControllerForView(self) backgrndColor] retain];
     }
     return backColor;
 }

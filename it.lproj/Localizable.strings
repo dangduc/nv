@@ -659,3 +659,9 @@
 /* Menu Item for Use Selection for Find */
 "Use Selection for Find" = "Use Selection for Find";
 
+
+/* Multiple browser windows */
+"New Window" = "Nuova finestra";
+"Show Active Window" = "Mostra finestra attiva";
+"Edit Note" = "Modifica nota";
+"external changes" = "modifiche esterne";

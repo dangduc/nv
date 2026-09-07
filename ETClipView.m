@@ -1,3 +1,4 @@
+#import "NVApplicationController.h"
 //
 //  ETClipView.m
 //  nvALT
@@ -25,7 +26,7 @@
 
 //
 -(void)setFrame:(NSRect)frameRect{
-    if (managesTextWidth||([[NSApp delegate]isInFullScreen])) {
+    if (managesTextWidth||([NVControllerForView(self)isInFullScreen])) {
         if (frameRect.size.width!=[self frame].size.width) {
             NSRect clipRect;
             NSRect docRect = [[self documentView] frame];

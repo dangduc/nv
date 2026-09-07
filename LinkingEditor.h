@@ -129,6 +129,8 @@
 - (IBAction)toggleLayoutOrientation:(id)sender;
 #endif
 //
+- (void)undo:(id)sender;
+- (void)redo:(id)sender;
 @end
 
 @interface NSTextView (Private)

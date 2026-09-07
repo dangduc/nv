@@ -1,3 +1,5 @@
+#import "NVBrowserSession.h"
+#import "NVApplicationController.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
     This file is part of Notational Velocity.
 
@@ -41,6 +43,10 @@
 static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, SEL aSel, id target, NSInteger tag);
 
 @implementation NotesTableView
+- (BOOL)browserHorizontalLayout { AppController *owner = [[self window] windowController]; return owner ? [owner horizontalLayout] : [globalPrefs horizontalLayout]; }
+- (NSString *)browserSortKey { return [[[NVControllerForView(self) browserSession] sortColumn] identifier] ?: [globalPrefs sortedTableColumnKey]; }
+- (BOOL)browserReverseSorted { NVBrowserSession *session = [NVControllerForView(self) browserSession]; return session ? [session reverseSorted] : [globalPrefs tableIsReverseSorted]; }
+
 
 //there's something wrong with this initialization under panther, I think
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -69,7 +75,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		allColumns = [[NSMutableArray alloc] initWithCapacity:4];
 		allColsDict = [[NSMutableDictionary alloc] initWithCapacity:4];
 		
-		id (*titleReferencor)(id, id, NSInteger) = [globalPrefs horizontalLayout] ? 
+		id (*titleReferencor)(id, id, NSInteger) = [self browserHorizontalLayout] ?
 		([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) :
 		([globalPrefs tableColumnsShowPreview] ? tableTitleOfNote : titleOfNote2);
 		
@@ -103,7 +109,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		[self setAllowsColumnSelection:NO];
 		//[self setVerticalMotionCanBeginDrag:NO];
 		
-		BOOL hideHeader = (([columnsToDisplay count] == 1 && [columnsToDisplay containsObject:NoteTitleColumnString]) || [globalPrefs horizontalLayout]);
+		BOOL hideHeader = (([columnsToDisplay count] == 1 && [columnsToDisplay containsObject:NoteTitleColumnString]) || [self browserHorizontalLayout]);
 
         [[self cornerView] setFrameOrigin:NSMakePoint(-1000,-1000)];
         [self setCornerView:nil];
@@ -113,19 +119,22 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		[[self noteAttributeColumnForIdentifier:NoteTitleColumnString] setResizingMask:NSTableColumnUserResizingMask | NSTableColumnAutoresizingMask];
 		[self setColumnAutoresizingStyle:NSTableViewUniformColumnAutoresizingStyle];
 		
-		//[self setSortDirection:[globalPrefs tableIsReverseSorted] 
-		//		 inTableColumn:[self tableColumnWithIdentifier:[globalPrefs sortedTableColumnKey]]];
+		//[self setSortDirection:[self browserReverseSorted]
+		//		 inTableColumn:[self tableColumnWithIdentifier:[self browserSortKey]]];
 		
     }
     return self;
 }
 
 - (void)dealloc {
-	[loadStatusAttributes release];
-    [allColumns release];
-	[allColsDict release];
-	[headerView release];
-    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self setDataSource:nil];
+    [loadStatusAttributes release];
+    [allColumns release]; allColumns = nil;
+    [allColsDict release]; allColsDict = nil;
+    [headerView release]; headerView = nil;
+    // NSControl's dealloc calls our abortEditing override.
     [super dealloc];
 }
 
@@ -141,7 +150,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	}
 	
 	//horizontal view has only a single column; store column widths separately for it
-	NSArray *columnsToDisplay = [globalPrefs horizontalLayout] ? [NSArray arrayWithObject:NoteTitleColumnString] : [globalPrefs visibleTableColumns];
+	NSArray *columnsToDisplay = [self browserHorizontalLayout] ? [NSArray arrayWithObject:NoteTitleColumnString] : [globalPrefs visibleTableColumns];
 	
 	for (i=0; i<[allColumns count]; i++) {
 		NoteAttributeColumn *column = [allColumns objectAtIndex:i];
@@ -151,13 +160,13 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		[column updateWidthForHighlight];
 	}	
 	
-	[self setAutosaveName:[globalPrefs horizontalLayout] ? @"unifiedNotesTable" : @"notesTable"];
-	[self setAutosaveTableColumns:YES];
+	[self setAutosaveName:nil];
+	[self setAutosaveTableColumns:NO];
 	
 	[self sizeToFit];
 	
-	[self setSortDirection:[globalPrefs tableIsReverseSorted] 
-			 inTableColumn:[self tableColumnWithIdentifier:[globalPrefs sortedTableColumnKey]]];
+	[self setSortDirection:[self browserReverseSorted]
+			 inTableColumn:[self tableColumnWithIdentifier:[self browserSortKey]]];
 }
 
 
@@ -204,11 +213,11 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	if ([sender draggingSource] == self)
 		return NO;
 	
-	return [[NSApp delegate] addNotesFromPasteboard:[sender draggingPasteboard]];
+	return [NVControllerForView(self) addNotesFromPasteboard:[sender draggingPasteboard]];
 }
 
 - (void)paste:(id)sender {
-	[[NSApp delegate] addNotesFromPasteboard:[NSPasteboard generalPasteboard]];
+	[NVControllerForView(self) addNotesFromPasteboard:[NSPasteboard generalPasteboard]];
 }
 
 - (float)tableFontHeight {
@@ -225,7 +234,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	activeStyle = YES;
 #endif
 	isActiveStyle = activeStyle;
-	[col setDereferencingFunction: [globalPrefs horizontalLayout] ? ([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) : 
+	[col setDereferencingFunction: [self browserHorizontalLayout] ? ([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) :
 	 ([globalPrefs tableColumnsShowPreview] ? (activeStyle ? properlyHighlightingTableTitleOfNote : tableTitleOfNote) : titleOfNote2)];
 }
 
@@ -258,6 +267,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	[headerView setIsReloading:NO];
 }
 
+- (void)invalidateViewMenus { viewMenusValid = NO; }
+
 - (void)menuNeedsUpdate:(NSMenu *)menu {
 	
 	if (!viewMenusValid && [menu delegate] == (id)self) {
@@ -269,7 +280,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (void)_configureAttributesForCurrentLayout {
-	BOOL horiz = [globalPrefs horizontalLayout];
+	BOOL horiz = [self browserHorizontalLayout];
     
     [self setUsesAlternatingRowBackgroundColors:[globalPrefs alternatingRows]];
     [self updateGrid];
@@ -401,7 +412,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		return;
 	}
 	
-	if ([globalPrefs horizontalLayout]) {
+	if ([self browserHorizontalLayout]) {
 		
 		//default to editing title if this is attempted in horizontal mode for any column other than tags
 		//(which currently are the only two editable columns, anyway)
@@ -434,15 +445,15 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (BOOL)addPermanentTableColumn:(NSTableColumn*)column {
-	if (![globalPrefs horizontalLayout]) {
+	if (![self browserHorizontalLayout]) {
 		[self addTableColumn:column];
 	}
 	[globalPrefs addTableColumn:[column identifier] sender:self];
 	
-	if ([globalPrefs horizontalLayout]) //for now, for extending rowheight when tags are shown/hidden
+	if ([self browserHorizontalLayout]) //for now, for extending rowheight when tags are shown/hidden
 		[self _configureAttributesForCurrentLayout];
 	
-	if ([[column identifier] isEqualToString:[globalPrefs sortedTableColumnKey]]) {
+	if ([[column identifier] isEqualToString:[self browserSortKey]]) {
 		[(NoteAttributeColumn*)[self highlightedTableColumn] updateWidthForHighlight];
 		[self setHighlightedTableColumn:column];
 		[(NoteAttributeColumn*)column updateWidthForHighlight];
@@ -496,7 +507,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 - (IBAction)actionHideShowColumn:(id)sender {
     NSTableColumn *column = [sender representedObject]; 
 	
-	if ([globalPrefs horizontalLayout] && [[column identifier] isEqualToString:NoteTitleColumnString]) {
+	if ([self browserHorizontalLayout] && [[column identifier] isEqualToString:NoteTitleColumnString]) {
 		NSBeep();
 		return;
 	}
@@ -505,7 +516,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		
 		if ([[globalPrefs visibleTableColumns] count] > 1) {
 			[self abortEditing];
-            if([[globalPrefs sortedTableColumnKey] isEqualToString:[column identifier]]){
+            if([[self browserSortKey] isEqualToString:[column identifier]]){
                 if(![[column identifier] isEqualToString:NoteTitleColumnString]&&[[globalPrefs visibleTableColumns] containsObject:NoteTitleColumnString]){
                     [self setStatusForSortedColumn: [self tableColumnWithIdentifier:NoteTitleColumnString]];
                 }else{
@@ -521,7 +532,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 			[self removeTableColumn:column];
 			[globalPrefs removeTableColumn:[column identifier] sender:self];
 			viewMenusValid = NO;
-			if ([globalPrefs horizontalLayout]) //for now, in case we are hiding tags when previews are not visible
+			if ([self browserHorizontalLayout]) //for now, in case we are hiding tags when previews are not visible
 				[self _configureAttributesForCurrentLayout];
 		} else {
 			NSBeep();
@@ -559,9 +570,9 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     
     NSEnumerator *theEnumerator = [allColumns objectEnumerator];
     NSTableColumn *theColumn = nil;
-	NSString *sortKey = [globalPrefs sortedTableColumnKey];
+	NSString *sortKey = [self browserSortKey];
 	NSImage *sortArrow;
-    if([globalPrefs tableIsReverseSorted] ){
+    if([self browserReverseSorted] ){
         sortArrow=[NSImage imageNamed:@"NSDescendingSortIndicator"];
     }else{
     sortArrow=[NSImage imageNamed:@"NSAscendingSortIndicator"];
@@ -609,10 +620,10 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 ////            return NO;
 ////        }
 ////    }else
-//        if([globalPrefs horizontalLayout]&&(selector==@selector(actionHideShowColumn:))){
+//        if([self browserHorizontalLayout]&&(selector==@selector(actionHideShowColumn:))){
 //        BOOL retNo=NO;
 //        BOOL gotMod=[[globalPrefs visibleTableColumns]containsObject:NoteDateModifiedColumnString];//&&[[globalPrefs visibleTableColumns]containsObject:NoteDateCreatedColumnString]);
-//        NSString *key=[globalPrefs sortedTableColumnKey];
+//        NSString *key=[self browserSortKey];
 //        if ([key isEqualToString:NoteDateCreatedColumnString]) {
 //            retNo=[[[menuItem representedObject] identifier] isEqualToString:NoteDateModifiedColumnString];
 //        }else if ([key isEqualToString:NoteDateModifiedColumnString]) {
@@ -631,8 +642,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 
 - (void)setStatusForSortedColumn:(id)sender {
 	NSTableColumn* tableColumn = (NSTableColumn*)sender;
-	NSString *lastColumnName = [globalPrefs sortedTableColumnKey];
-	BOOL sortDescending = [globalPrefs tableIsReverseSorted];
+	NSString *lastColumnName = [self browserSortKey];
+	BOOL sortDescending = [self browserReverseSorted];
 	
 	if ([sender isKindOfClass:[NSMenuItem class]]){
 		tableColumn = [sender representedObject];        
@@ -662,7 +673,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     }
     
 	[self setSortDirection:sortDescending inTableColumn:tableColumn];
-	[globalPrefs setSortedTableColumnKey:[tableColumn identifier] reversed:sortDescending sender:self];
+	[[NVControllerForView(self) browserSession] setSortColumn:(NoteAttributeColumn *)tableColumn reversed:sortDescending];
+    viewMenusValid = NO;
 	[lastCol updateWidthForHighlight];
 }
 
@@ -693,7 +705,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	if (![self numberOfSelectedRows])
 		return nil;
 	
-	return [self defaultNoteCommandsMenuWithTarget:[NSApp delegate]];
+	return [self defaultNoteCommandsMenuWithTarget:NVControllerForView(self)];
 }
 
 static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, SEL aSel, id target, NSInteger tag) {
@@ -772,7 +784,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 //- (void)mouseUp:(NSEvent *)theEvent{
-//    //    [[NSApp delegate] resetModTimers];
+//    //    [NVControllerForView(self) resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 //    [super mouseUp:theEvent];
 //}
@@ -840,7 +852,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 
 - (void)keyDown:(NSEvent*)theEvent {
     
-//    [[NSApp delegate] resetModTimers];
+//    [NVControllerForView(self) resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	unichar keyChar = [theEvent firstCharacter];
 
@@ -856,7 +868,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 			return;
 		}
     } else if (keyChar == NSDeleteCharacter || keyChar == NSDeleteFunctionKey || keyChar == NSDeleteCharFunctionKey) {
-		[[NSApp delegate] deleteNote:self];
+		[NVControllerForView(self) deleteNote:self];
 		return;
 	} else if (keyChar == NSTabCharacter) {
 		[[self window] selectNextKeyView:self];
@@ -932,7 +944,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 //use this method to catch next note/prev note before View menu does
 //thus avoiding annoying flicker and slow-down
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-//   [[NSApp delegate] resetModTimers];
+//   [NVControllerForView(self) resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	NSUInteger mods = [theEvent modifierFlags];
 	
@@ -1031,7 +1043,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 		}
 	} else if (command == @selector(insertTab:)) {
 		
-		if ([globalPrefs horizontalLayout] && !lastEventActivatedTagEdit && ColumnIsSet(NoteLabelsColumn, [globalPrefs tableColumnsBitmap])) {
+		if ([self browserHorizontalLayout] && !lastEventActivatedTagEdit && ColumnIsSet(NoteLabelsColumn, [globalPrefs tableColumnsBitmap])) {
 			//if we're currently renaming a note in horizontal mode, then tab should move focus to tags area
 			
 			[self editRowAtColumnWithIdentifier:NoteLabelsColumnString];
@@ -1041,7 +1053,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
         }
 	} else if (command == @selector(insertBacktab:)) {
 		
-		if ([globalPrefs horizontalLayout] && lastEventActivatedTagEdit) {
+		if ([self browserHorizontalLayout] && lastEventActivatedTagEdit) {
 			//if we're currently tagging a note in horizontal mode, then tab should move focus to renaming
 			
 			[self editRowAtColumnWithIdentifier:NoteTitleColumnString];
@@ -1105,7 +1117,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 	//is it a mouse event? is it within the tags area?
 	//is it a keyboard event? is it command-shift-t?
 	
-	if (![globalPrefs horizontalLayout])
+	if (![self browserHorizontalLayout])
 		return NO;
 	
 	NSEventType type = [event type];
@@ -1132,7 +1144,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (SEL)attributeSetterForColumn:(NoteAttributeColumn*)col {
-	if ([globalPrefs horizontalLayout] && [self columnWithIdentifier:[col identifier]] == 0) {
+	if ([self browserHorizontalLayout] && [self columnWithIdentifier:[col identifier]] == 0) {
 		return lastEventActivatedTagEdit ? @selector(setLabelString:) : @selector(setTitleString:);
 	}
 	return columnAttributeMutator(col);
@@ -1148,7 +1160,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 	BOOL isTitleCol = [self columnWithIdentifier:NoteTitleColumnString] == columnIndex;
 	
 	//if event's mouselocation is inside rowIndex cell's tag rect and this edit is in horizontal mode in the title column
-	BOOL tagsInTitleColumn = [globalPrefs horizontalLayout] && ((isTitleCol && [self eventIsTagEdit:event forColumn:columnIndex row:rowIndex]) ||
+	BOOL tagsInTitleColumn = [self browserHorizontalLayout] && ((isTitleCol && [self eventIsTagEdit:event forColumn:columnIndex row:rowIndex]) ||
 																SYNTHETIC_TAGS_COLUMN_INDEX == columnIndex);
 	
 	if ([self editedRow] == rowIndex && [self currentEditor]) {
@@ -1206,7 +1218,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 
 - (void)cancelOperation:(id)sender {
 	[self abortEditing];
-	[[NSApp delegate] cancelOperation:sender];
+	[NVControllerForView(self) cancelOperation:sender];
 }
 
 - (void)textDidChange:(NSNotification *)aNotification {
@@ -1322,11 +1334,11 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)flagsChanged:(NSEvent *)theEvent{
-	[[NSApp delegate] flagsChanged:theEvent];
+	[NVControllerForView(self) flagsChanged:theEvent];
 }
 
 - (BOOL)needsGridLines{
-    return [globalPrefs showGrid]||(([globalPrefs horizontalLayout])&&(![self usesAlternatingRowBackgroundColors]));
+    return [globalPrefs showGrid]||(([self browserHorizontalLayout])&&(![self usesAlternatingRowBackgroundColors]));
 }
 
 - (void)updateGrid{
