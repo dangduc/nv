@@ -45,6 +45,8 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     NSViewController *listController = [[[NSViewController alloc] init] autorelease];
     NSViewController *editorController = [[[NSViewController alloc] init] autorelease];
     notesSubview = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, NSWidth([mainView bounds]), 180)] autorelease];
+    // Keep native labels, headers, and selection colors suited to a white list.
+    [notesSubview setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
     splitSubview = [[[NVBrowserContentView alloc] initWithFrame:NSMakeRect(0, 0, NSWidth([mainView bounds]), 400)] autorelease];
     [notesSubview setTranslatesAutoresizingMaskIntoConstraints:NO];
     [splitSubview setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -76,6 +78,8 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
 
     [notesScrollView setFrame:[notesSubview bounds]];
     [notesScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [notesScrollView setBackgroundColor:[NSColor whiteColor]];
+    [[notesScrollView contentView] setBackgroundColor:[NSColor whiteColor]];
     [notesSubview addSubview:notesScrollView];
     createNoteButton = [[NSButton alloc] initWithFrame:NSMakeRect(12, 60, NSWidth([notesSubview bounds]) - 24, 32)];
     [createNoteButton setBezelStyle:NSBezelStyleRounded];

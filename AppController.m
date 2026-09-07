@@ -2135,7 +2135,7 @@ terminateApp:
 - (void)updateColorScheme{
     [mainView setBackgroundColor:[NSColor windowBackgroundColor]];
     [notesTableView setGridColor:[NSColor gridColor]];
-    [notesTableView setBackgroundColor:[NSColor controlBackgroundColor]];
+    [notesTableView setBackgroundColor:[NSColor whiteColor]];
     [textView setBackgroundColor:backgrndColor];
     [textView updateTextColors];
     [splitView setNeedsDisplay:YES];
