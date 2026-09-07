@@ -493,7 +493,9 @@ static CFStringRef SynchronizedNoteKeyDescription(const void *value) {
 }
 static CFHashCode SynchronizedNoteHash(const void * o) {
 	
-	return CFHashBytes(o, sizeof(CFUUIDBytes));
+	// Hash UUID bytes for the in-memory recovery dictionary.
+	uLong crc = crc32(0L, Z_NULL, 0);
+	return crc32(crc, (const Bytef*)o, sizeof(CFUUIDBytes));
 }
 static Boolean SynchronizedNoteIsEqual(const void *o, const void *p) {
 	

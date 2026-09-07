@@ -21,6 +21,7 @@
 #import "NSBezierPath_NV.h"
 #import "NotationPrefs.h"
 #import "GlobalPrefs.h"
+#import "BufferUtils.h"
 
 #define SYSTEM_LIST_FONT_SIZE 12.0f
 
