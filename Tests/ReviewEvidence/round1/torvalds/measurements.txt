@@ -1,0 +1,5 @@
+EVIDENCE hidden-note font old=12 requested=21 model=21 session=12
+EVIDENCE reopened-note display-font=12 expected=21
+EVIDENCE model-font-after-edit=12 expected=21
+EVIDENCE deleted session still cached=1 session-count=2
+TORVALDS ROUND 1 PROBES COMPLETED (7 checks)
