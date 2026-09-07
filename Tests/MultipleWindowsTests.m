@@ -88,7 +88,7 @@ static void Swap(Class cls, SEL original, SEL replacement) {
                 [[[second browserSession] searchString] isEqualToString:@"only"],
                 @"relaunch restores distinct non-empty browser queries");
             DualField *firstField = [first valueForKey:@"field"], *secondField = [second valueForKey:@"field"];
-            Check([[firstField stringValue] isEqualToString:@"Beta"] && [[secondField stringValue] isEqualToString:@"only"] &&
+            Check([[firstField stringValue] isEqualToString:@"beta"] && [[secondField stringValue] isEqualToString:@"only"] &&
                 [[firstField snapbackString] isEqualToString:@"beta"],
                 @"relaunch restores each browser search field");
             if ([[firstField snapbackString] length]) [firstField snapback:self];
@@ -143,9 +143,10 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [sa setSortColumn:[[a valueForKey:@"notesTableView"] noteAttributeColumnForIdentifier:NoteTitleColumnString] reversed:NO];
         [sb setSortColumn:[[b valueForKey:@"notesTableView"] noteAttributeColumnForIdentifier:NoteTitleColumnString] reversed:YES];
         Check([sa noteObjectAtFilteredIndex:0] == alpha && [sb noteObjectAtFilteredIndex:0] == beta, @"each window sorts independently");
-        BOOL bLayout = [b horizontalLayout];
-        [a switchViewLayout:self]; Pump();
-        Check([a horizontalLayout] != bLayout && [b horizontalLayout] == bLayout, @"layout changes affect only their browser");
+        CGFloat bHeight = [b notesListHeight];
+        [a setNotesListHeight:100]; Pump();
+        Check(![a horizontalLayout] && ![b horizontalLayout] && fabs([b notesListHeight] - bHeight) < 1,
+            @"stacked browser dividers remain independent");
         [a revealNote:alpha options:0]; [b revealNote:alpha options:0]; Pump();
         LinkingEditor *ea = [a valueForKey:@"textView"], *eb = [b valueForKey:@"textView"];
         Check([ea textStorage] == [eb textStorage], @"same note has one shared NSTextStorage");

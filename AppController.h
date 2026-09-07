@@ -25,12 +25,12 @@
 @class GlobalPrefs;
 @class PrefsWindowController;
 @class DualField;
-@class RBSplitView;
-@class RBSplitSubview;
-@class TitlebarButton;
-@class LinearDividerShader;
+
+
+
+
 @class TagEditingManager;
-@class DFView;
+
 @class PreviewController;
 @class WordCountToken;
 //@class AugmentedScrollView;
@@ -52,26 +52,20 @@
 
 @interface AppController : NSWindowController
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-<NSToolbarDelegate, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
+<NSToolbarDelegate, NSToolbarItemValidation, NSTableViewDelegate, NSWindowDelegate, NSSearchFieldDelegate, NSTextViewDelegate>
 #endif
 {
     BOOL applicationOwner, awakenedViews, browserHorizontalLayout, reloadingNotesList;
-    NSWindow *normalWindow;
     NSInteger ModFlagger, popped;
-    BOOL splitViewAwoke;
     NSArray *windowObjects;
     NSMutableDictionary *noteSelections;
     NVNoteEditingSession *editingSession;
     NSTextStorage *emptyEditorStorage;
     NSString *browserIdentifier;
 	IBOutlet NSMenuItem *fsMenuItem;
-	BOOL wasVert;
-    BOOL wasDFVisible;
-    BOOL fieldWasFirstResponder;
     BOOL isAutocompleting;
     BOOL wasDeleting;
     IBOutlet ETContentView *mainView;
-	DFView *dualFieldView;
     NSStatusItem *statusItem;
 	IBOutlet NSMenu *statBarMenu;
 	TagEditingManager *tagEditor;
@@ -79,14 +73,20 @@
 	NSColor *foregrndColor;
 	NSInteger userScheme;
 	NSString *noteFormat;
-	NSTextView *theFieldEditor;
-    NSDictionary *fieldAttributes;
 	NSTimer *modifierTimer;
 	IBOutlet WordCountToken *wordCounter;
     IBOutlet DualField *field;
-	RBSplitSubview *splitSubview;
-	RBSplitSubview *notesSubview;
-	RBSplitView *splitView;
+    NSSplitViewController *browserSplitController;
+    NSSplitView *splitView;
+    NSView *notesSubview, *splitSubview;
+    NSTextField *noteTitleField, *noteTagsField;
+    NSButton *createNoteButton;
+    NoteObject *metadataNote;
+    NSTextField *metadataControl;
+    NSString *metadataOriginalValue;
+    NSToolbarItem *syncToolbarItem;
+    BOOL committingMetadata, searchHasPendingComposition;
+    CGFloat pendingListHeight;
     IBOutlet ETScrollView *notesScrollView;
     IBOutlet ETNoteScrollView *textScrollView;
     IBOutlet NotesTableView *notesTableView;
@@ -98,12 +98,9 @@
 	IBOutlet NSProgressIndicator *syncWaitSpinner;
 	NSToolbar *toolbar;
 	NSToolbarItem *dualFieldItem;
-	TitlebarButton *titleBarButton;
 	
 	BOOL waitedForUncommittedChanges;
 	
-    //	NSImage *verticalDividerImg;
-	LinearDividerShader *dividerShader;
 	
 	NSString *URLToInterpretOnLaunch;
 	NSMutableArray *pathsToOpenOnLaunch;
@@ -132,7 +129,6 @@
     IBOutlet NSMenuItem *printPreviewItem;
     IBOutlet NSMenuItem *savePreviewItem;
     NSInteger currentPreviewMode;
-    BOOL splitViewIsChangingLayout;
 }
 
 @property(readwrite)BOOL isEditing;
@@ -179,7 +175,6 @@ void outletObjectAwoke(id sender);
 //- (void)_expandToolbar;
 //- (void)_collapseToolbar;
 - (void)_forceRegeneratePreviewsForTitleColumn;
-- (void)_configureDividerForCurrentLayout;
 - (NoteObject*)selectedNoteObject;
 
 - (void)restoreListStateUsingPreferences;
@@ -207,7 +202,6 @@ void outletObjectAwoke(id sender);
 - (IBAction)multiTag:(id)sender;
 - (void)releaseTagEditor:(NSNotification *)note;
 - (void)setDualFieldInToolbar;
-- (void)setDualFieldInView;
 - (void)setDualFieldIsVisible:(BOOL)isVis;
 //- (void)hideDualFieldView;
 //- (void)showDualFieldView;
@@ -221,7 +215,6 @@ void outletObjectAwoke(id sender);
 - (IBAction)setBWColorScheme:(id)sender;
 - (IBAction)setLCColorScheme:(id)sender;
 - (IBAction)setUserColorScheme:(id)sender;
-- (void)updateFieldAttributes;
 - (void)updateColorScheme;
 - (void)setBackgrndColor:(NSColor *)inColor;
 - (void)setForegrndColor:(NSColor *)inColor;
@@ -277,4 +270,24 @@ void outletObjectAwoke(id sender);
 - (NSString *)browserIdentifier;
 - (id)tablePreviewForNote:(NoteObject *)note;
 - (void)unregisterBrowserObservers;
+@end
+
+@interface AppController (BrowserUI)
+- (void)setupBrowserContent;
+- (void)updateNoteHeader;
+- (void)commitNoteMetadata;
+- (void)beginNoteMetadataEditing:(NSTextField *)control;
+- (void)cancelNoteMetadataEditing;
+- (void)updateSearchAffordance;
+- (void)updateSyncToolbarItem;
+- (CGFloat)notesListHeight;
+- (void)setNotesListHeight:(CGFloat)height;
+- (void)restoreNotesListHeight;
+- (IBAction)newNote:(id)sender;
+- (IBAction)createNoteFromSearch:(id)sender;
+- (IBAction)showNoteActions:(id)sender;
+- (IBAction)showSyncStatus:(id)sender;
+- (IBAction)applyNoteMetadata:(id)sender;
+- (IBAction)setSystemColorScheme:(id)sender;
+- (void)browserAppearanceChanged;
 @end

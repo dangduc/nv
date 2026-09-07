@@ -6,6 +6,7 @@ import sys
 
 repo = Path(__file__).resolve().parents[1]
 checks = [
+    'native-ui/run.py',
     'ownership/run.py',
     'preview-lifetime/run.py',
     'search/run.py',

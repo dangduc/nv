@@ -13,63 +13,19 @@
 
 
 #import <Cocoa/Cocoa.h>
-
-enum { BUTTON_HIDDEN, BUTTON_NORMAL, BUTTON_PRESSED };
-
-@interface DualFieldCell : NSTextFieldCell {
-	int clearButtonState, snapbackButtonState;
-}
-
-- (BOOL)snapbackButtonIsVisible;
-- (void)setShowsSnapbackButton:(BOOL)shouldShow;
-
-- (BOOL)clearButtonIsVisible;
-- (void)setShowsClearButton:(BOOL)shouldShow;
-
-- (NSRect)clearButtonRectForBounds:(NSRect)rect;
-- (NSRect)snapbackButtonRectForBounds:(NSRect)rect;
-- (NSRect)textAreaForBounds:(NSRect)rect;
-
-- (BOOL)handleMouseDown:(NSEvent *)theEvent;
-
-@end
-
 @class NoteBookmark;
 
-@interface DualField : NSTextField {
-	IBOutlet NSTableView *notesTable;
-	NSUInteger lastLengthReplaced;
-	NSString *snapbackString, *swappedOriginalString;
-	
-	NSToolTipTag docIconTag, textAreaTag, clearButtonTag;
-	NSTrackingRectTag docIconRectTag;
-	
-	BOOL showsDocumentIcon;
-	
-	//cleared when doing a new manual search
-	NSMutableArray *followedLinks;
-	
-	NSCursor *IBeamCursor;
-	
-	NSTimer *modifierTimer;
+// The nib class name remains stable while AppKit owns search-field rendering.
+@interface DualField : NSSearchField {
+    IBOutlet NSTableView *notesTable;
+    NSMutableArray *followedLinks;
+    NSString *snapbackString;
 }
-
-- (void)setTrackingRect;
-
-- (void)setShowsDocumentIcon:(BOOL)showsIcon;
-- (BOOL)showsDocumentIcon;
-
 - (BOOL)hasFollowedLinks;
 - (void)clearFollowedLinks;
-- (void)pushFollowedLink:(NoteBookmark*)aBM;
-- (NoteBookmark*)popLastFollowedLink;
-
-- (void)setSnapbackString:(NSString*)string;
-- (NSString*)snapbackString;
-+ (NSImage*)snapbackImageWithString:(NSString*)string;
-
+- (void)pushFollowedLink:(NoteBookmark *)bookmark;
+- (NoteBookmark *)popLastFollowedLink;
+- (void)setSnapbackString:(NSString *)string;
+- (NSString *)snapbackString;
 - (void)snapback:(id)sender;
-
-- (NSUInteger)lastLengthReplaced;
-
 @end

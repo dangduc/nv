@@ -60,6 +60,10 @@ AppController *NVControllerForView(NSView *view) {
 - (void)retargetMenu:(NSMenu *)menu {
     if ([(id)[menu delegate] isKindOfClass:[NSView class]]) [menu setDelegate:(id)self];
     for (NSMenuItem *item in [menu itemArray]) {
+        if ([item action] == @selector(switchViewLayout:) || [item action] == @selector(toggleLayoutOrientation:)) {
+            [menu removeItem:item];
+            continue;
+        }
         if ([[item target] isKindOfClass:[AppController class]] || [[item target] isKindOfClass:[NSView class]]) [item setTarget:self];
         if ([item submenu]) [self retargetMenu:[item submenu]];
     }
@@ -74,6 +78,28 @@ AppController *NVControllerForView(NSView *view) {
 - (void)configureMenus {
     [self retargetMenu:[NSApp mainMenu]];
     [self retargetMenu:[initialBrowser statBarMenu]];
+    NSMenu *notesMenu = [[[NSApp mainMenu] itemWithTag:NOTES_MENU_ID] submenu];
+    if ([notesMenu indexOfItemWithTarget:self andAction:@selector(newNote:)] < 0) {
+        NSMenuItem *newNoteItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"New Note", nil) action:@selector(newNote:) keyEquivalent:@"n"] autorelease];
+        [newNoteItem setTarget:self];
+        [notesMenu insertItem:newNoteItem atIndex:0];
+    }
+    for (NSMenu *root in @[[NSApp mainMenu], [initialBrowser statBarMenu]]) {
+        NSMutableArray *pending = [NSMutableArray arrayWithObject:root];
+        for (NSUInteger i = 0; i < [pending count]; i++) {
+            NSMenu *candidate = pending[i];
+            BOOL hasColors = NO, hasSystem = NO;
+            for (NSMenuItem *item in [candidate itemArray]) {
+                if ([item submenu]) [pending addObject:[item submenu]];
+                if ([item action] == @selector(setBWColorScheme:)) hasColors = YES;
+                if ([item action] == @selector(setSystemColorScheme:)) hasSystem = YES;
+            }
+            if (hasColors && !hasSystem) {
+                NSMenuItem *system = [candidate addItemWithTitle:NSLocalizedString(@"Follow System Appearance", nil) action:@selector(setSystemColorScheme:) keyEquivalent:@""];
+                [system setTarget:self];
+            }
+        }
+    }
     NSMenu *menu = [NSApp windowsMenu];
     // The old single-window command used this shortcut too. AppKit clears duplicates.
     for (NSMenuItem *existing in [menu itemArray]) {
@@ -213,6 +239,22 @@ AppController *NVControllerForView(NSView *view) {
 - (void)notationListMightChange:(NotationController *)notation { }
 - (void)notationListDidChange:(NotationController *)notation { [self scheduleBrowserRefresh]; }
 - (void)rowShouldUpdate:(NSInteger)row { [self scheduleBrowserRefresh]; }
+- (void)noteMetadataUpdated:(NoteObject *)note {
+    for (AppController *browser in [self browserControllers]) {
+        if ([browser selectedNoteObject] == note) [browser updateNoteHeader];
+    }
+    [self scheduleBrowserRefresh];
+}
+- (void)setNote:(NoteObject *)note metadataValue:(NSString *)value isTitle:(BOOL)isTitle {
+    if (![[library allNotes] containsObject:note]) return;
+    NSString *oldValue = isTitle ? titleOfNote(note) : labelsOfNote(note) ?: @"";
+    if ([oldValue isEqualToString:value]) return;
+    NSUndoManager *undo = [library undoManager];
+    [[undo prepareWithInvocationTarget:self] setNote:note metadataValue:oldValue isTitle:isTitle];
+    if (isTitle) [note setTitleString:value];
+    else [note setLabelString:value];
+    [undo setActionName:isTitle ? NSLocalizedString(@"Rename Note", nil) : NSLocalizedString(@"Edit Tags", nil)];
+}
 - (void)titleUpdatedForNote:(NoteObject *)note {
     for (AppController *browser in [self browserControllers]) [browser titleUpdatedForNote:note];
     [self scheduleBrowserRefresh];
@@ -292,6 +334,12 @@ AppController *NVControllerForView(NSView *view) {
     return [super methodSignatureForSelector:selector] ?: [[self forwardTargetForSelector:selector] methodSignatureForSelector:selector];
 }
 - (void)forwardInvocation:(NSInvocation *)invocation {
+    SEL selector = [invocation selector];
+    if (selector == @selector(setSystemColorScheme:) || selector == @selector(setBWColorScheme:) ||
+        selector == @selector(setLCColorScheme:) || selector == @selector(setUserColorScheme:)) {
+        for (AppController *browser in [self browserControllers]) [invocation invokeWithTarget:browser];
+        return;
+    }
     id target = [self forwardTargetForSelector:[invocation selector]];
     if ([target respondsToSelector:[invocation selector]]) [invocation invokeWithTarget:target];
     else [self doesNotRecognizeSelector:[invocation selector]];

@@ -21,6 +21,8 @@
 - (void)browserBecameActive:(AppController *)browser;
 - (void)browserWillClose:(AppController *)browser;
 - (void)saveWindowStates;
+- (void)noteMetadataUpdated:(NoteObject *)note;
+- (void)setNote:(NoteObject *)note metadataValue:(NSString *)value isTitle:(BOOL)isTitle;
 - (void)restoreWindowStates;
 - (IBAction)newWindow:(id)sender;
 - (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note;

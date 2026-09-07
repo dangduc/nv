@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B40C00000000000000000001 /* AppController_BrowserUI.m in Sources */ = {isa = PBXBuildFile; fileRef = B40C00000000000000000002 /* AppController_BrowserUI.m */; };
 		210A10690B66720F005BE981 /* BookmarksTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 210A10670B66720F005BE981 /* BookmarksTable.m */; };
 		210C07530B6BF0A2005D23A8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210C07230B6BF0A1005D23A8 /* WebKit.framework */; };
 		2110C0D90B65F09F00F5C52E /* SavedSearches.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2110C0CF0B65F09E00F5C52E /* SavedSearches.nib */; };
@@ -310,6 +311,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B40C00000000000000000002 /* AppController_BrowserUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController_BrowserUI.m; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		210A10660B66720F005BE981 /* BookmarksTable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BookmarksTable.h; sourceTree = "<group>"; };
 		210A10670B66720F005BE981 /* BookmarksTable.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BookmarksTable.m; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 				2114C11409575BD400614E74 /* AppController.h */,
 				2114C11509575BD400614E74 /* AppController.m */,
 				1D570B8108A120C467618881 /* AppController_MultipleWindows.m */,
+				B40C00000000000000000002 /* AppController_BrowserUI.m */,
 				ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */,
 				6570F437CC66EC34D8B00059 /* NVNoteEditingSession.h */,
 				E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */,
@@ -1670,6 +1673,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				2114C11609575BD400614E74 /* AppController.m in Sources */,
 				C758EB1A9F06DE97368E4DA6 /* AppController_MultipleWindows.m in Sources */,
+				B40C00000000000000000001 /* AppController_BrowserUI.m in Sources */,
 				3FAC17CB2473CC51FC413902 /* NVNoteEditingSession.m in Sources */,
 				6B68E49DBA31ABFE2D588493 /* NVBrowserSession.m in Sources */,
 				1623951E9A281E87B499BE94 /* NVApplicationController.m in Sources */,
@@ -1726,8 +1730,6 @@
 				21582DC50B73F59B00711663 /* BookmarksController.m in Sources */,
 				213621F20B92414F008C0830 /* MultiTextFinder.m in Sources */,
 				21469C8C0BEBA6A10094835F /* TemporaryFileCache.m in Sources */,
-				2182B39A106B2296008641E4 /* RBSplitSubview.m in Sources */,
-				2182B39B106B2296008641E4 /* RBSplitView.m in Sources */,
 				D3EECA00106F66C70023D7F8 /* NVPasswordGenerator.m in Sources */,
 				21BD2ED110DAF31500BA3DF6 /* LinearDividerShader.m in Sources */,
 				21F078FC10EC280E004FE56F /* NotationSyncServiceManager.m in Sources */,
@@ -1741,7 +1743,6 @@
 				21B1BC361104D20E0004A7D0 /* InvocationRecorder.m in Sources */,
 				21AD2550110A8BA600B7A985 /* SimplenoteEntryCollector.m in Sources */,
 				21AD2850110BE99B00B7A985 /* SyncSessionController.m in Sources */,
-				212C6952110E1940004DD82C /* TitlebarButton.m in Sources */,
 				21B548FA112F307E00E163A1 /* NotationDirectoryManager.m in Sources */,
 				57F27FB91197407400C63ACF /* SearchCommand.m in Sources */,
 				216D987F12CE68AD0004B9CE /* NSFileManager_NV.m in Sources */,

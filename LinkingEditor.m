@@ -392,7 +392,23 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	didRenderFully = YES;
 }
 - (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)aLayoutManager {
-	didRenderFully = NO;	
+	didRenderFully = NO;
+}
+
+- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes
+            forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range {
+    if (!screen || index >= [[manager textStorage] length]) return attributes;
+    // Appearance belongs to this editor's layout, not the shared or archived text.
+    // Retain temporary search highlights and respect link boundaries.
+    NSRange linkRange;
+    id link = [[manager textStorage] attribute:NSLinkAttributeName atIndex:index effectiveRange:&linkRange];
+    if (range) *range = NSIntersectionRange(*range, linkRange);
+    NSColor *color = link ? [[self preferredLinkAttributes] objectForKey:NSForegroundColorAttributeName] :
+        [NVControllerForView(self) foregrndColor];
+    if (!color) return attributes;
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:attributes ?: @{}];
+    [result setObject:color forKey:NSForegroundColorAttributeName];
+    return result;
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type {

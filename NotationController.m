@@ -924,6 +924,9 @@ bail:
 }
 
 - (void)note:(NoteObject*)note attributeChanged:(NSString*)attribute {
+    // Tags are also shown in editor headers, even when the Tags column is hidden.
+    if ([attribute isEqualToString:NoteLabelsColumnString] && [delegate respondsToSelector:@selector(noteMetadataUpdated:)])
+        [delegate performSelector:@selector(noteMetadataUpdated:) withObject:note];
 	
 	if ([attribute isEqualToString:NotePreviewString]) {
 		if ([prefsController tableColumnsShowPreview]) {
