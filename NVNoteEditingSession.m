@@ -8,6 +8,29 @@ NSString * const NVNoteEditorDidChangeNotification = @"NVNoteEditorDidChange";
 - (void)preserveExternalContents:(NSAttributedString *)contents forNote:(NoteObject *)note;
 @end
 
+@interface NVNoteEditingSession (NVMetadataHistory)
+- (void)restoreMetadataValue:(NSString *)value isTitle:(BOOL)isTitle;
+@end
+
+// A separate target lets external body snapshots discard text history without
+// discarding metadata history. The session owns this target and clears its actions.
+@interface NVNoteMetadataUndoTarget : NSObject {
+    NVNoteEditingSession *session; // Borrowed from the owner.
+}
+- (id)initWithSession:(NVNoteEditingSession *)editingSession;
+- (void)restoreMetadataValue:(NSString *)value isTitle:(BOOL)isTitle;
+@end
+
+@implementation NVNoteMetadataUndoTarget
+- (id)initWithSession:(NVNoteEditingSession *)editingSession {
+    if ((self = [super init])) session = editingSession;
+    return self;
+}
+- (void)restoreMetadataValue:(NSString *)value isTitle:(BOOL)isTitle {
+    [session restoreMetadataValue:value isTitle:isTitle];
+}
+@end
+
 // A single replacement describes each side of an interrupted composition.
 static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replacementRange) {
     NSUInteger prefix = 0, oldEnd = [before length], newEnd = [after length];
@@ -105,6 +128,7 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
         note = [aNote retain];
         [[note undoManager] setGroupsByEvent:NO];
         [[note undoManager] setLevelsOfUndo:200];
+        metadataUndoTarget = [[NVNoteMetadataUndoTarget alloc] initWithSession:self];
         committedContents = [[note contentString] copy];
         textStorage = [[NSTextStorage alloc] initWithAttributedString:committedContents];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteContentsChanged:)
@@ -214,6 +238,25 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     [self finishEditingForHistoryChange];
     if ([[note undoManager] canRedo]) [[note undoManager] redo];
 }
+- (void)setMetadataValue:(NSString *)value isTitle:(BOOL)isTitle {
+    NSString *oldValue = isTitle ? titleOfNote(note) : labelsOfNote(note) ?: @"";
+    if ([oldValue isEqualToString:value]) return;
+    [self finishEditingForHistoryChange];
+    [[note undoManager] beginUndoGrouping];
+    [self restoreMetadataValue:value isTitle:isTitle];
+    [[note undoManager] endUndoGrouping];
+}
+- (void)restoreMetadataValue:(NSString *)value isTitle:(BOOL)isTitle {
+    if (![[[note delegate] allNotes] containsObject:note]) return;
+    NSString *oldValue = [[(isTitle ? titleOfNote(note) : labelsOfNote(note) ?: @"") copy] autorelease];
+    NSUndoManager *undo = [note undoManager];
+    // Only the value is retained by history; retaining the note here would cycle
+    // through the note's own undo manager.
+    [[undo prepareWithInvocationTarget:metadataUndoTarget] restoreMetadataValue:oldValue isTitle:isTitle];
+    if (isTitle) [note setTitleString:value];
+    else [note setLabelString:value];
+    [undo setActionName:isTitle ? NSLocalizedString(@"Rename Note", nil) : NSLocalizedString(@"Edit Tags", nil)];
+}
 - (void)commitPendingTextChanges {
     // Layout and attachment can normalize attributes without a user edit.
     if (pendingExternalContents || [self hasPendingTextChanges]) [self commitTextChanges];
@@ -257,10 +300,14 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
 - (void)close {
     [self commitPendingTextChanges];
     [[note undoManager] removeAllActionsWithTarget:self];
+    [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[note undoManager] removeAllActionsWithTarget:self];
+    [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];
+    [metadataUndoTarget release];
     [note release];
     [textStorage release];
     [committedContents release];

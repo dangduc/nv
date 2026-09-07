@@ -46,23 +46,35 @@
         Check([[[[self selectedNoteObject] contentString] string] length] == 0, @"New Note never copies the previous body");
         [self searchForString:@""]; [self revealNote:alpha options:0]; Pump();
         [[library undoManager] removeAllActions];
+        [[alpha undoManager] removeAllActions];
+        NSMenuItem *undoItem = [[[NSMenuItem alloc] initWithTitle:@"Undo" action:@selector(undo:) keyEquivalent:@"z"] autorelease];
+        NSMenuItem *redoItem = [[[NSMenuItem alloc] initWithTitle:@"Redo" action:@selector(redo:) keyEquivalent:@"Z"] autorelease];
         [self renameNote:self];
         NSTextView *titleEditor = (id)[noteTitleField currentEditor];
         [titleEditor insertText:@"Renamed Alpha" replacementRange:NSMakeRange(0, [[titleEditor string] length])];
-        [browserWindow makeFirstResponder:textView]; Pump();
+        [self control:noteTitleField textView:titleEditor doCommandBySelector:@selector(insertNewline:)]; Pump();
         Check([titleOfNote(alpha) isEqual:@"Renamed Alpha"] && [[field stringValue] isEqual:@""],
             @"title edits commit through the model and leave search unchanged");
-        [[library undoManager] undo]; Pump();
-        Check([titleOfNote(alpha) isEqual:@"Alpha"], @"metadata undo restores the original title");
-        [[library undoManager] redo]; Pump();
-        Check([titleOfNote(alpha) isEqual:@"Renamed Alpha"], @"metadata redo restores the edited title");
+        Check([browserWindow firstResponder] == textView && [textView validateMenuItem:undoItem],
+            @"Return focuses the body with metadata Undo enabled");
+        [NSApp sendAction:@selector(undo:) to:nil from:undoItem]; Pump();
+        Check([titleOfNote(alpha) isEqual:@"Alpha"] && [textView validateMenuItem:redoItem],
+            @"responder Undo restores the original title and enables Redo");
+        [NSApp sendAction:@selector(redo:) to:nil from:redoItem]; Pump();
+        Check([titleOfNote(alpha) isEqual:@"Renamed Alpha"], @"responder Redo restores the edited title");
         Check([(NSView *)wordCounter window] == browserWindow, @"word count remains attached to its browser header");
         [self tagNote:self];
         NSTextView *tagsEditor = (id)[noteTagsField currentEditor];
         [tagsEditor insertText:@"work, ideas" replacementRange:NSMakeRange(0, [[tagsEditor string] length])];
-        [browserWindow makeFirstResponder:textView]; Pump();
+        [self control:noteTagsField textView:tagsEditor doCommandBySelector:@selector(insertNewline:)]; Pump();
         Check([labelsOfNote(alpha) containsString:@"work"] && [labelsOfNote(alpha) containsString:@"ideas"],
             @"tags edited in the header reach the note model");
+        [NSApp sendAction:@selector(undo:) to:nil from:undoItem]; Pump();
+        Check([labelsOfNote(alpha) length] == 0 && [titleOfNote(alpha) isEqual:@"Renamed Alpha"],
+            @"responder Undo restores tags without changing the title");
+        [NSApp sendAction:@selector(redo:) to:nil from:redoItem]; Pump();
+        Check([labelsOfNote(alpha) containsString:@"work"] && [labelsOfNote(alpha) containsString:@"ideas"],
+            @"responder Redo restores the edited tags");
         [self renameNote:self];
         titleEditor = (id)[noteTitleField currentEditor];
         [titleEditor insertText:@"Discard this" replacementRange:NSMakeRange(0, [[titleEditor string] length])];
@@ -82,6 +94,7 @@
         [self revealNote:beta options:0]; Pump();
         Check([titleOfNote(alpha) isEqual:@"Commit to Alpha"] && [titleOfNote(beta) isEqual:@"Beta"],
             @"changing selection commits metadata to its original note");
+#include "Tests/Regression/native-metadata/checks.inc"
         [self searchForString:@"beta"]; Pump();
         [self setDualFieldIsVisible:NO];
         [self bringFocusToControlField:self]; Pump();
@@ -132,7 +145,6 @@
             [self setSystemColorScheme:self];
             for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
                 [browserWindow setAppearance:[NSAppearance appearanceNamed:appearance]]; Pump();
-                [self browserAppearanceChanged];
                 CGFloat brightness = [[[self backgrndColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent];
                 Check([appearance isEqual:NSAppearanceNameAqua] ? brightness > .8 : brightness < .3,
                     @"system editor background follows the window appearance");

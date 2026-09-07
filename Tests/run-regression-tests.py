@@ -7,6 +7,8 @@ import sys
 repo = Path(__file__).resolve().parents[1]
 checks = [
     'native-ui/run.py',
+    'native-controls/run.py',
+    'native-rendering/run.py',
     'ownership/run.py',
     'preview-lifetime/run.py',
     'search/run.py',

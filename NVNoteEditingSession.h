@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-@class NoteObject;
+@class NoteObject, NVNoteMetadataUndoTarget;
 
 extern NSString * const NVNoteContentsDidChangeNotification;
 extern NSString * const NVNoteEditorDidChangeNotification;
@@ -10,6 +10,7 @@ extern NSString * const NVNoteEditorDidChangeNotification;
     NSTextStorage *textStorage;
     NSAttributedString *committedContents;
     NSAttributedString *pendingExternalContents;
+    NVNoteMetadataUndoTarget *metadataUndoTarget;
     BOOL writingNote;
 }
 - (id)initWithNote:(NoteObject *)aNote;
@@ -19,6 +20,7 @@ extern NSString * const NVNoteEditorDidChangeNotification;
 - (BOOL)canRedo;
 - (void)undo;
 - (void)redo;
+- (void)setMetadataValue:(NSString *)value isTitle:(BOOL)isTitle;
 - (void)commitTextChanges;
 - (void)commitPendingTextChanges;
 - (void)reloadFromNote;

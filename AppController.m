@@ -1057,7 +1057,7 @@ terminateApp:
 		
 		if ((command == @selector(insertTab:) || command == @selector(insertTabIgnoringFieldEditor:))) {
 			//[self setEmptyViewState:NO];
-			if (![[aTextView string] length]) {
+			if (!currentNote && ![[aTextView string] length]) {
 				return YES;
 			}
 			if (!currentNote && [notationController preferredSelectedNoteIndex] != NSNotFound && [prefsController autoCompleteSearches]) {
@@ -1496,6 +1496,15 @@ terminateApp:
 	return noteTitles;
 }
 
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)aTextView completions:(NSArray *)words
+  forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)anIndex {
+    if (control == noteTagsField) {
+        return [(id<NSTextViewDelegate>)notesTableView textView:aTextView completions:words
+            forPartialWordRange:charRange indexOfSelectedItem:anIndex];
+    }
+    return words;
+}
+
 
 - (IBAction)fieldAction:(id)sender {
 	
@@ -1885,11 +1894,7 @@ terminateApp:
 - (void)makeActiveAndShowWindowByFocusingControlField:(BOOL)focus andForcingActivation:(BOOL)activate{
     [[NVApplicationController sharedController] browserBecameActive:self];
 
-    if (focus) {
-        if (![self dualFieldIsVisible]){
-            [self setDualFieldIsVisible:YES];
-        }
-    }
+    if (focus) [self setDualFieldIsVisible:YES];
 
     CGFloat delay=0.0f;
     if (activate&&![NSApp isActive]) {
