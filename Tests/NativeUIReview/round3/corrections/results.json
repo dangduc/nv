@@ -1,0 +1,20 @@
+[
+  {
+    "name": "list-baseline",
+    "launcher_exit": 0,
+    "fixture_passed": true,
+    "passed_assertions": 86,
+    "activated_fault_calls": 0,
+    "failures": []
+  },
+  {
+    "name": "list-appearance-fault",
+    "launcher_exit": 0,
+    "fixture_passed": false,
+    "passed_assertions": 79,
+    "activated_fault_calls": 4,
+    "failures": [
+      "unselected alternating note rows retain a pale rendered background under the window appearance"
+    ]
+  }
+]

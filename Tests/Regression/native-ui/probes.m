@@ -29,6 +29,7 @@ static NoteObject *MakeNote(NotationController *library, NSString *title, NSStri
 static void Swap(Class cls, SEL original, SEL replacement) {
     method_exchangeImplementations(class_getInstanceMethod(cls, original), class_getInstanceMethod(cls, replacement));
 }
+#include "Tests/Regression/native-list/pixels.inc"
 @interface NSFileManager (NVTestPaths)
 - (NSString *)nv_testSupportDirectory;
 @end
@@ -41,6 +42,13 @@ static void Swap(Class cls, SEL original, SEL replacement) {
 @end
 @implementation ODBEditor (NVTestIsolation)
 - (void)nv_skipExternalEditorInitialization:(id)prefs { }
+@end
+
+@interface NotationController (NVTestSyncIsolation)
+- (void)nv_skipUISync;
+@end
+@implementation NotationController (NVTestSyncIsolation)
+- (void)nv_skipUISync { }
 @end
 
 @interface AppController (NVWindowTests)
@@ -56,6 +64,7 @@ static void Swap(Class cls, SEL original, SEL replacement) {
     Swap(self, @selector(applicationDidFinishLaunching:), @selector(nv_testLaunch:));
     Swap(self, @selector(runDelayedUIActionsAfterLaunch), @selector(nv_testDelayed));
     Swap([NSFileManager class], @selector(applicationSupportDirectory), @selector(nv_testSupportDirectory));
+    Swap([NotationController class], @selector(startSyncServices), @selector(nv_skipUISync));
     Swap([ODBEditor class], @selector(initializeDatabase:), @selector(nv_skipExternalEditorInitialization:));
 }
 - (void)nv_testDelayed { }
