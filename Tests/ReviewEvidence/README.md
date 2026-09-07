@@ -1,6 +1,6 @@
 # PR review evidence
 
-These files collect evidence for three planned review rounds of the multiple-browser-window change. Each report identifies its reviewed commit, reproduction command, observed results, and limits.
+These files record three review rounds of the multiple-browser-window change. Each report identifies its reviewed commit, reproduction command, observed results, and limits.
 
 The six AI perspectives use methods associated with John Ousterhout, Dan Luu, Linus Torvalds, and Kyle Kingsbury, plus compatibility and test skeptics. The named people did not participate.
 
@@ -12,6 +12,7 @@ Use the evidence commit below and build its Development app. Each evidence commi
 | --- | --- | --- |
 | 1 | `30791c5` | `8e400d4` |
 | 2 | `4008592` | `201c5f5` |
+| 3 | `3502c7c` | `305629b` |
 
 Reports preserve measured results. Timings depend on the machine; deterministic content and access-count assertions provide the stronger checks.
 

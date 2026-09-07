@@ -17,6 +17,88 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
     return NSMakeRange(prefix, oldEnd - prefix);
 }
 
+typedef struct { NSRange oldRange, newRange; } NVSnapshotEdit;
+typedef struct { NSUInteger reachedPlusOne; BOOL insertion; } NVSnapshotStep;
+
+// Bound both the edit distance and search work. Large or distant changes use
+// the existing single-range replacement instead of an unbounded document diff.
+static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange changed, NSRange replacement) {
+    NSUInteger n = changed.length, m = replacement.length;
+    NSUInteger limit = MIN(256U, n + m), work = 0;
+    if (!n || !m || (n > m ? n - m : m - n) > limit) return nil;
+    NSUInteger width = 2 * limit + 3, offset = limit + 1;
+    NSMutableData *trace = [[NSMutableData alloc] initWithLength:(limit + 1) * width * sizeof(NVSnapshotStep)];
+    NVSnapshotStep *steps = [trace mutableBytes];
+    NSInteger distance = -1;
+    for (NSUInteger d = 0; d <= limit && distance < 0; d++) {
+        NVSnapshotStep *row = steps + d * width;
+        NVSnapshotStep *previous = d ? row - width : NULL;
+        for (NSInteger k = -(NSInteger)d; k <= (NSInteger)d; k += 2) {
+            if (++work > 1000000U) { [trace release]; return nil; }
+            NSInteger x = 0;
+            BOOL insertion = NO;
+            if (d) {
+                NSInteger deleted = -1, inserted = -1;
+                if (previous[offset + k - 1].reachedPlusOne) {
+                    NSUInteger oldX = previous[offset + k - 1].reachedPlusOne - 1;
+                    if (oldX < n) deleted = oldX + 1;
+                }
+                if (previous[offset + k + 1].reachedPlusOne) {
+                    NSUInteger oldX = previous[offset + k + 1].reachedPlusOne - 1;
+                    NSInteger oldY = (NSInteger)oldX - (k + 1);
+                    if (oldY < (NSInteger)m) inserted = oldX;
+                }
+                if (deleted < 0 && inserted < 0) continue;
+                // Prefer deletion on ties, so repeated-text matches are deterministic.
+                insertion = inserted > deleted;
+                x = insertion ? inserted : deleted;
+            }
+            NSInteger y = x - k;
+            while (x < (NSInteger)n && y < (NSInteger)m) {
+                if (++work > 1000000U) { [trace release]; return nil; }
+                if ([before characterAtIndex:changed.location + x] != [after characterAtIndex:replacement.location + y]) break;
+                x++; y++;
+            }
+            row[offset + k].reachedPlusOne = x + 1;
+            row[offset + k].insertion = insertion;
+            if (x == (NSInteger)n && y == (NSInteger)m) { distance = d; break; }
+        }
+    }
+    if (distance < 0) { [trace release]; return nil; }
+    NSMutableArray *edits = [NSMutableArray array];
+    NSInteger x = n, y = m;
+    for (NSInteger d = distance; d > 0; d--) {
+        NSInteger k = x - y;
+        BOOL insertion = steps[d * width + offset + k].insertion;
+        NSInteger previousK = insertion ? k + 1 : k - 1;
+        NSInteger previousX = steps[(d - 1) * width + offset + previousK].reachedPlusOne - 1;
+        NSInteger previousY = previousX - previousK;
+        while (x > previousX && y > previousY) { x--; y--; }
+        NVSnapshotEdit edit;
+        if (insertion) {
+            y--;
+            edit = (NVSnapshotEdit){NSMakeRange(changed.location + x, 0), NSMakeRange(replacement.location + y, 1)};
+        } else {
+            x--;
+            edit = (NVSnapshotEdit){NSMakeRange(changed.location + x, 1), NSMakeRange(replacement.location + y, 0)};
+        }
+        // Coalesce adjacent operations into replacements. Unchanged interior
+        // characters separate spans and retain their native Cocoa selections.
+        if ([edits count]) {
+            NVSnapshotEdit right;
+            [[edits lastObject] getValue:&right];
+            if (NSMaxRange(edit.oldRange) == right.oldRange.location && NSMaxRange(edit.newRange) == right.newRange.location) {
+                edit.oldRange.length += right.oldRange.length;
+                edit.newRange.length += right.newRange.length;
+                [edits removeLastObject];
+            }
+        }
+        [edits addObject:[NSValue valueWithBytes:&edit objCType:@encode(NVSnapshotEdit)]];
+    }
+    [trace release];
+    return edits;
+}
+
 @implementation NVNoteEditingSession
 - (id)initWithNote:(NoteObject *)aNote {
     if ((self = [super init])) {
@@ -48,8 +130,16 @@ static NSRange NVChangedRange(NSString *before, NSString *after, NSRange *replac
     NSAttributedString *snapshot = [contents copy];
     NSRange replacement;
     NSRange changed = NVChangedRange([textStorage string], [snapshot string], &replacement);
-    // Character edits let Cocoa adjust every attached editor's selections.
-    if (changed.length || replacement.length) {
+    NSArray *edits = NVSnapshotEdits([textStorage string], [snapshot string], changed, replacement);
+    if (edits) {
+        // Apply from end to start, without batching character notifications:
+        // Cocoa adjusts every selected range for each separate replacement.
+        for (NSValue *value in edits) {
+            NVSnapshotEdit edit;
+            [value getValue:&edit];
+            [textStorage replaceCharactersInRange:edit.oldRange withAttributedString:[snapshot attributedSubstringFromRange:edit.newRange]];
+        }
+    } else if (changed.length || replacement.length) {
         [textStorage replaceCharactersInRange:changed withAttributedString:[snapshot attributedSubstringFromRange:replacement]];
     }
     // Style changes can extend beyond the changed characters.
