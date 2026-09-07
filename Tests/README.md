@@ -27,6 +27,8 @@ The regression runner checks editor and preview ownership, incremental search, u
 
 The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Control checks exercise menu dispatch, keyboard focus, and tag completion. Rendering checks compare URL and ordinary-text pixels across two windows. Every browser keeps the notes list above the editor. Old side-by-side layouts restore as a vertical stack.
 
+The row checks require pale backgrounds and dark title glyphs in both appearances. See `Tests/Regression/native-list/README.md` for their pixel thresholds and negative control.
+
 Run the focused checks after a Development build:
 
 ```sh

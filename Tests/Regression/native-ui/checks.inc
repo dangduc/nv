@@ -142,6 +142,17 @@
                 @"both panes fill the window width after resizing");
         }
         if (@available(macOS 10.14, *)) {
+            for (NSUInteger index = 0; index < 3; index++) {
+                MakeNote(library, [NSString stringWithFormat:@"Native list pixels MMMM %lu", (unsigned long)index], @"visible row body");
+            }
+            [self searchForString:@"Native list pixels"]; Pump();
+            [[GlobalPrefs defaultPrefs] setAlternatingRows:YES sender:self];
+            Check([notesTableView numberOfRows] == 3 && [notesTableView usesAlternatingRowBackgroundColors],
+                @"appearance checks contain three populated rows with native alternating backgrounds");
+            [notesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+            [browserWindow makeFirstResponder:textView];
+            NSInteger titleColumn = [notesTableView columnWithIdentifier:NoteTitleColumnString];
+            Check(titleColumn >= 0, @"appearance checks contain a visible title column");
             [self setSystemColorScheme:self];
             for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
                 [browserWindow setAppearance:[NSAppearance appearanceNamed:appearance]]; Pump();
@@ -153,6 +164,12 @@
                     forDrawingToScreen:YES atCharacterIndex:0 effectiveRange:&renderedRange];
                 CGFloat foreground = [[[rendered objectForKey:NSForegroundColorAttributeName] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent];
                 Check(fabs(foreground - brightness) > .5, @"displayed body text contrasts with the editor background");
+                [notesTableView setNeedsDisplay:YES];
+                [[browserWindow contentView] layoutSubtreeIfNeeded];
+                [browserWindow displayIfNeeded];
+                for (NSInteger row = 1; row <= 2; row++) {
+                    CheckNativeListRowPixels(notesTableView, row, titleColumn, appearance);
+                }
                 const char *destination = getenv("NV_UI_ARTIFACTS");
                 if (destination) {
                     NSView *frame = [[browserWindow contentView] superview];

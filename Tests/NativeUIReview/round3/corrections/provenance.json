@@ -1,0 +1,12 @@
+{
+  "source_head": "d7a3ef6a740b4f85758f11bc411004b64b402c6f",
+  "sha256": {
+    "Tests/Regression/native-ui/probes.m": "49592304825624957f951a953231f35888dbb42874c63495e92808790cded196",
+    "Tests/Regression/native-ui/checks.inc": "1d5c5395b7829fe0fb08ee63afad278538b1673d0c7f2d9bf6c62b5d032c211c",
+    "Tests/Regression/native-list/pixels.inc": "fd89241d1c0e3574b7f42c98a26cc27dae83309347aaf3a7488e1856bc090dd5",
+    "Tests/Regression/native-metadata/checks.inc": "771f239c63420890498654883532f479d0c5e9aa5ee28249c06aa6b9bd78b785",
+    "build/DerivedData/Build/Products/Development/nvALT.app/Contents/MacOS/nvALT": "f9d0a299a852c80fae0574722776d5e732031fec6f4c328861e57d74d9d00228"
+  },
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t13.7.8\nBuildVersion:\t\t22H730\n",
+  "xcode": "Xcode 15.2\nBuild version 15C500b\n"
+}
