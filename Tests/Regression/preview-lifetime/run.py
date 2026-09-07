@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
 """Check real preview/editor teardown in a copied app with disposable notes and defaults."""
+import argparse
 import os
+import sys
 from pathlib import Path
 import plistlib
 import shutil
 import subprocess
 import tempfile
 import uuid
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--case', choices=['all', 'blank', 'rendered'], default='all')
+case = parser.parse_args().case
+if case == 'all':
+    for selected in ['blank', 'rendered']:
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), '--case', selected], check=True)
+    raise SystemExit(0)
 
 repo = Path(__file__).resolve().parents[3]
 import fcntl
@@ -38,7 +48,7 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
     prefix = prefix.replace('[self setupViewsAfterAppAwakened];', '''Check([[[NSBundle mainBundle] bundleIdentifier] hasPrefix:@"org.nvalt.window-tests."], @"isolated copied-app preferences domain");
     Check([[[NSBundle mainBundle] bundlePath] hasPrefix:[TestDirectory stringByAppendingString:@"/"]], @"copied app and temporary library share the test root");
     [self setupViewsAfterAppAwakened];''')
-    harness.write_text('#import <WebKit/WebKit.h>\n#import "PreviewController.h"\n' + prefix + Path(__file__).with_name('probe-body.m').read_text())
+    harness.write_text('#import <WebKit/WebKit.h>\n#import "PreviewController.h"\n' + prefix + Path(__file__).with_name('probe-body.m' if case == 'blank' else 'rendered-body.m').read_text())
     subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
         '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
         '-I', str(repo), '-I', str(repo / 'RBSplitView'), '-I', str(repo / 'PTHotKeys'),

@@ -21,7 +21,7 @@ The suite exercises real nibs and Cocoa editors. It checks independent search, s
 
 ## Review regression checks
 
-The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
+The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
 
 ## Ownership rules
 
