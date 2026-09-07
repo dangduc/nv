@@ -8,6 +8,16 @@ Each round records all six perspectives before corrections begin. Reports identi
 
 Historical defect probes can fail after corrections. Use each report's reviewed revision and build instructions to reproduce its observations. Use `Tests/Regression/` for current acceptance checks.
 
+## Review rounds
+
+| Round | Reviewed production | Status |
+| --- | --- | --- |
+| 1 | `10de8a4` | All six perspectives complete. Five product defects and one test coverage gap require corrections. |
+| 2 | Pending | Review follows the first corrections. |
+| 3 | Pending | Review follows the second corrections. |
+
+Round 1 reports: [Ousterhout](round1/ousterhout/report.md), [Luu](round1/luu/report.md), [Torvalds](round1/torvalds/report.md), [Kingsbury](round1/kingsbury/report.md), [workflow contrarian](round1/workflow_contrarian/report.md), and [test contrarian](round1/test_contrarian/report.md).
+
 ## Initial screenshots
 
 These snapshots show the UI at `10de8a4`. The notes list stays white in both appearance modes.

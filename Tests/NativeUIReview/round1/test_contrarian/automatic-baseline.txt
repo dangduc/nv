@@ -1,0 +1,44 @@
+2026-09-07 13:16:12.326 nvALT[12694:887054] PASS: temporary library directory exists
+2026-09-07 13:16:12.328 nvALT[12694:887054] PASS: temporary library opens
+2026-09-07 13:16:12.741 nvALT[12694:887054] It's not legal to call -layoutSubtreeIfNeeded on a view which is already being laid out.  If you are implementing the view's -layout method, you can call -[super layout] instead. Break on void _NSDetectedLayoutRecursion(void) to debug.  This will be logged only once.  This may break in the future.
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: browser uses a native horizontal divider
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: search is an editable native search control
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: toolbar supports standard customization
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: Note menu exposes Command-N for New Note
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: window uses the compact unified toolbar
+2026-09-07 13:16:12.777 nvALT[12694:887054] PASS: search uses the native adaptive toolbar item
+2026-09-07 13:16:12.830 nvALT[12694:887054] PASS: search suggests a matching note without replacing the query
+2026-09-07 13:16:12.830 nvALT[12694:887054] PASS: search command focuses the native field editor
+2026-09-07 13:16:12.831 nvALT[12694:887054] PASS: uncommitted search composition does not replace the active query
+2026-09-07 13:16:12.894 nvALT[12694:887054] PASS: leaving search commits composed query text
+2026-09-07 13:16:12.999 nvALT[12694:887054] PASS: selection keeps the query and displays a separate title
+2026-09-07 13:16:13.060 nvALT[12694:887054] PASS: native clear button clears the query without creating a note
+2026-09-07 13:16:13.113 nvALT[12694:887054] PASS: typing an unmatched query only offers creation
+2026-09-07 13:16:13.237 nvALT[12694:887054] PASS: explicit Create action uses the query as the title
+2026-09-07 13:16:13.295 nvALT[12694:887054] PASS: New Note creates a blank note and focuses its title
+2026-09-07 13:16:13.295 nvALT[12694:887054] PASS: New Note never copies the previous body
+2026-09-07 13:16:13.403 nvALT[12694:887054] PASS: title edits commit through the model and leave search unchanged
+2026-09-07 13:16:13.454 nvALT[12694:887054] PASS: metadata undo restores the original title
+2026-09-07 13:16:13.506 nvALT[12694:887054] PASS: metadata redo restores the edited title
+2026-09-07 13:16:13.506 nvALT[12694:887054] PASS: word count remains attached to its browser header
+2026-09-07 13:16:13.559 nvALT[12694:887054] PASS: tags edited in the header reach the note model
+2026-09-07 13:16:13.611 nvALT[12694:887054] PASS: Escape cancels a title edit without renaming
+2026-09-07 13:16:13.816 nvALT[12694:887054] PASS: peer metadata refreshes after a model change
+2026-09-07 13:16:13.870 nvALT[12694:887054] PASS: changing selection commits metadata to its original note
+2026-09-07 13:16:14.162 nvALT[12694:887054] PASS: Search command restores a hidden toolbar without losing the query
+2026-09-07 13:16:14.214 nvALT[12694:887054] PASS: native divider positions are independent between windows
+2026-09-07 13:16:14.268 nvALT[12694:887054] PASS: native divider height survives state restoration
+2026-09-07 13:16:14.320 nvALT[12694:887054] PASS: legacy side-by-side geometry migrates to the vertical stack
+2026-09-07 13:16:14.373 nvALT[12694:887054] PASS: window retains its requested width after native layout
+2026-09-07 13:16:14.373 nvALT[12694:887054] PASS: small and large windows keep the note list above a usable editor
+2026-09-07 13:16:14.373 nvALT[12694:887054] PASS: both panes fill the window width after resizing
+2026-09-07 13:16:14.428 nvALT[12694:887054] PASS: window retains its requested width after native layout
+2026-09-07 13:16:14.428 nvALT[12694:887054] PASS: small and large windows keep the note list above a usable editor
+2026-09-07 13:16:14.428 nvALT[12694:887054] PASS: both panes fill the window width after resizing
+2026-09-07 13:16:14.481 nvALT[12694:887054] PASS: system editor background follows the window appearance
+2026-09-07 13:16:14.481 nvALT[12694:887054] PASS: displayed body text contrasts with the editor background
+2026-09-07 13:16:14.537 nvALT[12694:887054] PASS: system editor background follows the window appearance
+2026-09-07 13:16:14.537 nvALT[12694:887054] PASS: displayed body text contrasts with the editor background
+2026-09-07 13:16:14.591 nvALT[12694:887054] PASS: explicit editor colors survive appearance changes
+2026-09-07 13:16:14.593 nvALT[12694:887054] verified 4 notes in 0.000506043 s
+2026-09-07 13:16:14.595 nvALT[12694:887054] NATIVE UI TESTS PASSED (41 checks)
