@@ -105,6 +105,7 @@
     [state setObject:[[[self browserSession] sortColumn] identifier] ?: NoteTitleColumnString forKey:@"sort"];
     [state setObject:@([[self browserSession] reverseSorted]) forKey:@"reverse"];
     [state setObject:@([notesSubview dimension]) forKey:@"divider"];
+    [state setObject:[notesTableView columnLayoutState] forKey:@"columns"];
     [state setObject:NSStringFromPoint([[notesScrollView contentView] bounds].origin) forKey:@"listScroll"];
     if (currentNote) {
         [state setObject:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]] forKey:@"note"];
@@ -143,6 +144,7 @@
     }
     id divider = [state objectForKey:@"divider"];
     if ([divider isKindOfClass:[NSNumber class]]) { [notesSubview setDimension:MAX(80, [divider doubleValue])]; [splitView adjustSubviews]; }
+    [notesTableView restoreColumnLayoutState:[state objectForKey:@"columns"]];
     if ([[state objectForKey:@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString([state objectForKey:@"listScroll"])];
     if (currentNote && [[state objectForKey:@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString([state objectForKey:@"editorScroll"])];
 }

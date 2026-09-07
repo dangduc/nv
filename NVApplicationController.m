@@ -182,6 +182,12 @@ AppController *NVControllerForView(NSView *view) {
     }
     return session;
 }
+- (void)reloadCachedEditingSessionsFromLibrary {
+    // Model restyling also affects cached notes that are absent from every editor.
+    // Each session defers its reload while an attached editor has marked text.
+    for (NVNoteEditingSession *session in [editingSessions allValues]) [session reloadFromNote];
+    [self scheduleBrowserRefresh];
+}
 - (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser {
     AppController *previous = operationBrowser;
     operationBrowser = browser;

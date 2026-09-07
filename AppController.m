@@ -752,6 +752,7 @@ terminateApp:
     [notesSubview setDimension:colW];
 	[notationController regenerateAllPreviews];
 	[splitView adjustSubviews];
+    [notesTableView applySavedColumnLayout];
     
 	[notesTableView setViewingLocation:ctx];
 	[notesTableView makeFirstPreviouslyVisibleRowVisibleIfNecessary];
@@ -1007,9 +1008,7 @@ terminateApp:
 	} else if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 		
 		[notationController restyleAllNotes];
-        for (AppController *browser in [[NVApplicationController sharedController] browserControllers]) {
-            if ([browser selectedNoteObject]) [browser contentsUpdatedForNote:[browser selectedNoteObject]];
-        }
+        [[NVApplicationController sharedController] reloadCachedEditingSessionsFromLibrary];
 	} else if ([selectorString isEqualToString:SEL_STR(setForegroundTextColor:sender:)]) {
 		if (userScheme!=2) {
 			[self setUserColorScheme:self];

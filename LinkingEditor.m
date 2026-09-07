@@ -1,4 +1,5 @@
 #import "NVApplicationController.h"
+#import "NVNoteEditingSession.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
   provided that the following conditions are met:
@@ -58,8 +59,8 @@ static long (*GetGetScriptManagerVariablePointer())(short);
 
 
 @implementation LinkingEditor
-- (void)undo:(id)sender { [[[NVControllerForView(self) selectedNoteObject] undoManager] undo]; }
-- (void)redo:(id)sender { [[[NVControllerForView(self) selectedNoteObject] undoManager] redo]; }
+- (void)undo:(id)sender { [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] undo]; }
+- (void)redo:(id)sender { [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] redo]; }
 
 
 @synthesize beforeString;
@@ -77,6 +78,7 @@ CGFloat _perceptualDarkness(NSColor*a);
 
 - (void)awakeFromNib {
 	
+    // The application owns the shared preferences; this editor borrows them.
     prefsController = [GlobalPrefs defaultPrefs];
 
     [prefsController registerWithTarget:self forChangesInSettings:
@@ -1157,8 +1159,8 @@ copyRTFType:
 	//need to fix this for better style detection
 	
 	SEL action = [menuItem action];
-    if (action == @selector(undo:)) return [[[NVControllerForView(self) selectedNoteObject] undoManager] canUndo];
-    if (action == @selector(redo:)) return [[[NVControllerForView(self) selectedNoteObject] undoManager] canRedo];
+    if (action == @selector(undo:)) return [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] canUndo];
+    if (action == @selector(redo:)) return [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] canRedo];
 	if (action == @selector(defaultStyle:) ||
 		action == @selector(bold:) ||
 		action == @selector(italic:) ||
@@ -1758,14 +1760,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
     if (IsLionOrLater) {
         [textFinder release];
     }
-    [activeParagraphPastCursor release];
-    [activeParagraph release];
-    [activeParagraphBeforeCursor release];
-    [beforeString release];
-    [afterString release];
-    [controlField release];
-    [notesTableView release];
-    [prefsController release];
+    // Nib outlets, shared preferences, and computed substring results are borrowed.
     [lastImportedFindString release];
     [stringDuringFind release];
     [noteDuringFind release];

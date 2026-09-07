@@ -74,6 +74,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		NSArray *columnsToDisplay = [globalPrefs visibleTableColumns];
 		allColumns = [[NSMutableArray alloc] initWithCapacity:4];
 		allColsDict = [[NSMutableDictionary alloc] initWithCapacity:4];
+		columnLayouts = [[NSMutableDictionary alloc] initWithCapacity:2];
 		
 		id (*titleReferencor)(id, id, NSInteger) = [self browserHorizontalLayout] ?
 		([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) :
@@ -133,14 +134,79 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     [loadStatusAttributes release];
     [allColumns release]; allColumns = nil;
     [allColsDict release]; allColsDict = nil;
+    [columnLayouts release]; columnLayouts = nil;
     [headerView release]; headerView = nil;
     // NSControl's dealloc calls our abortEditing override.
     [super dealloc];
 }
 
+- (void)rememberColumnLayout {
+    if (!hasColumnLayout) return;
+    NSString *key = columnLayoutHorizontal ? @"horizontal" : @"vertical";
+    NSDictionary *previous = [columnLayouts objectForKey:key];
+    NSMutableArray *order = [NSMutableArray array];
+    NSMutableDictionary *widths = [NSMutableDictionary dictionaryWithDictionary:[previous objectForKey:@"widths"] ?: @{}];
+    for (NSTableColumn *column in [self tableColumns]) {
+        [order addObject:[column identifier]];
+        [widths setObject:@([column width]) forKey:[column identifier]];
+    }
+    // Retain dimensions of hidden columns without changing global visibility.
+    for (NSString *identifier in [previous objectForKey:@"order"]) {
+        if (![order containsObject:identifier]) [order addObject:identifier];
+    }
+    [columnLayouts setObject:@{@"order": order, @"widths": widths} forKey:key];
+}
+
+- (NSDictionary *)columnLayoutState {
+    [self rememberColumnLayout];
+    return [[columnLayouts copy] autorelease];
+}
+
+- (void)restoreColumnLayoutState:(id)state {
+    if (![state isKindOfClass:[NSDictionary class]]) return;
+    for (NSString *key in @[@"vertical", @"horizontal"]) {
+        id layout = [state objectForKey:key];
+        if (![layout isKindOfClass:[NSDictionary class]]) continue;
+        NSMutableArray *order = [NSMutableArray array];
+        NSMutableDictionary *widths = [NSMutableDictionary dictionary];
+        id savedOrder = [layout objectForKey:@"order"];
+        if ([savedOrder isKindOfClass:[NSArray class]]) {
+            for (id identifier in savedOrder) {
+                if ([identifier isKindOfClass:[NSString class]] && [allColsDict objectForKey:identifier] && ![order containsObject:identifier])
+                    [order addObject:identifier];
+            }
+        }
+        id savedWidths = [layout objectForKey:@"widths"];
+        if ([savedWidths isKindOfClass:[NSDictionary class]]) {
+            for (NSString *identifier in allColsDict) {
+                id width = [savedWidths objectForKey:identifier];
+                if ([width isKindOfClass:[NSNumber class]] && isfinite([width doubleValue]) && [width doubleValue] > 0)
+                    [widths setObject:width forKey:identifier];
+            }
+        }
+        [columnLayouts setObject:@{@"order": order, @"widths": widths} forKey:key];
+    }
+    [self applySavedColumnLayout];
+}
+
+- (void)applySavedColumnLayout {
+    NSDictionary *layout = [columnLayouts objectForKey:columnLayoutHorizontal ? @"horizontal" : @"vertical"];
+    NSUInteger position = 0;
+    for (NSString *identifier in [layout objectForKey:@"order"]) {
+        NSInteger index = [self columnWithIdentifier:identifier];
+        if (index >= 0) [self moveColumn:index toColumn:position++];
+    }
+    NSDictionary *widths = [layout objectForKey:@"widths"];
+    for (NSTableColumn *column in [self tableColumns]) {
+        NSNumber *width = [widths objectForKey:[column identifier]];
+        if (width) [column setWidth:MIN([column maxWidth], MAX([column minWidth], [width doubleValue]))];
+    }
+}
+
 //extracted from initialization to run in a safe way
 - (void)restoreColumns {
 	unsigned int i;
+	[self rememberColumnLayout];
 	
 	//if columns currently exist, then remove them first, so that nstableview's autosave/restore works properly
 	if ([[self tableColumns] count]) {
@@ -167,6 +233,9 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	
 	[self setSortDirection:[self browserReverseSorted]
 			 inTableColumn:[self tableColumnWithIdentifier:[self browserSortKey]]];
+    columnLayoutHorizontal = [self browserHorizontalLayout];
+    hasColumnLayout = YES;
+    [self applySavedColumnLayout];
 }
 
 

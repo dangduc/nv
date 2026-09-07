@@ -7,10 +7,13 @@
     id delegate;
     FastListDataSource *dataSource;
     NSMutableArray *visibleNotes;
+    NSMutableArray *matchingNotes;
+    NSArray *searchTerms;
     NSString *searchString;
     NoteAttributeColumn *sortColumn;
     BOOL reverseSorted;
     BOOL refreshing;
+    BOOL candidatesValid;
     NSMutableDictionary *previewCache;
 }
 - (id)initWithLibrary:(NotationController *)aLibrary;

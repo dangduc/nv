@@ -44,12 +44,29 @@ static BOOL NVNoteMatchesTerms(NoteObject *note, NSArray *terms) {
     return YES;
 }
 
+static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
+    // Compare parsed terms: changing quotes can broaden a textual prefix.
+    // Every old requirement must still be implied by a new search term.
+    for (NSString *oldTerm in previous) {
+        BOOL constrained = NO;
+        for (NSString *newTerm in next) {
+            if ([newTerm rangeOfString:oldTerm options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                constrained = YES;
+                break;
+            }
+        }
+        if (!constrained) return NO;
+    }
+    return YES;
+}
+
 @implementation NVBrowserSession
 - (id)initWithLibrary:(NotationController *)aLibrary {
     if ((self = [super init])) {
         library = [aLibrary retain];
         dataSource = [[FastListDataSource alloc] init];
         visibleNotes = [[NSMutableArray alloc] init];
+        matchingNotes = [[NSMutableArray alloc] init];
         previewCache = [[NSMutableDictionary alloc] init];
         searchString = [@"" copy];
         reverseSorted = [[GlobalPrefs defaultPrefs] tableIsReverseSorted];
@@ -62,6 +79,8 @@ static BOOL NVNoteMatchesTerms(NoteObject *note, NSArray *terms) {
     [library release];
     [dataSource release];
     [visibleNotes release];
+    [matchingNotes release];
+    [searchTerms release];
     [previewCache release];
     [searchString release];
     [sortColumn release];
@@ -99,9 +118,9 @@ static BOOL NVNoteMatchesTerms(NoteObject *note, NSArray *terms) {
     }
     return NSNotFound;
 }
-- (void)sortVisibleNotes {
+- (void)sortNotes:(NSMutableArray *)notes {
     NSInteger (*compare)(id *, id *) = reverseSorted ? [sortColumn reverseSortFunction] : [sortColumn sortFunction];
-    [visibleNotes sortUsingComparator:^NSComparisonResult(NoteObject *a, NoteObject *b) {
+    [notes sortUsingComparator:^NSComparisonResult(NoteObject *a, NoteObject *b) {
         id left = a, right = b;
         NSInteger result = compare ? compare(&left, &right) : 0;
         if (!result) {
@@ -110,25 +129,44 @@ static BOOL NVNoteMatchesTerms(NoteObject *note, NSArray *terms) {
         }
         return result < 0 ? NSOrderedAscending : result > 0 ? NSOrderedDescending : NSOrderedSame;
     }];
+}
+- (void)sortVisibleNotes {
+    [self sortNotes:matchingNotes];
+    if ([visibleNotes count] == [matchingNotes count]) [visibleNotes setArray:matchingNotes];
+    else [self sortNotes:visibleNotes];
     [dataSource fillArrayFromArray:visibleNotes];
 }
 - (void)refreshKeepingCurrentNote:(BOOL)keepCurrent {
     if (refreshing) return;
     refreshing = YES;
     [delegate notationListMightChange:(id)self];
-    NSArray *allNotes = [library allNotes];
     NSArray *terms = NVSearchTerms(searchString);
+    BOOL refining = candidatesValid && NVSearchRefinesTerms(searchTerms, terms);
+    NSArray *candidates = refining ? [[matchingNotes copy] autorelease] : [library allNotes];
     NoteObject *current = keepCurrent ? [delegate selectedNoteObject] : nil;
-    [visibleNotes removeAllObjects];
-    for (NoteObject *note in allNotes) {
-        if (note == current || NVNoteMatchesTerms(note, terms)) [visibleNotes addObject:note];
+    [matchingNotes removeAllObjects];
+    for (NoteObject *note in candidates) {
+        if (NVNoteMatchesTerms(note, terms)) [matchingNotes addObject:note];
     }
-    [self sortVisibleNotes];
+    // Filtering a sorted candidate list preserves its order.
+    if (!refining) [self sortNotes:matchingNotes];
+    [visibleNotes setArray:matchingNotes];
+    // A pinned editor row is display state, never a search candidate.
+    if (current && [candidates indexOfObjectIdenticalTo:current] != NSNotFound &&
+        [matchingNotes indexOfObjectIdenticalTo:current] == NSNotFound) {
+        [visibleNotes addObject:current];
+        [self sortNotes:visibleNotes];
+    }
+    [dataSource fillArrayFromArray:visibleNotes];
+    [searchTerms release];
+    searchTerms = [terms copy];
+    candidatesValid = YES;
     [previewCache removeAllObjects];
     [delegate notationListDidChange:(id)self];
     refreshing = NO;
 }
 - (void)libraryDidChange {
+    candidatesValid = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:_cmd object:nil];
     if (delegate && ![delegate notationListShouldChange:(id)self]) {
         [self performSelector:_cmd withObject:nil afterDelay:0.2];
@@ -136,15 +174,16 @@ static BOOL NVNoteMatchesTerms(NoteObject *note, NSArray *terms) {
     }
     [self refreshKeepingCurrentNote:YES];
 }
-- (void)refilterNotes { [self refreshKeepingCurrentNote:NO]; }
+- (void)refilterNotes { candidatesValid = NO; [self refreshKeepingCurrentNote:NO]; }
 - (BOOL)filterNotesFromString:(NSString *)string {
     NSString *nextString = [(string ?: @"") copy];
     [searchString release];
     searchString = nextString;
-    [self refilterNotes];
+    [self refreshKeepingCurrentNote:NO];
     return YES;
 }
 - (BOOL)filterNotesFromUTF8String:(const char *)string forceUncached:(BOOL)force {
+    if (force) candidatesValid = NO;
     return [self filterNotesFromString:string ? [NSString stringWithUTF8String:string] : @""];
 }
 - (NoteAttributeColumn *)sortColumn { return sortColumn; }

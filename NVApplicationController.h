@@ -24,6 +24,7 @@
 - (void)restoreWindowStates;
 - (IBAction)newWindow:(id)sender;
 - (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note;
+- (void)reloadCachedEditingSessionsFromLibrary;
 - (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser;
 - (void)preserveExternalContents:(NSAttributedString *)contents forNote:(NoteObject *)note;
 @end
