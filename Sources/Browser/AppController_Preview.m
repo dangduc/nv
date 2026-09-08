@@ -55,8 +55,14 @@ static NSString *NotePresentationKey(NoteObject *note) {
     NSString *key = NotePresentationKey(currentNote);
     if (!key) return;
     NSMutableDictionary *state = [[[noteBodyStates objectForKey:key] mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];
-    [state setObject:NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"sourceScroll"];
-    if (viewingNote && previewController) {
+    // Hidden source layouts can clamp their clip origin while notes change.
+    // That display work does not change the user's saved Source position.
+    if (!viewingNote || ![state objectForKey:@"sourceScroll"])
+        [state setObject:NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"sourceScroll"];
+    BOOL pendingLoadingCapture = viewingNote && [previewController loading] &&
+        [previewController hasPendingViewerStateCaptureForSnapshot:[previewController snapshot] viewerIdentifier:[previewController viewerIdentifier]];
+    // A return still waiting for its exact read has no newer cache to save.
+    if (viewingNote && previewController && !pendingLoadingCapture) {
         NSMutableDictionary *viewers = [[[state objectForKey:@"viewers"] mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];
         [viewers setObject:[previewController viewerState] ?: @{} forKey:selectedViewerIdentifier];
         [state setObject:viewers forKey:@"viewers"];
@@ -86,7 +92,14 @@ static NSString *NotePresentationKey(NoteObject *note) {
 - (void)restoreSourceScroll {
     if (!currentNote) return;
     NSString *scroll = [[noteBodyStates objectForKey:NotePresentationKey(currentNote)] objectForKey:@"sourceScroll"];
-    if ([scroll isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString(scroll)];
+    if ([scroll isKindOfClass:[NSString class]]) {
+        NSPoint point = NSPointFromString(scroll);
+        // A hidden editor can still have the previous short note's height.
+        // Lay out through the saved viewport before AppKit clamps the origin.
+        if (!viewingNote && (point.x > 0 || point.y > 0))
+            [[textView layoutManager] ensureLayoutForBoundingRect:NSMakeRect(0, 0, point.x + NSWidth([textView bounds]), point.y + NSHeight([[textScrollView contentView] bounds])) inTextContainer:[textView textContainer]];
+        [textView scrollPoint:point];
+    }
 }
 - (void)updateBodyPresentation {
     BOOL hasNote = currentNote != nil;

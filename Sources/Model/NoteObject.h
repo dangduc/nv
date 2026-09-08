@@ -72,6 +72,7 @@ typedef struct _NoteFilterContext {
 	NSDictionary *pendingSourceMetadata;
 	// These bytes stay inside the encrypted note archive, not the library preferences.
 	NSData *sourceOriginalData, *sourceByteOrderMark;
+	NSData *sourceConflictOriginUUID;
 	NSStringEncoding sourceOriginalEncoding;
 	BOOL sourceConversionPending;
 	
@@ -160,6 +161,8 @@ NSInteger compareFileSize(id *a, id *b);
 - (NSData*)sourceDataReturningError:(NSError**)error;
 - (BOOL)sourceConversionPending;
 - (BOOL)preservePendingSourceFileChanges;
+- (void)markAsSourceConflictCopyOfNote:(NoteObject*)note;
+- (BOOL)isSourceConflictCopyOfNote:(NoteObject*)note data:(NSData*)data encoding:(NSStringEncoding)encoding;
 
 - (id)delegate;
 - (void)setDelegate:(id)theDelegate;

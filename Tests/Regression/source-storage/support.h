@@ -14,12 +14,15 @@ static void Check(BOOL result, NSString *description);
 static NSString *ProtectedSourceFilename, *ExpectedExternalSource;
 static BOOL ConflictJournalSynchronized;
 static NSUInteger ProtectedSourceWrites;
+static BOOL FailSourceConflictSync;
+static NSUInteger FailedSourceConflictSyncs;
 
 @interface WALStorageController (NVSourceDurabilityTest)
 - (BOOL)nv_recordSourceSynchronization;
 @end
 @implementation WALStorageController (NVSourceDurabilityTest)
 - (BOOL)nv_recordSourceSynchronization {
+    if (FailSourceConflictSync) { FailedSourceConflictSyncs++; return NO; }
     BOOL result = [self nv_recordSourceSynchronization];
     if (ProtectedSourceFilename && result) ConflictJournalSynchronized = YES;
     return result;
@@ -57,6 +60,32 @@ static NSUInteger SourceConversionOffers;
 @implementation EncodingsManager (NVSourceConversionTest)
 - (void)nv_cancelConversionForNote:(NoteObject*)note { SourceConversionOffers++; }
 @end
+
+static NSWindow *SourceConversionParent;
+static void (^SourceCapturedConversion)(NSModalResponse);
+static NSUInteger SourceConversionSheets;
+@interface NSApplication (NVSourceConversionSheetTest)
+- (NSWindow *)nv_sourceConversionMainWindow;
+@end
+@implementation NSApplication (NVSourceConversionSheetTest)
+- (NSWindow *)nv_sourceConversionMainWindow { return SourceConversionParent ?: [self nv_sourceConversionMainWindow]; }
+@end
+@interface NSAlert (NVSourceConversionSheetTest)
+- (void)nv_captureSourceConversionSheet:(NSWindow *)window completionHandler:(void (^)(NSModalResponse))completion;
+@end
+@implementation NSAlert (NVSourceConversionSheetTest)
+- (void)nv_captureSourceConversionSheet:(NSWindow *)window completionHandler:(void (^)(NSModalResponse))completion {
+    SourceConversionSheets++;
+    [SourceCapturedConversion release];
+    SourceCapturedConversion = [completion copy];
+}
+@end
+
+static NSUInteger SourceNotesWithBody(NotationController *library, NSString *body) {
+    NSUInteger count = 0;
+    for (NoteObject *candidate in [library allNotes]) if ([[[candidate contentString] string] isEqualToString:body]) count++;
+    return count;
+}
 
 @interface NVSourcePrefsDelegate : NSObject {
 @public

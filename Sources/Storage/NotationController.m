@@ -42,6 +42,7 @@
 #import "BookmarksController.h"
 #import "DeletionManager.h"
 #import "nvaDevConfig.h"
+#import "EncodingsManager.h"
 
 @implementation NotationController
 
@@ -827,16 +828,33 @@ bail:
 - (BOOL)preserveExternalSourceData:(NSData*)data encoding:(NSStringEncoding)encoding forNote:(NoteObject*)note {
 	NSString *source = [NoteObject sourceStringFromData:data encoding:&encoding path:nil];
 	if (!source || !walWriter) return NO;
-	NSString *title = [titleOfNote(note) stringByAppendingFormat:@" (%@)", NSLocalizedString(@"external changes", nil)];
-	NoteObject *copy = [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc] initWithString:source] autorelease]
-		title:title delegate:nil format:SingleDatabaseFormat labels:labelsOfNote(note)] autorelease];
-	[copy rememberSourceData:data encoding:encoding];
-	[copy setSourceSyntaxIdentifier:[note sourceSyntaxIdentifier]];
-	[self _addNote:copy];
-	[copy makeNoteDirtyUpdateTime:NO updateFile:YES];
+	NoteObject *copy = nil;
+	BOOL filePreserved = NO;
+	for (NoteObject *candidate in allNotes) {
+		if (![candidate isSourceConflictCopyOfNote:note data:data encoding:encoding]) continue;
+		NSString *path = [candidate noteFilePath] ?: [[[self notesDirectoryURL] path] stringByAppendingPathComponent:filenameOfNote(candidate)];
+		NSError *error = nil;
+		NSData *savedData = [NSData dataWithContentsOfFile:path options:NSDataReadingUncached error:&error];
+		// Do not overwrite a separately edited conflict file while retrying its journal.
+		if (savedData && ![savedData isEqual:data]) continue;
+		if (!savedData && !([[error domain] isEqualToString:NSCocoaErrorDomain] && [error code] == NSFileReadNoSuchFileError)) return NO;
+		copy = candidate;
+		filePreserved = savedData != nil;
+		break;
+	}
+	if (!copy) {
+		NSString *title = [titleOfNote(note) stringByAppendingFormat:@" (%@)", NSLocalizedString(@"external changes", nil)];
+		copy = [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc] initWithString:source] autorelease]
+			title:title delegate:nil format:SingleDatabaseFormat labels:labelsOfNote(note)] autorelease];
+		[copy rememberSourceData:data encoding:encoding];
+		[copy markAsSourceConflictCopyOfNote:note];
+		[copy setSourceSyntaxIdentifier:[note sourceSyntaxIdentifier]];
+		[self _addNote:copy];
+		[copy makeNoteDirtyUpdateTime:NO updateFile:YES];
+	}
 	// Do not reenter the batched writer or directory scan while preserving a version.
 	// The original file may be replaced only after the copy has a file and a synced WAL record.
-	BOOL preserved = [copy writeUsingCurrentFileFormat] && [copy writeUsingJournal:walWriter] && [walWriter synchronize];
+	BOOL preserved = (filePreserved || [copy writeUsingCurrentFileFormat]) && [copy writeUsingJournal:walWriter] && [walWriter synchronize];
 	[self performSelector:@selector(sortAndRedisplayNotes) withObject:nil afterDelay:0.0];
 	return preserved;
 }
@@ -1126,6 +1144,7 @@ bail:
 	[aNoteObject abortEditingInExternalEditor];
 	
     [allNotes removeObjectIdenticalTo:aNoteObject];
+	[[EncodingsManager sharedManager] cancelUTF8ConversionForNote:aNoteObject];
 	DeletedNoteObject *deletedNote = [self _addDeletedNote:aNoteObject];
 	
 	updateForVerifiedDeletedNote(deletionManager, aNoteObject);

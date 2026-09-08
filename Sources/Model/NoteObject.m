@@ -97,7 +97,10 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	NSStringEncoding detectedEncoding = NSUTF8StringEncoding;
 	NSUInteger bomLength = NVSourceBOMLength(data, &detectedEncoding);
 	if (bomLength) {
-		NSString *source = [[[NSString alloc] initWithBytes:(const char*)[data bytes] + bomLength length:[data length] - bomLength encoding:detectedEncoding] autorelease];
+		// NSString consumes a UTF-8 BOM itself. Skipping it first would also
+		// consume a literal leading U+FEFF from the source that follows it.
+		NSUInteger skip = detectedEncoding == NSUTF8StringEncoding ? 0 : bomLength;
+		NSString *source = [[[NSString alloc] initWithBytes:(const char*)[data bytes] + skip length:[data length] - skip encoding:detectedEncoding] autorelease];
 		if (source && encoding) *encoding = detectedEncoding;
 		return source;
 	}
@@ -187,6 +190,18 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	return sourceConversionPending;
 }
 
+- (void)markAsSourceConflictCopyOfNote:(NoteObject*)note {
+	[sourceConflictOriginUUID release];
+	sourceConflictOriginUUID = [[NSData alloc] initWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)];
+}
+
+- (BOOL)isSourceConflictCopyOfNote:(NoteObject*)note data:(NSData*)data encoding:(NSStringEncoding)encoding {
+	return [sourceConflictOriginUUID length] == sizeof(CFUUIDBytes) &&
+		memcmp([sourceConflictOriginUUID bytes], [note uniqueNoteIDBytes], sizeof(CFUUIDBytes)) == 0 &&
+		// Legacy archives decode the 32-bit encoding identifier through a signed int.
+		(uint32_t)fileEncoding == (uint32_t)encoding && [[self sourceDataReturningError:NULL] isEqual:data];
+}
+
 - (BOOL)preservePendingSourceFileChanges {
 	if (!sourceConversionPending || [delegate currentNoteStorageFormat] != PlainTextFormat) return YES;
 	NSString *path = [self noteFilePath];
@@ -247,6 +262,7 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	[pendingSourceMetadata release];
 	[sourceOriginalData release];
 	[sourceByteOrderMark release];
+	[sourceConflictOriginUUID release];
 	[contentString release];
 	[syncServicesMD release];
 	[dateModifiedString release];
@@ -523,6 +539,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			sourceOriginalEncoding = [decoder decodeIntegerForKey:VAR_STR(sourceOriginalEncoding)];
 			sourceConversionPending = [decoder decodeBoolForKey:VAR_STR(sourceConversionPending)];
 			if (sourceConversionPending) shouldWriteToFile = YES;
+			id conflictOrigin = [decoder decodeObjectForKey:VAR_STR(sourceConflictOriginUUID)];
+			sourceConflictOriginUUID = [conflictOrigin isKindOfClass:[NSData class]] && [conflictOrigin length] == sizeof(CFUUIDBytes) ? [conflictOrigin copy] : nil;
 
 			NSUInteger decodedUUIDByteCount = 0;
 			const uint8_t *decodedUUIDBytes = [decoder decodeBytesForKey:VAR_STR(uniqueNoteIDBytes) returnedLength:&decodedUUIDByteCount];
@@ -637,6 +655,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		[coder encodeObject:sourceByteOrderMark forKey:VAR_STR(sourceByteOrderMark)];
 		[coder encodeInteger:sourceOriginalEncoding forKey:VAR_STR(sourceOriginalEncoding)];
 		[coder encodeBool:sourceConversionPending forKey:VAR_STR(sourceConversionPending)];
+		[coder encodeObject:sourceConflictOriginUUID forKey:VAR_STR(sourceConflictOriginUUID)];
 		
 		[coder encodeBytes:(const uint8_t *)&uniqueNoteIDBytes length:sizeof(CFUUIDBytes) forKey:VAR_STR(uniqueNoteIDBytes)];
 		[coder encodeObject:syncServicesMD forKey:VAR_STR(syncServicesMD)];

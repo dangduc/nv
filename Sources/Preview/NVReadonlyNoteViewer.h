@@ -14,7 +14,8 @@ typedef void (^NVReadonlyViewerStateCompletion)(NVNoteContentSnapshot *snapshot,
 - (void)close;
 - (NSDictionary *)viewerState;
 // Main-thread callback carries call-time identity. Active DOM capture falls back
-// to immutable cached state after 0.5 seconds, or immediately during loading.
+// to immutable cached state after 0.5 seconds. A loading presentation joins its
+// pending exact read without extending that deadline, or uses cache immediately.
 // Every request completes once, including superseded requests. Consumers that
 // save canonical state must reject callbacks from their older requests.
 - (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion;

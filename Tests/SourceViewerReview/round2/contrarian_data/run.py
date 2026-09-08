@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 import uuid
 
-repo = Path(__file__).resolve().parents[3]
+repo = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
 
@@ -45,7 +45,7 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
     harness.write_text(Path(__file__).with_name('support.h').read_text() + prefix + Path(__file__).with_name('probe-body.m').read_text())
     subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
         '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
-        *include_flags(repo), '-I', str(Path(__file__).parent), '-include', str(repo / 'Config/Notation_Prefix.pch'),
+        *include_flags(repo), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', str(dylib),
         str(harness)], check=True)
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')

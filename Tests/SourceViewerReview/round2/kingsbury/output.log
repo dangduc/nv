@@ -1,0 +1,62 @@
+2026-09-08 02:42:01.948 nvALT[45611:324823073] PASS: isolated copied-app preferences domain
+2026-09-08 02:42:01.948 nvALT[45611:324823073] PASS: copied app and temporary library share the test root
+2026-09-08 02:42:01.952 nvALT[45611:324823073] PASS: temporary library directory exists
+2026-09-08 02:42:01.953 nvALT[45611:324823073] PASS: temporary library opens
+2026-09-08 02:42:02.277 nvALT[45611:324823073] verified 0 notes in 0.0002141 s
+2026-09-08 02:42:02.278 nvALT[45611:324823073] PASS: write isolated deletion fixture
+2026-09-08 02:42:02.294 nvALT[45611:324823073] verified 1 notes in 0.000367999 s
+2026-09-08 02:42:02.294 nvALT[45611:324823073] PASS: persist original source
+2026-09-08 02:42:02.303 nvALT[45611:324823073] verified 1 notes in 0.000338078 s
+2026-09-08 02:42:02.304 nvALT[45611:324823073] PASS: unrepresentable edit schedules production conversion offer
+2026-09-08 02:42:02.386 nvALT[45611:324823073] PASS: capture production conversion completion while modeling an open sheet
+2026-09-08 02:42:02.388 nvALT[45611:324823073] PASS: delete through library removes note and its source file
+2026-09-08 02:42:02.388 nvALT[45611:324823073] Could not get an fsref for file with name delete-pending.txt: -43
+2026-09-08 02:42:02.389 nvALT[45611:324823073] not writing note delete-pending because it is not controlled by NoteController
+2026-09-08 02:42:02.389 nvALT[45611:324823073] HISTORY delete-pending: member=0 recreated=1 source=seed café
+local 😀
+2026-09-08 02:42:02.389 nvALT[45611:324823073] PASS: REPRO: stale conversion completion recreates a deleted source file
+2026-09-08 02:42:02.389 nvALT[45611:324823073] PASS: REPRO: directory reconciliation resurrects deleted source as a note
+2026-09-08 02:42:02.390 nvALT[45611:324823073] PASS: write isolated replacement fixture
+2026-09-08 02:42:02.396 nvALT[45611:324823073] verified 2 notes in 0.000237942 s
+2026-09-08 02:42:02.398 nvALT[45611:324823073] verified 2 notes in 0.000257969 s
+2026-09-08 02:42:02.399 nvALT[45611:324823073] PASS: replacement history schedules conversion
+2026-09-08 02:42:02.450 nvALT[45611:324823073] PASS: replacement history captures conversion completion
+2026-09-08 02:42:02.512 nvALT[45611:324823073] verified 2 notes in 0.000313044 s
+2026-09-08 02:42:02.512 nvALT[45611:324823073] PASS: new note reuses the deleted note's available source filename
+2026-09-08 02:42:02.512 nvALT[45611:324823073] PASS: replacement source is durably written before stale conversion completion
+2026-09-08 02:42:02.514 nvALT[45611:324823073] not writing note replace-pending because it is not controlled by NoteController
+2026-09-08 02:42:02.515 nvALT[45611:324823073] not writing note replace-pending because it is not controlled by NoteController
+2026-09-08 02:42:02.515 nvALT[45611:324823073] not writing note replace-pending because it is not controlled by NoteController
+2026-09-08 02:42:02.515 nvALT[45611:324823073] HISTORY replace-pending: replacementOnDisk=0 source=
+2026-09-08 02:42:02.515 nvALT[45611:324823073] REPLACEMENT FILE replace-pending.1.txt: seed café
+local 😀
+2026-09-08 02:42:02.515 nvALT[45611:324823073] REPLACEMENT FILE replace-pending (external changes).txt: new replacement body that must survive
+2026-09-08 02:42:02.515 nvALT[45611:324823073] File deleted as per CNID: replace-pending.txt
+2026-09-08 02:42:02.515 nvALT[45611:324823073] File added as per CNID: replace-pending.1.txt
+2026-09-08 02:42:02.516 nvALT[45611:324823073] File replace-pending.txt _actually_ removed (size: 40)
+2026-09-08 02:42:02.516 nvALT[45611:324823073] File _actually_ added: replace-pending.1.txt (processNotesAddedByContent:removed:)
+2026-09-08 02:42:02.516 nvALT[45611:324823073] Could not get an fsref for file with name replace-pending.txt: -43
+2026-09-08 02:42:02.516 nvALT[45611:324823073] REPLACEMENT MODEL: new replacement body that must survive
+ file=(null)
+2026-09-08 02:42:02.516 nvALT[45611:324823073] PASS: REPRO: stale conversion changes the source file of a different acknowledged note
+2026-09-08 02:42:02.517 nvALT[45611:324823073] PASS: write isolated conflict fixture
+2026-09-08 02:42:02.526 nvALT[45611:324823073] verified 5 notes in 0.000415087 s
+2026-09-08 02:42:02.527 nvALT[45611:324823073] PASS: persist conflict seed
+2026-09-08 02:42:02.529 nvALT[45611:324823073] verified 5 notes in 0.000326991 s
+2026-09-08 02:42:02.529 nvALT[45611:324823073] PASS: persist conflict local source pending conversion
+2026-09-08 02:42:02.530 nvALT[45611:324823073] PASS: external writer completes first version
+2026-09-08 02:42:02.531 nvALT[45611:324823073] PASS: failed conflict synchronization blocks original source replacement
+2026-09-08 02:42:02.531 nvALT[45611:324823073] PASS: failed synchronization retains disk external source and pending local source
+2026-09-08 02:42:02.532 nvALT[45611:324823073] PASS: failed conflict synchronization blocks original source replacement
+2026-09-08 02:42:02.532 nvALT[45611:324823073] PASS: failed synchronization retains disk external source and pending local source
+2026-09-08 02:42:02.533 nvALT[45611:324823073] PASS: failed conflict synchronization blocks original source replacement
+2026-09-08 02:42:02.533 nvALT[45611:324823073] PASS: failed synchronization retains disk external source and pending local source
+2026-09-08 02:42:02.533 nvALT[45611:324823073] HISTORY conflict-retry: failedSyncs=3 duplicateCopies=3
+2026-09-08 02:42:02.533 nvALT[45611:324823073] PASS: REPRO: each failed synchronization creates another copy of the same external version
+2026-09-08 02:42:02.535 nvALT[45611:324823073] PASS: successful retry completes pending conversion
+2026-09-08 02:42:02.535 nvALT[45611:324823073] PASS: REPRO: successful retry leaves four identical conflict notes from one external version
+2026-09-08 02:42:02.535 nvALT[45611:324823073] PASS: successful conversion retains exact local source
+2026-09-08 02:42:02.536 nvALT[45611:324823073] verified 9 notes in 0.000355005 s
+2026-09-08 02:42:02.537 nvALT[45611:324823073] PASS: flush all surviving versions
+2026-09-08 02:42:02.537 nvALT[45611:324823073] PASS: reopening archive retains all four duplicate conflict records
+2026-09-08 02:42:02.537 nvALT[45611:324823073] KINGSBURY ROUND 2 PROBE COMPLETED: 33 checks

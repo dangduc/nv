@@ -15,6 +15,11 @@ File metadata events must preserve the edited source until conversion succeeds.
 External body changes must survive in a separate note, both before and after directory notification delivery.
 The probe reads the real recovery journal before the original file write to check that the external version is already recoverable.
 Pending conversion blocks Text Encoding in the sheet predicate and model API.
+Conversion offers check the exact live note before scheduling, presentation, and acceptance.
+Deletion, a new note with the same filename, and deletion Undo cannot revive an obsolete offer.
+Conflict synchronization failures reuse one copy per external version, including after archive recovery.
+The retry fixtures retain separate CP-1252 and UTF-16 versions and check the journal before the original source replacement.
+UTF-8, UTF-16, and UTF-32 fixtures distinguish a transport BOM from a literal leading U+FEFF, including after edits.
 Encoding fixtures compare source characters with the legacy MacRoman decoder, alongside explicit CP-1252 and UTF-8 controls.
 Source bytes stay inside note archives, which follow library encryption.
 It also checks the removal of rich-text imports, storage, and exports.

@@ -1,0 +1,16 @@
+REMOVED workflow resource absent from source, project, and built app: HUDIconLock
+REMOVED workflow resource absent from source, project, and built app: HUDIconPrint
+REMOVED workflow resource absent from source, project, and built app: HUDIconSave
+REMOVED workflow resource absent from source, project, and built app: HUDIconShare
+REMOVED workflow resource absent from source, project, and built app: MarkupPreview
+REMOVED workflow resource absent from source, project, and built app: SaveHTMLPreview
+REMOVED workflow resource absent from source, project, and built app: tp2md.rb
+REMOVED workflow resource absent from source, project, and built app: templateclean.html
+REMOVED workflow resource absent from source, project, and built app: customclean.css
+REMOVED workflow resource absent from source, project, and built app: Markdown_1.0.1
+RESOURCE closure and bytes match: multimarkdown 1 files
+RESOURCE closure and bytes match: Textile_2.12 2 files
+RESOURCE closure and bytes match: Syntax 5 files
+RETAINED renderer works from unrelated working directory: multimarkdown
+RETAINED renderer works from unrelated working directory: textilize.pl
+RESOURCE CLOSURE CHECKS PASSED: 10 removed names, 8 retained files, 2 native helper executions
