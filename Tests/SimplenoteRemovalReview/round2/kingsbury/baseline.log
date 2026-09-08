@@ -1,0 +1,84 @@
+2026-09-08 13:15:48.476 nvALT[32354:325707957] PASS: temporary library directory exists
+2026-09-08 13:15:48.476 nvALT[32354:325707957] PASS: temporary library opens
+2026-09-08 13:15:48.796 nvALT[32354:325707957] PASS: failure history starts from an empty disposable library
+2026-09-08 13:15:49.025 nvALT[32354:325707957] verified 4 notes in 0.000453949 s
+2026-09-08 13:15:49.025 nvALT[32354:325707957] PASS: four-note checkpoint stores before failure injection
+2026-09-08 13:15:49.025 nvALT[32354:325707957] PASS: checkpoint bytes exist and both dirty flags are clear
+2026-09-08 13:15:49.025 nvALT[32354:325707957] PASS: checkpoint retains a live WAL for subsequent edits
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: history A has dirty local notes and dirty local syntax preferences before the store
+2026-09-08 13:15:49.027 nvALT[32354:325707957] INJECT: reject serialized database store, status=-34, bytes=3572, attempt=1
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: explicit snapshot write failure propagates as a failed flush
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: fault is hit once after serialization and before database replacement
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: failed snapshot does not mark local notes or preferences stored
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: failed snapshot leaves the previous checkpoint byte-for-byte unchanged
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: failed snapshot keeps the same WAL and never closes the sole new local records
+2026-09-08 13:15:49.027 nvALT[32354:325707957] PASS: preserved WAL can still synchronize after the failed snapshot
+2026-09-08 13:15:49.028 nvALT[32354:325707957] INJECT: reject serialized database store, status=-34, bytes=3572, attempt=2
+2026-09-08 13:15:49.028 nvALT[32354:325707957] PASS: failed flushEverything preserves its original journal instead of rotating it
+2026-09-08 13:15:49.028 nvALT[32354:325707957] verified 3 notes in 0.000280023 s
+2026-09-08 13:15:49.029 nvALT[32354:325707957] PASS: successful retry stores the snapshot before closing and restarting its WAL
+2026-09-08 13:15:49.029 nvALT[32354:325707957] PASS: successful retry clears both dirty flags
+2026-09-08 13:15:49.029 nvALT[32354:325707957] PASS: retry replaces the checkpoint with changed local data
+2026-09-08 13:15:49.029 nvALT[32354:325707957] PASS: successful retry retains local edit, deletion, and syntax without reintroducing a removed note
+2026-09-08 13:15:49.082 nvALT[32354:325707957] PASS: history B live state matches independent source and metadata model for retained through failure
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: history B live state matches independent source and metadata model for delete-before-retry
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: history B live state matches independent source and metadata model for delete-before-close
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: history B live state matches independent source and metadata model for untouched
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: history B live state matches independent source and metadata model for created-before-failed-close
+2026-09-08 13:15:49.083 nvALT[32354:325707957] INJECT: reject serialized database store, status=-34, bytes=3623, attempt=3
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: closeAllResources attempts the failed snapshot store exactly once
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: failed resource close leaves the pending local snapshot dirty
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: failed resource close preserves the sole WAL containing local edits, creation, and deletion
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: crash cut has a durable WAL and exactly the previous successful checkpoint
+2026-09-08 13:15:49.083 nvALT[32354:325707957] PASS: preserved WAL is an open nonempty file at the crash cut
+2026-09-08 13:15:49.084 nvALT[32354:325707957] PASS: independent expected identities and newest sequences are saved outside the database
+2026-09-08 13:15:49.084 nvALT[32354:325707957] KINGSBURY ROUND2 phase1: 29 assertions passed; 2 failure histories, 3 rejected stores, 1 successful retry; crash cut
+2026-09-08 13:15:49.427 nvALT[32364:325708024] PASS: temporary library directory exists
+2026-09-08 13:15:49.429 nvALT[32364:325708024] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.view-review.e1d29704f6bb4187a93deac926ad51a0/Interim Note-Changes: File exists
+2026-09-08 13:15:49.429 nvALT[32364:325708024] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-08 13:15:49.429 nvALT[32364:325708024] got a newer deleted note DeletedNoteObj(19E8B833-0A03-42DB-A819-494F2A398047) (null)
+2026-09-08 13:15:49.430 nvALT[32364:325708024] verified 3 notes in 0.000257969 s
+2026-09-08 13:15:49.431 nvALT[32364:325708024] PASS: temporary library opens
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: restart loads all five independent identity expectations
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery existence matches retained through failure
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery exact source matches retained through failure
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery local metadata matches retained through failure
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery checkpointed syntax and newest sequence match retained through failure
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery existence matches delete-before-retry
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery existence matches delete-before-close
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery existence matches untouched
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery exact source matches untouched
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery local metadata matches untouched
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery checkpointed syntax and newest sequence match untouched
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery existence matches created-before-failed-close
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery exact source matches created-before-failed-close
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery local metadata matches created-before-failed-close
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery checkpointed syntax and newest sequence match created-before-failed-close
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovery has exactly three notes without loss, duplication, or resurrection
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: recovered local snapshot stores successfully
+2026-09-08 13:15:49.754 nvALT[32364:325708024] PASS: successful recovery checkpoint clears dirty flags
+2026-09-08 13:15:49.755 nvALT[32364:325708024] PASS: successful close after recovery destroys the obsolete WAL
+2026-09-08 13:15:49.755 nvALT[32364:325708024] KINGSBURY ROUND2 phase2: 21 assertions passed
+2026-09-08 13:15:50.113 nvALT[32368:325708060] PASS: temporary library directory exists
+2026-09-08 13:15:50.115 nvALT[32368:325708060] PASS: temporary library opens
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: restart loads all five independent identity expectations
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery existence matches retained through failure
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery exact source matches retained through failure
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery local metadata matches retained through failure
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery checkpointed syntax and newest sequence match retained through failure
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery existence matches delete-before-retry
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery existence matches delete-before-close
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery existence matches untouched
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery exact source matches untouched
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery local metadata matches untouched
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery checkpointed syntax and newest sequence match untouched
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery existence matches created-before-failed-close
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery exact source matches created-before-failed-close
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery local metadata matches created-before-failed-close
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery checkpointed syntax and newest sequence match created-before-failed-close
+2026-09-08 13:15:50.440 nvALT[32368:325708060] PASS: recovery has exactly three notes without loss, duplication, or resurrection
+2026-09-08 13:15:50.442 nvALT[32368:325708060] verified 3 notes in 0.00050199 s
+2026-09-08 13:15:50.442 nvALT[32368:325708060] PASS: recovered local snapshot stores successfully
+2026-09-08 13:15:50.442 nvALT[32368:325708060] PASS: successful recovery checkpoint clears dirty flags
+2026-09-08 13:15:50.442 nvALT[32368:325708060] PASS: successful close after recovery destroys the obsolete WAL
+2026-09-08 13:15:50.442 nvALT[32368:325708060] KINGSBURY ROUND2 phase3: 21 assertions passed

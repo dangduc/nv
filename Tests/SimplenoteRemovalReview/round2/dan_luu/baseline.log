@@ -1,0 +1,100 @@
+2026-09-08 13:07:12.265 nvALT[30324:325689251] PASS: temporary library directory exists
+2026-09-08 13:07:12.266 nvALT[30324:325689251] PASS: temporary library opens
+2026-09-08 13:07:12.593 nvALT[30324:325689251] PASS: create disposable plain-file library
+2026-09-08 13:07:12.595 nvALT[30324:325689251] verified 0 notes in 0.000218987 s
+2026-09-08 13:07:12.966 nvALT[30324:325689251] verified 8 notes in 0.00049901 s
+2026-09-08 13:07:12.967 nvALT[30324:325689251] PASS: fixture files and initial snapshot are fully stored before counting
+2026-09-08 13:07:12.967 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:12.968 nvALT[30324:325689251] PASS: plain-file workload uses the real journal and file writer
+2026-09-08 13:07:12.978 nvALT[30324:325689251] PASS: 320 source commits queue without synchronous persistence
+2026-09-08 13:07:12.985 nvALT[30324:325689251] verified 8 notes in 0.000387073 s
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: explicit flush drains the source burst
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: insert-burst produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:12.986 nvALT[30324:325689251] DAN_R2_PHASE name=insert-burst files=8 journal=8 snapshots=1 physical=8
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: unchanged-after-insert produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:12.986 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:12.986 nvALT[30324:325689251] DAN_R2_PHASE name=unchanged-after-insert files=0 journal=0 snapshots=0 physical=0
+2026-09-08 13:07:12.995 nvALT[30324:325689251] PASS: 320 source commits queue without synchronous persistence
+2026-09-08 13:07:13.002 nvALT[30324:325689251] verified 8 notes in 0.000333905 s
+2026-09-08 13:07:13.002 nvALT[30324:325689251] PASS: explicit flush drains the source burst
+2026-09-08 13:07:13.002 nvALT[30324:325689251] PASS: delete-burst produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:13.002 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:13.003 nvALT[30324:325689251] DAN_R2_PHASE name=delete-burst files=8 journal=8 snapshots=1 physical=8
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged flush succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: unchanged-after-delete produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:13.003 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:13.003 nvALT[30324:325689251] DAN_R2_PHASE name=unchanged-after-delete files=0 journal=0 snapshots=0 physical=0
+2026-09-08 13:07:13.005 nvALT[30324:325689251] verified 8 notes in 0.00027597 s
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: selection metadata flush succeeds
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: selection-only produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:13.005 nvALT[30324:325689251] DAN_R2_PHASE name=selection-only files=0 journal=8 snapshots=1 physical=8
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: selection metadata preserves source modification dates
+2026-09-08 13:07:13.005 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:13.013 nvALT[30324:325689251] verified 8 notes in 0.00029099 s
+2026-09-08 13:07:13.013 nvALT[30324:325689251] PASS: tag metadata flush succeeds
+2026-09-08 13:07:13.013 nvALT[30324:325689251] PASS: tags-only produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:13.013 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:13.013 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:13.013 nvALT[30324:325689251] DAN_R2_PHASE name=tags-only files=8 journal=8 snapshots=1 physical=8
+2026-09-08 13:07:13.013 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:13.014 nvALT[30324:325689251] PASS: syntax changes defer their preference save
+2026-09-08 13:07:13.219 nvALT[30324:325689251] verified 8 notes in 0.00147092 s
+2026-09-08 13:07:13.415 nvALT[30324:325689251] PASS: syntax-only produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:13.415 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:13.416 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:13.416 nvALT[30324:325689251] DAN_R2_PHASE name=syntax-only files=0 journal=0 snapshots=1 physical=0
+2026-09-08 13:07:13.416 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:13.639 nvALT[30324:325689251] PASS: sub-delay paced edits remain batched
+2026-09-08 13:07:16.640 nvALT[30324:325689251] PASS: idle-source-save produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:16.641 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:16.642 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:16.642 nvALT[30324:325689251] DAN_R2_PHASE name=idle-source-save files=1 journal=1 snapshots=0 physical=1
+2026-09-08 13:07:16.643 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:16.647 nvALT[30324:325689251] verified 8 notes in 0.00126302 s
+2026-09-08 13:07:16.648 nvALT[30324:325689251] PASS: snapshot flush after idle note save succeeds
+2026-09-08 13:07:16.648 nvALT[30324:325689251] PASS: snapshot-after-idle produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:16.648 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:16.649 nvALT[30324:325689251] DAN_R2_PHASE name=snapshot-after-idle files=0 journal=0 snapshots=1 physical=0
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final unchanged flush succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final unchanged flush succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final unchanged flush succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final unchanged flush succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final unchanged flush succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: final-unchanged produces expected file, journal, and snapshot write counts
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: measured journal synchronization succeeds
+2026-09-08 13:07:16.649 nvALT[30324:325689251] PASS: complete physical journal records match the observed successful writer calls
+2026-09-08 13:07:16.649 nvALT[30324:325689251] DAN_R2_PHASE name=final-unchanged files=0 journal=0 snapshots=0 physical=0
+2026-09-08 13:07:16.652 nvALT[30324:325689251] saw new disk UUID: DiskUUIDEntry(2026-09-08 20:07:16 +0000, 1DA8A537-A99B-4B5F-B068-D8800B3D0890) (other disks are: (
+))
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: eight plain notes survive a real controller close and reopen
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: reopened note retains its unique title and filename identity
+2026-09-08 13:07:16.656 nvALT[30324:325689251] PASS: tags, local syntax, and selection metadata survive the real reopen
+2026-09-08 13:07:16.657 nvALT[30324:325689251] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:07:16.661 nvALT[30324:325689251] verified 8 notes in 0.00121999 s
+2026-09-08 13:07:16.662 nvALT[30324:325689251] DAN_R2_RESULT app=baseline notes=8 sourceCommits=660 selectionChanges=96 tagChanges=96 syntaxChanges=96 phases=10 checks=78

@@ -17,8 +17,8 @@ Reports distinguish product defects from probe errors and expected behavior afte
 | Round | Status |
 | --- | --- |
 | 1 | Complete; fixture finding corrected and validated |
-| 2 | In progress |
-| 3 | Pending |
+| 2 | Complete; no actionable introduced defect found |
+| 3 | In progress |
 
 The review perspectives are John Ousterhout, Dan Luu, Linus Torvalds, Kyle Kingsbury, a data-preservation skeptic, and a workflow-compatibility skeptic.
 
@@ -51,3 +51,18 @@ The [fixture finding](https://github.com/fastducduc/nv/pull/7#issuecomment-55910
 The old-app producer passed 12 checks. The updated source-storage suite passed 273 checks.
 The permanent guard rejects the preserved original flawed fixture. Application code is unchanged by this correction.
 Round 2 app reviews can proceed because this correction changes test fixtures and their preconditions, not application code.
+
+## Round 2
+
+| Perspective | Report | Result |
+| --- | --- | --- |
+| John Ousterhout | [Library replacement and shared editing](round2/ousterhout/REPORT.md) | 115 checks per app; no introduced defect found |
+| Dan Luu | [Plain-file persistence counts](round2/dan_luu/REPORT.md) | 78 checks per app; write counts and bytes match |
+| Linus Torvalds | [External editing and export](round2/linus/REPORT.md) | 82 checks per app; no introduced defect found |
+| Kyle Kingsbury | [Failed snapshots and recovery](round2/kingsbury/REPORT.md) | 71 assertions per app; WAL and dirty state survive failed stores |
+| Data-preservation skeptic | [Encrypted archive compatibility](round2/contrarian_data/REPORT.md) | 24 producer, 56 current-reader, and 38 old-reader checks passed |
+| Workflow-compatibility skeptic | [Storage and Security actions](round2/contrarian_workflow/REPORT.md) | 54 current checks and 55 baseline checks, including one baseline adapter check |
+
+Round 2 found no actionable introduced defect. No application fix was requested.
+Existing equality and canceled-picker-queue behavior are recorded with baseline controls in the reports.
+CI passed for the round 1 correction: [run 34272904963](https://github.com/fastducduc/nv/actions/runs/34272904963).

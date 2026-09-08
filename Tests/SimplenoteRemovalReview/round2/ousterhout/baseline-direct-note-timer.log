@@ -1,0 +1,70 @@
+2026-09-08 13:07:26.473 nvALT[30394:325689907] PASS: temporary library directory exists
+2026-09-08 13:07:26.473 nvALT[30394:325689907] PASS: temporary library opens
+2026-09-08 13:07:27.084 nvALT[30394:325689907] PASS: two real browser controllers own separate windows
+2026-09-08 13:07:27.207 nvALT[30394:325689907] OWNERSHIP HISTORY 1
+2026-09-08 13:07:27.294 nvALT[30394:325689907] PASS: both browsers access the same library owner
+2026-09-08 13:07:27.294 nvALT[30394:325689907] PASS: two separate layouts attach to one cached text storage
+2026-09-08 13:07:27.294 nvALT[30394:325689907] PASS: selected note has exactly two editor attachments
+2026-09-08 13:07:27.299 nvALT[30394:325689907] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:07:27.363 nvALT[30394:325689907] PASS: native source typing commits once and appears in the peer editor
+2026-09-08 13:07:27.414 nvALT[30394:325689907] PASS: switching the peer note detaches only its own layout
+2026-09-08 13:07:27.414 nvALT[30394:325689907] PASS: detaching the peer preserves both exact note bodies
+2026-09-08 13:07:27.465 nvALT[30394:325689907] PASS: returning to the note reuses the original session
+2026-09-08 13:07:27.465 nvALT[30394:325689907] PASS: replacement uses a new disposable notes directory
+2026-09-08 13:07:27.465 nvALT[30394:325689907] PASS: replacement directory has a valid file reference
+2026-09-08 13:07:27.465 nvALT[30394:325689907] PASS: replacement starts with an independent empty library
+2026-09-08 13:07:27.520 nvALT[30394:325689907] PASS: same UUID deliberately names distinct model objects across libraries
+2026-09-08 13:07:27.527 nvALT[30394:325689907] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:07:27.531 nvALT[30394:325689907] PASS: peer has a real uncommitted marked-text edit at the replacement boundary
+2026-09-08 13:07:27.533 nvALT[30394:325689907] verified 2 notes in 0.000337005 s
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: library replacement commits composition into its original note before detaching
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: old cached session closes exactly once and releases its source analysis
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: both browser layouts leave the closed session
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: closed session removes its old source Undo and Redo targets
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: coordinator detaches the old library delegate before owning the replacement
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: both windows switch to the replacement library
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: replacement clears both old note selections
+2026-09-08 13:07:27.596 nvALT[30394:325689907] PASS: replacement evicts the old session from the UUID cache
+2026-09-08 13:07:27.690 nvALT[30394:325689907] PASS: reused UUID receives a new session for the replacement model identity
+2026-09-08 13:07:27.690 nvALT[30394:325689907] PASS: both layouts show exact replacement source despite the matching old UUID
+2026-09-08 13:07:27.815 nvALT[30394:325689907] verified 2 notes in 0.000254035 s
+2026-09-08 13:07:27.821 nvALT[30394:325689907] FAIL -[NotationPrefs uniqueNoteIDBytes]: unrecognized selector sent to instance 0x6000022315e0
+(
+	0   CoreFoundation                      0x00007ff81697942a __exceptionPreprocess + 241
+	1   libobjc.A.dylib                     0x00007ff81640a104 objc_exception_throw + 62
+	2   CoreFoundation                      0x00007ff816a2da00 -[NSObject(NSObject) __retain_OA] + 0
+	3   CoreFoundation                      0x00007ff8168ef68d ___forwarding___ + 1308
+	4   CoreFoundation                      0x00007ff8168ef0e8 _CF_forwarding_prep_0 + 120
+	5   nvALT                               0x0000000100ab82d9 -[NoteObject isEqual:] + 25
+	6   Foundation                          0x00007ff817af5f3a +[NSObject(NSDelayedPerforming) cancelPreviousPerformRequestsWithTarget:] + 335
+	7   nvALT                               0x0000000100ad97c7 -[NotationPrefs dealloc] + 39
+	8   nvALT                               0x0000000100adf3ea -[FrozenNotation dealloc] + 42
+	9   libobjc.A.dylib                     0x00007ff816401f15 _ZN19AutoreleasePoolPage12releaseUntilEPP11objc_object + 187
+	10  libobjc.A.dylib                     0x00007ff8163ff353 objc_autoreleasePoolPop + 236
+	11  CoreFoundation                      0x00007ff8168cfacf _CFAutoreleasePoolPop + 22
+	12  CoreFoundation                      0x00007ff816926d56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20
+	13  CoreFoundation                      0x00007ff8169269a3 __CFRunLoopDoTimer + 803
+	14  CoreFoundation                      0x00007ff8169265e8 __CFRunLoopDoTimers + 249
+	15  CoreFoundation                      0x00007ff81690df18 __CFRunLoopRun + 2037
+	16  CoreFoundation                      0x00007ff8169d5385 _CFRunLoopRunSpecificWithOptions + 496
+	17  Foundation                          0x00007ff817ae4c87 -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 216
+	18  Foundation                          0x00007ff817b615dd -[NSRunLoop(NSRunLoop) runUntilDate:] + 103
+	19  ViewReview.dylib                    0x000000010970f640 Pump + 80
+	20  ViewReview.dylib                    0x000000010971118c -[AppController(NVWindowTests) nv_runTests] + 6972
+	21  Foundation                          0x00007ff817b064f5 __NSFireDelayedPerform + 438
+	22  CoreFoundation                      0x00007ff816926d56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20
+	23  CoreFoundation                      0x00007ff8169269a3 __CFRunLoopDoTimer + 803
+	24  CoreFoundation                      0x00007ff8169265e8 __CFRunLoopDoTimers + 249
+	25  CoreFoundation                      0x00007ff81690df18 __CFRunLoopRun + 2037
+	26  CoreFoundation                      0x00007ff8169d5385 _CFRunLoopRunSpecificWithOptions + 496
+	27  HIToolbox                           0x00007ff823a80b8b RunCurrentEventLoopInMode + 283
+	28  HIToolbox                           0x00007ff823a83c4d ReceiveNextEventCommon + 599
+	29  HIToolbox                           0x00007ff823c0c0ca _BlockUntilNextEventMatchingListInMode + 37
+	30  AppKit                              0x00007ff81adf7f04 _DPSBlockUntilNextEventMatchingListInMode + 172
+	31  AppKit                              0x00007ff81a6ed9c5 _DPSNextEvent + 800
+	32  AppKit                              0x00007ff81b39bd83 -[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:] + 1265
+	33  AppKit                              0x00007ff81b39b859 -[NSApplication(NSEventRouting) nextEventMatchingMask:untilDate:inMode:dequeue:] + 67
+	34  AppKit                              0x00007ff81a6de85c -[NSApplication run] + 472
+	35  AppKit                              0x00007ff81a6b44cd NSApplicationMain + 800
+	36  dyld                                0x000000020113bb28 start + 3240
+)

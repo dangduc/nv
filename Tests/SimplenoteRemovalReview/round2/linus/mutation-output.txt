@@ -1,0 +1,9 @@
+2026-09-08 13:09:54.193 nvALT[31078:325696896] PASS: temporary library directory exists
+2026-09-08 13:09:54.193 nvALT[31078:325696896] PASS: temporary library opens
+2026-09-08 13:09:54.949 nvALT[31078:325696896] verified 2 notes in 0.000333905 s
+2026-09-08 13:09:54.973 nvALT[31078:325696896] PASS: fixture creates three separate native browser windows
+2026-09-08 13:09:55.047 nvALT[31078:325696896] PASS: initial local notes and syntax reach the database
+2026-09-08 13:09:55.047 nvALT[31078:325696896] PASS: ODB callback first runs against database storage
+2026-09-08 13:09:55.048 nvALT[31078:325696896] PASS: disposable UTF-8 BOM file represents an external editor save
+2026-09-08 13:09:55.106 nvALT[31078:325696896] FAIL: external update commits the exact source in the note model
+PASS: omitted ODB callback fails the intended exact-model-source assertion.
