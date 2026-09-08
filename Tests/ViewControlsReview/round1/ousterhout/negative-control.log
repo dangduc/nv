@@ -1,0 +1,8 @@
+2026-09-08 04:25:23.278 nvALT[64350:325002519] PASS: temporary library directory exists
+2026-09-08 04:25:23.279 nvALT[64350:325002519] PASS: temporary library opens
+2026-09-08 04:25:23.878 nvALT[64350:325002519] PASS: a separate browser shares the library
+2026-09-08 04:25:24.350 nvALT[64350:325002519] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:24.357 nvALT[64350:325002519] PASS: the peer has its own native metadata editor
+2026-09-08 04:25:24.358 nvALT[64350:325002519] PASS: pending metadata retains the peer's selected note
+2026-09-08 04:25:24.358 nvALT[64350:325002519] PASS: the input remains uncommitted before the shared preference callback
+2026-09-08 04:25:24.359 nvALT[64350:325002519] FAIL: a shared hide commits the peer field to its original note

@@ -1,0 +1,43 @@
+2026-09-08 04:25:09.182 nvALT[64316:325001914] PASS: temporary library directory exists
+2026-09-08 04:25:09.183 nvALT[64316:325001914] PASS: temporary library opens
+2026-09-08 04:25:09.816 nvALT[64316:325001914] PASS: a separate browser shares the library
+2026-09-08 04:25:10.282 nvALT[64316:325001914] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:10.289 nvALT[64316:325001914] PASS: the peer has its own native metadata editor
+2026-09-08 04:25:10.290 nvALT[64316:325001914] PASS: pending metadata retains the peer's selected note
+2026-09-08 04:25:10.290 nvALT[64316:325001914] PASS: the input remains uncommitted before the shared preference callback
+2026-09-08 04:25:10.293 nvALT[64316:325001914] PASS: a shared hide commits the peer field to its original note
+2026-09-08 04:25:10.293 nvALT[64316:325001914] PASS: the initiating browser's note does not receive the peer edit
+2026-09-08 04:25:10.293 nvALT[64316:325001914] PASS: both fields hide and the peer releases its metadata editing state
+2026-09-08 04:25:10.293 nvALT[64316:325001914] PASS: the peer moves focus to its own source
+2026-09-08 04:25:10.293 nvALT[64316:325001914] PASS: the notification preserves both browser selections
+2026-09-08 04:25:10.407 nvALT[64316:325001914] PASS: the peer metadata hide is one reversible note edit
+2026-09-08 04:25:10.533 nvALT[64316:325001914] PASS: redo restores the peer edit without revealing its hidden field
+2026-09-08 04:25:10.538 nvALT[64316:325001914] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:10.540 nvALT[64316:325001914] PASS: the peer has its own native metadata editor
+2026-09-08 04:25:10.540 nvALT[64316:325001914] PASS: pending metadata retains the peer's selected note
+2026-09-08 04:25:10.540 nvALT[64316:325001914] PASS: the input remains uncommitted before the shared preference callback
+2026-09-08 04:25:10.542 nvALT[64316:325001914] PASS: a shared hide commits the peer field to its original note
+2026-09-08 04:25:10.542 nvALT[64316:325001914] PASS: the initiating browser's note does not receive the peer edit
+2026-09-08 04:25:10.542 nvALT[64316:325001914] PASS: both fields hide and the peer releases its metadata editing state
+2026-09-08 04:25:10.542 nvALT[64316:325001914] PASS: the peer moves focus to its own source
+2026-09-08 04:25:10.542 nvALT[64316:325001914] PASS: the notification preserves both browser selections
+2026-09-08 04:25:10.592 nvALT[64316:325001914] PASS: the peer metadata hide is one reversible note edit
+2026-09-08 04:25:10.643 nvALT[64316:325001914] PASS: redo restores the peer edit without revealing its hidden field
+2026-09-08 04:25:10.650 nvALT[64316:325001914] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:10.661 nvALT[64316:325001914] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:10.663 nvALT[64316:325001914] PASS: two windows retain independent native metadata field editors
+2026-09-08 04:25:10.665 nvALT[64316:325001914] PASS: hiding Title commits its pending native input
+2026-09-08 04:25:10.665 nvALT[64316:325001914] PASS: title notification reentry preserves the unrelated pending peer Tags editor
+2026-09-08 04:25:10.665 nvALT[64316:325001914] PASS: showing Tags does not prematurely commit its pending editor
+2026-09-08 04:25:10.667 nvALT[64316:325001914] PASS: the second hide commits only the remaining metadata field
+2026-09-08 04:25:10.676 nvALT[64316:325001914] PASS: the native fixture activates the intended browser
+2026-09-08 04:25:11.083 nvALT[64316:325001914] Preview readiness: loading=0 error=(null) hidden=0
+2026-09-08 04:25:11.083 nvALT[64316:325001914] PASS: the viewer is loaded before the focus transition
+2026-09-08 04:25:11.086 nvALT[64316:325001914] PASS: the untouched Preview title has a native editor
+2026-09-08 04:25:12.107 nvALT[64316:325001914] Preview focus: responder=<WKWebView: 0x7fbc89e077f0> webView=<WKWebView: 0x7fbc89e077f0> viewing=1
+2026-09-08 04:25:12.107 nvALT[64316:325001914] PASS: hiding a Preview title retains presentation and focuses the native viewer
+2026-09-08 04:25:12.107 nvALT[64316:325001914] PASS: hiding an untouched Preview title preserves its value
+2026-09-08 04:25:12.107 nvALT[64316:325001914] PASS: metadata visibility and focus operations preserve exact source strings
+2026-09-08 04:25:12.107 nvALT[64316:325001914] PASS: visibility transitions create no implicit note
+2026-09-08 04:25:12.107 nvALT[64316:325001914] OUSTERHOUT REVIEW PASSED: 39 checks
+2026-09-08 04:25:12.115 nvALT[64316:325001914] verified 2 notes in 0.00142002 s

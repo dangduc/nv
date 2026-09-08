@@ -1,0 +1,73 @@
+2026-09-08 04:25:26.162 nvALT[64364:325002853] PASS: temporary library directory exists
+2026-09-08 04:25:26.162 nvALT[64364:325002853] PASS: temporary library opens
+2026-09-08 04:25:26.662 nvALT[64364:325002853] MEASURE fixture characters=120000 words=20000
+2026-09-08 04:25:26.662 nvALT[64364:325002853] PASS: fixture has the requested number of browser windows
+2026-09-08 04:25:26.662 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:26.662 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:26.679 nvALT[64364:325002853] MEASURE wordcount windows=1 repeat=0 calls=1 count_ms=15.809 total_ms=16.689 layouts=1
+2026-09-08 04:25:26.679 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:26.679 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:26.746 nvALT[64364:325002853] MEASURE wordcount windows=1 repeat=1 calls=1 count_ms=14.936 total_ms=15.841 layouts=1
+2026-09-08 04:25:26.746 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:26.746 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:26.829 nvALT[64364:325002853] MEASURE headers windows=1 commands=60 layouts=60 count_calls=0 display_calls=0 js_calls=0 total_ms=32.192
+2026-09-08 04:25:26.829 nvALT[64364:325002853] PASS: header toggles perform one layout per browser without word counting
+2026-09-08 04:25:26.829 nvALT[64364:325002853] PASS: Source-only header toggles perform no viewer renders or DOM reads
+2026-09-08 04:25:26.829 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:27.117 nvALT[64364:325002853] PASS: fixture has the requested number of browser windows
+2026-09-08 04:25:27.117 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.117 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.117 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.117 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.148 nvALT[64364:325002853] MEASURE wordcount windows=2 repeat=0 calls=2 count_ms=30.105 total_ms=31.082 layouts=2
+2026-09-08 04:25:27.148 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:27.148 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.148 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.229 nvALT[64364:325002853] MEASURE wordcount windows=2 repeat=1 calls=2 count_ms=28.451 total_ms=29.437 layouts=2
+2026-09-08 04:25:27.229 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:27.229 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.229 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.320 nvALT[64364:325002853] MEASURE headers windows=2 commands=60 layouts=120 count_calls=0 display_calls=0 js_calls=0 total_ms=39.266
+2026-09-08 04:25:27.321 nvALT[64364:325002853] PASS: header toggles perform one layout per browser without word counting
+2026-09-08 04:25:27.321 nvALT[64364:325002853] PASS: Source-only header toggles perform no viewer renders or DOM reads
+2026-09-08 04:25:27.321 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:27.321 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: fixture has the requested number of browser windows
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: every window displays the same shared note
+2026-09-08 04:25:27.835 nvALT[64364:325002853] PASS: Source-only window has no preview provider
+2026-09-08 04:25:27.895 nvALT[64364:325002853] MEASURE wordcount windows=4 repeat=0 calls=4 count_ms=58.346 total_ms=59.597 layouts=4
+2026-09-08 04:25:27.895 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:27.895 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.895 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.895 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:27.895 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:28.008 nvALT[64364:325002853] MEASURE wordcount windows=4 repeat=1 calls=4 count_ms=59.817 total_ms=61.340 layouts=4
+2026-09-08 04:25:28.008 nvALT[64364:325002853] PASS: one global Word Count command counts once in each browser
+2026-09-08 04:25:28.008 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:28.008 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:28.008 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:28.008 nvALT[64364:325002853] PASS: all windows show the correct shared note count
+2026-09-08 04:25:28.110 nvALT[64364:325002853] MEASURE headers windows=4 commands=60 layouts=240 count_calls=0 display_calls=0 js_calls=0 total_ms=49.834
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: header toggles perform one layout per browser without word counting
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: Source-only header toggles perform no viewer renders or DOM reads
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:28.110 nvALT[64364:325002853] PASS: header toggles keep Source-only preview unallocated
+2026-09-08 04:25:28.176 nvALT[64364:325002853] MEASURE single_browser_control attached_windows=4 count_calls=1 count_ms=15.705
+2026-09-08 04:25:28.176 nvALT[64364:325002853] PASS: single-browser control actually executes one full count
+2026-09-08 04:25:28.176 nvALT[64364:325002853] PASS: word counting releases its temporary substring observers before return
+2026-09-08 04:25:28.243 nvALT[64364:325002853] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:25:28.564 nvALT[64364:325002853] VIEWER fixture provider=<PreviewController: 0x7f980b58d880> selected=Hidden viewer mode=1 loading=0 error=(null) displays=1 js=1
+2026-09-08 04:25:28.564 nvALT[64364:325002853] PASS: control renders a real WKWebView before hiding it
+2026-09-08 04:25:29.665 nvALT[64364:325002853] MEASURE hidden_viewer display_calls=0 js_calls=0 layout_calls=32
+2026-09-08 04:25:29.665 nvALT[64364:325002853] PASS: hidden preview remains idle during header and notes list changes
+2026-09-08 04:25:29.665 nvALT[64364:325002853] PASS: layout and word count commands preserve exact source characters
+2026-09-08 04:25:29.665 nvALT[64364:325002853] DAN LUU REVIEW PASSED: 58 checks
+2026-09-08 04:25:29.824 nvALT[64364:325002853] verified 2 notes in 0.000517964 s

@@ -1,0 +1,27 @@
+2026-09-08 04:29:53.444 nvALT[64903:325009661] PASS: temporary library directory exists
+2026-09-08 04:29:53.445 nvALT[64903:325009661] PASS: temporary library opens
+2026-09-08 04:29:54.470 nvALT[64903:325009661] PASS: the two windows begin with distinct expanded divider heights
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: the actual list is collapsed in each browser
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: all three header preferences reach each browser
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: the actual list is collapsed in each browser
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: all three header preferences reach each browser
+2026-09-08 04:29:54.532 nvALT[64903:325009661] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:29:54.585 nvALT[64903:325009661] PASS: a collapsed resize retains the peer's expanded height
+2026-09-08 04:29:54.638 nvALT[64903:325009661] PASS: a collapsed shrink and expansion preserve the original divider height
+2026-09-08 04:29:54.638 nvALT[64903:325009661] PASS: the independent expected state persists for the next process
+2026-09-08 04:29:54.639 nvALT[64903:325009661] PASS: the native coordinator stores exactly two windows for relaunch
+2026-09-08 04:29:54.641 nvALT[64903:325009661] verified 2 notes in 0.000359058 s
+2026-09-08 04:29:54.641 nvALT[64903:325009661] KINGSBURY PHASE 1 PASSED: 13 checks
+2026-09-08 04:29:54.986 nvALT[64910:325009835] PASS: temporary library directory exists
+2026-09-08 04:29:54.987 nvALT[64910:325009835] PASS: temporary library opens
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: the second process reads the first process's expected state
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: normal startup restores both persisted browser windows
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: a new process restores all four hidden preferences from its defaults
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: the actual list is collapsed in each browser
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: all three header preferences reach each browser
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: the actual list is collapsed in each browser
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: all three header preferences reach each browser
+2026-09-08 04:29:55.308 nvALT[64910:325009835] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:29:55.308 nvALT[64910:325009835] FAIL: relaunch preserves each window's saved expanded height while collapsed

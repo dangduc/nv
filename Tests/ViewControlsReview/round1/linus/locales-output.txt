@@ -1,0 +1,7 @@
+PASS de.lproj: View action anchor and word-count action
+PASS en.lproj: View action anchor and word-count action
+PASS fr.lproj: View action anchor and word-count action
+PASS it.lproj: View action anchor and word-count action
+PASS pt-PT.lproj: View action anchor and word-count action
+PASS zh.lproj: View action anchor and word-count action
+LOCALIZED MENU AUDIT PASSED (6 source nibs)
