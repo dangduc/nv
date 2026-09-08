@@ -1,0 +1,9 @@
+Visible-viewer reflow group 1: 2 JavaScript calls, all timer stacks=True
+Visible-viewer reflow group 2: 3 JavaScript calls, all timer stacks=True
+Visible-viewer reflow group 3: 2 JavaScript calls, all timer stacks=True
+Visible-viewer reflow group 4: 2 JavaScript calls, all timer stacks=True
+Production diff for PreviewController.m: empty
+Native result: DAN LUU ROUND 2 REVIEW PASSED: 409 checks
+Host: 26.5.2 / arm64
+Toolchain: Xcode 26.6 / Build version 17F113
+App binary: 2ea15366e154c271b16d1036bd2043f7426a19f483bec8fe8dad6d974a033d94  build/ViewControlsReview/round1/nvALT.app/Contents/MacOS/nvALT

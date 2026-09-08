@@ -88,12 +88,24 @@
             @"hidden syntax action changes only the active note");
         [self nv_r2Dispatch:mode];
         Check([self isViewingNote] && ![peer isViewingNote], @"Show Preview changes only its originating browser");
-        [peer nv_activateBrowser]; [self nv_r2Dispatch:markdown];
+        [peer nv_activateBrowser];
+        if (getenv("NV_REVIEW_WRONG_SYNTAX_OWNER")) {
+            Method method = class_getInstanceMethod([AppController class], @selector(selectSourceSyntax:));
+            IMP original = method_getImplementation(method);
+            method_setImplementation(method, imp_implementationWithBlock(^(id receiver, id sender) {
+                ((void (*)(id, SEL, id))original)(self, @selector(selectSourceSyntax:), sender);
+            }));
+        }
+        [self nv_r2Dispatch:markdown];
         Check([[beta sourceSyntaxIdentifier] isEqual:@"markdown"] && [[alpha sourceSyntaxIdentifier] isEqual:@"json"],
             @"a peer menu command does not inherit the previous active note");
         [self nv_r2Syntax:syntax expected:@"markdown"]; [view update];
         Check([[mode title] isEqual:@"Show Preview"], @"a source peer advertises Show Preview while another viewer loads");
-        for (NSUInteger i=0;i<35;i++) Pump();
+        NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:8];
+        while ([previewController loading] && [deadline timeIntervalSinceNow] > 0) Pump();
+        for (NSUInteger i=0;i<8;i++) Pump();
+        Check(![previewController loading] && ![previewController renderError] && [[previewController renderedHTML] rangeOfString:@"base local"].location != NSNotFound,
+            @"the original browser completes its actual preview callback while the peer is active");
         [self nv_r2Syntax:syntax expected:@"markdown"]; [view update];
         Check([[mode title] isEqual:@"Show Preview"] && [[peer window] firstResponder] == peerSource,
             @"delayed viewer callbacks do not replace the peer menu state or focus");

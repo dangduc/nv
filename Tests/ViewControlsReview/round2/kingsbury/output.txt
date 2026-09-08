@@ -1,0 +1,50 @@
+2026-09-08 04:38:54.399 nvALT[67202:325026679] PASS: temporary library directory exists
+2026-09-08 04:38:54.400 nvALT[67202:325026679] PASS: temporary library opens
+2026-09-08 04:38:56.169 nvALT[67202:325026679] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:38:56.170 nvALT[67202:325026679] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:38:56.219 nvALT[67202:325026679] PASS: DOM observation completes before its deadline
+2026-09-08 04:38:56.281 nvALT[67202:325026679] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:56.281 nvALT[67202:325026679] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:56.282 nvALT[67202:325026679] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:38:56.283 nvALT[67202:325026679] PASS: Syntax dispatch reaches the active Preview browser while controls are hidden
+2026-09-08 04:38:56.485 nvALT[67202:325026679] verified 2 notes in 0.000402093 s
+2026-09-08 04:38:56.535 nvALT[67202:325026679] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:38:56.535 nvALT[67202:325026679] PASS: hidden Syntax command changes only the active note's local syntax
+2026-09-08 04:38:56.535 nvALT[67202:325026679] PASS: local JSON syntax leaves the peer Markdown viewer selected
+2026-09-08 04:38:56.535 nvALT[67202:325026679] PASS: visibility and syntax transitions preserve both independent source selections
+2026-09-08 04:38:56.536 nvALT[67202:325026679] PASS: visibility and local syntax transitions preserve both source bodies
+2026-09-08 04:38:56.536 nvALT[67202:325026679] PASS: collapsing the list and header preserves the visible source viewport
+2026-09-08 04:38:56.536 nvALT[67202:325026679] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:38:56.587 nvALT[67202:325026679] PASS: DOM observation completes before its deadline
+2026-09-08 04:38:56.638 nvALT[67202:325026679] PASS: the persistence checkpoint includes a completed DOM capture
+2026-09-08 04:38:56.639 nvALT[67202:325026679] PASS: independent expected source bodies are saved outside application state
+2026-09-08 04:38:56.639 nvALT[67202:325026679] KINGSBURY ROUND 2 PHASE 1 PASSED: 19 checks
+2026-09-08 04:38:57.034 nvALT[67217:325026980] PASS: temporary library directory exists
+2026-09-08 04:38:57.035 nvALT[67217:325026980] PASS: temporary library opens
+2026-09-08 04:38:57.450 nvALT[67217:325026980] PASS: a second app process restores both mixed-mode browsers
+2026-09-08 04:38:57.450 nvALT[67217:325026980] PASS: normal relaunch restores independent Source and Preview modes
+2026-09-08 04:38:57.450 nvALT[67217:325026980] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:57.450 nvALT[67217:325026980] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:57.451 nvALT[67217:325026980] PASS: hidden-list restoration selects the original note in each mixed-mode window
+2026-09-08 04:38:57.451 nvALT[67217:325026980] PASS: both exact source bodies survive the process boundary
+2026-09-08 04:38:57.451 nvALT[67217:325026980] PASS: relaunch retains the independent local syntax metadata
+2026-09-08 04:38:57.451 nvALT[67217:325026980] PASS: normal relaunch retains both visible and hidden source selections
+2026-09-08 04:38:57.602 nvALT[67217:325026980] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:38:57.602 nvALT[67217:325026980] PASS: the restored hidden-control viewer renders the correct note and format
+2026-09-08 04:38:57.613 nvALT[67217:325026980] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:38:57.652 nvALT[67217:325026980] PASS: DOM observation completes before its deadline
+2026-09-08 04:38:57.652 nvALT[67217:325026980] OBSERVED restored preview scroll=700
+2026-09-08 04:38:57.652 nvALT[67217:325026980] PASS: the completed preview viewport capture survives normal relaunch
+2026-09-08 04:38:57.703 nvALT[67217:325026980] OBSERVED restored hidden source scroll=0
+2026-09-08 04:38:57.703 nvALT[67217:325026980] OBSERVATION: source viewport after restored Preview expected=650 actual=0
+2026-09-08 04:38:57.804 nvALT[67217:325026980] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:38:57.804 nvALT[67217:325026980] PASS: deletion history begins with an outstanding exact viewport capture
+2026-09-08 04:38:57.877 nvALT[67217:325026980] PASS: the preview note is deleted while view preferences change
+2026-09-08 04:38:58.093 nvALT[67217:325026980] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:38:58.599 nvALT[67217:325026980] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:58.599 nvALT[67217:325026980] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:38:58.599 nvALT[67217:325026980] PASS: deletion Undo restores the exact note body and local syntax after pending capture completion
+2026-09-08 04:38:58.600 nvALT[67217:325026980] PASS: the peer deletion history leaves the Source browser's selection and body intact
+2026-09-08 04:38:58.655 nvALT[67217:325026980] PASS: mixed-mode relaunch and deletion Undo retain both expanded list heights
+2026-09-08 04:38:58.657 nvALT[67217:325026980] verified 2 notes in 0.000385046 s
+2026-09-08 04:38:58.657 nvALT[67217:325026980] KINGSBURY ROUND 2 PHASE 2 PASSED: 24 checks

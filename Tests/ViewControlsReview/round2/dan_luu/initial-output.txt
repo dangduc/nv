@@ -1,0 +1,418 @@
+2026-09-08 04:48:23.638 nvALT[70214:325052652] PASS: temporary library directory exists
+2026-09-08 04:48:23.638 nvALT[70214:325052652] PASS: temporary library opens
+2026-09-08 04:48:23.964 nvALT[70214:325052652] PASS: fixture includes production View controls
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:24.157 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:24.158 nvALT[70214:325052652] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:48:24.421 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:24.527 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:24.632 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:24.737 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:24.842 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:24.959 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:25.157 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:25.262 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:25.312 nvALT[70214:325052652] MEASURE edit phase=before_churn windows=1 edits=8 count_calls=16 count_ms=238.268 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=438.499 sync_min_ms=53.010 sync_max_ms=59.147
+2026-09-08 04:48:25.312 nvALT[70214:325052652] PASS: native edits commit the exact expected shared source
+2026-09-08 04:48:25.313 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:25.313 nvALT[70214:325052652] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.558 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:25.794 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:25.816 nvALT[70214:325052652] MEASURE lifecycle cycle=1 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=1
+2026-09-08 04:48:25.816 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.061 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:26.142 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:26.287 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:26.287 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.287 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.287 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.288 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:26.308 nvALT[70214:325052652] MEASURE lifecycle cycle=2 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=2
+2026-09-08 04:48:26.308 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.554 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:26.635 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:26.783 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:26.805 nvALT[70214:325052652] MEASURE lifecycle cycle=3 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=3
+2026-09-08 04:48:26.805 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.057 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:27.134 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.284 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:27.304 nvALT[70214:325052652] MEASURE lifecycle cycle=4 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=4
+2026-09-08 04:48:27.304 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.553 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:27.633 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:27.783 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:27.804 nvALT[70214:325052652] MEASURE lifecycle cycle=5 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=5
+2026-09-08 04:48:27.804 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.052 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:28.132 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.283 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:28.303 nvALT[70214:325052652] MEASURE lifecycle cycle=6 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=6
+2026-09-08 04:48:28.303 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.544 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:28.630 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:28.771 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:28.793 nvALT[70214:325052652] MEASURE lifecycle cycle=7 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=7
+2026-09-08 04:48:28.793 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.037 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.038 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:29.120 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.265 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:29.285 nvALT[70214:325052652] MEASURE lifecycle cycle=8 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=8
+2026-09-08 04:48:29.285 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.526 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:29.612 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:29.762 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:29.783 nvALT[70214:325052652] MEASURE lifecycle cycle=9 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=9
+2026-09-08 04:48:29.783 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.026 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:30.110 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.253 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:30.273 nvALT[70214:325052652] MEASURE lifecycle cycle=10 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=10
+2026-09-08 04:48:30.274 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.521 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:30.601 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:30.750 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:30.771 nvALT[70214:325052652] MEASURE lifecycle cycle=11 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=11
+2026-09-08 04:48:30.771 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: open cycle adds exactly one browser
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.020 nvALT[70214:325052652] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:48:31.098 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: close cycle removes the additional browser
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:31.248 nvALT[70214:325052652] PASS: close cycle detaches the additional source layout
+2026-09-08 04:48:31.268 nvALT[70214:325052652] MEASURE lifecycle cycle=12 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=12
+2026-09-08 04:48:31.268 nvALT[70214:325052652] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:48:31.269 nvALT[70214:325052652] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:48:31.526 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:31.631 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:31.634 nvALT[70214:325052652] dealloc linkinged
+2026-09-08 04:48:31.734 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:31.837 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:31.940 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:32.044 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:32.147 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:32.251 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:32.303 nvALT[70214:325052652] MEASURE edit phase=after_churn windows=1 edits=8 count_calls=16 count_ms=232.285 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=423.706 sync_min_ms=52.038 sync_max_ms=54.885
+2026-09-08 04:48:32.303 nvALT[70214:325052652] PASS: native edits commit the exact expected shared source
+2026-09-08 04:48:32.303 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:32.303 nvALT[70214:325052652] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: setShowTitleInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: setShowTagsInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: setShowBodyControlsInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: setShowNotesList:sender: has exactly 4 browser observers
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: setShowWordCount: has exactly 4 browser observers
+2026-09-08 04:48:33.055 nvALT[70214:325052652] PASS: preference observer list contains no duplicate target
+2026-09-08 04:48:33.062 nvALT[70214:325052652] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:48:33.364 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:33.515 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:33.662 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:33.811 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:33.958 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:34.108 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:34.255 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:34.403 nvALT[70214:325052652] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:48:34.454 nvALT[70214:325052652] MEASURE edit phase=four_windows windows=4 edits=8 count_calls=40 count_ms=586.006 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=780.647 sync_min_ms=96.106 sync_max_ms=99.792
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: native edits commit the exact expected shared source
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: every attached window displays the current word count
+2026-09-08 04:48:34.454 nvALT[70214:325052652] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:48:34.737 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:34.737 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:34.816 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:34.816 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:34.892 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:34.892 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:34.971 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:34.971 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.048 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.048 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.126 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.126 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.203 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.203 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.280 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.280 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.355 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.355 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.433 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.433 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.510 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.510 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.588 nvALT[70214:325052652] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:48:35.588 nvALT[70214:325052652] PASS: resize preserves exactly four source layouts
+2026-09-08 04:48:35.588 nvALT[70214:325052652] MEASURE resize windows=4 resized_windows=1 commands=12 count_calls=0 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=318.415
+2026-09-08 04:48:35.588 nvALT[70214:325052652] PASS: source resizing does not count words, dispatch preferences, or contact a viewer
+2026-09-08 04:48:35.999 nvALT[70214:325052652] PASS: mode fixture loads a real HTML viewer
+2026-09-08 04:48:36.842 nvALT[70214:325052652] MEASURE visible_viewer_reflow cycle=1 count_calls=0 layout_calls=16 pref_calls=32 display_calls=0 js_calls=2
+2026-09-08 04:48:36.842 nvALT[70214:325052652] FAIL: visible viewer header and list changes cause no word count, render request, or DOM read

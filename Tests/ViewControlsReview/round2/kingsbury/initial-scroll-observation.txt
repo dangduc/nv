@@ -1,0 +1,39 @@
+2026-09-08 04:37:56.602 nvALT[66711:325023469] PASS: temporary library directory exists
+2026-09-08 04:37:56.603 nvALT[66711:325023469] PASS: temporary library opens
+2026-09-08 04:37:58.125 nvALT[66711:325023469] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:37:58.125 nvALT[66711:325023469] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:37:58.176 nvALT[66711:325023469] PASS: DOM observation completes before its deadline
+2026-09-08 04:37:58.239 nvALT[66711:325023469] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:37:58.239 nvALT[66711:325023469] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:37:58.244 nvALT[66711:325023469] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:58.245 nvALT[66711:325023469] PASS: Syntax dispatch reaches the active Preview browser while controls are hidden
+2026-09-08 04:37:58.446 nvALT[66711:325023469] verified 2 notes in 0.000482082 s
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: hidden Syntax command changes only the active note's local syntax
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: local JSON syntax leaves the peer Markdown viewer selected
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: visibility and syntax transitions preserve both independent source selections
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: visibility and local syntax transitions preserve both source bodies
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: collapsing the list and header preserves the visible source viewport
+2026-09-08 04:37:58.499 nvALT[66711:325023469] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:37:58.550 nvALT[66711:325023469] PASS: DOM observation completes before its deadline
+2026-09-08 04:37:58.601 nvALT[66711:325023469] PASS: the persistence checkpoint includes a completed DOM capture
+2026-09-08 04:37:58.603 nvALT[66711:325023469] PASS: independent expected source bodies are saved outside application state
+2026-09-08 04:37:58.604 nvALT[66711:325023469] KINGSBURY ROUND 2 PHASE 1 PASSED: 19 checks
+2026-09-08 04:37:58.970 nvALT[66843:325023988] PASS: temporary library directory exists
+2026-09-08 04:37:58.972 nvALT[66843:325023988] PASS: temporary library opens
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: a second app process restores both mixed-mode browsers
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: normal relaunch restores independent Source and Preview modes
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: Source and Preview windows both keep the actual list and header controls hidden
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: hidden-list restoration selects the original note in each mixed-mode window
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: both exact source bodies survive the process boundary
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: relaunch retains the independent local syntax metadata
+2026-09-08 04:37:59.364 nvALT[66843:325023988] PASS: normal relaunch retains both visible and hidden source selections
+2026-09-08 04:37:59.515 nvALT[66843:325023988] PASS: the mixed-mode browser completes its native preview
+2026-09-08 04:37:59.515 nvALT[66843:325023988] PASS: the restored hidden-control viewer renders the correct note and format
+2026-09-08 04:37:59.516 nvALT[66843:325023988] PASS: WebKit completes the bounded DOM observation
+2026-09-08 04:37:59.565 nvALT[66843:325023988] PASS: DOM observation completes before its deadline
+2026-09-08 04:37:59.565 nvALT[66843:325023988] OBSERVED restored preview scroll=700
+2026-09-08 04:37:59.565 nvALT[66843:325023988] PASS: the completed preview viewport capture survives normal relaunch
+2026-09-08 04:37:59.617 nvALT[66843:325023988] OBSERVED restored hidden source scroll=0
+2026-09-08 04:37:59.617 nvALT[66843:325023988] FAIL: returning from restored Preview recovers its separate source viewport
