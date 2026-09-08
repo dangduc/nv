@@ -136,8 +136,9 @@ static NSDictionary *ValidatedBodyState(id value) {
     if (currentNote) {
         [state setObject:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]] forKey:@"note"];
         [state setObject:NSStringFromRange([textView selectedRange]) forKey:@"selection"];
-        [state setObject:NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"editorScroll"];
         NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];
+        NSString *sourceScroll = [[noteBodyStates objectForKey:key] objectForKey:@"sourceScroll"];
+        [state setObject:viewingNote && sourceScroll ? sourceScroll : NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"editorScroll"];
         if ([noteBodyStates objectForKey:key]) [state setObject:[noteBodyStates objectForKey:key] forKey:@"bodyState"];
     }
     return state;

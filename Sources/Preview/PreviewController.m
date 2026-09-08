@@ -65,13 +65,15 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     NSArray *presentationKey;
     NSUInteger revision;
     NVReadonlyViewerStateCompletion completion;
+    NSMutableArray *coalescedCaptures;
     BOOL finished;
 }
 @end
 @implementation NVViewerStateCapture
 - (void)dealloc {
     [snapshot release]; [viewerIdentifier release]; [documentBase release];
-    [cachedState release]; [presentationKey release]; [completion release]; [super dealloc];
+    [cachedState release]; [presentationKey release]; [completion release];
+    [coalescedCaptures release]; [super dealloc];
 }
 @end
 
@@ -82,6 +84,7 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
 - (void)findNext:(id)sender;
 - (void)finishStateCapture:(NVViewerStateCapture *)capture documentState:(id)documentState;
 - (NSUInteger)beginStateRequestForKey:(NSArray *)key;
+- (NVViewerStateCapture *)pendingStateCaptureForKey:(NSArray *)key;
 @end
 
 @implementation PreviewController
@@ -150,7 +153,14 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     BOOL changedNote = ![[_snapshot noteIdentifier] isEqual:[snapshot noteIdentifier]] || ![[_snapshot libraryIdentifier] isEqual:[snapshot libraryIdentifier]];
     BOOL changedViewer = ![_viewerIdentifier isEqual:identifier];
     [self cancelRendering];
-    if (changedNote || changedViewer) { [_displayState removeAllObjects]; [_findField setStringValue:@""]; }
+    if (changedNote || changedViewer) {
+        [_displayState removeAllObjects];
+        // The pending read's cache belongs to this returned presentation. Keep
+        // its Find query now; completion supplies only the fresh DOM offsets.
+        NVViewerStateCapture *pending = [self pendingStateCaptureForKey:ViewerStateKey(snapshot, identifier)];
+        if (pending) [_displayState addEntriesFromDictionary:pending->cachedState];
+        [_findField setStringValue:[_displayState objectForKey:@"find"] ?: @""];
+    }
     [_snapshot release]; _snapshot = [snapshot retain];
     [_viewerIdentifier release]; _viewerIdentifier = [identifier copy];
     [_renderResult release]; _renderResult = nil;
@@ -207,12 +217,14 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     [_stateRevisions setObject:@(revision) forKey:key];
     return revision;
 }
-- (BOOL)hasPendingViewerStateCaptureForSnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier {
-    NSArray *key = ViewerStateKey(snapshot, identifier);
+- (NVViewerStateCapture *)pendingStateCaptureForKey:(NSArray *)key {
     NSUInteger revision = [[_stateRevisions objectForKey:key] unsignedIntegerValue];
     for (NVViewerStateCapture *capture in _stateCaptures)
-        if (capture->revision == revision && [capture->presentationKey isEqual:key]) return YES;
-    return NO;
+        if (!capture->finished && capture->revision == revision && [capture->presentationKey isEqual:key]) return capture;
+    return nil;
+}
+- (BOOL)hasPendingViewerStateCaptureForSnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier {
+    return [self pendingStateCaptureForKey:ViewerStateKey(snapshot, identifier)] != nil;
 }
 - (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion {
     NSAssert([NSThread isMainThread], @"Viewer state capture belongs to the main thread.");
@@ -223,8 +235,20 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     capture->documentBase = [[_documentBaseURL absoluteString] copy];
     capture->cachedState = [_displayState copy];
     capture->presentationKey = [ViewerStateKey(_snapshot, _viewerIdentifier) retain];
-    capture->revision = [self beginStateRequestForKey:capture->presentationKey];
     capture->completion = [completion copy];
+    // Returning to a presentation can leave its old exact DOM read pending.
+    // A further departure during loading has no newer document to capture.
+    // Join that read without advancing its revision or extending its deadline.
+    NVViewerStateCapture *pending = !_closed && _loading ? [self pendingStateCaptureForKey:capture->presentationKey] : nil;
+    if (pending) {
+        capture->revision = pending->revision;
+        [capture->documentBase release]; capture->documentBase = [pending->documentBase copy];
+        [capture->cachedState release]; capture->cachedState = [pending->cachedState copy];
+        if (!pending->coalescedCaptures) pending->coalescedCaptures = [[NSMutableArray alloc] init];
+        [pending->coalescedCaptures addObject:capture];
+        return;
+    }
+    capture->revision = [self beginStateRequestForKey:capture->presentationKey];
     // A loading request's identity can differ from the document still on screen.
     // Its cached state is the only state that belongs to that request.
     if (_closed || _loading || _renderError || !_renderResult || !_documentBaseURL) {
@@ -265,16 +289,17 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     if (!_closed && samePresentation && latestRequest) {
         for (NSString *key in @[@"scrollX", @"scrollY"]) if ([state objectForKey:key]) [_displayState setObject:[state objectForKey:key] forKey:key];
     }
-    // Removing the barrier before the callback is safe: new render completion
-    // remains queued on the main thread. The explicit load follows the callback.
+    // Keep the navigation barrier until every joined caller receives its result.
+    // The browser's newest request can be one of these callers.
     [capture retain];
-    [_stateCaptures removeObject:capture];
     NVReadonlyViewerStateCompletion callback = capture->completion; capture->completion = nil;
     NSDictionary *immutableState = [[state copy] autorelease];
     BOOL keepAlive = !_closed;
     if (keepAlive) [self retain];
     callback(capture->snapshot, capture->viewerIdentifier, immutableState);
     [callback release];
+    for (NVViewerStateCapture *joined in capture->coalescedCaptures) [self finishStateCapture:joined documentState:documentState];
+    [_stateCaptures removeObject:capture];
     [capture release];
     if (keepAlive) { [self loadRenderResult]; [self release]; }
 }

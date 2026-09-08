@@ -1,0 +1,79 @@
+2026-09-08 02:48:38.540 nvALT[46423:324832440] PASS: isolated copied-app preferences domain
+2026-09-08 02:48:38.540 nvALT[46423:324832440] PASS: copied app and temporary library share the test root
+2026-09-08 02:48:38.540 nvALT[46423:324832440] PASS: temporary library directory exists
+2026-09-08 02:48:38.541 nvALT[46423:324832440] PASS: temporary library opens
+2026-09-08 02:48:38.859 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.859 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.864 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.877 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.879 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.879 nvALT[46423:324832440] EVIDENCE archive case=0 original=12 restored=12 original_bytes=28 restored_bytes=28 same_bytes=1 error=(null)
+2026-09-08 02:48:38.879 nvALT[46423:324832440] EVIDENCE edited archive case=0 expected_bytes=35 actual_bytes=35 same_bytes=1 error=(null)
+2026-09-08 02:48:38.880 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.880 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.881 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.890 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.892 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.892 nvALT[46423:324832440] EVIDENCE archive case=1 original=30 restored=30 original_bytes=28 restored_bytes=28 same_bytes=1 error=(null)
+2026-09-08 02:48:38.892 nvALT[46423:324832440] EVIDENCE edited archive case=1 expected_bytes=35 actual_bytes=35 same_bytes=1 error=(null)
+2026-09-08 02:48:38.893 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.893 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.894 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.898 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.899 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.899 nvALT[46423:324832440] EVIDENCE archive case=2 original=4 restored=4 original_bytes=41 restored_bytes=41 same_bytes=1 error=(null)
+2026-09-08 02:48:38.899 nvALT[46423:324832440] EVIDENCE edited archive case=2 expected_bytes=48 actual_bytes=48 same_bytes=1 error=(null)
+2026-09-08 02:48:38.899 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.900 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.900 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.906 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.907 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.907 nvALT[46423:324832440] EVIDENCE archive case=3 original=2483028224 restored=18446744071897612544 original_bytes=58 restored_bytes=58 same_bytes=1 error=(null)
+2026-09-08 02:48:38.907 nvALT[46423:324832440] EVIDENCE edited archive case=3 expected_bytes=72 actual_bytes=72 same_bytes=1 error=(null)
+2026-09-08 02:48:38.907 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.907 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.908 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.911 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.912 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.912 nvALT[46423:324832440] EVIDENCE archive case=4 original=2415919360 restored=18446744071830503680 original_bytes=58 restored_bytes=58 same_bytes=1 error=(null)
+2026-09-08 02:48:38.912 nvALT[46423:324832440] EVIDENCE edited archive case=4 expected_bytes=72 actual_bytes=72 same_bytes=1 error=(null)
+2026-09-08 02:48:38.912 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.912 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.913 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.915 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.916 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.916 nvALT[46423:324832440] EVIDENCE archive case=5 original=2617245952 restored=18446744072031830272 original_bytes=116 restored_bytes=116 same_bytes=1 error=(null)
+2026-09-08 02:48:38.916 nvALT[46423:324832440] EVIDENCE edited archive case=5 expected_bytes=144 actual_bytes=144 same_bytes=1 error=(null)
+2026-09-08 02:48:38.916 nvALT[46423:324832440] PASS: tagged neighboring-encoding fixture writes
+2026-09-08 02:48:38.916 nvALT[46423:324832440] PASS: fixture encoding attribute round-trips
+2026-09-08 02:48:38.917 nvALT[46423:324832440] PASS: tagged source imports exact characters and mixed line endings
+2026-09-08 02:48:38.922 nvALT[46423:324832440] PASS: unchanged source retains all tagged bytes
+2026-09-08 02:48:38.922 nvALT[46423:324832440] PASS: keyed archive restores source and local syntax by note UUID
+2026-09-08 02:48:38.922 nvALT[46423:324832440] EVIDENCE archive case=6 original=2550137088 restored=18446744071964721408 original_bytes=116 restored_bytes=116 same_bytes=1 error=(null)
+2026-09-08 02:48:38.923 nvALT[46423:324832440] EVIDENCE edited archive case=6 expected_bytes=144 actual_bytes=144 same_bytes=1 error=(null)
+2026-09-08 02:48:38.923 nvALT[46423:324832440] PASS: BOM-only note remains empty and has the correct explicit encoding
+2026-09-08 02:48:38.923 nvALT[46423:324832440] EVIDENCE leading mark encoding=4 expected_length=10 actual_length=9 equal=0
+2026-09-08 02:48:38.923 nvALT[46423:324832440] PASS: control: the previous decoder retains literal U+FEFF for this odd-byte fixture
+2026-09-08 02:48:38.923 nvALT[46423:324832440] PASS: control: Foundation consumes exactly one UTF-8 BOM when given the complete data
+2026-09-08 02:48:38.924 nvALT[46423:324832440] PASS: unchanged literal-mark fixture retains the original bytes
+2026-09-08 02:48:38.924 nvALT[46423:324832440] EVIDENCE edited literal mark encoding=4 expected_bytes={length = 19, bytes = 0xefbbbfefbbbf6c69746572616c0d0a65646974} actual_bytes={length = 16, bytes = 0xefbbbf6c69746572616c0d0a65646974} same_bytes=0
+2026-09-08 02:48:38.924 nvALT[46423:324832440] PASS: BOM-only note remains empty and has the correct explicit encoding
+2026-09-08 02:48:38.924 nvALT[46423:324832440] EVIDENCE leading mark encoding=2483028224 expected_length=10 actual_length=10 equal=1
+2026-09-08 02:48:38.924 nvALT[46423:324832440] PASS: unchanged literal-mark fixture retains the original bytes
+2026-09-08 02:48:38.924 nvALT[46423:324832440] EVIDENCE edited literal mark encoding=2483028224 expected_bytes={length = 30, bytes = 0xfffefffe 6c006900 74006500 72006100 ... 65006400 69007400 } actual_bytes={length = 30, bytes = 0xfffefffe 6c006900 74006500 72006100 ... 65006400 69007400 } same_bytes=1
+2026-09-08 02:48:38.924 nvALT[46423:324832440] PASS: BOM-only note remains empty and has the correct explicit encoding
+2026-09-08 02:48:38.924 nvALT[46423:324832440] EVIDENCE leading mark encoding=2415919360 expected_length=10 actual_length=10 equal=1
+2026-09-08 02:48:38.925 nvALT[46423:324832440] PASS: unchanged literal-mark fixture retains the original bytes
+2026-09-08 02:48:38.925 nvALT[46423:324832440] EVIDENCE edited literal mark encoding=2415919360 expected_bytes={length = 30, bytes = 0xfefffeff 006c0069 00740065 00720061 ... 00650064 00690074 } actual_bytes={length = 30, bytes = 0xfefffeff 006c0069 00740065 00720061 ... 00650064 00690074 } same_bytes=1
+2026-09-08 02:48:38.925 nvALT[46423:324832440] PASS: BOM-only note remains empty and has the correct explicit encoding
+2026-09-08 02:48:38.925 nvALT[46423:324832440] EVIDENCE leading mark encoding=2617245952 expected_length=10 actual_length=10 equal=1
+2026-09-08 02:48:38.926 nvALT[46423:324832440] PASS: unchanged literal-mark fixture retains the original bytes
+2026-09-08 02:48:38.926 nvALT[46423:324832440] EVIDENCE edited literal mark encoding=2617245952 expected_bytes={length = 60, bytes = 0xfffe0000 fffe0000 6c000000 69000000 ... 69000000 74000000 } actual_bytes={length = 60, bytes = 0xfffe0000 fffe0000 6c000000 69000000 ... 69000000 74000000 } same_bytes=1
+2026-09-08 02:48:38.926 nvALT[46423:324832440] PASS: BOM-only note remains empty and has the correct explicit encoding
+2026-09-08 02:48:38.926 nvALT[46423:324832440] EVIDENCE leading mark encoding=2550137088 expected_length=10 actual_length=10 equal=1
+2026-09-08 02:48:38.926 nvALT[46423:324832440] PASS: unchanged literal-mark fixture retains the original bytes
+2026-09-08 02:48:38.926 nvALT[46423:324832440] EVIDENCE edited literal mark encoding=2550137088 expected_bytes={length = 60, bytes = 0x0000feff 0000feff 0000006c 00000069 ... 00000069 00000074 } actual_bytes={length = 60, bytes = 0x0000feff 0000feff 0000006c 00000069 ... 00000069 00000074 } same_bytes=1
+2026-09-08 02:48:38.926 nvALT[46423:324832440] PASS: explicit CP-1252 hint outranks the MacRoman fallback
+2026-09-08 02:48:38.926 nvALT[46423:324832440] PASS: ASCII-only source retains an explicit legacy encoding hint
+2026-09-08 02:48:38.926 nvALT[46423:324832440] EVIDENCE archive_encoding_changes=4 archive_byte_failures=0 literal_mark_losses=1
+2026-09-08 02:48:38.926 nvALT[46423:324832440] ROUND 2 CONTRARIAN DATA CHECKS COMPLETED: 53

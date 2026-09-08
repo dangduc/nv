@@ -15,6 +15,9 @@
         NSMutableString *body = [NSMutableString stringWithString:@"# Source workflow\n\nEditable **Markdown** stays in the note.\n\n"];
         for (NSUInteger line = 0; line < 80; line++) [body appendFormat:@"Paragraph %lu has source characters, café and 😀.\n\n", (unsigned long)line];
         NoteObject *note = MakeNote(library, @"Source workflow", body);
+        // Creating a note enters Source. Prepare both notes before the controlled
+        // preview transitions so only reveals determine their scheduling.
+        NoteObject *intermediate = MakeNote(library, @"Intermediate capture note", @"# Intermediate B");
         [a revealNote:note options:0];
         LinkingEditor *ea = [a valueForKey:@"textView"];
         Check(Await(^BOOL { return [a selectedNoteObject] == note && [[ea string] isEqualToString:body]; }, 2), @"source note attaches to its native editor");
@@ -58,6 +61,7 @@
                 return [[[[[a valueForKey:@"noteBodyStates"] objectForKey:noteKey] objectForKey:@"viewers"] objectForKey:@"markdown"][@"scrollY"] doubleValue];
             };
             NSMutableArray *replies = [NSMutableArray array];
+            [[preview valueForKey:@"_stateTimer"] invalidate];
             NSString *documentBase = NativeJavaScript([preview webView], @"document.baseURI");
             Method evaluateMethod = class_getInstanceMethod([WKWebView class], @selector(evaluateJavaScript:completionHandler:));
             IMP originalEvaluate = method_getImplementation(evaluateMethod);
@@ -87,26 +91,47 @@
                 older(@[documentBase, @0, @999], nil);
                 Check(savedScroll() == 200, @"late repeated WebKit replies cannot replace the browser's latest saved state");
             }
-            // Return to A before its capture replies and before B can render.
-            NativeJavaScript([preview webView], @"window.scrollTo(0,420)");
-            NSUInteger returningCapture = [replies count];
-            NoteObject *intermediate = MakeNote(library, @"Intermediate capture note", @"# Intermediate B");
-            [a revealNote:intermediate options:0]; [a revealNote:note options:0];
-            Check([[preview snapshot] noteIdentifier] && [[[preview snapshot] noteIdentifier] isEqual:noteKey] &&
-                [preview hasPendingViewerStateCaptureForSnapshot:[preview snapshot] viewerIdentifier:@"markdown"],
-                @"rapid browser A to B to A retains A's pending capture instead of superseding it with cached restoration");
-            Check([replies count] == returningCapture + 1, @"loading B uses cached B state without reading the previous A document");
-            void (^returningReply)(id, NSError *) = replies[returningCapture];
-            returningReply(@[documentBase, @0, @420], nil);
-            Check(Await(^BOOL { return PreviewShows(a, @"Source workflow"); }, 15), @"rapid A to B to A finishes after the capture barrier");
-            Check(savedScroll() == 420 && fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - 420) <= 2,
-                @"browser and rendered A restore its exact captured position after an immediate note round-trip");
+            for (NSUInteger history = 0; history < 3; history++) {
+                // Return before the exact A read replies and before B renders.
+                documentBase = NativeJavaScript([preview webView], @"document.baseURI");
+                [preview restoreViewerState:@{@"scrollY": @100, @"find": @"Paragraph"}];
+                Check([NativeJavaScript([preview webView], @"window.scrollTo(0,420);window.scrollY") doubleValue] == 420,
+                    @"real browser DOM has fresh scroll while the restoration cache remains older");
+                NSUInteger returningCapture = [replies count];
+                [a revealNote:intermediate options:0]; [a revealNote:note options:0];
+                Check([a isViewingNote] && [[[preview snapshot] noteIdentifier] isEqual:noteKey] &&
+                    [preview hasPendingViewerStateCaptureForSnapshot:[preview snapshot] viewerIdentifier:@"markdown"],
+                    @"rapid browser A to B to A retains A's pending capture instead of superseding it with cached restoration");
+                if (history == 1) [a revealNote:intermediate options:0];
+                else if (history == 2) [a setViewingNote:NO];
+                Check([replies count] == returningCapture + 1 && savedScroll() == 100,
+                    @"repeated loading departure preserves useful browser cache and joins the original exact read");
+                void (^returningReply)(id, NSError *) = replies[returningCapture];
+                returningReply(@[documentBase, @0, @420], nil);
+                Check(savedScroll() == 420, @"browser's latest capture request receives the pending exact scroll after repeated departures");
+                if (history == 1) [a revealNote:note options:0];
+                else if (history == 2) [a setViewingNote:YES];
+                Check(Await(^BOOL { return PreviewShows(a, @"Source workflow"); }, 15), @"rapid browser history finishes after the capture barrier");
+                Check(savedScroll() == 420 && fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - 420) <= 2,
+                    history == 0 ? @"A to B to A restores the exact scroll in browser state and visible DOM" :
+                    history == 1 ? @"A to B to A to B to A restores the exact scroll in browser state and visible DOM" :
+                    @"A to B to A to Source to A restores the exact scroll in browser state and visible DOM");
+                Check([[[preview viewerState] objectForKey:@"find"] isEqual:@"Paragraph"] &&
+                    [[[preview valueForKey:@"_findField"] stringValue] isEqual:@"Paragraph"],
+                    @"pending presentation return retains its saved Find query in provider state and the native search field");
+                Check(fabs(NSPointFromString([[[a valueForKey:@"noteBodyStates"] objectForKey:noteKey] objectForKey:@"sourceScroll"]).y - sourceScroll.y) <= 1,
+                    @"preview note histories preserve the source position when hidden layout changes its clip origin");
+            }
 
             // Authoritative saved-window restoration must invalidate pending
             // captures in both the browser and the old provider.
             [preview restoreViewerState:@{@"scrollY": @100}]; [a captureBodyPresentation];
             NSMutableDictionary *restoredWindow = [[[a browserWindowState] mutableCopy] autorelease];
-            [restoredWindow setObject:@{@"viewers": @{@"markdown": @{@"scrollY": @300}}} forKey:@"bodyState"];
+            Check(fabs(NSPointFromString([restoredWindow objectForKey:@"editorScroll"]).y - sourceScroll.y) <= 1,
+                @"preview window serialization uses the saved source position instead of the hidden editor's clip origin");
+            NSMutableDictionary *restoredBody = [[[restoredWindow objectForKey:@"bodyState"] mutableCopy] autorelease];
+            [restoredBody setObject:@{@"markdown": @{@"scrollY": @300}} forKey:@"viewers"];
+            [restoredWindow setObject:restoredBody forKey:@"bodyState"];
             PreviewController *oldProvider = [preview retain];
             [a restoreBrowserWindowState:restoredWindow];
             Check([a valueForKey:@"previewController"] != oldProvider, @"explicit window restoration replaces the provider with pending captures");

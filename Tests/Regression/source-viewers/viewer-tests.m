@@ -62,6 +62,7 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
 
 @interface ControlledCaptureViewer : PreviewController
 - (void)prepare;
+- (void)returnToPendingPresentation:(NSUInteger)generation;
 @end
 @implementation ControlledCaptureViewer
 - (void)loadView { [self setView:[[[NSView alloc] init] autorelease]]; }
@@ -72,6 +73,11 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
     [_viewerIdentifier release]; _viewerIdentifier = [@"html" copy];
     _documentBaseURL = [[NSURL URLWithString:@"nvalt-asset://controlled/"] retain];
 }
+- (void)returnToPendingPresentation:(NSUInteger)generation {
+    [_snapshot release]; _snapshot = [Snapshot(@"Source", @"Ordered capture", generation, nil) retain];
+    [_displayState removeAllObjects];
+    _loading = YES;
+}
 @end
 static void Reply(NSArray *replies, NSUInteger index, id result) {
     Check(index < [replies count], @"controlled WebKit received the expected request");
@@ -80,6 +86,46 @@ static void Reply(NSArray *replies, NSUInteger index, id result) {
 static NSArray *DocumentScroll(NSNumber *y) { return @[@"nvalt-asset://controlled/", @0, y]; }
 static double CachedScroll(PreviewController *viewer) { return [[[viewer viewerState] objectForKey:@"scrollY"] doubleValue]; }
 static void CaptureOrderingChecks(NSWindow *window) {
+    for (NSUInteger outcome = 0; outcome < 4; outcome++) {
+        ControlledCaptureViewer *viewer = [[ControlledCaptureViewer alloc] init]; [viewer prepare];
+        ControlledCaptureWebView *web = (id)[viewer webView];
+        __block NSUInteger calls = 0;
+        [viewer restoreViewerState:@{@"scrollY": @100}];
+        for (NSUInteger request = 0; request < 3; request++) {
+            NSUInteger generation = 1 + request * 2;
+            if (request) [viewer returnToPendingPresentation:generation];
+            [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {
+                Check([snapshot generation] == generation && [[snapshot noteIdentifier] isEqual:@"Ordered capture"] && [identifier isEqual:@"html"],
+                    @"joined capture preserves each caller's original snapshot generation and presentation identity");
+                Check([[state objectForKey:@"scrollY"] doubleValue] == (outcome == 1 || outcome == 3 ? 100 : 420),
+                    @"joined captures share the useful exact read or its original cached fallback");
+                calls++;
+            }];
+        }
+        Check([web->captures count] == 1 && calls == 0 && [viewer hasPendingViewerStateCaptureForSnapshot:[viewer snapshot] viewerIdentifier:@"html"],
+            @"repeated loading captures join one pending read without superseding its revision");
+        if (outcome == 1) PumpUntil(^BOOL { return calls == 3; }, 2);
+        else if (outcome == 3) [viewer close];
+        else {
+            if (outcome == 2) {
+                [viewer restoreViewerState:@{@"scrollY": @300}];
+                Check(![viewer hasPendingViewerStateCaptureForSnapshot:[viewer snapshot] viewerIdentifier:@"html"],
+                    @"explicit restoration invalidates the whole joined capture group");
+                __block BOOL fallback = NO;
+                [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {
+                    fallback = [[state objectForKey:@"scrollY"] doubleValue] == 300;
+                }];
+                Check(fallback, @"capture after explicit restoration cannot rejoin its invalidated read");
+            }
+            Reply(web->captures, 0, DocumentScroll(@420));
+        }
+        Check(calls == 3, @"exact reply, timeout, explicit restoration, and close each complete every joined caller once");
+        if (outcome != 3) Check(CachedScroll(viewer) == (outcome == 1 ? 100 : outcome == 2 ? 300 : 420),
+            @"joined capture result respects provider canonical state and explicit restoration");
+        Reply(web->captures, 0, DocumentScroll(@999));
+        Check(calls == 3, @"late WebKit delivery cannot repeat any joined completion");
+        [viewer close]; [viewer release];
+    }
     for (NSUInteger order = 0; order < 3; order++) {
         ControlledCaptureViewer *viewer = [[ControlledCaptureViewer alloc] init]; [viewer prepare];
         ControlledCaptureWebView *web = (id)[viewer webView];
@@ -210,6 +256,7 @@ static void CaptureOrderingChecks(NSWindow *window) {
     [viewer performFindPanelAction:find]; Pump(.2);
     Check([[field stringValue] containsString:@"Visible Unicode 日本語 😀"], @"Use Selection for Find copies the rendered selection into the native query field");
     Check([[snapshot source] isEqual:HTML], @"Find and scrolling leave source untouched");
+    NSString *returningQuery = [[field stringValue] copy];
     // No timer pump follows this scroll: transition capture must read the DOM.
     Evaluate([viewer webView], @"window.scrollTo(0,1234)");
     __block BOOL preciseCapture = NO;
@@ -228,8 +275,23 @@ static void CaptureOrderingChecks(NSWindow *window) {
     }];
     [viewer displaySnapshot:snapshot viewerIdentifier:@"html"];
     Check([viewer hasPendingViewerStateCaptureForSnapshot:snapshot viewerIdentifier:@"html"], @"rapid A to B to A keeps the pending A capture despite the B fallback");
+    Check([[field stringValue] isEqual:returningQuery] && [[[viewer viewerState] objectForKey:@"find"] isEqual:returningQuery],
+        @"pending return restores the native Find query before its exact DOM capture arrives");
     PumpUntil(^BOOL{ return preciseCapture && loadingCapture && ![viewer loading]; }, 15);
     Check(![viewer renderError] && [Evaluate([viewer webView], @"window.scrollY") doubleValue] >= 1230, @"rapid A to B to A restores A's fresh captured offset before navigation completes");
+    Check([[field stringValue] isEqual:returningQuery] && [[[viewer viewerState] objectForKey:@"find"] isEqual:returningQuery],
+        @"exact scroll completion preserves the returned presentation's Find query");
+    __block BOOL queryCapture = NO;
+    [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *captured, NSString *identifier, NSDictionary *capturedState) {
+        Check([[capturedState objectForKey:@"find"] isEqual:returningQuery], @"in-flight capture keeps its original immutable query for its caller");
+        queryCapture = YES;
+    }];
+    [field setStringValue:@"Find target"];
+    [NSApp sendAction:[field action] to:[field target] from:field];
+    PumpUntil(^BOOL { return queryCapture; }, 2);
+    Check([[field stringValue] isEqual:@"Find target"] && [[[viewer viewerState] objectForKey:@"find"] isEqual:@"Find target"],
+        @"native query edited after a capture request survives that older read's completion");
+    [returningQuery release];
     // Leaving for Source cancels rendering but preserves the precise callback.
     Evaluate([viewer webView], @"window.scrollTo(0,777)");
     __block BOOL sourceCapture = NO;

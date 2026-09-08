@@ -35,6 +35,22 @@
         [oddBytes appendData:[@"ab" dataUsingEncoding:NSUTF8StringEncoding]];
         [oddBytes writeToFile:oddBOMPath atomically:YES];
         Check([[[[importer noteWithFile:oddBOMPath] contentString] string] isEqualToString:@"ab"], @"UTF-8 BOM detection works with an odd byte count");
+        for (NSUInteger index = 0; index < [encodings count]; index++) {
+            NSStringEncoding encoding = [encodings[index] unsignedIntegerValue];
+            for (NSString *literal in @[@"", @"\uFEFFliteral\r\n"]) {
+                NSMutableData *bytes = [NSMutableData dataWithData:boms[index]];
+                [bytes appendData:[literal dataUsingEncoding:encoding]];
+                NSString *path = [TestDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"literal-bom-%lu-%lu.txt", (unsigned long)index, (unsigned long)[literal length]]];
+                Check([bytes writeToFile:path atomically:YES], @"write transport BOM and optional literal source marker");
+                NoteObject *note = [importer noteWithFile:path];
+                Check([[[note contentString] string] isEqualToString:literal], @"BOM decoding consumes only the transport marker and preserves literal U+FEFF");
+                Check([[note sourceDataReturningError:NULL] isEqual:bytes], @"unchanged BOM source retains every original byte");
+                [library addNewNote:note];
+                [note setContentString:[[[NSAttributedString alloc] initWithString:[literal stringByAppendingString:@"edit"]] autorelease]];
+                [bytes appendData:[@"edit" dataUsingEncoding:encoding]];
+                Check([[note sourceDataReturningError:NULL] isEqual:bytes], @"edited BOM source retains its literal marker and exact encoded bytes");
+            }
+        }
         NSString *emptyPath = [TestDirectory stringByAppendingPathComponent:@"empty.txt"];
         [[NSData data] writeToFile:emptyPath atomically:YES];
         Check([[[importer noteWithFile:emptyPath] contentString] length] == 0, @"empty source imports without a synthetic body");
@@ -140,6 +156,22 @@
         [legacy setContentString:[[[NSAttributedString alloc] initWithString:unrepresentable] autorelease]];
         NSError *encodingError = nil;
         Check([legacy sourceDataReturningError:&encodingError] == nil && encodingError && fileEncodingOfNote(legacy) == NSWindowsCP1252StringEncoding, @"unrepresentable edits report an error without replacing characters or silently changing encoding");
+        FSRef databaseExportDirectory;
+        Check([library currentNoteStorageFormat] == SingleDatabaseFormat && FSPathMakeRef((const UInt8 *)[TestDirectory fileSystemRepresentation], &databaseExportDirectory, NULL) == noErr, @"database export fixture has an isolated target directory");
+        Swap([EncodingsManager class], @selector(offerUTF8ConversionForNote:), @selector(nv_cancelConversionForNote:));
+        SourceConversionParent = [self window];
+        Swap([NSApplication class], @selector(mainWindow), @selector(nv_sourceConversionMainWindow));
+        Swap([NSAlert class], @selector(beginSheetModalForWindow:completionHandler:), @selector(nv_captureSourceConversionSheet:completionHandler:));
+        Check([legacy exportToDirectoryRef:&databaseExportDirectory withFilename:@"database-export.txt" usingFormat:PlainTextFormat overwrite:NO] == kDataFormattingErr, @"unrepresentable database source export offers conversion without writing lossy bytes");
+        Pump();
+        Check(SourceCapturedConversion != nil && ![legacy sourceConversionPending], @"a live database note can offer conversion for export without a pending source-file write");
+        SourceCapturedConversion(NSAlertFirstButtonReturn);
+        [SourceCapturedConversion release]; SourceCapturedConversion = nil;
+        Check([legacy exportToDirectoryRef:&databaseExportDirectory withFilename:@"database-export.txt" usingFormat:PlainTextFormat overwrite:NO] == noErr && [[NSData dataWithContentsOfFile:[TestDirectory stringByAppendingPathComponent:@"database-export.txt"]] isEqual:[unrepresentable dataUsingEncoding:NSUTF8StringEncoding]], @"accepted database export conversion permits exact UTF-8 export on retry");
+        Swap([NSAlert class], @selector(beginSheetModalForWindow:completionHandler:), @selector(nv_captureSourceConversionSheet:completionHandler:));
+        Swap([NSApplication class], @selector(mainWindow), @selector(nv_sourceConversionMainWindow));
+        SourceConversionParent = nil;
+        Swap([EncodingsManager class], @selector(offerUTF8ConversionForNote:), @selector(nv_cancelConversionForNote:));
         Check([[NSData dataWithContentsOfFile:legacyPath] isEqual:legacyBytes], @"encoding failure leaves the original file intact");
         Check([legacy upgradeEncodingToUTF8] && [[legacy sourceDataReturningError:NULL] isEqual:[unrepresentable dataUsingEncoding:NSUTF8StringEncoding]], @"explicit UTF-8 conversion preserves every source character");
         // Exercise the actual writer and export path against disposable directories.
@@ -231,6 +263,7 @@
             Check(archivedLocal && archivedExternal, @"library archive retains every source version after the review history");
             [historyPath release];
         }
+#include "conversion-lifecycle.inc"
         NoteObject *pending = [importer noteWithFile:legacyPath];
         [pending setTitleString:@"Pending conversion"];
         [library addNewNote:pending];

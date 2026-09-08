@@ -132,10 +132,15 @@ These bytes therefore remain inside encrypted note data when database encryption
 Unchanged source export returns the original bytes. Edits retain the encoding when it can represent every character.
 An unrepresentable edit offers explicit UTF-8 conversion instead of lossy replacement.
 A pending conversion remains in the note archive and retries after reopening. The existing source file stays unchanged until conversion succeeds.
+Conversion requests check the exact live note before scheduling, presentation, and acceptance.
+Removing a note invalidates its request. Deletion Undo creates a new request, so an older sheet cannot authorize a later source write.
 Text Encoding cannot reinterpret that older file while source conversion is pending.
 Directory reconciliation compares disk source with the last read, written, or separately preserved file bytes.
 Metadata-only events preserve the pending edit without creating a conflict note.
 A different external body becomes an “external changes” note with its own source file and synchronized journal record before local conversion can replace it.
+Each conflict copy archives its origin note UUID inside the note data.
+After a failed write or synchronization, retries reuse a matching unchanged copy, including after archive recovery.
+Distinct external bytes or an edited conflict copy require a separate copy. Retries still synchronize the preserved record before replacing the original source.
 The pending write checks disk again without waiting for directory notifications.
 These checks use the existing file and journal transactions; they do not lock out simultaneous writes by external applications.
 Unmarked non-UTF-8 imports keep the legacy MacRoman fallback. BOMs, encoding attributes, and explicit hints take precedence.
@@ -185,6 +190,10 @@ Mode and viewer changes preserve source, Undo, caret, and separate scroll positi
 Transition captures read current DOM scroll positions before replacement navigation.
 Callbacks retain their original note and viewer identity, with a bounded cached-state fallback if WebKit does not reply.
 The provider and browser order canonical state updates per note and viewer. Older replies still complete but cannot replace newer restoration state.
+A loading return joins the pending exact capture for that presentation without extending its deadline.
+It adopts cached Find state on entry; the later capture updates offsets without replacing a newer query.
+Preview keeps the saved Source position instead of reading the hidden editor's clip origin.
+Source restoration lays out through the saved viewport before applying that position.
 Library replacement and restoration reject older state callbacks. Synchronous application termination can use the last cached viewer position.
 
 [NVNoteContentSnapshot](Sources/Preview/NVNoteContentSnapshot.m) copies the library identity, note UUID, generation, title, source, syntax, and scoped asset root.

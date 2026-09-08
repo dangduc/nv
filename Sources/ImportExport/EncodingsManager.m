@@ -84,20 +84,34 @@ static const NSStringEncoding AllowedEncodings[] = {
 }
 
 - (void)offerUTF8ConversionForNote:(NoteObject*)aNote {
-	if (!aNote) return;
-	if (!pendingConversionNotes) pendingConversionNotes = [[NSMutableSet alloc] init];
-	if ([pendingConversionNotes containsObject:aNote]) return;
-	[pendingConversionNotes addObject:aNote];
+	NotationController *library = [aNote delegate];
+	if (!aNote || library != [[NVApplicationController sharedController] library] ||
+		[library noteForUUIDBytes:[aNote uniqueNoteIDBytes]] != aNote) return;
+	if (!pendingConversionRequests) pendingConversionRequests = [[NSMutableDictionary alloc] init];
+	NSValue *key = [NSValue valueWithNonretainedObject:aNote];
+	if ([pendingConversionRequests objectForKey:key]) return;
 	// Defer presentation until the current write or export operation has finished.
-	NSArray *request = @[aNote, [aNote delegate] ?: (id)[NSNull null]];
+	NSArray *request = @[aNote, library];
+	[pendingConversionRequests setObject:request forKey:key];
 	[self performSelector:@selector(presentUTF8Conversion:) withObject:request afterDelay:0.0];
+}
+
+- (void)cancelUTF8ConversionForNote:(NoteObject*)aNote {
+	NSValue *key = [NSValue valueWithNonretainedObject:aNote];
+	NSArray *request = [pendingConversionRequests objectForKey:key];
+	if (!request) return;
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(presentUTF8Conversion:) object:request];
+	[pendingConversionRequests removeObjectForKey:key];
 }
 
 - (void)presentUTF8Conversion:(NSArray*)request {
 	NoteObject *aNote = [request objectAtIndex:0];
-	id library = [request objectAtIndex:1];
-	if (library != [[NVApplicationController sharedController] library] || [aNote sourceDataReturningError:NULL]) {
-		[pendingConversionNotes removeObject:aNote];
+	NotationController *library = [request objectAtIndex:1];
+	NSValue *key = [NSValue valueWithNonretainedObject:aNote];
+	if ([pendingConversionRequests objectForKey:key] != request) return;
+	if (library != [[NVApplicationController sharedController] library] ||
+		[library noteForUUIDBytes:[aNote uniqueNoteIDBytes]] != aNote || [aNote sourceDataReturningError:NULL]) {
+		[pendingConversionRequests removeObjectForKey:key];
 		return;
 	}
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -106,8 +120,12 @@ static const NSStringEncoding AllowedEncodings[] = {
 	[alert addButtonWithTitle:NSLocalizedString(@"Convert to UTF-8", nil)];
 	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 	void (^completion)(NSModalResponse) = ^(NSModalResponse response) {
-		if (response == NSAlertFirstButtonReturn && [request objectAtIndex:1] == [[NVApplicationController sharedController] library]) [aNote upgradeEncodingToUTF8];
-		[pendingConversionNotes removeObject:aNote];
+		// A deleted note can remain alive in an open sheet or in deletion Undo.
+		// Only this request for the exact live note can authorize a source write.
+		if ([pendingConversionRequests objectForKey:key] != request) return;
+		if (response == NSAlertFirstButtonReturn && library == [[NVApplicationController sharedController] library] &&
+			[library noteForUUIDBytes:[aNote uniqueNoteIDBytes]] == aNote) [aNote upgradeEncodingToUTF8];
+		[pendingConversionRequests removeObjectForKey:key];
 	};
 	NSWindow *parentWindow = [NSApp mainWindow] ?: [NSApp keyWindow];
 	if (parentWindow) [alert beginSheetModalForWindow:parentWindow completionHandler:completion];

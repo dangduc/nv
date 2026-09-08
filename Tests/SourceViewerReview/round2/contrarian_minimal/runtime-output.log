@@ -1,0 +1,28 @@
+2026-09-08 02:40:10.058 nvALT[45357:324819382] PASS: isolated copied-app preferences domain
+2026-09-08 02:40:10.058 nvALT[45357:324819382] PASS: copied app and temporary library share the test root
+2026-09-08 02:40:10.062 nvALT[45357:324819382] PASS: temporary library directory exists
+2026-09-08 02:40:10.063 nvALT[45357:324819382] PASS: temporary library opens
+2026-09-08 02:40:10.381 nvALT[45357:324819382] PASS: startup never constructs a transient preview provider
+2026-09-08 02:40:10.501 nvALT[45357:324819382] PASS: source or unsupported restoration state leaves the provider absent
+2026-09-08 02:40:10.501 nvALT[45357:324819382] PASS: restoration does not construct and discard a transient provider
+2026-09-08 02:40:10.559 nvALT[45357:324819382] PASS: source or unsupported restoration state leaves the provider absent
+2026-09-08 02:40:10.559 nvALT[45357:324819382] PASS: restoration does not construct and discard a transient provider
+2026-09-08 02:40:10.615 nvALT[45357:324819382] PASS: source or unsupported restoration state leaves the provider absent
+2026-09-08 02:40:10.615 nvALT[45357:324819382] PASS: restoration does not construct and discard a transient provider
+2026-09-08 02:40:10.650 nvALT[45357:324819382] verified 1 notes in 0.000352979 s
+2026-09-08 02:40:10.667 nvALT[45357:324819382] PASS: source or unsupported restoration state leaves the provider absent
+2026-09-08 02:40:10.667 nvALT[45357:324819382] PASS: restoration does not construct and discard a transient provider
+2026-09-08 02:40:10.670 nvALT[45357:324819382] PASS: 800 menu validation calls allocate no viewer or web view in Source
+2026-09-08 02:40:10.834 nvALT[45357:324819382] PASS: new window starts in Source independently of the selected viewer format
+2026-09-08 02:40:10.896 nvALT[45357:324819382] PASS: second source restoration selects its note without a provider
+2026-09-08 02:40:10.896 nvALT[45357:324819382] PASS: source-only windows share the library without any provider construction
+2026-09-08 02:40:11.072 nvALT[45357:324819382] PASS: supported Preview restoration renders its saved format
+2026-09-08 02:40:11.072 nvALT[45357:324819382] PASS: restored Preview constructs exactly one provider and one web view
+2026-09-08 02:40:11.072 nvALT[45357:324819382] PASS: peer preview allocation does not allocate an original-window provider
+2026-09-08 02:40:11.072 nvALT[45357:324819382] PASS: restoring HTML Preview keeps JSON source metadata
+2026-09-08 02:40:11.145 nvALT[45357:324819382] PASS: restoring Source after Preview releases the browser provider reference
+2026-09-08 02:40:11.145 nvALT[45357:324819382] PASS: ten Source restorations close the prior provider and allocate no replacement
+2026-09-08 02:40:11.201 nvALT[45357:324819382] PASS: empty-selection menu probe has no selected note
+2026-09-08 02:40:11.201 nvALT[45357:324819382] PASS: direct Preview menu actions with no note allocate no provider
+2026-09-08 02:40:11.201 nvALT[45357:324819382] PASS: provider construction stays at one after no-note actions
+2026-09-08 02:40:11.202 nvALT[45357:324819382] ROUND 2 MINIMAL CHECKS PASSED: 26; providers=1 views=1 close calls=1

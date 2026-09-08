@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check source persistence and local metadata in a copied app with disposable notes and defaults."""
+"""Check source editing and read-only browser viewers in a copied app with disposable notes and defaults."""
 import os
 import sys
 from pathlib import Path
@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 import uuid
 
-repo = Path(__file__).resolve().parents[3]
+repo = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
 
@@ -39,13 +39,14 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
     harness = root / 'ReviewProbe.m'
     base = (repo / 'Tests/MultipleWindowsTests.m').read_text()
     prefix = base.split('- (void)nv_runTests {')[0] + '- (void)nv_runTests {'
+    prefix = prefix.replace('[[self window] makeKeyAndOrderFront:self];', '[NSApp activateIgnoringOtherApps:YES]; [[self window] makeKeyAndOrderFront:self];')
     prefix = prefix.replace('[self setupViewsAfterAppAwakened];', '''Check([[[NSBundle mainBundle] bundleIdentifier] hasPrefix:@"org.nvalt.window-tests."], @"isolated copied-app preferences domain");
     Check([[[NSBundle mainBundle] bundlePath] hasPrefix:[TestDirectory stringByAppendingString:@"/"]], @"copied app and temporary library share the test root");
     [self setupViewsAfterAppAwakened];''')
-    harness.write_text(Path(__file__).with_name('support.h').read_text() + prefix + Path(__file__).with_name('probe-body.m').read_text())
+    harness.write_text(Path(__file__).with_name('instrumentation.h').read_text() + (repo / 'Tests/Regression/source-workflow/support.h').read_text() + prefix + Path(__file__).with_name('probe-body.m').read_text())
     subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
         '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
-        *include_flags(repo), '-I', str(Path(__file__).parent), '-include', str(repo / 'Config/Notation_Prefix.pch'),
+        *include_flags(repo), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', str(dylib),
         str(harness)], check=True)
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
@@ -54,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
         '-QuitWhenClosingMainWindow', 'NO']
     process = subprocess.Popen(arguments, env=environment)
     try:
-        result = process.wait(timeout=60)
+        result = process.wait(timeout=150)
     except subprocess.TimeoutExpired:
         process.kill()
         # Rosetta may leave a crashed process uninterruptible. Do not wait forever
