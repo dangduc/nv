@@ -1,0 +1,9 @@
+FAIL 96: latest captures become current in every layout within three seconds
+PASS bounded typing: 12 edits, parser calls=2
+Traceback (most recent call last):
+  File "/Users/duc/dev/nv/Tests/SyntaxFlickerReview/run-parser-probe.py", line 26, in <module>
+    subprocess.run([str(binary), str(root / 'Resources/Syntax')], check=True, timeout=120)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/duc/dev/nv/build/SyntaxFlickerReview/round2/kingsbury/probe', '/Users/duc/dev/nv/Resources/Syntax']' returned non-zero exit status 1.
+PASS: removing only stale-completion rescheduling fails automatic eventual completion

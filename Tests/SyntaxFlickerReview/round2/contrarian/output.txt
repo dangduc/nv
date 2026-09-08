@@ -1,0 +1,143 @@
+2026-09-08 05:38:13.165 nvALT[98133:325207743] PASS: temporary library directory exists
+2026-09-08 05:38:13.166 nvALT[98133:325207743] PASS: temporary library opens
+2026-09-08 05:38:13.494 nvALT[98133:325207743] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:38:13.631 nvALT[98133:325207743] PASS: actual query review has two browser windows
+2026-09-08 05:38:13.930 nvALT[98133:325207743] PASS: both query windows start with current syntax
+2026-09-08 05:38:13.930 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:13.930 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:13.930 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:13.930 nvALT[98133:325207743] PASS: unaffected token starts with a drawn syntax color
+2026-09-08 05:38:13.937 nvALT[98133:325207743] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:38:13.938 nvALT[98133:325207743] PASS: native insertion makes analysis obsolete before the run loop
+2026-09-08 05:38:13.938 nvALT[98133:325207743] OBSERVATION markdown provisional color retained=1 baseline=0
+2026-09-08 05:38:13.938 nvALT[98133:325207743] PASS: actual query windows keep unaffected syntax colors while analysis is pending
+2026-09-08 05:38:13.939 nvALT[98133:325207743] PASS: editing begins by clearing only the active editor's search backgrounds
+2026-09-08 05:38:13.939 nvALT[98133:325207743] PASS: peer keeps its existing beta query ranges immediately after the shared insertion
+2026-09-08 05:38:13.939 nvALT[98133:325207743] PASS: native insertion preserves exact shared and committed source
+2026-09-08 05:38:13.940 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:13.940 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:13.940 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:13.940 nvALT[98133:325207743] PASS: real query refresh also works while syntax is provisional
+2026-09-08 05:38:13.941 nvALT[98133:325207743] PASS: native Undo restores exact source in both query windows
+2026-09-08 05:38:13.941 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:13.941 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:13.941 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:13.942 nvALT[98133:325207743] PASS: native Redo restores exact source in both query windows
+2026-09-08 05:38:13.943 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:13.943 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:13.943 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.007 nvALT[98133:325207743] verified 2 notes in 0.000432968 s
+2026-09-08 05:38:14.009 nvALT[98133:325207743] PASS: both windows receive current captures after Undo and Redo
+2026-09-08 05:38:14.009 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.009 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.009 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.009 nvALT[98133:325207743] PASS: fresh syntax preserves drawn colors with real query backgrounds
+2026-09-08 05:38:14.010 nvALT[98133:325207743] PASS: note-switch history starts with pending shared analysis
+2026-09-08 05:38:14.011 nvALT[98133:325207743] PASS: switch attaches only the active editor to the plain note
+2026-09-08 05:38:14.011 nvALT[98133:325207743] PASS: pending old-note syntax cannot color any character of the plain note
+2026-09-08 05:38:14.011 nvALT[98133:325207743] PASS: plain note receives only the active window's actual alpha query backgrounds
+2026-09-08 05:38:14.011 nvALT[98133:325207743] PASS: switching a peer away keeps this window's provisional source colors
+2026-09-08 05:38:14.012 nvALT[98133:325207743] PASS: return attaches the original shared source storage
+2026-09-08 05:38:14.013 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.013 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.013 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: returned note receives fresh analysis in both query windows
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: returned note restores its syntax color instead of the plain-note color
+2026-09-08 05:38:14.078 nvALT[98133:325207743] PASS: note switches preserve the final exact committed source
+2026-09-08 05:38:14.078 nvALT[98133:325207743] COMPLETED actual-query history markdown
+2026-09-08 05:38:14.240 nvALT[98133:325207743] PASS: both query windows start with current syntax
+2026-09-08 05:38:14.240 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.240 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.240 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.240 nvALT[98133:325207743] PASS: unaffected token starts with a drawn syntax color
+2026-09-08 05:38:14.241 nvALT[98133:325207743] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:38:14.243 nvALT[98133:325207743] PASS: native insertion makes analysis obsolete before the run loop
+2026-09-08 05:38:14.243 nvALT[98133:325207743] OBSERVATION html provisional color retained=1 baseline=0
+2026-09-08 05:38:14.243 nvALT[98133:325207743] PASS: actual query windows keep unaffected syntax colors while analysis is pending
+2026-09-08 05:38:14.243 nvALT[98133:325207743] PASS: editing begins by clearing only the active editor's search backgrounds
+2026-09-08 05:38:14.243 nvALT[98133:325207743] PASS: peer keeps its existing beta query ranges immediately after the shared insertion
+2026-09-08 05:38:14.243 nvALT[98133:325207743] PASS: native insertion preserves exact shared and committed source
+2026-09-08 05:38:14.244 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.244 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.244 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.244 nvALT[98133:325207743] PASS: real query refresh also works while syntax is provisional
+2026-09-08 05:38:14.245 nvALT[98133:325207743] PASS: native Undo restores exact source in both query windows
+2026-09-08 05:38:14.245 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.245 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.245 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.246 nvALT[98133:325207743] PASS: native Redo restores exact source in both query windows
+2026-09-08 05:38:14.246 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.246 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.246 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.307 nvALT[98133:325207743] PASS: both windows receive current captures after Undo and Redo
+2026-09-08 05:38:14.307 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.307 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.307 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.307 nvALT[98133:325207743] PASS: fresh syntax preserves drawn colors with real query backgrounds
+2026-09-08 05:38:14.308 nvALT[98133:325207743] PASS: note-switch history starts with pending shared analysis
+2026-09-08 05:38:14.309 nvALT[98133:325207743] PASS: switch attaches only the active editor to the plain note
+2026-09-08 05:38:14.309 nvALT[98133:325207743] PASS: pending old-note syntax cannot color any character of the plain note
+2026-09-08 05:38:14.309 nvALT[98133:325207743] PASS: plain note receives only the active window's actual alpha query backgrounds
+2026-09-08 05:38:14.309 nvALT[98133:325207743] PASS: switching a peer away keeps this window's provisional source colors
+2026-09-08 05:38:14.310 nvALT[98133:325207743] PASS: return attaches the original shared source storage
+2026-09-08 05:38:14.311 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.311 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.311 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.557 nvALT[98133:325207743] verified 3 notes in 0.000329018 s
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: returned note receives fresh analysis in both query windows
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: returned note restores its syntax color instead of the plain-note color
+2026-09-08 05:38:14.573 nvALT[98133:325207743] PASS: note switches preserve the final exact committed source
+2026-09-08 05:38:14.573 nvALT[98133:325207743] COMPLETED actual-query history html
+2026-09-08 05:38:14.721 nvALT[98133:325207743] PASS: both query windows start with current syntax
+2026-09-08 05:38:14.721 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.721 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.721 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.721 nvALT[98133:325207743] PASS: unaffected token starts with a drawn syntax color
+2026-09-08 05:38:14.722 nvALT[98133:325207743] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:38:14.724 nvALT[98133:325207743] PASS: native insertion makes analysis obsolete before the run loop
+2026-09-08 05:38:14.724 nvALT[98133:325207743] OBSERVATION json provisional color retained=1 baseline=0
+2026-09-08 05:38:14.724 nvALT[98133:325207743] PASS: actual query windows keep unaffected syntax colors while analysis is pending
+2026-09-08 05:38:14.724 nvALT[98133:325207743] PASS: editing begins by clearing only the active editor's search backgrounds
+2026-09-08 05:38:14.724 nvALT[98133:325207743] PASS: peer keeps its existing beta query ranges immediately after the shared insertion
+2026-09-08 05:38:14.724 nvALT[98133:325207743] PASS: native insertion preserves exact shared and committed source
+2026-09-08 05:38:14.725 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.725 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.725 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.725 nvALT[98133:325207743] PASS: real query refresh also works while syntax is provisional
+2026-09-08 05:38:14.725 nvALT[98133:325207743] PASS: native Undo restores exact source in both query windows
+2026-09-08 05:38:14.726 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.726 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.726 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.726 nvALT[98133:325207743] PASS: native Redo restores exact source in both query windows
+2026-09-08 05:38:14.727 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.727 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.727 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.795 nvALT[98133:325207743] PASS: both windows receive current captures after Undo and Redo
+2026-09-08 05:38:14.795 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.796 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.796 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.796 nvALT[98133:325207743] PASS: fresh syntax preserves drawn colors with real query backgrounds
+2026-09-08 05:38:14.797 nvALT[98133:325207743] PASS: note-switch history starts with pending shared analysis
+2026-09-08 05:38:14.798 nvALT[98133:325207743] PASS: switch attaches only the active editor to the plain note
+2026-09-08 05:38:14.798 nvALT[98133:325207743] PASS: pending old-note syntax cannot color any character of the plain note
+2026-09-08 05:38:14.798 nvALT[98133:325207743] PASS: plain note receives only the active window's actual alpha query backgrounds
+2026-09-08 05:38:14.798 nvALT[98133:325207743] PASS: switching a peer away keeps this window's provisional source colors
+2026-09-08 05:38:14.798 nvALT[98133:325207743] PASS: return attaches the original shared source storage
+2026-09-08 05:38:14.799 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.799 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.799 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.860 nvALT[98133:325207743] verified 4 notes in 0.000329018 s
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: returned note receives fresh analysis in both query windows
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: each browser retains its independent actual query
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: first window drawing backgrounds cover exactly its query matches
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: peer drawing backgrounds cover exactly its different query matches
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: returned note restores its syntax color instead of the plain-note color
+2026-09-08 05:38:14.872 nvALT[98133:325207743] PASS: note switches preserve the final exact committed source
+2026-09-08 05:38:14.872 nvALT[98133:325207743] COMPLETED actual-query history json
+2026-09-08 05:38:14.872 nvALT[98133:325207743] CONTRARIAN ROUND 2 COMPLETE: 133 checks baseline=0

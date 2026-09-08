@@ -1,0 +1,11 @@
+2026-09-08 05:37:25.404 probe[97932:325206312] OBSERVE json identical-character attributed replacement: generation delta=1
+2026-09-08 05:37:25.695 probe[97932:325206312] OBSERVE json isolated surrogate: length=3, lossless UTF-16 bytes=6
+2026-09-08 05:37:25.708 probe[97932:325206312] PASS json: current/provisional attribute edits, identical-character replacement, unsupported and oversized and malformed source fallback/recovery
+2026-09-08 05:37:25.815 probe[97932:325206312] OBSERVE html identical-character attributed replacement: generation delta=1
+2026-09-08 05:37:26.100 probe[97932:325206312] OBSERVE html isolated surrogate: length=3, lossless UTF-16 bytes=6
+2026-09-08 05:37:26.112 probe[97932:325206312] PASS html: current/provisional attribute edits, identical-character replacement, unsupported and oversized and malformed source fallback/recovery
+2026-09-08 05:37:26.221 probe[97932:325206312] OBSERVE markdown identical-character attributed replacement: generation delta=1
+2026-09-08 05:37:26.475 probe[97932:325206312] OBSERVE markdown isolated surrogate: length=3, lossless UTF-16 bytes=6
+2026-09-08 05:37:26.488 probe[97932:325206312] PASS markdown: current/provisional attribute edits, identical-character replacement, unsupported and oversized and malformed source fallback/recovery
+2026-09-08 05:37:26.503 probe[97932:325206312] OBSERVE display budget fixture: 3000 parser captures across two layouts
+2026-09-08 05:37:26.522 probe[97932:325206312] PASS: 957 assertions, 29 bounded histories, 0 unsafe capture writes

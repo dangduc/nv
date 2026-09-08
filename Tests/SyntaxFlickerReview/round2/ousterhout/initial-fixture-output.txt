@@ -1,0 +1,12 @@
+2026-09-08 05:31:54.842 nvALT[94031:325183435] PASS: temporary library directory exists
+2026-09-08 05:31:54.843 nvALT[94031:325183435] PASS: temporary library opens
+2026-09-08 05:31:55.625 nvALT[94031:325183435] PASS: both browser layouts start with current shared Markdown analysis
+2026-09-08 05:31:55.625 nvALT[94031:325183435] PASS: both real browser editors attach to one session storage
+2026-09-08 05:31:55.625 nvALT[94031:325183435] PASS: the heading has an actual foreground color through the drawing delegate
+2026-09-08 05:31:55.625 nvALT[94031:325183435] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:31:55.633 nvALT[94031:325183435] PASS: native composition changes shared live source without committing the model or adding Undo
+2026-09-08 05:31:55.633 nvALT[94031:325183435] PASS: composition makes syntax obsolete while preserving provisional display
+2026-09-08 05:31:55.633 nvALT[94031:325183435] PASS: TextKit shifts the retained heading color in both browser layouts
+2026-09-08 05:31:55.633 nvALT[94031:325183435] PASS: the external model snapshot stays deferred behind a peer composition
+2026-09-08 05:31:55.730 nvALT[94031:325183435] verified 2 notes in 0.00040102 s
+2026-09-08 05:31:59.641 nvALT[94031:325183435] FAIL: the parser completes on the live composition while the external snapshot is deferred

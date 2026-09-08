@@ -1,0 +1,7 @@
+PASS bounded typing: 12 edits, parser calls=2
+PASS consumed debounce and new attachment: busy timer attempts=1
+PASS completion near queued debounce: further timer attempts=1
+PASS syntax change during work: final generation=22
+PASS last detach before timer and automatic reattachment
+PASS last detach and close during work: no late publication
+PASS 155 assertions across six automatic scheduling histories; every eventual wait bounded at 3 seconds

@@ -1,0 +1,34 @@
+2026-09-08 05:33:10.009 nvALT[95639:325194074] PASS: temporary library directory exists
+2026-09-08 05:33:10.010 nvALT[95639:325194074] PASS: temporary library opens
+2026-09-08 05:33:10.720 nvALT[95639:325194074] PASS: both browser layouts start with current shared Markdown analysis
+2026-09-08 05:33:10.720 nvALT[95639:325194074] PASS: both real browser editors attach to one session storage
+2026-09-08 05:33:10.720 nvALT[95639:325194074] PASS: the heading has an actual foreground color through the drawing delegate
+2026-09-08 05:33:10.721 nvALT[95639:325194074] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:33:10.728 nvALT[95639:325194074] PASS: native composition changes shared live source without committing the model or adding Undo
+2026-09-08 05:33:10.728 nvALT[95639:325194074] PASS: composition makes syntax obsolete while preserving provisional display
+2026-09-08 05:33:10.728 nvALT[95639:325194074] PASS: TextKit shifts the retained heading color in both browser layouts
+2026-09-08 05:33:10.728 nvALT[95639:325194074] PASS: the external model snapshot stays deferred behind a peer composition
+2026-09-08 05:33:10.806 nvALT[95639:325194074] PASS: the parser completes on the live composition while the external snapshot is deferred
+2026-09-08 05:33:10.806 nvALT[95639:325194074] PASS: completed analysis cannot commit composition, overwrite the external model, or create Undo
+2026-09-08 05:33:10.845 nvALT[95639:325194074] verified 2 notes in 0.000375986 s
+2026-09-08 05:33:10.865 nvALT[95639:325194074] PASS: Undo from the peer finishes composition and removes only local draft while preserving external text
+2026-09-08 05:33:10.921 nvALT[95639:325194074] PASS: a second Undo cannot resurrect an earlier whole-note snapshot
+2026-09-08 05:33:10.973 nvALT[95639:325194074] PASS: Redo restores exactly the merged source in both browser editors
+2026-09-08 05:33:10.973 nvALT[95639:325194074] PASS: disjoint external and local edits create no conflict copy
+2026-09-08 05:33:10.983 nvALT[95639:325194074] PASS: both editors eventually receive current analysis after cross-window Undo and Redo
+2026-09-08 05:33:10.985 nvALT[95639:325194074] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:33:10.986 nvALT[95639:325194074] PASS: ordinary editing establishes another provisional revision before a browser switch
+2026-09-08 05:33:10.987 nvALT[95639:325194074] PASS: switching detaches only the originating browser layout
+2026-09-08 05:33:10.987 nvALT[95639:325194074] PASS: a plain note cannot draw retained colors from the prior note
+2026-09-08 05:33:10.987 nvALT[95639:325194074] PASS: the peer keeps the exact edited source and committed model after the other browser switches
+2026-09-08 05:33:11.051 nvALT[95639:325194074] PASS: the still-attached peer completes its pending original-note parse
+2026-09-08 05:33:11.052 nvALT[95639:325194074] PASS: late original-note completion cannot color the plain note or create its Undo history
+2026-09-08 05:33:11.053 nvALT[95639:325194074] PASS: the last old-note detach also leaves the new note uncolored
+2026-09-08 05:33:11.054 nvALT[95639:325194074] PASS: return after the last detach starts from exact source without reusing the closed highlighter revision
+2026-09-08 05:33:11.118 nvALT[95639:325194074] PASS: returning creates and completes new analysis for the original note
+2026-09-08 05:33:11.170 nvALT[95639:325194074] PASS: Undo after full detach removes exactly the earlier insertion without changing the peer note
+2026-09-08 05:33:11.221 nvALT[95639:325194074] PASS: Redo after full detach restores exactly the insertion
+2026-09-08 05:33:11.273 nvALT[95639:325194074] PASS: deleting the colored note leaves the plain-note peer display uncolored
+2026-09-08 05:33:11.366 nvALT[95639:325194074] PASS: deletion Undo restores the exact source and its local syntax identity
+2026-09-08 05:33:11.519 nvALT[95639:325194074] PASS: the restored note receives fresh current syntax analysis
+2026-09-08 05:33:11.571 nvALT[95639:325194074] FAIL: body Undo after deletion Undo retains the original edit boundary and peer-note isolation
