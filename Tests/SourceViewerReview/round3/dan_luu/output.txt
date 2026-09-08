@@ -1,0 +1,10 @@
+mode,lines,saved_y,hidden,ensure_calls,laid_characters,line_fragments,glyphs_laid_out,glyphs_generated,elapsed_ms
+viewport,2000,0,0,0,0,0,0,0,0.007
+viewport,2000,700,1,0,0,0,0,0,0.003
+viewport,2000,700,0,1,3784,86,3784,8192,11.404
+viewport,12000,700,0,1,3784,86,3784,8192,2.389
+viewport,2000,6000,0,1,20416,464,20416,24576,7.875
+viewport,12000,6000,0,1,20416,464,20416,24576,7.843
+full,2000,0,0,0,88000,2000,88000,88000,23.276
+full,12000,0,0,0,528000,12000,528000,528000,145.548
+PASS: 41 assertions

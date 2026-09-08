@@ -1,0 +1,36 @@
+2026-09-08 03:19:57.647 nvALT[51427:324879324] PASS: isolated copied-app preferences domain
+2026-09-08 03:19:57.647 nvALT[51427:324879324] PASS: copied app and temporary library share the test root
+2026-09-08 03:19:57.651 nvALT[51427:324879324] PASS: temporary library directory exists
+2026-09-08 03:19:57.651 nvALT[51427:324879324] PASS: temporary library opens
+2026-09-08 03:19:58.474 nvALT[51427:324879324] PASS: preview loads before residual-cost measurements
+2026-09-08 03:19:58.876 nvALT[51427:324879324] PASS: visible preview control submits periodic DOM reads
+2026-09-08 03:19:58.876 nvALT[51427:324879324] VISIBLE CONTROL: DOM reads=2
+2026-09-08 03:20:00.634 nvALT[51427:324879324] HIDDEN SOURCE: timer entries=8, DOM reads=0, render submissions=0
+2026-09-08 03:20:00.634 nvALT[51427:324879324] PASS: hidden-source sample includes live timer callbacks
+2026-09-08 03:20:00.634 nvALT[51427:324879324] PASS: hidden Source never submits periodic DOM reads
+2026-09-08 03:20:00.634 nvALT[51427:324879324] PASS: twenty Source edits never enqueue work in the retained renderer
+2026-09-08 03:20:00.634 nvALT[51427:324879324] PASS: hidden-renderer sample preserves exact committed Source edits
+2026-09-08 03:20:00.723 nvALT[51427:324879324] PASS: returning to Preview renders the latest Source
+2026-09-08 03:20:00.723 nvALT[51427:324879324] PASS: returning to Preview reuses the window's single provider
+2026-09-08 03:20:01.594 nvALT[51427:324879324] ORDERED-OUT WINDOW: timer entries=4, DOM reads=0
+2026-09-08 03:20:01.595 nvALT[51427:324879324] PASS: ordered-out sample includes live timer callbacks
+2026-09-08 03:20:01.595 nvALT[51427:324879324] PASS: ordered-out Preview never submits periodic DOM reads
+2026-09-08 03:20:01.676 nvALT[51427:324879324] PASS: reshown Preview resumes periodic DOM reads
+2026-09-08 03:20:01.690 nvALT[51427:324879324] PASS: discard releases the first provider after asynchronous callbacks drain
+2026-09-08 03:20:01.865 nvALT[51427:324879324] PASS: lifetime sample creates an additional browser
+2026-09-08 03:20:01.999 nvALT[51427:324879324] PASS: additional browser completes native Preview navigation
+2026-09-08 03:20:02.011 nvALT[51427:324879324] PASS: closing browser releases its provider and timer ownership
+2026-09-08 03:20:02.163 nvALT[51427:324879324] PASS: lifetime sample creates an additional browser
+2026-09-08 03:20:02.316 nvALT[51427:324879324] PASS: additional browser completes native Preview navigation
+2026-09-08 03:20:02.333 nvALT[51427:324879324] PASS: closing browser releases its provider and timer ownership
+2026-09-08 03:20:02.482 nvALT[51427:324879324] PASS: lifetime sample creates an additional browser
+2026-09-08 03:20:02.626 nvALT[51427:324879324] PASS: additional browser completes native Preview navigation
+2026-09-08 03:20:02.648 nvALT[51427:324879324] PASS: closing browser releases its provider and timer ownership
+2026-09-08 03:20:02.833 nvALT[51427:324879324] dealloc linkinged
+2026-09-08 03:20:03.148 nvALT[51427:324879324] dealloc linkinged
+2026-09-08 03:20:03.153 nvALT[51427:324879324] dealloc linkinged
+2026-09-08 03:20:03.450 nvALT[51427:324879324] PASS: closed providers leave no timer entries, DOM reads, or render submissions
+2026-09-08 03:20:03.450 nvALT[51427:324879324] PASS: all four provider lifetimes close and deallocate exactly once
+2026-09-08 03:20:03.450 nvALT[51427:324879324] LIFETIMES: init=4, first close=4, dealloc=4
+2026-09-08 03:20:03.455 nvALT[51427:324879324] verified 1 notes in 0.00152802 s
+2026-09-08 03:20:03.458 nvALT[51427:324879324] ROUND 3 MINIMAL CHECKS PASSED: 27

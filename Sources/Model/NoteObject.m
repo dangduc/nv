@@ -172,7 +172,8 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	NSData *originalData = sourceOriginalData;
 	NSStringEncoding originalEncoding = sourceOriginalEncoding;
 	NSString *source = [contentString string];
-	if ([originalData isKindOfClass:[NSData class]] && originalEncoding == fileEncoding &&
+	// Legacy archives sign-extend the 32-bit file encoding identifier.
+	if ([originalData isKindOfClass:[NSData class]] && (uint32_t)originalEncoding == (uint32_t)fileEncoding &&
 		[source isEqualToString:[[self class] sourceStringFromData:originalData encoding:&originalEncoding path:nil]]) return originalData;
 	NSData *body = [source dataUsingEncoding:fileEncoding allowLossyConversion:NO];
 	if (!body) {

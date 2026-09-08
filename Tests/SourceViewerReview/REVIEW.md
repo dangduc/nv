@@ -59,4 +59,48 @@ The fix records preserve negative controls and explain the additional state and 
 
 ## Round 3
 
-The final review will use the committed second-round corrections. Full aggregate validation will run alongside its independent probes.
+Review baseline: `9720676ccd0e619dba99f6a47d257216c1e383eb`.
+All six perspectives completed. Two findings were confirmed and delegated for correction.
+The baseline passed all 18 aggregate groups, 48 multiple-window checks, 14 CI unit tests, and packaged-app validation.
+GitHub's Intel build also passed.
+
+Two findings were posted before delegated corrections:
+
+| Finding | Priority | PR comment |
+| --- | --- | --- |
+| Joined capture replaces its caller's newer Find query | P2 | [Per-caller state](https://github.com/fastducduc/nv/pull/4#discussion_r3956760254) |
+| Signed archive encoding changes unchanged source bytes | P2 | [Encoding identity](https://github.com/fastducduc/nv/pull/4#discussion_r3956760257) |
+
+The ownership probe reproduces the Find failure through production provider methods and the actual browser consumer.
+The encoding probe reproduces changed GB 18030 bytes after an ordinary archive round trip.
+Its local comparison control passes all 262 checks; three independent negative controls fail.
+
+The performance review passed 41 assertions in three runs with actual TextKit layout.
+Work stayed equal across two document lengths at the same saved viewport depth.
+The full-document negative control failed its measured-work assertion.
+
+The failure-recovery review passed 112 checks with 32 failures injected at the production WAL synchronization boundary.
+It covered edited and deleted conflict copies, separate origin identities, and three archive reopen cycles.
+Neither probe found another actionable defect within its stated limits.
+
+The complexity-deletion review passed 27 runtime checks with four provider lifetimes.
+Hidden Source edits caused no renderer submissions or periodic DOM reads. Closed providers left no timer callbacks.
+The forced hidden-poll control failed its intended assertion.
+
+The user-data review passed 95 checks across seven editing histories with two attached layouts.
+Undo, Redo, syntax changes, archive restoration, and closure retained the expected source bytes.
+The newline-normalization control failed its first Undo assertion.
+Neither contrarian review found a new defect within its stated limits.
+
+## Corrections
+
+The three rounds produced 15 findings: seven, six, and two.
+Every finding received a delegated correction after its PR comment was posted.
+The correction records link the original failure, the production change, and the regression evidence.
+Historical reports retain baseline failures and rejected concerns.
+
+The final encoding correction passes 262 extracted-production checks and all 243 actual-app storage checks.
+The viewer correction preserves each caller's Find query through exact replies, timeout, and a return before completion.
+The native viewer passed 207 checks. The corrected browser fixture passed 136 checks twice and its queued-refresh control passed 137.
+See the `round3/linus/FIX.md` and `round3/ousterhout/FIX.md` records for those corrections.
+The [validation record](VALIDATION.md) contains the final combined build and suite results.

@@ -1,0 +1,103 @@
+2026-09-08 03:22:36.450 nvALT[52814:324888653] PASS: isolated copied-app preferences domain
+2026-09-08 03:22:36.450 nvALT[52814:324888653] PASS: copied app and temporary library share the test root
+2026-09-08 03:22:36.456 nvALT[52814:324888653] PASS: temporary library directory exists
+2026-09-08 03:22:36.457 nvALT[52814:324888653] PASS: temporary library opens
+2026-09-08 03:22:36.780 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.782 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.802 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.804 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.805 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.806 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.808 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.809 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.809 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.809 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.812 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.815 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.815 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.815 nvALT[52814:324888653] EVIDENCE history=0 source_units=61 original_bytes=75 encoding=4 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.816 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.817 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.825 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.826 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.826 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.827 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.828 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.829 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.829 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.829 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.830 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.831 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.832 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.832 nvALT[52814:324888653] EVIDENCE history=1 source_units=61 original_bytes=78 encoding=4 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.832 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.833 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.835 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.836 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.836 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.837 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.838 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.838 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.838 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.838 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.840 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.841 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.841 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.841 nvALT[52814:324888653] EVIDENCE history=2 source_units=61 original_bytes=124 encoding=2483028224 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.842 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.842 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.845 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.846 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.846 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.847 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.848 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.848 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.848 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.848 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.850 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.851 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.851 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.851 nvALT[52814:324888653] EVIDENCE history=3 source_units=61 original_bytes=236 encoding=2550137088 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.852 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.853 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.856 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.857 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.857 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.858 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.858 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.859 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.859 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.859 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.860 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.861 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.861 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.861 nvALT[52814:324888653] EVIDENCE history=4 source_units=53 original_bytes=53 encoding=12 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.861 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.862 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.865 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.865 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.866 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.866 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.867 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.867 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.867 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.867 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.867 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.868 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.868 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.868 nvALT[52814:324888653] EVIDENCE history=5 source_units=6 original_bytes=6 encoding=4 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.869 nvALT[52814:324888653] PASS: history source fixture writes
+2026-09-08 03:22:36.869 nvALT[52814:324888653] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:22:36.872 nvALT[52814:324888653] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:22:36.873 nvALT[52814:324888653] PASS: first edit commits an intentional newline change
+2026-09-08 03:22:36.873 nvALT[52814:324888653] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:22:36.874 nvALT[52814:324888653] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:22:36.874 nvALT[52814:324888653] PASS: first Undo removes only the second edit after five syntax changes
+2026-09-08 03:22:36.874 nvALT[52814:324888653] PASS: second Undo restores every original Unicode unit and newline boundary
+2026-09-08 03:22:36.874 nvALT[52814:324888653] PASS: complete Undo recovers exact original bytes and exactly two history entries
+2026-09-08 03:22:36.874 nvALT[52814:324888653] PASS: source Undo does not revert local syntax metadata
+2026-09-08 03:22:36.875 nvALT[52814:324888653] PASS: Redo restores both edits without normalizing untouched source
+2026-09-08 03:22:36.876 nvALT[52814:324888653] PASS: post-Undo archive restores exact source bytes and local syntax together
+2026-09-08 03:22:36.876 nvALT[52814:324888653] PASS: last layout detach and editing-session closure retain source bytes
+2026-09-08 03:22:36.876 nvALT[52814:324888653] EVIDENCE history=6 source_units=0 original_bytes=3 encoding=4 edits=2 undos=4 redos=2 layouts=2
+2026-09-08 03:22:36.876 nvALT[52814:324888653] ROUND 3 CONTRARIAN DATA PASSED: 95 checks, 7 histories

@@ -1,0 +1,10 @@
+2026-09-08 03:20:28.813 nvALT[51625:324880803] PASS: isolated copied-app preferences domain
+2026-09-08 03:20:28.813 nvALT[51625:324880803] PASS: copied app and temporary library share the test root
+2026-09-08 03:20:28.817 nvALT[51625:324880803] PASS: temporary library directory exists
+2026-09-08 03:20:28.818 nvALT[51625:324880803] PASS: temporary library opens
+2026-09-08 03:20:29.684 nvALT[51625:324880803] PASS: preview loads before residual-cost measurements
+2026-09-08 03:20:30.088 nvALT[51625:324880803] PASS: visible preview control submits periodic DOM reads
+2026-09-08 03:20:30.088 nvALT[51625:324880803] VISIBLE CONTROL: DOM reads=2
+2026-09-08 03:20:31.978 nvALT[51625:324880803] HIDDEN SOURCE: timer entries=9, DOM reads=9, render submissions=0
+2026-09-08 03:20:31.978 nvALT[51625:324880803] PASS: hidden-source sample includes live timer callbacks
+2026-09-08 03:20:31.978 nvALT[51625:324880803] FAIL: hidden Source never submits periodic DOM reads

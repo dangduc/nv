@@ -71,6 +71,19 @@
                 else ((void(*)(id, SEL, NSString *, id))originalEvaluate)(object, @selector(evaluateJavaScript:completionHandler:), script, completion);
             });
             method_setImplementation(evaluateMethod, controlledEvaluate);
+            NSString *(^prepareControlledDocument)(void) = ^NSString * {
+                // Native inspection pumps the run loop and can deliver an
+                // unrelated queued refresh. Check readiness after that boundary.
+                for (NSUInteger attempt = 0; attempt < 4; attempt++) {
+                    if (!Await(^BOOL { return PreviewShows(a, @"Source workflow") && [[preview valueForKey:@"_stateCaptures"] count] == 0; }, 15)) return nil;
+                    [preview restoreViewerState:@{@"scrollY": @100, @"find": @"Paragraph"}];
+                    id document = NativeJavaScript([preview webView], @"window.scrollTo(0,420);[document.baseURI,window.scrollY]");
+                    if ([document isKindOfClass:[NSArray class]] && [document count] == 2 && [document[0] isKindOfClass:[NSString class]] &&
+                        [document[1] doubleValue] == 420 && [document[0] isEqual:[[preview valueForKey:@"_documentBaseURL"] absoluteString]] &&
+                        PreviewShows(a, @"Source workflow") && [[preview valueForKey:@"_stateCaptures"] count] == 0) return document[0];
+                }
+                return nil;
+            };
             for (NSUInteger order = 0; order < 3; order++) {
                 NSUInteger first = [replies count];
                 [preview restoreViewerState:@{@"scrollY": @100}]; [a captureBodyPresentation];
@@ -93,10 +106,8 @@
             }
             for (NSUInteger history = 0; history < 3; history++) {
                 // Return before the exact A read replies and before B renders.
-                documentBase = NativeJavaScript([preview webView], @"document.baseURI");
-                [preview restoreViewerState:@{@"scrollY": @100, @"find": @"Paragraph"}];
-                Check([NativeJavaScript([preview webView], @"window.scrollTo(0,420);window.scrollY") doubleValue] == 420,
-                    @"real browser DOM has fresh scroll while the restoration cache remains older");
+                documentBase = prepareControlledDocument();
+                Check(documentBase != nil, @"loaded browser DOM has fresh scroll, an older cache, and no earlier captures");
                 NSUInteger returningCapture = [replies count];
                 [a revealNote:intermediate options:0]; [a revealNote:note options:0];
                 Check([a isViewingNote] && [[[preview snapshot] noteIdentifier] isEqual:noteKey] &&
@@ -121,6 +132,38 @@
                     @"pending presentation return retains its saved Find query in provider state and the native search field");
                 Check(fabs(NSPointFromString([[[a valueForKey:@"noteBodyStates"] objectForKey:noteKey] objectForKey:@"sourceScroll"]).y - sourceScroll.y) <= 1,
                     @"preview note histories preserve the source position when hidden layout changes its clip origin");
+            }
+
+            for (NSUInteger outcome = 0; outcome < 3; outcome++) {
+                documentBase = prepareControlledDocument();
+                Check(documentBase != nil, @"joined browser history starts with a loaded document and no earlier captures");
+                NSUInteger savedWindowCapture = [replies count];
+                [a browserWindowState];
+                Check([replies count] == savedWindowCapture + 1, @"window-state serialization starts one controlled document read");
+                NSSearchField *find = [preview valueForKey:@"_findField"];
+                [find setStringValue:@"characters"];
+                Check([NSApp sendAction:[find action] to:[find target] from:find], @"native Find changes after the window-state capture starts");
+                [a updateViewerSnapshot];
+                Check([preview loading], @"same-note refresh keeps its existing document capture pending");
+                [a revealNote:intermediate options:0];
+                Check([replies count] == savedWindowCapture + 1, @"departure during the refresh joins the window-state DOM read");
+                if (outcome == 2) {
+                    [a revealNote:note options:0];
+                    Check([[[preview viewerState] objectForKey:@"find"] isEqual:@"characters"] && [[find stringValue] isEqual:@"characters"],
+                        @"return before the shared read replies adopts the latest joined caller's Find query");
+                }
+                if (outcome != 1) {
+                    void (^reply)(id, NSError *) = replies[savedWindowCapture];
+                    reply(@[documentBase, @0, @420], nil);
+                } else Check(Await(^BOOL { return [[preview valueForKey:@"_stateCaptures"] count] == 0; }, 2), @"joined browser requests complete through the original timeout");
+                NSDictionary *saved = [[[[a valueForKey:@"noteBodyStates"] objectForKey:noteKey] objectForKey:@"viewers"] objectForKey:@"markdown"];
+                Check([[saved objectForKey:@"find"] isEqual:@"characters"] && savedScroll() == (outcome == 1 ? 100 : 420),
+                    @"joined browser departure saves its newer Find query with exact or fallback offsets");
+                if (outcome != 2) [a revealNote:note options:0];
+                Check(Await(^BOOL { return PreviewShows(a, @"Source workflow"); }, 15), @"return after a joined refresh capture completes");
+                Check([[[preview viewerState] objectForKey:@"find"] isEqual:@"characters"] && [[find stringValue] isEqual:@"characters"] &&
+                    fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - (outcome == 1 ? 100 : 420)) <= 2,
+                    @"browser restores the latest Find query and independent offsets after capture, refresh, departure, and return");
             }
 
             // Authoritative saved-window restoration must invalidate pending

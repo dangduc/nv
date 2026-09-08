@@ -1,0 +1,12 @@
+2026-09-08 03:23:02.121 nvALT[53825:324893486] PASS: isolated copied-app preferences domain
+2026-09-08 03:23:02.121 nvALT[53825:324893486] PASS: copied app and temporary library share the test root
+2026-09-08 03:23:02.127 nvALT[53825:324893486] PASS: temporary library directory exists
+2026-09-08 03:23:02.128 nvALT[53825:324893486] PASS: temporary library opens
+2026-09-08 03:23:02.451 nvALT[53825:324893486] NEGATIVE CONTROL: Undo restoration normalizes CRLF
+2026-09-08 03:23:02.452 nvALT[53825:324893486] PASS: history source fixture writes
+2026-09-08 03:23:02.454 nvALT[53825:324893486] PASS: import retains each Unicode unit and newline boundary
+2026-09-08 03:23:02.471 nvALT[53825:324893486] PASS: shared editable storage starts with original source and bytes
+2026-09-08 03:23:02.474 nvALT[53825:324893486] PASS: first edit commits an intentional newline change
+2026-09-08 03:23:02.475 nvALT[53825:324893486] PASS: second edit keeps the remaining original boundaries and encoding
+2026-09-08 03:23:02.476 nvALT[53825:324893486] PASS: syntax changes and display refresh do not commit a source edit
+2026-09-08 03:23:02.477 nvALT[53825:324893486] FAIL: first Undo removes only the second edit after five syntax changes

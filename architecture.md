@@ -129,6 +129,7 @@ It writes note files when required and appends journal records through [WALContr
 [FrozenNotation](Sources/Storage/FrozenNotation.m) serializes the library snapshot and its settings.
 Imported text retains its original bytes, encoding, and byte-order mark inside the archived `NoteObject`.
 These bytes therefore remain inside encrypted note data when database encryption is enabled.
+Encoding identity uses the original 32-bit value, including after legacy archive recovery sign-extends that value.
 Unchanged source export returns the original bytes. Edits retain the encoding when it can represent every character.
 An unrepresentable edit offers explicit UTF-8 conversion instead of lossy replacement.
 A pending conversion remains in the note archive and retries after reopening. The existing source file stays unchanged until conversion succeeds.
@@ -191,7 +192,8 @@ Transition captures read current DOM scroll positions before replacement navigat
 Callbacks retain their original note and viewer identity, with a bounded cached-state fallback if WebKit does not reply.
 The provider and browser order canonical state updates per note and viewer. Older replies still complete but cannot replace newer restoration state.
 A loading return joins the pending exact capture for that presentation without extending its deadline.
-It adopts cached Find state on entry; the later capture updates offsets without replacing a newer query.
+Each caller retains its own non-scroll state while sharing that read's offsets and deadline.
+A return adopts the latest caller's cached Find state on entry; the later capture updates offsets without replacing a newer query.
 Preview keeps the saved Source position instead of reading the hidden editor's clip origin.
 Source restoration lays out through the saved viewport before applying that position.
 Library replacement and restoration reject older state callbacks. Synchronous application termination can use the last cached viewer position.

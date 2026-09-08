@@ -63,6 +63,7 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
 @interface ControlledCaptureViewer : PreviewController
 - (void)prepare;
 - (void)returnToPendingPresentation:(NSUInteger)generation;
+- (void)setCachedFindQuery:(NSString *)query;
 @end
 @implementation ControlledCaptureViewer
 - (void)loadView { [self setView:[[[NSView alloc] init] autorelease]]; }
@@ -78,6 +79,7 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
     [_displayState removeAllObjects];
     _loading = YES;
 }
+- (void)setCachedFindQuery:(NSString *)query { [_displayState setObject:query forKey:@"find"]; }
 @end
 static void Reply(NSArray *replies, NSUInteger index, id result) {
     Check(index < [replies count], @"controlled WebKit received the expected request");
@@ -94,11 +96,15 @@ static void CaptureOrderingChecks(NSWindow *window) {
         for (NSUInteger request = 0; request < 3; request++) {
             NSUInteger generation = 1 + request * 2;
             if (request) [viewer returnToPendingPresentation:generation];
+            NSString *query = [NSString stringWithFormat:@"query %lu", (unsigned long)request];
+            [viewer setCachedFindQuery:query];
             [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {
                 Check([snapshot generation] == generation && [[snapshot noteIdentifier] isEqual:@"Ordered capture"] && [identifier isEqual:@"html"],
                     @"joined capture preserves each caller's original snapshot generation and presentation identity");
                 Check([[state objectForKey:@"scrollY"] doubleValue] == (outcome == 1 || outcome == 3 ? 100 : 420),
                     @"joined captures share the useful exact read or its original cached fallback");
+                Check([[state objectForKey:@"find"] isEqual:query],
+                    @"joined captures retain each caller's Find query for exact replies and fallbacks");
                 calls++;
             }];
         }
