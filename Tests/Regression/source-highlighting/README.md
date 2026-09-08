@@ -20,6 +20,8 @@ The checks cover:
 - Shared analysis across two layout managers, with separate search backgrounds.
 - Display attributes that do not change shared text or persisted attributes.
 - Character generations, attribute-only changes, stale results, syntax changes, and closure.
+- Stable temporary colors through insertions and deletions, peer attachment, and a controlled obsolete worker result.
+- Removal of provisional colors on fallback, syntax changes, closure, and attachment to another note's storage.
 - Fully laid-out source after Undo-style shortening, Redo-style insertion, and whole-document deletion.
 - Actual capture-write counts across four and twenty layouts, including plain fallback and recovery when layouts detach.
 
@@ -29,10 +31,12 @@ Only one request per analysis object can run or wait for a main-thread result.
 The latest character generation supersedes an older request.
 The final detached layout releases its analysis object and parser state.
 
-Character notifications invalidate a shared revision token before TextKit updates its glyph caches.
-The editor immediately ignores captures from that revision.
-Temporary attribute removal waits until the next event-loop turn, after TextKit processes the changed ranges.
-The regression fixture rejects synchronous capture removal during character processing.
+Character notifications mark a shared revision token obsolete before TextKit updates its glyph caches.
+The editor retains the existing colors as provisional display until the latest parser result arrives.
+TextKit adjusts their ranges during edits. New characters can use the base color until analysis finishes.
+Provisional colors cannot supply syntax semantics for editing commands or follow a layout to another note's storage.
+Syntax changes, analysis fallback, and closure clear them.
+The regression fixture rejects capture additions and removal during character processing.
 
 The initial limits are 524,288 UTF-16 units, 30,000 captures, 4,096 concurrent query matches, and a 120ms worker budget.
 The parser checks cancellation during parsing, query execution, and Markdown inline-range traversal.
@@ -51,3 +55,4 @@ The harness reached 38.1MiB peak resident memory.
 These measurements exclude browser layout, painting, and end-to-end typing latency.
 
 Application validation also requires desktop checks for editor commands, Undo, composition, window presentation, and source colors.
+The source-workflow suite compares native drawing colors before and between keystrokes in two windows for Markdown, HTML, and JSON.

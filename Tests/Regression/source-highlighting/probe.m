@@ -12,8 +12,58 @@ static NSUInteger UnsafeTemporaryChanges;
 static NSUInteger SourceAttributeAdditions;
 @interface NVSourceHighlighter (DisplayBudgetProbe)
 - (void)applyCaptures;
+- (void)analyze;
 @end
 @interface NVBoundaryCheckingLayoutManager : NSLayoutManager
+@end
+
+// Hold one successful worker result so the fixture can edit the source while
+// analysis is in flight. Returning a positive result despite cancellation tests
+// the main-thread generation check independently of parser cancellation.
+@interface NVGatedSourceParser : NVSourceParser {
+    dispatch_semaphore_t started;
+    dispatch_semaphore_t resume;
+    BOOL gateNextRequest;
+}
+- (void)gateNextRequest;
+- (BOOL)waitForRequest;
+- (void)releaseRequest;
+@end
+@implementation NVGatedSourceParser
+- (id)initWithQueryDirectory:(NSString *)directory {
+    if ((self = [super initWithQueryDirectory:directory])) {
+        started = dispatch_semaphore_create(0);
+        resume = dispatch_semaphore_create(0);
+    }
+    return self;
+}
+- (void)gateNextRequest { gateNextRequest = YES; }
+- (BOOL)waitForRequest { return dispatch_semaphore_wait(started, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC)) == 0; }
+- (void)releaseRequest { dispatch_semaphore_signal(resume); }
+- (NSArray *)capturesForString:(NSString *)source syntaxIdentifier:(NSString *)syntax cancellationToken:(const uint64_t *)token generation:(uint64_t)generation {
+    if (gateNextRequest) {
+        gateNextRequest = NO;
+        dispatch_semaphore_signal(started);
+        if (dispatch_semaphore_wait(resume, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC))) return nil;
+        return @[@{@"range": [NSValue valueWithRange:NSMakeRange(1, 1)], @"kind": @"fixture.stale"}];
+    }
+    return [super capturesForString:source syntaxIdentifier:syntax cancellationToken:token generation:generation];
+}
+- (void)dealloc { dispatch_release(started); dispatch_release(resume); [super dealloc]; }
+@end
+
+@interface NVGatedSourceHighlighter : NVSourceHighlighter
+- (NVGatedSourceParser *)gatedParser;
+@end
+@implementation NVGatedSourceHighlighter
+- (id)initWithTextStorage:(NSTextStorage *)textStorage syntaxIdentifier:(NSString *)syntax queryDirectory:(NSString *)directory {
+    if ((self = [super initWithTextStorage:textStorage syntaxIdentifier:syntax queryDirectory:directory])) {
+        [parser release];
+        parser = [[NVGatedSourceParser alloc] initWithQueryDirectory:directory];
+    }
+    return self;
+}
+- (NVGatedSourceParser *)gatedParser { return (NVGatedSourceParser *)parser; }
 @end
 @implementation NVBoundaryCheckingLayoutManager
 - (void)addTemporaryAttribute:(NSAttributedStringKey)name value:(id)value forCharacterRange:(NSRange)range {
@@ -62,6 +112,92 @@ static BOOL WaitForCapture(NSLayoutManager *layout, NSString *kind, NSUInteger i
     }
     return NO;
 }
+static id CaptureAt(NSLayoutManager *layout, NSUInteger index) {
+    return [layout temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:index effectiveRange:NULL];
+}
+static void PauseScheduledAnalysis(NVSourceHighlighter *analysis) {
+    [NSObject cancelPreviousPerformRequestsWithTarget:analysis selector:@selector(analyze) object:nil];
+}
+static void CheckProvisionalDisplay(NSString *directory) {
+    NSTextStorage *storage = [[NSTextStorage alloc] initWithString:@"{\n  \"key\": 42,\n  \"other\": true\n}\n"];
+    NSTextStorage *other = [[NSTextStorage alloc] initWithString:@"Another note owns different source."];
+    NSLayoutManager *first = [[NVBoundaryCheckingLayoutManager alloc] init];
+    NSLayoutManager *second = [[NVBoundaryCheckingLayoutManager alloc] init];
+    NSLayoutManager *third = [[NVBoundaryCheckingLayoutManager alloc] init];
+    [storage addLayoutManager:first]; [storage addLayoutManager:second];
+    [first addTemporaryAttribute:NSBackgroundColorAttributeName value:[NSColor yellowColor] forCharacterRange:NSMakeRange(5, 3)];
+    NVGatedSourceHighlighter *analysis = [[NVGatedSourceHighlighter alloc] initWithTextStorage:storage syntaxIdentifier:@"json" queryDirectory:directory];
+    [analysis layoutsChanged];
+    Check(WaitForCapture(first, @"string.special.key", 5), @"typing fixture starts with current colors in the first layout");
+    Check(WaitForCapture(second, @"string.special.key", 5), @"typing fixture starts with current colors in its peer");
+    for (NSUInteger edit = 0; edit < 12; edit++) {
+        [storage insertAttributedString:[[[NSAttributedString alloc] initWithString:@" "] autorelease] atIndex:0];
+        NSUInteger key = [[storage string] rangeOfString:@"key"].location;
+        Check(!NVSourceCapturesAreCurrent(first) && !NVSourceCapturesAreCurrent(second), @"insertion makes semantic captures obsolete in both layouts");
+        Check(NVSourceCapturesCanDisplay(first) && NVSourceCapturesCanDisplay(second) && [CaptureAt(first, key) isEqual:@"string.special.key"] && [CaptureAt(second, key) isEqual:@"string.special.key"], @"insertion retains shifted syntax colors in both layouts while analysis waits");
+        [storage deleteCharactersInRange:NSMakeRange(0, 1)];
+        key = [[storage string] rangeOfString:@"key"].location;
+        Check(!NVSourceCapturesAreCurrent(first) && NVSourceCapturesCanDisplay(first) && [CaptureAt(first, key) isEqual:@"string.special.key"] && [CaptureAt(second, key) isEqual:@"string.special.key"], @"deletion retains shifted colors throughout a burst of edits");
+    }
+    NSUInteger key = [[storage string] rangeOfString:@"key"].location;
+    [storage replaceCharactersInRange:NSMakeRange(key + 1, 0) withString:@"x"];
+    Check([CaptureAt(first, key) isEqual:@"string.special.key"] && [CaptureAt(first, key + 2) isEqual:@"string.special.key"], @"insertion within a token retains colors on both surviving fragments");
+    Check(CaptureAt(first, key + 1) == nil, @"newly inserted characters wait for analysis instead of inheriting stale semantics");
+    [storage addLayoutManager:third];
+    [analysis layoutsChanged];
+    Check(NVSourceCapturesCanDisplay(first) && NVSourceCapturesCanDisplay(second) && [CaptureAt(first, key) isEqual:@"string.special.key"], @"attaching a layout during pending analysis preserves existing peer colors");
+    Check(!NVSourceCapturesCanDisplay(third) && CaptureAt(third, key) == nil, @"new layout waits for a current result instead of receiving obsolete absolute ranges");
+    [storage removeLayoutManager:second]; [other addLayoutManager:second];
+    Check(!NVSourceCapturesCanDisplay(second) && !NVSourceCapturesAreCurrent(second), @"moving a layout to another storage rejects its previous display token");
+    Check(CaptureAt(second, 5) == nil, @"TextKit discards temporary syntax ranges when the layout changes storage");
+    [storage replaceCharactersInRange:NSMakeRange(0, 0) withString:@" "];
+    [other removeLayoutManager:second]; [storage addLayoutManager:second];
+    [analysis layoutsChanged];
+    Check(CaptureAt(second, key) == nil, @"reattached layout stays plain after missing a source edit");
+    key = [[storage string] rangeOfString:@"kxey"].location;
+    Check([CaptureAt(first, key) isEqual:@"string.special.key"], @"reattaching a peer preserves the live layout's adjusted capture");
+
+    PauseScheduledAnalysis(analysis);
+    [[analysis gatedParser] gateNextRequest];
+    [analysis analyze];
+    Check([[analysis gatedParser] waitForRequest], @"worker enters the controlled in-flight request");
+    uint64_t oldGeneration = [analysis generation];
+    [storage replaceCharactersInRange:[[storage string] rangeOfString:@"42"] withString:@"false"];
+    Check([analysis generation] > oldGeneration && !NVSourceCapturesAreCurrent(first) && NVSourceCapturesCanDisplay(first), @"newer edit supersedes an in-flight request while keeping display colors");
+    [[analysis gatedParser] releaseRequest];
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:2.0];
+    while ([[analysis valueForKey:@"analyzing"] boolValue] && [deadline timeIntervalSinceNow] > 0) Pump(0.01);
+    Check(![[analysis valueForKey:@"analyzing"] boolValue], @"controlled stale worker result completes");
+    PauseScheduledAnalysis(analysis);
+    Check(!NVSourceCapturesAreCurrent(first) && NVSourceCapturesCanDisplay(first) && [CaptureAt(first, key) isEqual:@"string.special.key"], @"stale successful completion leaves provisional colors intact");
+    Check(![CaptureAt(first, 1) isEqual:@"fixture.stale"] && ![CaptureAt(second, 1) isEqual:@"fixture.stale"] && ![CaptureAt(third, 1) isEqual:@"fixture.stale"], @"obsolete successful result cannot apply to any layout");
+    [analysis analyze];
+    Check(WaitForCapture(first, @"string.special.key", key + 1), @"latest result colors the newly inserted token character");
+    Check(WaitForCapture(second, @"string.special.key", key + 1) && WaitForCapture(third, @"string.special.key", key + 1), @"reattached and new peers receive the same current result");
+    Check([CaptureAt(first, [[storage string] rangeOfString:@"false"].location) isEqual:@"constant.builtin"], @"latest generation supplies the replacement token's semantic kind");
+    Check([[first temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:key effectiveRange:NULL] isEqual:[NSColor yellowColor]], @"retained and refreshed syntax preserve window-local search backgrounds");
+
+    [storage replaceCharactersInRange:NSMakeRange([storage length], 0) withString:@"\n"];
+    Check(NVSourceCapturesCanDisplay(first) && !NVSourceCapturesAreCurrent(first), @"fallback fixture has provisional display colors before applying an empty result");
+    [analysis setValue:@[] forKey:@"captures"]; [analysis applyCaptures];
+    Check(!NVSourceCapturesCanDisplay(first) && !NVSourceCapturesCanDisplay(second) && !NVSourceCapturesCanDisplay(third) && CaptureAt(first, key) == nil, @"plain fallback clears provisional colors in every layout");
+    PauseScheduledAnalysis(analysis); [analysis analyze];
+    Check(WaitForCapture(first, @"string.special.key", key), @"highlighting recovers after a plain fallback");
+    [storage replaceCharactersInRange:NSMakeRange([storage length], 0) withString:@"\n"];
+    [analysis setSyntaxIdentifier:@"plain"];
+    Check(!NVSourceCapturesCanDisplay(first) && !NVSourceCapturesCanDisplay(second) && CaptureAt(first, key) == nil, @"switching syntax to Plain Text immediately clears provisional colors");
+    [analysis setSyntaxIdentifier:@"json"];
+    Check(WaitForCapture(first, @"string.special.key", key), @"supported syntax recovers after Plain Text");
+    [storage replaceCharactersInRange:NSMakeRange([storage length], 0) withString:@"\n"];
+    Check(NVSourceCapturesCanDisplay(first), @"close fixture starts with provisional colors");
+    [analysis close];
+    Check(!NVSourceCapturesCanDisplay(first) && !NVSourceCapturesCanDisplay(second) && !NVSourceCapturesCanDisplay(third) && CaptureAt(first, key) == nil, @"closing analysis clears provisional colors and display permission");
+    Check([[storage string] isEqual:@" {\n  \"kxey\": false,\n  \"other\": true\n}\n\n\n\n"], @"display retention and worker races preserve exact edited source characters");
+    Check(UnsafeTemporaryChanges == 0, @"retained display never changes temporary attributes during character processing");
+    [analysis release];
+    [storage removeLayoutManager:first]; [storage removeLayoutManager:second]; [storage removeLayoutManager:third];
+    [first release]; [second release]; [third release]; [storage release]; [other release];
+}
 static void Benchmark(NSString *directory) {
     NSString *line = @"## Heading 😀\n\nA **bold** word and [a link](https://example.com), with `code`.\n\n";
     for (NSNumber *count in @[@100, @1500]) {
@@ -105,7 +241,7 @@ static void CheckTextKit(NSString *directory) {
     Check([analysis generation] == generation, @"attribute-only updates do not reparse");
     [storage replaceCharactersInRange:NSMakeRange(8, 2) withString:@"true"];
     Check([analysis generation] > generation, @"character edits advance analysis before model commit");
-    Check(!NVSourceCapturesAreCurrent(first) && !NVSourceCapturesAreCurrent(second), @"character edit invalidates obsolete display synchronously before touching TextKit");
+    Check(!NVSourceCapturesAreCurrent(first) && !NVSourceCapturesAreCurrent(second), @"character edit marks semantics obsolete synchronously without touching TextKit");
     Check(WaitForCapture(first, @"constant.builtin", 9), @"edited source receives current result");
     [storage replaceCharactersInRange:NSMakeRange(0, [storage length]) withString:@"<b>Now</b>"];
     [analysis setSyntaxIdentifier:@"html"];
@@ -139,7 +275,7 @@ static void CheckLaidOutShortening(NSString *directory) {
     Check(NSHeight(oldBounds) > 1000, @"shortening fixture contains cached glyphs across many laid-out lines");
     [storage deleteCharactersInRange:NSMakeRange(0, [prefix length])];
     Check([[storage string] isEqual:body], @"shortening a fully laid-out highlighted source preserves exactly the remaining characters");
-    Check(!NVSourceCapturesAreCurrent(layout), @"old captures stop drawing immediately after a shortening edit");
+    Check(!NVSourceCapturesAreCurrent(layout) && NVSourceCapturesCanDisplay(layout), @"shortening keeps shifted display colors while marking old semantics obsolete");
     [layout ensureLayoutForTextContainer:container];
     NSRect newBounds = [layout boundingRectForGlyphRange:NSMakeRange(0, [layout numberOfGlyphs]) inTextContainer:container];
     Check(NSHeight(newBounds) <= NSHeight(oldBounds), @"TextKit refreshes shortened glyph ranges before capture removal");
@@ -182,7 +318,7 @@ static void CheckDisplayBudget(NSString *directory) {
         [analysis applyCaptures];
         BOOL small = [rows unsignedIntegerValue] == 100;
         Check(SourceAttributeAdditions == (small ? 3200 : 0), @"four layouts preserve affordable highlighting and reject expensive capture writes");
-        Check(NVSourceCapturesAreCurrent(first) == small, @"over-budget results have no current display revision");
+        Check(NVSourceCapturesAreCurrent(first) == small && NVSourceCapturesCanDisplay(first) == small, @"over-budget results have no current or provisional display revision");
         for (NSUInteger i = 4; i < 20; i++) [storage addLayoutManager:layouts[i]];
         SourceAttributeAdditions = 0;
         [analysis layoutsChanged];
@@ -269,6 +405,7 @@ int main(int argc, const char **argv) {
         [unsupported release];
         [[NSFileManager defaultManager] removeItemAtPath:temp error:NULL];
         CheckTextKit(directory);
+        CheckProvisionalDisplay(directory);
         CheckLaidOutShortening(directory);
         CheckDisplayBudget(directory);
         Benchmark(directory);

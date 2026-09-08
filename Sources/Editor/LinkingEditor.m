@@ -424,7 +424,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     id link = [[manager textStorage] attribute:NSLinkAttributeName atIndex:index effectiveRange:&linkRange];
     if (range) *range = NSIntersectionRange(*range, linkRange);
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:attributes ?: @{}];
-    NSString *capture = NVSourceCapturesAreCurrent(manager) ? [result objectForKey:NVSourceCaptureAttributeName] : nil;
+    NSString *capture = NVSourceCapturesCanDisplay(manager) ? [result objectForKey:NVSourceCaptureAttributeName] : nil;
     [result removeObjectForKey:NVSourceCaptureAttributeName];
     NSRange marked = [self markedRange];
     if (marked.location != NSNotFound) {

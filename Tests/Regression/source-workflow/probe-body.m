@@ -32,6 +32,79 @@
         NSUInteger heading = [[ea string] rangeOfString:@"Source workflow"].location;
         Check(Await(^BOOL { return [[ea layoutManager] temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:heading effectiveRange:NULL] != nil; }, 5), @"Markdown highlighting reaches the visible source layout");
         Check([[note contentString] attribute:NVSourceCaptureAttributeName atIndex:heading effectiveRange:NULL] == nil, @"source highlight captures stay out of the note model");
+        {
+            // Read the same temporary-attribute delegate that TextKit calls
+            // when drawing. Raw capture attributes alone cannot detect a
+            // delegate replacing syntax color with the default foreground.
+            NSColor *(^drawnColor)(LinkingEditor *, NSUInteger) = ^NSColor *(LinkingEditor *editor, NSUInteger index) {
+                NSLayoutManager *layout = [editor layoutManager];
+                NSRange range = NSMakeRange(index, 1);
+                NSDictionary *attributes = [layout temporaryAttributesAtCharacterIndex:index effectiveRange:&range];
+                NSDictionary *drawn = [[layout delegate] layoutManager:layout shouldUseTemporaryAttributes:attributes
+                    forDrawingToScreen:YES atCharacterIndex:index effectiveRange:&range];
+                return [drawn objectForKey:NSForegroundColorAttributeName];
+            };
+            [app newWindow:self];
+            AppController *peer = [[app browserControllers] lastObject];
+            LinkingEditor *peerEditor = [peer valueForKey:@"textView"];
+            Check(peer != a && ![peer isViewingNote], @"typing-color peer starts in a separate Source browser");
+            NSArray *fixtures = @[
+                @{@"syntax": @"markdown", @"source": @"# Stable heading\n\nTyping area: ", @"token": @"Stable", @"insertion": @"Typing area: "},
+                @{@"syntax": @"html", @"source": @"<h1>Stable heading</h1><p>Typing area: </p>", @"token": @"h1", @"insertion": @"Typing area: "},
+                @{@"syntax": @"json", @"source": @"{\"stable\": 42, \"typing\": \"\"}", @"token": @"stable", @"insertion": @"\"typing\": \""}
+            ];
+            for (NSDictionary *fixture in fixtures) {
+                NSString *syntax = fixture[@"syntax"], *original = fixture[@"source"];
+                NoteObject *typingNote = MakeNote(library, [@"Typing colors " stringByAppendingString:syntax], original);
+                [a revealNote:typingNote options:0]; [peer revealNote:typingNote options:0];
+                [a selectSourceSyntax:SourceItem(syntax, @selector(selectSourceSyntax:))];
+                NSUInteger token = [original rangeOfString:fixture[@"token"]].location;
+                NSUInteger insertion = NSMaxRange([original rangeOfString:fixture[@"insertion"]]);
+                Check(Await(^BOOL {
+                    return NVSourceCapturesAreCurrent([ea layoutManager]) && NVSourceCapturesAreCurrent([peerEditor layoutManager]) &&
+                        [[ea layoutManager] temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:token effectiveRange:NULL] != nil &&
+                        [[peerEditor layoutManager] temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:token effectiveRange:NULL] != nil;
+                }, 5), [NSString stringWithFormat:@"%@ fixture has current syntax captures in both Source browsers", syntax]);
+                Check([[ea layoutManager] delegate] == ea && [[peerEditor layoutManager] delegate] == peerEditor,
+                    @"typing-color checks use the native source drawing delegates");
+                NSColor *colorA = [[drawnColor(ea, token) copy] autorelease];
+                NSColor *colorPeer = [[drawnColor(peerEditor, token) copy] autorelease];
+                Check(colorA && colorPeer && ![colorA isEqual:[a foregrndColor]] && ![colorPeer isEqual:[peer foregrndColor]],
+                    [NSString stringWithFormat:@"%@ unchanged token initially draws with syntax color in both browsers", syntax]);
+                [[a window] makeKeyAndOrderFront:self]; [[a window] makeFirstResponder:ea];
+                Check(Await(^BOOL { return [[a window] isKeyWindow] && [[a window] firstResponder] == ea; }, 2),
+                    @"typing-color source owns native keyboard focus");
+                for (NSUInteger edit = 0; edit < 3; edit++) {
+                    [ea insertText:@"a" replacementRange:NSMakeRange(insertion + edit, 0)];
+                    Check(!NVSourceCapturesAreCurrent([ea layoutManager]) && !NVSourceCapturesAreCurrent([peerEditor layoutManager]),
+                        @"a native character edit invalidates semantic captures before the delayed reparse");
+                    BOOL unchanged = [drawnColor(ea, token) isEqual:colorA] && [drawnColor(peerEditor, token) isEqual:colorPeer];
+                    if (!unchanged) NSLog(@"Typing color %@ edit %lu: source %@ -> %@, peer %@ -> %@", syntax, (unsigned long)edit,
+                        colorA, drawnColor(ea, token), colorPeer, drawnColor(peerEditor, token));
+                    Check(unchanged, [NSString stringWithFormat:@"%@ unaffected token retains its drawn syntax color immediately after typing in both browsers", syntax]);
+                    // A busy desktop can run past the requested interval and
+                    // finish analysis. Color must remain stable in either case;
+                    // the immediate check above covers the pending revision.
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.02]];
+                    Check([drawnColor(ea, token) isEqual:colorA] && [drawnColor(peerEditor, token) isEqual:colorPeer],
+                        [NSString stringWithFormat:@"%@ unaffected token retains its drawn syntax color between keystrokes in both browsers", syntax]);
+                }
+                Check(Await(^BOOL { return NVSourceCapturesAreCurrent([ea layoutManager]) && NVSourceCapturesAreCurrent([peerEditor layoutManager]); }, 5),
+                    [NSString stringWithFormat:@"%@ typing eventually installs the new semantic captures in both browsers", syntax]);
+                Check([drawnColor(ea, token) isEqual:colorA] && [drawnColor(peerEditor, token) isEqual:colorPeer],
+                    @"completed reanalysis retains the unchanged token's syntax color");
+                [a finishEditing];
+                NSMutableString *expected = [[original mutableCopy] autorelease]; [expected insertString:@"aaa" atIndex:insertion];
+                Check([[[typingNote contentString] string] isEqualToString:expected] && [[peerEditor string] isEqualToString:expected],
+                    @"typing-color history preserves the exact shared source");
+                Check([[typingNote contentString] attribute:NVSourceCaptureAttributeName atIndex:token effectiveRange:NULL] == nil,
+                    @"typing colors remain temporary display attributes");
+            }
+            [[peer window] close];
+            [a revealNote:note options:0];
+            [[a window] makeKeyAndOrderFront:self];
+            Check(Await(^BOOL { return [[ea string] isEqualToString:body]; }, 2), @"typing-color fixtures restore the original workflow note");
+        }
         [[a window] makeFirstResponder:ea];
         [ea insertText:@"An undoable source edit.\n\n" replacementRange:NSMakeRange(0, 0)];
         [a finishEditing];

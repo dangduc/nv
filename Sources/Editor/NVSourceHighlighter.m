@@ -9,15 +9,20 @@ NSString * const NVSourceCaptureAttributeName = @"NVSourceCapture";
 @interface NVSourceCaptureRevision : NSObject {
 @public
     BOOL valid;
+    BOOL current;
     NSTextStorage *sourceStorage; // Borrowed; used only for identity comparison.
 }
 @end
 @implementation NVSourceCaptureRevision
 @end
 static char NVSourceCaptureRevisionKey;
-BOOL NVSourceCapturesAreCurrent(NSLayoutManager *layout) {
+BOOL NVSourceCapturesCanDisplay(NSLayoutManager *layout) {
     NVSourceCaptureRevision *revision = objc_getAssociatedObject(layout, &NVSourceCaptureRevisionKey);
     return revision && revision->valid && revision->sourceStorage == [layout textStorage];
+}
+BOOL NVSourceCapturesAreCurrent(NSLayoutManager *layout) {
+    NVSourceCaptureRevision *revision = objc_getAssociatedObject(layout, &NVSourceCaptureRevisionKey);
+    return NVSourceCapturesCanDisplay(layout) && revision->current;
 }
 
 extern const TSLanguage *tree_sitter_json(void);
@@ -239,7 +244,6 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     }
 }
 - (void)clearCaptures {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearDisplayCaptures) object:nil];
     [self invalidateCaptures];
     [self clearDisplayCaptures];
 }
@@ -252,12 +256,13 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     if (!([storage editedMask] & NSTextStorageEditedCharacters) || closed) return;
     generation++;
     __atomic_store_n(&cancellationGeneration, generation, __ATOMIC_RELAXED);
-    // DidProcessEditing precedes TextKit's layout-cache update. Removing a
-    // temporary attribute here can ask stale glyph ranges to read shortened text.
-    // Invalidate semantics now, and touch TextKit only after processing returns.
-    [self invalidateCaptures];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearDisplayCaptures) object:nil];
-    [self performSelector:@selector(clearDisplayCaptures) withObject:nil afterDelay:0];
+    // The absolute capture ranges are obsolete, but TextKit adjusts temporary
+    // attributes with each edit. Keep those colors until the replacement result
+    // arrives so typing does not flash the whole source back to its base color.
+    // DidProcessEditing precedes TextKit's layout-cache update: do not change
+    // temporary attributes here, especially when the edit shortens the source.
+    if (captureRevision) ((NVSourceCaptureRevision *)captureRevision)->current = NO;
+    [captures release]; captures = nil;
     [self schedule];
 }
 - (void)setSyntaxIdentifier:(NSString *)syntax {
@@ -269,7 +274,6 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     [self clearCaptures]; [self schedule];
 }
 - (void)applyCaptures {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearDisplayCaptures) object:nil];
     [self invalidateCaptureRevision];
     [self clearDisplayCaptures];
     NSArray *layouts = [storage layoutManagers];
@@ -286,11 +290,14 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
         }
     }
     revision->valid = YES;
+    revision->current = YES;
     for (NSLayoutManager *layout in layouts) [layout invalidateDisplayForCharacterRange:NSMakeRange(0, [storage length])];
 }
 - (void)layoutsChanged {
     if (captures) [self applyCaptures];
-    else { [self clearCaptures]; [self schedule]; }
+    // A new layout can wait for fresh analysis without clearing provisional
+    // colors in peers that are already displaying an edited source.
+    else [self schedule];
 }
 - (void)analyze {
     if (closed || analyzing || ![[storage layoutManagers] count]) return;

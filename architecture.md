@@ -228,7 +228,10 @@ The snapshot interface reserves native data and file inputs. Managed native payl
 Analysis starts when a layout attaches and releases when the last layout detaches.
 It receives immutable UTF-16 source snapshots and applies generation-checked captures through each layout manager's temporary attributes.
 Syntax colors never enter note storage or Undo. Search highlights and native link display remain independent.
-Character notifications invalidate capture revisions immediately. Removing stale attributes waits until TextKit finishes updating its layout caches.
+Character notifications mark parser results obsolete immediately. TextKit adjusts existing temporary colors with each edit while the next analysis waits or runs.
+These provisional colors remain visible until the latest result replaces them. They do not supply syntax semantics for editing commands.
+Syntax changes, analysis fallback, and closure clear provisional colors. A layout cannot use colors from another note's storage.
+Capture replacement waits until TextKit finishes its edit processing and updates its layout caches.
 
 The initial pinned Tree-sitter runtime supports Markdown block and inline syntax, HTML, and JSON.
 Plain Text and Textile use plain source display. Language injections and structural editing are not implemented.
