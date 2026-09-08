@@ -3,6 +3,9 @@
 // Private display data. This attribute is never added to NSTextStorage.
 extern NSString * const NVSourceCaptureAttributeName;
 BOOL NVSourceCapturesAreCurrent(NSLayoutManager *layout);
+// Display may use TextKit-adjusted colors while analysis of an edit is pending.
+// These provisional captures must not supply syntax semantics for editing commands.
+BOOL NVSourceCapturesCanDisplay(NSLayoutManager *layout);
 
 // A parser is confined to one serial queue. Exposed separately for native tests.
 @interface NVSourceParser : NSObject {
