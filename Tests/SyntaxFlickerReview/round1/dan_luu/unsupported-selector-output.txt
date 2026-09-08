@@ -1,0 +1,29 @@
+/Users/duc/dev/nv/Tests/SyntaxFlickerReview/round1/dan_luu/probe.m:77:28: warning: instance method '-temporaryAttribute:atCharacterIndex:longestEffectiveRange:inCharacterRange:' not found (return type defaults to 'id') [-Wobjc-method-access]
+   77 |         id value = [layout temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:index
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   78 |                             longestEffectiveRange:&range inCharacterRange:NSMakeRange(0, length)];
+      |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSLayoutManager.h:65:60: note: receiver is instance of class declared here
+   65 | API_AVAILABLE(macos(10.7), ios(7.0), tvos(9.0)) @interface NSLayoutManager : NSObject <NSSecureCoding>
+      |                                                            ^
+1 warning generated.
+*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[CountingLayout temporaryAttribute:atCharacterIndex:longestEffectiveRange:inCharacterRange:]: unrecognized selector sent to instance 0x7faf6d807490'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x00007ff8181b942a __exceptionPreprocess + 241
+	1   libobjc.A.dylib                     0x00007ff817c4a104 objc_exception_throw + 62
+	2   CoreFoundation                      0x00007ff81826da00 -[NSObject(NSObject) __retain_OA] + 0
+	3   CoreFoundation                      0x00007ff81812f68d ___forwarding___ + 1308
+	4   CoreFoundation                      0x00007ff81812f0e8 _CF_forwarding_prep_0 + 120
+	5   probe                               0x0000000100b796fe Runs + 126
+	6   probe                               0x0000000100b784ae Typing + 558
+	7   probe                               0x0000000100b7821d main + 77
+	8   dyld                                0x0000000200e66b28 start + 3240
+)
+libc++abi: terminating due to uncaught exception of type NSException
+Traceback (most recent call last):
+  File "/Users/duc/dev/nv/Tests/SyntaxFlickerReview/run-parser-probe.py", line 26, in <module>
+    subprocess.run([str(binary), str(root / 'Resources/Syntax')], check=True, timeout=120)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/duc/dev/nv/build/SyntaxFlickerReview/round1/dan_luu/probe', '/Users/duc/dev/nv/Resources/Syntax']' died with <Signals.SIGABRT: 6>.

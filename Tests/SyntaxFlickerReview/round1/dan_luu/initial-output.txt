@@ -1,0 +1,8 @@
+FAIL: replacement result removes temporary fragmentation
+fragmentation observation initial=202/405 pending=322/645 settled=442/645
+Traceback (most recent call last):
+  File "/Users/duc/dev/nv/Tests/SyntaxFlickerReview/run-parser-probe.py", line 26, in <module>
+    subprocess.run([str(binary), str(root / 'Resources/Syntax')], check=True, timeout=120)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/duc/dev/nv/build/SyntaxFlickerReview/round1/dan_luu/probe', '/Users/duc/dev/nv/Resources/Syntax']' returned non-zero exit status 1.

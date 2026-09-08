@@ -1,0 +1,9 @@
+2026-09-08 05:20:01.411 nvALT[79814:325114730] PASS: temporary library directory exists
+2026-09-08 05:20:01.412 nvALT[79814:325114730] PASS: temporary library opens
+2026-09-08 05:20:01.744 nvALT[79814:325114730] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:20:01.950 nvALT[79814:325114730] PASS: visual fixture begins with completed syntax analysis
+2026-09-08 05:20:02.043 nvALT[79814:325114730] verified 1 notes in 0.000357985 s
+2026-09-08 05:20:02.259 nvALT[79814:325114730] PASS: visual fixture captures the pending parse after a native edit
+2026-09-08 05:20:02.285 nvALT[79814:325114730] PASS: native window screenshot exists
+2026-09-08 05:20:02.316 nvALT[79814:325114730] PASS: native screenshot saved
+2026-09-08 05:20:02.317 nvALT[79814:325114730] VISUAL CHECKS PASSED: 7

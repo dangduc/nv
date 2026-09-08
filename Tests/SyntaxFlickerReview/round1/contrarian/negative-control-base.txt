@@ -1,0 +1,12 @@
+2026-09-08 05:26:31.699 nvALT[86065:325144451] PASS: temporary library directory exists
+2026-09-08 05:26:31.700 nvALT[86065:325144451] PASS: temporary library opens
+2026-09-08 05:26:32.027 nvALT[86065:325144451] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:26:32.156 nvALT[86065:325144451] PASS: presentation fixture has two native browser windows
+2026-09-08 05:26:32.325 nvALT[86065:325144451] PASS: markdown light has current syntax in both native editors
+2026-09-08 05:26:32.325 nvALT[86065:325144451] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:26:32.325 nvALT[86065:325144451] PASS: markdown light token has non-default drawn syntax color
+2026-09-08 05:26:32.325 nvALT[86065:325144451] PASS: markdown light native link detector recognizes fixture URL
+2026-09-08 05:26:32.332 nvALT[86065:325144451] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:26:32.332 nvALT[86065:325144451] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:26:32.338 nvALT[86065:325144451] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:26:32.338 nvALT[86065:325144451] FAIL: markdown light provisional display retains drawn token color in both windows

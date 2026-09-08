@@ -1,0 +1,9 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hj7u9904/Review.m:114:41: warning: instance method '-notationController' not found (return type defaults to 'id') [-Wobjc-method-access]
+  114 |     NotationController *library = [self notationController];
+      |                                         ^~~~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Browser/AppController.h:41:12: note: receiver is instance of class declared here
+   41 | @interface AppController : NSWindowController
+      |            ^
+1 warning generated.
+2026-09-08 05:24:02.316 nvALT[83778:325132253] PASS: temporary library directory exists
+2026-09-08 05:24:02.317 nvALT[83778:325132253] PASS: temporary library opens

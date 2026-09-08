@@ -1,0 +1,14 @@
+PASS attachment history 1
+PASS attachment history 2
+PASS attachment history 3
+PASS attachment history 4
+PASS attachment history 5
+PASS attachment history 6
+PASS attachment history 7
+PASS attachment history 8
+PASS attachment history 9
+PASS attachment history 10
+PASS attachment history 11
+PASS attachment history 12
+PASS close during blocked successful parse
+PASS 200 checks; 12 attachment histories; closed highlighters=1 parsers=1
