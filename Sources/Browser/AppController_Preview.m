@@ -105,7 +105,6 @@ static NSString *NotePresentationKey(NoteObject *note) {
     BOOL hasNote = currentNote != nil;
     [bodyModeControl setEnabled:hasNote]; [bodyModeControl setSelectedSegment:viewingNote ? 1 : 0];
     [sourceSyntaxControl setEnabled:hasNote]; [viewerTypeControl setEnabled:hasNote];
-    [sourceSyntaxControl setHidden:viewingNote]; [viewerTypeControl setHidden:!viewingNote];
     [sourceSyntaxControl selectItemAtIndex:[sourceSyntaxControl indexOfItemWithRepresentedObject:hasNote ? [currentNote sourceSyntaxIdentifier] : @"plain"]];
     [viewerTypeControl selectItemAtIndex:[viewerTypeControl indexOfItemWithRepresentedObject:selectedViewerIdentifier]];
     [textScrollView setHidden:viewingNote || !hasNote]; [editorStatusView setHidden:hasNote];
@@ -119,7 +118,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
         }
         [[previewController view] setHidden:NO];
     } else [[previewController view] setHidden:YES];
-    [noteTagsField setNextKeyView:viewingNote && previewController ? [previewController webView] : (NSView *)textView];
+    [self layoutNoteHeader];
     [toolbar validateVisibleItems];
 }
 - (void)setViewingNote:(BOOL)viewing {
@@ -147,6 +146,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
     [self setViewingNote:[bodyModeControl selectedSegment] == 1]; [self focusNoteBody];
 }
 - (IBAction)togglePreview:(id)sender { [self setViewingNote:!viewingNote]; [self focusNoteBody]; }
+- (IBAction)toggleSourcePreview:(id)sender { [self togglePreview:sender]; }
 - (IBAction)toggleSourceView:(id)sender { [self setViewingNote:NO]; [self focusNoteBody]; }
 - (void)ensurePreviewIsVisible { [self setViewingNote:YES]; }
 - (IBAction)selectSourceSyntax:(id)sender {

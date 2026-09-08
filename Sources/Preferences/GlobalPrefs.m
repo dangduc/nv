@@ -45,6 +45,10 @@ static NSString *TableFontSizeKey = @"TableFontPointSize";
 static NSString *TableSortColumnKey = @"TableSortColumn";
 static NSString *TableIsReverseSortedKey = @"TableIsReverseSorted";
 static NSString *TableColumnsHaveBodyPreviewKey = @"TableColumnsHaveBodyPreview";
+static NSString *ShowTitleInTopSectionKey = @"ShowTitleInTopSection";
+static NSString *ShowTagsInTopSectionKey = @"ShowTagsInTopSection";
+static NSString *ShowBodyControlsInTopSectionKey = @"ShowBodyControlsInTopSection";
+static NSString *ShowNotesListKey = @"ShowNotesList";
 static NSString *NoteBodyFontKey = @"NoteBodyFont";
 static NSString *ConfirmNoteDeletionKey = @"ConfirmNoteDeletion";
 static NSString *CheckSpellingInNoteBodyKey = @"CheckSpellingInNoteBody";
@@ -143,6 +147,10 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:YES], MakeURLsClickableKey,
 			[NSNumber numberWithBool:YES], HighlightSearchTermsKey, 
 			[NSNumber numberWithBool:YES], TableColumnsHaveBodyPreviewKey, 
+			[NSNumber numberWithBool:YES], ShowTitleInTopSectionKey,
+			[NSNumber numberWithBool:YES], ShowTagsInTopSectionKey,
+			[NSNumber numberWithBool:YES], ShowBodyControlsInTopSectionKey,
+			[NSNumber numberWithBool:YES], ShowNotesListKey,
 			[NSNumber numberWithDouble:0.0], LastScrollOffsetKey,
 			@"General", LastSelectedPreferencesPaneKey, 
 			[NSNumber numberWithBool:NO], StatusBarItem, 
@@ -442,6 +450,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 
 - (void)setShowWordCount:(BOOL)value{
 	[defaults setBool:value forKey:ShowWordCount];
+	sendCallbacksForGlobalPrefs(self, _cmd, nil);
 }
 
 - (void)setUseETScrollbarsOnLion:(BOOL)value sender:(id)sender{
@@ -749,6 +758,42 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 - (void)setTableColumnsShowPreview:(BOOL)showPreview sender:(id)sender {
 	[defaults setBool:showPreview forKey:TableColumnsHaveBodyPreviewKey];
 	
+	SEND_CALLBACKS();
+}
+
+- (BOOL)showTitleInTopSection {
+	return [defaults boolForKey:ShowTitleInTopSectionKey];
+}
+
+- (void)setShowTitleInTopSection:(BOOL)value sender:(id)sender {
+	[defaults setBool:value forKey:ShowTitleInTopSectionKey];
+	SEND_CALLBACKS();
+}
+
+- (BOOL)showTagsInTopSection {
+	return [defaults boolForKey:ShowTagsInTopSectionKey];
+}
+
+- (void)setShowTagsInTopSection:(BOOL)value sender:(id)sender {
+	[defaults setBool:value forKey:ShowTagsInTopSectionKey];
+	SEND_CALLBACKS();
+}
+
+- (BOOL)showBodyControlsInTopSection {
+	return [defaults boolForKey:ShowBodyControlsInTopSectionKey];
+}
+
+- (void)setShowBodyControlsInTopSection:(BOOL)value sender:(id)sender {
+	[defaults setBool:value forKey:ShowBodyControlsInTopSectionKey];
+	SEND_CALLBACKS();
+}
+
+- (BOOL)showNotesList {
+	return [defaults boolForKey:ShowNotesListKey];
+}
+
+- (void)setShowNotesList:(BOOL)value sender:(id)sender {
+	[defaults setBool:value forKey:ShowNotesListKey];
 	SEND_CALLBACKS();
 }
 

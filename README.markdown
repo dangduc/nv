@@ -32,6 +32,10 @@ The toolbar contains New Note, Preview, Note Actions, Sync Status, and Search or
 
 The title and tags sit between the list and the body. Tags use completion from the library. The editor supports system colors and custom colors. The notes list stays white, with optional pale alternating rows.
 
+The **View** menu can hide the notes list, title, tags, or Source/Preview controls. These visibility settings apply to all windows.
+Hidden rows release space to the body. Showing the notes list restores each window's previous divider height.
+The **Show Source/Show Preview** command and **Syntax Type** submenu remain available when the controls are hidden.
+
 <details>
 <summary>Dark appearance with a white notes list</summary>
 
@@ -47,7 +51,7 @@ The Source/Preview screenshots show this redesign on macOS 26.5.2. All screensho
 | Action | Instruction |
 | --- | --- |
 | Open another window | Choose **Window > New Window**, or press **Command-Shift-N**. |
-| Create a blank note | Press **Command-N**. Then enter the title. |
+| Create a blank note | Press **Command-N**. Enter the title, or edit the source if the title is hidden. |
 | Find a note | Type in **Search or Create**. Use **Command-J** or **Command-K** to move through the results. |
 | Edit a search result | Select the note. Then press **Return**. |
 | Create from a search | If no note matches, press **Return** or click **Create**. |
@@ -57,6 +61,8 @@ The Source/Preview screenshots show this redesign on macOS 26.5.2. All screensho
 | Open a preview | Select **Preview** above the body, then choose Markdown, Textile, or HTML. |
 | Return to editing | Select **Source** above the body. |
 | Select source syntax | In Source, choose Plain Text, Markdown, Textile, HTML, or JSON. |
+| Select syntax with hidden controls | Choose **View > Syntax Type**, then select the syntax. |
+| Hide the list or header rows | Use the visibility commands after **View > Hide/Show Note Previews in Title**. |
 
 ## Automated builds
 

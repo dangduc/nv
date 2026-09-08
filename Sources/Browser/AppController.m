@@ -453,6 +453,30 @@ terminateApp:
 	SEL selector = [menuItem action];
 	NSInteger numberSelected = [notesTableView numberOfSelectedRows];
     if (selector == @selector(newNote:)) return [self sharedNotationController] != nil;
+    if (selector == @selector(toggleTitleInTopSection:)) {
+        [menuItem setTitle:[prefsController showTitleInTopSection] ? NSLocalizedString(@"Hide Title in Top Section", nil) : NSLocalizedString(@"Show Title in Top Section", nil)];
+        return YES;
+    }
+    if (selector == @selector(toggleTagsInTopSection:)) {
+        [menuItem setTitle:[prefsController showTagsInTopSection] ? NSLocalizedString(@"Hide Tag in Top Section", nil) : NSLocalizedString(@"Show Tag in Top Section", nil)];
+        return YES;
+    }
+    if (selector == @selector(toggleBodyControlsInTopSection:)) {
+        [menuItem setTitle:[prefsController showBodyControlsInTopSection] ? NSLocalizedString(@"Hide Source-Preview Toggle and Syntax Type in Top Section", nil) : NSLocalizedString(@"Show Source-Preview Toggle and Syntax Type in Top Section", nil)];
+        return YES;
+    }
+    if (selector == @selector(toggleNotesList:)) {
+        [menuItem setTitle:[prefsController showNotesList] ? NSLocalizedString(@"Hide Notes List", nil) : NSLocalizedString(@"Show Notes List", nil)];
+        return YES;
+    }
+    if (selector == @selector(toggleWordCount:)) {
+        [menuItem setState:[prefsController showWordCount] ? NSControlStateValueOff : NSControlStateValueOn];
+        return YES;
+    }
+    if (selector == @selector(toggleSourcePreview:)) {
+        [menuItem setTitle:viewingNote ? NSLocalizedString(@"Show Source", nil) : NSLocalizedString(@"Show Preview", nil)];
+        return currentNote != nil;
+    }
     if (selector == @selector(setSystemColorScheme:) || selector == @selector(setBWColorScheme:) ||
         selector == @selector(setLCColorScheme:) || selector == @selector(setUserColorScheme:)) {
         NSInteger scheme = selector == @selector(setSystemColorScheme:) ? 3 :
@@ -504,6 +528,7 @@ terminateApp:
         //		return (numberSelected == 1) && [notationController currentNoteStorageFormat] != SingleDatabaseFormat;
 	} else if (selector == @selector(toggleCollapse:)) {
         [menuItem setTitle:[self notesListHeight] > 90 ? NSLocalizedString(@"Compact Notes List", nil) : NSLocalizedString(@"Expand Notes List", nil)];
+        return [prefsController showNotesList];
 	} else if ((selector == @selector(toggleFullScreen:))||(selector == @selector(switchFullScreen:))) {
         
         if (IsLeopardOrLater) {
@@ -597,7 +622,10 @@ terminateApp:
 
 
 - (IBAction)renameNote:(id)sender {
-    if (currentNote) [noteTitleField selectText:sender];
+    if (currentNote) {
+        if (![prefsController showTitleInTopSection]) [prefsController setShowTitleInTopSection:YES sender:nil];
+        [noteTitleField selectText:sender];
+    }
 }
 
 //
@@ -739,7 +767,11 @@ terminateApp:
 }
 
 - (IBAction)tagNote:(id)sender {
-    if ([notesTableView numberOfSelectedRows] == 1) { [noteTagsField selectText:sender]; return; }
+    if ([notesTableView numberOfSelectedRows] == 1) {
+        if (![prefsController showTagsInTopSection]) [prefsController setShowTagsInTopSection:YES sender:nil];
+        [noteTagsField selectText:sender];
+        return;
+    }
     
 	//if single note, add the tag column if necessary and then begin editing
 	
@@ -777,6 +809,23 @@ terminateApp:
 }
 
 - (void)settingChangedForSelectorString:(NSString*)selectorString {
+    if ([selectorString isEqualToString:SEL_STR(setShowTitleInTopSection:sender:)] ||
+        [selectorString isEqualToString:SEL_STR(setShowTagsInTopSection:sender:)] ||
+        [selectorString isEqualToString:SEL_STR(setShowBodyControlsInTopSection:sender:)]) {
+        [self layoutNoteHeader];
+        return;
+    }
+    if ([selectorString isEqualToString:SEL_STR(setShowNotesList:sender:)]) {
+        [self updateNotesListVisibility];
+        return;
+    }
+    if ([selectorString isEqualToString:SEL_STR(setShowWordCount:)]) {
+        [wordCounter setHidden:[prefsController showWordCount]];
+        popped = ![prefsController showWordCount];
+        [self updateWordCount:![prefsController showWordCount]];
+        [self layoutNoteHeader];
+        return;
+    }
     if ([selectorString isEqualToString:SEL_STR(setAliasDataForDefaultDirectory:sender:)]) {
 		//defaults changed for the database location -- load the new one!
 		
@@ -2224,7 +2273,10 @@ terminateApp:
     
     - (void)updateWordCount:(BOOL)doIt{
         if (doIt) {            
-            NSUInteger theCount = [[[textView textStorage] words] count];
+            NSUInteger theCount;
+            // Release scripting substring observers before other work traverses
+            // the shared storage's layout managers. Keep the existing word rules.
+            @autoreleasepool { theCount = [[[textView textStorage] words] count]; }
 
             if (theCount > 0) {
                 [wordCounter setStringValue:[[NSString stringWithFormat:@"%lu", (unsigned long)theCount] stringByAppendingString:@" words"]];
@@ -2242,37 +2294,23 @@ terminateApp:
                     [self updateWordCount:YES];
                     [wordCounter setHidden:NO];
                     popped=1;
+                    [self layoutNoteHeader];
                 }
             }else {
                 if ((![wordCounter isHidden])&&([prefsController showWordCount])) {
                     [wordCounter setHidden:YES];
                     [wordCounter setStringValue:@""];
                     popped=0;
+                    [self layoutNoteHeader];
                 }
             }
         }
     }
     
-    - (IBAction)toggleWordCount:(id)sender{
-        
-        
-        [prefsController synchronize];
-        if ([prefsController showWordCount]) {
-            [self updateWordCount:YES];
-            [wordCounter setHidden:NO];
-            popped=1;
-        }else {
-            [wordCounter setHidden:YES];
-            [wordCounter setStringValue:@""];
-            popped=0;
-        }
-        
-        if (![[sender className] isEqualToString:@"NSMenuItem"]) {
-            [prefsController setShowWordCount:![prefsController showWordCount]];
-        }
-        
+    - (IBAction)toggleWordCount:(id)sender {
+        [prefsController setShowWordCount:![prefsController showWordCount]];
     }
-    
+
     - (void)flagsChanged:(NSEvent *)theEvent{
         if ((ModFlagger==0)&&(popped==0)) {            
             NSUInteger flags=[theEvent modifierFlags];

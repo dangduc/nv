@@ -88,6 +88,15 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (BOOL)tableColumnsShowPreview;
 - (void)setTableColumnsShowPreview:(BOOL)showPreview sender:(id)sender;
 
+- (BOOL)showTitleInTopSection;
+- (void)setShowTitleInTopSection:(BOOL)value sender:(id)sender;
+- (BOOL)showTagsInTopSection;
+- (void)setShowTagsInTopSection:(BOOL)value sender:(id)sender;
+- (BOOL)showBodyControlsInTopSection;
+- (void)setShowBodyControlsInTopSection:(BOOL)value sender:(id)sender;
+- (BOOL)showNotesList;
+- (void)setShowNotesList:(BOOL)value sender:(id)sender;
+
 - (void)resolveNoteBodyFontFromNotationPrefsFromSender:(id)sender;
 - (void)setNoteBodyFont:(NSFont*)aFont sender:(id)sender;
 - (void)_setNoteBodyFont:(NSFont*)aFont;

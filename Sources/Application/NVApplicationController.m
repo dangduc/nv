@@ -90,6 +90,8 @@ AppController *NVControllerForView(NSView *view) {
             NSMenu *candidate = pending[i];
             BOOL hasColors = NO, hasSystem = NO;
             BOOL hasPreview = NO, hasViewerMenu = NO;
+            NSInteger notePreviewsIndex = -1;
+            BOOL hasTopSectionControls = NO;
             for (NSMenuItem *item in [candidate itemArray]) {
                 if ([item submenu]) [pending addObject:[item submenu]];
                 if ([item action] == @selector(setBWColorScheme:)) hasColors = YES;
@@ -99,7 +101,38 @@ AppController *NVControllerForView(NSView *view) {
                     [item setTitle:NSLocalizedString(@"Toggle Preview", nil)];
                 }
                 if ([item action] == @selector(toggleSourceView:)) [item setTitle:NSLocalizedString(@"Show Source", nil)];
+                // The action updates preferences and every browser's layout.
+                // A nib value binding would toggle the preference a second time.
+                if ([item action] == @selector(toggleWordCount:) && [item infoForBinding:NSValueBinding])
+                    [item unbind:NSValueBinding];
                 if ([item tag] == 24001) hasViewerMenu = YES;
+                if ([item action] == @selector(toggleNoteBodyPreviews:)) notePreviewsIndex = [candidate indexOfItem:item];
+                if ([item action] == @selector(toggleTitleInTopSection:)) hasTopSectionControls = YES;
+            }
+            if (notePreviewsIndex >= 0 && !hasTopSectionControls) {
+                NSInteger insertionIndex = notePreviewsIndex + 1;
+                for (NSArray *spec in @[@[@"Hide Title in Top Section", @"toggleTitleInTopSection:"],
+                                          @[@"Hide Tag in Top Section", @"toggleTagsInTopSection:"],
+                                          @[@"Hide Source-Preview Toggle and Syntax Type in Top Section", @"toggleBodyControlsInTopSection:"],
+                                          @[@"Hide Notes List", @"toggleNotesList:"],
+                                          @[@"Show Preview", @"toggleSourcePreview:"]]) {
+                    NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(spec[0], nil)
+                        action:NSSelectorFromString(spec[1]) keyEquivalent:@""] autorelease];
+                    [item setTarget:self];
+                    [candidate insertItem:item atIndex:insertionIndex++];
+                }
+                NSMenuItem *syntax = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Syntax Type", nil)
+                    action:NULL keyEquivalent:@""] autorelease];
+                NSMenu *choices = [[[NSMenu alloc] initWithTitle:[syntax title]] autorelease];
+                for (NSArray *entry in @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"],
+                                          @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"]]) {
+                    NSMenuItem *choice = [choices addItemWithTitle:NSLocalizedString(entry[0], nil)
+                        action:@selector(selectSourceSyntax:) keyEquivalent:@""];
+                    [choice setTarget:self];
+                    [choice setRepresentedObject:entry[1]];
+                }
+                [syntax setSubmenu:choices];
+                [candidate insertItem:syntax atIndex:insertionIndex];
             }
             // Only the main Preview menu contains Show Source. The status menu
             // keeps its compact toggle without duplicate format submenus.
