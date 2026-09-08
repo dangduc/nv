@@ -1,0 +1,2 @@
+ALIAS: encoding=80000632 input=a3a0 output={length = 2, bytes = 0xa1a1} string=　
+SCAN: accepted=183311 aliases=1

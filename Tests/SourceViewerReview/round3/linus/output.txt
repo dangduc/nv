@@ -1,0 +1,56 @@
+ALIAS ARCHIVE: encoding=80000632 restored=ffffffff80000632 before={length = 2, bytes = 0xa3a0} after={length = 2, bytes = 0xa1a1} provenance=0
+FAIL: checks=262 failures=2 note-deallocs=3 library-deallocs=3 upgrades=1
+FAIL: archived unchanged GB 18030 alias retains exact source bytes (line 362)
+FAIL: archived GB 18030 conflict retains retry identity (line 363)
+NORMALIZED-ENCODING CONTROL:
+ALIAS ARCHIVE: encoding=80000632 restored=ffffffff80000632 before={length = 2, bytes = 0xa3a0} after={length = 2, bytes = 0xa3a0} provenance=1
+PASS: checks=262 failures=0 note-deallocs=3 library-deallocs=3 upgrades=1
+NEGATIVE CONTROL double_utf8_bom_skip: exit=1
+ALIAS ARCHIVE: encoding=80000632 restored=ffffffff80000632 before={length = 2, bytes = 0xa3a0} after={length = 2, bytes = 0xa3a0} provenance=1
+FAIL: checks=262 failures=4 note-deallocs=3 library-deallocs=3 upgrades=1
+FAIL: BOM, literal marks, embedded NUL and surrogate pair decode exactly (line 314)
+FAIL: edited archive retains encoding, BOM, literal marks, embedded NUL and line endings (line 330)
+FAIL: BOM, literal marks, embedded NUL and surrogate pair decode exactly (line 314)
+FAIL: edited archive retains encoding, BOM, literal marks, embedded NUL and line endings (line 330)
+NEGATIVE CONTROL lost_conflict_origin: exit=1
+ALIAS ARCHIVE: encoding=80000632 restored=ffffffff80000632 before={length = 2, bytes = 0xa3a0} after={length = 2, bytes = 0xa3a0} provenance=0
+FAIL: checks=262 failures=31 note-deallocs=3 library-deallocs=3 upgrades=1
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archive conflict provenance matches origin and exact bytes across encoding signedness (line 324)
+FAIL: archived GB 18030 conflict retains retry identity (line 363)
+NEGATIVE CONTROL cancel_retains_request: exit=1
+ALIAS ARCHIVE: encoding=80000632 restored=ffffffff80000632 before={length = 2, bytes = 0xa3a0} after={length = 2, bytes = 0xa3a0} provenance=1
+FAIL: checks=262 failures=4 note-deallocs=3 library-deallocs=3 upgrades=1
+FAIL: cancel removes the pending token synchronously (line 377)
+FAIL: cancelled queue releases both note and library ownership (line 381)
+FAIL: cancel and reoffer creates a distinct active request (line 392)
+FAIL: old retained completion neither upgrades nor removes the new request (line 395)
+PASS: normalized-encoding control and three independently failing negative controls

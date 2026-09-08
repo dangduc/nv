@@ -1,0 +1,118 @@
+PASS: isolated copied-app preferences domain
+PASS: copied app and temporary library share the test root
+PASS: temporary library directory exists
+PASS: temporary library opens
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: injected WAL synchronization failure blocks first source conversion
+PASS: first failure occurs at the production synchronization boundary
+PASS: failed synchronization leaves one copy for this origin and external version
+PASS: independent model edit excludes old copy from retry reuse
+PASS: second synchronization failure still blocks original replacement
+PASS: failed retry retains both pending local source and external original file
+PASS: retry retains a copy matching the current origin and exact external bytes
+PASS: edited or removed copy is replaced by a separate conflict note
+PASS: recovered synchronization allows original conversion
+PASS: successful conversion writes exact pending local source
+PASS: reconcile and persist all source versions after recovered synchronization
+PASS: independently edited conflict characters survive retry and reconciliation
+PASS: independently edited conflict bytes survive the final flush
+PASS: final library retains the exact external version for this origin
+HISTORY model-edited-copy completed
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: injected WAL synchronization failure blocks first source conversion
+PASS: first failure occurs at the production synchronization boundary
+PASS: failed synchronization leaves one copy for this origin and external version
+PASS: external writer modifies conflict file before reconciliation
+PASS: second synchronization failure still blocks original replacement
+PASS: failed retry retains both pending local source and external original file
+PASS: retry retains a copy matching the current origin and exact external bytes
+PASS: edited or removed copy is replaced by a separate conflict note
+PASS: retry does not overwrite an externally modified conflict file
+PASS: recovered synchronization allows original conversion
+PASS: successful conversion writes exact pending local source
+PASS: reconcile and persist all source versions after recovered synchronization
+AFTER FLUSH diskEditedRetained=1 modelEdited=0
+PASS: initial queue drain retains externally edited conflict bytes even before model refresh
+PASS: a second reconciliation observes conflict-file edits after the pending write queue drains
+PASS: independently edited conflict characters survive retry and reconciliation
+PASS: independently edited conflict bytes survive the final flush
+PASS: final library retains the exact external version for this origin
+HISTORY disk-edited-copy completed
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: injected WAL synchronization failure blocks first source conversion
+PASS: first failure occurs at the production synchronization boundary
+PASS: failed synchronization leaves one copy for this origin and external version
+PASS: remove conflict file while its note remains in the library
+PASS: second synchronization failure still blocks original replacement
+PASS: failed retry retains both pending local source and external original file
+PASS: retry retains a copy matching the current origin and exact external bytes
+PASS: retry recreates the missing copy file under the existing copy UUID
+PASS: recovered synchronization allows original conversion
+PASS: successful conversion writes exact pending local source
+PASS: reconcile and persist all source versions after recovered synchronization
+PASS: final library retains the exact external version for this origin
+HISTORY deleted-copy-file completed
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: injected WAL synchronization failure blocks first source conversion
+PASS: first failure occurs at the production synchronization boundary
+PASS: failed synchronization leaves one copy for this origin and external version
+PASS: remove conflict note through the production library operation
+PASS: second synchronization failure still blocks original replacement
+PASS: failed retry retains both pending local source and external original file
+PASS: retry retains a copy matching the current origin and exact external bytes
+PASS: edited or removed copy is replaced by a separate conflict note
+PASS: recovered synchronization allows original conversion
+PASS: successful conversion writes exact pending local source
+PASS: reconcile and persist all source versions after recovered synchronization
+PASS: final library retains the exact external version for this origin
+HISTORY removed-copy-note completed
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: write isolated CP-1252 seed
+PASS: persist initial source
+PASS: persist pending unrepresentable local edit
+PASS: external writer completes source version before conversion
+PASS: two distinct origins each stop at failed synchronization
+PASS: identical external bytes from distinct origin UUIDs get distinct copies
+PASS: conflict provenance cannot authorize cross-origin reuse
+PASS: archive pending origins and conflict copies while synchronization reports failure
+PASS: copy persisted archive and notes into isolated recovery directory
+PASS: resolve recovery directory
+PASS: production library initialization reopens persisted archive
+PASS: reopen retains both pending source identities
+PASS: recovered origins still stop before replacing originals while synchronization fails
+PASS: repeated recovery and retry preserve each conflict-copy UUID
+PASS: repeated archive recovery adds no duplicate conflict copies
+PASS: archive pending origins and conflict copies while synchronization reports failure
+PASS: copy persisted archive and notes into isolated recovery directory
+PASS: resolve recovery directory
+PASS: production library initialization reopens persisted archive
+PASS: reopen retains both pending source identities
+PASS: recovered origins still stop before replacing originals while synchronization fails
+PASS: repeated recovery and retry preserve each conflict-copy UUID
+PASS: repeated archive recovery adds no duplicate conflict copies
+PASS: archive pending origins and conflict copies while synchronization reports failure
+PASS: copy persisted archive and notes into isolated recovery directory
+PASS: resolve recovery directory
+PASS: production library initialization reopens persisted archive
+PASS: reopen retains both pending source identities
+PASS: recovered origins still stop before replacing originals while synchronization fails
+PASS: repeated recovery and retry preserve each conflict-copy UUID
+PASS: repeated archive recovery adds no duplicate conflict copies
+PASS: both recovered origins complete after synchronization recovers
+PASS: completed history persists without cross-origin reuse or duplicate copies
+KINGSBURY ROUND 3 PASSED: 112 checks, 32 injected synchronization failures

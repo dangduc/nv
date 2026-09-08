@@ -1,0 +1,6 @@
+mode,lines,saved_y,hidden,ensure_calls,laid_characters,line_fragments,glyphs_laid_out,glyphs_generated,elapsed_ms
+viewport,2000,0,0,0,0,0,0,0,0.007
+viewport,2000,700,1,0,0,0,0,0,0.002
+viewport,2000,700,0,0,88000,2000,88000,88000,31.970
+FAIL: near-top restoration avoids most document layout
+PASS: probe rejects full-document-layout mutant

@@ -22,11 +22,11 @@ Original bytes remain inside encrypted note archives. Pending encoding conversio
 | Development build | Clean build passed; the final incremental build passed after integration fixes. |
 | Multiple-window suite | 48 checks passed across initial launch and relaunch. |
 | Aggregate regression suite | All 18 groups passed with exit 0. |
-| Source highlighting | 328 checks passed, including laid-out shortening and stale capture invalidation. |
-| Source storage | 113 checks passed, including actual writes, export, archive reopen, and conversion retry. |
-| Renderer | 90 checks passed for immutable requests, conversion, failures, limits, and cancellation. |
-| Inline WK viewer | 104 checks passed. A listening resource server received zero requests. |
-| Source workflow | 70 checks passed; the artifact run passed 74 including screenshot capture. |
+| Source highlighting | 345 checks passed, including the display-write budget, shortening, and stale capture invalidation. |
+| Source storage | 243 checks passed, including exact bytes, archive recovery, conversion lifetime, and external-edit retries. |
+| Renderer | 113 checks passed for immutable requests, conversion, failures, limits, and cancellation. |
+| Inline WK viewer | 207 checks passed, including joined captures and per-caller Find state. A listening resource server received zero requests. |
+| Source workflow | 136 checks passed twice, including repeated transitions, exact replies, timeout, and native Find restoration. |
 | Native UI / controls / rendering | 82 / 95 / 438 checks passed. |
 | Preview lifetime | 19 Source-only checks and 31 rendered checks passed. |
 | Editing / selections / fonts | 52 / 31 / 36 checks passed. |
@@ -35,8 +35,12 @@ Original bytes remain inside encrypted note archives. Pending encoding conversio
 | CI unit tests | All 14 tests passed. |
 | Packaged application | Archive validation passed, including four syntax queries and distribution notices. |
 | Project and resources | No missing local Xcode references. Plists and all six localized menus parse. Dependency hashes match the manifest. |
+| Delegated review | Three rounds with six perspectives each. All 15 posted findings received delegated fixes and regression evidence. |
 
 The desktop suites used copied apps, isolated settings, and disposable notes.
+The aggregate run used the final production app and passed 130 workflow checks.
+A later fixture correction waits for queued refreshes before each controlled history. It adds six setup assertions without changing production code.
+The corrected workflow passed twice. Its deliberate queued-refresh control passed 137 checks.
 The [source screenshot](../../docs/screenshots/source-editor.png) and [preview screenshot](../../docs/screenshots/readonly-viewer.png) show the native controls without pixel changes.
 Visual inspection confirmed readable source highlighting, the inline preview, and the notes list above both modes.
 
@@ -52,7 +56,8 @@ python3 -B -m unittest discover -s Tests/CI -v
 ```
 
 The archive check is `.github/scripts/check-app-archive.py <app-archive.zip>`.
-The main local logs are `build/source-viewer-final-build.log`, `build/source-viewer-windows.log`, and `build/source-viewer-regressions-final.log`.
+The main local logs are `build/review-round3-final-build.log`, `build/review-complete-windows.log`, and `build/review-complete-regressions.log`.
+The [review record](REVIEW.md) links the PR findings and preserves the three review baselines.
 The `source-workflow` suite can capture screenshots through `NV_UI_ARTIFACTS`.
 
 ## Limits

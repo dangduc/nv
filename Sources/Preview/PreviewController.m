@@ -155,10 +155,13 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     [self cancelRendering];
     if (changedNote || changedViewer) {
         [_displayState removeAllObjects];
-        // The pending read's cache belongs to this returned presentation. Keep
+        // The latest caller's cache belongs to this returned presentation. Keep
         // its Find query now; completion supplies only the fresh DOM offsets.
         NVViewerStateCapture *pending = [self pendingStateCaptureForKey:ViewerStateKey(snapshot, identifier)];
-        if (pending) [_displayState addEntriesFromDictionary:pending->cachedState];
+        if (pending) {
+            NVViewerStateCapture *latest = [pending->coalescedCaptures lastObject] ?: pending;
+            [_displayState addEntriesFromDictionary:latest->cachedState];
+        }
         [_findField setStringValue:[_displayState objectForKey:@"find"] ?: @""];
     }
     [_snapshot release]; _snapshot = [snapshot retain];
@@ -243,7 +246,15 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     if (pending) {
         capture->revision = pending->revision;
         [capture->documentBase release]; capture->documentBase = [pending->documentBase copy];
-        [capture->cachedState release]; capture->cachedState = [pending->cachedState copy];
+        // Share the old document's fallback offsets, but keep this caller's
+        // current Find query and any other non-scroll presentation state.
+        NSMutableDictionary *state = [capture->cachedState mutableCopy];
+        for (NSString *key in @[@"scrollX", @"scrollY"]) {
+            id value = [pending->cachedState objectForKey:key];
+            if (value) [state setObject:value forKey:key];
+            else [state removeObjectForKey:key];
+        }
+        [capture->cachedState release]; capture->cachedState = [state copy]; [state release];
         if (!pending->coalescedCaptures) pending->coalescedCaptures = [[NSMutableArray alloc] init];
         [pending->coalescedCaptures addObject:capture];
         return;

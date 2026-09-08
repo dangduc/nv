@@ -21,6 +21,7 @@ Conflict synchronization failures reuse one copy per external version, including
 The retry fixtures retain separate CP-1252 and UTF-16 versions and check the journal before the original source replacement.
 UTF-8, UTF-16, and UTF-32 fixtures distinguish a transport BOM from a literal leading U+FEFF, including after edits.
 Encoding fixtures compare source characters with the legacy MacRoman decoder, alongside explicit CP-1252 and UTF-8 controls.
+An archived GB18030 byte alias must retain its original bytes in source export and conflict-copy matching.
 Source bytes stay inside note archives, which follow library encryption.
 It also checks the removal of rich-text imports, storage, and exports.
 No fixture starts a network request.
