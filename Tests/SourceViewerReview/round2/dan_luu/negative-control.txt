@@ -1,0 +1,3 @@
+case,rows,captures,layouts,first_writes,first_removes,first_ms,reapply_writes,reapply_removes,reapply_ms,clear_removes,clear_ms
+boundary,512,4096,1,4096,0,2.930,4096,1,2.944,1,1.229
+FAIL: first application independently bounded

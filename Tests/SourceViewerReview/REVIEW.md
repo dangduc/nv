@@ -36,7 +36,14 @@ The reports preserve the original observations, including tests that assert the 
 
 ## Round 2
 
-Pending the first round's fixes.
+Review baseline: `f037c7b781fa2a3c58d7b00cb440ba3e7239b615`.
+The clean build passed. Source storage passed 150 checks, highlighting passed 345, and the standalone viewer passed 142.
+The renderer passed 113 checks. The clean bundle passed the removed-resource audit.
+
+The ownership review confirmed a repeated-transition ordering defect and separately diagnosed a workflow-fixture error.
+[The new PR comment](https://github.com/fastducduc/nv/pull/4#discussion_r3956449561) has a delegated fix.
+The performance and low-level reviews found no new defect in their bounded probes.
+Durability and the two contrarian reviews remain in progress.
 
 ## Round 3
 

@@ -1,0 +1,14 @@
+case,rows,captures,layouts,first_writes,first_removes,first_ms,reapply_writes,reapply_removes,reapply_ms,clear_removes,clear_ms
+boundary,512,4096,1,4096,0,2.795,4096,1,2.815,1,1.135
+boundary,513,4104,1,0,0,0.001,0,0,0.000,0,0.002
+boundary,256,2048,2,4096,0,2.286,4096,2,2.938,2,1.224
+boundary,257,2056,2,0,0,0.000,0,0,0.000,0,0.001
+boundary,170,1360,3,4080,0,2.076,4080,3,2.921,3,1.212
+boundary,171,1368,3,0,0,0.000,0,0,0.001,0,0.000
+boundary,128,1024,4,4096,0,1.996,4096,4,2.941,4,1.205
+boundary,129,1032,4,0,0,0.000,0,0,0.001,0,0.000
+boundary,25,200,20,4000,0,1.726,4000,20,2.896,20,1.094
+boundary,26,208,20,0,0,0.001,0,0,0.001,0,0.001
+transitions: fifth_layout_fallback_ms=1.021 four_layout_restore_ms=1.719 asynchronous_json_writes=12 unsafe_changes=0
+worker: cancelled_ms=0.848 length_ms=0.005 capture_limit_ms=48.011 markdown_budget_ms=124.910
+PASS: 209 checks
