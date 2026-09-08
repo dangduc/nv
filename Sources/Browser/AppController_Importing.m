@@ -26,7 +26,6 @@
 #import "NotationDirectoryManager.h"
 #import "AlienNoteImporter.h"
 #import "NSString_NV.h"
-#import <WebKit/WebArchive.h>
 #import "GlobalPrefs.h"
 #import "NSData_transformations.h"
 #import "AttributedPlainText.h"
@@ -52,41 +51,12 @@
 	
 	NSString *sourceIdentifierString = nil;
 	
-	//webkit URL!
-	if ([types containsObject:WebArchivePboardType]) {
-		sourceIdentifierString = [[pasteboard dataForType:WebArchivePboardType] pathURLFromWebArchive];
-		//gecko URL!
-	} else if ([types containsObject:[NSString customPasteboardTypeOfCode:0x4D5A0003]]) {
+	if ([types containsObject:[NSString customPasteboardTypeOfCode:0x4D5A0003]]) {
 		//lazilly use syntheticTitle to get first line, even though that's not how our API is documented
 		sourceIdentifierString = [[pasteboard stringForType:[NSString customPasteboardTypeOfCode:0x4D5A0003]] syntheticTitleAndTrimmedBody:NULL];
 		unichar nullChar = 0x0;
 		sourceIdentifierString = [sourceIdentifierString stringByReplacingOccurrencesOfString:
 								  [NSString stringWithCharacters:&nullChar length:1] withString:@""];
-	}
-	
-	if ([types containsObject:NSURLPboardType] || (pbHasPlainText && [[pasteboard stringForType:NSStringPboardType] superficiallyResemblesAnHTTPURL])) {
-		NSURL *url = [NSURL URLFromPasteboard:pasteboard];
-		if (!url) url = [NSURL URLWithString:[pasteboard stringForType:NSStringPboardType]];
-		
-		NSString *potentialURLString = pbHasPlainText ? [pasteboard stringForType:NSStringPboardType] : nil;
-		if (potentialURLString && [[url absoluteString] isEqualToString:potentialURLString]) {
-			//only begin downloading if we know that there's no other useful string data
-			//because we've already checked NSFilenamesPboardType
-			
-			if ([[url scheme] caseInsensitiveCompare:@"http"] == NSOrderedSame || 
-				[[url scheme] caseInsensitiveCompare:@"https"] == NSOrderedSame ||
-				[[url scheme] caseInsensitiveCompare:@"ftp"] == NSOrderedSame) {
-				NSString *linkTitleType = [NSString customPasteboardTypeOfCode:0x75726C6E];
-				NSString *linkTitle = [types containsObject:linkTitleType] ? [[pasteboard stringForType:linkTitleType] syntheticTitleAndTrimmedBody:NULL] : nil;
-				if (!linkTitle) {
-					//try urld instead of urln
-					linkTitleType = [NSString customPasteboardTypeOfCode:0x75726C64];
-					linkTitle = [types containsObject:linkTitleType] ? [[pasteboard stringForType:linkTitleType] syntheticTitleAndTrimmedBody:NULL] : nil;
-				}
-				[[[[AlienNoteImporter alloc] init] autorelease] importURLInBackground:url linkTitle:linkTitle receptionDelegate:self];
-				return YES;
-			}
-		}		
 	}
 	
 	//safari on 10.5 does not seem to provide a plain-text equivalent, so we must be able to dumb-down RTF data as well
@@ -106,24 +76,17 @@
 		if ((data = [pasteboard dataForType:NSRTFDPboardType]))
 			newString = [[NSMutableAttributedString alloc] initWithRTFD:data documentAttributes:NULL];
 		hasRTFData = YES;
-	} else if ([types containsObject:WebArchivePboardType] && !shallUsePlainTextFallback) {
-		if ((data = [pasteboard dataForType:WebArchivePboardType])) {
-			//set a timeout because -[NSHTMLReader _loadUsingWebKit] can sometimes hang
-			newString = [[NSMutableAttributedString alloc] initWithData:data options:[NSDictionary optionsDictionaryWithTimeout:10.0] 
-													 documentAttributes:NULL error:NULL];
-		}
-		hasRTFData = YES;
-		
-	} else if ([types containsObject:NSHTMLPboardType] && !shallUsePlainTextFallback) {
-		if ((data = [pasteboard dataForType:NSHTMLPboardType]))
-			newString = [[NSMutableAttributedString alloc] initWithHTML:data documentAttributes:NULL];
-		hasRTFData = YES;
 	} else if (pbHasPlainText) {
 		
 		NSString *pboardString = [pasteboard stringForType:NSStringPboardType];
 		if (pboardString) newString = [[NSMutableAttributedString alloc] initWithString:pboardString];
 	}
 	
+	if (!newString && [types containsObject:NSURLPboardType]) {
+		NSString *urlString = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
+		if (urlString) newString = [[NSMutableAttributedString alloc] initWithString:urlString];
+	}
+
 	[newString autorelease];
 	if ([newString length] > 0) {
 		[newString removeAttachments];
@@ -207,71 +170,32 @@
 		
 		NSArray *params = [[aURL query] componentsSeparatedByString:@"&"];
 		
-		//parameters: "title" and one of the following for the body: "txt", "html" (maybe "md" for markdown in the future)
-		//if title is missing, add the body via -[addNotesFromPasteboard:]
-		NSString *title = nil, *txtBody = nil, *htmlBody = nil, *tags = nil, *urlTxt = nil;
-		for (i=0; i<[params count]; i++) {
-			NSString *compStr = [params objectAtIndex:i];
+		// The make action accepts plain text. Web-page and HTML import are disabled.
+		NSString *title = nil, *txtBody = nil, *tags = nil;
+		for (NSString *compStr in params) {
 			if ([compStr hasPrefix:@"title="] && [compStr length] > 6) {
 				title = [[compStr substringFromIndex:6] stringByReplacingPercentEscapes];
 			} else if ([compStr hasPrefix:@"txt="] && [compStr length] > 4) {
 				txtBody = [[compStr substringFromIndex:4] stringByReplacingPercentEscapes];
-			} else if ([compStr hasPrefix:@"html="] && [compStr length] > 5) {
-				htmlBody = [[compStr substringFromIndex:5] stringByReplacingPercentEscapes];
 			} else if ([compStr hasPrefix:@"tags="] && [compStr length] > 5) {
 				tags = [[compStr substringFromIndex:5] stringByReplacingPercentEscapes];
-			}else if ([compStr hasPrefix:@"url="] && [compStr length] > 4) {
-				urlTxt = [[compStr substringFromIndex:4] stringByReplacingPercentEscapes];
-                txtBody = nil;
-                htmlBody = nil;
 			}
 		}
-        if (urlTxt) {
-            //  NSPasteboard *pboard = [NSPasteboard pasteboardWithUniqueName];
-            NSURL *theURL = [NSURL URLWithString:urlTxt];
-            //	NSData *data = [urlTxt dataUsingEncoding:NSUTF8StringEncoding];
-            if (theURL) {                
-                // [pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
-                //[pboard setData:data forType:NSStringPboardType];
-                NSString *linkTitle = nil;
-                if (title) {
-                    linkTitle = title;
-                }
-                [[[[AlienNoteImporter alloc] init] autorelease] importURLInBackground:theURL linkTitle:linkTitle receptionDelegate:self];
-                return YES;
-            }
-        }else{
-            if (title && (txtBody || htmlBody)) {
-                NSMutableAttributedString *attributedContents = nil;
-                
-                if (htmlBody) {
-                    attributedContents = [[NSMutableAttributedString alloc] initWithHTML:[htmlBody dataUsingEncoding:NSUTF8StringEncoding] 
-                                                                                 options:[NSDictionary optionsDictionaryWithTimeout:10.0] documentAttributes:NULL];
-                } else {
-                    attributedContents = [[NSMutableAttributedString alloc] initWithString:txtBody attributes:[prefsController noteBodyAttributes]];
-                }
-                [attributedContents removeAttachments];
-                [attributedContents santizeForeignStylesForImporting];
-                
-                NoteObject *note = [[[NoteObject alloc] initWithNoteBody:[attributedContents autorelease] title:title delegate:[self sharedNotationController]
-                                                                  format:[notationController currentNoteStorageFormat] labels:tags] autorelease];
-                [notationController addNewNote:note];
-                return YES;
-            } else if (txtBody || htmlBody) {
-                NSPasteboard *pboard = [NSPasteboard pasteboardWithUniqueName];
-                NSData *data = [htmlBody dataUsingEncoding:NSUTF8StringEncoding];
-                [pboard declareTypes:[NSArray arrayWithObject: data ? NSHTMLPboardType : NSStringPboardType] owner:nil];
-                if (data) {
-                    [pboard setData:data forType:NSHTMLPboardType];
-                } else if (txtBody) {
-                    [pboard setString:txtBody forType:NSStringPboardType];
-                } else {
-                    NSLog(@"no txt or html to add to pboard");
-                    return NO;
-                }
-                return [self addNotesFromPasteboard:pboard];
-            }
-        }
+		if (title && txtBody) {
+			NSMutableAttributedString *contents = [[[NSMutableAttributedString alloc]
+				initWithString:txtBody attributes:[prefsController noteBodyAttributes]] autorelease];
+			NoteObject *note = [[[NoteObject alloc] initWithNoteBody:contents title:title delegate:[self sharedNotationController]
+				format:[notationController currentNoteStorageFormat] labels:tags] autorelease];
+			[notationController addNewNote:note];
+			return YES;
+		} else if (txtBody) {
+			NSPasteboard *pboard = [NSPasteboard pasteboardWithUniqueName];
+			[pboard declareTypes:@[NSStringPboardType] owner:nil];
+			[pboard setString:txtBody forType:NSStringPboardType];
+			BOOL added = [self addNotesFromPasteboard:pboard];
+			[pboard releaseGlobally];
+			return added;
+		}
 	} else if ([[aURL host] length]) {
 		//assume find by default
 		if (currentNote) {

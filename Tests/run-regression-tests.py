@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Run acceptance checks added for multiwindow review findings."""
+"""Run desktop regression checks."""
 from pathlib import Path
 import subprocess
 import sys
 
 repo = Path(__file__).resolve().parents[1]
 checks = [
+    'native-dependencies/run.py',
     'native-ui/run.py',
     'native-controls/run.py',
     'native-rendering/run.py',
@@ -23,4 +24,4 @@ for check in checks:
     print('Running ' + check, flush=True)
     subprocess.run([sys.executable, str(repo / 'Tests/Regression' / check)],
                    cwd=repo, check=True)
-print('ALL MULTIWINDOW REGRESSION CHECKS PASSED', flush=True)
+print('ALL REGRESSION CHECKS PASSED', flush=True)

@@ -10,10 +10,10 @@ The build job has read access to the repository. A separate tag job has write ac
 
 Each successful build uploads `nvALT-macos-x86_64-<run number>-<attempt>.zip` for 30 days.
 The build log remains available for seven days, including failed builds.
-The ZIP file preserves app permissions and framework symlinks.
+The ZIP file preserves app permissions.
 
 The archive check reads the ZIP file and checks these properties.
-Its tests reject archives with lost executable permissions or flattened framework symlinks.
+Its tests reject archives with lost executable permissions for the app or MultiMarkdown.
 
 ## Automatic tags
 

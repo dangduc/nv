@@ -19,7 +19,6 @@
 #import "AlienNoteImporter.h"
 #import "StickiesDocument.h"
 #import "BlorPasswordRetriever.h"
-#import "URLGetter.h"
 #import "GlobalPrefs.h"
 #import "AttributedPlainText.h"
 #import "NSData_transformations.h"
@@ -248,69 +247,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
     }
 }
 
-- (void)URLGetter:(URLGetter*)getter returnedDownloadedFile:(NSString*)filename {
-	
-	BOOL foundNotes = NO;
-	if ([receptionDelegate respondsToSelector:@selector(noteImporter:importedNotes:)]) {
-
-		if (filename) {
-			NSArray *notes = [self notesInFile:filename];
-			if ([notes count]) {
-				NSMutableAttributedString *content = [[[GlobalPrefs defaultPrefs] pastePreservesStyle] ? [[[notes lastObject] contentString] mutableCopy] :
-													  [[NSMutableAttributedString alloc] initWithString:[[[notes lastObject] contentString] string]] autorelease];
-				if ([[[content string] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]) {
-					//only add string if it has at least one non-whitespace character
-					NSUInteger prefixedSourceLength = [[content prefixWithSourceString:[[getter url] absoluteString]] length];
-					[content santizeForeignStylesForImporting];
-					
-					[[notes lastObject] setContentString:content];
-					if ([getter userData]) [[notes lastObject] setTitleString:[getter userData]];
-					
-					//prefixing should push existing selections forward:
-					NSRange selRange = [[notes lastObject] lastSelectedRange];
-					if (selRange.length && prefixedSourceLength)
-						[[notes lastObject] setSelectedRange:NSMakeRange(selRange.location + prefixedSourceLength, selRange.length)];
-					
-					[receptionDelegate noteImporter:self importedNotes:notes];
-					
-					foundNotes = YES;
-				}
-			}
-		}
-		if (!foundNotes) {	
-			//no notes recovered from downloaded file--just add the URL as a string?
-			NSString *urlString = [[getter url] absoluteString];			
-			if (urlString) {
-				NSMutableAttributedString *newString = [[[NSMutableAttributedString alloc] initWithString:urlString] autorelease];
-				[newString santizeForeignStylesForImporting];
-				
-				NoteObject *noteObject = [[NoteObject alloc] initWithNoteBody:newString title:[getter userData] ? [getter userData] : urlString
-																	 delegate:nil format:SingleDatabaseFormat labels:nil];
-				
-				[receptionDelegate noteImporter:self importedNotes:[NSArray arrayWithObject:noteObject]];
-				[noteObject autorelease];
-			}
-		}			
-		
-	} else {
-		NSLog(@"Where's my note importing delegate?");
-		NSBeep();
-	}
-	
-	[getter release];
-	
-	[self release];
-}
-
-- (void)importURLInBackground:(NSURL*)aURL linkTitle:(NSString*)linkTitle receptionDelegate:(id)receiver {
-	
-	receptionDelegate = receiver;
-		
-	[self retain];
-	
-	(void)[[URLGetter alloc] initWithURL:aURL delegate:self userData:linkTitle];
-}
-
 - (NSArray*)importedNotes {
 	if (!importerSelector) return nil;
 	return [self performSelector:importerSelector withObject:source];
@@ -349,30 +285,21 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 //auto-detect based on file type/extension/header
 //if unable to find, revert to spotlight importer
 - (NoteObject*)noteWithFile:(NSString*)filename {
-	//RTF, Text, Word, HTML, and anything else we can do without too much effort
+	// Import text and supported document formats.
 	NSString *extension = [[filename pathExtension] lowercaseString];
 	NSDictionary *attributes = [[NSFileManager defaultManager]attributesAtPath:filename followLink:YES];
     //[[NSFileManager defaultManager] fileAttributesAtPath:filename traverseLink:YES];
 	unsigned long fileType = [[attributes objectForKey:NSFileHFSTypeCode] unsignedLongValue];
-	NSString *sourceIdentifierString = nil;
 	
 	NSMutableAttributedString *attributedStringFromData = nil;
 
-	if (fileType == HTML_TYPE_ID || [extension isEqualToString:@"htm"] || [extension isEqualToString:@"html"] || [extension isEqualToString:@"shtml"]) {
-		//should convert to text with markdown here
-        if ([[GlobalPrefs defaultPrefs] useMarkdownImport]) {
-			if ([[GlobalPrefs defaultPrefs] useReadability] || [self shouldUseReadability]) {
-				attributedStringFromData = [[NSMutableAttributedString alloc] initWithString:[self contentUsingReadability:filename] 
-																				  attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-			} else {
-				attributedStringFromData = [[NSMutableAttributedString alloc] initWithString:[self markdownFromHTMLFile:filename] 
-																				  attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-			}
-        } else {
-			attributedStringFromData = [[NSMutableAttributedString alloc] initWithHTML:[NSData uncachedDataFromFile:filename] 
-                                                                               options:[NSDictionary optionsDictionaryWithTimeout:10.0] documentAttributes:NULL];
-        }		
-	} else if (fileType == RTF_TYPE_ID || [extension isEqualToString:@"rtf"] || [extension isEqualToString:@"nvhelp"] || [extension isEqualToString:@"rtx"]) {
+	if (fileType == HTML_TYPE_ID ||
+		[@[@"htm", @"html", @"shtml", @"xhtml", @"xht", @"webarchive"] containsObject:extension] ||
+		[filename UTIOfFileConformsToType:@"public.html"] ||
+		[filename UTIOfFileConformsToType:@"com.apple.webarchive"]) {
+		return nil;
+	}
+	if (fileType == RTF_TYPE_ID || [extension isEqualToString:@"rtf"] || [extension isEqualToString:@"nvhelp"] || [extension isEqualToString:@"rtx"]) {
 		attributedStringFromData = [[NSMutableAttributedString alloc] initWithRTF:[NSData uncachedDataFromFile:filename] documentAttributes:NULL];
 		
 	} else if (fileType == RTFD_TYPE_ID || [extension isEqualToString:@"rtfd"]) {
@@ -385,14 +312,10 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	} else if (fileType == WORD_DOC_TYPE_ID || [extension isEqualToString:@"doc"]) {
 		attributedStringFromData = [[NSMutableAttributedString alloc] initWithDocFormat:[NSData uncachedDataFromFile:filename] documentAttributes:NULL];
 		
-	} else if ([extension isEqualToString:@"docx"] || [extension isEqualToString:@"webarchive"]) {
-		//make it guess for us, but if it's a webarchive we'll get the URL
+	} else if ([extension isEqualToString:@"docx"]) {
 		NSData *data = [NSData uncachedDataFromFile:filename];
-		NSString *path = [data pathURLFromWebArchive];
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithData:data options:nil documentAttributes:NULL error:NULL];
-		
-		if ([path length] > 0 && [attributedStringFromData length] > 0)
-			sourceIdentifierString = path;
+		attributedStringFromData = [[NSMutableAttributedString alloc] initWithData:data
+			options:@{NSDocumentTypeDocumentOption: NSOfficeOpenXMLTextDocumentType} documentAttributes:NULL error:NULL];
 	} else if (fileType == PDF_TYPE_ID || [extension isEqualToString:@"pdf"]) {
 		//try PDFKit loading lazily
 		@try {
@@ -451,8 +374,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 		} else {
 			title = [title stringByAppendingFormat:@" (%@)", processedFilename];
 		}
-		if ([sourceIdentifierString length])
-			prefixedSourceLength = [[attributedStringFromData prefixWithSourceString:sourceIdentifierString] length];
 		[attributedStringFromData santizeForeignStylesForImporting];
 		
 		[attributedStringFromData autorelease];
@@ -527,122 +448,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	return nil;
 }
 
-- (NSString *) contentUsingReadability: (NSString *)htmlFile
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *readabilityPath = [bundle pathForResource:@"readability" ofType:@"py"];
-//    readabilityPath = [bundle pathForAuxiliaryExecutable: @"readability.py"];
-	
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath: readabilityPath];
-	
-	NSArray *arguments;
-    arguments = [NSArray arrayWithObjects: htmlFile, nil];
-    [task setArguments: arguments];
-	
-	NSPipe *rpipe;
-    rpipe = [NSPipe pipe];
-    [task setStandardOutput: rpipe];
-	
-    NSFileHandle *file;
-    file = [rpipe fileHandleForReading];
-	
-    [task launch];
-	
-    NSData *data;
-    data = [file readDataToEndOfFile];
-	
-    NSString *string;
-    string = [[[NSString alloc] initWithData: data
-								   encoding: NSUTF8StringEncoding] autorelease];
-    [task release];
-	return [self markdownFromSource:string];
-}
-
-- (NSString *) markdownFromHTMLFile: (NSString *)htmlFile
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *readabilityPath = [bundle pathForResource:@"html2text" ofType:@"py"];
-//    readabilityPath = [bundle pathForAuxiliaryExecutable: @"html2text.py"];
-	
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath: readabilityPath];
-	
-	NSArray *arguments;
-    arguments = [NSArray arrayWithObjects: htmlFile, nil];
-    [task setArguments: arguments];
-	
-	NSPipe *rpipe;
-    rpipe = [NSPipe pipe];
-    [task setStandardOutput: rpipe];
-	
-    NSFileHandle *file;
-    file = [rpipe fileHandleForReading];
-	
-    [task launch];
-	
-    NSData *data;
-    data = [file readDataToEndOfFile];
-	
-    NSString *string;
-    string = [[[NSString alloc] initWithData: data
-								   encoding: NSUTF8StringEncoding] autorelease];
-	[task release];
-	return string;
-}
-
-- (NSString *) markdownFromSource: (NSString *)htmlString
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *readabilityPath = [bundle pathForResource:@"html2text" ofType:@"py"];
-//    readabilityPath = [bundle pathForAuxiliaryExecutable: @"html2text.py"];
-
-	
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath: readabilityPath];
-	
-    NSPipe *readPipe = [NSPipe pipe];
-    NSFileHandle *readHandle = [readPipe fileHandleForReading];
-	
-    NSPipe *writePipe = [NSPipe pipe];
-    NSFileHandle *writeHandle = [writePipe fileHandleForWriting];
-	
-    [task setStandardInput: writePipe];
-    [task setStandardOutput: readPipe];
-	
-    [task launch];
-	
-    [writeHandle writeData: [htmlString dataUsingEncoding: NSUTF8StringEncoding]];
-    [writeHandle closeFile];
-	
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSData *readData;
-	
-    while ((readData = [readHandle availableData])
-           && [readData length]) {
-        [data appendData: readData];
-    }
-	
-    NSString *strippedString;
-    strippedString = [[NSString alloc]
-					  initWithData: data
-					  encoding: NSUTF8StringEncoding];
-	
-    [task release];
-    [data release];
-    [strippedString autorelease];
-	
-    return (strippedString);
-}
--(BOOL)shouldUseReadability
-{
-    return shouldUseReadability;
-}
-
--(void) setShouldUseReadability:(BOOL)value
-{
-	shouldUseReadability = value;
-}
 
 @end
 

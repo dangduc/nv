@@ -86,6 +86,14 @@
 - (BOOL)start {
 	
 	if (isRunning) return YES;
+
+	if (dataToSendContentType && !dataToSend) {
+		[self retain];
+		[delegate retain];
+		isRunning = YES;
+		[self _fetchDidFinishWithError:NSLocalizedString(@"The sync request could not be encoded.", nil)];
+		return NO;
+	}
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
 	if (!request) {

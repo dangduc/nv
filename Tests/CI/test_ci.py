@@ -109,7 +109,7 @@ class TagTests(unittest.TestCase):
 
 
 class ArchiveTests(unittest.TestCase):
-    def make_archive(self, path, executable=True, symlinks=True):
+    def make_archive(self, path, executable=True, markdown_executable=True):
         with zipfile.ZipFile(path, "w") as archive:
             def add(name, body, mode):
                 info = zipfile.ZipInfo("nvALT.app/Contents/" + name)
@@ -119,14 +119,9 @@ class ArchiveTests(unittest.TestCase):
 
             add("Info.plist", "fixture", stat.S_IFREG | 0o644)
             add("MacOS/nvALT", "fixture", stat.S_IFREG | (0o755 if executable else 0o644))
-            for name in ["AutoHyperlinks", "Sparkle"]:
-                root = "Frameworks/" + name + ".framework/"
-                add(root + "Versions/A/" + name, "fixture", stat.S_IFREG | 0o755)
-                mode = (stat.S_IFLNK if symlinks else stat.S_IFREG) | 0o755
-                add(root + "Versions/Current", "A", mode)
-                add(root + name, "Versions/Current/" + name, mode)
+            add("Resources/multimarkdown", "fixture", stat.S_IFREG | (0o755 if markdown_executable else 0o644))
 
-    def test_archive_preserves_executables_and_symlinks(self):
+    def test_archive_preserves_required_executables(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "app.zip"
             self.make_archive(path)
@@ -139,11 +134,11 @@ class ArchiveTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "executable permissions"):
                 packaging.check_archive(path)
 
-    def test_flattened_framework_symlinks_fail(self):
+    def test_lost_markdown_executable_permissions_fail(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "app.zip"
-            self.make_archive(path, symlinks=False)
-            with self.assertRaisesRegex(ValueError, "framework symlink"):
+            self.make_archive(path, markdown_executable=False)
+            with self.assertRaisesRegex(ValueError, "executable permissions"):
                 packaging.check_archive(path)
 
 

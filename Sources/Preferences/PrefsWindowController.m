@@ -455,10 +455,6 @@
 		[togDockButton setHidden:YES];
 //		[togDockLabel setHidden:YES];
 	}
-    //for Brett's Markdownify/Readability import
-	[useMarkdownImportButton setState:[prefsController useMarkdownImport]];
-	[useReadabilityButton setState:[prefsController useReadability]];
-	[useReadabilityButton setEnabled:[useMarkdownImportButton state]];
 	
     [altRowsButton setState:[prefsController alternatingRows]];
     [showGridButton setState:[prefsController showGrid]];
@@ -614,15 +610,6 @@ NSRect ScaleRectWithFactor(NSRect rect, float factor) {
 	dbWidth = dbWidth - fmod(dbWidth,2.0);
 	[prefsController setMaxNoteBodyWidth:dbWidth sender:self];
 //	[[NSApp delegate] setMaxNoteBodyWidth];
-}
-
-- (IBAction)changedUseMarkdownImport:(id)sender {
-	[prefsController setUseMarkdownImport:[useMarkdownImportButton state] sender:self];
-	[useReadabilityButton setEnabled:[useMarkdownImportButton state]];
-}
-
-- (IBAction)changedUseReadability:(id)sender {
-	[prefsController setUseReadability:[useReadabilityButton state] sender:self];
 }
 
 - (IBAction)changedAltRows:(id)sender {

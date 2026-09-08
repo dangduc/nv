@@ -7,11 +7,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "MAAttachedWindow.h"
 
 @class AppController;
 @class NoteObject;
-@class ETTransparentButton;
 
 @interface PreviewController : NSWindowController 
 {
@@ -24,18 +22,18 @@
   IBOutlet NSButton *saveButton;
   IBOutlet NSButton *stickyPreviewButton;
   IBOutlet NSButton *printPreviewButton;
-	ETTransparentButton *viewOnWebButton;
+	NSButton *viewOnWebButton;
   BOOL isPreviewOutdated;
   BOOL isPreviewSticky;
 	NSMutableData *receivedData;
 //    IBOutlet NSWindow *wnd;
-	MAAttachedWindow *attachedWindow;
-	MAAttachedWindow *confirmWindow;
+	NSPopover *sharePopover;
+	NSPopover *confirmationPopover;
 	IBOutlet NSTextField *urlTextField;
 	IBOutlet NSView *shareNotification;
 	IBOutlet NSView *shareConfirmation;
-	ETTransparentButton *shareCancel;
-  ETTransparentButton *shareConfirm;
+	NSButton *shareCancel;
+  NSButton *shareConfirm;
 	NSString *shareURL;
 	NSString *cssString;
 	NSString *htmlString;

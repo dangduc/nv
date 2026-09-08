@@ -9,7 +9,7 @@ nvALT is a macOS Cocoa application written primarily in Objective-C, with C util
 - `Sources/`: application, browser, editor, model, storage, sync, preferences, import/export, preview, UI, and utility code.
 - `Resources/`: images, preview templates, help, and interfaces. Localized resources live in `Resources/Localization/*.lproj/`.
 - `Config/`: application plist, prefix header, sync configuration, and linker order files.
-- `ThirdParty/`: bundled source dependencies, frameworks, markup processors, and OpenSSL headers and libraries.
+- `ThirdParty/`: bundled source dependencies, markup processors, and OpenSSL headers and libraries.
 - `Scripts/`: development utilities.
 - `Tests/` and `docs/`: test suites, review records, and documentation assets.
 
@@ -17,7 +17,7 @@ Read [architecture.md](architecture.md) before changing controller ownership, sh
 
 ## Build, Test, and Development Commands
 
-Use macOS with full Xcode. Bundled frameworks require an Intel build. Apple Silicon Macs require Rosetta.
+Use macOS with full Xcode. The bundled MultiMarkdown executable and OpenSSL archive require an Intel build. Apple Silicon Macs require Rosetta.
 
 For an existing checkout, move your local `SimperiumConfig.h` into `Config/` before you build.
 

@@ -13,8 +13,6 @@
 #import "NSString_Markdown.h"
 #import "NSString_Textile.h"
 #import "NoteObject.h"
-#import "ETTransparentButtonCell.h"
-#import "ETTransparentButton.h"
 #import "BTTransparentScroller.h"
 #import "NSFileManager_NV.h"
 #import "NSFileManager+DirectoryLocations.h"
@@ -89,88 +87,60 @@
         browserController = controller;
         self.isPreviewOutdated = YES;
         self.isPreviewSticky = NO;
-        //        [[self class] createCustomFiles];
+        // Load the nib before assigning its views to the popover content controllers.
+        NSWindow *previewWindow = [self window];
         BOOL showPreviewWindow = [[NSUserDefaults standardUserDefaults] boolForKey:kDefaultMarkupPreviewVisible];
         if (showPreviewWindow) {
-            [[self window] orderFront:self];
+            [previewWindow orderFront:self];
         }
 
-        NSRect shCon = [[[self window] contentView]visibleRect];
-        shCon.origin.x +=20;
-        shCon.origin.y -= 2;
-        shCon.size.width = 99;
-        shCon.size.height = 28;
-        //        tabSwitcher = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        //        shCon.origin.x = [[[self window] contentView]visibleRect].origin.x + [[[self window] contentView]visibleRect].size.width - 80;
-        //        shCon.size.width = 56;
-        //        saveButton = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        //        shCon.origin.x -= 65;
-        //        shareButton = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        //        shCon.origin.x -= 65;
-        //        stickyPreviewButton = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        //        shCon.origin.x -= 65;
-        //        printPreviewButton = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        //        [tabSwitcher setTitle:@"View Source"];
-        //        [tabSwitcher setTarget:self];
-        //        [tabSwitcher setAction:@selector(switchTabs:)];
-        //        [tabSwitcher setAutoresizingMask:NSViewMaxXMargin];
-        //        [shareButton setTitle:@"Share"];
-        //        [shareButton setToolTip:@"Make this note available to the public on Peg.gd"];
-        //        [shareButton setTarget:self];
-        //        [shareButton setAction:@selector(shareAsk:)];
-        //        [shareButton setAutoresizingMask:NSViewMinXMargin];
-        //        [saveButton setTitle:@"Save"];
-        //        [saveButton setToolTip:@"Save the current preview as an HTML file"];
-        //        [saveButton setTarget:self];
-        //        [saveButton setAction:@selector(saveHTML:)];
-        //        [saveButton setAutoresizingMask:NSViewMinXMargin];
-        //        [stickyPreviewButton setTitle:@"Stick"];
-        //        [stickyPreviewButton setToolTip:@"Maintain current note in Preview, even if you switch to other notes."];
-        //        [stickyPreviewButton setTarget:self];
-        //        [stickyPreviewButton setAction:@selector(makePreviewSticky:)];
-        //        [stickyPreviewButton setAutoresizingMask:NSViewMinXMargin];
-        //        [printPreviewButton setTitle:@"Print"];
-        //        [printPreviewButton setToolTip:@"Print to Printer or PDF."];
-        //        [printPreviewButton setTarget:self];
-        //        [printPreviewButton setAction:@selector(printPreview:)];
-        //        [printPreviewButton setAutoresizingMask:NSViewMinXMargin];
-        //        [[[self window] contentView] addSubview:tabSwitcher];
-        //        [[[self window] contentView] addSubview:shareButton];
-        //        [[[self window] contentView] addSubview:saveButton];
-        //        [[[self window] contentView] addSubview:stickyPreviewButton];
-        //        [[[self window] contentView] addSubview:printPreviewButton];
         [tabView selectTabViewItem:[tabView tabViewItemAtIndex:0]];
 
-        shCon = [shareConfirmation visibleRect];
-        shCon.origin.x = shCon.size.width - 106;
-        shCon.origin.y = 1;
-        shCon.size.width = 81;
+        NSRect shCon = [shareConfirmation visibleRect];
+        shCon.origin.x = shCon.size.width - 130;
+        shCon.origin.y = 12;
+        shCon.size.width = 110;
         shCon.size.height = 28;
-        shareConfirm = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
-        shCon.origin.x = [shareConfirmation visibleRect].origin.x + 25;
-        shareCancel = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
+        shareConfirm = [[NSButton alloc] initWithFrame:shCon];
+        shCon.origin.x = 20;
+        shareCancel = [[NSButton alloc] initWithFrame:shCon];
         [shareConfirm setTitle:@"Yes"];
+        [shareConfirm setBezelStyle:NSRoundedBezelStyle];
         [shareConfirm setTarget:self];
         [shareConfirm setAction:@selector(shareNote:)];
         [shareCancel setTitle:@"No, thanks"];
+        [shareCancel setBezelStyle:NSRoundedBezelStyle];
         [shareCancel setTarget:self];
         [shareCancel setAction:@selector(cancelShare:)];
         [shareConfirmation addSubview:shareCancel];
         [shareConfirmation addSubview:shareConfirm];
 
         shCon = [shareNotification visibleRect];
-        shCon.size.width = 116;
+        shCon.size.width = 150;
         shCon.size.height = 28;
-        shCon.origin.x = 70;
-        viewOnWebButton = [[[ETTransparentButton alloc]initWithFrame:shCon] retain];
+        shCon.origin.x = (NSWidth([shareNotification bounds]) - shCon.size.width) / 2;
+        shCon.origin.y = 12;
+        viewOnWebButton = [[NSButton alloc] initWithFrame:shCon];
         [viewOnWebButton setTitle:@"View in Browser"];
+        [viewOnWebButton setBezelStyle:NSRoundedBezelStyle];
         [viewOnWebButton setTarget:self];
         [viewOnWebButton setAction:@selector(openShareURL:)];
         [shareNotification addSubview:viewOnWebButton];
-        // [[[self window] contentView] setNeedsDisplay:YES];
+        NSViewController *confirmationContent = [[NSViewController alloc] initWithNibName:nil bundle:nil];
+        [confirmationContent setView:shareConfirmation];
+        confirmationPopover = [[NSPopover alloc] init];
+        [confirmationPopover setContentViewController:confirmationContent];
+        [confirmationPopover setBehavior:NSPopoverBehaviorTransient];
+        [confirmationPopover setContentSize:[shareConfirmation frame].size];
+        [confirmationContent release];
 
-        //		[preview setPolicyDelegate:self];
-        //		[preview setUIDelegate:self];
+        NSViewController *shareContent = [[NSViewController alloc] initWithNibName:nil bundle:nil];
+        [shareContent setView:shareNotification];
+        sharePopover = [[NSPopover alloc] init];
+        [sharePopover setContentViewController:shareContent];
+        [sharePopover setBehavior:NSPopoverBehaviorTransient];
+        [sharePopover setContentSize:[shareNotification frame].size];
+        [shareContent release];
     }
     return self;
 }
@@ -258,13 +228,8 @@
 
     NSWindow *wnd = [self window];
     if ([wnd isVisible]) {
-        if (attachedWindow) {
-            [[shareButton window] removeChildWindow:attachedWindow];
-            [attachedWindow orderOut:self];
-            [attachedWindow release];
-            attachedWindow = nil;
-            [shareURL release];
-        }
+        [self cancelShare:self];
+        [self closeShareURLView];
         //      // TODO: should the "stuck" note remain stuck when preview is closed?
         //      if (self.isPreviewSticky)
         //        [self makePreviewNotSticky:self];
@@ -285,8 +250,17 @@
                                               forKey:kDefaultMarkupPreviewVisible];
 }
 
+- (void)close
+{
+    [self cancelShare:self];
+    [self closeShareURLView];
+    [super close];
+}
+
 -(void)windowWillClose:(NSNotification *)notification
 {
+    [self cancelShare:self];
+    [self closeShareURLView];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO]
                                               forKey:kDefaultMarkupPreviewVisible];
     NSMenu *previewMenu = [[[NSApp mainMenu] itemWithTitle:@"Preview"] submenu];
@@ -506,9 +480,8 @@
     NSString * responseString = [[[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding] autorelease];
     NSLog(@"RESPONSE STRING: %@", responseString);
     NSLog(@"%ld",(long)response.statusCode);
-    shareURL = [[NSString stringWithString:responseString] retain];
     if (response.statusCode == 200) {
-        [self showShareURL:[NSString stringWithFormat:@"View %@",shareURL] isError:NO];
+        [self showShareURL:responseString isError:NO];
     } else {
         [self showShareURL:@"Error connecting" isError:YES];
     }
@@ -627,90 +600,40 @@
 
 - (IBAction)shareAsk:(id)sender
 {
-    if (!confirmWindow && !attachedWindow) {
-        int side = 3;
-        NSPoint buttonPoint = NSMakePoint(NSMidX([shareButton frame]),
-                                          NSMidY([shareButton frame]));
-        confirmWindow = [[MAAttachedWindow alloc] initWithView:shareConfirmation
-                                               attachedToPoint:buttonPoint
-                                                      inWindow:[shareButton window]
-                                                        onSide:side
-                                                    atDistance:15.0f];
-        [confirmWindow setBorderColor:[NSColor colorWithCalibratedHue:0.278 saturation:0.000 brightness:0.871 alpha:0.950]];
-        [confirmWindow setBackgroundColor:[NSColor colorWithCalibratedRed:0.134 green:0.134 blue:0.134 alpha:0.950]];
-        [confirmWindow setViewMargin:3.0f];
-        [confirmWindow setBorderWidth:1.0f];
-        [confirmWindow setCornerRadius:10.0f];
-        [confirmWindow setHasArrow:YES];
-        [confirmWindow setDrawsRoundCornerBesideArrow:YES];
-        [confirmWindow setArrowBaseWidth:10.0f];
-        [confirmWindow setArrowHeight:6.0f];
-
-        [[shareButton window] addChildWindow:confirmWindow ordered:NSWindowAbove];
-
+    if ([confirmationPopover isShown]) {
+        [self cancelShare:sender];
+    } else if ([sharePopover isShown]) {
+        [self hideShareURL:sender];
     } else {
-        if (confirmWindow)
-            [self cancelShare:self];
-        else if (attachedWindow)
-            [self hideShareURL:self];
+        [self closeShareURLView];
+        [confirmationPopover showRelativeToRect:[shareButton bounds] ofView:shareButton preferredEdge:NSMaxYEdge];
     }
 }
 
 - (void)showShareURL:(NSString *)url isError:(BOOL)isError
 {
-    if (confirmWindow) {
-        [[shareButton window] removeChildWindow:confirmWindow];
-        [confirmWindow orderOut:self];
-        [confirmWindow release];
-        confirmWindow = nil;
-    }
-    // Attach/detach window
-    if (!attachedWindow) {
-        int side = 3;
-        NSPoint buttonPoint = NSMakePoint(NSMidX([shareButton frame]),
-                                          NSMidY([shareButton frame]));
-        attachedWindow = [[MAAttachedWindow alloc] initWithView:shareNotification
-                                                attachedToPoint:buttonPoint
-                                                       inWindow:[shareButton window]
-                                                         onSide:side
-                                                     atDistance:15.0f];
-        [attachedWindow setBorderColor:[NSColor colorWithCalibratedHue:0.278 saturation:0.000 brightness:0.871 alpha:0.950]];
-        [attachedWindow setBackgroundColor:[NSColor colorWithCalibratedRed:0.134 green:0.134 blue:0.134 alpha:0.950]];
-        [attachedWindow setViewMargin:3.0f];
-        [attachedWindow setBorderWidth:1.0f];
-        [attachedWindow setCornerRadius:10.0f];
-        [attachedWindow setHasArrow:YES];
-        [attachedWindow setDrawsRoundCornerBesideArrow:YES];
-        [attachedWindow setArrowBaseWidth:10.0f];
-        [attachedWindow setArrowHeight:6.0f];
-
-        [[shareButton window] addChildWindow:attachedWindow ordered:NSWindowAbove];
-        
-    }
-    
+    [self cancelShare:self];
+    [self closeShareURLView];
+    [viewOnWebButton setHidden:isError];
     if (isError) {
-        [urlTextField setStringValue:url];
-        [viewOnWebButton setHidden:YES];
+        [urlTextField setStringValue:url ?: @"Error connecting"];
     } else {
+        shareURL = [url copy];
         NSPasteboard *pb = [NSPasteboard generalPasteboard];
-        NSArray *types = [NSArray arrayWithObjects:NSStringPboardType, nil];
-        [pb declareTypes:types owner:self];
+        [pb declareTypes:@[NSStringPboardType] owner:nil];
         [pb setString:shareURL forType:NSStringPboardType];
-        [urlTextField setHidden:NO];
-        [urlTextField setStringValue:[@"Copied " stringByAppendingString:[shareURL stringByAppendingString:@" to clipboard"]]];
-        //[viewOnWebButton setTitle:url];
+        [urlTextField setStringValue:[NSString stringWithFormat:@"Copied %@ to clipboard", shareURL]];
     }
-    
-    
+    if ([[self window] isVisible]) {
+        [sharePopover showRelativeToRect:[shareButton bounds] ofView:shareButton preferredEdge:NSMaxYEdge];
+    }
 }
 
--(void)closeShareURLView
+- (void)closeShareURLView
 {
-    [[shareButton window] removeChildWindow:attachedWindow];
-    [attachedWindow orderOut:self];
-    [attachedWindow release];
-    attachedWindow = nil;
+    [sharePopover close];
     [shareURL release];
+    shareURL = nil;
 }
 
 - (IBAction)hideShareURL:(id)sender
@@ -720,25 +643,22 @@
 
 - (IBAction)cancelShare:(id)sender
 {
-    [[shareButton window] removeChildWindow:confirmWindow];
-    [confirmWindow orderOut:self];
-    [confirmWindow release];
-    confirmWindow = nil;
+    [confirmationPopover close];
 }
 
 - (IBAction)openShareURL:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:shareURL]];
-    [[shareButton window] removeChildWindow:attachedWindow];
-    [attachedWindow orderOut:self];
-    [attachedWindow release];
-    attachedWindow = nil;
-    [shareURL release];
+    if (shareURL) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:shareURL]];
+    [self closeShareURLView];
 }
 
 - (void)dealloc {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self cancelShare:self];
+    [self closeShareURLView];
+    [confirmationPopover release];
+    [sharePopover release];
     [preview release];
     [htmlString release];
     [cssString release];

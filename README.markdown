@@ -71,14 +71,25 @@ Successful `master` builds create a `build-<run number>` tag at the built commit
 A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
 Build tags do not change the app version or create GitHub Releases.
 
-CI checks the tag logic, builds the app, and checks that the archive retains executable permissions and framework symlinks.
+CI checks the tag logic and builds the app. It also checks executable permissions for the app and MultiMarkdown in the archive.
 The desktop integration suites remain separate. [Tests/CI/README.md](Tests/CI/README.md) describes the CI checks and tag rules.
+
+## Dependency changes
+
+This fork uses `NSJSONSerialization`, `NSDataDetector`, and native `NSPopover` windows.
+Automatic updates and the Check for Updates menu items are disabled.
+
+HTML files, web archives, and web-page downloads cannot be imported.
+Pasted URLs remain plain text. Browser paste uses a plain-text representation when available.
+The `nvalt://make` action accepts `txt`; its `html` and `url` import parameters are disabled.
+Existing HTML notes remain readable. Markup previews and HTML export remain available.
 
 ## Build and run
 
 The [official nvALT download](https://brettterpstra.com/projects/nvalt/) contains upstream nvALT, without these fork changes.
 
-The build requires full Xcode. Command Line Tools alone are insufficient. Bundled frameworks require an Intel build, so Apple Silicon Macs need Rosetta.
+The build requires full Xcode. Command Line Tools alone are insufficient.
+The bundled MultiMarkdown executable and OpenSSL archive require an Intel build. Apple Silicon Macs need Rosetta.
 
 The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK. Other macOS and Xcode versions need separate checks.
 
@@ -128,7 +139,7 @@ The build retains the upstream application identifier and can use existing nvALT
 | `Sources/` | Application code, grouped by responsibility. Headers stay beside their implementations. |
 | `Resources/` | Images, help, preview templates, interfaces, and localized resources in `Localization/*.lproj/`. |
 | `Config/` | Application plist, prefix header, sync configuration, and linker order files. |
-| `ThirdParty/` | Bundled source dependencies, frameworks, markup processors, and OpenSSL. |
+| `ThirdParty/` | Bundled source dependencies, markup processors, and OpenSSL. |
 | `Scripts/` | Development utilities. |
 | `Tests/` | Cocoa integration suites, regression checks, CI checks, and review records. |
 | `docs/` | Documentation assets and screenshots. |

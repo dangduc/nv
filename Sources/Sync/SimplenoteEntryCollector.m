@@ -21,7 +21,6 @@
 #import "SyncResponseFetcher.h"
 #import "SimplenoteSession.h"
 #import "NSString_NV.h"
-#import "NSDictionary+BSJSONAdditions.h"
 #import "SynchronizedNoteProtocol.h"
 #import "NoteObject.h"
 #import "DeletedNoteObject.h"
@@ -138,26 +137,22 @@
 	if ([[fetcher headers] objectForKey:@"X-Simperium-Version"]) {
 		version = [[[fetcher headers] objectForKey:@"X-Simperium-Version"] integerValue];
 	}
-	NSString *bodyString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	
-	NSDictionary *rawObject = nil;
-	@try {
-		rawObject = [NSDictionary dictionaryWithJSONString:bodyString];
-	}
-	@catch (NSException *e) {
-		NSLog(@"Exception while parsing Simplenote JSON note object: %@", [e reason]);
-	}
-	@finally {
-		if (!rawObject)
-			return nil;
+	NSError *jsonError = nil;
+	id object = data ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError] : nil;
+	NSDictionary *rawObject = [object isKindOfClass:[NSDictionary class]] ? object : nil;
+	if (!rawObject) {
+		NSLog(@"Could not parse Simplenote JSON note object: %@", jsonError ?: @"Expected an object");
+		return nil;
 	}
 	NSURL *url = [fetcher requestURL];
 	NSUInteger index = [[url pathComponents] indexOfObject:@"i"];
-	NSString *key;
-	if (index > 0 && index+1 < [[url pathComponents] count]) {
+	NSString *key = nil;
+	if (index != NSNotFound && index > 0 && index+1 < [[url pathComponents] count]) {
 		key = [[url pathComponents] objectAtIndex:(index+1)];
 	}
 
+	if (!key) return nil;
 	NSMutableDictionary *entry = [NSMutableDictionary dictionaryWithCapacity:12];
 	NSNumber *deleted = @([[rawObject objectForKey:@"deleted"] integerValue]);
 	NSArray *systemTags = [rawObject objectForKey:@"systemTags"];
@@ -312,7 +307,7 @@
 		}
 	}
 	NSDictionary *headers = [NSDictionary dictionaryWithObject:simperiumToken forKey:@"X-Simperium-Token"];
-	SyncResponseFetcher *fetcher = [[SyncResponseFetcher alloc] initWithURL:noteURL POSTData:[[rawObject jsonStringValue] dataUsingEncoding:NSUTF8StringEncoding] headers:headers contentType:@"application/json" delegate:self];
+	SyncResponseFetcher *fetcher = [[SyncResponseFetcher alloc] initWithURL:noteURL POSTData:[NSJSONSerialization dataWithJSONObject:rawObject options:0 error:NULL] headers:headers contentType:@"application/json" delegate:self];
 	[fetcher setRepresentedObject:aNote];
 	return [fetcher autorelease];
 }
@@ -342,7 +337,7 @@
 	//in keeping with nv's behavior with sn api1, deleting only marks a note as deleted.
 	//may want to implement actual purging (using HTTP DELETE) in the future
 	NSURL *noteURL = [SimplenoteSession simperiumURLWithPath:[NSString stringWithFormat:@"/Note/i/%@", [info objectForKey:@"key"]] parameters:nil];
-	NSData *postData = [[[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:@"deleted"] jsonStringValue] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *postData = [NSJSONSerialization dataWithJSONObject:@{@"deleted": @1} options:0 error:NULL];
 	NSDictionary *headers = [NSDictionary dictionaryWithObject:simperiumToken forKey:@"X-Simperium-Token"];
 	SyncResponseFetcher *fetcher = [[SyncResponseFetcher alloc] initWithURL:noteURL POSTData:postData headers:headers contentType:@"application/json" delegate:self];
 	[fetcher setRepresentedObject:aDeletedNote];
@@ -385,22 +380,21 @@
 #endif
 
 - (NSDictionary*)preparedDictionaryWithFetcher:(SyncResponseFetcher*)fetcher receivedData:(NSData*)data {
-	NSString *bodyString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	
-	NSDictionary *rawObject = nil;
-	@try {
-		rawObject = [NSDictionary dictionaryWithJSONString:bodyString];
-	}
-	@catch (NSException *e) {
-		NSLog(@"Exception while parsing Simplenote JSON note object: %@", [e reason]);
+	NSError *jsonError = nil;
+	id object = data ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError] : nil;
+	NSDictionary *rawObject = [object isKindOfClass:[NSDictionary class]] ? object : nil;
+	if (!rawObject) {
+		NSLog(@"Could not parse Simplenote JSON note object: %@", jsonError ?: @"Expected an object");
 	}
 	
 	NSString *keyString = nil;
 	NSURL *url = [fetcher requestURL];
 	NSUInteger index = [[url pathComponents] indexOfObject:@"i"];
-	if (index > 0 && index+1 < [[url pathComponents] count]) {
+	if (index != NSNotFound && index > 0 && index+1 < [[url pathComponents] count]) {
 		keyString = [[url pathComponents] objectAtIndex:(index+1)];
 	}
+	if (!keyString) return nil;
 	NSInteger version = 0;
 	if ([[fetcher headers] objectForKey:@"X-Simperium-Version"]) {
 		version = [[[fetcher headers] objectForKey:@"X-Simperium-Version"] integerValue];

@@ -1,10 +1,5 @@
 
-/*
- * You need to have the OpenSSL header files (as well as the location of their
- * include directory given to Project Builder) for this to compile.  For it
- * to link, add /usr/lib/libcrypto.dylib and /usr/lib/libssl.dylib to the linked
- * frameworks.
- */
+/* Uses the bundled OpenSSL libcrypto headers and archive. */
 /* NSData_crypto.h */
 
 #import <Foundation/Foundation.h>
@@ -24,7 +19,6 @@
 - (NSData*)MD5Digest;
 - (NSData*)BrokenMD5Digest;
 
-- (NSString*)pathURLFromWebArchive;
 
 - (BOOL)fsRefAsAlias:(FSRef*)fsRef;
 + (NSData*)aliasDataForFSRef:(FSRef*)fsRef;
