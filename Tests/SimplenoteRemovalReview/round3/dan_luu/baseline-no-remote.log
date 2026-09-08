@@ -1,0 +1,58 @@
+2026-09-08 13:28:00.290 nvALT[36722:325734496] PASS: temporary library directory exists
+2026-09-08 13:28:00.291 nvALT[36722:325734496] PASS: temporary library opens
+2026-09-08 13:28:00.611 nvALT[36722:325734496] PASS: create an isolated disposable database library
+2026-09-08 13:28:00.612 nvALT[36722:325734496] PASS: measured library uses database storage without browser or editing-session ownership
+2026-09-08 13:28:00.612 nvALT[36722:325734496] PASS: baseline has no configured or enabled sync accounts
+2026-09-08 13:28:00.613 nvALT[36722:325734496] verified 0 notes in 0.000374079 s
+2026-09-08 13:28:00.613 nvALT[36722:325734496] PASS: store initial empty library before counting
+2026-09-08 13:28:00.613 nvALT[36722:325734496] PASS: real journal writer is present
+2026-09-08 13:28:00.630 nvALT[36722:325734496] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:28:00.732 nvALT[36722:325734496] DAN_R3_LIFETIME batch=1 created=24 released=18 live=6
+2026-09-08 13:28:00.732 nvALT[36722:325734496] PASS: drained pools leave only the expected original notes retained after Undo is cleared
+2026-09-08 13:28:00.732 nvALT[36722:325734496] PASS: 24 create/tag/delete/Undo/Redo histories emit 78 note records and 48 local removal records
+2026-09-08 13:28:00.733 nvALT[36722:325734496] PASS: journal synchronization succeeds after each bounded batch
+2026-09-08 13:28:00.733 nvALT[36722:325734496] PASS: independent UUID ledger verifies each deletion and exact surviving title, source, and tags
+2026-09-08 13:28:00.733 nvALT[36722:325734496] PASS: survivor count excludes all deleted identities and duplicates
+2026-09-08 13:28:00.734 nvALT[36722:325734496] verified 6 notes in 0.000733018 s
+2026-09-08 13:28:00.735 nvALT[36722:325734496] PASS: bounded removal history stores a verified checkpoint
+2026-09-08 13:28:00.735 nvALT[36722:325734496] PASS: checkpoint encodes every surviving note once and only the expected remote deletion history
+2026-09-08 13:28:00.735 nvALT[36722:325734496] DAN_R3_BATCH app=baseline batch=1 created=24 released=18 liveOriginals=6 survivors=6 noteRecords=78 removalRecords=48 snapshotNotes=6 snapshotTombstones=0 snapshots=1
+2026-09-08 13:28:00.750 nvALT[36722:325734496] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:28:00.852 nvALT[36722:325734496] DAN_R3_LIFETIME batch=2 created=48 released=36 live=12
+2026-09-08 13:28:00.852 nvALT[36722:325734496] PASS: drained pools leave only the expected original notes retained after Undo is cleared
+2026-09-08 13:28:00.852 nvALT[36722:325734496] PASS: 24 create/tag/delete/Undo/Redo histories emit 78 note records and 48 local removal records
+2026-09-08 13:28:00.852 nvALT[36722:325734496] PASS: journal synchronization succeeds after each bounded batch
+2026-09-08 13:28:00.853 nvALT[36722:325734496] PASS: independent UUID ledger verifies each deletion and exact surviving title, source, and tags
+2026-09-08 13:28:00.853 nvALT[36722:325734496] PASS: survivor count excludes all deleted identities and duplicates
+2026-09-08 13:28:00.855 nvALT[36722:325734496] verified 12 notes in 0.000963926 s
+2026-09-08 13:28:00.855 nvALT[36722:325734496] PASS: bounded removal history stores a verified checkpoint
+2026-09-08 13:28:00.855 nvALT[36722:325734496] PASS: checkpoint encodes every surviving note once and only the expected remote deletion history
+2026-09-08 13:28:00.855 nvALT[36722:325734496] DAN_R3_BATCH app=baseline batch=2 created=48 released=36 liveOriginals=12 survivors=12 noteRecords=78 removalRecords=48 snapshotNotes=12 snapshotTombstones=0 snapshots=2
+2026-09-08 13:28:00.871 nvALT[36722:325734496] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:28:00.973 nvALT[36722:325734496] DAN_R3_LIFETIME batch=3 created=72 released=54 live=18
+2026-09-08 13:28:00.973 nvALT[36722:325734496] PASS: drained pools leave only the expected original notes retained after Undo is cleared
+2026-09-08 13:28:00.973 nvALT[36722:325734496] PASS: 24 create/tag/delete/Undo/Redo histories emit 78 note records and 48 local removal records
+2026-09-08 13:28:00.974 nvALT[36722:325734496] PASS: journal synchronization succeeds after each bounded batch
+2026-09-08 13:28:00.974 nvALT[36722:325734496] PASS: independent UUID ledger verifies each deletion and exact surviving title, source, and tags
+2026-09-08 13:28:00.974 nvALT[36722:325734496] PASS: survivor count excludes all deleted identities and duplicates
+2026-09-08 13:28:00.977 nvALT[36722:325734496] verified 18 notes in 0.00132501 s
+2026-09-08 13:28:00.977 nvALT[36722:325734496] PASS: bounded removal history stores a verified checkpoint
+2026-09-08 13:28:00.977 nvALT[36722:325734496] PASS: checkpoint encodes every surviving note once and only the expected remote deletion history
+2026-09-08 13:28:00.977 nvALT[36722:325734496] DAN_R3_BATCH app=baseline batch=3 created=72 released=54 liveOriginals=18 survivors=18 noteRecords=78 removalRecords=48 snapshotNotes=18 snapshotTombstones=0 snapshots=3
+2026-09-08 13:28:00.991 nvALT[36722:325734496] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:28:01.094 nvALT[36722:325734496] DAN_R3_LIFETIME batch=4 created=96 released=72 live=24
+2026-09-08 13:28:01.094 nvALT[36722:325734496] PASS: drained pools leave only the expected original notes retained after Undo is cleared
+2026-09-08 13:28:01.094 nvALT[36722:325734496] PASS: 24 create/tag/delete/Undo/Redo histories emit 78 note records and 48 local removal records
+2026-09-08 13:28:01.094 nvALT[36722:325734496] PASS: journal synchronization succeeds after each bounded batch
+2026-09-08 13:28:01.094 nvALT[36722:325734496] PASS: independent UUID ledger verifies each deletion and exact surviving title, source, and tags
+2026-09-08 13:28:01.094 nvALT[36722:325734496] PASS: survivor count excludes all deleted identities and duplicates
+2026-09-08 13:28:01.097 nvALT[36722:325734496] verified 24 notes in 0.0016669 s
+2026-09-08 13:28:01.098 nvALT[36722:325734496] PASS: bounded removal history stores a verified checkpoint
+2026-09-08 13:28:01.098 nvALT[36722:325734496] PASS: checkpoint encodes every surviving note once and only the expected remote deletion history
+2026-09-08 13:28:01.098 nvALT[36722:325734496] DAN_R3_BATCH app=baseline batch=4 created=96 released=72 liveOriginals=24 survivors=24 noteRecords=78 removalRecords=48 snapshotNotes=24 snapshotTombstones=0 snapshots=4
+2026-09-08 13:28:01.098 nvALT[36722:325734496] PASS: complete workload writes four checkpoints and 504 expected local journal records
+2026-09-08 13:28:01.100 nvALT[36722:325734496] PASS: independent UUID ledger verifies each deletion and exact surviving title, source, and tags
+2026-09-08 13:28:01.100 nvALT[36722:325734496] PASS: survivor count excludes all deleted identities and duplicates
+2026-09-08 13:28:01.100 nvALT[36722:325734496] PASS: real controller reopen preserves 24 survivors without resurrecting 72 deletions
+2026-09-08 13:28:01.103 nvALT[36722:325734496] verified 24 notes in 0.00167 s
+2026-09-08 13:28:01.104 nvALT[36722:325734496] DAN_R3_RESULT app=baseline histories=96 survivors=24 deleted=72 checks=43

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "correct",
+    "guards": [
+      true,
+      true,
+      true
+    ],
+    "local": true,
+    "sha256": "07bc028440a8dfba96f53023f3035141a94c5b1ecd8b6cd23d99eaeb9bf52f4d"
+  },
+  {
+    "name": "wrong-account-service",
+    "guards": [
+      false,
+      true,
+      true
+    ],
+    "local": true,
+    "sha256": "fe804af2b04f2e0b28c64529334d9818443a48225b1af62a149ea8289e5d6f8d"
+  },
+  {
+    "name": "disabled-account",
+    "guards": [
+      false,
+      true,
+      true
+    ],
+    "local": true,
+    "sha256": "3b75d2f3d89f8c8c2fd2c8bb5870a0ea2a4612dee261e1be156bca8f5e770988"
+  },
+  {
+    "name": "missing-live-metadata",
+    "guards": [
+      true,
+      false,
+      true
+    ],
+    "local": true,
+    "sha256": "7dcd985a6cba457643c226f6222dcfefd89ba5856626af804f727858eaa37d8e"
+  },
+  {
+    "name": "clean-live-metadata",
+    "guards": [
+      true,
+      false,
+      true
+    ],
+    "local": true,
+    "sha256": "f87d672be7809f0ed4c18e5f0cbe109a03176c8a61a4933bbf754fbb39bbeb57"
+  },
+  {
+    "name": "missing-deletion-metadata",
+    "guards": [
+      true,
+      true,
+      false
+    ],
+    "local": true,
+    "sha256": "0dee62f764182f4b7abc60862d250f5cebee85a2fe04d9b59adcea75909a83bc"
+  },
+  {
+    "name": "wrong-deletion-key",
+    "guards": [
+      true,
+      true,
+      false
+    ],
+    "local": true,
+    "sha256": "53fa89566421611da459f26da5125804732b2aeab62612a1e93c966d8f707f71"
+  },
+  {
+    "name": "changed-local-sequence",
+    "guards": [
+      true,
+      true,
+      true
+    ],
+    "local": false,
+    "sha256": "6e78f878d9be8b9fb8b35bd450ce9007161f3a086546d5ce5603349707ccc4fe"
+  }
+]

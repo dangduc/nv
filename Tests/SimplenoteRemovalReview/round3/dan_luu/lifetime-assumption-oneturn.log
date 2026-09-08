@@ -1,0 +1,17 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-xn0u544d/Review.m:29:17: warning: method definition for 'noteForUUIDBytes:' not found [-Wincomplete-implementation]
+   29 | @implementation NotationController (DanR3Probe)
+      |                 ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-xn0u544d/Review.m:24:1: note: method 'noteForUUIDBytes:' declared here
+   24 | - (NoteObject *)noteForUUIDBytes:(CFUUIDBytes *)bytes;
+      | ^
+1 warning generated.
+2026-09-08 13:24:37.207 nvALT[35470:325725866] PASS: temporary library directory exists
+2026-09-08 13:24:37.207 nvALT[35470:325725866] PASS: temporary library opens
+2026-09-08 13:24:37.528 nvALT[35470:325725866] PASS: create an isolated disposable database library
+2026-09-08 13:24:37.528 nvALT[35470:325725866] PASS: measured library uses database storage without browser or editing-session ownership
+2026-09-08 13:24:37.529 nvALT[35470:325725866] verified 0 notes in 0.000352025 s
+2026-09-08 13:24:37.529 nvALT[35470:325725866] PASS: store initial empty library before counting
+2026-09-08 13:24:37.530 nvALT[35470:325725866] PASS: real journal writer is present
+2026-09-08 13:24:37.543 nvALT[35470:325725866] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:24:37.595 nvALT[35470:325725866] DAN_R3_LIFETIME batch=1 created=24 released=14 live=10
+2026-09-08 13:24:37.595 nvALT[35470:325725866] FAIL: drained pools leave only the expected original notes retained after Undo is cleared

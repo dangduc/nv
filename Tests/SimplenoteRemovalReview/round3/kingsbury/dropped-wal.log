@@ -1,0 +1,43 @@
+2026-09-08 13:32:39.364 nvALT[39315:325746276] MIGRATION PRE-OPEN phase1: checkpoint bytes=4233 sha256=07bc028440a8dfba96f53023f3035141a94c5b1ecd8b6cd23d99eaeb9bf52f4d
+2026-09-08 13:32:39.659 nvALT[39315:325746276] PASS: temporary library directory exists
+2026-09-08 13:32:39.661 nvALT[39315:325746276] PASS: temporary library opens
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: only the current app opens the enabled-account archive; remote service code is absent
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: obsolete pending remote deletion never becomes a live note
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: fixed legacy identity is present in the live library
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: the real old fixture initially supplies exactly one local note
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: unsent local source and exact UTF-8 bytes survive the first live open
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: old live note title and tags match the literal fixture ledger
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: old identity has its fixed original sequence and dates
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: local syntax survives obsolete enabled account metadata
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: the checkpoint is still the old archive before local operations
+2026-09-08 13:32:39.980 nvALT[39315:325746276] PASS: crash checkpoint retains both obsolete outer archive fields
+2026-09-08 13:32:39.981 nvALT[39315:325746276] PASS: one explicit edit journal drain advances old sequence 1 to 2
+2026-09-08 13:32:39.982 nvALT[39315:325746276] PASS: local deletion writes sequence 3 after the edited record
+2026-09-08 13:32:39.992 nvALT[39315:325746276] PASS: deletion Undo restores the same old UUID as sequence 4
+2026-09-08 13:32:40.001 nvALT[39315:325746276] PASS: new fixed identity receives its first durable local journal sequence
+2026-09-08 13:32:40.003 nvALT[39315:325746276] PASS: newly created then deleted identity ends with a sequence 2 tombstone
+2026-09-08 13:32:40.004 nvALT[39315:325746276] INJECT: reject migration snapshot replacement bytes=3267
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: controlled checkpoint rejection prevents migration rewrite while normal serialization and WAL drain run
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: real encrypted local WAL remains present and its explicit fsync succeeds
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: at abrupt exit the sole checkpoint is byte-for-byte the 4,233-byte old archive
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: literal ledger identity exists: Migrated local title
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: exact source and exported bytes match: Migrated local title
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: literal title and tags match: Migrated local title
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: checkpoint syntax and newest literal sequence match: Migrated local title
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: fixed local creation date matches: Migrated local title
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: literal ledger identity exists: Born during migration
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: exact source and exported bytes match: Born during migration
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: literal title and tags match: Born during migration
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: checkpoint syntax and newest literal sequence match: Born during migration
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: fixed local creation date matches: Born during migration
+2026-09-08 13:32:40.004 nvALT[39315:325746276] PASS: exactly two local survivors; neither remote nor new local tombstone is resurrected
+2026-09-08 13:32:40.004 nvALT[39315:325746276] CONTROL: deliberately remove the durable WAL before abrupt exit
+2026-09-08 13:32:40.004 nvALT[39315:325746276] KINGSBURY ROUND3 CRASH CUT: 31 assertions, rejected stores=1
+2026-09-08 13:32:40.044 nvALT[39322:325746463] MIGRATION PRE-OPEN phase2: checkpoint bytes=4233 sha256=07bc028440a8dfba96f53023f3035141a94c5b1ecd8b6cd23d99eaeb9bf52f4d
+2026-09-08 13:32:40.347 nvALT[39322:325746463] PASS: temporary library directory exists
+2026-09-08 13:32:40.349 nvALT[39322:325746463] PASS: temporary library opens
+2026-09-08 13:32:40.674 nvALT[39322:325746463] PASS: only the current app opens the enabled-account archive; remote service code is absent
+2026-09-08 13:32:40.674 nvALT[39322:325746463] PASS: obsolete pending remote deletion never becomes a live note
+2026-09-08 13:32:40.674 nvALT[39322:325746463] PASS: fixed legacy identity is present in the live library
+2026-09-08 13:32:40.674 nvALT[39322:325746463] PASS: literal ledger identity exists: Migrated local title
+2026-09-08 13:32:40.674 nvALT[39322:325746463] FAIL: exact source and exported bytes match: Migrated local title

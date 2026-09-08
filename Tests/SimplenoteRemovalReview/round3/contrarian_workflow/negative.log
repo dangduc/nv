@@ -1,0 +1,21 @@
+2026-09-08 13:37:01.043 nvALT[43222:325760379] PASS: temporary library directory exists
+2026-09-08 13:37:01.044 nvALT[43222:325760379] PASS: temporary library opens
+2026-09-08 13:37:01.364 nvALT[43222:325760379] PASS: actual application delegate owns command routing
+2026-09-08 13:37:01.364 nvALT[43222:325760379] PASS: isolated launch disables quit after closing the last browser
+2026-09-08 13:37:01.777 nvALT[43222:325760379] PASS: two native browser controllers share the same library before closure
+2026-09-08 13:37:01.838 nvALT[43222:325760379] verified 2 notes in 0.000360012 s
+2026-09-08 13:37:01.847 nvALT[43222:325760379] PASS: checkpoint establishes original note bodies before pending source edits
+2026-09-08 13:37:01.852 nvALT[43222:325760379] PASS: native source editor has an unfinished composition before window closure
+2026-09-08 13:37:01.853 nvALT[43222:325760379] PASS: native source editor has an unfinished composition before window closure
+2026-09-08 13:37:01.853 nvALT[43222:325760379] PASS: both note models still hold their checkpoint bodies
+2026-09-08 13:37:01.927 nvALT[43222:325760379] PASS: closing an additional browser commits its pending source and unregisters it
+2026-09-08 13:37:01.985 nvALT[43222:325760379] PASS: closing the initial browser leaves no registered browser windows
+2026-09-08 13:37:01.985 nvALT[43222:325760379] PASS: coordinator retains the shared library and initial application-services bridge without browser windows
+2026-09-08 13:37:01.985 nvALT[43222:325760379] PASS: closing the last browser commits the initial editor's pending source
+2026-09-08 13:37:02.135 nvALT[43222:325760379] PASS: Preferences action reaches the coordinator while no browser window exists
+2026-09-08 13:37:02.196 nvALT[43222:325760379] PASS: retained initial-browser bridge opens Preferences without creating a browser
+2026-09-08 13:37:02.196 nvALT[43222:325760379] PASS: remaining native preference action has its connected control
+2026-09-08 13:37:02.197 nvALT[43222:325760379] PASS: native Preferences action updates its setting without browser windows
+2026-09-08 13:37:02.409 nvALT[43222:325760379] PASS: local UUID URL recreates exactly one browser after every browser closed
+2026-09-08 13:37:02.409 nvALT[43222:325760379] PASS: URL-created browser attaches to the existing shared library and becomes visible
+2026-09-08 13:37:02.409 nvALT[43222:325760379] FAIL: local UUID URL selects the exact existing note without creating a duplicate
