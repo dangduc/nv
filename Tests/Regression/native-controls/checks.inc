@@ -15,7 +15,9 @@
     [self nv_activateBrowser];
     [self bringFocusToControlField:self];
     for (NSUInteger i = 0; i < 4; i++) Pump();
-    Check([field currentEditor] != nil, @"Search command opens the actual field editor");
+    Check([field currentEditor] != nil && ![field isHiddenOrHasHiddenAncestor],
+        @"Search command opens a visible field editor");
+    Check(NSWidth([field bounds]) >= 140, @"focused Search has enough width for text editing");
 }
 
 - (void)nv_checkPeer:(AppController *)peer note:(NoteObject *)note {
@@ -51,7 +53,7 @@
         @"the menu dispatches its Search action");
     for (NSUInteger i = 0; i < 6; i++) Pump();
     BOOL restoredAndFocused = [[[toolbar items] valueForKey:@"itemIdentifier"] containsObject:@"Search"] &&
-        [field window] == window && [field currentEditor] != nil;
+        [field window] == window && ![field isHiddenOrHasHiddenAncestor] && [field currentEditor] != nil;
     if (!restoredAndFocused) NSLog(@"Search command state: present=%d fieldWindow=%@ editor=%@ key=%d activeBrowser=%@ expectedBrowser=%@",
         [[[toolbar items] valueForKey:@"itemIdentifier"] containsObject:@"Search"], [field window], [field currentEditor],
         [window isKeyWindow], [[NVApplicationController sharedController] activeBrowser], self);
@@ -81,6 +83,21 @@
         note ? @"Tab moves from Search to the selected note body" : @"Tab leaves Search focused without a selected note");
     Check([[field stringValue] isEqual:query] && [[[self browserSession] searchString] isEqual:query] &&
         [self selectedNoteObject] == note, @"Tab preserves the query and note selection");
+}
+
+- (void)nv_checkSearchFocusTransitionsWithNote:(NoteObject *)note {
+    [self nv_activateBrowser];
+    [self searchForString:@"al"]; [self revealNote:note options:0]; Pump();
+    [self searchForString:@"al"];
+    [window makeFirstResponder:textView];
+    for (NSUInteger i = 0; i < 8; i++) Pump();
+    Check([window firstResponder] == textView,
+        @"a query change does not queue Search focus after navigation to the body");
+    [self bringFocusToControlField:self];
+    [window makeFirstResponder:textView];
+    for (NSUInteger i = 0; i < 8; i++) Pump();
+    Check([window firstResponder] == textView,
+        @"Search does not queue focus after a later body focus command");
 }
 
 - (void)nv_completeTags:(NSString *)input expected:(NSString *)expected {
@@ -137,6 +154,7 @@
         if ([probe isEqual:@"all"] || [probe isEqual:@"search"]) {
             [self nv_checkSearchCommandWithQuery:@"al" note:alpha];
             [self nv_checkSearchCommandWithQuery:@"No matching note" note:nil];
+            [self nv_checkSearchFocusTransitionsWithNote:alpha];
             [self nv_checkPeer:peer note:beta];
         }
         if ([probe isEqual:@"all"] || [probe isEqual:@"tab"]) {
@@ -175,6 +193,19 @@
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
         NSColor *listColor = [[notesTableView backgroundColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
         Check([listColor whiteComponent] > .99, @"native controls retain the white notes list");
+        const char *artifacts = getenv("NV_UI_ARTIFACTS");
+        if (artifacts) {
+            [self searchForString:@"al"]; [self revealNote:alpha options:0];
+            [self nv_focusSearch];
+            CGImageRef capture = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow,
+                (CGWindowID)[window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+            Check(capture != NULL, @"the desktop captures the Search window");
+            NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:capture] autorelease];
+            CGImageRelease(capture);
+            NSString *path = [[NSString stringWithUTF8String:artifacts] stringByAppendingPathComponent:@"restored-search.png"];
+            Check([[bitmap representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:path atomically:YES],
+                @"restored Search screenshot is saved");
+        }
         [alpha release]; [beta release];
         [library flushAllNoteChanges]; [library closeJournal];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];

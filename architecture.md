@@ -68,6 +68,8 @@ The parser supports quoted phrases.
 
 Incremental search can reuse previous matches when a query becomes more restrictive.
 Library changes invalidate those candidates.
+Reveal refreshes a stale browser list before it searches for the requested note.
+If the query excludes that note, Reveal clears that browser's query without activating its window.
 During a library refresh, the selected note can remain visible even when an edit makes it stop matching.
 That retained row is excluded from the search candidate cache.
 
@@ -143,6 +145,11 @@ An appearance change must not rewrite shared note content.
 The search field holds a query independently of the selected note's title.
 Title and tag controls commit through the editing session and retain the original target note during an edit.
 New Note creates a blank note. Creation from search uses the query as the title.
+
+Search commands restore the toolbar and complete window layout before they focus the field.
+A search field with enough editing width receives focus directly.
+A hidden or compressed field uses the native toolbar expansion.
+This avoids a second, delayed focus change after the user moves to the note body.
 
 Each browser owns a [PreviewController](Sources/Preview/PreviewController.m) with a separate preview window.
 Browser-scoped notifications request delayed preview updates.
