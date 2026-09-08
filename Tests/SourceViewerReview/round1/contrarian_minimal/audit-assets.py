@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """Measure legacy preview resources left after their only caller was deleted."""
 from pathlib import Path
+import argparse
 import json
 import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--expect-removed", action="store_true", help="Verify the fixed source tree and built app instead of the original finding")
+parser.add_argument("--source-only", action="store_true", help="Skip the built app until a clean build is available")
+args = parser.parse_args()
+if args.source_only and not args.expect_removed:
+    parser.error("--source-only requires --expect-removed")
 
 repo = Path(__file__).resolve().parents[4]
 project = repo / "Notation.xcodeproj/project.pbxproj"
@@ -13,6 +21,27 @@ resource_refs = {objects[x]["fileRef"] for phase in resources for x in phase["fi
 names = ["HUDIconLock", "HUDIconPrint", "HUDIconSave", "HUDIconShare"]
 code = [p for root in ("Sources", "Resources") for p in (repo / root).rglob("*")
         if p.is_file() and p.suffix in (".m", ".h", ".c", ".xib", ".nib", ".strings")]
+orphan = repo / "Resources/Interfaces/SaveHTMLPreview.nib"
+if args.expect_removed:
+    bundle = repo / "build/DerivedData/Build/Products/Development/nvALT.app/Contents/Resources"
+    if not args.source_only:
+        assert bundle.is_dir(), "Build the Development app before checking its resources"
+    for name in names:
+        assert not (repo / "Resources/Images" / (name + ".png")).exists(), name + " remains in the source tree"
+        assert name not in project.read_text(), name + " remains in the Xcode project"
+        assert not [p for p in code if name.encode() in p.read_bytes()], name + " still has a code or interface reference"
+        if not args.source_only:
+            assert not list(bundle.rglob(name + ".png")), name + " remains in the built app; use a clean build"
+        print("REMOVED RESOURCE VERIFIED:", name)
+    assert not orphan.exists(), "The orphan sharing nib remains in the source tree"
+    assert "SaveHTMLPreview" not in project.read_text(), "The sharing nib remains in the Xcode project"
+    assert not [p for p in code if "Sources" in p.parts and b"SaveHTMLPreview" in p.read_bytes()]
+    if not args.source_only:
+        assert not list(bundle.rglob("SaveHTMLPreview.nib")), "The sharing nib remains in the built app"
+    print("REMOVED SHARING NIB VERIFIED")
+    print("RESOURCE REMOVAL AUDIT COMPLETE (" + ("source only" if args.source_only else "source and built app") + ")")
+    raise SystemExit(0)
+
 total = 0
 for name in names:
     asset = repo / "Resources/Images" / (name + ".png")
@@ -30,7 +59,6 @@ for name in names:
     print(f"UNUSED SHIPPED RESOURCE {asset.relative_to(repo)}: {asset.stat().st_size} bytes; no code or interface caller; former MarkupPreview.xib caller removed")
 print(f"TOTAL UNUSED SHIPPED PNG BYTES: {total}")
 
-orphan = repo / "Resources/Interfaces/SaveHTMLPreview.nib"
 assert orphan.exists()
 assert "SaveHTMLPreview" not in project.read_text()
 assert b"shareNote:" in (orphan / "designable.nib").read_bytes()

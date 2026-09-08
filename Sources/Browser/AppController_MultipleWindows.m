@@ -145,6 +145,7 @@ static NSDictionary *ValidatedBodyState(id value) {
 - (void)restoreBrowserWindowState:(NSDictionary *)state {
     [self setViewingNote:NO];
     presentationStateGeneration++;
+    [self discardViewer];
     if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:[state objectForKey:@"frame"]];
     browserHorizontalLayout = NO;
     NSString *query = [state objectForKey:@"search"];

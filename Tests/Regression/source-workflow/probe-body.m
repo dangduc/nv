@@ -50,6 +50,75 @@
         Check([ea isHiddenOrHasHiddenAncestor] && [[preview view] superview] == [[ea enclosingScrollView] superview], @"read-only viewer occupies the source body area");
         Check(![[a window] firstResponder] || [[a window] firstResponder] != ea, @"Preview focus leaves the hidden source editor");
         Check([[note sourceSyntaxIdentifier] isEqualToString:@"markdown"] && [[a selectedViewerIdentifier] isEqualToString:@"markdown"], @"initial Markdown viewer keeps explicit source syntax");
+        {
+            // Exercise the real browser state consumer, with only WebKit reply
+            // delivery controlled. The provider still owns its 0.5 s fallback.
+            NSString *noteKey = [NSString uuidStringWithBytes:*[note uniqueNoteIDBytes]];
+            double (^savedScroll)(void) = ^double {
+                return [[[[[a valueForKey:@"noteBodyStates"] objectForKey:noteKey] objectForKey:@"viewers"] objectForKey:@"markdown"][@"scrollY"] doubleValue];
+            };
+            NSMutableArray *replies = [NSMutableArray array];
+            NSString *documentBase = NativeJavaScript([preview webView], @"document.baseURI");
+            Method evaluateMethod = class_getInstanceMethod([WKWebView class], @selector(evaluateJavaScript:completionHandler:));
+            IMP originalEvaluate = method_getImplementation(evaluateMethod);
+            IMP controlledEvaluate = imp_implementationWithBlock(^(WKWebView *object, NSString *script, void (^completion)(id, NSError *)) {
+                if (object == [preview webView] && [script isEqual:@"[document.baseURI,window.scrollX,window.scrollY]"])
+                    [replies addObject:[[completion copy] autorelease]];
+                else ((void(*)(id, SEL, NSString *, id))originalEvaluate)(object, @selector(evaluateJavaScript:completionHandler:), script, completion);
+            });
+            method_setImplementation(evaluateMethod, controlledEvaluate);
+            for (NSUInteger order = 0; order < 3; order++) {
+                NSUInteger first = [replies count];
+                [preview restoreViewerState:@{@"scrollY": @100}]; [a captureBodyPresentation];
+                [preview restoreViewerState:@{@"scrollY": @200}]; [a captureBodyPresentation];
+                Check([replies count] == first + 2, @"browser requests two overlapping captures of the same note and viewer");
+                void (^older)(id, NSError *) = replies[first], (^newer)(id, NSError *) = replies[first + 1];
+                if (order == 0) {
+                    older(@[documentBase, @0, @100], nil);
+                    Check(savedScroll() == 200, @"browser rejects an older completion while a newer capture remains pending");
+                    newer(@[documentBase, @0, @200], nil);
+                } else {
+                    newer(@[documentBase, @0, @200], nil);
+                    if (order == 1) older(@[documentBase, @0, @100], nil);
+                    else Check(Await(^BOOL { return [[preview valueForKey:@"_stateCaptures"] count] == 0; }, 2), @"older browser capture reaches its production timeout");
+                }
+                Check(savedScroll() == 200 && [[[preview viewerState] objectForKey:@"scrollY"] doubleValue] == 200,
+                    @"ordered replies, reversed replies, and an older timeout preserve browser and provider canonical state");
+                older(@[documentBase, @0, @999], nil);
+                Check(savedScroll() == 200, @"late repeated WebKit replies cannot replace the browser's latest saved state");
+            }
+            // Return to A before its capture replies and before B can render.
+            NativeJavaScript([preview webView], @"window.scrollTo(0,420)");
+            NSUInteger returningCapture = [replies count];
+            NoteObject *intermediate = MakeNote(library, @"Intermediate capture note", @"# Intermediate B");
+            [a revealNote:intermediate options:0]; [a revealNote:note options:0];
+            Check([[preview snapshot] noteIdentifier] && [[[preview snapshot] noteIdentifier] isEqual:noteKey] &&
+                [preview hasPendingViewerStateCaptureForSnapshot:[preview snapshot] viewerIdentifier:@"markdown"],
+                @"rapid browser A to B to A retains A's pending capture instead of superseding it with cached restoration");
+            Check([replies count] == returningCapture + 1, @"loading B uses cached B state without reading the previous A document");
+            void (^returningReply)(id, NSError *) = replies[returningCapture];
+            returningReply(@[documentBase, @0, @420], nil);
+            Check(Await(^BOOL { return PreviewShows(a, @"Source workflow"); }, 15), @"rapid A to B to A finishes after the capture barrier");
+            Check(savedScroll() == 420 && fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - 420) <= 2,
+                @"browser and rendered A restore its exact captured position after an immediate note round-trip");
+
+            // Authoritative saved-window restoration must invalidate pending
+            // captures in both the browser and the old provider.
+            [preview restoreViewerState:@{@"scrollY": @100}]; [a captureBodyPresentation];
+            NSMutableDictionary *restoredWindow = [[[a browserWindowState] mutableCopy] autorelease];
+            [restoredWindow setObject:@{@"viewers": @{@"markdown": @{@"scrollY": @300}}} forKey:@"bodyState"];
+            PreviewController *oldProvider = [preview retain];
+            [a restoreBrowserWindowState:restoredWindow];
+            Check([a valueForKey:@"previewController"] != oldProvider, @"explicit window restoration replaces the provider with pending captures");
+            for (void (^reply)(id, NSError *) in replies) reply(@[documentBase, @0, @999], nil);
+            method_setImplementation(evaluateMethod, originalEvaluate); imp_removeBlock(controlledEvaluate);
+            Check(Await(^BOOL { return PreviewShows(a, @"Source workflow"); }, 15), @"explicitly restored viewer renders after closing the old provider");
+            preview = [a valueForKey:@"previewController"];
+            Check(savedScroll() == 300 && fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - 300) <= 2,
+                @"old callbacks cannot overwrite the authoritative restored browser or provider position");
+            Check(![oldProvider loading] && [oldProvider renderedHTML] == nil, @"late restoration callbacks cannot reopen the discarded provider");
+            [oldProvider release];
+        }
         ChangeMode(a, NO);
         Check(Await(^BOOL { return ![a isViewingNote] && ![ea isHiddenOrHasHiddenAncestor]; }, 2), @"Source control returns to the editable native view");
         Check([[[note contentString] string] isEqualToString:committed] && memcmp(&uuid, [note uniqueNoteIDBytes], sizeof(uuid)) == 0 &&

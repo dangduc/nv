@@ -33,6 +33,58 @@ static void SetHelper(NSString *path, NSString *script) {
     Check([script writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:NULL], @"write disposable helper fixture");
     Check([[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions:@0755} ofItemAtPath:path error:NULL], @"fixture executable permission");
 }
+static NSString *ChunkedHTML(NSUInteger bytes) {
+    NSMutableString *HTML = [NSMutableString stringWithString:@"<p>START_SENTINEL</p>"];
+    NSString *chunk = [NSString stringWithFormat:@"<p>%@</p>", [@"x" stringByPaddingToLength:1024*1024 withString:@"x" startingAtIndex:0]];
+    NSString *end = @"END_SENTINEL</p>";
+    while ([HTML length] + [chunk length] + 3 + [end length] <= bytes) [HTML appendString:chunk];
+    [HTML appendString:@"<p>"];
+    [HTML appendString:[@"x" stringByPaddingToLength:bytes - [HTML length] - [end length] withString:@"x" startingAtIndex:0]];
+    [HTML appendString:end];
+    return HTML;
+}
+static void CheckHTMLParserLimits(NVMarkupRenderer *renderer) {
+    for (NSNumber *size in @[@(9*1024*1024), @(11*1024*1024), @(15*1024*1024)]) {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        NSString *body = [@"x" stringByPaddingToLength:[size unsignedIntegerValue] withString:@"x" startingAtIndex:0];
+        NSString *source = [NSString stringWithFormat:@"<main><p>START_SENTINEL%@END_SENTINEL</p><section>After paragraph</section></main>", body];
+        NSError *error = nil;
+        NVMarkupRenderResult *result = Render(renderer, Snapshot(source, @"Parser text limit", 22), @"html", &error);
+        if ([size unsignedIntegerValue] == 9*1024*1024) {
+            Check(result && !error && [[result HTML] containsString:@"START_SENTINEL"] && [[result HTML] containsString:@"END_SENTINEL"] && [[result HTML] containsString:@"After paragraph"], @"9 MiB paragraph preserves both boundaries despite recoverable HTML5 diagnostics");
+        } else {
+            Check(!result && [[error domain] isEqual:NVMarkupRendererErrorDomain] && [error code] == NVMarkupLimitExceeded, @"11 and 15 MiB paragraphs fail explicitly instead of returning truncated HTML");
+        }
+        [pool drain];
+    }
+    // Separate text nodes remain within libxml's limit even at our full input
+    // budget. Rejecting every source above one text-node limit is unnecessary.
+    for (NSUInteger bytes = 16*1024*1024; bytes <= 16*1024*1024 + 1; bytes++) {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        NSString *source = ChunkedHTML(bytes);
+        Check([source lengthOfBytesUsingEncoding:NSUTF8StringEncoding] == bytes, @"chunked fixture meets the exact source-byte boundary");
+        NSError *error = nil;
+        NVMarkupRenderResult *result = Render(renderer, Snapshot(source, @"Source byte limit", 23), @"html", &error);
+        if (bytes == 16*1024*1024)
+            Check(result && !error && [[result HTML] containsString:@"START_SENTINEL"] && [[result HTML] containsString:@"END_SENTINEL"], @"16 MiB split across bounded text nodes retains all content");
+        else
+            Check(!result && [error code] == NVMarkupLimitExceeded, @"one byte above the source limit returns a structured failure");
+        [pool drain];
+    }
+    for (NSNumber *depth in @[@240, @300]) {
+        NSMutableString *source = [NSMutableString string];
+        for (NSUInteger index = 0; index < [depth unsignedIntegerValue]; index++) [source appendString:@"<div>"];
+        [source appendString:@"DEPTH_SENTINEL"];
+        for (NSUInteger index = 0; index < [depth unsignedIntegerValue]; index++) [source appendString:@"</div>"];
+        [source appendString:@"<section>After nesting</section>"];
+        NSError *error = nil;
+        NVMarkupRenderResult *result = Render(renderer, Snapshot(source, @"Parser depth limit", 24), @"html", &error);
+        if ([depth unsignedIntegerValue] == 240)
+            Check(result && !error && [[result HTML] containsString:@"DEPTH_SENTINEL"] && [[result HTML] containsString:@"After nesting"], @"nesting below the parser limit preserves inner and following text");
+        else
+            Check(!result && [error code] == NVMarkupLimitExceeded, @"excessive nesting fails instead of exporting a partial tree");
+    }
+}
 int main(int argc, char **argv) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     Check(argc == 2, @"disposable resource bundle argument");
@@ -77,6 +129,7 @@ int main(int argc, char **argv) {
     Check(!result && [error code] == NVMarkupUnsupportedContent, @"unsupported viewers report a structured error");
     result = Render(renderer, Snapshot(nil, @"Native bytes", 19), @"html", &error);
     Check(!result && [error code] == NVMarkupUnsupportedContent, @"text provider rejects a native-only payload");
+    CheckHTMLParserLimits(renderer);
 
     NSString *helper = [[bundle resourcePath] stringByAppendingPathComponent:@"multimarkdown"];
     NSData *original = [NSData dataWithContentsOfFile:helper];

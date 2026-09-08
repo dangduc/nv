@@ -4,6 +4,7 @@
 #import "NVSourceHighlighter.h"
 #import "SyncResponseFetcher.h"
 #import "NotationPrefs.h"
+#import "NSString_NV.h"
 #import <math.h>
 
 static BOOL Await(BOOL (^condition)(void), NSTimeInterval seconds) {

@@ -64,9 +64,15 @@ static NSString *NotePresentationKey(NoteObject *note) {
     [noteBodyStates setObject:state forKey:key];
     if (viewingNote && previewController) {
         NSUInteger stateGeneration = presentationStateGeneration;
+        NVNoteContentSnapshot *requestedSnapshot = [previewController snapshot];
+        NSArray *requestKey = @[[requestedSnapshot libraryIdentifier] ?: @"", [requestedSnapshot noteIdentifier] ?: @"", [previewController viewerIdentifier] ?: @""];
+        id request = [[[NSObject alloc] init] autorelease];
+        if (!viewerStateCaptureRequests) viewerStateCaptureRequests = [[NSMutableDictionary alloc] init];
+        [viewerStateCaptureRequests setObject:request forKey:requestKey];
         [previewController captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *viewerState) {
+            if ([viewerStateCaptureRequests objectForKey:requestKey] != request || stateGeneration != presentationStateGeneration) return;
             NSString *libraryIdentifier = [[[[self sharedNotationController] notesDirectoryURL] URLByResolvingSymlinksInPath] path];
-            if (stateGeneration != presentationStateGeneration || ![[snapshot libraryIdentifier] isEqual:libraryIdentifier] ||
+            if (![[snapshot libraryIdentifier] isEqual:libraryIdentifier] ||
                 ![[snapshot noteIdentifier] length] || ![identifier length]) return;
             NSString *capturedKey = [snapshot noteIdentifier];
             NSMutableDictionary *capturedState = [[[noteBodyStates objectForKey:capturedKey] mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];
@@ -175,10 +181,15 @@ static NSString *NotePresentationKey(NoteObject *note) {
     NSDictionary *state = changedPresentation ?
         [[[noteBodyStates objectForKey:NotePresentationKey(currentNote)] objectForKey:@"viewers"] objectForKey:selectedViewerIdentifier] : nil;
     [previewController displaySnapshot:snapshot viewerIdentifier:selectedViewerIdentifier];
-    if (changedPresentation) [previewController restoreViewerState:state ?: @{}];
+    // A rapid A → B → A can return before A's exact DOM capture completes.
+    // Its navigation barrier will install that result; cached restoration here
+    // would supersede the outstanding capture with older state.
+    if (changedPresentation && ![previewController hasPendingViewerStateCaptureForSnapshot:snapshot viewerIdentifier:selectedViewerIdentifier])
+        [previewController restoreViewerState:state ?: @{}];
 }
 - (void)discardViewer {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateViewerSnapshot) object:nil];
+    [viewerStateCaptureRequests release]; viewerStateCaptureRequests = nil;
     [previewController close]; [[previewController view] removeFromSuperview];
     [previewController release]; previewController = nil;
 }

@@ -132,6 +132,13 @@ These bytes therefore remain inside encrypted note data when database encryption
 Unchanged source export returns the original bytes. Edits retain the encoding when it can represent every character.
 An unrepresentable edit offers explicit UTF-8 conversion instead of lossy replacement.
 A pending conversion remains in the note archive and retries after reopening. The existing source file stays unchanged until conversion succeeds.
+Text Encoding cannot reinterpret that older file while source conversion is pending.
+Directory reconciliation compares disk source with the last read, written, or separately preserved file bytes.
+Metadata-only events preserve the pending edit without creating a conflict note.
+A different external body becomes an “external changes” note with its own source file and synchronized journal record before local conversion can replace it.
+The pending write checks disk again without waiting for directory notifications.
+These checks use the existing file and journal transactions; they do not lock out simultaneous writes by external applications.
+Unmarked non-UTF-8 imports keep the legacy MacRoman fallback. BOMs, encoding attributes, and explicit hints take precedence.
 
 `NotationPrefs` stores local syntax identifiers by note UUID within each library.
 A syntax change saves library preferences without dirtying the note or entering Simplenote requests.
@@ -177,6 +184,7 @@ A peer's composition can defer the shared commit. The viewer then uses the last 
 Mode and viewer changes preserve source, Undo, caret, and separate scroll positions when no edits are pending.
 Transition captures read current DOM scroll positions before replacement navigation.
 Callbacks retain their original note and viewer identity, with a bounded cached-state fallback if WebKit does not reply.
+The provider and browser order canonical state updates per note and viewer. Older replies still complete but cannot replace newer restoration state.
 Library replacement and restoration reject older state callbacks. Synchronous application termination can use the last cached viewer position.
 
 [NVNoteContentSnapshot](Sources/Preview/NVNoteContentSnapshot.m) copies the library identity, note UUID, generation, title, source, syntax, and scoped asset root.
@@ -203,6 +211,8 @@ Character notifications invalidate capture revisions immediately. Removing stale
 The initial pinned Tree-sitter runtime supports Markdown block and inline syntax, HTML, and JSON.
 Plain Text and Textile use plain source display. Language injections and structural editing are not implemented.
 Incremental parsing reuses compatible trees. Queries cover the current tree within a work budget.
+Display application has a separate limit of 4,096 capture writes across all attached layouts per revision.
+Results above that limit use plain display. The operation count does not bound glyph layout or painting time.
 Unsupported queries, large notes, time limits, and cancellation fall back to editable plain source.
 [The dependency manifest](ThirdParty/TreeSitter/manifest.json) records revisions and hashes; bundled notices accompany the queries.
 

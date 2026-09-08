@@ -145,6 +145,10 @@ static const NSStringEncoding AllowedEncodings[] = {
 }
 
 - (void)showPanelForNote:(NoteObject*)aNote {
+	if ([aNote sourceConversionPending]) {
+		[self offerUTF8ConversionForNote:aNote];
+		return;
+	}
 	currentEncoding = fileEncodingOfNote(aNote);
 	
 	[note release];
@@ -275,6 +279,10 @@ static const NSStringEncoding AllowedEncodings[] = {
 }
 
 - (BOOL)shouldUpdateNoteFromDisk {
+	if ([note sourceConversionPending]) {
+		[self offerUTF8ConversionForNote:note];
+		return NO;
+	}
 	FSCatalogInfo info;
 	OSStatus err = noErr;
 	if ((err = [[note delegate] fileInNotesDirectory:&fsRef isOwnedByUs:NULL hasCatalogInfo:&info]) != noErr) {
@@ -314,8 +322,7 @@ static const NSStringEncoding AllowedEncodings[] = {
 - (IBAction)okAction:(id)sender {
 	
 	//check whether file mod. date of note is older than mod. date on disk
-	if ([self shouldUpdateNoteFromDisk]) {
-		[note setFileEncodingAndReinterpret:currentEncoding];
+	if ([self shouldUpdateNoteFromDisk] && [note setFileEncodingAndReinterpret:currentEncoding]) {
 		[[NSApp delegate] contentsUpdatedForNote:note];
 	}
 	
