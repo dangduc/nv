@@ -147,6 +147,9 @@ New Note creates a blank note. Creation from search uses the query as the title.
 Each browser owns a [PreviewController](Sources/Preview/PreviewController.m) with a separate preview window.
 Browser-scoped notifications request delayed preview updates.
 The controller converts markup to HTML and renders it with the legacy WebKit `WebView`.
+The controller owns two native `NSPopover` instances for sharing confirmation and results.
+Each popover retains its content controller and nib view. Hiding or closing the preview closes both popovers.
+The preview controller releases both popovers during deallocation.
 Custom `template.html` and `custom.css` files override bundled defaults.
 Preview output is separate from the shared note body.
 
@@ -172,7 +175,7 @@ Application source files live in `Sources/`, grouped by responsibility.
 Objective-C categories divide existing controllers across files such as `AppController_Importing.m` and `NotationDirectoryManager.m`.
 Headers stay beside their implementations. Xcode navigator groups match the directories on disk.
 `Resources/` contains application assets and localized interfaces. `Config/` contains build configuration files.
-`ThirdParty/` contains bundled dependencies, including frameworks and OpenSSL. `Scripts/` contains development utilities.
+`ThirdParty/` contains bundled dependencies, including markup processors and OpenSSL. `Scripts/` contains development utilities.
 Add new source files and resources to [Notation.xcodeproj](Notation.xcodeproj).
 
 Preserve manual `retain`/`release` ownership.

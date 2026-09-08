@@ -29,15 +29,10 @@ extern NSString *RetrievedPasswordKey;
 	IBOutlet NSView *importAccessoryView;
 	
 	SEL importerSelector;
-	
-	//for URL downloading
-	id receptionDelegate;
-	
+
 	id source;
 	NSMutableDictionary *documentSettings;
 	BOOL shouldGrabCreationDates;
-    
-    BOOL shouldUseReadability;
 }
 
 //a directory containing notes, a custom bundle, or custom file format in which more than one note could be expected
@@ -46,7 +41,6 @@ extern NSString *RetrievedPasswordKey;
 + (void)importBlorOrHelpFilesIfNecessaryIntoNotation:(NotationController*)notation;
 + (AlienNoteImporter *)importerWithPath:(NSString*)path;
 - (void)importNotesFromDialogAroundWindow:(NSWindow*)mainWindow receptionDelegate:(id)receiver;
-- (void)importURLInBackground:(NSURL*)aURL linkTitle:(NSString*)linkTitle receptionDelegate:(id)receiver;
 + (NSString*)blorPath;
 
 + (NSBundle *)PDFKitBundle;
@@ -63,12 +57,7 @@ extern NSString *RetrievedPasswordKey;
 - (NSArray*)notesInDirectory:(NSString*)filename;
 - (NSArray*)notesInFile:(NSString*)filename;
 
-- (BOOL)shouldUseReadability;
-- (void)setShouldUseReadability:(BOOL)value;
 
-- (NSString*) contentUsingReadability: (NSString *)htmlFile;
-- (NSString*) markdownFromSource: (NSString *)htmlString;
-- (NSString*) markdownFromHTMLFile: (NSString *)htmlFile;
 @end
 
 @interface AlienNoteImporter (DialogDelegate)

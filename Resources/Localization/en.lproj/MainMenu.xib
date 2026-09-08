@@ -52,10 +52,6 @@
                             <menuItem isSeparatorItem="YES" id="991">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Check for Updates…" tag="88" id="990"/>
-                            <menuItem isSeparatorItem="YES" id="143">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Services" id="131">
                                 <menu key="submenu" title="Services" systemMenu="services" id="130"/>
                             </menuItem>
@@ -735,7 +731,6 @@ CA
                 <outlet property="previewToggler" destination="1244" id="1274"/>
                 <outlet property="printPreviewItem" destination="1292" id="1295"/>
                 <outlet property="savePreviewItem" destination="1239" id="1378"/>
-                <outlet property="sparkleUpdateItem" destination="990" id="1052"/>
                 <outlet property="statBarMenu" destination="1130" id="1165"/>
                 <outlet property="syncWaitPanel" destination="1079" id="1085"/>
                 <outlet property="syncWaitSpinner" destination="1082" id="1084"/>
@@ -1030,7 +1025,6 @@ CA
                         <action selector="showPreferencesWindow:" target="213" id="1181"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Check for Updates…" tag="902" id="1206"/>
                 <menuItem title="Quit nvALT" keyEquivalent="q" id="1183">
                     <connections>
                         <action selector="terminate:" target="-2" id="1184"/>

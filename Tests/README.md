@@ -1,6 +1,6 @@
 # Multiple-window integration tests
 
-Use macOS with full Xcode and an active desktop session. The bundled frameworks require an Intel build; Apple Silicon Macs need Rosetta.
+Use macOS with full Xcode and an active desktop session. The bundled MultiMarkdown executable and OpenSSL archive require an Intel build; Apple Silicon Macs need Rosetta.
 
 ## Build and run
 
@@ -15,7 +15,7 @@ python3 Tests/run-multiple-windows-tests.py
 python3 Tests/run-regression-tests.py
 ```
 
-The runner copies the app, gives it a separate preferences domain, and loads the test harness into that copy. It opens a temporary notes library. Startup hooks skip help import, external editor setup, and update checks. The runner then launches the copy again to check saved windows, notes, and library switching. Run it outside a restrictive process sandbox so Rosetta can launch the app.
+The runner copies the app, gives it a separate preferences domain, and loads the test harness into that copy. It opens a temporary notes library. Startup hooks skip help import and external editor setup. The runner then launches the copy again to check saved windows, notes, and library switching. Run it outside a restrictive process sandbox so Rosetta can launch the app.
 
 `compiler_support.py` supplies the header paths for standalone harness builds from `Sources/`, `Config/`, and `ThirdParty/`.
 
@@ -24,6 +24,13 @@ The suite exercises real nibs and Cocoa editors. It checks independent search, s
 ## Review regression checks
 
 The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
+
+## Native dependency replacements
+
+Run `python3 Tests/Regression/native-dependencies/run.py` after a Development build.
+The copied app checks JSON requests and responses, detected links, disabled imports, updater removal, and sharing popover ownership.
+Network fetches are blocked. Clipboard writes use a private test pasteboard.
+Set `NV_DEPENDENCY_SCREENSHOTS` to an absolute PNG path to capture the result popover.
 
 ## Native browser UI
 

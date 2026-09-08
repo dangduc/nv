@@ -1,10 +1,5 @@
 
-/*
- * You need to have the OpenSSL header files (as well as the location of their
- * include directory given to Project Builder) for this to compile.  For it
- * to link, add /usr/lib/libcrypto.dylib and /usr/lib/libssl.dylib to the linked
- * frameworks.
- */
+/* Uses the bundled OpenSSL libcrypto headers and archive. */
 
 /*
  * Compresses/decompresses data using zlib (see RFC 1950 and /usr/include/zlib.h)
@@ -27,7 +22,6 @@
 #include <openssl/bio.h>
 #include <openssl/err.h>
 
-#import <WebKit/WebKit.h>
 
 @implementation NSData (NVUtilities)
 
@@ -221,19 +215,6 @@
 	return [NSData dataWithBytes: md_value length: md_len];	
 }
 
-
-- (NSString*)pathURLFromWebArchive {
-
-	WebResource *resource = [[[[WebArchive alloc] initWithData:self] autorelease] mainResource];
-	NSURL *url = [resource URL];
-	
-	//it's not any kind of URL we want to keep
-	//this is probably text from another app's internal WebKit view
-	if ([[url scheme] isEqualToString:@"applewebdata"] || [[url scheme] isEqualToString:@"x-msg"])
-		return nil;
-	
-	return [url absoluteString];
-}
 
 - (BOOL)fsRefAsAlias:(FSRef*)fsRef {
     AliasHandle aliasHandle;

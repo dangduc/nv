@@ -45,8 +45,6 @@
 	IBOutlet NSSlider *maxWidthSlider;	
     IBOutlet NotationPrefsViewController *notationPrefsViewController;
 	IBOutlet NSComboBox *appList;
-    IBOutlet NSButton *useMarkdownImportButton;
-	IBOutlet NSButton *useReadabilityButton;
     IBOutlet NSButton *showGridButton;
     IBOutlet NSButton *altRowsButton;
 	NSMutableParagraphStyle *centerStyle;
@@ -84,8 +82,6 @@
 - (IBAction)changedExternalEditorsMenu:(id)sender;
 - (IBAction)changedTitleCompletion:(id)sender;
 - (IBAction)changedSoftTabs:(id)sender;
-- (IBAction)changedUseMarkdownImport:(id)sender;
-- (IBAction)changedUseReadability:(id)sender;
 - (IBAction)changedShowGrid:(id)sender;
 - (IBAction)changedAltRows:(id)sender;
 - (IBAction)changedAutoPairing:(id)sender;

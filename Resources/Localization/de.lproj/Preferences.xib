@@ -39,8 +39,6 @@
                 <outlet property="togDockButton" destination="380" id="386"/>
                 <outlet property="togDockLabel" destination="381" id="387"/>
                 <outlet property="useETScrollbarsOnLionButton" destination="481" id="484"/>
-                <outlet property="useMarkdownImportButton" destination="438" id="454"/>
-                <outlet property="useReadabilityButton" destination="439" id="455"/>
                 <outlet property="window" destination="5" id="238"/>
             </connections>
         </customObject>
@@ -398,46 +396,6 @@
                             </dictionary>
                         </binding>
                     </connections>
-                </textField>
-                <button id="438">
-                    <rect key="frame" x="157" y="179" width="289" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Importierte URL in Markdown umwandeln" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="445">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changedUseMarkdownImport:" target="-2" id="452"/>
-                    </connections>
-                </button>
-                <button id="439">
-                    <rect key="frame" x="157" y="159" width="235" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Mit Readability anzeigen" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="444">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changedUseReadability:" target="-2" id="453"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" id="440">
-                    <rect key="frame" x="74" y="163" width="80" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="URL Import:" id="443">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="441">
-                    <rect key="frame" x="175" y="116" width="247" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Options-Taste gedrückt halten, während ein Link zur Notizliste gezogen wird, dies aktiviert temporär Readability." id="442">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="446">
                     <rect key="frame" x="-3" y="50" width="157" height="17"/>

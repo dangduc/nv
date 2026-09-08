@@ -412,6 +412,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type {
+	if ([type isEqualToString:NSHTMLPboardType] || [type isEqualToString:@"Apple Web Archive pasteboard type"]) return NO;
 	//NSLog(@"readSelectionFromPasteboard: %@ (total %@)", type, [[pboard types] description]);
 	
 	if ([type isEqualToString:NSFilenamesPboardType]) {
@@ -429,12 +430,10 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 		}
 	}
 	
-	if ([type isEqualToString:NSRTFPboardType] || [type isEqualToString:NVPTFPboardType] || [type isEqualToString:NSHTMLPboardType]) {
+	if ([type isEqualToString:NSRTFPboardType] || [type isEqualToString:NVPTFPboardType]) {
 		//strip formatting if RTF and stick it into a new pboard
 		
-		NSMutableAttributedString *newString = [[[NSMutableAttributedString alloc] performSelector:[type isEqualToString:NSHTMLPboardType] ? 
-												 @selector(initWithHTML:documentAttributes:) : @selector(initWithRTF:documentAttributes:) 
-																						withObject:[pboard dataForType:type] withObject:nil] autorelease];
+		NSMutableAttributedString *newString = [[[NSMutableAttributedString alloc] initWithRTF:[pboard dataForType:type] documentAttributes:NULL] autorelease];
 		if ([newString length]) {
 			if (![type isEqualToString:NVPTFPboardType]) {
 							//remove the link attribute, because it will be re-added after we paste, and restyleText would preserve it otherwise
@@ -472,7 +471,6 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	
 	if ([prefsController pastePreservesStyle]) {
 		[types insertObject:NSRTFPboardType atIndex:2];
-		[types insertObject:NSHTMLPboardType atIndex:3];
 	}
 	
 	return types;
