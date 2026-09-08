@@ -1,0 +1,15 @@
+2026-09-08 02:11:09.542 nvALT[38389:324769887] PASS: isolated copied-app preferences domain
+2026-09-08 02:11:09.542 nvALT[38389:324769887] PASS: copied app and temporary library share the test root
+2026-09-08 02:11:09.547 nvALT[38389:324769887] PASS: temporary library directory exists
+2026-09-08 02:11:09.547 nvALT[38389:324769887] PASS: temporary library opens
+2026-09-08 02:11:09.864 nvALT[38389:324769887] PASS: unmarked MacRoman fixture writes
+2026-09-08 02:11:09.864 nvALT[38389:324769887] PASS: fixture has no text-encoding xattr
+2026-09-08 02:11:09.864 nvALT[38389:324769887] PASS: previous importer decoder preserves unmarked MacRoman characters
+2026-09-08 02:11:09.866 nvALT[38389:324769887] PASS: source importer accepts the same fixture
+2026-09-08 02:11:09.866 nvALT[38389:324769887] EVIDENCE legacy expected UTF8 hex={length = 16, bytes = 0x2020636166c3a920c2a320e280930d0a} actual UTF8 hex={length = 15, bytes = 0x2020636166c5bd20c2a320c3900d0a} original encoding=30 current encoding=12
+2026-09-08 02:11:09.866 nvALT[38389:324769887] PASS: CONFIRMED: changed fallback silently changes MacRoman characters
+2026-09-08 02:11:09.866 nvALT[38389:324769887] PASS: original-byte retention masks the incorrect source decoding on unchanged export
+2026-09-08 02:11:09.867 nvALT[38389:324769887] PASS: REJECTED: explicit MacRoman xattrs remain honored
+2026-09-08 02:11:09.867 nvALT[38389:324769887] PASS: REJECTED: unmarked UTF-8 remains correct
+2026-09-08 02:11:09.867 nvALT[38389:324769887] PASS: REJECTED: BOM overrides an incompatible encoding hint
+2026-09-08 02:11:09.867 nvALT[38389:324769887] CONTRARIAN DATA REVIEW CHECKS PASSED: 13

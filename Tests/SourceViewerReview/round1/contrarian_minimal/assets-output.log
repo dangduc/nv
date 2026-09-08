@@ -1,0 +1,7 @@
+UNUSED SHIPPED RESOURCE Resources/Images/HUDIconLock.png: 23672 bytes; no code or interface caller; former MarkupPreview.xib caller removed
+UNUSED SHIPPED RESOURCE Resources/Images/HUDIconPrint.png: 24963 bytes; no code or interface caller; former MarkupPreview.xib caller removed
+UNUSED SHIPPED RESOURCE Resources/Images/HUDIconSave.png: 36522 bytes; no code or interface caller; former MarkupPreview.xib caller removed
+UNUSED SHIPPED RESOURCE Resources/Images/HUDIconShare.png: 28060 bytes; no code or interface caller; former MarkupPreview.xib caller removed
+TOTAL UNUSED SHIPPED PNG BYTES: 113217
+ORPHAN SHARE NIB: 59369 bytes; no Xcode or Sources reference
+RESOURCE CLOSURE AUDIT COMPLETE

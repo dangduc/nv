@@ -1,0 +1,287 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-32e7wiit/ReviewProbe.m:151:14: warning: instance method '-configureMenus' not found (return type defaults to 'id') [-Wobjc-method-access]
+  151 |         [app configureMenus]; [app configureMenus];
+      |              ^~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Application/NVApplicationController.h:4:12: note: receiver is instance of class declared here
+    4 | @interface NVApplicationController : NSObject <NSApplicationDelegate> {
+      |            ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-32e7wiit/ReviewProbe.m:151:36: warning: instance method '-configureMenus' not found (return type defaults to 'id') [-Wobjc-method-access]
+  151 |         [app configureMenus]; [app configureMenus];
+      |                                    ^~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Application/NVApplicationController.h:4:12: note: receiver is instance of class declared here
+    4 | @interface NVApplicationController : NSObject <NSApplicationDelegate> {
+      |            ^
+2 warnings generated.
+2026-09-08 02:11:19.009 nvALT[38446:324770260] PASS: isolated copied-app preferences domain
+2026-09-08 02:11:19.009 nvALT[38446:324770260] PASS: copied app and temporary library share the test root
+2026-09-08 02:11:19.009 nvALT[38446:324770260] PASS: temporary library directory exists
+2026-09-08 02:11:19.010 nvALT[38446:324770260] PASS: temporary library opens
+2026-09-08 02:11:19.336 nvALT[38446:324770260] PASS: source-only browser has no viewer controller
+2026-09-08 02:11:19.487 nvALT[38446:324770260] PASS: selecting a source note does not create a viewer
+2026-09-08 02:11:19.487 nvALT[38446:324770260] PASS: Markdown-looking source still defaults to explicit Plain Text
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: syntax selection does not allocate an unused provider
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.488 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: live menu contains no removed workflow action
+2026-09-08 02:11:19.489 nvALT[38446:324770260] PASS: repeated menu configuration does not duplicate viewer or syntax choices
+2026-09-08 02:11:19.499 nvALT[38446:324770260] PASS: source edit establishes an Undo history
+2026-09-08 02:11:19.693 nvALT[38446:324770260] verified 1 notes in 0.000332952 s
+2026-09-08 02:11:19.970 nvALT[38446:324770260] PASS: preview renders before responder-chain probe
+2026-09-08 02:11:19.970 nvALT[38446:324770260] Preview Undo responder=NSWindow enabled=0
+2026-09-08 02:11:20.021 nvALT[38446:324770260] PASS: actual responder-chain Undo leaves hidden source unchanged
+2026-09-08 02:11:20.022 nvALT[38446:324770260] PASS: application-routed preview menu does not change insertion syntax
+2026-09-08 02:11:20.075 nvALT[38446:324770260] PASS: source Undo remains intact after viewer commands
+2026-09-08 02:11:20.077 nvALT[38446:324770260] verified 1 notes in 0.000285983 s
+2026-09-08 02:11:20.077 nvALT[38446:324770260] CONTRARIAN MINIMAL CHECKS PASSED: 270
