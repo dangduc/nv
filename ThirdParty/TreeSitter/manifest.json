@@ -1,0 +1,347 @@
+{
+  "components": [
+    {
+      "repository": "https://github.com/tree-sitter/tree-sitter",
+      "commit": "072f68c829696687fb01cbc8764e655b3ee942ba",
+      "license": "MIT; also retain lib/src/unicode/LICENSE notices",
+      "vendored_directories": [
+        "runtime"
+      ]
+    },
+    {
+      "repository": "https://github.com/tree-sitter/tree-sitter-json",
+      "commit": "254c42a6476413b776221e03982ac8ae159eeb72",
+      "license": "MIT",
+      "vendored_directories": [
+        "json"
+      ]
+    },
+    {
+      "repository": "https://github.com/tree-sitter/tree-sitter-html",
+      "commit": "73a3947324f6efddf9e17c0ea58d454843590cc0",
+      "license": "MIT",
+      "vendored_directories": [
+        "html"
+      ]
+    },
+    {
+      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
+      "commit": "a0a00f817d02412bd92c54d316f164d827b57b5c",
+      "license": "MIT",
+      "vendored_directories": [
+        "markdown",
+        "markdown-inline"
+      ]
+    }
+  ],
+  "compiled_runtime": "runtime/src/lib.c",
+  "grammar_abi": {
+    "json": 14,
+    "html": 14,
+    "markdown": 15,
+    "markdown-inline": 15
+  },
+  "accepted_runtime_abi": [
+    13,
+    15
+  ],
+  "excluded": "WASM stdlib, bindings, generators, node types, grammar JSON, injection queries, upstream tests, build systems, package manifests. lib.c includes wasm_store.c for native no-op stubs; WASM execution is not enabled.",
+  "query_policy": "Pinned upstream highlighting queries contain no predicates. Adapter explicitly rejects query predicates or directives. No language injections.",
+  "vendored_bytes": 5307110,
+  "files": {
+    "README.md": {
+      "bytes": 1701,
+      "sha256": "529d2f106e9f25f6c5670d89321c7423ef7c003ce47de5d9366322136426b41a"
+    },
+    "html/LICENSE": {
+      "bytes": 1080,
+      "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+    },
+    "html/src/parser.c": {
+      "bytes": 66466,
+      "sha256": "65768172733b3bbe461cbdc14ea928f00fbfcc51d8ac68f0a5c72071c6a0bbf1"
+    },
+    "html/src/scanner.c": {
+      "bytes": 10796,
+      "sha256": "5c0a0567e010277b81fe63be0acd04f6b44c3ef3063ac01429b910c1d22f0dca"
+    },
+    "html/src/tag.h": {
+      "bytes": 8388,
+      "sha256": "aaf1a10c8a2f685ef51a4aa6c01a2cbe166bff67eeccf6b9501a625b71f9ab70"
+    },
+    "html/src/tree_sitter/alloc.h": {
+      "bytes": 985,
+      "sha256": "b29c1c9fb7cc82f58c84b376df1297d6e2737a1d655fd356db0859e3c29c2fea"
+    },
+    "html/src/tree_sitter/array.h": {
+      "bytes": 10420,
+      "sha256": "4ff743903dc46f5db6aa54f31c6b4d160a8a9779e5b2ab1ee59ae7ebcd850ea1"
+    },
+    "html/src/tree_sitter/parser.h": {
+      "bytes": 7039,
+      "sha256": "a1f6ef161fbaf48a0e10fca90ef5290a062462b307b3898aa562993853b9f80a"
+    },
+    "json/LICENSE": {
+      "bytes": 1080,
+      "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+    },
+    "json/src/parser.c": {
+      "bytes": 27700,
+      "sha256": "9a266ae4a0305b8a2769bee90a14ac06914bdc83a509f16428311eac2845637e"
+    },
+    "json/src/tree_sitter/alloc.h": {
+      "bytes": 985,
+      "sha256": "b29c1c9fb7cc82f58c84b376df1297d6e2737a1d655fd356db0859e3c29c2fea"
+    },
+    "json/src/tree_sitter/array.h": {
+      "bytes": 10420,
+      "sha256": "4ff743903dc46f5db6aa54f31c6b4d160a8a9779e5b2ab1ee59ae7ebcd850ea1"
+    },
+    "json/src/tree_sitter/parser.h": {
+      "bytes": 7039,
+      "sha256": "a1f6ef161fbaf48a0e10fca90ef5290a062462b307b3898aa562993853b9f80a"
+    },
+    "markdown/LICENSE": {
+      "bytes": 1071,
+      "sha256": "52ec8a1bf8256511e2a92613e0bb41ffefba3897f16fa958d7bb28c466dd4804"
+    },
+    "markdown/src/parser.c": {
+      "bytes": 2069408,
+      "sha256": "0f51c93b5d79d08bc74088d91a9aafb7e40ad7e2f169164865c01d392277bb07"
+    },
+    "markdown/src/scanner.c": {
+      "bytes": 59243,
+      "sha256": "02834bcbaf0cf51178e74450d487cc0231b9a52541cd374527ee35cfaf17fd4a"
+    },
+    "markdown/src/tree_sitter/alloc.h": {
+      "bytes": 985,
+      "sha256": "b29c1c9fb7cc82f58c84b376df1297d6e2737a1d655fd356db0859e3c29c2fea"
+    },
+    "markdown/src/tree_sitter/array.h": {
+      "bytes": 13269,
+      "sha256": "31e60a1bff6f715afacce03b5b70efe42b58371b4f9595dd4af52a577ff9608c"
+    },
+    "markdown/src/tree_sitter/parser.h": {
+      "bytes": 7624,
+      "sha256": "180b893c8734778fd32f372dfbc27bd6ad1cd2221f26150b31256ff6716320d2"
+    },
+    "markdown-inline/LICENSE": {
+      "bytes": 1071,
+      "sha256": "52ec8a1bf8256511e2a92613e0bb41ffefba3897f16fa958d7bb28c466dd4804"
+    },
+    "markdown-inline/src/parser.c": {
+      "bytes": 2259655,
+      "sha256": "0c6aaec9097b10118b34601047c3b4d3d565defe48e95d133f714b592795fd2c"
+    },
+    "markdown-inline/src/scanner.c": {
+      "bytes": 15883,
+      "sha256": "6a9647420b7260955e8bf1b8338979726347211177bb5cf3d2a9c18109655ac3"
+    },
+    "markdown-inline/src/tree_sitter/alloc.h": {
+      "bytes": 985,
+      "sha256": "b29c1c9fb7cc82f58c84b376df1297d6e2737a1d655fd356db0859e3c29c2fea"
+    },
+    "markdown-inline/src/tree_sitter/array.h": {
+      "bytes": 13269,
+      "sha256": "31e60a1bff6f715afacce03b5b70efe42b58371b4f9595dd4af52a577ff9608c"
+    },
+    "markdown-inline/src/tree_sitter/parser.h": {
+      "bytes": 7624,
+      "sha256": "180b893c8734778fd32f372dfbc27bd6ad1cd2221f26150b31256ff6716320d2"
+    },
+    "runtime/LICENSE": {
+      "bytes": 1080,
+      "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    },
+    "runtime/include/tree_sitter/api.h": {
+      "bytes": 49952,
+      "sha256": "efe63c187bb941be6e36dfb0597846bfe1976a0917c04a16e3edf6ee7cf6f9b7"
+    },
+    "runtime/src/alloc.c": {
+      "bytes": 1542,
+      "sha256": "c7d15b9015568f439af4adf28ead9e2bd14901221819276727c11227a29576da"
+    },
+    "runtime/src/alloc.h": {
+      "bytes": 917,
+      "sha256": "6a59c4997fe6df7fa2c00fcaff9cf0882e26309d1743bea05983ea56e0ca0c91"
+    },
+    "runtime/src/array.h": {
+      "bytes": 13467,
+      "sha256": "3a66fd611d88de00207bf40466b2393170c2110b17ce0d16e3716ef3a00e3d8e"
+    },
+    "runtime/src/atomic.h": {
+      "bytes": 1384,
+      "sha256": "bbc630cb913ac64274ce4412bc9d504174220323993f306ded74abe502867e74"
+    },
+    "runtime/src/error_costs.h": {
+      "bytes": 294,
+      "sha256": "0e8d1a21e0d60981e762989108231df6610d95591892f631c6c78a9ef831a2ab"
+    },
+    "runtime/src/get_changed_ranges.c": {
+      "bytes": 17733,
+      "sha256": "6fcee7d2663ac67d88b9e79a03ff4854dde1e8d30d3c985d945bad8017532c52"
+    },
+    "runtime/src/get_changed_ranges.h": {
+      "bytes": 836,
+      "sha256": "f394bd0b6fce006be460fd16cbea3cc96e248c810a4d97e8830463c29c85e4a5"
+    },
+    "runtime/src/host.h": {
+      "bytes": 520,
+      "sha256": "e1982b9795b9c52b5ab564d8b9876189d65a97ca02f78351e1740b0985992fd2"
+    },
+    "runtime/src/language.c": {
+      "bytes": 11440,
+      "sha256": "16ca0511cd57ff301c63a19b4f10821552153224affa23908d4fc0d2bbca353e"
+    },
+    "runtime/src/language.h": {
+      "bytes": 9030,
+      "sha256": "9371240c2060bd7c145b41a32b2535bbca3c3ac1713a4684e272e268ac924c22"
+    },
+    "runtime/src/length.h": {
+      "bytes": 1275,
+      "sha256": "7fc186fb4bf50233059e8be9ca68efe95e66d34ced4b8a8f38f14497352faeb1"
+    },
+    "runtime/src/lexer.c": {
+      "bytes": 16062,
+      "sha256": "eb6ca639beaea9fb99bfb0faa0bd0f8e8df785a52dc09321582dc858a448eb34"
+    },
+    "runtime/src/lexer.h": {
+      "bytes": 1263,
+      "sha256": "7d76308f7a2d3246a3e28fb27698be928f848130d1bfacc39f9f623127671b74"
+    },
+    "runtime/src/lib.c": {
+      "bytes": 405,
+      "sha256": "a9830f5a1e72db564afef45f690510cf0aa751075ed855789e26c9f25f087b80"
+    },
+    "runtime/src/node.c": {
+      "bytes": 25151,
+      "sha256": "fb0b5eecacb6d7e324f60914893801c0d147f413dd0af73a19ef270d341a77b5"
+    },
+    "runtime/src/parser.c": {
+      "bytes": 79954,
+      "sha256": "97a49276242294bc1b1a22908671a202f92d2a213a872edbe467a9e121822615"
+    },
+    "runtime/src/parser.h": {
+      "bytes": 7624,
+      "sha256": "180b893c8734778fd32f372dfbc27bd6ad1cd2221f26150b31256ff6716320d2"
+    },
+    "runtime/src/point.c": {
+      "bytes": 547,
+      "sha256": "04a101f16f40a651814c0f307fadf3f351d0f24013fa6d8b89c85bf1c6a5e717"
+    },
+    "runtime/src/point.h": {
+      "bytes": 1307,
+      "sha256": "0929027be2ff54627be560f3bafc1af59e81ac6d5a8d5864455601a0dbee50ff"
+    },
+    "runtime/src/portable/endian.h": {
+      "bytes": 7325,
+      "sha256": "528ca0666737e1a66218e2179004d5af2154393c6564ac9c57c110c5d8f57f85"
+    },
+    "runtime/src/query.c": {
+      "bytes": 171255,
+      "sha256": "f7e9b04c50f9d5bae3c01cf5860fd45d24d89b2d2e5748de758b0a39bc146c83"
+    },
+    "runtime/src/reduce_action.h": {
+      "bytes": 772,
+      "sha256": "8f40396e431d7ff558694ca248eed1332b6cf6f7e6255f06cddfde78020bd308"
+    },
+    "runtime/src/reusable_node.h": {
+      "bytes": 2747,
+      "sha256": "10be747ea4c733ca181dc43d55d155ac8e5b8caa247079621cca0ce633347bfb"
+    },
+    "runtime/src/stack.c": {
+      "bytes": 28636,
+      "sha256": "f70b7e5823e82901801193562908037db4c1a73721e48da0fe54cdb2a6b5856d"
+    },
+    "runtime/src/stack.h": {
+      "bytes": 4872,
+      "sha256": "dea9df947fa871b253528dca48611aa174181a286ec2734c16d4038e040834f6"
+    },
+    "runtime/src/subtree.c": {
+      "bytes": 36750,
+      "sha256": "ec4d623ca1c290f6c1fb8a9dcfc08dcc5fc2a452fa1b27587b9a73c1a74438b0"
+    },
+    "runtime/src/subtree.h": {
+      "bytes": 12548,
+      "sha256": "552633ba7b8be2d266031bb04776c17ba7bc5fe270d1afd5203eb4889e8b7f09"
+    },
+    "runtime/src/tree.c": {
+      "bytes": 5144,
+      "sha256": "a0f63bc46fc4fcb88d35caa6fe89d7fc18edb895bc781db20f11d5c58988fb06"
+    },
+    "runtime/src/tree.h": {
+      "bytes": 915,
+      "sha256": "628701f470166ad550471a673dce078f28a7851193939f02a342c30c3a8ef39c"
+    },
+    "runtime/src/tree_cursor.c": {
+      "bytes": 23140,
+      "sha256": "5638f6702b6d0b40755fcba32d85ca0fc44ab51bd3546525b4787a304a7b503c"
+    },
+    "runtime/src/tree_cursor.h": {
+      "bytes": 1285,
+      "sha256": "3e8d9671ab1397bcaeb3e0cbf153a61a99e214782b43c09e5cde5a01e8283a1a"
+    },
+    "runtime/src/ts_assert.h": {
+      "bytes": 205,
+      "sha256": "ac1ec4b7ba388a9d8708feeb6c5c766b2927cecfd6db644b939772e1dc086526"
+    },
+    "runtime/src/unicode/LICENSE": {
+      "bytes": 21001,
+      "sha256": "6a18c5fac70d7860b57f5b72b4e2c9a1ba6b3d2741eef7ff9767c5379364f10d"
+    },
+    "runtime/src/unicode/ptypes.h": {
+      "bytes": 72,
+      "sha256": "a87e9710c9cad7b08a945f4fb8b9d4629189897cc535f8ac927640c210a94b69"
+    },
+    "runtime/src/unicode/umachine.h": {
+      "bytes": 14865,
+      "sha256": "2d79c0903d9e73e247b948bc0a12b6a785257ca0273bddab56fb59561f8d7391"
+    },
+    "runtime/src/unicode/urename.h": {
+      "bytes": 72,
+      "sha256": "a87e9710c9cad7b08a945f4fb8b9d4629189897cc535f8ac927640c210a94b69"
+    },
+    "runtime/src/unicode/utf.h": {
+      "bytes": 72,
+      "sha256": "a87e9710c9cad7b08a945f4fb8b9d4629189897cc535f8ac927640c210a94b69"
+    },
+    "runtime/src/unicode/utf16.h": {
+      "bytes": 23878,
+      "sha256": "c370d9069f37fad2b53981c06dc648bbc21923db1655517a31bb237df4fba041"
+    },
+    "runtime/src/unicode/utf8.h": {
+      "bytes": 31698,
+      "sha256": "39651224b2ca2452359c7f3339f3cc0a841fe7db64f8a00c9c5ec19c0389645c"
+    },
+    "runtime/src/unicode.h": {
+      "bytes": 2084,
+      "sha256": "968175f1e018e4130c403fe08d12b4d103e6fe6c1dbbf658e58ab9af378530a4"
+    },
+    "runtime/src/wasm_store.c": {
+      "bytes": 70668,
+      "sha256": "e630e55f3984cc9111646a719f793f5b7b4823632767129c4583aa2b1521e746"
+    },
+    "runtime/src/wasm_store.h": {
+      "bytes": 1137,
+      "sha256": "4f70d0500b0775e5d862a8e7d191b3853d73378c65e020e01767838a18debe0e"
+    }
+  },
+  "queries": {
+    "Resources/Syntax/html.scm": {
+      "bytes": 197,
+      "sha256": "1ebb3811a8cdc054385b847a3aac6fbf7079faefd5b3dfab5bbad256cd5afdcf"
+    },
+    "Resources/Syntax/json.scm": {
+      "bytes": 172,
+      "sha256": "0511524465b56aed122580792254e68b6abbbfde7119f1d02b135acbe278233f"
+    },
+    "Resources/Syntax/markdown-inline.scm": {
+      "bytes": 721,
+      "sha256": "9a88072f0ce54972c32fe7952ccb2d29254b6a7228bda1c7babc18df15cba797"
+    },
+    "Resources/Syntax/markdown.scm": {
+      "bytes": 787,
+      "sha256": "2eb06e766ccd672d49599d14f398f07f4f5f7f2208262993d3cd9207c1078e2f"
+    }
+  }
+}

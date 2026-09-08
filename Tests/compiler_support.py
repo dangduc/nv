@@ -7,6 +7,6 @@ def include_flags(repo):
     directories = [repo, repo / 'Config']
     directories.extend(sorted(path for path in (repo / 'Sources').iterdir() if path.is_dir()))
     directories.extend(repo / 'ThirdParty' / path for path in (
-        'Crypto', 'ODBEditor', 'PTHotKeys', 'OpenSSL/include',
+        'Crypto', 'ODBEditor', 'PTHotKeys', 'OpenSSL/include', 'TreeSitter/runtime/include',
     ))
     return [flag for directory in directories for flag in ('-I', str(directory))]

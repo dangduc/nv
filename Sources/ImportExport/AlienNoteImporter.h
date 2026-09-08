@@ -43,15 +43,13 @@ extern NSString *RetrievedPasswordKey;
 - (void)importNotesFromDialogAroundWindow:(NSWindow*)mainWindow receptionDelegate:(id)receiver;
 + (NSString*)blorPath;
 
-+ (NSBundle *)PDFKitBundle;
-+ (Class)PDFDocClass;
 
 - (NSView*)accessoryView;
 - (NSDictionary*)documentSettings;
 - (NSArray*)importedNotes;
 
 - (NSArray*)notesWithPaths:(NSArray*)paths;
-//where filename is a file expected to contain a single note (e.g., text, RTF, word)
+//where filename is a file expected to contain a single source-text note
 - (NoteObject*)noteWithFile:(NSString*)filename;
 
 - (NSArray*)notesInDirectory:(NSString*)filename;

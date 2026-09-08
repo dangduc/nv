@@ -1,74 +1,49 @@
-//
-//  PreviewController.h
-//  Notation
-//
-//  Created by Christian Tietze on 15.10.10.
-//  Copyright 2010
-
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "NVReadonlyNoteViewer.h"
+#import "NVNoteContentSnapshot.h"
+@class NVMarkupRenderer, NVMarkupRenderResult, NVScopedAssetHandler, NVViewerCaptureOwner;
 
-@class AppController;
-@class NoteObject;
-
-@interface PreviewController : NSWindowController 
-{
-    AppController *browserController;
-  IBOutlet WebView *preview;
-	IBOutlet NSTextView *sourceView;
-	IBOutlet NSTabView *tabView;
-	IBOutlet NSButton *tabSwitcher;
-	IBOutlet NSButton *shareButton;
-  IBOutlet NSButton *saveButton;
-  IBOutlet NSButton *stickyPreviewButton;
-  IBOutlet NSButton *printPreviewButton;
-	NSButton *viewOnWebButton;
-  BOOL isPreviewOutdated;
-  BOOL isPreviewSticky;
-	NSMutableData *receivedData;
-//    IBOutlet NSWindow *wnd;
-	NSPopover *sharePopover;
-	NSPopover *confirmationPopover;
-	IBOutlet NSTextField *urlTextField;
-	IBOutlet NSView *shareNotification;
-	IBOutlet NSView *shareConfirmation;
-	NSButton *shareCancel;
-  NSButton *shareConfirm;
-	NSString *shareURL;
-	NSString *cssString;
-	NSString *htmlString;
-
-	IBOutlet NSButton *includeTemplate;
-  IBOutlet NSTextField *templateNote;
-	IBOutlet NSView *accessoryView;
-	
-	NoteObject *lastNote;
+// One browser owns this inline provider. It never reads browser selection,
+// mutable note objects, global preview preferences, or application delegates.
+@interface PreviewController : NSViewController <NVReadonlyNoteViewer, WKNavigationDelegate, WKUIDelegate, NSSearchFieldDelegate> {
+    WKWebView *_webView;
+    NSTextField *_statusField;
+    NSSearchField *_findField;
+    NVMarkupRenderer *_renderer;
+    NSOperation *_renderOperation;
+    NVMarkupRenderResult *_renderResult;
+    NVNoteContentSnapshot *_snapshot;
+    NSError *_renderError;
+    NSString *_viewerIdentifier;
+    NVScopedAssetHandler *_assetHandler;
+    WKContentRuleList *_resourceRules;
+    NSError *_ruleError;
+    WKNavigation *_navigation;
+    NSUInteger _requestGeneration;
+    BOOL _loading;
+    BOOL _closed;
+    BOOL _rulesReady;
+    NSMutableDictionary *_displayState;
+    NSTimer *_stateTimer;
+    NSMutableSet *_stateCaptures;
+    NVViewerCaptureOwner *_captureOwner;
+    NSURL *_documentBaseURL;
 }
-
-@property (assign) BOOL isPreviewOutdated;
-@property (retain) WebView *preview;
-@property (assign) BOOL isPreviewSticky;
-
-- (id)initWithBrowserController:(AppController *)controller;
--(IBAction)saveHTML:(id)sender;
--(IBAction)switchTabs:(id)sender;
--(IBAction)shareNote:(id)sender;
--(IBAction)shareAsk:(id)sender;
--(IBAction)cancelShare:(id)sender;
-
--(IBAction)makePreviewSticky:(id)sender;
--(IBAction)makePreviewNotSticky:(id)sender;
--(IBAction)printPreview:(id)sender;
--(BOOL)previewIsVisible;
--(void)togglePreview:(id)sender;
--(void)requestPreviewUpdate:(NSNotification *)notification;
-+(void)createCustomFiles;
--(SEL)markupProcessorSelector:(NSInteger)previewMode;
--(NSString *)urlEncodeValue:(NSString *)str;
--(void)showShareURL:(NSString *)url isError:(BOOL)isError;
--(IBAction)hideShareURL:(id)sender;
--(void)closeShareURLView;
--(IBAction)openShareURL:(id)sender;
-+(NSString *)css;
-+(NSString *)html;
+@property (readonly, retain) WKWebView *webView;
+@property (readonly, retain) NVNoteContentSnapshot *snapshot;
+@property (readonly, copy) NSString *viewerIdentifier;
+@property (readonly, copy) NSString *renderedHTML;
+@property (readonly) BOOL loading;
+@property (readonly, retain) NSError *renderError;
+- (void)displaySnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier;
+- (void)cancelRendering;
+- (void)close;
+- (NSDictionary *)viewerState;
+- (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion;
+- (void)restoreViewerState:(NSDictionary *)state;
+- (BOOL)validateMenuItem:(NSMenuItem *)item;
+- (IBAction)printPreview:(id)sender;
+- (IBAction)saveHTML:(id)sender;
+- (IBAction)performFindPanelAction:(id)sender;
 @end

@@ -1,5 +1,7 @@
 #import "NVApplicationController.h"
 #import "NVNoteEditingSession.h"
+#import "NVSourceHighlighter.h"
+#import "NoteObject.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
   provided that the following conditions are met:
@@ -59,8 +61,11 @@ static long (*GetGetScriptManagerVariablePointer())(short);
 
 
 @implementation LinkingEditor
-- (void)undo:(id)sender { [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] undo]; }
-- (void)redo:(id)sender { [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] redo]; }
+- (NSString *)sourceSyntaxIdentifier { return [[NVControllerForView(self) selectedNoteObject] sourceSyntaxIdentifier] ?: @"plain"; }
+- (BOOL)usesMarkdownSource { return [[self sourceSyntaxIdentifier] isEqualToString:@"markdown"]; }
+- (BOOL)usesMarkupSource { return [self usesMarkdownSource] || [[self sourceSyntaxIdentifier] isEqualToString:@"textile"]; }
+- (void)undo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] undo]; }
+- (void)redo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] redo]; }
 
 
 @synthesize beforeString;
@@ -105,11 +110,15 @@ CGFloat _perceptualDarkness(NSColor*a);
 	[[self layoutManager] setDelegate:self];
 
 
-    [self bind:@"automaticQuoteSubstitutionEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NSAutomaticQuoteSubstitutionEnabled" options:@{@"NSContinuouslyUpdatesValue":@YES}];
-    [self bind:@"automaticDashSubstitutionEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NSAutomaticDashSubstitutionEnabled" options:@{@"NSContinuouslyUpdatesValue":@YES}];
-    [self bind:@"automaticTextReplacementEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.TextReplacementInNoteBody" options:@{@"NSContinuouslyUpdatesValue":@YES}];
+    [self setRichText:NO];
+    [self setImportsGraphics:NO];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NVSourceSmartQuotes": @NO, @"NVSourceSmartDashes": @NO,
+                                                             @"NVSourceTextReplacement": @NO, @"NVSourceSmartInsertDelete": @NO}];
+    [self bind:@"automaticQuoteSubstitutionEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NVSourceSmartQuotes" options:@{@"NSContinuouslyUpdatesValue":@YES}];
+    [self bind:@"automaticDashSubstitutionEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NVSourceSmartDashes" options:@{@"NSContinuouslyUpdatesValue":@YES}];
+    [self bind:@"automaticTextReplacementEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NVSourceTextReplacement" options:@{@"NSContinuouslyUpdatesValue":@YES}];
     [self bind:@"continuousSpellCheckingEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.CheckSpellingInNoteBody" options:@{@"NSContinuouslyUpdatesValue":@YES}];
-    [self bind:@"smartInsertDeleteEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.UseSmartInsertDelete" options:@{@"NSContinuouslyUpdatesValue":@YES}];
+    [self bind:@"smartInsertDeleteEnabled" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.NVSourceSmartInsertDelete" options:@{@"NSContinuouslyUpdatesValue":@YES}];
 
 
     //	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -395,239 +404,66 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	didRenderFully = NO;
 }
 
+- (NSColor *)sourceColorForCapture:(NSString *)capture {
+    if (!capture || [capture isEqualToString:@"none"]) return nil;
+    CGFloat hue = 0.61, saturation = 0.72;
+    if ([capture hasPrefix:@"comment"]) { hue = 0.34; saturation = 0.28; }
+    else if ([capture hasSuffix:@".key"] || [capture hasPrefix:@"attribute"]) hue = 0.08;
+    else if ([capture hasPrefix:@"string"] || [capture isEqualToString:@"text.literal"]) hue = 0.34;
+    else if ([capture hasPrefix:@"number"] || [capture hasPrefix:@"constant"]) hue = 0.04;
+    else if ([capture hasPrefix:@"tag"] || [capture isEqualToString:@"text.title"]) hue = 0.78;
+    else if ([capture hasPrefix:@"punctuation"]) { hue = 0.59; saturation = 0.30; }
+    return [NSColor colorWithCalibratedHue:hue saturation:saturation brightness:backgroundIsDark ? 0.94 : 0.58 alpha:1.0];
+}
 - (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes
             forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range {
     if (!screen || index >= [[manager textStorage] length]) return attributes;
-    // Appearance belongs to this editor's layout, not the shared or archived text.
-    // Retain temporary search highlights and respect link boundaries.
+    // Base appearance < syntax < links. Search backgrounds and native selection
+    // remain independent; the input method owns marked-text appearance.
     NSRange linkRange;
     id link = [[manager textStorage] attribute:NSLinkAttributeName atIndex:index effectiveRange:&linkRange];
     if (range) *range = NSIntersectionRange(*range, linkRange);
-    NSColor *color = link ? [[self preferredLinkAttributes] objectForKey:NSForegroundColorAttributeName] : nil;
-    if (!color) color = [NVControllerForView(self) foregrndColor];
-    if (!color) return attributes;
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:attributes ?: @{}];
-    [result setObject:color forKey:NSForegroundColorAttributeName];
+    NSString *capture = NVSourceCapturesAreCurrent(manager) ? [result objectForKey:NVSourceCaptureAttributeName] : nil;
+    [result removeObjectForKey:NVSourceCaptureAttributeName];
+    NSRange marked = [self markedRange];
+    if (marked.location != NSNotFound) {
+        if (NSLocationInRange(index, marked)) {
+            if (range) *range = NSIntersectionRange(*range, marked);
+            return result;
+        }
+        if (range && index < marked.location && NSMaxRange(*range) > marked.location) range->length = marked.location - range->location;
+    }
+    NSColor *color = link ? [[self preferredLinkAttributes] objectForKey:NSForegroundColorAttributeName] : [self sourceColorForCapture:capture];
+    if (!color) color = [NVControllerForView(self) foregrndColor];
+    if (color) [result setObject:color forKey:NSForegroundColorAttributeName];
     return result;
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type {
-	if ([type isEqualToString:NSHTMLPboardType] || [type isEqualToString:@"Apple Web Archive pasteboard type"]) return NO;
-	//NSLog(@"readSelectionFromPasteboard: %@ (total %@)", type, [[pboard types] description]);
-	
-	if ([type isEqualToString:NSFilenamesPboardType]) {
-		//paste as a file:// URL, so that it can be linked
-		NSString *allURLsString = [(AppController *)NVControllerForView(self) stringWithNoteURLsOnPasteboard:pboard];
-		
-		if ([allURLsString length]) {
-			NSRange selectedRange = [self rangeForUserTextChange];
-			if ([self shouldChangeTextInRange:selectedRange replacementString:allURLsString]) {
-				[self replaceCharactersInRange:selectedRange withString:allURLsString];
-				[self didChangeText];
-				
-				return YES;
-			}
-		}
-	}
-	
-	if ([type isEqualToString:NSRTFPboardType] || [type isEqualToString:NVPTFPboardType]) {
-		//strip formatting if RTF and stick it into a new pboard
-		
-		NSMutableAttributedString *newString = [[[NSMutableAttributedString alloc] initWithRTF:[pboard dataForType:type] documentAttributes:NULL] autorelease];
-		if ([newString length]) {
-			if (![type isEqualToString:NVPTFPboardType]) {
-							//remove the link attribute, because it will be re-added after we paste, and restyleText would preserve it otherwise
-							//and we only want real URLs to be linked
-							[newString removeAttribute:NSLinkAttributeName range:NSMakeRange(0, [newString length])];
-							[newString indentTextLists];
-							[newString restyleTextToFont:[prefsController noteBodyFont] usingBaseFont:nil];
-						}
-
-						NSRange selectedRange = [self rangeForUserTextChange];
-						if ([self shouldChangeTextInRange:selectedRange replacementString:[newString string]]) {
-
-							[self replaceCharactersInRange:selectedRange withRTF:[newString RTFFromRange:
-																				  NSMakeRange(0, [newString length]) documentAttributes:nil]];
-
-							//paragraph styles will ALWAYS be added _after_ replaceCharactersInRange, it seems
-							//[[self textStorage] removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(0, [[self string] length])];
-							[self didChangeText];
-
-							return YES;
-						}
-		}
-	}
-	
-	return [super readSelectionFromPasteboard:pboard type:type];
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return NO;
+    NSString *source = nil;
+    if ([type isEqualToString:NSFilenamesPboardType]) source = [NVControllerForView(self) stringWithNoteURLsOnPasteboard:pboard];
+    else if ([type isEqualToString:NSStringPboardType]) source = [pboard stringForType:NSStringPboardType];
+    if (!source) return NO;
+    [self insertText:source replacementRange:[self rangeForUserTextChange]];
+    return YES;
 }
-
-- (NSArray *)acceptableDragTypes {
-	
-	return [self readablePasteboardTypes];
-}
-
-- (NSArray *)readablePasteboardTypes {
-	NSMutableArray *types = [NSMutableArray arrayWithObjects:NSFilenamesPboardType, NVPTFPboardType, NSStringPboardType, nil];
-	
-	if ([prefsController pastePreservesStyle]) {
-		[types insertObject:NSRTFPboardType atIndex:2];
-	}
-	
-	return types;
-}
-
+- (NSArray *)acceptableDragTypes { return [self readablePasteboardTypes]; }
+- (NSArray *)readablePasteboardTypes { return @[NSStringPboardType, NSFilenamesPboardType]; }
+- (NSArray *)writablePasteboardTypes { return @[NSStringPboardType]; }
 - (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard type:(NSString *)type {
-	
-	if ([type isEqualToString:NVPTFPboardType] || [type isEqualToString:NSRTFPboardType]) {
-		//always preserve RTF to allow pasting into ourselves; prejudice against external sources
-		
-		NSMutableAttributedString *newString = [[[self textStorage] attributedSubstringFromRange:[self selectedRange]] mutableCopy];
-		
-		if (![type isEqualToString:NVPTFPboardType])
-			[newString removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [newString length])];
-
-		NSData *rtfData = [newString RTFFromRange:NSMakeRange(0, [newString length]) documentAttributes:nil];;
-		if (rtfData) [pboard setData:rtfData forType:type];
-		[newString release];
-		return YES;
-	}
-	
-	return [super writeSelectionToPasteboard:pboard type:type];
+    if (![type isEqualToString:NSStringPboardType]) return NO;
+    return [pboard setString:[[self string] substringWithRange:[self selectedRange]] forType:NSStringPboardType];
 }
-
-#define COPY_PASTE_DEBUG 0
-
-- (NSArray *)writablePasteboardTypes {
-	NSMutableArray *types = [NSMutableArray arrayWithObjects:NVPTFPboardType, NSStringPboardType, nil];
-	
-	NSRange selectedRange = [self selectedRange];
-	if (selectedRange.length) {
-		
-		NSRange firstAttributeRange;
-		[[self textStorage] attributesAtIndex:selectedRange.location effectiveRange:&firstAttributeRange];
-		if (firstAttributeRange.length < selectedRange.length) {
-			//there are multiple styles across the selected text
-			
-			NSAttributedString *newString = [[self textStorage] attributedSubstringFromRange:selectedRange];
-			NSRange effectiveRange = NSMakeRange(0,0);
-			NSUInteger stringLength = [newString length];
-			
-			//iterate over all styles; if any are acceptable, copy as RTF
-			while (NSMaxRange(effectiveRange) < stringLength) {
-				// Get the attributes for the current range
-				NSDictionary *attributes = [newString attributesAtIndex:NSMaxRange(effectiveRange) effectiveRange:&effectiveRange];
-				
-				if ([attributes attributesHaveFontTrait:NSBoldFontMask orAttribute:NSStrokeWidthAttributeName])
-					goto copyRTFType;
-				if ([attributes attributesHaveFontTrait:NSItalicFontMask orAttribute:NSObliquenessAttributeName])
-					goto copyRTFType;
-				if ([attributes attributesHaveFontTrait:0 orAttribute:NSStrikethroughStyleAttributeName])
-					goto copyRTFType;
-			}
-#if COPY_PASTE_DEBUG
-			NSLog(@"false alarm: no real styles");
-#endif
-			
-		} else {
-#if COPY_PASTE_DEBUG
-			NSLog(@"homogeneous style");
-#endif
-		}
-		
-		if (0) {
-copyRTFType:
-			//we have more than a single styling segment within the selection--grudgingly allow regular RTF copying
-#if COPY_PASTE_DEBUG
-			NSLog(@"copying RTF due to multiple attributes");
-			[[self layoutManager] addTemporaryAttributes:[prefsController searchTermHighlightAttributes] forCharacterRange:effectiveRange];
-#endif
-			[types insertObject:NSRTFPboardType atIndex:1];
-		}
-	}
-	
-	return types;
-}
-
-//font panel is disabled for the note-body, so styles must be applied manually:
-
 - (void)strikethroughNV:(id)sender {
-
-	[self applyStyleOfTrait:0 alternateAttributeName:NSStrikethroughStyleAttributeName 
-	alternateAttributeValue:[NSNumber numberWithInt:NSUnderlineStyleSingle]];
-	
-	[[self undoManager] setActionName:NSLocalizedString(@"Strikethrough",nil)];
+    if ([self usesMarkupSource]) [self changeMarkdownAttribute:[self usesMarkdownSource] ? @"~~" : @"-"];
 }
-
-#define STROKE_WIDTH_FOR_BOLD (-3.50f)
-#define OBLIQUENESS_FOR_ITALIC (0.20f)
-
-
-
-- (void)bold:(id)sender {	
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]) {
-        [self changeMarkdownAttribute:@"**"];
-    }else{
-        [self applyStyleOfTrait:NSBoldFontMask alternateAttributeName:NSStrokeWidthAttributeName 
-        alternateAttributeValue:[NSNumber numberWithFloat:(float)STROKE_WIDTH_FOR_BOLD]];
-        [[self undoManager] setActionName:NSLocalizedString(@"Bold",nil)];
-	}
+- (void)bold:(id)sender {
+    if ([self usesMarkupSource]) [self changeMarkdownAttribute:[self usesMarkdownSource] ? @"**" : @"*"];
 }
-
 - (void)italic:(id)sender {
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]) {
-        [self changeMarkdownAttribute:@"*"];
-    }else{
-        [self applyStyleOfTrait:NSItalicFontMask alternateAttributeName:NSObliquenessAttributeName 
-        alternateAttributeValue:[NSNumber numberWithFloat:(float)OBLIQUENESS_FOR_ITALIC]];
-        
-        [[self undoManager] setActionName:NSLocalizedString(@"Italic",nil)];
-    }
-}
-
-- (void)applyStyleOfTrait:(NSFontTraitMask)trait alternateAttributeName:(NSString*)attrName alternateAttributeValue:(id)value {
-	
-	NSFont *font = nil;
-	NSMutableDictionary *attributes = nil;
-	BOOL hasTrait = NO;
-	
-	if ([self selectedRange].length) {
-		NSRange limitRange, effectiveRange;
-		NSTextStorage *text = [self textStorage];
-		limitRange = [self selectedRange];
-		
-		if ([self shouldChangeTextInRange:limitRange replacementString:nil]) {
-			
-			NSDictionary *firstAttrs = [text attributesAtIndex:limitRange.location longestEffectiveRange:NULL inRange:limitRange];
-			hasTrait = [firstAttrs attributesHaveFontTrait:trait orAttribute:attrName];
-			
-			[text beginEditing];
-			while (limitRange.length > 0) {
-				attributes = [[text attributesAtIndex:limitRange.location longestEffectiveRange:&effectiveRange 
-											  inRange:limitRange] mutableCopyWithZone:nil];
-				if (!attributes) attributes = [[prefsController noteBodyAttributes] mutableCopyWithZone:nil];
-				font = [attributes objectForKey:NSFontAttributeName];
-				
-				[attributes applyStyleInverted:hasTrait trait:trait forFont:font alternateAttributeName:attrName alternateAttributeValue:value];
-				[text setAttributes:attributes range:effectiveRange];
-				[attributes release];
-				
-				limitRange = NSMakeRange( NSMaxRange( effectiveRange ), NSMaxRange( limitRange ) - NSMaxRange( effectiveRange ) );
-			}
-			[text endEditing];
-			[self didChangeText];
-		}
-	} else {
-		attributes = [[self typingAttributes] mutableCopyWithZone:nil];
-		if (!attributes) attributes = [[prefsController noteBodyAttributes] mutableCopyWithZone:nil];
-		font = [attributes objectForKey:NSFontAttributeName];
-		
-		hasTrait = [attributes attributesHaveFontTrait:trait orAttribute:attrName];
-		[attributes applyStyleInverted:hasTrait trait:trait forFont:font alternateAttributeName:attrName alternateAttributeValue:value];
-		[self setTypingAttributes:attributes];
-		
-		[attributes release];
-	}
-	
+    if ([self usesMarkupSource]) [self changeMarkdownAttribute:[self usesMarkdownSource] ? @"*" : @"_"];
 }
 
 - (void)removeHighlightedTerms {
@@ -821,7 +657,7 @@ copyRTFType:
 				[self doCommandBySelector:@selector(deleteToBeginningOfLine:)];
 				return YES;
 			}
-		}else if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]){        
+		}else if ([self usesMarkdownSource]){
             NSString *firstChar=[NSString stringWithCharacters:&keyChar length:1]; 
             if ([firstChar isEqualToString:@"<"]) {
                 [self removeStringAtStartOfSelectedParagraphs:@">"];
@@ -887,8 +723,9 @@ copyRTFType:
 }
 
 - (void)insertTab:(id)sender {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
 	//check prefs for tab behavior
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]) {
+    if ([self usesMarkdownSource]) {
         NSRange selectedRange=[self selectedRange];
         NSUInteger closer=[self cursorIsInsidePair:@"]"];   
         if ((closer!=NSNotFound)||([self cursorIsImmediatelyPastPair:@"]"])){ 
@@ -947,8 +784,9 @@ copyRTFType:
 }
 
 - (void)insertBacktab:(id)sender {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
 	//check temporary NVHiddenBulletIndentAttributeName here first
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]) {
+    if ([self usesMarkdownSource]) {
         NSRange selectedRange=[self selectedRange];
         NSUInteger closer=[self cursorIsInsidePair:@"]"];        
         if ((closer!=NSNotFound)||([self cursorIsImmediatelyPastPair:@"]"])){             
@@ -967,7 +805,7 @@ copyRTFType:
             return;
         }
     }
-	if ([prefsController autoFormatsListBullets] && [self _selectionAbutsBulletIndentRange]) {
+	if (([self usesMarkupSource] && [prefsController autoFormatsListBullets]) && [self _selectionAbutsBulletIndentRange]) {
 		
 		[self shiftLeftAction:nil];
 	} else {
@@ -981,7 +819,7 @@ copyRTFType:
 	NSRange range = [self selectedRange];
 	if ((range.length > 0 && [[self string] rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] 
 														   options:NSLiteralSearch range:range].location != NSNotFound) ||
-		([prefsController autoFormatsListBullets] && [self _selectionAbutsBulletIndentRange])) {
+		(([self usesMarkupSource] && [prefsController autoFormatsListBullets]) && [self _selectionAbutsBulletIndentRange])) {
 		//tab shifts text only if there is more than one line selected (i.e., the selection contains at least one line break), or an indented bullet is near
 		
 		[self shiftRightAction:nil];
@@ -1086,6 +924,7 @@ copyRTFType:
 
 //maybe if we knew we would always have a mono-spaced font
 /*- (void)insertNewline:(id)sender {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
 	NSString *lineEnding = @"\n";
 	NSRange charRange = [self rangeForUserTextChange];
 	if (charRange.location != NSNotFound) {
@@ -1173,46 +1012,14 @@ copyRTFType:
 	//need to fix this for better style detection
 	
 	SEL action = [menuItem action];
+    if ([self isHiddenOrHasHiddenAncestor]) return NO;
     if (action == @selector(undo:)) return [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] canUndo];
     if (action == @selector(redo:)) return [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] canRedo];
-	if (action == @selector(defaultStyle:) ||
-		action == @selector(bold:) ||
-		action == @selector(italic:) ||
-		action == @selector(strikethroughNV:)) {
-		
-		NSRange effectiveRange = NSMakeRange(0,0), range = [self selectedRange];
-		NSDictionary *attrs = nil;
-		BOOL multipleAttributes = NO;
-		if (range.length) {
-			//we have something selected--find the attributes of the first thing in the range
-			attrs = [[self textStorage] attributesAtIndex:range.location effectiveRange:&effectiveRange];
-			if (effectiveRange.length < range.length) {
-				//it's a multiple attribute range piece--don't want to bother
-				multipleAttributes = YES;
-			}
-			//NSLog(@"sel attrs: %@", attrs);
-		} else {
-			//nothing selected--look at typing attrs
-			attrs = [self typingAttributes];
-		}
-		
-		BOOL menuItemState = NO;
-		if (action == @selector(defaultStyle:)) {
-			menuItemState = [attrs isEqualToDictionary:[prefsController noteBodyAttributes]];
-		} else if (action == @selector(bold:)) {
-			menuItemState = [attrs attributesHaveFontTrait:NSBoldFontMask orAttribute:NSStrokeWidthAttributeName];
-		} else if (action == @selector(italic:)) {
-			menuItemState = [attrs attributesHaveFontTrait:NSItalicFontMask orAttribute:NSObliquenessAttributeName];
-		} else if (action == @selector(strikethroughNV:)) {
-			menuItemState = [attrs attributesHaveFontTrait:0 orAttribute:NSStrikethroughStyleAttributeName];
-		}
-		
-		if (menuItemState && multipleAttributes)
-			menuItemState = NSMixedState;
-		[menuItem setState:menuItemState];
-
-		return YES;
-	}else if (action==@selector(performFindPanelAction:)) {
+    if (action == @selector(defaultStyle:)) return NO;
+    if (action == @selector(bold:) || action == @selector(italic:) || action == @selector(strikethroughNV:)) {
+        [menuItem setState:NSControlStateValueOff];
+        return [self isEditable] && [self usesMarkupSource];
+    }else if (action==@selector(performFindPanelAction:)) {
         //for ElasticThreads Find... fix. Also make sure all Find menuItems point their targets to LinkingEditor instead of firstResponder
         
         //hide Find and Replace... on Pre-Lion machines
@@ -1229,22 +1036,10 @@ copyRTFType:
             }
         }
         return YES;
-    }else if (action==@selector(pasteMarkdownLink:)) {
-        
-      //  if ([[NSUserDefaults standardUserDefaults]boolForKey:@"UsesMarkdownCompletions"]) {  
-           // [menuItem setHidden:NO];
-            if ([self clipboardHasLink]) {                
-                return YES;
-            }
-            
-       // }
-//        else{
-//            
-//            [menuItem setHidden:YES];
-//        }
-        return NO;
+    } else if (action == @selector(pasteMarkdownLink:)) {
+        return [self isEditable] && [self usesMarkdownSource] && [self clipboardHasLink];
     }
-	
+
 	return [super validateMenuItem:menuItem];
 }
 
@@ -1255,24 +1050,9 @@ copyRTFType:
  > -[NSTextStorage beginEditing], then make your changes, then call
  > -[NSTextStorage endEditing] and -[NSTextView didChangeText].
  */
-- (void)defaultStyle:(id)sender {
-	NSRange range = [self selectedRange];
-	
-	if (range.length > 0 && range.location != NSNotFound && 
-		[self shouldChangeTextInRange:range replacementString:nil]) {
-		
-		NSTextStorage *textStorage = [self textStorage];
-		[textStorage beginEditing];
-		[textStorage setAttributes:[prefsController noteBodyAttributes] range:range];
-		[textStorage endEditing];
-		
-		[self didChangeText];
-	}
-	
-	[self setTypingAttributes:[prefsController noteBodyAttributes]];
-	
-	[[self undoManager] setActionName:NSLocalizedString(@"Plain Text Style",nil)];
-}
+// Retained for old nib selectors; source has no authored style attributes.
+- (void)defaultStyle:(id)sender {}
+
 
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex {
 	NSUInteger totalLength = [[self string] length];
@@ -1383,7 +1163,7 @@ cancelCompetion:
 		[[self textStorage] removeAttribute:NSLinkAttributeName range:changedRange];
 	[[self textStorage] addLinkAttributesForRange:changedRange];
 	
-	[[self textStorage] addStrikethroughNearDoneTagsForRange:changedRange];
+
 	
 	if (!isAutocompleting && !wasDeleting && [prefsController linksAutoSuggested] && 
 		![[self undoManager] isUndoing] && ![[self undoManager] isRedoing]) {
@@ -1403,6 +1183,7 @@ cancelCompetion:
 }
 
 - (BOOL)shouldChangeTextInRange:(NSRange)affectedCharRange replacementString:(NSString *)replacementString {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return NO;
 	wasDeleting = ![replacementString length];
 	
 	//it's not exactly proper to alter typing attributes when we don't yet know whether the text should actually be changed, but NV shouldn't cause that to happen, anyway
@@ -1444,60 +1225,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 #endif
 
 - (void)fixTypingAttributesForSubstitutedFonts {
-	//fixes a problem with fonts substituted by non-system input languages that Apple should have fixed themselves
-	
-	//if the user has chosen a default font that does not support the current input script, and then changes back to a language input that _does_
-	//then the font in the typing attributes will be changed back to match. the problem is that this change occurs only upon changing the input language
-	//if the user starts typing in the middle of a block of font-substituted text, the typing attributes will change to that font
-	//the result is that typing english in the middle of a block of japanese will use Hiragino Kaku Gothic instead of whatever else the user had chosen
-	//this method detects these types of spurious font-changes and reverts to the default font, but only if the font would not be immediately switched back
-	//as a result of continuing to type in the native script.
-	
-	//we'd ideally check smKeyScript against available scripts of current note body font:
-	//call RevertTextEncodingToScriptInfo on ATSFontFamilyGetEncoding(ATSFontFamilyFindFromName(CFStringRef([bodyFont familyName]), kATSOptionFlagsDefault))
-	//because someone on a japanese-localized system could see their font changing around a lot if they didn't set their note body font to something suitable for their language
-	
-	BOOL currentKeyboardInputIsSystemLanguage = NO;
-	
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
-    TISInputSourceRef inputRef = TISCopyCurrentKeyboardInputSource();
-    NSArray* inputLangs = [[(NSArray*)TISGetInputSourceProperty(inputRef, kTISPropertyInputSourceLanguages) retain] autorelease];
-    CFRelease(inputRef);
-    NSString *preferredLang = [[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleLanguageCode];
-    currentKeyboardInputIsSystemLanguage = nil != preferredLang && [inputLangs containsObject:preferredLang];
-#else
-	currentKeyboardInputIsSystemLanguage = GetScriptManagerVariable(smSysScript) == GetScriptManagerVariable(smKeyScript);
-#endif
-	
-	if (currentKeyboardInputIsSystemLanguage) {
-		//only attempt to restore fonts (with styles of course) if the current script is system default--that is, not using an input method that would change the font
-		//this check helps prevent NSTextView from being repeatedly punched in the face when it can't help it
-		
-		NSFont *currentFont = [prefsController noteBodyFont];
-		if (![[[[self typingAttributes] objectForKey:NSFontAttributeName] familyName] isEqualToString:[currentFont familyName]]) {
-			//if someone managed to mangle the font--possibly with characters not present in it due to alt. text encoding--so mangle it back
-			
-			NSMutableDictionary *newTypingAttributes = [[self typingAttributes] mutableCopy];
-			[newTypingAttributes setObject:currentFont forKey:NSFontAttributeName];
-			//NSLog(@"mangling font 'back' to normal");
-			
-			if ([[self typingAttributes] attributesHaveFontTrait:NSBoldFontMask orAttribute:NSStrokeWidthAttributeName]) {
-				[newTypingAttributes applyStyleInverted:NO trait:NSBoldFontMask forFont:currentFont 
-								 alternateAttributeName:NSStrokeWidthAttributeName 
-								alternateAttributeValue:[NSNumber numberWithFloat:STROKE_WIDTH_FOR_BOLD]];
-				
-				currentFont = [newTypingAttributes objectForKey:NSFontAttributeName];
-			}
-			
-			if ([[self typingAttributes] attributesHaveFontTrait:NSItalicFontMask orAttribute:NSObliquenessAttributeName]) {
-				[newTypingAttributes applyStyleInverted:NO trait:NSItalicFontMask forFont:currentFont 
-								 alternateAttributeName:NSObliquenessAttributeName 
-								alternateAttributeValue:[NSNumber numberWithFloat:OBLIQUENESS_FOR_ITALIC]];	
-			}
-			[self setTypingAttributes:newTypingAttributes];
-            [newTypingAttributes release];
-		}
-	}
+    [self setTypingAttributes:[prefsController noteBodyAttributes]];
 }
 
 - (BOOL)_selectionAbutsBulletIndentRange {
@@ -1534,6 +1262,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)insertNewline:(id)sender {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
 	//reset custom styles after each line
 	[self setTypingAttributes:[prefsController noteBodyAttributes]];
 	
@@ -1559,7 +1288,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
         NSInteger listNumber=-1;
         bulletChar = [str characterAtIndex:loc];
         BOOL isNumberedList=[[NSCharacterSet decimalDigitCharacterSet] characterIsMember:bulletChar];
-        if ([prefsController autoFormatsListBullets]) {
+        if (([self usesMarkupSource] && [prefsController autoFormatsListBullets])) {
             
             NSUInteger keyLoc=loc;
             NSString *theNum=@"";
@@ -1659,12 +1388,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 	[theMenu addItem:theMenuItem];
 	[theMenu addItem:[NSMenuItem separatorItem]];
 	
-	NSMenu *formatMenu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Format", nil)] autorelease];
-	
-	theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Plain Text Style",nil) 
-											  action:@selector(defaultStyle:) keyEquivalent:@""] autorelease];
-	[theMenuItem setTarget:self];
-	[formatMenu addItem:theMenuItem];
+	NSMenu *formatMenu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Source Markup", nil)] autorelease];
 	
 	theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bold",nil) action:@selector(bold:) keyEquivalent:@""] autorelease];
 	[theMenuItem setTarget:self];
@@ -1678,7 +1402,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 	[theMenuItem setTarget:self];
 	[formatMenu addItem:theMenuItem];
 	
-	theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Format",@"format submenu title") action:NULL keyEquivalent:@""] autorelease];
+	theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Source Markup",@"format submenu title") action:NULL keyEquivalent:@""] autorelease];
 	[theMenu addItem:theMenuItem];
 	[theMenu setSubmenu:formatMenu forItem:theMenuItem];
 	
@@ -1831,8 +1555,15 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
     }
 }
 
+- (void)insertText:(id)string replacementRange:(NSRange)range {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
+    if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
+    [super insertText:string replacementRange:range];
+}
 - (void)insertText:(id)string {
-    if([prefsController useAutoPairing]){
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
+    if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
+    if(([self usesMarkdownSource] && [prefsController useAutoPairing])){
         NSString *oppositeAppend;
         NSInteger pairCode;
         NSString *insertString;
@@ -1939,6 +1670,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 } 
 
 - (BOOL)changeMarkdownAttribute:(NSString *)syntaxBit{
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return NO;
     NSUInteger syntaxLength=syntaxBit.length;
     NSRange selRange=[self selectedRange];
     NSString *bifoString=[NSString stringWithString:self.activeParagraphBeforeCursor];
@@ -2255,7 +1987,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (BOOL)deleteEmptyPairsBetweenRange:(NSRange)charRange inLineRange:(NSRange)lineRange{
-    if (([prefsController useAutoPairing])&&([self cursorAtRange:charRange isBetweenEmptyPairsInLineRange:lineRange])) {
+    if ((([self usesMarkdownSource] && [prefsController useAutoPairing]))&&([self cursorAtRange:charRange isBetweenEmptyPairsInLineRange:lineRange])) {
         charRange.location-=1;
         [self selectRangeAndRegisterUndo:charRange];
         charRange.length=2;
@@ -2573,6 +2305,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (IBAction)pasteMarkdownLink:(id)sender{
+    if (![self usesMarkdownSource] || ![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
     NSString *aftaString=[self.activeParagraphPastCursor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *bifoString=[self.activeParagraphBeforeCursor stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" https://"]];
     NSPredicate *bifoRefPred=[NSPredicate predicateWithFormat:@"SELF LIKE[cd] %@ OR SELF LIKE[cd] %@",@"*[*]",@"*[*]("];
@@ -2615,6 +2348,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 
 
 - (void)insertStringAtStartOfSelectedParagraphs:(NSString *)insertString{
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
     NSRange actRange=[self rangeOfActiveParagraph];
     NSRange selRange=[self selectedRange];
     if((actRange.location==NSNotFound)&&(selRange.length==0)){
@@ -2674,6 +2408,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 }
 
 - (void)removeStringAtStartOfSelectedParagraphs:(NSString *)removeString{
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
     NSRange actRange=[self rangeOfActiveParagraph];
     NSRange selRange=[self selectedRange];
     if((actRange.location==NSNotFound)&&(selRange.length==0)){

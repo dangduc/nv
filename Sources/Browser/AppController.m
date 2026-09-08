@@ -104,6 +104,8 @@
         browserHorizontalLayout = NO;
         browserIdentifier = [[[NSUUID UUID] UUIDString] copy];
         noteSelections = [[NSMutableDictionary alloc] init];
+        noteBodyStates = [[NSMutableDictionary alloc] init];
+        selectedViewerIdentifier = [@"markdown" copy];
         emptyEditorStorage = [[NSTextStorage alloc] init];
 
         if (applicationOwner && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowDockIcon"]){
@@ -127,7 +129,7 @@
         
         windowUndoManager = [[NSUndoManager alloc] init];
         
-        previewController = [[PreviewController alloc] initWithBrowserController:self];
+
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
@@ -143,7 +145,7 @@
         }
         
         NSNotificationCenter *nc=[NSNotificationCenter defaultCenter];
-        [nc addObserver:previewController selector:@selector(requestPreviewUpdate:) name:@"TextViewHasChangedContents" object:self];
+        [nc addObserver:self selector:@selector(sourceSyntaxChanged:) name:NVNoteSyntaxDidChangeNotification object:nil];
         if (applicationOwner) {
         [nc addObserver:self selector:@selector(togDockIcon:) name:@"AppShouldToggleDockIcon" object:nil];
         [nc addObserver:self selector:@selector(toggleStatusItem:) name:@"AppShouldToggleStatusItem" object:nil];
@@ -209,14 +211,7 @@
 		[self setUpStatusBarItem];
 	}
 	
-	currentPreviewMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"markupPreviewMode"];
-    if (currentPreviewMode == MarkdownPreview) {
-        [multiMarkdownPreview setState:NSOnState];
-    } else if (currentPreviewMode == MultiMarkdownPreview) {
-        [multiMarkdownPreview setState:NSOnState];
-    } else if (currentPreviewMode == TextilePreview) {
-        [textilePreview setState:NSOnState];
-    }
+
 	
 	outletObjectAwoke(self);
 }
@@ -457,7 +452,6 @@ terminateApp:
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	SEL selector = [menuItem action];
 	NSInteger numberSelected = [notesTableView numberOfSelectedRows];
-	NSInteger tag = [menuItem tag];
     if (selector == @selector(newNote:)) return [self sharedNotationController] != nil;
     if (selector == @selector(setSystemColorScheme:) || selector == @selector(setBWColorScheme:) ||
         selector == @selector(setLCColorScheme:) || selector == @selector(setUserColorScheme:)) {
@@ -467,12 +461,12 @@ terminateApp:
         return YES;
     }
     
-    if ((tag == TextilePreview) || (tag == MarkdownPreview) || (tag == MultiMarkdownPreview)) {
-        // Allow only one Preview mode to be selected at every one time
-        [menuItem setState:((tag == currentPreviewMode) ? NSOnState : NSOffState)];
-        return YES;
-    } else if (selector == @selector(printNote:) ||
-               selector == @selector(deleteNote:) ||
+    if (selector == @selector(printNote:) && viewingNote && numberSelected == 1) {
+        NSMenuItem *item = [[menuItem copy] autorelease];
+        [item setAction:@selector(printPreview:)];
+        return [previewController validateMenuItem:item];
+    }
+    if (selector == @selector(printNote:) || selector == @selector(deleteNote:) ||
                selector == @selector(exportNote:) ||
                selector == @selector(tagNote:)) {
 		
@@ -538,8 +532,21 @@ terminateApp:
             [menuItem setHidden:!gotMarked];
         }
         return gotMarked&&([[notesTableView selectedRowIndexes]count]>0);
-    }else if (selector==@selector(togglePreview:)){        
-          return (currentNote != nil);
+    } else if (selector == @selector(togglePreview:) || selector == @selector(toggleSourceView:)) {
+        [menuItem setState:(selector == @selector(togglePreview:) ? viewingNote : !viewingNote) ? NSControlStateValueOn : NSControlStateValueOff];
+        return currentNote != nil;
+    } else if (selector == @selector(selectPreviewMode:)) {
+        [menuItem setState:[[menuItem representedObject] isEqual:selectedViewerIdentifier] ? NSControlStateValueOn : NSControlStateValueOff];
+        return currentNote != nil;
+    } else if (selector == @selector(selectSourceSyntax:)) {
+        [menuItem setState:[[menuItem representedObject] isEqual:[currentNote sourceSyntaxIdentifier]] ? NSControlStateValueOn : NSControlStateValueOff];
+        return currentNote != nil;
+    } else if (selector == @selector(savePreview:) || selector == @selector(printPreview:)) {
+        NSMenuItem *item = [[menuItem copy] autorelease];
+        if (selector == @selector(savePreview:)) [item setAction:@selector(saveHTML:)];
+        return currentNote != nil && viewingNote && [previewController validateMenuItem:item];
+    } else if (selector == @selector(performFindPanelAction:)) {
+        return currentNote != nil && (viewingNote ? [previewController validateMenuItem:menuItem] : [textView validateMenuItem:menuItem]);
     }
 	return YES;
 }
@@ -727,7 +734,7 @@ terminateApp:
 
 - (IBAction)printNote:(id)sender {
 	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
-	
+    if (viewingNote && currentNote && [indexes count] == 1) { [self printPreview:sender]; return; }
 	[MultiplePageView printNotes:[notationController notesAtIndexes:indexes] forWindow:window];
 }
 
@@ -993,7 +1000,7 @@ terminateApp:
     if (control == noteTitleField || control == noteTagsField) {
         if (command == @selector(cancelOperation:)) {
             [self cancelNoteMetadataEditing];
-            [window makeFirstResponder:textView];
+            [self focusNoteBody];
             return YES;
         }
         if (command == @selector(insertNewline:)) {
@@ -1041,7 +1048,7 @@ terminateApp:
 				return YES;
 			}
 			
-			[window makeFirstResponder:textView];
+			[self focusNoteBody];
 			
 			//don't eat the tab!
 			return NO;
@@ -1100,7 +1107,7 @@ terminateApp:
 		if (command == @selector(insertNewline:)) {
 			//hit return in cell
             self.isEditing=NO;
-			[window makeFirstResponder:textView];
+			[self focusNoteBody];
 			return YES;
 		}
 	} else if (control == [tagEditor tagField]) {
@@ -1133,23 +1140,29 @@ terminateApp:
 - (void)_setCurrentNote:(NoteObject *)aNote {
     if (currentNote == aNote) return;
     [self finishEditing];
+    [self captureBodyPresentation];
     if (currentNote) {
         NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];
         [noteSelections setObject:NSStringFromRange([textView selectedRange]) forKey:key];
     }
     [currentNote release];
     currentNote = [aNote retain];
-    [editingSession release];
+    NVNoteEditingSession *previousSession = [editingSession autorelease];
     editingSession = [[[NVApplicationController sharedController] editingSessionForNote:aNote] retain];
     NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;
     NSLayoutManager *layout = [[textView layoutManager] retain];
     // replaceTextStorage: moves every layout manager from the old storage.
     // Detach only this window's layout manager when switching notes.
     [[layout textStorage] removeLayoutManager:layout];
+    [previousSession sourceLayoutDidDetach];
     [storage addLayoutManager:layout];
+    [editingSession sourceLayoutDidAttach];
     [layout release];
     [textView setAllowsUndo:NO];
     [self updateNoteHeader];
+    [self updateBodyPresentation];
+    if (!aNote) [self discardViewer];
+    else if (viewingNote) [self updateViewerSnapshot];
 }
 
 - (NoteObject*)selectedNoteObject {
@@ -1326,6 +1339,7 @@ terminateApp:
     [self updateWordCount:![prefsController showWordCount]];
 	[textView setHidden:state];
 	[editorStatusView setHidden:!state];
+    [self updateBodyPresentation];
 	
 	if (state) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TextFinderShouldHide" object:self];
@@ -1379,6 +1393,7 @@ terminateApp:
 		//select and scroll
 		[textView setAutomaticallySelectedRange:noteSelectionRange];
 		[textView scrollRangeToVisible:noteSelectionRange];
+        [self restoreSourceScroll];
 		
 		//NSString *words = noteIndex != [notationController preferredSelectedNoteIndex] ? typedString : nil;
 		//[textView setFutureSelectionRange:noteSelectionRange highlightingWords:words];
@@ -1482,7 +1497,7 @@ terminateApp:
 - (IBAction)fieldAction:(id)sender {
 	
 	[self createNoteIfNecessary];
-	[window makeFirstResponder:textView];
+	[self focusNoteBody];
 	
 }
 
@@ -1506,6 +1521,7 @@ terminateApp:
 - (NoteObject*)createNoteIfNecessary {
     
     if (!currentNote) {
+        [self setViewingNote:NO];
 		//this assertion not yet valid until labels list changes notes list
 		NSAssert([notesTableView numberOfSelectedRows] != 1, @"cannot create a note when one is already selected");
 		
@@ -1570,7 +1586,8 @@ terminateApp:
 		}
 		
 		if (opts & NVEditNoteToReveal) {
-			[window makeFirstResponder:textView];
+			[self setViewingNote:NO];
+			[self focusNoteBody];
 		}
 		if (opts & NVOrderFrontWindow) {
 			//for external url-handling, often the app will already have been brought to the foreground
@@ -1697,7 +1714,7 @@ terminateApp:
 }
 
 - (void)titleUpdatedForNote:(NoteObject*)aNoteObject {
-    if (aNoteObject == currentNote) [self updateNoteHeader];
+    if (aNoteObject == currentNote) { [self updateNoteHeader]; [self postTextUpdate]; }
     [[prefsController bookmarksController] updateBookmarksUI];
 }
 
@@ -1738,7 +1755,7 @@ terminateApp:
 
 - (void)windowWillClose:(NSNotification *)notification {
     [self finishEditing];
-    [previewController close];
+    [self discardViewer];
     [notesTableView deselectAll:self];
     [self _setCurrentNote:nil];
     if (!applicationOwner) [self unregisterBrowserObservers];
@@ -1824,13 +1841,16 @@ terminateApp:
     [savedSelectedNotes release];
     [typedString release];
     [noteSelections release];
+    [noteBodyStates release];
+    [selectedViewerIdentifier release];
     [browserIdentifier release];
-    [previewController release];
+    [self discardViewer];
     [windowUndoManager release];
     [noteTitleField setDelegate:nil];
     [noteTagsField setDelegate:nil];
     [metadataNote release]; [metadataOriginalValue release];
     [noteTitleField release]; [noteTagsField release]; [createNoteButton release];
+    [bodyModeControl release]; [sourceSyntaxControl release]; [viewerTypeControl release];
     [[browserSplitController view] removeFromSuperview];
     [browserSplitController setSplitViewItems:@[]];
     [browserSplitController release];
@@ -2264,14 +2284,7 @@ terminateApp:
                                                                 userInfo:@"option"
                                                                  repeats:NO] retain];
                 return;
-            }else if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSControlKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) { //only ctrl key is down
-                ModFlagger = 2;
-                modifierTimer = [[NSTimer scheduledTimerWithTimeInterval:1.2
-                                                                  target:self
-                                                                selector:@selector(updateModifier:)
-                                                                userInfo:@"control"
-                                                                 repeats:NO] retain];
-                return;
+
             }
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
@@ -2283,9 +2296,7 @@ terminateApp:
                 if ([[theTimer userInfo] isEqualToString:@"option"]) {
                     [self popWordCount:YES];
                     popped=1;
-                }else if ([[theTimer userInfo] isEqualToString:@"control"]) {
-                    [self popPreview:YES];
-                    popped=2;
+
                 }
             }
             [theTimer invalidate];
@@ -2306,114 +2317,12 @@ terminateApp:
             }
             if (popped==1) {
                 [self performSelector:@selector(popWordCount:) withObject:NO afterDelay:0.1];
-            }else if (popped==2) {
-                [self performSelector:@selector(popPreview:) withObject:NO afterDelay:0.1];
+
             }
             popped=0;
         }
     }
     
-    
-#pragma mark Preview-related and to be extracted into separate files
-    
-    - (void)popPreview:(BOOL)showIt{
-        NSUInteger curEv=[[NSApp currentEvent] type];
-        if((curEv==NSFlagsChanged)||(curEv==NSMouseMoved)||(curEv==NSMouseEntered)||(curEv==NSMouseExited)||(curEv==NSScrollWheel)){
-            if ([previewToggler state]==0) {
-                if (showIt) {
-                    if (![previewController previewIsVisible]) {
-                        [self togglePreview:self];
-                    }
-                    popped=2;
-                }else {
-                    if ([previewController previewIsVisible]) {
-                        [self togglePreview:self];
-                    }
-                    popped=0;
-                }
-            }
-        }
-    }
-    
-    
-    - (IBAction)togglePreview:(id)sender
-    {
-        BOOL doIt = (currentNote != nil);
-        if ([previewController previewIsVisible]) {
-            doIt = YES;
-        }
-        if ([[sender className] isEqualToString:@"NSMenuItem"]) {
-			[sender setState:![sender state]];
-        }
-        if (doIt) {
-            [previewController togglePreview:self];
-        }
-    }
-    
-    - (void)ensurePreviewIsVisible
-    {
-        if (![[previewController window] isVisible]) {
-            [previewController togglePreview:self];
-        }
-    }
-    
-    - (IBAction)toggleSourceView:(id)sender
-    {
-        [self ensurePreviewIsVisible];
-        [previewController switchTabs:self];
-    }
-    
-    - (IBAction)savePreview:(id)sender
-    {
-        [self ensurePreviewIsVisible];
-        [previewController saveHTML:self];
-    }
-
-    - (IBAction)openCustomPreviewFolder:(id)sender
-    {
-        [PreviewController createCustomFiles];
-        [[NSWorkspace sharedWorkspace] openFile:[[NSFileManager defaultManager] applicationSupportDirectory]];
-    }
-
-    - (IBAction)sharePreview:(id)sender
-    {
-        [self ensurePreviewIsVisible];
-        [previewController shareAsk:self];
-    }
-    
-    - (IBAction)lockPreview:(id)sender
-    {
-        if (![previewController previewIsVisible])
-            return;
-        if ([previewController isPreviewSticky]) {
-            [previewController makePreviewNotSticky:self];
-        } else {
-            [previewController makePreviewSticky:self];
-        }
-    }
-    
-    - (IBAction)printPreview:(id)sender
-    {
-        [self ensurePreviewIsVisible];
-        [previewController printPreview:self];
-    }
-    
-    - (void)postTextUpdate{
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TextViewHasChangedContents" object:self];
-    }
-    
-    - (IBAction)selectPreviewMode:(id)sender
-    {
-        NSMenuItem *previewItem = sender;
-        currentPreviewMode = [previewItem tag];
-        
-        // update user defaults
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:currentPreviewMode]
-                                                  forKey:@"markupPreviewMode"];
-        
-        [self postTextUpdate];
-    }
     
     - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
         return nil; // AppKit supplies and configures the native field editor.

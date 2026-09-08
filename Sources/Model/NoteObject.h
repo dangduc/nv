@@ -26,6 +26,8 @@
 #import "BufferUtils.h"
 #import "SynchronizedNoteProtocol.h"
 
+extern NSString *const NVNoteSyntaxDidChangeNotification;
+
 @class LabelObject;
 @class WALStorageController;
 @class NotesTableView;
@@ -67,6 +69,11 @@ typedef struct _NoteFilterContext {
 	CFUUIDBytes uniqueNoteIDBytes;
 	
 	NSMutableDictionary *syncServicesMD;
+	NSDictionary *pendingSourceMetadata;
+	// These bytes stay inside the encrypted note archive, not the library preferences.
+	NSData *sourceOriginalData, *sourceByteOrderMark;
+	NSStringEncoding sourceOriginalEncoding;
+	BOOL sourceConversionPending;
 	
 	//more metadata
 	NSRange selectedRange;
@@ -145,6 +152,14 @@ NSInteger compareFileSize(id *a, id *b);
 	BOOL noteTitleHasPrefixOfUTF8String(NoteObject *note, const char* fullString, size_t stringLen);
 	BOOL noteTitleIsAPrefixOfOtherNoteTitle(NoteObject *longerNote, NoteObject *shorterNote);
 
++ (NSString*)sourceSyntaxIdentifierForPathExtension:(NSString*)extension;
++ (NSString*)sourceStringFromData:(NSData*)data encoding:(NSStringEncoding*)encoding path:(NSString*)path;
+- (NSString*)sourceSyntaxIdentifier;
+- (void)setSourceSyntaxIdentifier:(NSString*)identifier;
+- (void)rememberSourceData:(NSData*)data encoding:(NSStringEncoding)encoding;
+- (NSData*)sourceDataReturningError:(NSError**)error;
+- (BOOL)sourceConversionPending;
+
 - (id)delegate;
 - (void)setDelegate:(id)theDelegate;
 - (id)initWithNoteBody:(NSAttributedString*)bodyText title:(NSString*)aNoteTitle 
@@ -215,9 +230,7 @@ NSInteger compareFileSize(id *a, id *b);
 - (NSAttributedString*)contentString;
 - (NSAttributedString*)printableStringRelativeToBodyFont:(NSFont*)bodyFont;
 - (NSString*)combinedContentWithContextSeparator:(NSString*)sepWContext;
-- (void)setForegroundTextColorOnly:(NSColor*)aColor;
 - (void)_resanitizeContent;
-- (void)updateUnstyledTextWithBaseFont:(NSFont*)baseFont;
 - (void)updateDateStrings;
 - (void)setDateModified:(CFAbsoluteTime)newTime;
 - (void)setDateAdded:(CFAbsoluteTime)newTime;
@@ -238,4 +251,3 @@ NSInteger compareFileSize(id *a, id *b);
 - (void)note:(NoteObject*)note didRemoveLabelSet:(NSSet*)labelSet;
 - (void)note:(NoteObject*)note attributeChanged:(NSString*)attribute;
 @end
-

@@ -1,5 +1,8 @@
 #import "NVNoteEditingSession.h"
 #import "NoteObject.h"
+#import "NVSourceHighlighter.h"
+#import "AttributedPlainText.h"
+#import "GlobalPrefs.h"
 
 NSString * const NVNoteContentsDidChangeNotification = @"NVNoteContentsDidChange";
 NSString * const NVNoteEditorDidChangeNotification = @"NVNoteEditorDidChange";
@@ -130,7 +133,12 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
         [[note undoManager] setLevelsOfUndo:200];
         metadataUndoTarget = [[NVNoteMetadataUndoTarget alloc] initWithSession:self];
         committedContents = [[note contentString] copy];
-        textStorage = [[NSTextStorage alloc] initWithAttributedString:committedContents];
+        textStorage = [[NSTextStorage alloc] initWithString:[committedContents string] attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
+        [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length])];
+        sourceGeneration = 1;
+        sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceCharactersChanged:) name:NSTextStorageDidProcessEditingNotification object:textStorage];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceSyntaxChanged:) name:NVNoteSyntaxDidChangeNotification object:note];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteContentsChanged:)
                                                      name:NVNoteContentsDidChangeNotification object:note];
     }
@@ -138,6 +146,24 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
 }
 - (NoteObject *)note { return note; }
 - (NSTextStorage *)textStorage { return textStorage; }
+- (uint64_t)sourceGeneration { return sourceGeneration; }
+- (void)sourceCharactersChanged:(NSNotification *)notification {
+    if ([textStorage editedMask] & NSTextStorageEditedCharacters) sourceGeneration++;
+}
+- (void)sourceSyntaxChanged:(NSNotification *)notification {
+    [sourceHighlighter setSyntaxIdentifier:[note sourceSyntaxIdentifier]];
+}
+- (void)sourceLayoutDidAttach {
+    [self refreshSourceFont];
+    if (!sourceHighlighter) sourceHighlighter = [[NVSourceHighlighter alloc] initWithTextStorage:textStorage syntaxIdentifier:[note sourceSyntaxIdentifier]];
+    [sourceHighlighter layoutsChanged];
+}
+- (void)sourceLayoutDidDetach {
+    if (![[textStorage layoutManagers] count]) {
+        [sourceHighlighter close]; [sourceHighlighter release]; sourceHighlighter = nil;
+    }
+}
+
 - (BOOL)hasMarkedText {
     for (NSLayoutManager *layout in [textStorage layoutManagers]) {
         for (NSTextContainer *container in [layout textContainers]) {
@@ -166,29 +192,29 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     } else if (changed.length || replacement.length) {
         [textStorage replaceCharactersInRange:changed withAttributedString:[snapshot attributedSubstringFromRange:replacement]];
     }
-    // Style changes can extend beyond the changed characters.
-    // Keep their edit range separate from the character replacement.
-    [textStorage beginEditing];
-    NSUInteger index = 0;
-    while (index < [snapshot length]) {
-        NSRange range;
-        NSDictionary *attributes = [snapshot attributesAtIndex:index effectiveRange:&range];
-        [textStorage setAttributes:attributes range:range];
-        index = NSMaxRange(range);
-    }
-    [textStorage endEditing];
+    // Source snapshots retain characters. The current source font supplies the
+    // Cocoa wrapper attributes, including after Undo to an older snapshot.
+    [textStorage setAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [textStorage length])];
+    [sourceFont release]; sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
+    [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length])];
     [snapshot release];
+}
+- (void)refreshSourceFont {
+    NSFont *font = [[GlobalPrefs defaultPrefs] noteBodyFont];
+    if ([sourceFont isEqual:font] || [self hasMarkedText]) return;
+    [textStorage addAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [textStorage length])];
+    [sourceFont release]; sourceFont = [font retain];
 }
 - (void)reloadFromNote {
     if (writingNote) return;
     if ([self hasMarkedText]) {
         [pendingExternalContents release];
-        pendingExternalContents = [[note contentString] isEqualToAttributedString:committedContents] ? nil : [[note contentString] copy];
+        pendingExternalContents = [[[note contentString] string] isEqualToString:[committedContents string]] ? nil : [[note contentString] copy];
         return;
     }
     [pendingExternalContents release];
     pendingExternalContents = nil;
-    if ([[note contentString] isEqualToAttributedString:committedContents]) return;
+    if ([[[note contentString] string] isEqualToString:[committedContents string]]) { [self refreshSourceFont]; return; }
     [[note undoManager] removeAllActionsWithTarget:self];
     [self applyContents:[note contentString]];
     [committedContents release];
@@ -196,6 +222,7 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     [self broadcastChange];
 }
 - (void)writeContentsToNote {
+    [self refreshSourceFont];
     writingNote = YES;
     [note setContentString:textStorage];
     // Searches in other windows must see the current text immediately.
@@ -258,12 +285,14 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     [undo setActionName:isTitle ? NSLocalizedString(@"Rename Note", nil) : NSLocalizedString(@"Edit Tags", nil)];
 }
 - (void)commitPendingTextChanges {
+    [self refreshSourceFont];
     // Layout and attachment can normalize attributes without a user edit.
     if (pendingExternalContents || [self hasPendingTextChanges]) [self commitTextChanges];
 }
 - (void)commitTextChanges {
     if (writingNote || [self hasMarkedText]) return;
-    if ([textStorage isEqualToAttributedString:committedContents]) {
+    [self refreshSourceFont];
+    if ([[textStorage string] isEqualToString:[committedContents string]]) {
         if (pendingExternalContents) [self reloadFromNote];
         return;
     }
@@ -299,15 +328,18 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
 }
 - (void)close {
     [self commitPendingTextChanges];
+    [sourceHighlighter close]; [sourceHighlighter release]; sourceHighlighter = nil;
     [[note undoManager] removeAllActionsWithTarget:self];
     [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)dealloc {
+    [sourceHighlighter close]; [sourceHighlighter release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[note undoManager] removeAllActionsWithTarget:self];
     [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];
     [metadataUndoTarget release];
+    [sourceFont release];
     [note release];
     [textStorage release];
     [committedContents release];

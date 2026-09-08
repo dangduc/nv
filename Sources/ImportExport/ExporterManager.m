@@ -26,9 +26,10 @@
 }
 
 - (void)awakeFromNib {
-	
-	NSInteger storageFormat = [[[GlobalPrefs defaultPrefs] notationPrefs] notesStorageFormat];
-	[formatSelectorPopup selectItemWithTag:storageFormat];
+	[formatSelectorPopup removeAllItems];
+	[formatSelectorPopup addItemWithTitle:NSLocalizedString(@"Source Text", nil)];
+	[[formatSelectorPopup lastItem] setTag:PlainTextFormat];
+	[formatSelectorPopup selectItemWithTag:PlainTextFormat];
 }
 
 - (IBAction)formatSelectorChanged:(id)sender {

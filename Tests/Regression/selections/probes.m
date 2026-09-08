@@ -121,12 +121,21 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [note setContentString:[[[NSAttributedString alloc] initWithString:@"PREabcdefghij"] autorelease]]; Pump();
         Check([[eb selectedRanges] isEqualToArray:expectedMultiple], @"prefix insertion transforms every selected range");
         NSMutableAttributedString *restyled = [[note contentString] mutableCopy];
+        NVNoteEditingSession *session = [app editingSessionForNote:note];
+        uint64_t sourceGeneration = [session sourceGeneration];
+        BOOL couldUndo = [session canUndo];
         [restyled addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:26.0] range:NSMakeRange(0,[restyled length])];
         [restyled addAttribute:NSUnderlineStyleAttributeName value:@1 range:NSMakeRange(0,3)];
         [note setContentString:restyled]; Pump();
-        Check([[eb selectedRanges] isEqualToArray:expectedMultiple], @"attribute-only reload preserves every selected range");
+        Check([[eb selectedRanges] isEqualToArray:expectedMultiple], @"discarding incoming rich attributes preserves every selected range");
         NSFont *font = [[ea textStorage] attribute:NSFontAttributeName atIndex:4 effectiveRange:NULL];
-        Check([font pointSize] == 26.0 && [[[ea textStorage] attribute:NSUnderlineStyleAttributeName atIndex:0 effectiveRange:NULL] intValue] == 1, @"snapshot applies font and style runs beyond changed characters");
+        Check([font isEqual:[[GlobalPrefs defaultPrefs] noteBodyFont]] &&
+            [[ea textStorage] attribute:NSUnderlineStyleAttributeName atIndex:0 effectiveRange:NULL] == nil &&
+            [[note contentString] attribute:NSUnderlineStyleAttributeName atIndex:0 effectiveRange:NULL] == nil,
+            @"source snapshots discard authored styling and retain the current display font");
+        Check([[ea string] isEqualToString:@"PREabcdefghij"] && [[eb string] isEqualToString:[ea string]] &&
+            [session sourceGeneration] == sourceGeneration && [session canUndo] == couldUndo,
+            @"incoming style-only changes preserve source characters, generation and Undo availability");
         [restyled release];
 
         NoteObject *merged = MakeNote(library, @"Merge selection transformations", @"abcdefghij");

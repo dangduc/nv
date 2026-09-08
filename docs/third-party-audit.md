@@ -1,6 +1,22 @@
 # Third-party asset audit
 
-## Cleanup implemented
+## Source and viewer redesign
+
+The source redesign adds a pinned native Tree-sitter runtime with Markdown, HTML, and JSON parsers.
+It contains 70 files totaling 5,319,346 bytes, including the manifest and license notices.
+The application bundles four queries and their distribution notices from `Resources/Syntax/`.
+Generated Markdown parsers account for most of the added source.
+[The manifest](../ThirdParty/TreeSitter/manifest.json) records exact revisions and SHA-256 hashes.
+
+The redesign removes Perl Markdown 1.0.1 after consolidating display and HTML export through the same renderer.
+It also removes detached preview resources, sharing UI, custom templates, and TaskPaper Ruby preprocessing.
+MultiMarkdown and Textile remain the text preview converters. OpenSSL, ODBEditor, hotkeys, and current crypto remain in use.
+The present `ThirdParty/` tree contains 174 regular files totaling 14,095,896 bytes, excluding symlink contents.
+This measures source and vendored artifacts, not the installed application-size increase.
+
+The historical records below describe the earlier cleanup and its validation at that time.
+
+## Earlier cleanup
 
 The requested cleanup removes 5,094,107 bytes (4.86 MiB), or 36.6% of the tracked `ThirdParty/` files.
 The remaining assets occupy 8,824,755 bytes (8.42 MiB).

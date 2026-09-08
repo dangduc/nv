@@ -1,6 +1,29 @@
 #import <Cocoa/Cocoa.h>
 #import "NVNoteEditingSession.h"
 
+// This native probe isolates the real snapshot algorithm. Font rendering,
+// link detection and parser layouts are covered by copied-app integration tests.
+NSString *const NVNoteSyntaxDidChangeNotification = @"NVNoteSyntaxDidChangeNotification";
+NSString *titleOfNote(id note) { return @"Snapshot fixture"; }
+NSString *labelsOfNote(id note) { return @""; }
+@interface GlobalPrefs : NSObject
++ (id)defaultPrefs;
+- (NSDictionary*)noteBodyAttributes;
+- (NSFont*)noteBodyFont;
+@end
+@implementation GlobalPrefs
++ (id)defaultPrefs { static id prefs; if (!prefs) prefs = [[self alloc] init]; return prefs; }
+- (NSDictionary*)noteBodyAttributes { return @{}; }
+- (NSFont*)noteBodyFont { return nil; }
+@end
+@interface NVSourceHighlighter : NSObject
+@end
+@implementation NVSourceHighlighter
+@end
+@implementation NSMutableAttributedString (SnapshotLinks)
+- (void)addLinkAttributesForRange:(NSRange)range { }
+@end
+
 @interface SnapshotNote : NSObject {
     NSMutableAttributedString *contents;
     NSUndoManager *history;
@@ -48,12 +71,16 @@ int main(void) {
         NVNoteEditingSession *session = [[NVNoteEditingSession alloc] initWithNote:(id)note];
         SnapshotObserver *observer = [SnapshotObserver new];
         [[session textStorage] setDelegate:observer];
-        [note setContentString:[[[NSAttributedString alloc] initWithString:@"BBcoreYY"] autorelease]];
+        [note setContentString:[[[NSAttributedString alloc] initWithString:@"BBcoreYY" attributes:@{NSUnderlineStyleAttributeName: @1}] autorelease]];
         BOOL correct = [[[session textStorage] string] isEqualToString:@"BBcoreYY"];
         BOOL preservesInterior = !observer->changedProtectedText && observer->characterEdits == 2;
-        printf("body_correct=%d edits=%lu preserves_interior=%d\n", correct, (unsigned long)observer->characterEdits, preservesInterior);
+        BOOL sourceOnly = [[session textStorage] attribute:NSUnderlineStyleAttributeName atIndex:0 effectiveRange:NULL] == nil;
+        NSUInteger characterEditsBeforeStyle = observer->characterEdits;
+        [note setContentString:[[[NSAttributedString alloc] initWithString:@"BBcoreYY" attributes:@{NSUnderlineStyleAttributeName: @2}] autorelease]];
+        BOOL ignoredStyleChange = observer->characterEdits == characterEditsBeforeStyle;
+        printf("body_correct=%d edits=%lu preserves_interior=%d source_only=%d ignored_style_change=%d\n", correct, (unsigned long)observer->characterEdits, preservesInterior, sourceOnly, ignoredStyleChange);
         [[session textStorage] setDelegate:nil];
         [session close]; [observer release]; [session release]; [note release];
-        return correct && preservesInterior ? 0 : 1;
+        return correct && preservesInterior && sourceOnly && ignoredStyleChange ? 0 : 1;
     }
 }

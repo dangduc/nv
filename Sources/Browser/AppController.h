@@ -38,18 +38,6 @@
 @class ETScrollView;
 @class ETNoteScrollView;
 
-#ifndef MarkdownPreview
-#define MarkdownPreview 13371
-#endif
-
-#ifndef MultiMarkdownPreview
-#define MultiMarkdownPreview 13372
-#endif
-
-#ifndef TextilePreview
-#define TextilePreview 13373
-#endif
-
 @interface AppController : NSWindowController
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 <NSToolbarDelegate, NSToolbarItemValidation, NSTableViewDelegate, NSWindowDelegate, NSSearchFieldDelegate, NSTextViewDelegate>
@@ -59,6 +47,7 @@
     NSInteger ModFlagger, popped;
     NSArray *windowObjects;
     NSMutableDictionary *noteSelections;
+    NSMutableDictionary *noteBodyStates;
     NVNoteEditingSession *editingSession;
     NSTextStorage *emptyEditorStorage;
     NSString *browserIdentifier;
@@ -81,6 +70,12 @@
     NSView *notesSubview, *splitSubview;
     NSTextField *noteTitleField, *noteTagsField;
     NSButton *createNoteButton;
+    NSSegmentedControl *bodyModeControl;
+    NSPopUpButton *sourceSyntaxControl, *viewerTypeControl;
+    NSString *selectedViewerIdentifier;
+    BOOL viewingNote;
+    NSUInteger viewerGeneration;
+    NSUInteger presentationStateGeneration;
     NoteObject *metadataNote;
     NSTextField *metadataControl;
     NSString *metadataOriginalValue;
@@ -120,14 +115,6 @@
 	NSArray *savedSelectedNotes;
 	BOOL hasLaunched;
     PreviewController *previewController;
-    // IBOutlet NSMenuItem *markdownPreview;
-    IBOutlet NSMenuItem *multiMarkdownPreview;
-    IBOutlet NSMenuItem *textilePreview;
-    IBOutlet NSMenuItem *previewToggler;
-    IBOutlet NSMenuItem *lockNoteItem;
-    IBOutlet NSMenuItem *printPreviewItem;
-    IBOutlet NSMenuItem *savePreviewItem;
-    NSInteger currentPreviewMode;
 }
 
 @property(readwrite)BOOL isEditing;
@@ -220,21 +207,10 @@ void outletObjectAwoke(id sender);
 - (NSColor *)backgrndColor;
 - (NSColor *)foregrndColor;
 - (void)updateWordCount:(BOOL)doIt;
-- (void)ensurePreviewIsVisible;
 - (void)resetModTimers:(NSNotification *)notification;
 - (IBAction)toggleWordCount:(id)sender;
 - (void)popWordCount:(BOOL)showIt;
-- (void)popPreview:(BOOL)showIt;
 - (IBAction)previewNoteWithMarked:(id)sender;
-- (IBAction)togglePreview:(id)sender;
-- (IBAction)toggleSourceView:(id)sender;
-- (IBAction)savePreview:(id)sender;
-- (IBAction)openCustomPreviewFolder:(id)sender;
-- (IBAction)sharePreview:(id)sender;
-- (IBAction)lockPreview:(id)sender;
-- (IBAction)printPreview:(id)sender;
-- (void)postTextUpdate;
-- (IBAction)selectPreviewMode:(id)sender;
 - (BOOL)setNoteIfNecessary;
 - (void)updateRTL;
 - (void)refreshNotesList;
@@ -254,6 +230,30 @@ void outletObjectAwoke(id sender);
 - (void)postToggleToolbar:(NSNumber *)boolNum;
 #endif
 
+@end
+
+@interface AppController (Preview)
+- (void)ensurePreviewIsVisible;
+- (IBAction)togglePreview:(id)sender;
+- (IBAction)toggleSourceView:(id)sender;
+- (IBAction)savePreview:(id)sender;
+- (IBAction)printPreview:(id)sender;
+- (void)postTextUpdate;
+- (IBAction)selectPreviewMode:(id)sender;
+- (BOOL)isViewingNote;
+- (NSString *)selectedViewerIdentifier;
+- (void)setViewingNote:(BOOL)viewing;
+- (void)setupBodyPresentation;
+- (void)updateBodyPresentation;
+- (void)updateViewerSnapshot;
+- (void)captureBodyPresentation;
+- (void)restoreSourceScroll;
+- (void)discardViewer;
+- (void)focusNoteBody;
+- (void)sourceSyntaxChanged:(NSNotification *)notification;
+- (IBAction)selectBodyMode:(id)sender;
+- (IBAction)selectSourceSyntax:(id)sender;
+- (IBAction)performFindPanelAction:(id)sender;
 @end
 
 @interface AppController (MultipleWindows)

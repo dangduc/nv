@@ -45,6 +45,9 @@
 #import "UnifiedCell.h"
 #import "LabelColumnCell.h"
 #import "ODBEditor.h"
+#import "EncodingsManager.h"
+
+NSString *const NVNoteSyntaxDidChangeNotification = @"NVNoteSyntaxDidChangeNotification";
 
 #if __LP64__
 // Needed for compatability with data created by 32bit app
@@ -56,11 +59,127 @@ typedef struct NSRange32 {
 typedef NSRange NSRange32;
 #endif
 
+@interface NoteObject ()
+- (NSString*)sourceMetadataUUID;
+- (NSDictionary*)sourceMetadata;
+- (void)setSourceMetadata:(NSDictionary*)metadata;
+@end
+
+static NSUInteger NVSourceBOMLength(NSData *data, NSStringEncoding *encoding) {
+	const unsigned char *bytes = [data bytes];
+	NSUInteger length = [data length];
+	if (length >= 4 && bytes[0] == 0xFF && bytes[1] == 0xFE && bytes[2] == 0 && bytes[3] == 0) { if (encoding) *encoding = NSUTF32LittleEndianStringEncoding; return 4; }
+	if (length >= 4 && bytes[0] == 0 && bytes[1] == 0 && bytes[2] == 0xFE && bytes[3] == 0xFF) { if (encoding) *encoding = NSUTF32BigEndianStringEncoding; return 4; }
+	if (length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF) { if (encoding) *encoding = NSUTF8StringEncoding; return 3; }
+	if (length >= 2 && bytes[0] == 0xFF && bytes[1] == 0xFE) { if (encoding) *encoding = NSUTF16LittleEndianStringEncoding; return 2; }
+	if (length >= 2 && bytes[0] == 0xFE && bytes[1] == 0xFF) { if (encoding) *encoding = NSUTF16BigEndianStringEncoding; return 2; }
+	return 0;
+}
+
 @implementation NoteObject
 
 static FSRef *noteFileRefInit(NoteObject* obj);
 static void setAttrModifiedDate(NoteObject *note, UTCDateTime *dateTime);
 static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
+
++ (NSString*)sourceSyntaxIdentifierForPathExtension:(NSString*)extension {
+	extension = [extension lowercaseString];
+	if ([@[@"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown"] containsObject:extension]) return @"markdown";
+	if ([extension isEqualToString:@"textile"]) return @"textile";
+	if ([@[@"html", @"htm", @"shtml", @"xhtml", @"xht"] containsObject:extension]) return @"html";
+	if ([extension isEqualToString:@"json"]) return @"json";
+	return @"plain";
+}
+
++ (NSString*)sourceStringFromData:(NSData*)data encoding:(NSStringEncoding*)encoding path:(NSString*)path {
+	if (!data) return nil;
+	NSStringEncoding detectedEncoding = NSUTF8StringEncoding;
+	NSUInteger bomLength = NVSourceBOMLength(data, &detectedEncoding);
+	if (bomLength) {
+		NSString *source = [[[NSString alloc] initWithBytes:(const char*)[data bytes] + bomLength length:[data length] - bomLength encoding:detectedEncoding] autorelease];
+		if (source && encoding) *encoding = detectedEncoding;
+		return source;
+	}
+	NSStringEncoding fileAttributeEncoding = path ? [[NSFileManager defaultManager] textEncodingAttributeOfFSPath:[path fileSystemRepresentation]] : 0;
+	NSStringEncoding candidates[] = {fileAttributeEncoding, encoding ? *encoding : 0, NSUTF8StringEncoding, NSWindowsCP1252StringEncoding, NSMacOSRomanStringEncoding};
+	for (NSUInteger index = 0; index < sizeof(candidates) / sizeof(candidates[0]); index++) {
+		if (!candidates[index]) continue;
+		NSString *source = [[[NSString alloc] initWithData:data encoding:candidates[index]] autorelease];
+		if (source) {
+			if (encoding) *encoding = candidates[index];
+			return source;
+		}
+	}
+	return nil;
+}
+
+- (NSString*)sourceMetadataUUID {
+	CFUUIDRef uuid = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, uniqueNoteIDBytes);
+	NSString *identifier = [(NSString*)CFUUIDCreateString(kCFAllocatorDefault, uuid) autorelease];
+	CFRelease(uuid);
+	return identifier;
+}
+
+- (NSDictionary*)sourceMetadata {
+	if (delegate) return [[delegate notationPrefs] sourceMetadataForNoteUUID:[self sourceMetadataUUID]] ?: @{};
+	return pendingSourceMetadata ?: @{};
+}
+
+- (void)setSourceMetadata:(NSDictionary*)metadata {
+	if (delegate) [[delegate notationPrefs] setSourceMetadata:metadata forNoteUUID:[self sourceMetadataUUID]];
+	else {
+		[pendingSourceMetadata release];
+		pendingSourceMetadata = [metadata copy];
+	}
+}
+
+- (NSString*)sourceSyntaxIdentifier {
+	NSString *syntax = [[self sourceMetadata] objectForKey:@"syntax"];
+	return [syntax isKindOfClass:[NSString class]] && [@[@"plain", @"markdown", @"textile", @"html", @"json"] containsObject:syntax] ? syntax : @"plain";
+}
+
+- (void)setSourceSyntaxIdentifier:(NSString*)identifier {
+	if (![identifier isKindOfClass:[NSString class]] || ![@[@"plain", @"markdown", @"textile", @"html", @"json"] containsObject:identifier]) identifier = @"plain";
+	if ([[self sourceSyntaxIdentifier] isEqualToString:identifier]) return;
+	NSMutableDictionary *metadata = [[[self sourceMetadata] mutableCopy] autorelease];
+	[metadata setObject:identifier forKey:@"syntax"];
+	[self setSourceMetadata:metadata];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NVNoteSyntaxDidChangeNotification object:self];
+}
+
+- (void)rememberSourceData:(NSData*)data encoding:(NSStringEncoding)encoding {
+	if (!data) return;
+	fileEncoding = sourceOriginalEncoding = encoding;
+	NSData *retainedData = [data copy];
+	[sourceOriginalData release];
+	sourceOriginalData = retainedData;
+	[sourceByteOrderMark release];
+	NSUInteger bomLength = NVSourceBOMLength(sourceOriginalData, NULL);
+	sourceByteOrderMark = bomLength ? [[sourceOriginalData subdataWithRange:NSMakeRange(0, bomLength)] retain] : nil;
+}
+
+- (NSData*)sourceDataReturningError:(NSError**)error {
+	if (error) *error = nil;
+	NSData *originalData = sourceOriginalData;
+	NSStringEncoding originalEncoding = sourceOriginalEncoding;
+	NSString *source = [contentString string];
+	if ([originalData isKindOfClass:[NSData class]] && originalEncoding == fileEncoding &&
+		[source isEqualToString:[[self class] sourceStringFromData:originalData encoding:&originalEncoding path:nil]]) return originalData;
+	NSData *body = [source dataUsingEncoding:fileEncoding allowLossyConversion:NO];
+	if (!body) {
+		if (error) *error = [NSError errorWithDomain:@"NVSourceEncodingError" code:1 userInfo:@{NSLocalizedDescriptionKey: @"The source contains characters that its file encoding cannot store.", NSLocalizedRecoverySuggestionErrorKey: @"Convert this note to UTF-8 before saving or exporting it."}];
+		return nil;
+	}
+	NSData *bom = sourceByteOrderMark;
+	if (![bom isKindOfClass:[NSData class]] || ![bom length]) return body;
+	NSMutableData *result = [NSMutableData dataWithData:bom];
+	[result appendData:body];
+	return result;
+}
+
+- (BOOL)sourceConversionPending {
+	return sourceConversionPending;
+}
 
 - (id)init {
     if (self=[super init]) {
@@ -90,6 +209,11 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	[labelSet release];
 	[undoManager release];
 	[filename release];
+	[pendingSourceMetadata release];
+	[sourceOriginalData release];
+	[sourceByteOrderMark release];
+	[contentString release];
+	[syncServicesMD release];
 	[dateModifiedString release];
 	[dateCreatedString release];
 	[prefixParentNotes release];
@@ -115,6 +239,11 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	
 	if (theDelegate) {
 		delegate = theDelegate;
+		if (pendingSourceMetadata) {
+			[[delegate notationPrefs] setSourceMetadata:pendingSourceMetadata forNoteUUID:[self sourceMetadataUUID]];
+			[pendingSourceMetadata release];
+			pendingSourceMetadata = nil;
+		}
 		
 		//do things that ought to have been done during init, but were not possible due to lack of delegate information
 		if (!filename) filename = [[delegate uniqueFilenameForTitle:titleString fromNote:self] retain];
@@ -352,6 +481,13 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			}
 			
 			fileEncoding = [decoder decodeInt32ForKey:VAR_STR(fileEncoding)];
+			id originalData = [decoder decodeObjectForKey:VAR_STR(sourceOriginalData)];
+			id byteOrderMark = [decoder decodeObjectForKey:VAR_STR(sourceByteOrderMark)];
+			sourceOriginalData = [originalData isKindOfClass:[NSData class]] ? [originalData copy] : nil;
+			sourceByteOrderMark = [byteOrderMark isKindOfClass:[NSData class]] ? [byteOrderMark copy] : nil;
+			sourceOriginalEncoding = [decoder decodeIntegerForKey:VAR_STR(sourceOriginalEncoding)];
+			sourceConversionPending = [decoder decodeBoolForKey:VAR_STR(sourceConversionPending)];
+			if (sourceConversionPending) shouldWriteToFile = YES;
 
 			NSUInteger decodedUUIDByteCount = 0;
 			const uint8_t *decodedUUIDBytes = [decoder decodeBytesForKey:VAR_STR(uniqueNoteIDBytes) returnedLength:&decodedUUIDByteCount];
@@ -410,7 +546,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			
 			titleString = [[decoder decodeObject] retain];
 			labelString = [[decoder decodeObject] retain];
-			contentString = [[[decoder decodeObject] mutableCopy] retain];
+			contentString = [[decoder decodeObject] mutableCopy];
 			filename = [[decoder decodeObject] retain];
 #else 
 			[decoder decodeValuesOfObjCTypes: "dd{NSRange=ii}fIiI{UTCDateTime=SIS}I[16C]I@@@@", &modifiedDate, &createdDate, &range32, 
@@ -422,6 +558,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			contentsWere7Bit = (*(unsigned int*)&scrolledProportion) != 0; //hacko wacko
 		}
 	
+		// Attributed legacy archives supply characters only.
+		if (contentString) [contentString setAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [contentString length])];
 		//re-created at runtime to save space
 		[self initContentCacheCString];
 		cTitleFoundPtr = cTitle = titleString ? strdup([titleString lowercaseUTF8String]) : NULL;
@@ -460,6 +598,10 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		[coder encodeInt64:*(int64_t*)&fileModifiedDate forKey:VAR_STR(fileModifiedDate)];
         
 		[coder encodeInt32:fileEncoding forKey:VAR_STR(fileEncoding)];
+		[coder encodeObject:sourceOriginalData forKey:VAR_STR(sourceOriginalData)];
+		[coder encodeObject:sourceByteOrderMark forKey:VAR_STR(sourceByteOrderMark)];
+		[coder encodeInteger:sourceOriginalEncoding forKey:VAR_STR(sourceOriginalEncoding)];
+		[coder encodeBool:sourceConversionPending forKey:VAR_STR(sourceConversionPending)];
 		
 		[coder encodeBytes:(const uint8_t *)&uniqueNoteIDBytes length:sizeof(CFUUIDBytes) forKey:VAR_STR(uniqueNoteIDBytes)];
 		[coder encodeObject:syncServicesMD forKey:VAR_STR(syncServicesMD)];
@@ -516,7 +658,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		}
 		delegate = aDelegate;
 
-		contentString = [[NSMutableAttributedString alloc] initWithAttributedString:bodyText];
+		contentString = [[NSMutableAttributedString alloc] initWithString:[bodyText string] attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
 		[self initContentCacheCString];
 		if (!cContents) {
 			NSLog(@"couldn't get UTF8 string from contents?!?");
@@ -531,7 +673,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 			cLabelsFoundPtr = cLabels = strdup("");
 		}
 		
-		currentFormatID = formatID;
+		currentFormatID = (formatID == PlainTextFormat ? PlainTextFormat : SingleDatabaseFormat);
 		filename = [[delegate uniqueFilenameForTitle:titleString fromNote:nil] retain];
 		
 		CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
@@ -568,6 +710,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		uniqueNoteIDBytes = CFUUIDGetUUIDBytes(uuidRef);
 		CFRelease(uuidRef);
 		
+		[self setSourceSyntaxIdentifier:[[self class] sourceSyntaxIdentifierForPathExtension:[filename pathExtension]]];
+
 		if (![self _setTitleString:[filename stringByDeletingPathExtension]])
 			titleString = NSLocalizedString(@"Untitled Note", @"Title of a nameless note");
 		
@@ -604,7 +748,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 
 - (void)setContentString:(NSAttributedString*)attributedString updateTime:(BOOL)updateTime {
 	if (attributedString) {
-		[contentString setAttributedString:attributedString];
+		[contentString setAttributedString:[[[NSAttributedString alloc] initWithString:[attributedString string] attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]] autorelease]];
 		
 		[self updateTablePreviewString];
 		contentCacheNeedsUpdate = YES;
@@ -832,16 +976,9 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
     }
 }
 
-- (void)setForegroundTextColorOnly:(NSColor*)aColor {
-	//called when notationPrefs font doesn't match globalprefs font, or user changes the font
-	[contentString removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [contentString length])];
-	if (aColor) {
-		[contentString addAttribute:NSForegroundColorAttributeName value:aColor range:NSMakeRange(0, [contentString length])];
-	}
-}
 
 - (void)_resanitizeContent {
-	[contentString santizeForeignStylesForImporting];
+	[contentString setAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [contentString length])];
 	
 	//renormalize the title, in case it is still somehow derived from decomposed HFS+ filenames
 	CFMutableStringRef normalizedString = CFStringCreateMutableCopy(NULL, 0, (CFStringRef)titleString);
@@ -850,21 +987,9 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	[self _setTitleString:(NSString*)normalizedString];
 	CFRelease(normalizedString);
 	
-	if ([delegate currentNoteStorageFormat] == RTFTextFormat)
-		[self makeNoteDirtyUpdateTime:NO updateFile:YES];
+
 }
 
-//how do we write a thousand RTF files at once, repeatedly? 
-
-- (void)updateUnstyledTextWithBaseFont:(NSFont*)baseFont {
-
-	if ([contentString restyleTextToFont:[[GlobalPrefs defaultPrefs] noteBodyFont] usingBaseFont:baseFont] > 0) {
-		[undoManager removeAllActions];
-		
-		if ([delegate currentNoteStorageFormat] == RTFTextFormat)
-			[self makeNoteDirtyUpdateTime:NO updateFile:YES];
-	}
-}
 
 - (void)updateDateStrings {
 	[dateModifiedString release];
@@ -1213,49 +1338,19 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 
 - (BOOL)writeUsingCurrentFileFormat {
 
-    NSData *formattedData = nil;
-    NSError *error = nil;
-	NSMutableAttributedString *contentMinusColor = nil;
-	
     NSInteger formatID = [delegate currentNoteStorageFormat];
-    switch (formatID) {
-		case SingleDatabaseFormat:
-			//we probably shouldn't be here
-			NSAssert(NO, @"Warning! Tried to write data for an individual note in single-db format!");
-			
-			return NO;
-		case PlainTextFormat:
-			
-			if (!(formattedData = [[contentString string] dataUsingEncoding:fileEncoding allowLossyConversion:NO])) {
-				
-				//just make the file unicode and ram it through
-				//unicode is probably better than UTF-8, as it's more easily auto-detected by other programs via the BOM
-				//but we can auto-detect UTF-8, so what the heck
-				[self _setFileEncoding:NSUTF8StringEncoding];
-				//maybe we could rename the file file.utf8.txt here
-				NSLog(@"promoting to unicode (UTF-8)");
-				formattedData = [[contentString string] dataUsingEncoding:fileEncoding allowLossyConversion:YES];
-			}
-			break;
-		case RTFTextFormat:
-			contentMinusColor = [contentString mutableCopy];
-			[contentMinusColor removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [contentMinusColor length])];
-			formattedData = [contentMinusColor RTFFromRange:NSMakeRange(0, [contentMinusColor length]) documentAttributes:nil];
-			[contentMinusColor release];
-			
-			break;
-		case HTMLFormat:
-			//export to HTML document here using NSHTMLTextDocumentType;
-			formattedData = [contentString dataFromRange:NSMakeRange(0, [contentString length]) 
-									  documentAttributes:[NSDictionary dictionaryWithObject:NSHTMLTextDocumentType 
-																					 forKey:NSDocumentTypeDocumentAttribute] error:&error];
-			//our links will always be to filenames, so hopefully we shouldn't have to change anything
-			break;
-		default:
-			NSLog(@"Attempted to write using unknown format ID: %ld", (long)formatID);
-			//return NO;
-    }
-    
+	if (formatID != PlainTextFormat) return NO;
+	NSError *encodingError = nil;
+	NSData *formattedData = [self sourceDataReturningError:&encodingError];
+	if (!formattedData) {
+		if (!sourceConversionPending) {
+			sourceConversionPending = YES;
+			[self makeNoteDirtyUpdateTime:NO updateFile:YES];
+		}
+		[[EncodingsManager sharedManager] offerUTF8ConversionForNote:self];
+		return NO;
+	}
+
     if (formattedData) {
 		BOOL resetFilename = NO;
 		if (!filename || currentFormatID != formatID) {
@@ -1298,6 +1393,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		
 		//finished writing to file successfully
 		shouldWriteToFile = NO;
+		sourceConversionPending = NO;
 		
 		
 		//tell any external editors that we've changed
@@ -1363,8 +1459,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 }
 
 - (BOOL)upgradeToUTF8IfUsingSystemEncoding {
-	if (CFStringConvertEncodingToNSStringEncoding(CFStringGetSystemEncoding()) == fileEncoding)
-		return [self upgradeEncodingToUTF8];
+	// Automatic legacy upgrades no longer change a source file encoding.
 	return NO;
 }
 
@@ -1374,24 +1469,14 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	
 	if (NSUTF8StringEncoding != fileEncoding) {
 		[self _setFileEncoding:NSUTF8StringEncoding];
+		[sourceOriginalData release];
+		sourceOriginalData = nil;
+		[sourceByteOrderMark release];
+		sourceByteOrderMark = nil;
+		sourceOriginalEncoding = NSUTF8StringEncoding;
 		
-		if (!contentsWere7Bit && PlainTextFormat == currentFormatID) {
-			//this note exists on disk as a plaintext file, and its encoding is incompatible with UTF-8
-			
-			if ([delegate currentNoteStorageFormat] == PlainTextFormat) {
-				//actual conversion is expected because notes are presently being maintained as plain text files
-				
-				NSLog(@"rewriting %@ as utf8 data", titleString);
-				didUpgrade = [self writeUsingCurrentFileFormat];
-			} else if ([delegate currentNoteStorageFormat] == SingleDatabaseFormat) {
-				//update last-written-filemod time to guarantee proper encoding at next DB storage format switch, 
-				//in case this note isn't otherwise modified before that happens.
-				//a side effect is that if the user switches to an RTF or HTML format,
-				//this note will be written immediately instead of lazily upon the next modification
-				if (UCConvertCFAbsoluteTimeToUTCDateTime(CFAbsoluteTimeGetCurrent(), &fileModifiedDate) != noErr)
-					NSLog(@"%@: can't set file modification date from current date", NSStringFromSelector(_cmd));
-			}
-		}
+		if ([delegate currentNoteStorageFormat] == PlainTextFormat) didUpgrade = [self writeUsingCurrentFileFormat];
+
 		//make note dirty to ensure these changes are saved
 		[self makeNoteDirtyUpdateTime:NO updateFile:NO];
 	}
@@ -1399,6 +1484,10 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 }
 
 - (void)_setFileEncoding:(NSStringEncoding)encoding {
+	if (fileEncoding != encoding) {
+		[sourceByteOrderMark release];
+		sourceByteOrderMark = nil;
+	}
 	fileEncoding = encoding;
 }
 
@@ -1522,48 +1611,13 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		return NO;
     }
     
-    NSMutableString *stringFromData = nil;
-    NSMutableAttributedString *attributedStringFromData = nil;
-    //interpret based on format; text, rtf, html, etc...
-    switch (fmt) {
-	case SingleDatabaseFormat:
-	    //hmmmmm
-		NSAssert(NO, @"Warning! Tried to update data from a note in single-db format!");
-	    
-	    break;
-	case PlainTextFormat:
-		//try to merge/re-match attributes?
-	    if ((stringFromData = [NSMutableString newShortLivedStringFromData:data ofGuessedEncoding:&fileEncoding withPath:NULL orWithFSRef:noteFileRefInit(self)])) {
-			attributedStringFromData = [[NSMutableAttributedString alloc] initWithString:stringFromData 
-																			  attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-			[stringFromData release];
-	    } else {
-			NSLog(@"String could not be initialized from data");
-	    }
-	    
-	    break;
-	case RTFTextFormat:
-	    
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithRTF:data documentAttributes:NULL];
-	    break;
-	case HTMLFormat:
-
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithHTML:data documentAttributes:NULL];
-		[attributedStringFromData removeAttachments];
-		
-	    break;
-	default:
-	    NSLog(@"%@: Unknown format: %ld", NSStringFromSelector(_cmd), fmt);
-    }
-    
-    if (!attributedStringFromData) {
-		NSLog(@"Couldn't make string out of data for note %@ with format %ld", titleString, (long)fmt);
-		return NO;
-    }
-    
+    if (fmt != PlainTextFormat) return NO;
+	NSString *stringFromData = [[self class] sourceStringFromData:data encoding:&fileEncoding path:[self noteFilePath]];
+	if (!stringFromData) return NO;
+	NSMutableAttributedString *attributedStringFromData = [[NSMutableAttributedString alloc] initWithString:stringFromData attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
+	[self rememberSourceData:data encoding:fileEncoding];
 	[contentString release];
 	contentString = [attributedStringFromData retain];
-	[contentString santizeForeignStylesForImporting];
 	//NSLog(@"%s(%@): %@", _cmd, [self noteFilePath], [contentString string]);
 	
 	//[contentString setAttributedString:attributedStringFromData];
@@ -1674,42 +1728,10 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 
 - (OSStatus)exportToDirectoryRef:(FSRef*)directoryRef withFilename:(NSString*)userFilename usingFormat:(int)storageFormat overwrite:(BOOL)overwrite {
 	
-	NSData *formattedData = nil;
+	if (storageFormat != PlainTextFormat) return kDataFormattingErr;
 	NSError *error = nil;
-	
-	NSMutableAttributedString *contentMinusColor = [[contentString mutableCopy] autorelease];
-	[contentMinusColor removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [contentMinusColor length])];
-
-	
-	switch (storageFormat) {
-		case SingleDatabaseFormat:
-			NSAssert(NO, @"Warning! Tried to export data in single-db format!?");
-		case PlainTextFormat:
-			if (!(formattedData = [[contentMinusColor string] dataUsingEncoding:fileEncoding allowLossyConversion:NO])) {
-				[self _setFileEncoding:NSUTF8StringEncoding];
-				NSLog(@"promoting to unicode (UTF-8) on export--probably because internal format is singledb");
-				formattedData = [[contentMinusColor string] dataUsingEncoding:fileEncoding allowLossyConversion:YES];
-			}
-			break;
-		case RTFTextFormat:
-			formattedData = [contentMinusColor RTFFromRange:NSMakeRange(0, [contentMinusColor length]) documentAttributes:nil];
-			break;
-		case HTMLFormat:
-			formattedData = [contentMinusColor dataFromRange:NSMakeRange(0, [contentMinusColor length])
-									  documentAttributes:[NSDictionary dictionaryWithObject:NSHTMLTextDocumentType 
-																					 forKey:NSDocumentTypeDocumentAttribute] error:&error];
-			break;
-		case WordDocFormat:
-			formattedData = [contentMinusColor docFormatFromRange:NSMakeRange(0, [contentMinusColor length]) documentAttributes:nil];
-			break;
-		case WordXMLFormat:
-			formattedData = [contentMinusColor dataFromRange:NSMakeRange(0, [contentMinusColor length]) 
-									  documentAttributes:[NSDictionary dictionaryWithObject:NSWordMLTextDocumentType 
-																					 forKey:NSDocumentTypeDocumentAttribute] error:&error];
-			break;
-		default:
-			NSLog(@"Attempted to export using unknown format ID: %d", storageFormat);
-    }
+	NSData *formattedData = [self sourceDataReturningError:&error];
+	if (!formattedData) [[EncodingsManager sharedManager] offerUTF8ConversionForNote:self];
 	if (!formattedData)
 		return kDataFormattingErr;
 		

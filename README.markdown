@@ -1,10 +1,10 @@
 # nvALT — dangduc fork
 
-nvALT is a macOS notes app with search and Markdown previews. This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows and native macOS controls.
+nvALT is a macOS notes app with editable source and read-only Markdown, Textile, and HTML previews. This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows and native macOS controls.
 
 Every window keeps the notes list above the editor. All windows share one notes library.
 
-![Light appearance with a white notes list, native toolbar, and separate title and tags](docs/screenshots/native-light.png)
+![Editable Markdown source with local syntax highlighting](docs/screenshots/source-editor.png)
 
 ## What changes in this fork
 
@@ -16,7 +16,7 @@ Every window keeps the notes list above the editor. All windows share one notes 
 | Search | The combined field also shows the selected title. | The search query stays visible after selection changes. An unmatched query offers an explicit Create action. |
 | Appearance | Legacy window controls and color schemes. | Native macOS controls, automatic editor colors, and a white notes list in light and dark appearances. |
 
-Saved side-by-side layouts restore as stacked panes. The fork retains Markdown, MultiMarkdown, and Textile previews, note links, tags, import/export, and custom editor fonts.
+Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
 
 ### Multiple windows
 
@@ -39,7 +39,8 @@ The title and tags sit between the list and the body. Tags use completion from t
 
 </details>
 
-These screenshots use sample notes on macOS 13.7.8. Control appearance can differ across macOS versions.
+The multiple-window and native appearance screenshots show the earlier layout on macOS 13.7.8.
+The Source/Preview screenshots show this redesign on macOS 26.5.2. All screenshots use sample notes.
 
 ## Use the app
 
@@ -53,7 +54,9 @@ These screenshots use sample notes on macOS 13.7.8. Control appearance can diffe
 | Edit the title or tags | Edit the field above the body. Press **Return** to commit, or **Escape** to cancel. |
 | Resize the list | Drag the divider between the list and the editor. |
 | Use system colors | Select **Follow System Appearance** in the color menu. |
-| Open a preview | Click **Preview** in the toolbar. |
+| Open a preview | Select **Preview** above the body, then choose Markdown, Textile, or HTML. |
+| Return to editing | Select **Source** above the body. |
+| Select source syntax | In Source, choose Plain Text, Markdown, Textile, HTML, or JSON. |
 
 ## Automated builds
 
@@ -76,13 +79,13 @@ The desktop integration suites remain separate. [Tests/CI/README.md](Tests/CI/RE
 
 ## Dependency changes
 
-This fork uses `NSJSONSerialization`, `NSDataDetector`, and native `NSPopover` windows.
+This fork uses `NSJSONSerialization`, `NSDataDetector`, and an inline `WKWebView` preview.
 Automatic updates and the Check for Updates menu items are disabled.
 
 HTML files, web archives, and web-page downloads cannot be imported.
 Pasted URLs remain plain text. Browser paste uses a plain-text representation when available.
 The `nvalt://make` action accepts `txt`; its `html` and `url` import parameters are disabled.
-Existing HTML notes remain readable. Markup previews and HTML export remain available.
+You can type or paste HTML source and select the HTML viewer. Rendered HTML export remains available.
 
 ## Build and run
 
@@ -91,7 +94,7 @@ The [official nvALT download](https://brettterpstra.com/projects/nvalt/) contain
 The build requires full Xcode. Command Line Tools alone are insufficient.
 The bundled MultiMarkdown executable and OpenSSL archive require an Intel build. Apple Silicon Macs need Rosetta.
 
-The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK. Other macOS and Xcode versions need separate checks.
+The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK. Other runtime versions need separate checks.
 
 1. Clone this fork:
 
@@ -128,7 +131,7 @@ The command below passed on macOS 13.7.8 with Xcode 15.2 and the macOS 14.2 SDK.
    open build/DerivedData/Build/Products/Development/nvALT.app
    ```
 
-The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater still points to upstream. Updates to this fork require a new local build or CI artifact.
+The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater is disabled. Updates to this fork require a new local build or CI artifact.
 
 ## Development checks
 
@@ -137,7 +140,7 @@ The build retains the upstream application identifier and can use existing nvALT
 | Directory | Contents |
 | --- | --- |
 | `Sources/` | Application code, grouped by responsibility. Headers stay beside their implementations. |
-| `Resources/` | Images, help, preview templates, interfaces, and localized resources in `Localization/*.lproj/`. |
+| `Resources/` | Images, help, syntax queries, interfaces, and localized resources in `Localization/*.lproj/`. |
 | `Config/` | Application plist, prefix header, sync configuration, and linker order files. |
 | `ThirdParty/` | Bundled source dependencies, markup processors, and OpenSSL. |
 | `Scripts/` | Development utilities. |
@@ -159,13 +162,27 @@ The suites use temporary notes and a copy of the app. They cover shared edits, U
 
 [Tests/README.md](Tests/README.md) describes focused checks and full-screen checks. [The review record](Tests/NativeUIReview/VALIDATION.md) lists results and limits. Live sync services and external editor apps need separate manual checks.
 
-## Preview customization
+## Source and preview
 
-1. Choose **Open Custom CSS Folder** from the Preview menu.
-2. Edit `template.html` for the HTML structure.
-3. Edit `custom.css` for the preview styles.
+New notes start as editable Plain Text. The syntax menu enables Tree-sitter highlighting for Markdown, HTML, and JSON.
+Textile source supports markup insertion commands with plain display.
+Syntax settings stay in the local library. They are independent of each window's preview format and are not sent to Simplenote.
 
-The preview also supports JavaScript in the template. Missing custom files use the bundled defaults.
+Each window can edit Source or show a read-only preview of the same note.
+Switching modes retains the source, Undo, caret, and scroll position. Existing composition commits only in the editor being hidden.
+Markdown preview uses MultiMarkdown. Preview and Save HTML use the same rendered result.
+
+![Read-only Markdown preview in the same browser body](docs/screenshots/readonly-viewer.png)
+
+Preview offers selection, Copy, Find, and HTML export. Printing requires macOS 11 or later.
+
+Plain-text paste and imports preserve source characters, whitespace, and line endings.
+Text imports retain their original bytes, encoding, and byte-order mark where possible.
+An edit that cannot use the original encoding offers UTF-8 conversion.
+
+Rich-text notes, rich-text import/export, detached previews, sticky previews, sharing, and custom templates are no longer supported.
+The viewer blocks active note scripts and remote resources. Passive local assets can load from the note's directory.
+Native file storage and Quick Look previews are planned for a later milestone.
 
 ## Contribute and credits
 

@@ -12,6 +12,7 @@
 
 #import "EncodingsManager.h"
 #import "NoteObject.h"
+#import "NVApplicationController.h"
 #import "NotationFileManager.h"
 #import "NSData_transformations.h"
 #import "NSString_NV.h"
@@ -80,6 +81,37 @@ static const NSStringEncoding AllowedEncodings[] = {
 	if (!man)
 		man = [[EncodingsManager alloc] init];
 	return man;
+}
+
+- (void)offerUTF8ConversionForNote:(NoteObject*)aNote {
+	if (!aNote) return;
+	if (!pendingConversionNotes) pendingConversionNotes = [[NSMutableSet alloc] init];
+	if ([pendingConversionNotes containsObject:aNote]) return;
+	[pendingConversionNotes addObject:aNote];
+	// Defer presentation until the current write or export operation has finished.
+	NSArray *request = @[aNote, [aNote delegate] ?: (id)[NSNull null]];
+	[self performSelector:@selector(presentUTF8Conversion:) withObject:request afterDelay:0.0];
+}
+
+- (void)presentUTF8Conversion:(NSArray*)request {
+	NoteObject *aNote = [request objectAtIndex:0];
+	id library = [request objectAtIndex:1];
+	if (library != [[NVApplicationController sharedController] library] || [aNote sourceDataReturningError:NULL]) {
+		[pendingConversionNotes removeObject:aNote];
+		return;
+	}
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Convert “%@” to UTF-8?", nil), titleOfNote(aNote)]];
+	[alert setInformativeText:NSLocalizedString(@"The source contains characters that its current file encoding cannot store. Conversion preserves these characters. The existing file stays unchanged until you convert it. After conversion, repeat an export that failed.", nil)];
+	[alert addButtonWithTitle:NSLocalizedString(@"Convert to UTF-8", nil)];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+	void (^completion)(NSModalResponse) = ^(NSModalResponse response) {
+		if (response == NSAlertFirstButtonReturn && [request objectAtIndex:1] == [[NVApplicationController sharedController] library]) [aNote upgradeEncodingToUTF8];
+		[pendingConversionNotes removeObject:aNote];
+	};
+	NSWindow *parentWindow = [NSApp mainWindow] ?: [NSApp keyWindow];
+	if (parentWindow) [alert beginSheetModalForWindow:parentWindow completionHandler:completion];
+	else completion([alert runModal]);
 }
 
 - (BOOL)checkUnicode {

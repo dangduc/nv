@@ -643,6 +643,11 @@ bail:
 		//also make sure not to write new notes unless changing to a different format; don't rewrite deleted notes upon launch
 		if (currentStorageFormat != oldFormat)
 			[allNotes makeObjectsPerformSelector:@selector(writeUsingCurrentFileFormatIfNonExistingOrChanged)];
+		// A canceled conversion keeps the edited source in the archive. Retry its
+		// explicit conversion request after reopening, without changing encoding.
+		for (NoteObject *note in allNotes) {
+			if ([note sourceConversionPending]) [self scheduleWriteForNote:note];
+		}
 
 		//flush and close the journal if necessary
 		/*if (walWriter) {
@@ -657,6 +662,10 @@ bail:
     }
 	//perform after delay because this could trigger the mounting of a RAM disk in a background  NSTask
 	[[ODBEditor sharedODBEditor] performSelector:@selector(initializeDatabase:) withObject:notationPrefs afterDelay:0.0];
+}
+
+- (NSURL *)notesDirectoryURL {
+    return [(NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &noteDirectoryRef) autorelease];
 }
 
 - (NSInteger)currentNoteStorageFormat {
@@ -1223,22 +1232,15 @@ bail:
 }
 
 - (void)setForegroundTextColor:(NSColor*)fgColor {
-	//do not update the notes in any other way, nor the database, other than also setting this color in notationPrefs
-	//foreground color is archived only for practicality, and should be for display only
-	NSAssert(fgColor != nil, @"foreground color cannot be nil");
-
-	[allNotes makeObjectsPerformSelector:@selector(setForegroundTextColorOnly:) withObject:fgColor];
-	
-	[notationPrefs setForegroundTextColor:fgColor];
+    NSAssert(fgColor != nil, @"foreground color cannot be nil");
+    // Appearance settings never rewrite source or its archived wrapper attributes.
+    [notationPrefs setForegroundTextColor:fgColor];
 }
 
 - (void)restyleAllNotes {
-	NSFont *baseFont = [notationPrefs baseBodyFont];
-	NSAssert(baseFont != nil, @"base body font from notation prefs should ALWAYS be valid!");
-	
-	[allNotes makeObjectsPerformSelector:@selector(updateUnstyledTextWithBaseFont:) withObject:baseFont];
-	
-	[notationPrefs setBaseBodyFont:[prefsController noteBodyFont]];
+    // Keep the library's display preference. Cached editing sessions apply this
+    // font to their live storage through the application's existing callback.
+    [notationPrefs setBaseBodyFont:[prefsController noteBodyFont]];
 }
 
 //used by BookmarksController
@@ -1656,4 +1658,3 @@ bail:
 }
 
 @end
-

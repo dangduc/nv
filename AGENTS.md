@@ -7,7 +7,7 @@ nvALT is a macOS Cocoa application written primarily in Objective-C, with C util
 `Notation.xcodeproj` defines the application target and shared schemes. Its navigator groups match the directories on disk.
 
 - `Sources/`: application, browser, editor, model, storage, sync, preferences, import/export, preview, UI, and utility code.
-- `Resources/`: images, preview templates, help, and interfaces. Localized resources live in `Resources/Localization/*.lproj/`.
+- `Resources/`: images, syntax queries, help, and interfaces. Localized resources live in `Resources/Localization/*.lproj/`.
 - `Config/`: application plist, prefix header, sync configuration, and linker order files.
 - `ThirdParty/`: bundled source dependencies, markup processors, and OpenSSL headers and libraries.
 - `Scripts/`: development utilities.

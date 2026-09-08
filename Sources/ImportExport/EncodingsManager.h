@@ -27,11 +27,13 @@
 	NSStringEncoding currentEncoding;
 	NoteObject *note;
 	NSData *noteData;
+	NSMutableSet *pendingConversionNotes;
 	FSRef fsRef;
 }
 
 + (EncodingsManager *)sharedManager;
 - (BOOL)checkUnicode;
+- (void)offerUTF8ConversionForNote:(NoteObject*)aNote;
 - (BOOL)tryToUpdateTextForEncoding:(NSStringEncoding)encoding;
 - (BOOL)shouldUpdateNoteFromDisk;
 - (void)showPanelForNote:(NoteObject*)aNote;

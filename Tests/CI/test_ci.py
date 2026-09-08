@@ -109,7 +109,10 @@ class TagTests(unittest.TestCase):
 
 
 class ArchiveTests(unittest.TestCase):
-    def make_archive(self, path, executable=True, markdown_executable=True):
+    syntax_resources = ("json.scm", "html.scm", "markdown.scm", "markdown-inline.scm", "ThirdPartyNotices.txt")
+
+    def make_archive(self, path, executable=True, markdown_executable=True,
+                     missing_syntax=None, invalid_syntax=None, syntax_body="fixture", syntax_mode=None):
         with zipfile.ZipFile(path, "w") as archive:
             def add(name, body, mode):
                 info = zipfile.ZipInfo("nvALT.app/Contents/" + name)
@@ -120,8 +123,13 @@ class ArchiveTests(unittest.TestCase):
             add("Info.plist", "fixture", stat.S_IFREG | 0o644)
             add("MacOS/nvALT", "fixture", stat.S_IFREG | (0o755 if executable else 0o644))
             add("Resources/multimarkdown", "fixture", stat.S_IFREG | (0o755 if markdown_executable else 0o644))
+            for name in self.syntax_resources:
+                if name != missing_syntax:
+                    body = syntax_body if name == invalid_syntax else "fixture"
+                    mode = syntax_mode if name == invalid_syntax and syntax_mode is not None else stat.S_IFREG | 0o644
+                    add("Resources/Syntax/" + name, body, mode)
 
-    def test_archive_preserves_required_executables(self):
+    def test_archive_preserves_required_executables_and_syntax_resources(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "app.zip"
             self.make_archive(path)
@@ -140,6 +148,35 @@ class ArchiveTests(unittest.TestCase):
             self.make_archive(path, markdown_executable=False)
             with self.assertRaisesRegex(ValueError, "executable permissions"):
                 packaging.check_archive(path)
+
+    def test_missing_syntax_resources_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            for name in self.syntax_resources:
+                with self.subTest(resource=name):
+                    self.make_archive(path, missing_syntax=name)
+                    with self.assertRaisesRegex(ValueError, "Missing syntax resource: Resources/Syntax/" + name):
+                        packaging.check_archive(path)
+
+    def test_empty_syntax_resources_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            for name in self.syntax_resources:
+                for body in ("", " \n\t"):
+                    with self.subTest(resource=name, body=body):
+                        self.make_archive(path, invalid_syntax=name, syntax_body=body)
+                        with self.assertRaisesRegex(ValueError, "nonempty regular file: Resources/Syntax/" + name):
+                            packaging.check_archive(path)
+
+    def test_syntax_symlinks_and_directories_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            for name in self.syntax_resources:
+                for mode in (stat.S_IFLNK | 0o777, stat.S_IFDIR | 0o755):
+                    with self.subTest(resource=name, mode=mode):
+                        self.make_archive(path, invalid_syntax=name, syntax_mode=mode)
+                        with self.assertRaisesRegex(ValueError, "nonempty regular file: Resources/Syntax/" + name):
+                            packaging.check_archive(path)
 
 
 if __name__ == "__main__":

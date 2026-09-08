@@ -14,6 +14,8 @@ The ZIP file preserves app permissions.
 
 The archive check reads the ZIP file and checks these properties.
 Its tests reject archives with lost executable permissions for the app or MultiMarkdown.
+The archive must also contain four highlighting queries and `ThirdPartyNotices.txt` under `Contents/Resources/Syntax/`.
+These resources must be nonempty regular files. The checks reject missing, empty, or whitespace-only resources, directories, and symbolic links.
 
 ## Automatic tags
 

@@ -114,59 +114,43 @@
         Check([statusMenu itemWithTag:902] == nil && hasQuit, @"status menu removes the updater and retains Quit");
         Check([[[[NSApp mainMenu] itemAtIndex:0] submenu] itemWithTag:88] == nil, @"application menu removes the updater");
 
-        // Native popovers use the real nib, with no call to the sharing service.
+        // Source windows allocate the read-only provider only on demand.
         [self revealNote:note options:0]; Pump();
-        PreviewController *preview = [self valueForKey:@"previewController"];
-        [preview showWindow:self]; Pump();
-        NSPopover *confirmation = [preview valueForKey:@"confirmationPopover"];
-        NSPopover *result = [preview valueForKey:@"sharePopover"];
-        Check([[confirmation contentViewController] view] == [preview valueForKey:@"shareConfirmation"] &&
-            [[result contentViewController] view] == [preview valueForKey:@"shareNotification"], @"popover content uses the loaded nib views");
-        Check([[preview valueForKey:@"shareConfirm"] superview] == [[confirmation contentViewController] view] &&
-            [[preview valueForKey:@"viewOnWebButton"] superview] == [[result contentViewController] view], @"popover buttons belong to the visible content");
-        [confirmation setAnimates:NO]; [result setAnimates:NO];
-        [preview shareAsk:self]; Pump();
-        Check([confirmation isShown], @"Share opens a native confirmation popover");
-        [preview cancelShare:self]; Pump();
-        Check(![confirmation isShown], @"Cancel dismisses the confirmation");
-        [preview shareAsk:self]; Pump(); [confirmation close]; Pump();
-        [preview shareAsk:self]; Pump();
-        Check([confirmation isShown], @"Share reopens after native dismissal");
-        [preview showShareURL:@"Error fixture" isError:YES]; Pump();
-        Check(![confirmation isShown] && [result isShown] && [[preview valueForKey:@"viewOnWebButton"] isHidden], @"sharing errors replace the confirmation and hide the browser action");
-        [preview showShareURL:@"https://example.invalid/shared" isError:NO]; Pump();
-        Check(NSEqualSizes([result contentSize], NSMakeSize(360, 112)) &&
-            [[[preview valueForKey:@"urlTextField"] stringValue] rangeOfString:@"example.invalid/shared"].location != NSNotFound,
-            @"result popover retains its intended size and visible URL label");
-        Check([result isShown] && ![[preview valueForKey:@"viewOnWebButton"] isHidden] && [[pboard stringForType:NSStringPboardType] isEqualToString:@"https://example.invalid/shared"], @"success restores the browser action and copies the URL");
-        const char *screenshots = getenv("NV_DEPENDENCY_SCREENSHOTS");
-        if (screenshots) {
-            [NSApp activateIgnoringOtherApps:YES];
-            [[preview window] makeKeyAndOrderFront:self];
-            [preview showShareURL:@"https://example.invalid/shared" isError:NO];
-            Pump();
-            NSWindow *popoverWindow = [[[result contentViewController] view] window];
-            CGImageRef image = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow,
-                (CGWindowID)[popoverWindow windowNumber], kCGWindowImageBoundsIgnoreFraming);
-            if (image) {
-                NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:image] autorelease];
-                [[bitmap representationUsingType:NSPNGFileType properties:@{}] writeToFile:[NSString stringWithUTF8String:screenshots] atomically:YES];
-                CGImageRelease(image);
+        Check(![self isViewingNote] && [self valueForKey:@"previewController"] == nil, @"source windows leave the inline viewer unallocated");
+        NSSet *removedActions = [NSSet setWithObjects:@"shareNote:", @"shareAsk:", @"makePreviewSticky:", @"makePreviewNotSticky:", @"switchTabs:", @"showShareURL:isError:", nil];
+        for (NSString *action in removedActions)
+            Check(![PreviewController instancesRespondToSelector:NSSelectorFromString(action)], @"detached preview, sharing, and generated-source actions are removed");
+        NSMutableArray *menus = [NSMutableArray arrayWithObjects:[NSApp mainMenu], statusMenu, nil];
+        BOOL hasRemovedCommand = NO;
+        for (NSUInteger index = 0; index < [menus count]; index++) {
+            for (NSMenuItem *item in [[menus objectAtIndex:index] itemArray]) {
+                NSString *action = [item action] ? NSStringFromSelector([item action]) : @"";
+                if ([removedActions containsObject:action]) hasRemovedCommand = YES;
+                if ([item submenu]) [menus addObject:[item submenu]];
             }
         }
-        [preview togglePreview:self]; Pump();
-        Check(![result isShown] && [preview valueForKey:@"shareURL"] == nil, @"hiding preview closes the result and releases its URL");
-        [preview showWindow:self]; [preview shareAsk:self]; Pump();
-        [preview close]; Pump();
-        Check(![confirmation isShown] && ![result isShown], @"closing preview dismisses both popovers");
+        Check(!hasRemovedCommand, @"menus contain no removed preview commands");
+        for (NSString *resource in @[@"template.html", @"templateclean.html", @"custom.css", @"customclean.css", @"tp2md.rb"])
+            Check([[NSBundle mainBundle] pathForResource:[resource stringByDeletingPathExtension] ofType:[resource pathExtension]] == nil, @"script-dependent preview resources are absent from the application");
+        Check([[NSBundle mainBundle] pathForResource:@"MarkupPreview" ofType:@"nib"] == nil, @"detached preview interfaces are absent from the application");
         [app newWindow:self]; Pump();
         AppController *browser = [[app browserControllers] lastObject];
-        PreviewController *otherPreview = [[browser valueForKey:@"previewController"] retain];
-        [[otherPreview valueForKey:@"confirmationPopover"] setAnimates:NO];
-        [otherPreview showWindow:self]; [otherPreview shareAsk:self]; Pump();
+        [browser revealNote:note options:0]; Pump();
+        Check([browser valueForKey:@"previewController"] == nil, @"additional source browser also leaves the viewer unallocated");
+        NSString *sourceBeforePreview = [[[note contentString] string] copy];
+        [browser setViewingNote:YES];
+        PreviewController *preview = [[browser valueForKey:@"previewController"] retain];
+        NSDate *previewDeadline = [NSDate dateWithTimeIntervalSinceNow:12];
+        while ([preview loading] && [previewDeadline timeIntervalSinceNow] > 0) Pump();
+        Check(![preview loading] && ![preview renderError] && [preview renderedHTML] != nil, @"explicit Preview prepares the native read-only provider");
+        Check([[preview view] window] == [browser window] && [[preview webView] isKindOfClass:[WKWebView class]], @"the provider embeds modern WebKit in the owning browser");
+        Check([self valueForKey:@"previewController"] == nil && ![self isViewingNote], @"a peer stays in Source when another browser opens Preview");
+        [browser setViewingNote:NO]; Pump();
+        Check([[preview view] isHidden] && ![preview loading] && [[[note contentString] string] isEqual:sourceBeforePreview], @"returning to Source hides rendering without rewriting the note");
+        [sourceBeforePreview release];
         [[browser window] close]; Pump();
-        Check(![[otherPreview valueForKey:@"confirmationPopover"] isShown], @"browser teardown dismisses its preview popover");
-        [otherPreview release];
+        Check([preview renderedHTML] == nil && [[preview webView] navigationDelegate] == nil && [[preview webView] UIDelegate] == nil, @"browser closure disposes its viewer output and WebKit delegates");
+        [preview release];
         [pboard releaseGlobally];
         [library flushAllNoteChanges]; [library closeJournal];
         NSLog(@"NATIVE DEPENDENCY CHECKS PASSED: %lu", (unsigned long)Checks);

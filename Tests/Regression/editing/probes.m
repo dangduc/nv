@@ -194,23 +194,39 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         Check([[[noop contentString] string] isEqualToString:@"base!LOCAL"], @"unchanged snapshot retains both redo actions");
         [baseline release];
 
-        NoteObject *styled = MakeNote(library, @"Attribute-only external update", @"base");
+        NoteObject *styled = MakeNote(library, @"Discarded external formatting", @"base");
         [a revealNote:styled options:0]; [b revealNote:styled options:0]; Pump();
+        [eb insertText:@"!" replacementRange:NSMakeRange(4,0)]; Pump();
         NSMutableAttributedString *restyled = [[styled contentString] mutableCopy];
-        NSFont *updatedFont = [NSFont systemFontOfSize:27.0];
-        [restyled addAttribute:NSFontAttributeName value:updatedFont range:NSMakeRange(0,[restyled length])];
-        [eb setMarkedText:@"LOCAL" selectedRange:NSMakeRange(5,0) replacementRange:NSMakeRange(4,0)];
+        NSFont *sourceFont = [[GlobalPrefs defaultPrefs] noteBodyFont];
+        NSFont *externalFont = [NSFont systemFontOfSize:[sourceFont pointSize] + 13.0];
+        [restyled addAttributes:@{NSFontAttributeName: externalFont, NSForegroundColorAttributeName: [NSColor magentaColor],
+            NSUnderlineStyleAttributeName: @1, NSStrikethroughStyleAttributeName: @1, @"ExternalAuthoredStyle": @YES}
+            range:NSMakeRange(0, [restyled length])];
+        [eb setMarkedText:@"LOCAL" selectedRange:NSMakeRange(5,0) replacementRange:NSMakeRange(5,0)];
         NSUInteger beforeStyle = [[library allNotes] count];
         [styled setContentString:restyled];
+        Check([eb hasMarkedText] && [[eb string] isEqualToString:@"base!LOCAL"], @"discarding external formatting preserves the active local composition");
         [eb unmarkText]; [b finishEditing]; Pump();
-        Check([[[styled contentString] string] isEqualToString:@"baseLOCAL"], @"attribute-only external update merges appended composition");
-        Check([[library allNotes] count] == beforeStyle, @"attribute-only update creates no text conflict note");
-        NSFont *modelFont = [[styled contentString] attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
-        Check([modelFont pointSize] == 27.0, @"merged contents retain external font attributes");
+        Check([[[styled contentString] string] isEqualToString:@"base!LOCAL"], @"attribute-only external source preserves appended composition characters");
+        Check([[library allNotes] count] == beforeStyle, @"discarded formatting creates no text conflict note");
+        for (NSAttributedString *text in @[[styled contentString], [ea textStorage], [eb textStorage]]) {
+            NSDictionary *attributes = [text attributesAtIndex:0 effectiveRange:NULL];
+            Check([attributes[NSFontAttributeName] isEqual:sourceFont] && !attributes[NSUnderlineStyleAttributeName] &&
+                !attributes[NSStrikethroughStyleAttributeName] && !attributes[@"ExternalAuthoredStyle"],
+                @"source model and peer editors discard authored formatting and use the current source font");
+        }
         [ea undo:self]; Pump();
-        Check([[[styled contentString] string] isEqualToString:@"base"], @"undo after font refresh removes local text only");
-        modelFont = [[styled contentString] attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
-        Check([modelFont pointSize] == 27.0, @"undo preserves external font attributes");
+        Check([[[styled contentString] string] isEqualToString:@"base!"], @"Undo after discarded formatting removes only the local composition");
+        [ea undo:self]; Pump();
+        Check([[[styled contentString] string] isEqualToString:@"base"], @"discarded formatting preserves earlier source Undo history");
+        [eb redo:self]; [eb redo:self]; Pump();
+        Check([[[styled contentString] string] isEqualToString:@"base!LOCAL"], @"Redo restores both source edits after external formatting is discarded");
+        NSDictionary *restoredAttributes = [[styled contentString] attributesAtIndex:0 effectiveRange:NULL];
+        Check([restoredAttributes[NSFontAttributeName] isEqual:sourceFont] && !restoredAttributes[@"ExternalAuthoredStyle"],
+            @"Undo and Redo never restore discarded external formatting");
+        Check([[ea string] isEqualToString:[eb string]] && [[ea string] isEqualToString:[[styled contentString] string]],
+            @"peer editors and source model agree after composition and history changes");
         [restyled release];
         [note release]; [overlap release]; [redoNote release]; [firstEdit release];
         [library flushAllNoteChanges]; [library closeJournal];

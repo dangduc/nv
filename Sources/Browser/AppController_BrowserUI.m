@@ -57,7 +57,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [listItem setCanCollapse:NO];
     [listItem setHoldingPriority:251];
     NSSplitViewItem *editorItem = [NSSplitViewItem splitViewItemWithViewController:editorController];
-    [editorItem setMinimumThickness:180];
+    [editorItem setMinimumThickness:212];
     [editorItem setCanCollapse:NO];
     [browserSplitController addSplitViewItem:listItem];
     [browserSplitController addSplitViewItem:editorItem];
@@ -89,7 +89,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [createNoteButton setHidden:YES];
     [notesSubview addSubview:createNoteButton];
 
-    const CGFloat headerHeight = 64;
+    const CGFloat headerHeight = 96;
     NSRect bounds = [splitSubview bounds];
     [textScrollView setFrame:NSMakeRect(0, 0, NSWidth(bounds), NSHeight(bounds) - headerHeight)];
     [textScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
@@ -132,6 +132,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [wordCounter setHidden:[prefsController showWordCount]];
     [splitSubview addSubview:wordCounter];
     [wordCounter release];
+    [self setupBodyPresentation];
     [noteTitleField setNextKeyView:noteTagsField];
     [noteTagsField setNextKeyView:textView];
     pendingListHeight = NSHeight([mainView bounds]) / 3.0;
@@ -143,7 +144,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
 - (void)setNotesListHeight:(CGFloat)height {
     if (!isfinite(height)) return;
     [mainView layoutSubtreeIfNeeded];
-    CGFloat maximum = MAX(84, NSHeight([splitView bounds]) - 180 - [splitView dividerThickness]);
+    CGFloat maximum = MAX(84, NSHeight([splitView bounds]) - 212 - [splitView dividerThickness]);
     [splitView setPosition:MIN(maximum, MAX(84, height)) ofDividerAtIndex:0];
     [mainView layoutSubtreeIfNeeded];
 }
@@ -190,7 +191,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
 }
 - (IBAction)applyNoteMetadata:(id)sender {
     [self commitNoteMetadata];
-    [window makeFirstResponder:textView];
+    [self focusNoteBody];
 }
 - (void)updateSearchAffordance {
     NSString *query = [[self browserSession] searchString] ?: @"";
@@ -204,6 +205,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
 }
 - (IBAction)newNote:(id)sender {
     [self finishEditing];
+    [self setViewingNote:NO];
     [notesTableView deselectAll:self];
     [field setStringValue:@""];
     [typedString release]; typedString = [@"" copy]; typedStringIsCached = YES;

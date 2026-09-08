@@ -476,11 +476,7 @@ CA
                 <menuItem title="Formatar" id="397">
                     <menu key="submenu" title="Formatar" id="398">
                         <items>
-                            <menuItem title="Texto Simples" keyEquivalent="t" id="977">
-                                <connections>
-                                    <action selector="defaultStyle:" target="-1" id="978"/>
-                                </connections>
-                            </menuItem>
+
                             <menuItem title="Negrito" tag="2" keyEquivalent="b" id="574">
                                 <attributedString key="attributedTitle">
                                     <fragment content="Negrito">
@@ -552,42 +548,19 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Preview" id="1259">
                         <items>
-                            <menuItem title="(Multi)Markdown" tag="13372" id="1262">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="selectPreviewMode:" target="213" id="1266"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Textile" tag="13373" id="1263">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="selectPreviewMode:" target="213" id="1268"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1261"/>
                             <menuItem title="Toggle Preview Window" keyEquivalent="p" id="1260">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="togglePreview:" target="213" id="1270"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Preview using Marked" keyEquivalent="m" id="1351">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                <connections>
-                                    <action selector="previewNoteWithMarked:" target="213" id="1352"/>
-                                </connections>
-                            </menuItem>
+
                             <menuItem title="Toggle Source View" keyEquivalent="u" id="1264">
                                 <connections>
                                     <action selector="toggleSourceView:" target="213" id="1272"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Lock Note to Preview" keyEquivalent="L" id="1293">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="lockPreview:" target="213" id="1295"/>
-                                </connections>
-                            </menuItem>
+
                             <menuItem title="Print Preview / PDF" keyEquivalent="P" id="1294">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
@@ -599,16 +572,7 @@ CA
                                     <action selector="savePreview:" target="213" id="1273"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Enable Markdown Completion" keyEquivalent="M" id="1329">
-                                <connections>
-                                    <binding destination="1281" name="value" keyPath="values.UsesMarkdownCompletions" id="1332">
-                                        <dictionary key="options">
-                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                            <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </menuItem>
+
                         </items>
                     </menu>
                 </menuItem>
@@ -707,20 +671,14 @@ CA
                 <outlet property="editorStatusView" destination="341" id="348"/>
                 <outlet property="field" destination="1067" id="1074"/>
                 <outlet property="fsMenuItem" destination="1300" id="1301"/>
-                <outlet property="lockNoteItem" destination="1293" id="1297"/>
                 <outlet property="mainView" destination="1213" id="1285"/>
-                <outlet property="multiMarkdownPreview" destination="1262" id="1267"/>
                 <outlet property="notesScrollView" destination="1221" id="1279"/>
                 <outlet property="notesTableView" destination="1222" id="1230"/>
-                <outlet property="previewToggler" destination="1260" id="1271"/>
-                <outlet property="printPreviewItem" destination="1294" id="1298"/>
-                <outlet property="savePreviewItem" destination="1265" id="1299"/>
                 <outlet property="statBarMenu" destination="1123" id="1158"/>
                 <outlet property="syncWaitPanel" destination="1079" id="1085"/>
                 <outlet property="syncWaitSpinner" destination="1082" id="1084"/>
                 <outlet property="textScrollView" destination="1217" id="1278"/>
                 <outlet property="textView" destination="1218" id="1233"/>
-                <outlet property="textilePreview" destination="1263" id="1269"/>
                 <outlet property="window" destination="1212" id="1234"/>
                 <outlet property="wordCounter" destination="1274" id="1277"/>
             </connections>
@@ -830,11 +788,7 @@ DQ
                 <menuItem title="Formatar" id="1181">
                     <menu key="submenu" title="Formatar" id="1182">
                         <items>
-                            <menuItem title="Texto Simples" keyEquivalent="t" id="1183">
-                                <connections>
-                                    <action selector="defaultStyle:" target="-1" id="1197"/>
-                                </connections>
-                            </menuItem>
+
                             <menuItem title="Negrito" tag="2" keyEquivalent="b" id="1187">
                                 <attributedString key="attributedTitle">
                                     <fragment content="Negrito">
@@ -943,22 +897,7 @@ CA
                         <action selector="togglePreview:" target="213" id="1334"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Preview using Marked" keyEquivalent="m" id="De7-IN-E4D">
-                    <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                    <connections>
-                        <action selector="previewNoteWithMarked:" target="213" id="SSA-Ll-PCH"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Enable Markdown Completion" keyEquivalent="M" id="1337">
-                    <connections>
-                        <binding destination="1281" name="value" keyPath="values.UsesMarkdownCompletions" id="1338">
-                            <dictionary key="options">
-                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </menuItem>
+
                 <menuItem isSeparatorItem="YES" id="1139"/>
                 <menuItem title="Alternar para Leiaute Horizontal" keyEquivalent="l" id="1175">
                     <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>

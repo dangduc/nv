@@ -37,80 +37,21 @@
 
 - (BOOL)addNotesFromPasteboard:(NSPasteboard*)pasteboard {
 	
-	NSArray *types = [pasteboard types];
-	NSMutableAttributedString *newString = nil;
-	NSData *data = nil;
-	BOOL pbHasPlainText = [types containsObject:NSStringPboardType];
-	
-	if ([types containsObject:NSFilenamesPboardType]) {
-		NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
-		if ([files isKindOfClass:[NSArray class]]) {
-			if ([notationController openFiles:files]) return YES;
-		}
-	}
-	
-	NSString *sourceIdentifierString = nil;
-	
-	if ([types containsObject:[NSString customPasteboardTypeOfCode:0x4D5A0003]]) {
-		//lazilly use syntheticTitle to get first line, even though that's not how our API is documented
-		sourceIdentifierString = [[pasteboard stringForType:[NSString customPasteboardTypeOfCode:0x4D5A0003]] syntheticTitleAndTrimmedBody:NULL];
-		unichar nullChar = 0x0;
-		sourceIdentifierString = [sourceIdentifierString stringByReplacingOccurrencesOfString:
-								  [NSString stringWithCharacters:&nullChar length:1] withString:@""];
-	}
-	
-	//safari on 10.5 does not seem to provide a plain-text equivalent, so we must be able to dumb-down RTF data as well
-	//should fall-back to plain text if 1) user doesn't want styles and 2) plain text is actually available
-	BOOL shallUsePlainTextFallback = pbHasPlainText && ![prefsController pastePreservesStyle];
-	BOOL hasRTFData = NO;
-	
-	if ([types containsObject:NVPTFPboardType]) {
-		if ((data = [pasteboard dataForType:NVPTFPboardType]))
-			newString = [[NSMutableAttributedString alloc] initWithRTF:data documentAttributes:NULL];
-		
-	} else if ([types containsObject:NSRTFPboardType] && !shallUsePlainTextFallback) {
-		if ((data = [pasteboard dataForType:NSRTFPboardType]))
-			newString = [[NSMutableAttributedString alloc] initWithRTF:data documentAttributes:NULL];
-		hasRTFData = YES;
-	} else if ([types containsObject:NSRTFDPboardType] && !shallUsePlainTextFallback) {
-		if ((data = [pasteboard dataForType:NSRTFDPboardType]))
-			newString = [[NSMutableAttributedString alloc] initWithRTFD:data documentAttributes:NULL];
-		hasRTFData = YES;
-	} else if (pbHasPlainText) {
-		
-		NSString *pboardString = [pasteboard stringForType:NSStringPboardType];
-		if (pboardString) newString = [[NSMutableAttributedString alloc] initWithString:pboardString];
-	}
-	
-	if (!newString && [types containsObject:NSURLPboardType]) {
-		NSString *urlString = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-		if (urlString) newString = [[NSMutableAttributedString alloc] initWithString:urlString];
-	}
-
-	[newString autorelease];
-	if ([newString length] > 0) {
-		[newString removeAttachments];
-		
-		if (hasRTFData && ![prefsController pastePreservesStyle]) //fallback scenario
-			newString = [[[NSMutableAttributedString alloc] initWithString:[newString string]] autorelease];
-		
-		NSUInteger bodyLoc = 0, prefixedSourceLength = 0;
-		NSString *noteTitle = [[newString string] syntheticTitleAndSeparatorWithContext:NULL bodyLoc:&bodyLoc maxTitleLen:36];
-		if ([sourceIdentifierString length] > 0) {
-			//add the URL or wherever it was that this piece of text came from
-			prefixedSourceLength = [[newString prefixWithSourceString:sourceIdentifierString] length];
-		}
-		[newString santizeForeignStylesForImporting];
-		
-		NoteObject *note = [[[NoteObject alloc] initWithNoteBody:newString title:noteTitle delegate:[self sharedNotationController]
-														  format:[notationController currentNoteStorageFormat] labels:nil] autorelease];
-		if (bodyLoc > 0 && [newString length] >= bodyLoc + prefixedSourceLength) [note setSelectedRange:NSMakeRange(prefixedSourceLength, bodyLoc)];
-		[notationController addNewNote:note];
-		
-		return note != nil;
-	}
-	
-	return NO;
+    NSArray *types = [pasteboard types];
+    if ([types containsObject:NSFilenamesPboardType]) {
+        NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
+        if ([files isKindOfClass:[NSArray class]] && [notationController openFiles:files]) return YES;
+    }
+    NSString *source = [pasteboard stringForType:NSStringPboardType];
+    if (!source && [types containsObject:NSURLPboardType]) source = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
+    if (![source length]) return NO;
+    NSString *title = [source syntheticTitleAndSeparatorWithContext:NULL bodyLoc:NULL maxTitleLen:36];
+    NSAttributedString *body = [[[NSAttributedString alloc] initWithString:source] autorelease];
+    NoteObject *note = [[[NoteObject alloc] initWithNoteBody:body title:title delegate:[self sharedNotationController]
+        format:[notationController currentNoteStorageFormat] labels:nil] autorelease];
+    [self setViewingNote:NO];
+    [notationController addNewNote:note];
+    return note != nil;
 }
 
 - (BOOL)interpretNVURL:(NSURL*)aURL {
@@ -244,10 +185,10 @@
             [pathString hasSuffix:@"gif"]   ||
             [pathString hasSuffix:@"png"])
         {
-          currentPreviewMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"markupPreviewMode"];
-          if (currentPreviewMode == MarkdownPreview || currentPreviewMode == MultiMarkdownPreview) {
+          NSString *syntax = [currentNote sourceSyntaxIdentifier];
+          if ([syntax isEqualToString:@"markdown"]) {
             linkFormat = @"![](%@)%s";
-          } else if (currentPreviewMode == TextilePreview) {
+          } else if ([syntax isEqualToString:@"textile"]) {
             linkFormat = @"!%@()!%s"; 
           }
         }
