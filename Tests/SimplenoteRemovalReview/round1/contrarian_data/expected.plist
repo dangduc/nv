@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>characters</key>
+		<string>{"local":"café 😀"}
+	</string>
+		<key>createdDate</key>
+		<real>710000000.25</real>
+		<key>fileEncoding</key>
+		<integer>2483028224</integer>
+		<key>labelString</key>
+		<string>local, café, 日本語</string>
+		<key>logSequenceNumber</key>
+		<integer>1898136928</integer>
+		<key>metadata</key>
+		<dict>
+			<key>futureLocalProperty</key>
+			<dict>
+				<key>keep</key>
+				<true/>
+				<key>value</key>
+				<integer>42</integer>
+			</dict>
+			<key>syntax</key>
+			<string>json</string>
+		</dict>
+		<key>modifiedDate</key>
+		<real>710000111.75</real>
+		<key>sourceByteOrderMark</key>
+		<data>
+		//4=
+		</data>
+		<key>sourceConflictOriginUUID</key>
+		<data>
+		</data>
+		<key>sourceConversionPending</key>
+		<integer>0</integer>
+		<key>sourceOriginalData</key>
+		<data>
+		//57ACIAbABvAGMAYQBsACIAOgAiAGMAYQBmAOkAIAA92ADeIgB9AA0ACgAJ
+		AA==
+		</data>
+		<key>sourceOriginalEncoding</key>
+		<integer>2483028224</integer>
+		<key>titleString</key>
+		<string>Pending source 0</string>
+		<key>uuid</key>
+		<data>
+		IUNlh6nL7Q8xU3WXudv9AA==
+		</data>
+	</dict>
+	<dict>
+		<key>characters</key>
+		<string>&lt;p&gt;Local café £&lt;/p&gt;
+</string>
+		<key>createdDate</key>
+		<real>710000001.25</real>
+		<key>fileEncoding</key>
+		<integer>12</integer>
+		<key>labelString</key>
+		<string>local, café, 日本語</string>
+		<key>logSequenceNumber</key>
+		<integer>1898136929</integer>
+		<key>metadata</key>
+		<dict>
+			<key>futureLocalProperty</key>
+			<dict>
+				<key>keep</key>
+				<true/>
+				<key>value</key>
+				<integer>42</integer>
+			</dict>
+			<key>syntax</key>
+			<string>html</string>
+		</dict>
+		<key>modifiedDate</key>
+		<real>710000112.75</real>
+		<key>sourceByteOrderMark</key>
+		<data>
+		</data>
+		<key>sourceConflictOriginUUID</key>
+		<data>
+		</data>
+		<key>sourceConversionPending</key>
+		<integer>0</integer>
+		<key>sourceOriginalData</key>
+		<data>
+		PHA+TG9jYWwgY2Fm6SCjPC9wPg0K
+		</data>
+		<key>sourceOriginalEncoding</key>
+		<integer>12</integer>
+		<key>titleString</key>
+		<string>Pending source 1</string>
+		<key>uuid</key>
+		<data>
+		IUNlh6nL7Q8xU3WXudv9AQ==
+		</data>
+	</dict>
+	<dict>
+		<key>characters</key>
+		<string>Local unsent emoji 😀
+</string>
+		<key>createdDate</key>
+		<real>710000002.25</real>
+		<key>fileEncoding</key>
+		<integer>12</integer>
+		<key>labelString</key>
+		<string>local, café, 日本語</string>
+		<key>logSequenceNumber</key>
+		<integer>1898136930</integer>
+		<key>metadata</key>
+		<dict>
+			<key>futureLocalProperty</key>
+			<dict>
+				<key>keep</key>
+				<true/>
+				<key>value</key>
+				<integer>42</integer>
+			</dict>
+			<key>syntax</key>
+			<string>markdown</string>
+		</dict>
+		<key>modifiedDate</key>
+		<real>710000113.75</real>
+		<key>sourceByteOrderMark</key>
+		<data>
+		</data>
+		<key>sourceConflictOriginUUID</key>
+		<data>
+		IUNlh6nL7Q8xU3WXudv9AA==
+		</data>
+		<key>sourceConversionPending</key>
+		<integer>1</integer>
+		<key>sourceOriginalData</key>
+		<data>
+		UHJldmlvdXMgbG9jYWwgY2Fm6SCjDQo=
+		</data>
+		<key>sourceOriginalEncoding</key>
+		<integer>12</integer>
+		<key>titleString</key>
+		<string>Pending source 2</string>
+		<key>uuid</key>
+		<data>
+		IUNlh6nL7Q8xU3WXudv9Ag==
+		</data>
+	</dict>
+</array>
+</plist>

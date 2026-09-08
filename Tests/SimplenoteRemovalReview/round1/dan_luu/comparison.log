@@ -1,0 +1,6 @@
+PASS: 8 paired cycles; snapshot, journal, encode, decode, and live-decoded counts match in every cycle
+PASS: 83 native checks per app preserve all 1,024 notes and their local source metadata
+PASS: archive bytes change only for first migration and the 64-note edit, then remain stable
+First snapshot bytes: 2133727 -> 1667790 (465937 fewer)
+baseline: snapshots=8; journal records=64; final tracked live decoded notes=16384
+current: snapshots=8; journal records=64; final tracked live decoded notes=16384

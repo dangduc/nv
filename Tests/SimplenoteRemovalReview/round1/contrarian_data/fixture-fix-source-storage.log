@@ -1,0 +1,447 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:45:43: warning: receiver 'NoteObject' is a forward class and corresponding @interface may not exist [-Wreceiver-forward-class]
+   45 |             if ([candidate isKindOfClass:[NoteObject class]] && [[[candidate contentString] string] isEqualToString:ExpectedExternalSource]) recoveredExternal = YES;
+      |                                           ^~~~~~~~~~
+/Users/duc/dev/nv/Sources/Browser/LabelsListController.h:27:8: note: forward declaration of class here
+   27 | @class NoteObject;
+      |        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/objc/NSObject.h:107:1: note: method 'class' is used for the forward class
+  107 | + (Class)class OBJC_SWIFT_UNAVAILABLE("use 'aClass.self' instead");
+      | ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:45:78: warning: instance method '-contentString' not found (return type defaults to 'id') [-Wobjc-method-access]
+   45 |             if ([candidate isKindOfClass:[NoteObject class]] && [[[candidate contentString] string] isEqualToString:ExpectedExternalSource]) recoveredExternal = YES;
+      |                                                                              ^~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:59:17: warning: method definition for 'shouldUpdateNoteFromDisk' not found [-Wincomplete-implementation]
+   59 | @implementation EncodingsManager (NVSourceConversionTest)
+      |                 ^
+   60 | - (void)nv_cancelConversionForNote:(NoteObject*)note { SourceConversionOffers++; }
+   61 | @end
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:57:1: note: method 'shouldUpdateNoteFromDisk' declared here
+   57 | - (BOOL)shouldUpdateNoteFromDisk;
+      | ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:85:72: warning: instance method '-contentString' not found (return type defaults to 'id') [-Wobjc-method-access]
+   85 |     for (NoteObject *candidate in [library allNotes]) if ([[[candidate contentString] string] isEqualToString:body]) count++;
+      |                                                                        ^~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Browser/LabelsListController.h:27:8: note: receiver is instance of class declared here
+   27 | @class NoteObject;
+      |        ^
+In file included from /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:374:
+/Users/duc/dev/nv/Tests/Regression/source-storage/legacy-sync-compatibility.inc:22:57: warning: instance method '-noteForUUIDBytes:' not found (return type defaults to 'id') [-Wobjc-method-access]
+   22 |         NoteObject *localSurvivor = [legacyLocalLibrary noteForUUIDBytes:&legacyIdentifier];
+      |                                                         ^~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Storage/NotationController.h:47:12: note: receiver is instance of class declared here
+   47 | @interface NotationController : NSObject {
+      |            ^
+In file included from /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:524:
+/Users/duc/dev/nv/Tests/Regression/source-storage/conversion-lifecycle.inc:49:36: warning: instance method '-noteForUUIDBytes:' not found (return type defaults to 'id') [-Wobjc-method-access]
+   49 |                     Check([library noteForUUIDBytes:[offered uniqueNoteIDBytes]] == nil && ![[NSFileManager defaultManager] fileExistsAtPath:path], @"accepting an old sheet cannot recreate a deleted source file");
+      |                                    ^~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Storage/NotationController.h:47:12: note: receiver is instance of class declared here
+   47 | @interface NotationController : NSObject {
+      |            ^
+In file included from /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:524:
+/Users/duc/dev/nv/Tests/Regression/source-storage/conversion-lifecycle.inc:98:59: warning: instance method '-noteForUUIDBytes:' not found (return type defaults to 'id') [-Wobjc-method-access]
+   98 |         NoteObject *retryReopened = [retryReopenedLibrary noteForUUIDBytes:[retrying uniqueNoteIDBytes]];
+      |                                                           ^~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Storage/NotationController.h:47:12: note: receiver is instance of class declared here
+   47 | @interface NotationController : NSObject {
+      |            ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-8p5l0z6t/ReviewProbe.m:544:56: warning: instance method '-noteForUUIDBytes:' not found (return type defaults to 'id') [-Wobjc-method-access]
+  544 |         NoteObject *reopenedPending = [reopenedLibrary noteForUUIDBytes:[pending uniqueNoteIDBytes]];
+      |                                                        ^~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Storage/NotationController.h:47:12: note: receiver is instance of class declared here
+   47 | @interface NotationController : NSObject {
+      |            ^
+8 warnings generated.
+2026-09-08 13:02:38.729 nvALT[29097:325679613] PASS: isolated copied-app preferences domain
+2026-09-08 13:02:38.729 nvALT[29097:325679613] PASS: copied app and temporary library share the test root
+2026-09-08 13:02:38.733 nvALT[29097:325679613] PASS: temporary library directory exists
+2026-09-08 13:02:38.733 nvALT[29097:325679613] PASS: temporary library opens
+2026-09-08 13:02:39.050 nvALT[29097:325679613] PASS: source fixture writes
+2026-09-08 13:02:39.053 nvALT[29097:325679613] PASS: text import preserves leading space, tabs, Unicode, CRLF, CR and trailing newlines
+2026-09-08 13:02:39.053 nvALT[29097:325679613] PASS: text import records the explicit encoding
+2026-09-08 13:02:39.053 nvALT[29097:325679613] PASS: unchanged source exports the exact original bytes and BOM
+2026-09-08 13:02:39.053 nvALT[29097:325679613] PASS: Markdown file extension supplies local syntax
+2026-09-08 13:02:39.073 nvALT[29097:325679613] PASS: library attachment preserves source bytes
+2026-09-08 13:02:39.074 nvALT[29097:325679613] PASS: edited source retains encoding, BOM and line endings
+2026-09-08 13:02:39.075 nvALT[29097:325679613] PASS: source fixture writes
+2026-09-08 13:02:39.075 nvALT[29097:325679613] PASS: text import preserves leading space, tabs, Unicode, CRLF, CR and trailing newlines
+2026-09-08 13:02:39.075 nvALT[29097:325679613] PASS: text import records the explicit encoding
+2026-09-08 13:02:39.075 nvALT[29097:325679613] PASS: unchanged source exports the exact original bytes and BOM
+2026-09-08 13:02:39.075 nvALT[29097:325679613] PASS: Markdown file extension supplies local syntax
+2026-09-08 13:02:39.078 nvALT[29097:325679613] PASS: library attachment preserves source bytes
+2026-09-08 13:02:39.079 nvALT[29097:325679613] PASS: edited source retains encoding, BOM and line endings
+2026-09-08 13:02:39.080 nvALT[29097:325679613] PASS: source fixture writes
+2026-09-08 13:02:39.080 nvALT[29097:325679613] PASS: text import preserves leading space, tabs, Unicode, CRLF, CR and trailing newlines
+2026-09-08 13:02:39.081 nvALT[29097:325679613] PASS: text import records the explicit encoding
+2026-09-08 13:02:39.081 nvALT[29097:325679613] PASS: unchanged source exports the exact original bytes and BOM
+2026-09-08 13:02:39.081 nvALT[29097:325679613] PASS: Markdown file extension supplies local syntax
+2026-09-08 13:02:39.088 nvALT[29097:325679613] PASS: library attachment preserves source bytes
+2026-09-08 13:02:39.088 nvALT[29097:325679613] PASS: edited source retains encoding, BOM and line endings
+2026-09-08 13:02:39.089 nvALT[29097:325679613] PASS: source fixture writes
+2026-09-08 13:02:39.089 nvALT[29097:325679613] PASS: text import preserves leading space, tabs, Unicode, CRLF, CR and trailing newlines
+2026-09-08 13:02:39.089 nvALT[29097:325679613] PASS: text import records the explicit encoding
+2026-09-08 13:02:39.089 nvALT[29097:325679613] PASS: unchanged source exports the exact original bytes and BOM
+2026-09-08 13:02:39.089 nvALT[29097:325679613] PASS: Markdown file extension supplies local syntax
+2026-09-08 13:02:39.092 nvALT[29097:325679613] PASS: library attachment preserves source bytes
+2026-09-08 13:02:39.092 nvALT[29097:325679613] PASS: edited source retains encoding, BOM and line endings
+2026-09-08 13:02:39.093 nvALT[29097:325679613] PASS: source fixture writes
+2026-09-08 13:02:39.093 nvALT[29097:325679613] PASS: text import preserves leading space, tabs, Unicode, CRLF, CR and trailing newlines
+2026-09-08 13:02:39.093 nvALT[29097:325679613] PASS: text import records the explicit encoding
+2026-09-08 13:02:39.093 nvALT[29097:325679613] PASS: unchanged source exports the exact original bytes and BOM
+2026-09-08 13:02:39.093 nvALT[29097:325679613] PASS: Markdown file extension supplies local syntax
+2026-09-08 13:02:39.096 nvALT[29097:325679613] PASS: library attachment preserves source bytes
+2026-09-08 13:02:39.096 nvALT[29097:325679613] PASS: edited source retains encoding, BOM and line endings
+2026-09-08 13:02:39.097 nvALT[29097:325679613] PASS: UTF-8 BOM detection works with an odd byte count
+2026-09-08 13:02:39.097 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.098 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.098 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.100 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.100 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.101 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.101 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.105 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.105 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.106 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.106 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.109 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.110 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.110 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.110 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.113 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.113 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.114 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.114 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.116 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.116 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.117 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.117 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.120 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.121 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.121 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.121 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.124 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.124 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.125 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.125 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.127 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.128 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.128 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.128 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.130 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.130 nvALT[29097:325679613] PASS: write transport BOM and optional literal source marker
+2026-09-08 13:02:39.131 nvALT[29097:325679613] PASS: BOM decoding consumes only the transport marker and preserves literal U+FEFF
+2026-09-08 13:02:39.131 nvALT[29097:325679613] PASS: unchanged BOM source retains every original byte
+2026-09-08 13:02:39.133 nvALT[29097:325679613] PASS: edited BOM source retains its literal marker and exact encoded bytes
+2026-09-08 13:02:39.134 nvALT[29097:325679613] PASS: empty source imports without a synthetic body
+2026-09-08 13:02:39.134 nvALT[29097:325679613] PASS: MacRoman fallback fixture has no encoding attribute
+2026-09-08 13:02:39.134 nvALT[29097:325679613] PASS: unmarked legacy text preserves the established MacRoman source characters
+2026-09-08 13:02:39.134 nvALT[29097:325679613] PASS: unmarked MacRoman retains its source bytes after correct character decoding
+2026-09-08 13:02:39.135 nvALT[29097:325679613] PASS: an explicit CP-1252 hint takes precedence over legacy fallback
+2026-09-08 13:02:39.136 nvALT[29097:325679613] PASS: an explicit CP-1252 file attribute preserves its intended characters
+2026-09-08 13:02:39.136 nvALT[29097:325679613] PASS: write a supported GB18030 alias fixture
+2026-09-08 13:02:39.141 nvALT[29097:325679613] PASS: GB18030 fixture has valid source characters and noncanonical original bytes
+2026-09-08 13:02:39.141 nvALT[29097:325679613] PASS: unarchived GB18030 source preserves its byte alias
+2026-09-08 13:02:39.141 nvALT[29097:325679613] PASS: note archive restores the GB18030 encoding identity
+2026-09-08 13:02:39.141 nvALT[29097:325679613] PASS: unchanged archived GB18030 source preserves its original byte alias
+2026-09-08 13:02:39.141 nvALT[29097:325679613] PASS: archived GB18030 conflict copy retains its exact retry identity
+2026-09-08 13:02:39.145 nvALT[29097:325679613] PASS: GB18030 export uses a temporary directory
+2026-09-08 13:02:39.145 nvALT[29097:325679613] PASS: actual export preserves the recovered GB18030 source bytes
+2026-09-08 13:02:39.146 nvALT[29097:325679613] PASS: unmarked valid UTF-8 remains ahead of the legacy fallback
+2026-09-08 13:02:39.146 nvALT[29097:325679613] PASS: explicit UTF-16 BOM conversion emits UTF-8 without the old BOM
+2026-09-08 13:02:39.147 nvALT[29097:325679613] PASS: requesting UTF-8 for an existing UTF-8 source retains its BOM
+2026-09-08 13:02:39.147 nvALT[29097:325679613] PASS: text import creates one unchanged source note
+2026-09-08 13:02:39.147 nvALT[29097:325679613] PASS: filename hint does not guess unsupported syntax
+2026-09-08 13:02:39.148 nvALT[29097:325679613] PASS: text import creates one unchanged source note
+2026-09-08 13:02:39.148 nvALT[29097:325679613] PASS: filename hint does not guess unsupported syntax
+2026-09-08 13:02:39.148 nvALT[29097:325679613] PASS: text import creates one unchanged source note
+2026-09-08 13:02:39.148 nvALT[29097:325679613] PASS: filename hint does not guess unsupported syntax
+2026-09-08 13:02:39.149 nvALT[29097:325679613] PASS: text import creates one unchanged source note
+2026-09-08 13:02:39.149 nvALT[29097:325679613] PASS: filename hint does not guess unsupported syntax
+2026-09-08 13:02:39.149 nvALT[29097:325679613] PASS: text import creates one unchanged source note
+2026-09-08 13:02:39.149 nvALT[29097:325679613] PASS: filename hint does not guess unsupported syntax
+2026-09-08 13:02:39.150 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.150 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.150 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.150 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.151 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.151 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.151 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.151 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.152 nvALT[29097:325679613] PASS: rich-text and rendered-document imports are unavailable
+2026-09-08 13:02:39.188 nvALT[29097:325679613] can't create cfstring from '　' (cstr lens: 1/1) with encoding 256 (fastest = 256)
+2026-09-08 13:02:39.221 nvALT[29097:325679613] PASS: new notes start with Plain Text syntax
+2026-09-08 13:02:39.221 nvALT[29097:325679613] PASS: syntax changes notify once without changing dates or Undo
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: rename and content changes retain local syntax
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: legacy fixture contains the exact enabled account under the recognized SN identifier
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: legacy fixture contains recognized pending upload metadata on its local note
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: legacy fixture contains recognized pending deletion metadata on its tombstone
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: legacy library fixture contains enabled account settings and remote deletion history
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.223 nvALT[29097:325679613] PASS: legacy note fixture includes remote upload metadata
+2026-09-08 13:02:39.224 nvALT[29097:325679613] PASS: legacy library fixture is stored in an isolated directory
+2026-09-08 13:02:39.224 nvALT[29097:325679613] PASS: legacy library directory resolves
+2026-09-08 13:02:39.226 nvALT[29097:325679613] verified 17 notes in 0.000599027 s
+2026-09-08 13:02:39.226 nvALT[29097:325679613] PASS: current fixture library saves before the temporary library switch
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: enabled legacy sync settings and remote tombstones do not block opening local notes
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: legacy local source, title, and tags survive service removal
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: legacy note UUID lookup, journal sequence, and dates remain unchanged
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: legacy notes retain local syntax and exact source bytes
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: decoded legacy objects expose no sync settings, metadata, or startup API
+2026-09-08 13:02:39.227 nvALT[29097:325679613] PASS: application termination has no remote wait
+2026-09-08 13:02:39.227 nvALT[29097:325679613] verified 1 notes in 0.000136018 s
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: legacy library rewrites its migrated settings without an account
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: current fixture library resumes its journal after the compatibility check
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: rewritten library omits obsolete account settings and remote deletion history
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: archive inspection reads a keyed property list
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: rewritten notes omit obsolete remote metadata
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: rewritten library reopens with all unsent local source characters
+2026-09-08 13:02:39.228 nvALT[29097:325679613] PASS: journal fixture uses a separate temporary directory
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: local note creation and deletion are durable journal records
+2026-09-08 13:02:39.229 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: No such process
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: journal recovery retains the tombstone instead of reviving the older local note
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: restoring a deleted note writes a newer local journal record
+2026-09-08 13:02:39.229 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: No such process
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: journal recovery restores the newer note after deletion Undo
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: disposable journal cleanup succeeds
+2026-09-08 13:02:39.229 nvALT[29097:325679613] PASS: legacy sequential tombstones consume obsolete metadata and preserve UUID, sequence, and following records
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: library archive restores syntax by the unchanged note UUID
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: another library does not inherit source metadata
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot be selected
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot decode a document body
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed document export fails before touching files
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot be selected
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot decode a document body
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed document export fails before touching files
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot be selected
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot decode a document body
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed document export fails before touching files
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot be selected
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed storage format cannot decode a document body
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: removed document export fails before touching files
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: legacy rich-text file settings open archived characters without rewriting old files
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: note model accepts characters without authored styles
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: model updates discard authored rich-text attributes
+2026-09-08 13:02:39.230 nvALT[29097:325679613] PASS: archive decoding keeps legacy characters without authored formatting
+2026-09-08 13:02:39.237 nvALT[29097:325679613] PASS: recorded legacy encoding preserves original bytes
+2026-09-08 13:02:39.237 nvALT[29097:325679613] PASS: unrepresentable edits report an error without replacing characters or silently changing encoding
+2026-09-08 13:02:39.237 nvALT[29097:325679613] PASS: database export fixture has an isolated target directory
+2026-09-08 13:02:39.238 nvALT[29097:325679613] PASS: unrepresentable database source export offers conversion without writing lossy bytes
+2026-09-08 13:02:39.289 nvALT[29097:325679613] PASS: a live database note can offer conversion for export without a pending source-file write
+2026-09-08 13:02:39.289 nvALT[29097:325679613] PASS: accepted database export conversion permits exact UTF-8 export on retry
+2026-09-08 13:02:39.290 nvALT[29097:325679613] PASS: encoding failure leaves the original file intact
+2026-09-08 13:02:39.290 nvALT[29097:325679613] PASS: explicit UTF-8 conversion preserves every source character
+2026-09-08 13:02:39.290 nvALT[29097:325679613] writing note source-0, because it didn't exist
+2026-09-08 13:02:39.291 nvALT[29097:325679613] writing note source-1, because it didn't exist
+2026-09-08 13:02:39.292 nvALT[29097:325679613] writing note source-2, because it didn't exist
+2026-09-08 13:02:39.293 nvALT[29097:325679613] writing note source-3, because it didn't exist
+2026-09-08 13:02:39.293 nvALT[29097:325679613] writing note source-4, because it didn't exist
+2026-09-08 13:02:39.294 nvALT[29097:325679613] writing note literal-bom-0-0, because it didn't exist
+2026-09-08 13:02:39.295 nvALT[29097:325679613] writing note literal-bom-0-10, because it didn't exist
+2026-09-08 13:02:39.296 nvALT[29097:325679613] writing note literal-bom-1-0, because it didn't exist
+2026-09-08 13:02:39.296 nvALT[29097:325679613] writing note literal-bom-1-10, because it didn't exist
+2026-09-08 13:02:39.297 nvALT[29097:325679613] writing note literal-bom-2-0, because it didn't exist
+2026-09-08 13:02:39.298 nvALT[29097:325679613] writing note literal-bom-2-10, because it didn't exist
+2026-09-08 13:02:39.299 nvALT[29097:325679613] writing note literal-bom-3-0, because it didn't exist
+2026-09-08 13:02:39.300 nvALT[29097:325679613] writing note literal-bom-3-10, because it didn't exist
+2026-09-08 13:02:39.301 nvALT[29097:325679613] writing note literal-bom-4-0, because it didn't exist
+2026-09-08 13:02:39.302 nvALT[29097:325679613] writing note literal-bom-4-10, because it didn't exist
+2026-09-08 13:02:39.303 nvALT[29097:325679613] writing note tagged-gb18030, because it didn't exist
+2026-09-08 13:02:39.303 nvALT[29097:325679613] writing note Renamed, because it didn't exist
+2026-09-08 13:02:39.304 nvALT[29097:325679613] writing note legacy, because it didn't exist
+2026-09-08 13:02:39.308 nvALT[29097:325679613] verified 18 notes in 0.000586987 s
+2026-09-08 13:02:39.309 nvALT[29097:325679613] PASS: plain-file storage writes the same source bytes as the source contract
+2026-09-08 13:02:39.309 nvALT[29097:325679613] PASS: temporary export directory resolves
+2026-09-08 13:02:39.309 nvALT[29097:325679613] PASS: source export writes to the requested file
+2026-09-08 13:02:39.309 nvALT[29097:325679613] PASS: source export contains original characters and encoding bytes
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: the on-disk library archive reopens its source notes
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: the on-disk library archive preserves local syntax metadata
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: reopened note restores encoding, BOM, original bytes, and syntax together
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.310 nvALT[29097:325679613] PASS: library preferences contain syntax only, with source bytes inside the note archive
+2026-09-08 13:02:39.328 nvALT[29097:325679613] PASS: encrypted library archive restores exact source bytes after decryption
+2026-09-08 13:02:39.328 nvALT[29097:325679613] PASS: original imported bytes are part of encrypted note data and absent from public library settings
+2026-09-08 13:02:39.334 nvALT[29097:325679613] verified 19 notes in 0.000560045 s
+2026-09-08 13:02:39.337 nvALT[29097:325679613] verified 19 notes in 0.000532031 s
+2026-09-08 13:02:39.337 nvALT[29097:325679613] PASS: review history persists the canceled conversion and local source
+2026-09-08 13:02:39.338 nvALT[29097:325679613] PASS: same-byte metadata events do not create conflict notes or discard pending edits
+2026-09-08 13:02:39.338 nvALT[29097:325679613] PASS: external writer completes its own distinct source version
+2026-09-08 13:02:39.339 nvALT[29097:325679613] PASS: watcher preserves the external body as one separate note while retaining local source
+2026-09-08 13:02:39.339 nvALT[29097:325679613] PASS: repeated watcher delivery does not duplicate the preserved external version
+2026-09-08 13:02:39.339 nvALT[29097:325679613] PASS: conflict journal synchronizes before the original source file is replaced
+2026-09-08 13:02:39.340 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: No such file or directory
+2026-09-08 13:02:39.340 nvALT[29097:325679613] PASS: external source is recoverable from the real WAL before the original file is replaced
+2026-09-08 13:02:39.340 nvALT[29097:325679613] PASS: conversion checks and preserves external source even before watcher delivery
+2026-09-08 13:02:39.340 nvALT[29097:325679613] PASS: both conflict histories preserve exact external characters, bytes and encoding
+2026-09-08 13:02:39.340 nvALT[29097:325679613] PASS: accepted conversion writes the complete local source only after preserving external changes
+2026-09-08 13:02:39.342 nvALT[29097:325679613] verified 20 notes in 0.000522017 s
+2026-09-08 13:02:39.342 nvALT[29097:325679613] PASS: review history flushes its preserved versions
+2026-09-08 13:02:39.343 nvALT[29097:325679613] PASS: library archive retains every source version after the review history
+2026-09-08 13:02:39.348 nvALT[29097:325679613] verified 21 notes in 0.00051105 s
+2026-09-08 13:02:39.350 nvALT[29097:325679613] verified 21 notes in 0.000468969 s
+2026-09-08 13:02:39.350 nvALT[29097:325679613] PASS: review history persists the canceled conversion and local source
+2026-09-08 13:02:39.351 nvALT[29097:325679613] PASS: same-byte metadata events do not create conflict notes or discard pending edits
+2026-09-08 13:02:39.351 nvALT[29097:325679613] PASS: external writer completes its own distinct source version
+2026-09-08 13:02:39.352 nvALT[29097:325679613] PASS: conflict journal synchronizes before the original source file is replaced
+2026-09-08 13:02:39.352 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: No such file or directory
+2026-09-08 13:02:39.352 nvALT[29097:325679613] PASS: external source is recoverable from the real WAL before the original file is replaced
+2026-09-08 13:02:39.353 nvALT[29097:325679613] PASS: conversion checks and preserves external source even before watcher delivery
+2026-09-08 13:02:39.353 nvALT[29097:325679613] PASS: both conflict histories preserve exact external characters, bytes and encoding
+2026-09-08 13:02:39.353 nvALT[29097:325679613] PASS: accepted conversion writes the complete local source only after preserving external changes
+2026-09-08 13:02:39.354 nvALT[29097:325679613] verified 22 notes in 0.000506043 s
+2026-09-08 13:02:39.355 nvALT[29097:325679613] PASS: review history flushes its preserved versions
+2026-09-08 13:02:39.355 nvALT[29097:325679613] PASS: library archive retains every source version after the review history
+2026-09-08 13:02:39.361 nvALT[29097:325679613] verified 23 notes in 0.000597 s
+2026-09-08 13:02:39.363 nvALT[29097:325679613] verified 23 notes in 0.000570059 s
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: review history persists the canceled conversion and local source
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: same-byte metadata events do not create conflict notes or discard pending edits
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: Text Encoding refuses to reread stale disk text while conversion is pending
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: model reinterpretation rejects pending source without changing encoding
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: rejected reinterpretation preserves the local edit and original disk bytes
+2026-09-08 13:02:39.364 nvALT[29097:325679613] PASS: review history flushes its preserved versions
+2026-09-08 13:02:39.365 nvALT[29097:325679613] PASS: library archive retains every source version after the review history
+2026-09-08 13:02:39.373 nvALT[29097:325679613] verified 24 notes in 0.000748038 s
+2026-09-08 13:02:39.374 nvALT[29097:325679613] PASS: conversion lifetime fixture writes its initial source
+2026-09-08 13:02:39.376 nvALT[29097:325679613] verified 24 notes in 0.000568986 s
+2026-09-08 13:02:39.376 nvALT[29097:325679613] PASS: production writer schedules the live imported note's conversion offer
+2026-09-08 13:02:39.423 nvALT[29097:325679613] verified 23 notes in 0.000722051 s
+2026-09-08 13:02:39.480 nvALT[29097:325679613] PASS: deletion cancels queued presentation and rejects new offers for the removed note
+2026-09-08 13:02:39.491 nvALT[29097:325679613] verified 24 notes in 0.000725985 s
+2026-09-08 13:02:39.492 nvALT[29097:325679613] PASS: conversion lifetime fixture writes its initial source
+2026-09-08 13:02:39.494 nvALT[29097:325679613] verified 24 notes in 0.000635982 s
+2026-09-08 13:02:39.495 nvALT[29097:325679613] PASS: production writer schedules the live imported note's conversion offer
+2026-09-08 13:02:39.546 nvALT[29097:325679613] PASS: production conversion request reaches sheet presentation
+2026-09-08 13:02:39.547 nvALT[29097:325679613] PASS: accepting an old sheet cannot recreate a deleted source file
+2026-09-08 13:02:39.558 nvALT[29097:325679613] verified 24 notes in 0.000650048 s
+2026-09-08 13:02:39.559 nvALT[29097:325679613] PASS: conversion lifetime fixture writes its initial source
+2026-09-08 13:02:39.561 nvALT[29097:325679613] verified 24 notes in 0.000580072 s
+2026-09-08 13:02:39.561 nvALT[29097:325679613] PASS: production writer schedules the live imported note's conversion offer
+2026-09-08 13:02:39.612 nvALT[29097:325679613] PASS: production conversion request reaches sheet presentation
+2026-09-08 13:02:39.675 nvALT[29097:325679613] verified 24 notes in 0.000720978 s
+2026-09-08 13:02:39.676 nvALT[29097:325679613] PASS: replacement note durably reuses the deleted source filename
+2026-09-08 13:02:39.676 nvALT[29097:325679613] PASS: obsolete acceptance cannot rename or replace another note's file or create conflict notes
+2026-09-08 13:02:39.682 nvALT[29097:325679613] verified 25 notes in 0.000631094 s
+2026-09-08 13:02:39.682 nvALT[29097:325679613] PASS: conversion lifetime fixture writes its initial source
+2026-09-08 13:02:39.684 nvALT[29097:325679613] verified 25 notes in 0.000568032 s
+2026-09-08 13:02:39.685 nvALT[29097:325679613] PASS: production writer schedules the live imported note's conversion offer
+2026-09-08 13:02:39.735 nvALT[29097:325679613] PASS: production conversion request reaches sheet presentation
+2026-09-08 13:02:39.737 nvALT[29097:325679613] Could not get an fsref for file with name Conversion lifetime delete-undo.txt: -43
+2026-09-08 13:02:39.789 nvALT[29097:325679613] PASS: restoring the same note creates an independent conversion request
+2026-09-08 13:02:39.789 nvALT[29097:325679613] PASS: old completion cannot authorize the restored note or cancel its new request
+2026-09-08 13:02:39.789 nvALT[29097:325679613] Could not get an fsref for file with name Conversion lifetime delete-undo.txt: -43
+2026-09-08 13:02:39.791 nvALT[29097:325679613] PASS: current completion still converts the restored live note successfully
+2026-09-08 13:02:39.797 nvALT[29097:325679613] verified 26 notes in 0.000751019 s
+2026-09-08 13:02:39.800 nvALT[29097:325679613] verified 26 notes in 0.000658989 s
+2026-09-08 13:02:39.801 nvALT[29097:325679613] PASS: retry history persists pending local conversion
+2026-09-08 13:02:39.801 nvALT[29097:325679613] PASS: external writer completes the first retry version
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: failed conflict synchronization keeps conversion pending
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: repeated synchronization failure reuses one conflict copy and retains original external bytes
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: failed conflict synchronization keeps conversion pending
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: repeated synchronization failure reuses one conflict copy and retains original external bytes
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: failed conflict synchronization keeps conversion pending
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: repeated synchronization failure reuses one conflict copy and retains original external bytes
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: each retry reaches synchronization without replacing the original source
+2026-09-08 13:02:39.802 nvALT[29097:325679613] PASS: external writer completes a distinct second version during failed retries
+2026-09-08 13:02:39.803 nvALT[29097:325679613] PASS: a distinct external version gets its own copy while prior versions remain
+2026-09-08 13:02:39.803 nvALT[29097:325679613] PASS: conflict provenance and encoding identity survive archive decoding before directory reconciliation
+2026-09-08 13:02:39.804 nvALT[29097:325679613] Couldn't sync wal file--is this an error for note flushing?
+2026-09-08 13:02:39.805 nvALT[29097:325679613] verified 28 notes in 0.000638008 s
+2026-09-08 13:02:39.806 nvALT[29097:325679613] PASS: archive stores pending conversion and retained conflict identities despite synchronization failure
+2026-09-08 13:02:39.810 nvALT[29097:325679613] PASS: copy the failed-retry archive and source files to an isolated reopen directory
+2026-09-08 13:02:39.810 nvALT[29097:325679613] PASS: retry reopen directory resolves
+2026-09-08 13:02:39.810 nvALT[29097:325679613] saw new disk UUID: DiskUUIDEntry(2026-09-08 20:02:39 +0000, 1DA8A537-A99B-4B5F-B068-D8800B3D0890) (other disks are: (
+))
+2026-09-08 13:02:39.811 nvALT[29097:325679613] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.window-tests.da505f7c7a2646e5ace6edfb51fd82de/Interim Note-Changes: File exists
+2026-09-08 13:02:39.812 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-08 13:02:39.814 nvALT[29097:325679613] verified 28 notes in 0.000642061 s
+2026-09-08 13:02:39.819 nvALT[29097:325679613] FILE WAS MODIFIED: Conflict synchronization retries (external changes).1.txt
+2026-09-08 13:02:39.819 nvALT[29097:325679613] FILE WAS MODIFIED: Conflict synchronization retries (external changes).txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: Conversion lifetime delete-undo.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: Conversion lifetime replacement.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: legacy.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-0-0.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-0-10.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-1-0.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-1-10.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-2-0.txt
+2026-09-08 13:02:39.820 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-2-10.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-3-0.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-3-10.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-4-0.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-4-10.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history before-watcher (external changes).txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history before-watcher.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history watcher (external changes).txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history watcher.txt
+2026-09-08 13:02:39.821 nvALT[29097:325679613] FILE WAS MODIFIED: Renamed.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: source-0.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: source-1.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: source-2.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: source-3.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: source-4.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] can't create cfstring from '　' (cstr lens: 1/1) with encoding 256 (fastest = 256)
+2026-09-08 13:02:39.822 nvALT[29097:325679613] FILE WAS MODIFIED: tagged-gb18030.txt
+2026-09-08 13:02:39.822 nvALT[29097:325679613] PASS: reopen restores the pending conversion after failed conflict persistence
+2026-09-08 13:02:39.823 nvALT[29097:325679613] PASS: reopen retry reuses the archived conflict identity for each external version
+2026-09-08 13:02:39.823 nvALT[29097:325679613] PASS: conflict journal synchronizes before the original source file is replaced
+2026-09-08 13:02:39.823 nvALT[29097:325679613] recoverNextObject can't even read (entire) log record header: No such file or directory
+2026-09-08 13:02:39.823 nvALT[29097:325679613] PASS: external source is recoverable from the real WAL before the original file is replaced
+2026-09-08 13:02:39.824 nvALT[29097:325679613] PASS: successful retry synchronizes the reused conflict record before replacing original source
+2026-09-08 13:02:39.824 nvALT[29097:325679613] PASS: successful retry preserves two distinct external versions and every local source character
+2026-09-08 13:02:39.826 nvALT[29097:325679613] verified 28 notes in 0.000631928 s
+2026-09-08 13:02:39.826 nvALT[29097:325679613] PASS: flush successfully completed retry history
+2026-09-08 13:02:39.827 nvALT[29097:325679613] PASS: the original library also completes without duplicate conflict copies
+2026-09-08 13:02:39.833 nvALT[29097:325679613] verified 29 notes in 0.000658989 s
+2026-09-08 13:02:39.835 nvALT[29097:325679613] verified 29 notes in 0.000597954 s
+2026-09-08 13:02:39.835 nvALT[29097:325679613] PASS: canceling conversion saves source and the pending conversion state to the library
+2026-09-08 13:02:39.835 nvALT[29097:325679613] PASS: canceling conversion leaves the existing plain file unchanged
+2026-09-08 13:02:39.836 nvALT[29097:325679613] PASS: a file metadata event cannot replace source awaiting explicit conversion
+2026-09-08 13:02:39.836 nvALT[29097:325679613] destroyLogFile: unlink error: No such file or directory
+2026-09-08 13:02:39.836 nvALT[29097:325679613] couldn't remove wal file--is this an error for note flushing?
+2026-09-08 13:02:39.838 nvALT[29097:325679613] PASS: saved conversion fixture copies into a separate library directory
+2026-09-08 13:02:39.838 nvALT[29097:325679613] PASS: reopened library directory resolves
+2026-09-08 13:02:39.839 nvALT[29097:325679613] saw new disk UUID: DiskUUIDEntry(2026-09-08 20:02:39 +0000, 1DA8A537-A99B-4B5F-B068-D8800B3D0890) (other disks are: (
+))
+2026-09-08 13:02:39.840 nvALT[29097:325679613] FILE WAS MODIFIED: Conflict synchronization retries (external changes).1.txt
+2026-09-08 13:02:39.840 nvALT[29097:325679613] FILE WAS MODIFIED: Conflict synchronization retries (external changes).txt
+2026-09-08 13:02:39.840 nvALT[29097:325679613] FILE WAS MODIFIED: Conflict synchronization retries.txt
+2026-09-08 13:02:39.840 nvALT[29097:325679613] FILE WAS MODIFIED: Conversion lifetime delete-undo.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: Conversion lifetime replacement.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: legacy.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-0-0.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-0-10.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-1-0.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-1-10.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-2-0.txt
+2026-09-08 13:02:39.841 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-2-10.txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-3-0.txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-3-10.txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-4-0.txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: literal-bom-4-10.txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history before-watcher (external changes).txt
+2026-09-08 13:02:39.842 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history before-watcher.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history watcher (external changes).txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: Pending history watcher.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: Renamed.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: source-0.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: source-1.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: source-2.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: source-3.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: source-4.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] can't create cfstring from '　' (cstr lens: 1/1) with encoding 256 (fastest = 256)
+2026-09-08 13:02:39.843 nvALT[29097:325679613] FILE WAS MODIFIED: tagged-gb18030.txt
+2026-09-08 13:02:39.843 nvALT[29097:325679613] PASS: reopening restores the pending conversion and every edited source character
+2026-09-08 13:02:39.844 nvALT[29097:325679613] PASS: reopening retries the conversion request without silently changing encoding
+2026-09-08 13:02:39.844 nvALT[29097:325679613] PASS: reopen retry preserves the original plain-file bytes until conversion is accepted
+2026-09-08 13:02:39.845 nvALT[29097:325679613] PASS: explicit conversion completes the pending source-file write
+2026-09-08 13:02:39.845 nvALT[29097:325679613] PASS: accepted conversion writes all preserved source characters as UTF-8
+2026-09-08 13:02:39.846 nvALT[29097:325679613] verified 29 notes in 0.000662088 s
+2026-09-08 13:02:39.847 nvALT[29097:325679613] PASS: successful conversion clears its persisted retry state
+2026-09-08 13:02:39.848 nvALT[29097:325679613] SOURCE STORAGE CHECKS PASSED: 273

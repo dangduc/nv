@@ -1,0 +1,19 @@
+2026-09-08 12:57:39.085 nvALT[27938:325671343] PASS: temporary library directory exists
+2026-09-08 12:57:39.085 nvALT[27938:325671343] PASS: temporary library opens
+2026-09-08 12:57:39.412 nvALT[27938:325671343] PASS: actual old app recognizes only SN as its registered Simplenote service
+2026-09-08 12:57:39.413 nvALT[27938:325671343] PASS: old app reads the fixture for passive inspection
+2026-09-08 12:57:39.413 nvALT[27938:325671343] RECOGNITION fixture=Tests/Regression/source-storage/fixtures/legacy-simplenote.notation registered=SN enabled=0 noteKeys=(
+    Simplenote
+) recognizedDirty=0 tombstoneKeys=(null)
+2026-09-08 12:57:39.413 nvALT[27938:325671343] PASS: permanent fixture enables the unregistered display-name key while recognized SN stays disabled
+2026-09-08 12:57:39.413 nvALT[27938:325671343] PASS: permanent fixture remote note metadata is invisible to the registered SN service
+2026-09-08 12:57:39.414 nvALT[27938:325671343] PASS: permanent fixture tombstone has no recognized pending SN deletion metadata
+2026-09-08 12:57:39.414 nvALT[27938:325671343] PASS: old app reads the fixture for passive inspection
+2026-09-08 12:57:39.414 nvALT[27938:325671343] RECOGNITION fixture=Tests/SimplenoteRemovalReview/round1/contrarian_data/old-native.notation registered=SN enabled=1 noteKeys=(
+    SN
+) recognizedDirty=1 tombstoneKeys=(
+    SN
+)
+2026-09-08 12:57:39.414 nvALT[27938:325671343] PASS: independent old-native fixture enables SN and has recognized pending upload metadata
+2026-09-08 12:57:39.414 nvALT[27938:325671343] PASS: independent old-native fixture has recognized pending SN deletion metadata
+2026-09-08 12:57:39.414 nvALT[27938:325671343] PASSIVE SERVICE RECOGNITION CHECKS PASSED: 10

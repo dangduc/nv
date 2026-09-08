@@ -1,0 +1,5 @@
+null: changed exactly 2 outer obsolete keys and 3 note obsolete keys
+string: changed exactly 2 outer obsolete keys and 3 note obsolete keys
+array: changed exactly 2 outer obsolete keys and 3 note obsolete keys
+data: changed exactly 2 outer obsolete keys and 3 note obsolete keys
+negative control: changed one retained local logSequenceNumber by 1

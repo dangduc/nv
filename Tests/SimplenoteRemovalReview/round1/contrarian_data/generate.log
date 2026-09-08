@@ -1,0 +1,11 @@
+2026-09-08 12:48:22.404 nvALT[26489:325657297] PASS: temporary library directory exists
+2026-09-08 12:48:22.405 nvALT[26489:325657297] PASS: temporary library opens
+2026-09-08 12:48:22.724 nvALT[26489:325657297] PASS: producer contains the old Simplenote implementation
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old encoder writes enabled SN account and pending remote deletion history
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old notes include pending SN upload/API1 metadata
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old app reads all independent source fixtures
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old writer and reader preserve the exact source-state oracle
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old writer and reader preserve the exact source-state oracle
+2026-09-08 12:48:22.726 nvALT[26489:325657297] PASS: old writer and reader preserve the exact source-state oracle
+2026-09-08 12:48:22.727 nvALT[26489:325657297] PASS: independent fixture and oracle are saved
+2026-09-08 12:48:22.727 nvALT[26489:325657297] DATA FIXTURE GENERATOR PASSED: 10
