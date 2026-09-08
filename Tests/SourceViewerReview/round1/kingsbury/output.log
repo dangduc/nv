@@ -1,0 +1,46 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-3z7xhhds/ReviewProbe.m:12:17: warning: method definition for 'shouldUpdateNoteFromDisk' not found [-Wincomplete-implementation]
+   12 | @implementation EncodingsManager (NVKingsburyReview)
+      |                 ^
+   13 | - (void)nv_reviewDeclineConversion:(NoteObject *)note { ConversionOffers++; }
+   14 | @end
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-window-tests-3z7xhhds/ReviewProbe.m:10:1: note: method 'shouldUpdateNoteFromDisk' declared here
+   10 | - (BOOL)shouldUpdateNoteFromDisk;
+      | ^
+1 warning generated.
+2026-09-08 02:10:22.833 nvALT[38015:324766389] PASS: isolated copied-app preferences domain
+2026-09-08 02:10:22.833 nvALT[38015:324766389] PASS: copied app and temporary library share the test root
+2026-09-08 02:10:22.837 nvALT[38015:324766389] PASS: temporary library directory exists
+2026-09-08 02:10:22.837 nvALT[38015:324766389] PASS: temporary library opens
+2026-09-08 02:10:23.161 nvALT[38015:324766389] verified 0 notes in 0.000212908 s
+2026-09-08 02:10:23.162 nvALT[38015:324766389] PASS: write original CP-1252 fixture
+2026-09-08 02:10:23.178 nvALT[38015:324766389] verified 1 notes in 0.000323057 s
+2026-09-08 02:10:23.179 nvALT[38015:324766389] PASS: persist imported source
+2026-09-08 02:10:23.179 nvALT[38015:324766389] PASS: file starts with exact imported source bytes
+2026-09-08 02:10:23.189 nvALT[38015:324766389] verified 1 notes in 0.000254989 s
+2026-09-08 02:10:23.190 nvALT[38015:324766389] PASS: local edit durably enters canceled conversion state
+2026-09-08 02:10:23.190 nvALT[38015:324766389] PASS: cancel leaves old file intact
+2026-09-08 02:10:23.191 nvALT[38015:324766389] PASS: external editor completes a distinct source write
+2026-09-08 02:10:23.191 nvALT[38015:324766389] external-update.txt was modified with unsaved changes in NV! Deciding the conflict in favor of NV.
+2026-09-08 02:10:23.191 nvALT[38015:324766389] PASS: pending local edit survives external reconciliation
+2026-09-08 02:10:23.191 nvALT[38015:324766389] PASS: external writer's acknowledged source is still on disk before conversion
+2026-09-08 02:10:23.193 nvALT[38015:324766389] verified 1 notes in 0.000164032 s
+2026-09-08 02:10:23.193 nvALT[38015:324766389] PASS: later explicit conversion and flush succeed
+2026-09-08 02:10:23.193 nvALT[38015:324766389] HISTORY external-update: pending=0 local=seed café
+local 😀
+ externalOnDisk=0 conflictPreserved=0 noteCount=1
+2026-09-08 02:10:23.193 nvALT[38015:324766389] PASS: REPRO: conversion overwrites the external update without preserving a conflict note
+2026-09-08 02:10:23.194 nvALT[38015:324766389] PASS: write original CP-1252 fixture
+2026-09-08 02:10:23.198 nvALT[38015:324766389] verified 2 notes in 0.000234008 s
+2026-09-08 02:10:23.199 nvALT[38015:324766389] PASS: persist imported source
+2026-09-08 02:10:23.199 nvALT[38015:324766389] PASS: file starts with exact imported source bytes
+2026-09-08 02:10:23.201 nvALT[38015:324766389] verified 2 notes in 0.000280023 s
+2026-09-08 02:10:23.201 nvALT[38015:324766389] PASS: local edit durably enters canceled conversion state
+2026-09-08 02:10:23.201 nvALT[38015:324766389] PASS: cancel leaves old file intact
+2026-09-08 02:10:23.202 nvALT[38015:324766389] PASS: resolve source file for encoding sheet predicate
+2026-09-08 02:10:23.202 nvALT[38015:324766389] PASS: encoding sheet permits reinterpretation without its overwrite warning
+2026-09-08 02:10:23.203 nvALT[38015:324766389] PASS: encoding sheet's production reinterpretation operation succeeds
+2026-09-08 02:10:23.205 nvALT[38015:324766389] verified 2 notes in 0.00029099 s
+2026-09-08 02:10:23.206 nvALT[38015:324766389] PASS: flush reinterpreted body to archive
+2026-09-08 02:10:23.206 nvALT[38015:324766389] HISTORY reinterpret: permits=1 pending=0 liveLocal=0 archivedLocal=0 source=seed cafÈ
+2026-09-08 02:10:23.206 nvALT[38015:324766389] PASS: REPRO: changing encoding discards pending source from live model and durable archive
+2026-09-08 02:10:23.206 nvALT[38015:324766389] KINGSBURY ROUND 1 PROBE COMPLETED: 24 checks; 2 canceled conversion offers
