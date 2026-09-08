@@ -1,0 +1,22 @@
+2026-09-08 05:32:37.466 nvALT[95433:325192281] PASS: temporary library directory exists
+2026-09-08 05:32:37.467 nvALT[95433:325192281] PASS: temporary library opens
+2026-09-08 05:32:38.180 nvALT[95433:325192281] PASS: both browser layouts start with current shared Markdown analysis
+2026-09-08 05:32:38.180 nvALT[95433:325192281] PASS: both real browser editors attach to one session storage
+2026-09-08 05:32:38.180 nvALT[95433:325192281] PASS: the heading has an actual foreground color through the drawing delegate
+2026-09-08 05:32:38.181 nvALT[95433:325192281] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:32:38.189 nvALT[95433:325192281] PASS: native composition changes shared live source without committing the model or adding Undo
+2026-09-08 05:32:38.189 nvALT[95433:325192281] PASS: composition makes syntax obsolete while preserving provisional display
+2026-09-08 05:32:38.189 nvALT[95433:325192281] PASS: TextKit shifts the retained heading color in both browser layouts
+2026-09-08 05:32:38.189 nvALT[95433:325192281] PASS: the external model snapshot stays deferred behind a peer composition
+2026-09-08 05:32:38.258 nvALT[95433:325192281] PASS: the parser completes on the live composition while the external snapshot is deferred
+2026-09-08 05:32:38.258 nvALT[95433:325192281] PASS: completed analysis cannot commit composition, overwrite the external model, or create Undo
+2026-09-08 05:32:38.305 nvALT[95433:325192281] verified 2 notes in 0.000356913 s
+2026-09-08 05:32:38.310 nvALT[95433:325192281] PASS: Undo from the peer finishes composition and removes only local draft while preserving external text
+2026-09-08 05:32:38.361 nvALT[95433:325192281] PASS: a second Undo cannot resurrect an earlier whole-note snapshot
+2026-09-08 05:32:38.412 nvALT[95433:325192281] PASS: Redo restores exactly the merged source in both browser editors
+2026-09-08 05:32:38.412 nvALT[95433:325192281] PASS: disjoint external and local edits create no conflict copy
+2026-09-08 05:32:38.422 nvALT[95433:325192281] PASS: both editors eventually receive current analysis after cross-window Undo and Redo
+2026-09-08 05:32:38.423 nvALT[95433:325192281] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:32:38.424 nvALT[95433:325192281] PASS: ordinary editing establishes another provisional revision before a browser switch
+2026-09-08 05:32:38.425 nvALT[95433:325192281] PASS: switching detaches only the originating browser layout
+2026-09-08 05:32:38.425 nvALT[95433:325192281] FAIL: a plain note cannot draw retained colors from the prior note
