@@ -164,7 +164,7 @@
     return nil;
 }
 
-- (BOOL)writeNoteObject:(id<SynchronizedNote>)aNoteObject {
+- (BOOL)writeNoteObject:(id<LogNote>)aNoteObject {
 	//this method serializes a note object, encrypts it, and writes it to the log
     NSMutableData *noteData = [NSMutableData data];
 	NSKeyedArchiver *archiver = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:noteData] autorelease];
@@ -177,13 +177,13 @@
     return NO;
 }
 
-- (BOOL)writeEstablishedNote:(id<SynchronizedNote>)aNoteObject {
+- (BOOL)writeEstablishedNote:(id<LogNote>)aNoteObject {
 	[aNoteObject incrementLSN];
 	
 	return [self writeNoteObject:aNoteObject];
 }
 
-- (BOOL)writeRemovalForNote:(id<SynchronizedNote>)aNoteObject {
+- (BOOL)writeRemovalForNote:(id<LogNote>)aNoteObject {
 	//increment the original note's LSN to ensure it's stored in the final DB
     [aNoteObject incrementLSN];
     
@@ -384,7 +384,7 @@
 }
 
 //log enumerating method
-- (id <SynchronizedNote>)recoverNextObject {
+- (id <LogNote>)recoverNextObject {
     WALRecordHeader record = {{0}};
     
     //attempt to read size of log record and checksum
@@ -472,14 +472,14 @@
 	free(uncompressedDataBuffer);
 	
     
-    id <SynchronizedNote> object = nil;
+    id <LogNote> object = nil;
 	@try {
 		NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:presumablySerializedData];
 		object = [unarchiver decodeObjectForKey:@"aNote"];
 		[unarchiver release];	
     } @catch (NSException *e) {
 		NSLog(@"recoverNextObject got an exception while unarchiving object: %@; returning NSNull to skip", [e reason]);
-		object = (id<SynchronizedNote>)[NSNull null];
+		object = (id<LogNote>)[NSNull null];
     }
     
     [presumablySerializedData release];
@@ -487,17 +487,17 @@
     return object;
 }
 
-static CFStringRef SynchronizedNoteKeyDescription(const void *value) {
+static CFStringRef LogNoteKeyDescription(const void *value) {
 
 	return value ? (CFStringRef)[NSString uuidStringWithBytes:*(CFUUIDBytes*)value] : NULL;
 }
-static CFHashCode SynchronizedNoteHash(const void * o) {
+static CFHashCode LogNoteHash(const void * o) {
 	
 	// Hash UUID bytes for the in-memory recovery dictionary.
 	uLong crc = crc32(0L, Z_NULL, 0);
 	return crc32(crc, (const Bytef*)o, sizeof(CFUUIDBytes));
 }
-static Boolean SynchronizedNoteIsEqual(const void *o, const void *p) {
+static Boolean LogNoteIsEqual(const void *o, const void *p) {
 	
 	return (!memcmp((CFUUIDBytes*)o, (CFUUIDBytes*)p, sizeof(CFUUIDBytes)));
 }
@@ -507,13 +507,13 @@ static Boolean SynchronizedNoteIsEqual(const void *o, const void *p) {
 //and when recovery cannot progress any further, only the newest objects will be exchanged
 
 - (NSDictionary*)recoveredNotes {
-    id <SynchronizedNote> obj = nil;
+    id <LogNote> obj = nil;
 	CFUUIDBytes *objUUIDBytes = NULL;
     
     CFDictionaryKeyCallBacks keyCallbacks = kCFTypeDictionaryKeyCallBacks;
-    keyCallbacks.equal = SynchronizedNoteIsEqual;
-    keyCallbacks.hash = SynchronizedNoteHash;
-	keyCallbacks.copyDescription = SynchronizedNoteKeyDescription;
+    keyCallbacks.equal = LogNoteIsEqual;
+    keyCallbacks.hash = LogNoteHash;
+	keyCallbacks.copyDescription = LogNoteKeyDescription;
 	keyCallbacks.retain = NULL;
 	keyCallbacks.release = NULL;
     
@@ -522,9 +522,9 @@ static Boolean SynchronizedNoteIsEqual(const void *o, const void *p) {
     do {
 		if ((obj = [self recoverNextObject])) {
 			
-			if ([obj conformsToProtocol:@protocol(SynchronizedNote)]) {
+			if ([obj conformsToProtocol:@protocol(LogNote)]) {
 				objUUIDBytes = [obj uniqueNoteIDBytes];
-				id <SynchronizedNote> foundNote = nil;
+				id <LogNote> foundNote = nil;
 				
 				//if the note already exists, then insert this note only if it's newer, and always insert it if it doesn't exist
 				if (CFDictionaryGetValueIfPresent(recoveredNotes, (const void *)objUUIDBytes, (const void **)&foundNote)) {
@@ -535,7 +535,7 @@ static Boolean SynchronizedNoteIsEqual(const void *o, const void *p) {
 				}
 				CFDictionarySetValue(recoveredNotes, (const void *)objUUIDBytes, (const void *)obj);
 			} else {
-				NSLog(@"object of class %@ recovered that doesn't conform to SynchronizedNote protocol", [(NSObject*)obj className]);
+				NSLog(@"object of class %@ recovered that doesn't conform to LogNote protocol", [(NSObject*)obj className]);
 			}
 		}
     } while (obj); //|| this note failed because of a deserialization problem, but everything else was fine

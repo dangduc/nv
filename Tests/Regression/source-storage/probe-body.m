@@ -114,7 +114,6 @@
         NoteObject *plain = MakeNote(library, @"Plain", @"source\r\n");
         Check([[plain sourceSyntaxIdentifier] isEqualToString:@"plain"], @"new notes start with Plain Text syntax");
         CFAbsoluteTime modified = modifiedDateOfNote(plain);
-        NSDictionary *syncBefore = [[plain syncServicesMD] copy];
         NSUndoManager *undo = [plain undoManager];
         BOOL couldUndo = [undo canUndo];
         __block NSUInteger notifications = 0;
@@ -122,16 +121,12 @@
         [plain setSourceSyntaxIdentifier:@"json"];
         [plain setSourceSyntaxIdentifier:@"json"];
         Check(notifications == 1 && modifiedDateOfNote(plain) == modified && [undo canUndo] == couldUndo, @"syntax changes notify once without changing dates or Undo");
-        Check([[plain syncServicesMD] isEqual:syncBefore] || (!syncBefore && ![plain syncServicesMD]), @"syntax changes do not enter sync metadata");
         [[NSNotificationCenter defaultCenter] removeObserver:observer];
-        [syncBefore release];
         [plain setTitleString:@"Renamed"];
-        [plain updateWithSyncBody:@"remote source" andTitle:@"Remote title"];
-        Check([[plain sourceSyntaxIdentifier] isEqualToString:@"json"], @"rename and sync content changes retain local syntax");
-        SimplenoteEntryModifier *modifier = [[[SimplenoteEntryModifier alloc] initWithEntries:@[plain] operation:@selector(fetcherForCreatingNote:) simperiumToken:@"fixture"] autorelease];
-        SyncResponseFetcher *fetcher = [modifier fetcherForCreatingNote:plain];
-        NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:[fetcher valueForKey:@"dataToSend"] options:0 error:NULL];
-        Check(payload && !payload[@"syntax"] && !payload[@"sourceMetadata"] && !payload[@"originalData"], @"Simplenote request has no local source metadata");
+        [plain setContentString:[[[NSAttributedString alloc] initWithString:@"replacement source"] autorelease]];
+        Check([[plain sourceSyntaxIdentifier] isEqualToString:@"json"], @"rename and content changes retain local syntax");
+
+#include "legacy-sync-compatibility.inc"
 
         NSData *noteArchive = [NSKeyedArchiver archivedDataWithRootObject:plain];
         NSData *prefsArchive = [NSKeyedArchiver archivedDataWithRootObject:[library notationPrefs]];
@@ -223,7 +218,7 @@
         NotationPrefs *encryptedPrefs = [[[NotationPrefs alloc] init] autorelease];
         [encryptedPrefs setPassphraseData:[@"disposable source fixture password" dataUsingEncoding:NSUTF8StringEncoding] inKeychain:NO];
         [encryptedPrefs setDoesEncryption:YES];
-        NSData *encryptedArchive = [FrozenNotation frozenDataWithExistingNotes:[NSMutableArray arrayWithObject:stored] deletedNotes:[NSMutableSet set] prefs:encryptedPrefs];
+        NSData *encryptedArchive = [FrozenNotation frozenDataWithExistingNotes:[NSMutableArray arrayWithObject:stored] prefs:encryptedPrefs];
         FrozenNotation *encryptedFrozen = [NSKeyedUnarchiver unarchiveObjectWithData:encryptedArchive];
         NSArray *decryptedNotes = [encryptedFrozen unpackedNotesWithPrefs:encryptedPrefs returningError:&archiveError];
         NoteObject *decrypted = [decryptedNotes firstObject];

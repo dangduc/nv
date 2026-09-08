@@ -21,7 +21,6 @@
 @class NotationPrefs;
 @class PassphrasePicker;
 @class PassphraseChanger;
-@class SyncResponseFetcher;
 
 @interface FileKindListView : NSTableView {
     IBOutlet NSPopUpButton *storageFormatPopupButton;
@@ -41,8 +40,6 @@
     IBOutlet NSTextField *keyLengthField, *fileAttributesHelpText;
     IBOutlet NSButton *newExtensionButton;
     IBOutlet NSButton *newTypeButton;
-    IBOutlet NSTextField *syncAccountField;
-    IBOutlet NSTextField *syncPasswordField;
 	IBOutlet NSButton *makeDefaultExtensionButton;
     IBOutlet NSButton *removeExtensionButton;
     IBOutlet NSButton *removeTypeButton;
@@ -51,13 +48,6 @@
 	IBOutlet NSButton *removeFromKeychainButton;
     IBOutlet NSPopUpButton *storageFormatPopupButton;
     IBOutlet NSMatrix *passwordSettingsMatrix;
-    IBOutlet NSWindow *webOptionsWindow;
-	IBOutlet NSButton *enabledSyncButton;
-	IBOutlet NSImageView *verifyStatusImageView;
-	IBOutlet NSTextField *verifyStatusField;
-	IBOutlet NSPopUpButton *syncingFrequency;
-	IBOutlet NSImageView *syncEncAlertView;
-	IBOutlet NSTextField *syncEncAlertField;
     
     IBOutlet NSView *view;
 
@@ -69,9 +59,6 @@
 	
 	PassphrasePicker *picker;
 	PassphraseChanger *changer;
-
-	BOOL verificationAttempted;
-	SyncResponseFetcher *loginVerifier;
 	
 	NSString *disableEncryptionString, *enableEncryptionString;
     
@@ -80,7 +67,6 @@
 }
 
 - (NSView*)view;
-- (void)setSyncControlsState:(BOOL)syncState;
 - (void)setEncryptionControlsState:(BOOL)encryptionState;
 - (void)setSeparateFileControlsState:(BOOL)separateFileControlsState;
 - (void)initializeControls;
@@ -98,18 +84,9 @@
 - (void)notesStorageFormatDidChange;
 - (NSInteger)notesStorageFormatInProgress;
 - (void)runQueuedStorageFormatChangeInvocation;
-- (IBAction)visitSimplenoteSite:(id)sender;
 - (IBAction)makeDefaultExtension:(id)sender;
 - (IBAction)removedExtension:(id)sender;
 - (IBAction)removedType:(id)sender;
-
-- (IBAction)toggledSyncing:(id)sender;
-- (IBAction)syncFrequencyChange:(id)sender;
-
-- (void)startVerifyingAfterDelay;
-- (void)startLoginVerifier;
-- (void)cancelLoginVerifier;
-- (void)setVerificationStatus:(int)status withString:(NSString*)aString;
 
 - (void)encryptionFormatMismatchSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode 
 								contextInfo:(void *)contextInfo;

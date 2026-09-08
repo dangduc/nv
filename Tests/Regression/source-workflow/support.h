@@ -2,7 +2,6 @@
 #import "PreviewController.h"
 #import "NVMarkupRenderer.h"
 #import "NVSourceHighlighter.h"
-#import "SyncResponseFetcher.h"
 #import "NotationPrefs.h"
 #import "NSString_NV.h"
 #import <math.h>

@@ -35,8 +35,8 @@ Solid arrows show ownership or control. Dashed arrows show access to shared stat
 | [NVApplicationController](Sources/Application/NVApplicationController.m) | Owns the library, browser controllers, and editing-session cache. Routes application actions and library notifications. |
 | [AppController](Sources/Browser/AppController.m) | Owns one browser window, its views, selection, presentation state, and lazy viewer controller. The initial instance also handles legacy application services. |
 | [NVBrowserSession](Sources/Browser/NVBrowserSession.m) | Holds one window's query, matching notes, visible rows, sort order, and list-preview cache. |
-| [NotationController](Sources/Storage/NotationController.m) | Owns notes, labels, storage, journal recovery, and sync services. |
-| [NoteObject](Sources/Model/NoteObject.m) | Stores a note's UUID, title, body, tags, dates, file identity, sync metadata, and undo manager. |
+| [NotationController](Sources/Storage/NotationController.m) | Owns notes, labels, storage, and journal recovery. |
+| [NoteObject](Sources/Model/NoteObject.m) | Stores a note's UUID, title, body, tags, dates, file identity, and undo manager. |
 | [NVNoteEditingSession](Sources/Editor/NVNoteEditingSession.m) | Owns shared `NSTextStorage`, committed snapshots, deferred external content, and optional source analysis. Coordinates body and metadata edits. |
 | [GlobalPrefs](Sources/Preferences/GlobalPrefs.m) / [NotationPrefs](Sources/Preferences/NotationPrefs.m) | Manage application settings and library-specific settings, respectively. |
 
@@ -48,7 +48,7 @@ That controller installs `NVApplicationController` as the application delegate.
 The coordinator delegates existing startup work to the initial controller, then configures menus, services, hotkeys, and window restoration.
 
 Additional windows load a localized `BrowserWindow.xib` and attach to the existing library.
-They do not open another database or start another set of sync services.
+They do not open another database.
 The initial controller remains retained after its window closes because it still owns application settings and status UI.
 
 Window commands usually reach the active browser through the coordinator.
@@ -147,14 +147,14 @@ These checks use the existing file and journal transactions; they do not lock ou
 Unmarked non-UTF-8 imports keep the legacy MacRoman fallback. BOMs, encoding attributes, and explicit hints take precedence.
 
 `NotationPrefs` stores local syntax identifiers by note UUID within each library.
-A syntax change saves library preferences without dirtying the note or entering Simplenote requests.
+A syntax change saves library preferences without dirtying the note.
 `flushAllNoteChanges` drains pending writes and stores that snapshot atomically.
 A visible editor change does not mean the disk write has finished.
 
-[NotationSyncServiceManager](Sources/Sync/NotationSyncServiceManager.m) integrates service changes into the library.
-[SyncSessionController](Sources/Sync/SyncSessionController.m) manages service sessions, scheduled pushes, status, and pending-change waits.
-File changes and sync updates reach editors through the note model and editing sessions.
-Windows observe shared sync status rather than owning separate service connections.
+Simplenote support is removed. File changes reach editors through the note model and editing sessions.
+Existing archives can contain obsolete account settings and remote metadata. The decoder ignores these fields.
+New snapshots omit remote metadata. Journal records retain note UUIDs, sequence numbers, and local deletion records.
+Legacy unkeyed records retain empty compatibility slots so their field order stays readable.
 
 ## Browser UI and previews
 
@@ -244,13 +244,13 @@ Unsupported queries, large notes, time limits, and cancellation fall back to edi
 ## Library replacement, closure, and restoration
 
 Before replacing the library, the coordinator finishes browser edits and closes cached editing sessions.
-It closes the old library's resources, attaches every browser to the new library, and starts its sync services.
-`closeAllResources` stops file monitoring and sync, flushes pending changes, and removes the journal after a successful flush.
+It closes the old library's resources and attaches every browser to the new library.
+`closeAllResources` stops file monitoring, flushes pending changes, and removes the journal after a successful flush.
 
 Closing a browser finishes edits, detaches its editor, and closes its preview.
 Additional browsers also unregister their observers. The initial controller remains the bridge to application services.
 The application can remain open without visible browsers, depending on the quit-on-close setting.
-Termination saves window state, commits editing sessions, and uses the existing application shutdown and sync-wait paths.
+Termination saves window state, commits editing sessions, and flushes local note changes before closing the journal.
 
 [AppController_MultipleWindows.m](Sources/Browser/AppController_MultipleWindows.m) serializes browser state.
 `NVApplicationController` stores it under the `NVBrowserWindows` defaults key and restores up to 20 windows.
@@ -269,12 +269,12 @@ Add new source files and resources to [Notation.xcodeproj](Notation.xcodeproj).
 
 Preserve manual `retain`/`release` ownership.
 When changing window lifetime, check observer removal, delayed callbacks, nib ownership, and shared text attachments.
-Keep library I/O and sync startup outside browser sessions.
+Keep library I/O outside browser sessions.
 Add regression checks for changes to ownership, command routing, and restoration.
 
 [Tests/README.md](Tests/README.md) explains the Cocoa integration suites and focused regression checks.
 They use a copied app and temporary notes in an active desktop session.
-Live sync services and external editor applications require separate manual checks.
+External editor applications require separate manual checks.
 
 The [macOS workflow](.github/workflows/macos.yml) builds and packages an unsigned Intel app, then tags successful builds on `master`.
 It does not run the desktop integration suites.

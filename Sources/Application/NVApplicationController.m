@@ -7,7 +7,6 @@
 #import "GlobalPrefs.h"
 #import "BookmarksController.h"
 #import "NotationPrefs.h"
-#import "NotationSyncServiceManager.h"
 #import "NSString_NV.h"
 
 static NVApplicationController *NVSharedApplicationController;
@@ -199,7 +198,6 @@ AppController *NVControllerForView(NSView *view) {
     // The MainMenu owner also retains the application-level preference and status UI.
     if (![browsers containsObject:initialBrowser]) [initialBrowser attachLibrary:library];
     [[[GlobalPrefs defaultPrefs] bookmarksController] setDataSource:library];
-    [library startSyncServices];
 }
 - (IBAction)newWindow:(id)sender {
     if (!library) return;
@@ -330,7 +328,7 @@ AppController *NVControllerForView(NSView *view) {
 }
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
     for (AppController *browser in [self browserControllers]) [browser finishEditing];
-    return [initialBrowser applicationShouldTerminate:sender];
+    return NSTerminateNow;
 }
 - (void)applicationWillTerminate:(NSNotification *)notification {
     [self saveWindowStates];

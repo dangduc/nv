@@ -21,16 +21,14 @@
 
 @interface FrozenNotation : NSObject <NSCoding> {
 	NSMutableArray *allNotes;
-	NSMutableSet *deletedNoteSet;
 	NSMutableData *notesData;
 	NotationPrefs *prefs;
 }
-- (id)initWithNotes:(NSMutableArray*)notes deletedNotes:(NSMutableSet*)antiNotes prefs:(NotationPrefs*)prefs;
+- (id)initWithNotes:(NSMutableArray*)notes prefs:(NotationPrefs*)prefs;
 
-+ (NSData*)frozenDataWithExistingNotes:(NSMutableArray*)notes deletedNotes:(NSMutableSet*)antiNotes prefs:(NotationPrefs*)prefs;
++ (NSData*)frozenDataWithExistingNotes:(NSMutableArray*)notes prefs:(NotationPrefs*)prefs;
 - (NSMutableArray*)unpackedNotesWithPrefs:(NotationPrefs*)somePrefs returningError:(OSStatus*)err;
 - (NSMutableArray*)unpackedNotesReturningError:(OSStatus*)err;
-- (NSMutableSet*)deletedNotes; //these won't need to be encrypted
 - (NotationPrefs*)notationPrefs;
 
 @end

@@ -290,9 +290,8 @@
 - (void)changeDefaultDirectory {
 	FSRef notesDirectoryRef;
 	NSData *aliasData = nil;
-	NSString *directoryPath = nil;
 
-	if ([self getNewNotesRefFromOpenPanel:&notesDirectoryRef returnedPath:&directoryPath]) {
+	if ([self getNewNotesRefFromOpenPanel:&notesDirectoryRef returnedPath:NULL]) {
 		
 		//make sure we're not choosing the same folder as what we started with, because:
 		//-[NotationController initWithAliasData:] might attempt to initialize journaling, which will already be in use
@@ -302,9 +301,6 @@
 			
 			if ((aliasData = [NSData aliasDataForFSRef:&notesDirectoryRef])) {
 				[prefsController setAliasDataForDefaultDirectory:aliasData sender:self];
-				
-				//check for potential synchronization problems; (e.g., simplenote w/ dropbox or writeroom):
-				[[prefsController notationPrefs] checkForKnownRedundantSyncConduitsAtPath:directoryPath];
 			}
 		} else {
 			NSLog(@"This folder is already chosen!");

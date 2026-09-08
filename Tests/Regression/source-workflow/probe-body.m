@@ -1,7 +1,5 @@
     unsetenv("DYLD_INSERT_LIBRARIES");
     @try {
-        IMP networkStart = method_setImplementation(class_getInstanceMethod([SyncResponseFetcher class], @selector(start)),
-            imp_implementationWithBlock(^BOOL(id object) { Check(NO, @"workflow fixtures do not start network requests"); return NO; }));
         NSPasteboard *pasteboard = [NSPasteboard pasteboardWithUniqueName];
         IMP generalPasteboard = method_setImplementation(class_getClassMethod([NSPasteboard class], @selector(generalPasteboard)),
             imp_implementationWithBlock(^id(id object) { return pasteboard; }));
@@ -404,7 +402,6 @@
         }
         [committed release];
         [library flushAllNoteChanges]; [library closeJournal];
-        method_setImplementation(class_getInstanceMethod([SyncResponseFetcher class], @selector(start)), networkStart);
         method_setImplementation(class_getClassMethod([NSPasteboard class], @selector(generalPasteboard)), generalPasteboard);
         [pasteboard releaseGlobally];
         NSLog(@"SOURCE WORKFLOW CHECKS PASSED: %lu", (unsigned long)Checks);

@@ -48,7 +48,7 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
         *include_flags(repo), '-I', str(Path(__file__).parent), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', str(dylib),
         str(harness)], check=True)
-    environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
+    environment = dict(os.environ, NV_SOURCE_STORAGE_FIXTURES=str(Path(__file__).with_name("fixtures")), NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
     binary = app / 'Contents/MacOS' / info['CFBundleExecutable']
     arguments = [str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO',
         '-QuitWhenClosingMainWindow', 'NO']

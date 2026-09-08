@@ -1,7 +1,9 @@
-//
-//  TitlebarButton.h
-//  Notation
-//
+/*
+ *  LogNoteProtocol.h
+ *  Notation
+ *
+ *  Created by Zachary Schneirov on 4/22/06.
+ */
 
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
@@ -15,30 +17,11 @@
      or promote products derived from this software without specific prior written permission. */
 
 
-#import <Cocoa/Cocoa.h>
+@protocol LogNote <NSCoding, NSObject>
 
-typedef enum { NoIcon, DownArrowIcon, SynchronizingIcon, AlertIcon } TitleBarButtonIcon;
+- (CFUUIDBytes *)uniqueNoteIDBytes;
+- (unsigned int)logSequenceNumber;
+- (void)incrementLSN;
+- (BOOL)youngerThanLogObject:(id<LogNote>)obj;
 
-@interface TitlebarButtonCell : NSPopUpButtonCell {
-	TitleBarButtonIcon iconType;
-	BOOL isHovering;
-	NSUInteger rotationStep;
-	
-	NSTimer *synchronizingTimer;
-}
-
-- (TitleBarButtonIcon)iconType;
-
-- (void)setIsHovering:(BOOL)hovering;
-- (void)setStatusIconType:(TitleBarButtonIcon)anIconType;
-
-@end
-
-@interface TitlebarButton : NSPopUpButton {
-	NSPoint _initialDragPoint;
-}
-
-- (void)setStatusIconType:(TitleBarButtonIcon)anIconType;
-
-- (void)addToWindow:(NSWindow*)aWin;
 @end

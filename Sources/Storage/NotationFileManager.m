@@ -305,7 +305,7 @@ long BlockSizeForNotation(NotationController *controller) {
 
 - (BOOL)removeSpuriousDatabaseFileNotes {
 	//remove any notes that might have been made out of the database or write-ahead-log files by accident
-	//but leave the files intact; ensure only that they are also remotely unsynced
+	// Leave the database and journal files intact.
 	//returns true if at least one note was removed, in which case allNotes should probably be refiltered
 	
 	NSUInteger i = 0;
@@ -321,11 +321,9 @@ long BlockSizeForNotation(NotationController *controller) {
 	}
 	if (dbNote) {
 		[allNotes removeObjectIdenticalTo:dbNote];
-		[self _addDeletedNote:dbNote];
 	}
 	if (walNote) {
 		[allNotes removeObjectIdenticalTo:walNote];
-		[self _addDeletedNote:walNote];
 	}
 	return walNote || dbNote;
 }

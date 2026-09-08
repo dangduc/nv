@@ -8,7 +8,7 @@ python3 Tests/Regression/source-storage/run.py
 
 The suite uses a copied application, isolated settings, and temporary notes.
 It checks source characters, line endings, encoding, byte order marks, original bytes, and explicit UTF-8 conversion.
-It checks local syntax metadata across rename, sync updates, library archives, and library isolation.
+It checks local syntax metadata across rename, content updates, library archives, and library isolation.
 It checks actual file writes, source exports, and the library archive on disk.
 It checks that canceled conversion survives reopening and retries without changing the source file.
 File metadata events must preserve the edited source until conversion succeeds.
@@ -24,7 +24,12 @@ Encoding fixtures compare source characters with the legacy MacRoman decoder, al
 An archived GB18030 byte alias must retain its original bytes in source export and conflict-copy matching.
 Source bytes stay inside note archives, which follow library encryption.
 It also checks the removal of rich-text imports, storage, and exports.
-No fixture starts a network request.
+A fixed archive from the pre-removal app contains an enabled Simplenote account, unsent local note changes, and remote deletion history.
+The suite opens this archive through the local library controller and preserves its UUID, source bytes, title, tags, dates, journal sequence, and syntax.
+Saving and reopening must remove obsolete service fields while retaining the local note.
+See [fixture provenance](fixtures/README.md) for its producer, hash, and generation procedure.
 
-The fixtures inspect Simplenote request data without sending it.
-They do not promise source fidelity through the existing Simplenote service.
+Separate journal checks write a local note, delete it, and restore it.
+Recovery must select the latest record and keep deletion tombstones until a newer note record exists.
+A sequential archive checks the old metadata slot between a tombstone's UUID and journal sequence.
+The slot must be consumed so the sequence and following object remain readable.

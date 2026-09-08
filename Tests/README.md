@@ -4,8 +4,6 @@ Use macOS with full Xcode and an active desktop session. The bundled MultiMarkdo
 
 ## Build and run
 
-Create `Config/SimperiumConfig.h` from `Config/SimperiumConfig-example.h` if it does not exist. Keep existing configuration files.
-
 ```sh
 xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
   -derivedDataPath build/DerivedData ARCHS=x86_64 \
@@ -19,7 +17,7 @@ The runner copies the app, gives it a separate preferences domain, and loads the
 
 `compiler_support.py` supplies the header paths for standalone harness builds from `Sources/`, `Config/`, and `ThirdParty/`.
 
-The suite exercises real nibs and Cocoa editors. It checks independent search, sorting and layout; shared text; undo; note switching; deletion; window closure; and restoration after relaunch. External updates enter through the note model. Marked-text tests check deferred updates, non-overlapping merges, and preserved conflict copies. Live sync services and external editor applications require separate manual checks with disposable notes.
+The suite exercises real nibs and Cocoa editors. It checks independent search, sorting and layout; shared text; undo; note switching; deletion; window closure; and restoration after relaunch. External updates enter through the note model. Marked-text tests check deferred updates, non-overlapping merges, and preserved conflict copies. External editor applications require separate manual checks with disposable notes.
 
 ## Review regression checks
 
@@ -28,8 +26,8 @@ The regression runner checks editor and preview ownership, incremental search, u
 ## Native dependency replacements
 
 Run `python3 Tests/Regression/native-dependencies/run.py` after a Development build.
-The copied app checks JSON requests and responses, detected links, disabled imports, updater removal, and removal of legacy preview commands.
-Network fetches are blocked. Clipboard writes use a private test pasteboard.
+The copied app checks detected links, disabled imports, and removal of sync, updater, and legacy preview commands.
+Clipboard writes use a private test pasteboard.
 
 ## Source and viewer checks
 
@@ -38,7 +36,7 @@ The aggregate regression command also runs the following suites:
 | Suite | Coverage |
 | --- | --- |
 | `source-highlighting/run.py` | Pinned parsers, UTF-16 ranges, incremental parsing, work limits, stale results, and temporary TextKit attributes. |
-| `source-storage/run.py` | Original bytes, encodings, BOM, line endings, archive reopen, local syntax, and source export. |
+| `source-storage/run.py` | Original bytes, encodings, BOM, line endings, archive reopen, legacy sync migration, local syntax, and source export. |
 | `source-viewers/run.py` | Immutable snapshots, conversion, inert HTML, helper errors, timeouts, and cancellation. |
 | `source-viewers/run-viewer.py` | Native WK viewer, local assets, remote blocking, Find, scroll, replacement, and teardown. |
 | `source-workflow/run.py` | Real Source/Preview controls, shared edits, composition, independent syntax, and restoration. |
@@ -87,4 +85,4 @@ The benchmark reports median and p95 times for four queries and for table scroll
 
 `NVNoteEditingSession` owns shared text and up to 200 undo actions per note. Each browser attaches a separate layout manager. When switching notes, remove that layout manager from its old storage and add it to the new storage. `replaceTextStorage:` moves all attached layout managers.
 
-Keep library I/O and sync startup in the application controller. Before opening another library, flush the current library and close its journal. Route view actions through their owning browser. Add a regression check when changing ownership or command routing.
+Keep library I/O in the application controller. Before opening another library, flush the current library and close its journal. Route view actions through their owning browser. Add a regression check when changing ownership or command routing.

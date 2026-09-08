@@ -20,7 +20,6 @@
 #import "NotationPrefs.h"
 #import "BufferUtils.h"
 #import "GlobalPrefs.h"
-#import "NotationSyncServiceManager.h"
 #import "NoteObject.h"
 #import "DeletionManager.h"
 #import "NSCollection_utils.h"
@@ -374,9 +373,6 @@ void NotesDirFNSubscriptionProc(FNMessage message, OptionBits flags, void * refc
 			}
 			//do not call makeNoteDirty because use of the WAL in this instance would cause redundant disk activity
 			//in the event of a crash this change could still be recovered; 
-			
-			[aNoteObject registerModificationWithOwnedServices];
-			[self schedulePushToAllSyncServicesForNote:aNoteObject];
 			
 			[self note:aNoteObject attributeChanged:NotePreviewString]; //reverse delegate?
 			

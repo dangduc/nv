@@ -888,7 +888,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	SEND_CALLBACKS();
 }
 
-- (void)setLastSearchString:(NSString*)string selectedNote:(id<SynchronizedNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender {
+- (void)setLastSearchString:(NSString*)string selectedNote:(id<LogNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender {
 	
 	NSMutableString *stringMinusBreak = [[string mutableCopy] autorelease];
 	[stringMinusBreak replaceOccurrencesOfString:@"\n" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [stringMinusBreak length])];

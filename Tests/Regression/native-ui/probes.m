@@ -44,13 +44,6 @@ static void Swap(Class cls, SEL original, SEL replacement) {
 - (void)nv_skipExternalEditorInitialization:(id)prefs { }
 @end
 
-@interface NotationController (NVTestSyncIsolation)
-- (void)nv_skipUISync;
-@end
-@implementation NotationController (NVTestSyncIsolation)
-- (void)nv_skipUISync { }
-@end
-
 @interface AppController (NVWindowTests)
 - (void)nv_testLaunch:(NSNotification *)notification;
 - (void)nv_testDelayed;
@@ -64,7 +57,6 @@ static void Swap(Class cls, SEL original, SEL replacement) {
     Swap(self, @selector(applicationDidFinishLaunching:), @selector(nv_testLaunch:));
     Swap(self, @selector(runDelayedUIActionsAfterLaunch), @selector(nv_testDelayed));
     Swap([NSFileManager class], @selector(applicationSupportDirectory), @selector(nv_testSupportDirectory));
-    Swap([NotationController class], @selector(startSyncServices), @selector(nv_skipUISync));
     Swap([ODBEditor class], @selector(initializeDatabase:), @selector(nv_skipExternalEditorInitialization:));
 }
 - (void)nv_testDelayed { }

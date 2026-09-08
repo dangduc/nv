@@ -36,9 +36,7 @@
 #import "AlienNoteImporter.h"
 #import "ODBEditor.h"
 #import "NotationFileManager.h"
-#import "NotationSyncServiceManager.h"
 #import "NotationDirectoryManager.h"
-#import "SyncSessionController.h"
 #import "BookmarksController.h"
 #import "DeletionManager.h"
 #import "nvaDevConfig.h"
@@ -51,7 +49,6 @@
 		directoryChangesFound = notesChanged = aliasNeedsUpdating = NO;
 		
 		allNotes = [[NSMutableArray alloc] init]; //<--the authoritative list of all memory-accessible notes
-		deletedNotes = [[NSMutableSet alloc] init];
 		labelsListController = [[LabelsListController alloc] init];
 		prefsController = [GlobalPrefs defaultPrefs];
 		notesListDataSource = [[FastListDataSource alloc] init];
@@ -268,8 +265,8 @@
 		result = err;
 		goto returnResult;
 	}
-	//notes were unpacked--now roughly compare notesToVerify with allNotes, plus deletedNotes and notationPrefs
-	if (!notesToVerify || [notesToVerify count] != [allNotes count] || [[frozenNotation deletedNotes] count] != [deletedNotes  count] || 
+	// Compare the unpacked notes and library preferences.
+	if (!notesToVerify || [notesToVerify count] != [allNotes count] ||
 		[[frozenNotation notationPrefs] notesStorageFormat] != [notationPrefs notesStorageFormat] ||
 		[[frozenNotation notationPrefs] hashIterationCount] != [notationPrefs hashIterationCount]) {
 		result = kItemVerifyErr;
@@ -333,8 +330,6 @@ returnResult:
 	
 	[allNotes release];
 	
-	syncSessionController = [[SyncSessionController alloc] initWithSyncDelegate:self notationPrefs:notationPrefs];
-	
 	//frozennotation will work out passwords, keychains, decryption, etc...
 	if (!(allNotes = [[frozenNotation unpackedNotesReturningError:&err] retain])) {
 		//notes could be nil because the user cancelled password authentication
@@ -347,10 +342,6 @@ returnResult:
 		[allNotes makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
 	}
 	
-	[deletedNotes release];
-	if (!(deletedNotes = [[frozenNotation deletedNotes] retain]))
-	    deletedNotes = [[NSMutableSet alloc] init];
-			
 	[prefsController setNotationPrefs:notationPrefs sender:self];
 	
 	[self makeForegroundTextColorMatchGlobalPrefs];
@@ -467,7 +458,7 @@ bail:
 		for (i=0; i<count; i++) {
 			
 			CFUUIDBytes *objUUIDBytes = (CFUUIDBytes *)keys[i];
-			id<SynchronizedNote> obj = (id)values[i];
+			id<LogNote> obj = (id)values[i];
 			
 			NSUInteger existingNoteIndex = [allNotes indexOfNoteWithUUIDBytes:objUUIDBytes];
 			
@@ -481,17 +472,10 @@ bail:
 						//except that normally the undomanager doesn't exist by this point			
 						[self _registerDeletionUndoForNote:existingNote];
 						[allNotes removeObjectAtIndex:existingNoteIndex];
-						//try to use use the deleted note object instead of allowing _addDeletedNote: to make a new one, to preserve any changes to the syncMD
-						[self _addDeletedNote:obj];
 						notesChanged = YES;
 					} else {
 						NSLog(@"got an older deleted note %@", obj);
 					}
-				} else {
-					NSLog(@"got a deleted note with a UUID that doesn't match anything in allNotes, adding to deletedNotes only");
-					//must remember that this was deleted; b/c it could've been added+synced and then deleted before syncing the deletion
-					//and it might not be in allNotes because the WALreader would have already coalesced by UUID, and so the next sync might re-add the note
-					[self _addDeletedNote:obj];
 				}
 			} else if (existingNoteIndex != NSNotFound) {
 				
@@ -573,7 +557,7 @@ bail:
 		[self purgeOldPerDiskInfoFromNotes];
 		
 		
-		NSData *serializedData = [FrozenNotation frozenDataWithExistingNotes:allNotes deletedNotes:deletedNotes prefs:notationPrefs];
+		NSData *serializedData = [FrozenNotation frozenDataWithExistingNotes:allNotes prefs:notationPrefs];
 		if (!serializedData) {
 			
 			NSLog(@"serialized data is nil!");
@@ -759,7 +743,6 @@ bail:
 	[allNotes makeObjectsPerformSelector:@selector(abortEditingInExternalEditor)];
 	
 	[deletionManager cancelPanelReturningCode:NSRunStoppedResponse];
-	[self stopSyncServices];
 	[self stopFileNotifications];
 	if ([self flushAllNoteChanges])
 		[self closeJournal];
@@ -862,12 +845,6 @@ bail:
 - (void)addNewNote:(NoteObject*)note {
     [self _addNote:note];
 	
-	//clear aNoteObject's syncServicesMD to facilitate sync recreation upon undoing of deletion
-	//new notes should not have any sync MD; if they do, they should be added using -addNotesFromSync:
-	//problem is that note could very likely still be in the process of syncing, in which case these dicts will be accessed
-	//for simplenote is is necessary only once the iPhone app has fully deleted the note off the server; otherwise a regular update will recreate it
-	//[note removeAllSyncServiceMD];
-    
 	[note makeNoteDirtyUpdateTime:YES updateFile:YES];
 	
 	[self updateTitlePrefixConnections];
@@ -895,40 +872,9 @@ bail:
 	[self _addNote:newNote];
 	[newNote release];
 	
-	[self schedulePushToAllSyncServicesForNote:newNote];
-	
 	directoryChangesFound = YES;
 	
 	return newNote;
-}
-
-- (void)addNotesFromSync:(NSArray*)noteArray {
-	
-	if (![noteArray count]) return; 
-	
-	unsigned int i;
-	
-	if ([[self undoManager] isUndoing]) [undoManager beginUndoGrouping];
-	for (i=0; i<[noteArray count]; i++) {
-		NoteObject * note = [noteArray objectAtIndex:i];
-		
-		[self _addNote:note];
-		
-		[note makeNoteDirtyUpdateTime:NO updateFile:YES];
-		
-		//absolutely ensure that this note is pushed to the rest of the services
-		[note registerModificationWithOwnedServices];
-		[self schedulePushToAllSyncServicesForNote:note];
-	}
-	if ([[self undoManager] isUndoing]) [undoManager endUndoGrouping];
-	//don't need to reverse-register undo because removeNote/s: will never use this method
-	
-	[self updateTitlePrefixConnections];
-	
-	[self synchronizeNoteChanges:nil];
-		
-	[self resortAllNotes];
-	[self refilterNotes];
 }
 
 - (void)addNotes:(NSArray*)noteArray {
@@ -1103,7 +1049,6 @@ bail:
     [aNoteObject setDelegate:self];	
 	
     [allNotes addObject:aNoteObject];
-	[deletedNotes removeObject:aNoteObject];
     
     notesChanged = YES;
 }
@@ -1145,7 +1090,6 @@ bail:
 	
     [allNotes removeObjectIdenticalTo:aNoteObject];
 	[[EncodingsManager sharedManager] cancelUTF8ConversionForNote:aNoteObject];
-	DeletedNoteObject *deletedNote = [self _addDeletedNote:aNoteObject];
 	
 	updateForVerifiedDeletedNote(deletionManager, aNoteObject);
     
@@ -1163,12 +1107,6 @@ bail:
 		NSLog(@"Couldn't log note removal");
 	}
 	
-	//a removal command will be sent to sync services if aNoteObject contains a matching syncServicesMD dict 
-	//(e.g., already been synced at least once)
-	//make sure we use the same deleted note that was added to the list of deleted notes, to simplify record-keeping
-	//if the note didn't have metadata, try to sync it anyway so that the service knows this note shouldn't be created
-	[self schedulePushToAllSyncServicesForNote: deletedNote ? deletedNote : [DeletedNoteObject deletedNoteWithNote:aNoteObject]];
-    
 	[self _registerDeletionUndoForNote:aNoteObject];
 		
 	//delete note from bookmarks, too
@@ -1180,46 +1118,6 @@ bail:
     [aNoteObject release];
     
     [self refilterNotes];
-}
-
-- (void)_purgeAlreadyDistributedDeletedNotes {
-	//purge deletedNotes of objects without any more syncMD entries;
-	//once a note has been deleted from all services, there's no need to keep it around anymore
-
-	NSUInteger i = 0;
-	NSArray *dnArray = [deletedNotes allObjects];
-	for (i = 0; i<[dnArray count]; i++) {
-		DeletedNoteObject *dnObj = [dnArray objectAtIndex:i];
-		if (![[dnObj syncServicesMD] count]) {
-			[deletedNotes removeObject:dnObj];
-			notesChanged = YES;
-		}
-	}
-	//NSLog(@"%s: deleted notes left: %@", _cmd, deletedNotes);
-}
-
-- (DeletedNoteObject*)_addDeletedNote:(id<SynchronizedNote>)aNote {
-	//currently coupled to -[allNotes removeObjectIdenticalTo:]
-	//don't need to remember this deleted note unless it was already synced with some service
-	//furthermore, after that deleted note has been remotely-removed from all services with which it was previously synced,
-	//can it be purged from this database once and for all?
-	//e.g., each successful syncservice deletion would also remove that service's entry from syncServicesMD
-	//when syncServicesMD was empty, it would be removed from the set
-	//but what about synchronization systems without explicit delete APIs?
-	
-	if ([[aNote syncServicesMD] count]) {
-		//it is important to use the actual deleted note if one is passed
-		DeletedNoteObject *deletedNote = [aNote isKindOfClass:[DeletedNoteObject class]] ? aNote : [DeletedNoteObject deletedNoteWithNote:aNote];
-		[deletedNotes addObject:deletedNote];
-		notesChanged = YES;
-		return deletedNote;
-	}
-	return nil;
-}
-
-- (void)removeSyncMDFromDeletedNotesInSet:(NSSet*)notesToOrphan forService:(NSString*)serviceName {
-	NSMutableSet *matchingNotes = [deletedNotes setIntersectedWithSet:notesToOrphan];
-	[matchingNotes makeObjectsPerformSelector:@selector(removeAllSyncMDForService:) withObject:serviceName];
 }
 
 - (void)_registerDeletionUndoForNote:(NoteObject*)aNote {	
@@ -1634,10 +1532,6 @@ bail:
     return notesListDataSource;
 }
 
-- (SyncSessionController*)syncSessionController {
-	return syncSessionController;
-}
-
 - (void)dealloc {
  
 	[walWriter setDelegate:nil];
@@ -1661,10 +1555,8 @@ bail:
     [undoManager release];
     [notesListDataSource release];
     [labelsListController release];
-	[syncSessionController release];
 	[deletionManager release];
     [allNotes release];
-	[deletedNotes release];
 	[notationPrefs release];
 	[unwrittenNotes release];
     

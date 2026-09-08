@@ -5,7 +5,6 @@
 #import "DualField.h"
 #import "LinkingEditor.h"
 #import "GlobalPrefs.h"
-#import "SyncSessionController.h"
 #import "ETContentView.h"
 #import "ETScrollView.h"
 #import "ETNoteScrollView.h"
@@ -350,18 +349,17 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [window setInitialFirstResponder:field];
 }
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)aToolbar {
-    return @[@"NewNote", @"Preview", @"More", NSToolbarFlexibleSpaceItemIdentifier, @"Sync", @"Search"];
+    return @[@"NewNote", @"Preview", @"More", NSToolbarFlexibleSpaceItemIdentifier, @"Search"];
 }
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)aToolbar {
-    return @[@"NewNote", @"Preview", @"More", @"Sync", @"Search", NSToolbarSpaceItemIdentifier, NSToolbarFlexibleSpaceItemIdentifier];
+    return @[@"NewNote", @"Preview", @"More", @"Search", NSToolbarSpaceItemIdentifier, NSToolbarFlexibleSpaceItemIdentifier];
 }
 - (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)inserted {
     if ([identifier isEqual:@"Search"]) return dualFieldItem;
     NSDictionary *spec = @{
         @"NewNote": @[@"New Note", @"square.and.pencil", NSImageNameAddTemplate, @"newNote:"],
         @"Preview": @[@"Preview", @"doc.richtext", NSImageNameQuickLookTemplate, @"togglePreview:"],
-        @"More": @[@"Note Actions", @"ellipsis.circle", NSImageNameActionTemplate, @"showNoteActions:"],
-        @"Sync": @[@"Sync Status", @"arrow.triangle.2.circlepath", NSImageNameRefreshTemplate, @"showSyncStatus:"]
+        @"More": @[@"Note Actions", @"ellipsis.circle", NSImageNameActionTemplate, @"showNoteActions:"]
     };
     NSArray *values = [spec objectForKey:identifier];
     if (!values) return nil;
@@ -370,10 +368,6 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [item setLabel:label]; [item setPaletteLabel:label]; [item setToolTip:label];
     [item setImage:BrowserSymbol([values objectAtIndex:1], [values objectAtIndex:2], label)];
     [item setTarget:self]; [item setAction:NSSelectorFromString([values objectAtIndex:3])];
-    if (inserted && [identifier isEqual:@"Sync"]) {
-        [syncToolbarItem release]; syncToolbarItem = [item retain];
-        [self updateSyncToolbarItem];
-    }
     return item;
 }
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item {
@@ -389,19 +383,6 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
         [item setTarget:self];
     }
     [menu popUpMenuPositioningItem:nil atLocation:NSMakePoint(14, NSHeight([mainView bounds])) inView:mainView];
-}
-- (IBAction)showSyncStatus:(id)sender {
-    NSMenu *menu = [[[self sharedNotationController] syncSessionController] syncStatusMenu];
-    [menu popUpMenuPositioningItem:nil atLocation:NSMakePoint(NSWidth([mainView bounds]) - 180, NSHeight([mainView bounds])) inView:mainView];
-}
-- (void)updateSyncToolbarItem {
-    SyncSessionController *sync = [[self sharedNotationController] syncSessionController];
-    NSString *label = [sync hasErrors] ? NSLocalizedString(@"Sync needs attention", nil) :
-        ([sync hasRunningSessions] ? NSLocalizedString(@"Syncing…", nil) : NSLocalizedString(@"Sync Status", nil));
-    [syncToolbarItem setToolTip:label];
-    [syncToolbarItem setLabel:label];
-    [syncToolbarItem setImage:BrowserSymbol([sync hasErrors] ? @"exclamationmark.triangle" : @"arrow.triangle.2.circlepath",
-        [sync hasErrors] ? NSImageNameCaution : NSImageNameRefreshTemplate, label)];
 }
 - (IBAction)setSystemColorScheme:(id)sender {
     userScheme = 3;

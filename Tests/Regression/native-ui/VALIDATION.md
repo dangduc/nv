@@ -26,4 +26,4 @@ The desktop session was locked. Full-screen transitions failed in both nvALT and
 
 Ventura logged a layout warning during `NSSearchToolbarItem` layout. An LLDB trace placed the recursive layout call inside AppKit toolbar constraints. The resize and control checks passed despite this warning.
 
-Live sync services, external editor applications, and other macOS versions were not exercised.
+External editor applications and other macOS versions were not exercised.

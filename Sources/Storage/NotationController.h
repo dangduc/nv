@@ -38,7 +38,6 @@ typedef struct _NoteCatalogEntry {
 
 @class NoteObject;
 @class DeletedNoteObject;
-@class SyncSessionController;
 @class NotationPrefs;
 @class NoteAttributeColumn;
 @class NoteBookmark;
@@ -50,7 +49,6 @@ typedef struct _NoteCatalogEntry {
     FastListDataSource *notesListDataSource;
     LabelsListController *labelsListController;
 	GlobalPrefs *prefsController;
-	SyncSessionController *syncSessionController;
 	DeletionManager *deletionManager;
 	id delegate;
 	
@@ -68,7 +66,6 @@ typedef struct _NoteCatalogEntry {
     
     NotationPrefs *notationPrefs;
 	
-	NSMutableSet *deletedNotes;
     
 	int volumeSupportsExchangeObjects;
     FSCatalogInfo *fsCatInfoArray;
@@ -146,15 +143,11 @@ typedef struct _NoteCatalogEntry {
 - (void)updateLinksToNote:(NoteObject*)aNoteObject fromOldName:(NSString*)oldname;
 - (void)updateTitlePrefixConnections;
 - (void)addNotes:(NSArray*)noteArray;
-- (void)addNotesFromSync:(NSArray*)noteArray;
 - (void)addNewNote:(NoteObject*)aNoteObject;
 - (BOOL)preserveExternalSourceData:(NSData*)data encoding:(NSStringEncoding)encoding forNote:(NoteObject*)note;
 - (void)_addNote:(NoteObject*)aNoteObject;
 - (void)removeNote:(NoteObject*)aNoteObject;
 - (void)removeNotes:(NSArray*)noteArray;
-- (void)_purgeAlreadyDistributedDeletedNotes;
-- (void)removeSyncMDFromDeletedNotesInSet:(NSSet*)notesToOrphan forService:(NSString*)serviceName;
-- (DeletedNoteObject*)_addDeletedNote:(id<SynchronizedNote>)aNote;
 - (void)_registerDeletionUndoForNote:(NoteObject*)aNote;
 - (NoteObject*)addNoteFromCatalogEntry:(NoteCatalogEntry*)catEntry;
 
@@ -194,7 +187,6 @@ typedef struct _NoteCatalogEntry {
 - (id)notesListDataSource;
 
 - (NotationPrefs*)notationPrefs;
-- (SyncSessionController*)syncSessionController;
 
 - (void)dealloc;
 

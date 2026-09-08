@@ -29,12 +29,11 @@ jobs:
       - name: Check automatic tagging
         run: python3 -m unittest discover -s Tests/CI -v
 
-      - name: Build without sync credentials or signing
+      - name: Build without signing
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build
-          cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
           xcodebuild -version
           xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
             -derivedDataPath build/DerivedData ARCHS=x86_64 \

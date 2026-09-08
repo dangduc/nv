@@ -22,7 +22,6 @@
 #import "NotationPrefs.h"
 #import "PrefsWindowController.h"
 #import "NoteAttributeColumn.h"
-#import "NotationSyncServiceManager.h"
 #import "NotationDirectoryManager.h"
 #import "NotationFileManager.h"
 #import "NSString_NV.h"
@@ -37,9 +36,7 @@
 #import "EmptyView.h"
 #import "DualField.h"
 #import "BookmarksController.h"
-#import "SyncSessionController.h"
 #import "MultiplePageView.h"
-#import "InvocationRecorder.h"
 #import "SecureTextEntryManager.h"
 #import "TagEditingManager.h"
 #import "NotesTableHeaderCell.h"
@@ -1781,10 +1778,6 @@ terminateApp:
 	}
 }
 
-- (void)syncSessionsChangedVisibleStatus:(NSNotification*)aNotification {
-    [self updateSyncToolbarItem];
-}
-
 - (IBAction)fixFileEncoding:(id)sender {
 	if (currentNote) {
 		[notationController synchronizeNoteChanges:nil];
@@ -1811,42 +1804,6 @@ terminateApp:
     [[NVApplicationController sharedController] browserWillClose:self];
 }
 
-- (void)_finishSyncWait {
-	//always post to next runloop to ensure that a sleep-delay response invocation, if one is also queued, runs before this one
-	//if the app quits before the sleep-delay response posts, then obviously sleep will be delayed by quite a bit
-	[self performSelector:@selector(syncWaitQuit:) withObject:nil afterDelay:0];
-}
-
-- (IBAction)syncWaitQuit:(id)sender {
-	//need this variable to allow overriding the wait
-	waitedForUncommittedChanges = YES;
-	NSString *errMsg = [[notationController syncSessionController] changeCommittingErrorMessage];
-	if ([errMsg length]) NSRunAlertPanel(NSLocalizedString(@"Changes could not be uploaded.", nil), errMsg, @"Quit", nil, nil);
-	
-	[NSApp terminate:nil];
-}
-
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-	//if a sync session is still running, then wait for it to finish before sending terminatereply
-	//otherwise, if there are unsynced notes to send, then push them right now and wait until session is no longer running
-	//use waitForUncommitedChangesWithTarget:selector: and provide a callback to send NSTerminateNow
-	
-	InvocationRecorder *invRecorder = [InvocationRecorder invocationRecorder];
-	[[invRecorder prepareWithInvocationTarget:self] _finishSyncWait];
-	
-	if (!waitedForUncommittedChanges &&
-		[[notationController syncSessionController] waitForUncommitedChangesWithInvocation:[invRecorder invocation]]) {
-		
-		[[NSApp windows] makeObjectsPerformSelector:@selector(orderOut:) withObject:nil];
-		[syncWaitPanel center];
-		[syncWaitPanel makeKeyAndOrderFront:nil];
-		[syncWaitSpinner startAnimation:nil];
-		//use NSTerminateCancel instead of NSTerminateLater because we need the runloop functioning in order to receive start/stop sync notifications
-		return NSTerminateCancel;
-	}
-	return NSTerminateNow;
-}
-
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	if (notationController) {
 		//only save the state if the notation instance has actually loaded; i.e., don't save last-selected-note if we quit from a PW dialog
@@ -1864,8 +1821,6 @@ terminateApp:
 	
 	[[NSApp windows] makeObjectsPerformSelector:@selector(close)];
 	[notationController stopFileNotifications];
-	
-	//wait for syncing to finish, showing a progress bar
 	
     if ([notationController flushAllNoteChanges])
 		[notationController closeJournal];
@@ -1904,7 +1859,7 @@ terminateApp:
     [browserSplitController setSplitViewItems:@[]];
     [browserSplitController release];
     [toolbar setDelegate:nil];
-    [toolbar release]; [dualFieldItem release]; [syncToolbarItem release];
+    [toolbar release]; [dualFieldItem release];
     [backgrndColor release];
     [foregrndColor release];
     [windowObjects release];

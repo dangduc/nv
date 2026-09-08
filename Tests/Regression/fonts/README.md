@@ -11,7 +11,7 @@ The runner serializes desktop access with `build/pr-review/gui.lock` and limits 
 
 The checks cover current, hidden, cached, and previously unopened notes.
 Font and foreground changes preserve model attributes, source bytes, modification dates, journal sequence numbers, source generations, and existing Undo history.
-The test records note-write and sync-push requests during each display change.
+The test records note-write requests during each display change.
 It also executes existing Redo and Undo operations after a font change.
 
 The live editor uses the current display font without changing unopened model records.

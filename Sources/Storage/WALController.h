@@ -17,7 +17,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "SynchronizedNoteProtocol.h"
+#import "LogNoteProtocol.h"
 #include <sys/types.h>
 #include <zlib.h>
 
@@ -55,9 +55,9 @@ typedef union {
     NSMutableData *unwrittenData;
 }
 - (id)initWithParentFSRep:(const char*)path encryptionKey:(NSData*)key;
-- (BOOL)writeEstablishedNote:(id<SynchronizedNote>)aNoteObject;
-- (BOOL)writeRemovalForNote:(id<SynchronizedNote>)aNoteObject;
-- (BOOL)writeNoteObject:(id<SynchronizedNote>)aNoteObject;
+- (BOOL)writeEstablishedNote:(id<LogNote>)aNoteObject;
+- (BOOL)writeRemovalForNote:(id<LogNote>)aNoteObject;
+- (BOOL)writeNoteObject:(id<LogNote>)aNoteObject;
 - (void)writeNoteObjects:(NSArray*)notes;
 - (BOOL)_attemptToWriteUnwrittenData;
 - (BOOL)_encryptAndWriteData:(NSMutableData*)data;
@@ -74,7 +74,7 @@ typedef union {
 }
 
 - (id)initWithParentFSRep:(const char*)path encryptionKey:(NSData*)key;
-- (id <SynchronizedNote>)recoverNextObject;
+- (id <LogNote>)recoverNextObject;
 - (NSDictionary*)recoveredNotes;
 
 @end

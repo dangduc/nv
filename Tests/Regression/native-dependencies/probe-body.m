@@ -1,64 +1,33 @@
     unsetenv("DYLD_INSERT_LIBRARIES");
     @try {
-        // Block network fetches, and keep the system clipboard intact.
-        IMP originalStart = method_setImplementation(class_getInstanceMethod([SyncResponseFetcher class], @selector(start)),
-            imp_implementationWithBlock(^BOOL(id object) { Check(NO, @"fixtures never start network requests"); return NO; }));
+        // Keep the system clipboard intact.
         NSPasteboard *pboard = [NSPasteboard pasteboardWithUniqueName];
         method_setImplementation(class_getClassMethod([NSPasteboard class], @selector(generalPasteboard)),
             imp_implementationWithBlock(^id(id object) { return pboard; }));
         NVApplicationController *app = [NVApplicationController sharedController];
         NotationController *library = [app library];
 
-        // Exercise the production encoder and response readers without an account.
-        SimplenoteSession *session = [[[SimplenoteSession alloc] initWithUsername:@"fixture@example.invalid" andPassword:@"quote\" café 😀"] autorelease];
-        SyncResponseFetcher *login = [session loginFetcher];
-        NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:[login valueForKey:@"dataToSend"] options:0 error:NULL];
-        Check([payload[@"password"] isEqualToString:@"quote\" café 😀"], @"login JSON preserves escaped Unicode credentials");
-        [session syncResponseFetcher:login receivedData:[@"{\"access_token\":\"fixture\"}" dataUsingEncoding:NSUTF8StringEncoding] returningError:nil];
-        Check([[session valueForKey:@"simperiumToken"] isEqualToString:@"fixture"], @"login response reads the authorization token");
-        NVSyncFixtureReceiver *receiver = [[[NVSyncFixtureReceiver alloc] init] autorelease];
-        [session setDelegate:receiver];
-        SyncResponseFetcher *index = [session listFetcher];
-        [session syncResponseFetcher:index receivedData:[@"{\"index\":[{\"id\":\"a\",\"v\":3}],\"current\":\"cv1\"}" dataUsingEncoding:NSUTF8StringEncoding] returningError:nil];
-        Check([receiver->fullList count] == 1 && [receiver->fullList[0][@"version"] integerValue] == 3, @"index JSON normalizes note versions");
-        SyncResponseFetcher *changes = [session changesFetcher];
-        [session syncResponseFetcher:changes receivedData:[@"[{\"id\":\"a\",\"cv\":\"cv2\",\"ev\":4,\"o\":\"+\"},{\"id\":\"b\",\"cv\":\"cv3\",\"ev\":2,\"o\":\"-\"}]" dataUsingEncoding:NSUTF8StringEncoding] returningError:nil];
-        Check([receiver->partialList count] == 1 && [receiver->removedList count] == 1, @"array response separates changed and deleted notes");
-        Check([[session valueForKey:@"lastCV"] isEqualToString:@"cv3"], @"changes advance the cursor");
-        [session syncResponseFetcher:[session listFetcher] receivedData:[@"{\"index\":null}" dataUsingEncoding:NSUTF8StringEncoding] returningError:nil];
-        Check([receiver->failure length] > 0, @"invalid index root reports a parsing error");
-
-        SimplenoteEntryCollector *collector = [[[SimplenoteEntryCollector alloc] initWithEntriesToCollect:@[@{}] simperiumToken:@"fixture"] autorelease];
-        SyncResponseFetcher *noteFetcher = [[[SyncResponseFetcher alloc] initWithURL:[NSURL URLWithString:@"https://example.invalid/Note/i/fixture"] POSTData:nil delegate:nil] autorelease];
-        [noteFetcher setValue:@{@"X-Simperium-Version": @"7"} forKey:@"headers"];
-        NSString *json = @"{\"content\":\"café 😀\\nquoted \\\"text\\\"\",\"deleted\":false,\"tags\":[\"日本語\"],\"creationDate\":1700000000.25,\"modificationDate\":1700000001,\"unused\":null}";
-        NSDictionary *entry = [collector preparedDictionaryWithFetcher:noteFetcher receivedData:[json dataUsingEncoding:NSUTF8StringEncoding]];
-        Check([entry[@"content"] isEqualToString:@"café 😀\nquoted \"text\""] && [entry[@"tags"] isEqual:@[@"日本語"]], @"note JSON preserves Unicode, escapes, and arrays");
-        Check([entry[@"version"] integerValue] == 7 && ![entry[@"deleted"] boolValue] && [entry[@"create"] doubleValue] == 721692800.25, @"note JSON preserves booleans and fractional timestamps");
-        for (NSString *invalid in @[@"{", @"[]", @"null", @"{\"content\":\"ok\"} trailing"]) {
-            Check([collector preparedDictionaryWithFetcher:noteFetcher receivedData:[invalid dataUsingEncoding:NSUTF8StringEncoding]] == nil, @"invalid note JSON is rejected");
-        }
         NoteObject *note = MakeNote(library, @"Native fixtures", @"café 😀 \"quoted\"\nsecond line");
-        SimplenoteEntryModifier *modifier = [[[SimplenoteEntryModifier alloc] initWithEntries:@[note] operation:@selector(fetcherForCreatingNote:) simperiumToken:@"fixture"] autorelease];
-        SyncResponseFetcher *creation = [modifier fetcherForCreatingNote:note];
-        payload = [NSJSONSerialization JSONObjectWithData:[creation valueForKey:@"dataToSend"] options:0 error:NULL];
-        Check([payload[@"content"] rangeOfString:@"café 😀 \"quoted\"\nsecond line"].location != NSNotFound && [payload[@"deleted"] intValue] == 0, @"outgoing note JSON preserves the body and deletion flag");
-        [creation setValue:@{@"X-Simperium-Version": @"7"} forKey:@"headers"];
-        NSDictionary *createdEntry = [modifier preparedDictionaryWithFetcher:creation receivedData:[json dataUsingEncoding:NSUTF8StringEncoding]];
-        Check([createdEntry[@"key"] length] > 0 && [[note syncServicesMD][SimplenoteServiceName][@"version"] integerValue] == 7,
-            @"creation response attaches parsed sync metadata to the note");
-        SyncResponseFetcher *update = [modifier fetcherForUpdatingNote:note];
-        payload = [NSJSONSerialization JSONObjectWithData:[update valueForKey:@"dataToSend"] options:0 error:NULL];
-        Check([payload[@"content"] rangeOfString:@"café 😀"].location != NSNotFound && [[[update requestURL] path] hasSuffix:@"/v/7"],
-            @"update JSON preserves content and uses the note version");
-        DeletedNoteObject *deleted = [DeletedNoteObject deletedNoteWithNote:note];
-        SyncResponseFetcher *deletion = [modifier fetcherForDeletingNote:deleted];
-        payload = [NSJSONSerialization JSONObjectWithData:[deletion valueForKey:@"dataToSend"] options:0 error:NULL];
-        Check([payload isEqual:@{@"deleted": @1}], @"deletion JSON sends the numeric deletion flag");
-        NVSyncFixtureReceiver *encodingFailure = [[[NVSyncFixtureReceiver alloc] init] autorelease];
-        SyncResponseFetcher *invalidWrite = [[[SyncResponseFetcher alloc] initWithURL:[NSURL URLWithString:@"https://example.invalid/"] POSTData:nil headers:nil contentType:@"application/json" delegate:encodingFailure] autorelease];
-        Check(!((BOOL(*)(id, SEL))originalStart)(invalidWrite, @selector(start)) && [encodingFailure->failure length] > 0, @"failed encoding reports an error without issuing a GET");
 
+        for (NSString *name in @[@"SimplenoteSession", @"SimplenoteEntryCollector", @"SimplenoteEntryModifier", @"SyncSessionController", @"SyncResponseFetcher"])
+            Check(NSClassFromString(name) == Nil, @"Simplenote service and network classes are absent from the app");
+        Check(![app respondsToSelector:NSSelectorFromString(@"syncSessionController")] && ![self respondsToSelector:NSSelectorFromString(@"showSyncStatus:")], @"application and browser expose no sync actions");
+        for (NSString *locale in @[@"de", @"en", @"fr", @"it", @"pt-PT", @"zh"]) {
+            NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[locale stringByAppendingString:@".lproj/NotationPrefsView.nib"]];
+            NSNib *nib = [[[NSNib alloc] initWithNibData:[NSData dataWithContentsOfFile:path] bundle:[NSBundle mainBundle]] autorelease];
+            NotationPrefsViewController *controller = [[NotationPrefsViewController alloc] init];
+            NSArray *top = nil;
+            Check([nib instantiateWithOwner:controller topLevelObjects:&top], [locale stringByAppendingString:@" preferences interface loads with actual controller"]);
+            NSTabView *tabs = NVFindPreferencesTabs([controller view]);
+            NSMutableArray *identifiers = [NSMutableArray array];
+            for (NSTabViewItem *item in [tabs tabViewItems]) [identifiers addObject:[item identifier]];
+            Check([identifiers isEqual:@[@"storage", @"security"]], [locale stringByAppendingString:@" preferences expose only storage and security"]);
+            Check([[controller valueForKey:@"storageFormatPopupButton"] numberOfItems] == 2, [locale stringByAppendingString:@" storage popup keeps database and plain-text formats"]);
+            for (NSString *key in @[@"enableEncryptionButton", @"changePasswordButton", @"allowedExtensionsTable", @"allowedTypesTable"]) {
+                Check([controller valueForKey:key] != nil, [NSString stringWithFormat:@"%@ surviving %@ outlet connected", locale, key]);
+            }
+            // Controller subscribes to shared preferences; retain it for this process's lifetime.
+        }
         // UTF-16 offsets, punctuation, mail links, and nvALT's separate wiki pass.
         NSString *text = @"😀 prefix https://example.com/a?q=1, person@example.com and [[Other note]]";
         NSMutableAttributedString *linked = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
@@ -103,6 +72,13 @@
         Check(![self interpretNVURL:[NSURL URLWithString:@"nvalt://make?html=%3Cb%3EHTML%3C/b%3E"]], @"HTML URL-scheme import is disabled");
         Check(![self interpretNVURL:[NSURL URLWithString:@"nvalt://make?url=https%3A%2F%2Fexample.invalid"]], @"web-page URL-scheme import is disabled");
         Check([self interpretNVURL:[NSURL URLWithString:@"nvalt://make?title=Fixture&txt=Plain%20body&tags=test"]], @"plain text URL-scheme import remains available");
+        NSURL *localLink = [note uniqueNoteLink];
+        Check([[localLink query] hasPrefix:@"NV="] && [[localLink query] rangeOfString:@"&"].location == NSNotFound, @"new note links encode only the local UUID");
+        NSURL *localLookup = [NSURL URLWithString:[@"nvalt://find/Unmatched%20fixture/?" stringByAppendingString:[localLink query]]];
+        Check([self interpretNVURL:localLookup] && [self selectedNoteObject] == note, @"local UUID links find notes independently of the search title");
+        for (NSString *query in @[@"NV=YQ%3D%3D", @"NV=", @"Simplenote=legacy-remote-note"])
+            Check([self interpretNVURL:[NSURL URLWithString:[@"nvalt://find/Unmatched%20fixture/?" stringByAppendingString:query]]] && [self selectedNoteObject] == nil,
+                  @"short UUIDs and removed remote identifiers safely fall back to title search");
         LinkingEditor *editor = [self valueForKey:@"textView"];
         Check(![[editor readablePasteboardTypes] containsObject:NSHTMLPboardType] && ![editor readSelectionFromPasteboard:pboard type:NSHTMLPboardType], @"editor paste excludes HTML readers");
 

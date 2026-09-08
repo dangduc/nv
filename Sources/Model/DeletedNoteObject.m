@@ -21,18 +21,15 @@
 
 @implementation DeletedNoteObject
 
-+ (id)deletedNoteWithNote:(id <SynchronizedNote>)aNote {
++ (id)deletedNoteWithNote:(id <LogNote>)aNote {
 	return [[[DeletedNoteObject alloc] initWithExistingObject:aNote] autorelease];
 }
 
-- (id)initWithExistingObject:(id<SynchronizedNote>)note {
+- (id)initWithExistingObject:(id<LogNote>)note {
     if (self=[super init]) {
 		CFUUIDBytes *bytes = [note uniqueNoteIDBytes];
 		uniqueNoteIDBytes = *bytes;
-		syncServicesMD = [[note syncServicesMD] mutableCopy];
 		logSequenceNumber = [note logSequenceNumber];
-		//not serialized: for runtime lookup purposes only
-		originalNote = [note retain];
     
         return self;
     }
@@ -46,11 +43,11 @@
 			NSUInteger decodedByteCount;
 			const uint8_t *decodedBytes = [decoder decodeBytesForKey:VAR_STR(uniqueNoteIDBytes) returnedLength:&decodedByteCount];
 			memcpy(&uniqueNoteIDBytes, decodedBytes, MIN(decodedByteCount, sizeof(CFUUIDBytes)));
-			syncServicesMD = [[decoder decodeObjectForKey:VAR_STR(syncServicesMD)] retain];
 			logSequenceNumber = [decoder decodeInt32ForKey:VAR_STR(logSequenceNumber)];
 		} else {
 			[decoder decodeValueOfObjCType:@encode(CFUUIDBytes) at:&uniqueNoteIDBytes];
-			syncServicesMD = [[decoder decodeObject] retain];
+			// Consume the obsolete remote metadata slot before reading the journal sequence.
+			(void)[decoder decodeObject];
 			[decoder decodeValueOfObjCType:@encode(unsigned int) at:&logSequenceNumber];
 		}
     
@@ -63,29 +60,19 @@
 	
 	if ([coder allowsKeyedCoding]) {
 		[coder encodeBytes:(const uint8_t *)&uniqueNoteIDBytes length:sizeof(CFUUIDBytes) forKey:VAR_STR(uniqueNoteIDBytes)];
-		[coder encodeObject:syncServicesMD forKey:VAR_STR(syncServicesMD)];
 		[coder encodeInt32:logSequenceNumber forKey:VAR_STR(logSequenceNumber)];
 	} else {
 		[coder encodeValueOfObjCType:@encode(CFUUIDBytes) at:&uniqueNoteIDBytes];
-		[coder encodeObject:syncServicesMD];
+		// Preserve the legacy stream layout.
+		[coder encodeObject:nil];
 		[coder encodeValueOfObjCType:@encode(unsigned int) at:&logSequenceNumber];
 	}
 }
 
-- (id<SynchronizedNote>)originalNote {
-	return originalNote;
-}
-
 - (NSString*)description {
-	return [NSString stringWithFormat:@"DeletedNoteObj(%@) %@", [NSString uuidStringWithBytes:uniqueNoteIDBytes], syncServicesMD];
+	return [NSString stringWithFormat:@"DeletedNoteObj(%@)", [NSString uuidStringWithBytes:uniqueNoteIDBytes]];
 }
 
-#include "SynchronizedNoteMixIns.h"
-
-- (void)dealloc {
-	[syncServicesMD release];
-	[originalNote release];
-	[super dealloc];
-}
+#include "LogNoteMixIns.h"
 
 @end

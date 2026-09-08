@@ -6,9 +6,9 @@ nvALT is a macOS Cocoa application written primarily in Objective-C, with C util
 
 `Notation.xcodeproj` defines the application target and shared schemes. Its navigator groups match the directories on disk.
 
-- `Sources/`: application, browser, editor, model, storage, sync, preferences, import/export, preview, UI, and utility code.
+- `Sources/`: application, browser, editor, model, storage, preferences, import/export, preview, UI, and utility code.
 - `Resources/`: images, syntax queries, help, and interfaces. Localized resources live in `Resources/Localization/*.lproj/`.
-- `Config/`: application plist, prefix header, sync configuration, and linker order files.
+- `Config/`: application plist, prefix header, and linker order files.
 - `ThirdParty/`: bundled source dependencies, markup processors, and OpenSSL headers and libraries.
 - `Scripts/`: development utilities.
 - `Tests/` and `docs/`: test suites, review records, and documentation assets.
@@ -18,16 +18,6 @@ Read [architecture.md](architecture.md) before changing controller ownership, sh
 ## Build, Test, and Development Commands
 
 Use macOS with full Xcode. The bundled MultiMarkdown executable and OpenSSL archive require an Intel build. Apple Silicon Macs require Rosetta.
-
-For an existing checkout, move your local `SimperiumConfig.h` into `Config/` before you build.
-
-If `Config/SimperiumConfig.h` is absent, create it from the example:
-
-```sh
-test -e Config/SimperiumConfig.h || cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
-```
-
-Keep the placeholder for local work without sync. Simplenote syncing requires your own API key.
 
 Build the Development app:
 
@@ -57,7 +47,7 @@ python3 Tests/run-regression-tests.py
 
 The suites use temporary notes and a copied app. See [Tests/README.md](Tests/README.md) for focused checks. No coverage threshold is configured.
 
-Use disposable notes for manual checks of affected preview, import/export, and sync paths.
+Use disposable notes for manual checks of affected preview and import/export paths.
 
 For CI changes, run `python3 -B -m unittest discover -s Tests/CI -v`.
 CI builds an unsigned Intel app and tags successful builds on `master`. It does not run the desktop suites.
