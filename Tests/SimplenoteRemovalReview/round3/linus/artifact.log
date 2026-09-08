@@ -1,0 +1,108 @@
+reviewed head: f9cc501628b1c4e61b7e655e205f0c36ca00260f
+app executable SHA-256: d61aea6619f6c4322efac164d7409ac131aa0ce2a8760d874850c34443331ede
+PASS: final production/build tree matches the reviewed app implementation
+PASS: tracked source has no sync implementation or API-key example
+PASS: target configuration does not refer to removed service configuration
+PASS: all 102 final linker object inputs exist
+PASS: final link inputs contain no retired service objects
+PASS: seven retained vendored boundaries enumerated
+App archive checks passed.
+PASS: CI archive checker accepts final built app
+PASS: independent ZIP CRC check passes
+PASS: ZIP contains exactly all 287 built app files
+PASS: every archived app file is byte-identical to the built file
+PASS: every archived file retains its permission bits
+PASS: archive names exclude retired sync/configuration/framework assets
+PASS: extracted executable matches reviewed executable
+PASS: extracted app has the required Intel architecture
+PASS: all 15 direct dynamic dependencies use system paths
+PASS: retired direct frameworks are absent from shipped load commands
+PASS: app contains no embedded vendor framework
+PASS: shipped Info.plist has no Simplenote or Simperium registration
+PASS: shipped binary excludes retired class SimplenoteSession
+PASS: shipped binary excludes retired class SimplenoteEntryCollector
+PASS: shipped binary excludes retired class SyncResponseFetcher
+PASS: shipped binary excludes retired class SyncSessionController
+PASS: Crypto consumer belongs to the final link
+PASS: Crypto has real references from retained local consumer NSData_transformations.o
+PASS: Crypto required definitions exist in shipped executable
+PASS: OpenSSL consumer belongs to the final link
+PASS: OpenSSL has real references from retained local consumer NSData_transformations.o
+PASS: OpenSSL required definitions exist in shipped executable
+PASS: PTHotKeys consumer belongs to the final link
+PASS: PTHotKeys has real references from retained local consumer GlobalPrefs.o
+PASS: PTHotKeys required definitions exist in shipped executable
+PASS: ODBEditor consumer belongs to the final link
+PASS: ODBEditor has real references from retained local consumer NotationController.o
+PASS: ODBEditor required definitions exist in shipped executable
+PASS: TreeSitter consumer belongs to the final link
+PASS: TreeSitter has real references from retained local consumer NVSourceHighlighter.o
+PASS: TreeSitter required definitions exist in shipped executable
+PASS: legacy local password import still references vendored IDEA
+PASS: retained local PBKDF2 consumes vendored HMAC-SHA1
+PASS: packaged MultiMarkdown is the tracked helper
+MultiMarkdown version: MultiMarkdown version 4.7.1
+Copyright (c) 2013-2015 Fletcher T. Penney.
+
+LyX export code (c) 2013-2014 Charles R. Cowan,
+licensed under both GPL and MIT licenses.
+
+portions based on peg-markdown - Copyright (c) 2008-2009 John MacFarlane.
+peg-markdown is Licensed under either the GPLv2+ or MIT.
+portions Copyright (c) 2011 Daniel Jalkut, MIT licensed.
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+PASS: extracted MultiMarkdown executes local heading/bold conversion
+PASS: every packaged Textile file matches tracked helper/module bytes
+PASS: extracted Textile helper executes local heading/bold conversion
+PASS: all four extracted highlighting queries match pinned manifest hashes
+PASS: extracted syntax licenses match tracked notices
+PASS: packaged hotkey names remain readable and match tracked mapping
+PASS: native experiment reuses all eight parser objects from final app link
+PASS: review executable links existing parser/Crypto objects and retained OpenSSL archive: 
+PASS: native parser/query/crypto experiment passes
+PASS: bundle resource directory supplied
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: json=6
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: html=8
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: markdown=3
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: markdown-inline=8
+PASS: retained Crypto PBKDF2 succeeds
+PASS: retained Crypto PBKDF2 matches fixed vector
+PASS: retained OpenSSL accepts AES key
+PASS: retained OpenSSL AES matches fixed vector
+PASS: retained OpenSSL accepts decryption key
+PASS: retained OpenSSL AES restores plaintext
+PASS: 35 native dependency assertions
+PASS: negative control: missing retained Textile module prevents conversion
+PASS: negative control: missing shipped query is rejected by native experiment
+PASS: negative control: lost MultiMarkdown execute bits prevent conversion
+PASS: 52 artifact assertions plus native dependency assertions

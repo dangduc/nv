@@ -1,0 +1,11 @@
+2026-09-08 13:28:03.512 nvALT[36734:325734740] PASS: temporary library directory exists
+2026-09-08 13:28:03.512 nvALT[36734:325734740] PASS: temporary library opens
+2026-09-08 13:28:03.832 nvALT[36734:325734740] PASS: create an isolated disposable database library
+2026-09-08 13:28:03.832 nvALT[36734:325734740] PASS: measured library uses database storage without browser or editing-session ownership
+2026-09-08 13:28:03.832 nvALT[36734:325734740] PASS: baseline has no configured or enabled sync accounts
+2026-09-08 13:28:03.833 nvALT[36734:325734740] verified 0 notes in 0.000358105 s
+2026-09-08 13:28:03.834 nvALT[36734:325734740] PASS: store initial empty library before counting
+2026-09-08 13:28:03.834 nvALT[36734:325734740] PASS: real journal writer is present
+2026-09-08 13:28:03.848 nvALT[36734:325734740] PASS: each batch clears deletion and restoration Undo ownership
+2026-09-08 13:28:03.949 nvALT[36734:325734740] DAN_R3_LIFETIME batch=1 created=24 released=14 live=10
+2026-09-08 13:28:03.949 nvALT[36734:325734740] FAIL: drained pools leave only the expected original notes retained after Undo is cleared

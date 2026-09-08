@@ -1,0 +1,53 @@
+2026-09-08 13:38:14.449 nvALT[43963:325763971] PASS: temporary library directory exists
+2026-09-08 13:38:14.449 nvALT[43963:325763971] PASS: temporary library opens
+2026-09-08 13:38:14.775 nvALT[43963:325763971] PASS: actual application delegate owns command routing
+2026-09-08 13:38:14.775 nvALT[43963:325763971] PASS: isolated launch disables quit after closing the last browser
+2026-09-08 13:38:15.194 nvALT[43963:325763971] PASS: two native browser controllers share the same library before closure
+2026-09-08 13:38:15.261 nvALT[43963:325763971] verified 2 notes in 0.000326991 s
+2026-09-08 13:38:15.273 nvALT[43963:325763971] PASS: checkpoint establishes original note bodies before pending source edits
+2026-09-08 13:38:15.277 nvALT[43963:325763971] PASS: native source editor has an unfinished composition before window closure
+2026-09-08 13:38:15.277 nvALT[43963:325763971] PASS: native source editor has an unfinished composition before window closure
+2026-09-08 13:38:15.277 nvALT[43963:325763971] PASS: both note models still hold their checkpoint bodies
+2026-09-08 13:38:15.348 nvALT[43963:325763971] PASS: closing an additional browser commits its pending source and unregisters it
+2026-09-08 13:38:15.408 nvALT[43963:325763971] PASS: closing the initial browser leaves no registered browser windows
+2026-09-08 13:38:15.408 nvALT[43963:325763971] PASS: coordinator retains the shared library and initial application-services bridge without browser windows
+2026-09-08 13:38:15.408 nvALT[43963:325763971] PASS: closing the last browser commits the initial editor's pending source
+2026-09-08 13:38:15.569 nvALT[43963:325763971] PASS: Preferences action reaches the coordinator while no browser window exists
+2026-09-08 13:38:15.636 nvALT[43963:325763971] PASS: retained initial-browser bridge opens Preferences without creating a browser
+2026-09-08 13:38:15.636 nvALT[43963:325763971] PASS: remaining native preference action has its connected control
+2026-09-08 13:38:15.636 nvALT[43963:325763971] PASS: native Preferences action updates its setting without browser windows
+2026-09-08 13:38:15.874 nvALT[43963:325763971] PASS: local UUID URL recreates exactly one browser after every browser closed
+2026-09-08 13:38:15.874 nvALT[43963:325763971] PASS: URL-created browser attaches to the existing shared library and becomes visible
+2026-09-08 13:38:15.874 nvALT[43963:325763971] PASS: local UUID URL selects the exact existing note without creating a duplicate
+2026-09-08 13:38:15.874 nvALT[43963:325763971] PASS: URL-created editor displays source committed at closure
+2026-09-08 13:38:15.875 nvALT[43963:325763971] PASS: recreated browser holds a second uncommitted source composition
+2026-09-08 13:38:15.932 nvALT[43963:325763971] PASS: closing the URL-created browser also commits its pending source
+2026-09-08 13:38:16.037 nvALT[43963:325763971] PASS: application reopen request reports it was handled
+2026-09-08 13:38:16.087 nvALT[43963:325763971] PASS: application reopen creates one visible browser using the retained library
+2026-09-08 13:38:16.144 nvALT[43963:325763971] PASS: reopened browser can reach the existing note and both closure commits
+2026-09-08 13:38:16.199 nvALT[43963:325763971] PASS: application-reopened browser can close normally
+2026-09-08 13:38:16.302 nvALT[43963:325763971] PASS: Open Untitled application command reports it was handled
+2026-09-08 13:38:16.352 nvALT[43963:325763971] PASS: Open Untitled recreates a browser without inventing an empty note
+2026-09-08 13:38:16.417 nvALT[43963:325763971] PASS: local search and selection remain usable after repeated zero-window intervals
+2026-09-08 13:38:16.473 nvALT[43963:325763971] PASS: normal termination will start with no browser windows and the retained local library
+2026-09-08 13:38:16.473 nvALT[43963:325763971] PASS: independent expected identity and text manifest is written outside the notes library
+2026-09-08 13:38:16.474 nvALT[43963:325763971] WORKFLOW ROUND3 phase1: 32 checks passed; normal quit from zero browser windows
+2026-09-08 13:38:16.478 nvALT[43963:325763971] verified 2 notes in 0.000256062 s
+2026-09-08 13:38:16.804 nvALT[43983:325764341] PASS: temporary library directory exists
+2026-09-08 13:38:16.805 nvALT[43983:325764341] PASS: temporary library opens
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: actual application delegate owns command routing
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: isolated launch disables quit after closing the last browser
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: fresh process reopens exactly the two expected local notes
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: reopened note retains its exact UUID
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: reopened note retains its title
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: pending source committed by browser closure survives normal quit and process restart
+2026-09-08 13:38:17.125 nvALT[43983:325764341] PASS: reopened note retains its tags
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: reopened note retains locally stored syntax
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: reopened note retains its exact UUID
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: reopened note retains its title
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: pending source committed by browser closure survives normal quit and process restart
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: reopened note retains its tags
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: reopened note retains locally stored syntax
+2026-09-08 13:38:17.126 nvALT[43983:325764341] PASS: preference set through retained initial-browser bridge survives restart
+2026-09-08 13:38:17.126 nvALT[43983:325764341] WORKFLOW ROUND3 phase2: 16 checks passed
+2026-09-08 13:38:17.143 nvALT[43983:325764341] verified 2 notes in 0.00030601 s

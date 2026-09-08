@@ -1,0 +1,162 @@
+2026-09-08 13:24:41.923 nvALT[35499:325726215] PASS: temporary library directory exists
+2026-09-08 13:24:41.924 nvALT[35499:325726215] PASS: temporary library opens
+2026-09-08 13:24:42.413 nvALT[35499:325726215] PASS: two real browser windows share this library
+2026-09-08 13:24:42.472 nvALT[35499:325726215] DELETION OWNERSHIP HISTORY two-attached
+2026-09-08 13:24:42.598 nvALT[35499:325726215] PASS: both native editors attach distinct layouts to the one cached source
+2026-09-08 13:24:42.607 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.667 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.670 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:42.728 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.774 nvALT[35499:325726215] verified 2 notes in 0.000341058 s
+2026-09-08 13:24:42.779 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.781 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:42.834 nvALT[35499:325726215] PASS: both native edits preserve the exact UTF-16 source in both views and model
+2026-09-08 13:24:42.834 nvALT[35499:325726215] PASS: native title and tags commit to the intended note before deletion
+2026-09-08 13:24:42.834 nvALT[35499:325726215] PASS: source and metadata have a real note history before deletion
+2026-09-08 13:24:42.838 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.838 nvALT[35499:325726215] PASS: browser Delete targets the intended selected note
+2026-09-08 13:24:42.839 nvALT[35499:325726215] PASS: application command routing dispatches actual browser Delete
+2026-09-08 13:24:42.939 nvALT[35499:325726215] PASS: browser Delete removes the model from the authoritative library
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: list refresh detaches every editor from the removed note
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: no live browser editor still exposes the deleted cached session
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: actual browser deletion registers a recoverable library Undo action
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: cached session keeps exact source for deletion Undo without a live editor attachment
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: application metadata routing rejects a removed note
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:42.940 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:42.942 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:43.043 nvALT[35499:325726215] PASS: native library Undo restores the same model and reveals it in the active browser
+2026-09-08 13:24:43.043 nvALT[35499:325726215] PASS: deletion Undo preserves UUID, local syntax, title, tags and exact source
+2026-09-08 13:24:43.043 nvALT[35499:325726215] PASS: deletion Undo reattaches the original cached editing session
+2026-09-08 13:24:43.044 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:43.044 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:43.044 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:43.045 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:43.145 nvALT[35499:325726215] PASS: native library Redo removes the note and detaches the restored layout again
+2026-09-08 13:24:43.146 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:43.146 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:43.146 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:43.148 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:43.273 nvALT[35499:325726215] PASS: a second native deletion Undo recovers exact source after Redo
+2026-09-08 13:24:43.425 nvALT[35499:325726215] PASS: the surviving or reopened peer reuses the restored session and its source
+2026-09-08 13:24:43.426 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:43.476 nvALT[35499:325726215] PASS: source Undo step 1 preserves shared body and ordered metadata
+2026-09-08 13:24:43.528 nvALT[35499:325726215] PASS: source Undo step 2 preserves shared body and ordered metadata
+2026-09-08 13:24:43.581 nvALT[35499:325726215] PASS: source Undo step 3 preserves shared body and ordered metadata
+2026-09-08 13:24:43.633 nvALT[35499:325726215] PASS: source Undo step 4 preserves shared body and ordered metadata
+2026-09-08 13:24:43.633 nvALT[35499:325726215] PASS: all four source and metadata history entries are accounted for
+2026-09-08 13:24:43.685 nvALT[35499:325726215] PASS: peer Redo step 1 restores shared body and ordered metadata
+2026-09-08 13:24:43.738 nvALT[35499:325726215] PASS: peer Redo step 2 restores shared body and ordered metadata
+2026-09-08 13:24:43.789 nvALT[35499:325726215] PASS: peer Redo step 3 restores shared body and ordered metadata
+2026-09-08 13:24:43.841 nvALT[35499:325726215] PASS: peer Redo step 4 restores shared body and ordered metadata
+2026-09-08 13:24:43.841 nvALT[35499:325726215] PASS: replayed note history ends without an extra Redo action
+2026-09-08 13:24:43.894 nvALT[35499:325726215] PASS: leaving the restored note detaches both layouts without changing its source
+2026-09-08 13:24:43.894 nvALT[35499:325726215] DELETION OWNERSHIP HISTORY peer-switched
+2026-09-08 13:24:44.030 nvALT[35499:325726215] PASS: both native editors attach distinct layouts to the one cached source
+2026-09-08 13:24:44.034 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.088 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.090 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:44.146 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.177 nvALT[35499:325726215] verified 3 notes in 0.000280976 s
+2026-09-08 13:24:44.200 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.202 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:44.254 nvALT[35499:325726215] PASS: both native edits preserve the exact UTF-16 source in both views and model
+2026-09-08 13:24:44.254 nvALT[35499:325726215] PASS: native title and tags commit to the intended note before deletion
+2026-09-08 13:24:44.254 nvALT[35499:325726215] PASS: source and metadata have a real note history before deletion
+2026-09-08 13:24:44.306 nvALT[35499:325726215] PASS: peer switch leaves exactly the deleting browser attached
+2026-09-08 13:24:44.310 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.311 nvALT[35499:325726215] PASS: browser Delete targets the intended selected note
+2026-09-08 13:24:44.311 nvALT[35499:325726215] PASS: application command routing dispatches actual browser Delete
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: browser Delete removes the model from the authoritative library
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: list refresh detaches every editor from the removed note
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: no live browser editor still exposes the deleted cached session
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: actual browser deletion registers a recoverable library Undo action
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: cached session keeps exact source for deletion Undo without a live editor attachment
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: application metadata routing rejects a removed note
+2026-09-08 13:24:44.416 nvALT[35499:325726215] PASS: deleting elsewhere preserves the peer's unrelated selection and source
+2026-09-08 13:24:44.418 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.418 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:44.418 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:44.421 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:44.522 nvALT[35499:325726215] PASS: native library Undo restores the same model and reveals it in the active browser
+2026-09-08 13:24:44.522 nvALT[35499:325726215] PASS: deletion Undo preserves UUID, local syntax, title, tags and exact source
+2026-09-08 13:24:44.522 nvALT[35499:325726215] PASS: deletion Undo reattaches the original cached editing session
+2026-09-08 13:24:44.522 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.523 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:44.523 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:44.523 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:44.625 nvALT[35499:325726215] PASS: native library Redo removes the note and detaches the restored layout again
+2026-09-08 13:24:44.626 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.626 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:44.626 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:44.628 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:44.728 nvALT[35499:325726215] PASS: a second native deletion Undo recovers exact source after Redo
+2026-09-08 13:24:44.780 nvALT[35499:325726215] PASS: the surviving or reopened peer reuses the restored session and its source
+2026-09-08 13:24:44.784 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:44.835 nvALT[35499:325726215] PASS: source Undo step 1 preserves shared body and ordered metadata
+2026-09-08 13:24:44.886 nvALT[35499:325726215] PASS: source Undo step 2 preserves shared body and ordered metadata
+2026-09-08 13:24:44.938 nvALT[35499:325726215] PASS: source Undo step 3 preserves shared body and ordered metadata
+2026-09-08 13:24:44.990 nvALT[35499:325726215] PASS: source Undo step 4 preserves shared body and ordered metadata
+2026-09-08 13:24:44.990 nvALT[35499:325726215] PASS: all four source and metadata history entries are accounted for
+2026-09-08 13:24:45.041 nvALT[35499:325726215] PASS: peer Redo step 1 restores shared body and ordered metadata
+2026-09-08 13:24:45.093 nvALT[35499:325726215] PASS: peer Redo step 2 restores shared body and ordered metadata
+2026-09-08 13:24:45.145 nvALT[35499:325726215] PASS: peer Redo step 3 restores shared body and ordered metadata
+2026-09-08 13:24:45.196 nvALT[35499:325726215] PASS: peer Redo step 4 restores shared body and ordered metadata
+2026-09-08 13:24:45.196 nvALT[35499:325726215] PASS: replayed note history ends without an extra Redo action
+2026-09-08 13:24:45.249 nvALT[35499:325726215] PASS: leaving the restored note detaches both layouts without changing its source
+2026-09-08 13:24:45.249 nvALT[35499:325726215] DELETION OWNERSHIP HISTORY peer-closed
+2026-09-08 13:24:45.377 nvALT[35499:325726215] PASS: both native editors attach distinct layouts to the one cached source
+2026-09-08 13:24:45.378 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.430 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.431 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:45.490 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.524 nvALT[35499:325726215] verified 4 notes in 0.000311971 s
+2026-09-08 13:24:45.542 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.544 nvALT[35499:325726215] PASS: metadata action opens its actual native field editor
+2026-09-08 13:24:45.595 nvALT[35499:325726215] PASS: both native edits preserve the exact UTF-16 source in both views and model
+2026-09-08 13:24:45.595 nvALT[35499:325726215] PASS: native title and tags commit to the intended note before deletion
+2026-09-08 13:24:45.595 nvALT[35499:325726215] PASS: source and metadata have a real note history before deletion
+2026-09-08 13:24:45.601 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.601 nvALT[35499:325726215] PASS: browser Delete targets the intended selected note
+2026-09-08 13:24:45.602 nvALT[35499:325726215] PASS: application command routing dispatches actual browser Delete
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: browser Delete removes the model from the authoritative library
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: list refresh detaches every editor from the removed note
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: no live browser editor still exposes the deleted cached session
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: actual browser deletion registers a recoverable library Undo action
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: cached session keeps exact source for deletion Undo without a live editor attachment
+2026-09-08 13:24:45.723 nvALT[35499:325726215] PASS: application metadata routing rejects a removed note
+2026-09-08 13:24:45.826 nvALT[35499:325726215] PASS: closing the detached peer keeps the removed session detached
+2026-09-08 13:24:45.827 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.827 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:45.827 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:45.829 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:45.929 nvALT[35499:325726215] PASS: native library Undo restores the same model and reveals it in the active browser
+2026-09-08 13:24:45.929 nvALT[35499:325726215] PASS: deletion Undo preserves UUID, local syntax, title, tags and exact source
+2026-09-08 13:24:45.929 nvALT[35499:325726215] PASS: deletion Undo reattaches the original cached editing session
+2026-09-08 13:24:45.932 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:45.933 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:45.933 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:45.933 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:46.035 nvALT[35499:325726215] PASS: native library Redo removes the note and detaches the restored layout again
+2026-09-08 13:24:46.036 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:46.036 nvALT[35499:325726215] PASS: library history command starts with the notes list focused
+2026-09-08 13:24:46.036 nvALT[35499:325726215] PASS: focused list selects the real library Undo manager
+2026-09-08 13:24:46.038 nvALT[35499:325726215] PASS: native responder chain accepts library history command
+2026-09-08 13:24:46.139 nvALT[35499:325726215] PASS: a second native deletion Undo recovers exact source after Redo
+2026-09-08 13:24:46.338 nvALT[35499:325726215] PASS: the surviving or reopened peer reuses the restored session and its source
+2026-09-08 13:24:46.343 nvALT[35499:325726215] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:24:46.393 nvALT[35499:325726215] PASS: source Undo step 1 preserves shared body and ordered metadata
+2026-09-08 13:24:46.445 nvALT[35499:325726215] PASS: source Undo step 2 preserves shared body and ordered metadata
+2026-09-08 13:24:46.496 nvALT[35499:325726215] PASS: source Undo step 3 preserves shared body and ordered metadata
+2026-09-08 13:24:46.548 nvALT[35499:325726215] PASS: source Undo step 4 preserves shared body and ordered metadata
+2026-09-08 13:24:46.548 nvALT[35499:325726215] PASS: all four source and metadata history entries are accounted for
+2026-09-08 13:24:46.600 nvALT[35499:325726215] PASS: peer Redo step 1 restores shared body and ordered metadata
+2026-09-08 13:24:46.652 nvALT[35499:325726215] PASS: peer Redo step 2 restores shared body and ordered metadata
+2026-09-08 13:24:46.703 nvALT[35499:325726215] PASS: peer Redo step 3 restores shared body and ordered metadata
+2026-09-08 13:24:46.755 nvALT[35499:325726215] PASS: peer Redo step 4 restores shared body and ordered metadata
+2026-09-08 13:24:46.755 nvALT[35499:325726215] PASS: replayed note history ends without an extra Redo action
+2026-09-08 13:24:46.808 nvALT[35499:325726215] PASS: leaving the restored note detaches both layouts without changing its source
+2026-09-08 13:24:46.810 nvALT[35499:325726215] verified 4 notes in 0.000324011 s
+2026-09-08 13:24:46.810 nvALT[35499:325726215] PASS: all final local note changes flush successfully
+2026-09-08 13:24:46.810 nvALT[35499:325726215] OUSTERHOUT ROUND 3 PASSED (154 checks; three browser deletion histories)

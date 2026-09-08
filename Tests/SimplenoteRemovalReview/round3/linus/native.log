@@ -1,0 +1,40 @@
+PASS: bundle resource directory supplied
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: json=6
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: html=8
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: markdown=3
+PASS: shipped syntax query opens
+PASS: shipped syntax query has bounded nonzero size
+PASS: read complete shipped syntax query
+PASS: shipped query compiles with retained grammar
+PASS: retained grammar ABI accepted by retained runtime
+PASS: synthetic source parses without error
+PASS: shipped query produces highlighting captures
+CAPTURES: markdown-inline=8
+PASS: retained Crypto PBKDF2 succeeds
+PASS: retained Crypto PBKDF2 matches fixed vector
+PASS: retained OpenSSL accepts AES key
+PASS: retained OpenSSL AES matches fixed vector
+PASS: retained OpenSSL accepts decryption key
+PASS: retained OpenSSL AES restores plaintext
+PASS: 35 native dependency assertions

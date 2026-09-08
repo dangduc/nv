@@ -1,0 +1,7 @@
+PASS batch 1: 126 local journal records; 6 surviving source records; PR releases 18 deleted originals and omits their remote tombstones
+PASS batch 2: 126 local journal records; 12 surviving source records; PR releases 36 deleted originals and omits their remote tombstones
+PASS batch 3: 126 local journal records; 18 surviving source records; PR releases 54 deleted originals and omits their remote tombstones
+PASS batch 4: 126 local journal records; 24 surviving source records; PR releases 72 deleted originals and omits their remote tombstones
+PASS expected control failure: retention-control.log
+PASS expected control failure: baseline-constructor-tags-control.log
+PASS: all paired counts match; baseline without remote metadata equals PR
