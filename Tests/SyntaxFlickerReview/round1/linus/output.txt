@@ -1,0 +1,4 @@
+2026-09-08 05:23:36.288 probe[83303:325130840] PASS json: 24 native edit histories, two fully laid-out containers, UTF-16 exact display and independent final parse comparisons
+2026-09-08 05:23:36.393 probe[83303:325130840] PASS html: 24 native edit histories, two fully laid-out containers, UTF-16 exact display and independent final parse comparisons
+2026-09-08 05:23:36.497 probe[83303:325130840] PASS markdown: 24 native edit histories, two fully laid-out containers, UTF-16 exact display and independent final parse comparisons
+2026-09-08 05:23:36.497 probe[83303:325130840] PASS: 354727 assertions across 72 edit histories; unsafe mutations=0

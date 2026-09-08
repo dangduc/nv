@@ -1,0 +1,7 @@
+fragmentation observation initial=202/405 pending=322/645 settled=202/405
+typing layouts=1 source_utf16=1511 edits=120 elapsed_ms=1185.928 synchronous_edit_total_ms=20.464 synchronous_edit_max_ms=0.417 burst_parser_calls=0 burst_adds=0 burst_removes=0 pending_colored_runs=202->322 settled=202 pending_all_runs=405->645 settled=405 settle_adds=303 settle_removes=1
+fragmentation observation initial=202/405 pending=322/645 settled=202/405
+typing layouts=4 source_utf16=1511 edits=120 elapsed_ms=1170.669 synchronous_edit_total_ms=30.626 synchronous_edit_max_ms=0.776 burst_parser_calls=0 burst_adds=0 burst_removes=0 pending_colored_runs=202->322 settled=202 pending_all_runs=405->645 settled=405 settle_adds=1212 settle_removes=4
+budget layouts=1 exact_captures=4096 exact_adds=4096 overflow_captures=4097 overflow_adds=0 overflow_removes=1
+budget layouts=4 exact_captures=1024 exact_adds=4096 overflow_captures=1025 overflow_adds=0 overflow_removes=4
+PASS 12192 checks

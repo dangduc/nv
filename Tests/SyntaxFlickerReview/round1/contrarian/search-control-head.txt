@@ -1,0 +1,7 @@
+2026-09-08 05:26:29.116 nvALT[86025:325144254] PASS: temporary library directory exists
+2026-09-08 05:26:29.117 nvALT[86025:325144254] PASS: temporary library opens
+2026-09-08 05:26:29.504 nvALT[86025:325144254] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:26:29.758 nvALT[86025:325144254] PASS: control installs a manual highlight without any search query
+2026-09-08 05:26:29.763 nvALT[86025:325144254] OBSERVATION manual background before=sRGB IEC61966-2.1 colorspace 1 1 0 1 after=(null)
+2026-09-08 05:26:29.763 nvALT[86025:325144254] PASS: control insertion preserves exact source
+2026-09-08 05:26:29.891 nvALT[86025:325144254] verified 1 notes in 0.000343084 s

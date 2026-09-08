@@ -1,0 +1,114 @@
+2026-09-08 05:25:28.217 nvALT[85127:325139026] PASS: temporary library directory exists
+2026-09-08 05:25:28.218 nvALT[85127:325139026] PASS: temporary library opens
+2026-09-08 05:25:28.544 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:28.688 nvALT[85127:325139026] PASS: presentation fixture has two native browser windows
+2026-09-08 05:25:28.867 nvALT[85127:325139026] PASS: markdown light has current syntax in both native editors
+2026-09-08 05:25:28.867 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:28.867 nvALT[85127:325139026] PASS: markdown light token has non-default drawn syntax color
+2026-09-08 05:25:28.867 nvALT[85127:325139026] PASS: markdown light native link detector recognizes fixture URL
+2026-09-08 05:25:28.872 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:28.873 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: markdown light provisional display retains drawn token color in both windows
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: markdown light link foreground wins over retained syntax
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:28.879 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:28.880 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:28.881 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:28.947 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:28.947 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:28.972 nvALT[85127:325139026] verified 2 notes in 0.000433922 s
+2026-09-08 05:25:29.064 nvALT[85127:325139026] PASS: html light has current syntax in both native editors
+2026-09-08 05:25:29.064 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:29.064 nvALT[85127:325139026] PASS: html light token has non-default drawn syntax color
+2026-09-08 05:25:29.064 nvALT[85127:325139026] PASS: html light native link detector recognizes fixture URL
+2026-09-08 05:25:29.065 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:29.065 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: html light provisional display retains drawn token color in both windows
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: html light link foreground wins over retained syntax
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:29.066 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:29.067 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:29.067 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:29.132 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:29.132 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: json light has current syntax in both native editors
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: json light token has non-default drawn syntax color
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: json light native link detector recognizes fixture URL
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:29.252 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:29.253 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:29.253 nvALT[85127:325139026] PASS: json light provisional display retains drawn token color in both windows
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: json light link foreground wins over retained syntax
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:29.254 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:29.318 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:29.318 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:29.439 nvALT[85127:325139026] PASS: markdown dark has current syntax in both native editors
+2026-09-08 05:25:29.439 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:29.439 nvALT[85127:325139026] PASS: markdown dark token has non-default drawn syntax color
+2026-09-08 05:25:29.439 nvALT[85127:325139026] PASS: markdown dark native link detector recognizes fixture URL
+2026-09-08 05:25:29.440 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:29.440 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: markdown dark provisional display retains drawn token color in both windows
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: markdown dark link foreground wins over retained syntax
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:29.441 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:29.442 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:29.511 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:29.511 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:29.784 nvALT[85127:325139026] PASS: html dark has current syntax in both native editors
+2026-09-08 05:25:29.784 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:29.784 nvALT[85127:325139026] PASS: html dark token has non-default drawn syntax color
+2026-09-08 05:25:29.784 nvALT[85127:325139026] PASS: html dark native link detector recognizes fixture URL
+2026-09-08 05:25:29.787 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:29.787 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: html dark provisional display retains drawn token color in both windows
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: html dark link foreground wins over retained syntax
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:29.789 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:29.790 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:29.816 nvALT[85127:325139026] verified 5 notes in 0.000328064 s
+2026-09-08 05:25:29.860 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:29.860 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:29.978 nvALT[85127:325139026] PASS: json dark has current syntax in both native editors
+2026-09-08 05:25:29.978 nvALT[85127:325139026] PASS: color assertions use native layout drawing delegates
+2026-09-08 05:25:29.978 nvALT[85127:325139026] PASS: json dark token has non-default drawn syntax color
+2026-09-08 05:25:29.978 nvALT[85127:325139026] PASS: json dark native link detector recognizes fixture URL
+2026-09-08 05:25:29.979 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:29.979 nvALT[85127:325139026] PASS: native Source owns keyboard focus before insertion
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: character insertion makes semantic captures obsolete synchronously
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: json dark provisional display retains drawn token color in both windows
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: json dark link foreground wins over retained syntax
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: provisional syntax preserves distinct native search backgrounds per window
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: private capture never reaches drawn attribute result
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: color retention preserves exact committed source in both editors
+2026-09-08 05:25:29.980 nvALT[85127:325139026] PASS: native Undo removes exactly the insertion
+2026-09-08 05:25:29.981 nvALT[85127:325139026] PASS: native Redo restores exactly the insertion
+2026-09-08 05:25:30.045 nvALT[85127:325139026] PASS: both windows eventually receive fresh captures after Undo and Redo
+2026-09-08 05:25:30.045 nvALT[85127:325139026] PASS: fresh captures preserve the same appearance-specific drawn token color
+2026-09-08 05:25:30.163 nvALT[85127:325139026] PASS: composition starts with parsed heading
+2026-09-08 05:25:30.164 nvALT[85127:325139026] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: native marked-text API establishes an actual five-character composition
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: unaffected heading keeps its drawn color during pending composition analysis
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: native marked appearance wins over an overlapping retained syntax capture
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: marked drawing strips private syntax and bounds its effective range to the composition
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: committing native composition preserves exact source
+2026-09-08 05:25:30.165 nvALT[85127:325139026] PASS: composition display captures never enter the note model
+2026-09-08 05:25:30.234 nvALT[85127:325139026] PASS: composition eventually receives current syntax captures
+2026-09-08 05:25:30.234 nvALT[85127:325139026] CONTRARIAN REVIEW COMPLETE: 109 checks
+2026-09-08 05:25:30.301 nvALT[85127:325139026] verified 7 notes in 0.000424027 s
+2026-09-08 05:25:30.367 nvALT[85127:325139026] verified 7 notes in 0.000409007 s
