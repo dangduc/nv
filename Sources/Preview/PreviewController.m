@@ -52,12 +52,18 @@
 @implementation NVViewerCaptureOwner
 @end
 
+static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identifier) {
+    return @[[snapshot libraryIdentifier] ?: @"", [snapshot noteIdentifier] ?: @"", identifier ?: @""];
+}
+
 @interface NVViewerStateCapture : NSObject {
 @public
     NVNoteContentSnapshot *snapshot;
     NSString *viewerIdentifier;
     NSString *documentBase;
     NSDictionary *cachedState;
+    NSArray *presentationKey;
+    NSUInteger revision;
     NVReadonlyViewerStateCompletion completion;
     BOOL finished;
 }
@@ -65,7 +71,7 @@
 @implementation NVViewerStateCapture
 - (void)dealloc {
     [snapshot release]; [viewerIdentifier release]; [documentBase release];
-    [cachedState release]; [completion release]; [super dealloc];
+    [cachedState release]; [presentationKey release]; [completion release]; [super dealloc];
 }
 @end
 
@@ -75,6 +81,7 @@
 - (void)captureDisplayState:(NSTimer *)timer;
 - (void)findNext:(id)sender;
 - (void)finishStateCapture:(NVViewerStateCapture *)capture documentState:(id)documentState;
+- (NSUInteger)beginStateRequestForKey:(NSArray *)key;
 @end
 
 @implementation PreviewController
@@ -84,6 +91,7 @@
         _renderer = [[NVMarkupRenderer alloc] init];
         _displayState = [[NSMutableDictionary alloc] init];
         _stateCaptures = [[NSMutableSet alloc] init];
+        _stateRevisions = [[NSMutableDictionary alloc] init];
         _captureOwner = [[NVViewerCaptureOwner alloc] init]; _captureOwner->owner = self;
         _viewerIdentifier = [@"markdown" copy];
     }
@@ -194,6 +202,18 @@
     [_assetHandler setRootURL:nil];
 }
 - (NSDictionary *)viewerState { return [[_displayState copy] autorelease]; }
+- (NSUInteger)beginStateRequestForKey:(NSArray *)key {
+    NSUInteger revision = ++_nextStateRevision;
+    [_stateRevisions setObject:@(revision) forKey:key];
+    return revision;
+}
+- (BOOL)hasPendingViewerStateCaptureForSnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier {
+    NSArray *key = ViewerStateKey(snapshot, identifier);
+    NSUInteger revision = [[_stateRevisions objectForKey:key] unsignedIntegerValue];
+    for (NVViewerStateCapture *capture in _stateCaptures)
+        if (capture->revision == revision && [capture->presentationKey isEqual:key]) return YES;
+    return NO;
+}
 - (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion {
     NSAssert([NSThread isMainThread], @"Viewer state capture belongs to the main thread.");
     if (!completion) return;
@@ -202,6 +222,8 @@
     capture->viewerIdentifier = [_viewerIdentifier copy];
     capture->documentBase = [[_documentBaseURL absoluteString] copy];
     capture->cachedState = [_displayState copy];
+    capture->presentationKey = [ViewerStateKey(_snapshot, _viewerIdentifier) retain];
+    capture->revision = [self beginStateRequestForKey:capture->presentationKey];
     capture->completion = [completion copy];
     // A loading request's identity can differ from the document still on screen.
     // Its cached state is the only state that belongs to that request.
@@ -236,7 +258,11 @@
     }
     BOOL samePresentation = [[_snapshot libraryIdentifier] isEqual:[capture->snapshot libraryIdentifier]] &&
         [[_snapshot noteIdentifier] isEqual:[capture->snapshot noteIdentifier]] && [_viewerIdentifier isEqual:capture->viewerIdentifier];
-    if (!_closed && samePresentation) {
+    // Completion delivery is independent of canonical state: each caller still
+    // gets its own result once, but an older reply or timeout cannot win a race
+    // with a newer capture, timer read, or explicit restoration of this identity.
+    BOOL latestRequest = capture->revision == [[_stateRevisions objectForKey:capture->presentationKey] unsignedIntegerValue];
+    if (!_closed && samePresentation && latestRequest) {
         for (NSString *key in @[@"scrollX", @"scrollY"]) if ([state objectForKey:key]) [_displayState setObject:[state objectForKey:key] forKey:key];
     }
     // Removing the barrier before the callback is safe: new render completion
@@ -253,6 +279,7 @@
     if (keepAlive) { [self loadRenderResult]; [self release]; }
 }
 - (void)restoreViewerState:(NSDictionary *)state {
+    [self beginStateRequestForKey:ViewerStateKey(_snapshot, _viewerIdentifier)];
     [_displayState removeAllObjects];
     for (NSString *key in @[@"scrollX", @"scrollY"]) {
         id value = [state objectForKey:key];
@@ -267,10 +294,13 @@
     }
 }
 - (void)captureDisplayState:(NSTimer *)timer {
-    if (_closed || _loading || ![[_webView window] isVisible] || [_webView isHiddenOrHasHiddenAncestor]) return;
+    if (_closed || _loading || [_stateCaptures count] || ![[_webView window] isVisible] || [_webView isHiddenOrHasHiddenAncestor]) return;
     NSUInteger generation = _requestGeneration;
+    NSArray *key = ViewerStateKey(_snapshot, _viewerIdentifier);
+    NSUInteger revision = [self beginStateRequestForKey:key];
     [_webView evaluateJavaScript:@"[window.scrollX,window.scrollY]" completionHandler:^(id result, NSError *error) {
-        if (_closed || generation != _requestGeneration || ![result isKindOfClass:[NSArray class]] || [result count] != 2) return;
+        if (_closed || generation != _requestGeneration || revision != [[_stateRevisions objectForKey:key] unsignedIntegerValue] ||
+            ![result isKindOfClass:[NSArray class]] || [result count] != 2) return;
         if ([[result objectAtIndex:0] isKindOfClass:[NSNumber class]] && [[result objectAtIndex:1] isKindOfClass:[NSNumber class]]) {
             [_displayState setObject:[result objectAtIndex:0] forKey:@"scrollX"];
             [_displayState setObject:[result objectAtIndex:1] forKey:@"scrollY"];
@@ -377,7 +407,7 @@
 - (void)dealloc {
     [self close];
     [_webView release]; [_statusField release]; [_findField release]; [_renderer release]; [_renderResult release]; [_snapshot release];
-    [_renderError release]; [_viewerIdentifier release]; [_assetHandler release]; [_resourceRules release]; [_ruleError release]; [_displayState release]; [_stateCaptures release]; [_captureOwner release]; [_documentBaseURL release];
+    [_renderError release]; [_viewerIdentifier release]; [_assetHandler release]; [_resourceRules release]; [_ruleError release]; [_displayState release]; [_stateCaptures release]; [_stateRevisions release]; [_captureOwner release]; [_documentBaseURL release];
     [super dealloc];
 }
 @end

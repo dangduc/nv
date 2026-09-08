@@ -27,6 +27,8 @@
     NSMutableDictionary *_displayState;
     NSTimer *_stateTimer;
     NSMutableSet *_stateCaptures;
+    NSMutableDictionary *_stateRevisions;
+    NSUInteger _nextStateRevision;
     NVViewerCaptureOwner *_captureOwner;
     NSURL *_documentBaseURL;
 }
@@ -41,6 +43,7 @@
 - (void)close;
 - (NSDictionary *)viewerState;
 - (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion;
+- (BOOL)hasPendingViewerStateCaptureForSnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier;
 - (void)restoreViewerState:(NSDictionary *)state;
 - (BOOL)validateMenuItem:(NSMenuItem *)item;
 - (IBAction)printPreview:(id)sender;

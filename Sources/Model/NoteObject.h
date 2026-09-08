@@ -159,6 +159,7 @@ NSInteger compareFileSize(id *a, id *b);
 - (void)rememberSourceData:(NSData*)data encoding:(NSStringEncoding)encoding;
 - (NSData*)sourceDataReturningError:(NSError**)error;
 - (BOOL)sourceConversionPending;
+- (BOOL)preservePendingSourceFileChanges;
 
 - (id)delegate;
 - (void)setDelegate:(id)theDelegate;

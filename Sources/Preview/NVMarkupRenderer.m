@@ -24,12 +24,42 @@ static NSString *NVEscapedHTML(NSString *string) {
     return escaped;
 }
 
+typedef struct {
+    BOOL limitExceeded;
+    BOOL fatalError;
+} NVHTMLParseStatus;
+
+static void NVHTMLParseError(void *context, xmlErrorPtr error) {
+    htmlParserCtxtPtr parser = context;
+    NVHTMLParseStatus *status = parser ? parser->_private : NULL;
+    if (!status || !error) return;
+    // Libxml 2.9 reports text/depth limits as memory/internal errors. Keep
+    // every limit failure: a later recoverable HTML error can replace lastError.
+    if (error->code == XML_ERR_NO_MEMORY || error->code == XML_ERR_INTERNAL_ERROR || error->code == XML_ERR_NAME_TOO_LONG)
+        status->limitExceeded = YES;
+    if (error->level == XML_ERR_FATAL) status->fatalError = YES;
+}
+
 // The HTML document is inert even when exported and opened in another browser.
 // The WK provider adds a second resource/navigation boundary at load time.
 static NSString *NVInertDocument(NSString *input, NSString *title, NSError **error) {
     NSData *UTF8 = [input dataUsingEncoding:NSUTF8StringEncoding];
-    htmlDocPtr document = htmlReadMemory([UTF8 bytes], (int)[UTF8 length], NULL, "UTF-8",
+    htmlParserCtxtPtr parser = htmlNewParserCtxt();
+    if (!parser) { if (error) *error = NVRenderError(NVMarkupLimitExceeded, @"The viewer could not allocate its HTML parser."); return nil; }
+    NVHTMLParseStatus status = { NO, NO };
+    parser->_private = &status;
+    parser->sax->serror = NVHTMLParseError;
+    // The default HTML SAX handler is version 1. Structured errors require
+    // this marker; the existing DOM callbacks and parser userData stay intact.
+    parser->sax->initialized = XML_SAX2_MAGIC;
+    htmlDocPtr document = htmlCtxtReadMemory(parser, [UTF8 bytes], (int)[UTF8 length], NULL, "UTF-8",
         HTML_PARSE_RECOVER | HTML_PARSE_NONET | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
+    htmlFreeParserCtxt(parser);
+    if (status.limitExceeded || status.fatalError) {
+        if (document) xmlFreeDoc(document);
+        if (error) *error = status.limitExceeded ? NVRenderError(NVMarkupLimitExceeded, @"The generated HTML exceeds the parser's resource limits.") : NVRenderError(NVMarkupInvalidOutput, @"The viewer could not read the complete generated HTML.");
+        return nil;
+    }
     xmlNodePtr root = document ? xmlDocGetRootElement(document) : NULL;
     if (!root) {
         if (document) xmlFreeDoc(document);

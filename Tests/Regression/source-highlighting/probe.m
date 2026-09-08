@@ -9,9 +9,20 @@ static void Check(BOOL pass, NSString *message) {
     if (!pass) { NSLog(@"FAIL: %@", message); exit(1); }
 }
 static NSUInteger UnsafeTemporaryChanges;
+static NSUInteger SourceAttributeAdditions;
+@interface NVSourceHighlighter (DisplayBudgetProbe)
+- (void)applyCaptures;
+@end
 @interface NVBoundaryCheckingLayoutManager : NSLayoutManager
 @end
 @implementation NVBoundaryCheckingLayoutManager
+- (void)addTemporaryAttribute:(NSAttributedStringKey)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NVSourceCaptureAttributeName]) {
+        SourceAttributeAdditions++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) UnsafeTemporaryChanges++;
+    }
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
 - (void)removeTemporaryAttribute:(NSAttributedStringKey)name forCharacterRange:(NSRange)range {
     if ([name isEqual:NVSourceCaptureAttributeName] && ([[self textStorage] editedMask] & NSTextStorageEditedCharacters)) UnsafeTemporaryChanges++;
     [super removeTemporaryAttribute:name forCharacterRange:range];
@@ -144,6 +155,56 @@ static void CheckLaidOutShortening(NSString *directory) {
     [storage removeLayoutManager:layout]; [layout removeTextContainerAtIndex:0];
     [container release]; [layout release]; [storage release];
 }
+static void CheckDisplayBudget(NSString *directory) {
+    for (NSNumber *rows in @[@100, @3000]) {
+        NSMutableString *source = [NSMutableString string];
+        for (NSUInteger i = 0; i < [rows unsignedIntegerValue]; i++)
+            [source appendFormat:@"<p id=\"key%lu\">value %lu</p>\n", (unsigned long)i, (unsigned long)i];
+        NVSourceParser *parser = [[NVSourceParser alloc] initWithQueryDirectory:directory];
+        NSArray *result = [parser capturesForString:source syntaxIdentifier:@"html" cancellationToken:NULL generation:0];
+        Check([result count] == 8 * [rows unsignedIntegerValue], @"valid HTML produces the expected captures before the separate display budget");
+        NSTextStorage *storage = [[NSTextStorage alloc] initWithString:source];
+        NSAttributedString *original = [storage copy];
+        NSMutableArray *layouts = [NSMutableArray array];
+        for (NSUInteger i = 0; i < 20; i++) {
+            NSLayoutManager *layout = [[[NVBoundaryCheckingLayoutManager alloc] init] autorelease];
+            NSTextContainer *container = [[[NSTextContainer alloc] initWithContainerSize:NSMakeSize(500, CGFLOAT_MAX)] autorelease];
+            [layout addTextContainer:container];
+            [layouts addObject:layout];
+            if (i < 4) [storage addLayoutManager:layout];
+        }
+        NSLayoutManager *first = layouts[0];
+        [first addTemporaryAttribute:NSBackgroundColorAttributeName value:[NSColor yellowColor] forCharacterRange:NSMakeRange(0, 1)];
+        NVSourceHighlighter *analysis = [[NVSourceHighlighter alloc] initWithTextStorage:storage syntaxIdentifier:@"html" queryDirectory:directory];
+        // Exercise the production UI application independently of worker scheduling.
+        [analysis setValue:result forKey:@"captures"];
+        SourceAttributeAdditions = 0;
+        [analysis applyCaptures];
+        BOOL small = [rows unsignedIntegerValue] == 100;
+        Check(SourceAttributeAdditions == (small ? 3200 : 0), @"four layouts preserve affordable highlighting and reject expensive capture writes");
+        Check(NVSourceCapturesAreCurrent(first) == small, @"over-budget results have no current display revision");
+        for (NSUInteger i = 4; i < 20; i++) [storage addLayoutManager:layouts[i]];
+        SourceAttributeAdditions = 0;
+        [analysis layoutsChanged];
+        Check(SourceAttributeAdditions == 0, @"twenty layouts share one display budget instead of multiplying per-window work");
+        BOOL plain = YES;
+        for (NSLayoutManager *layout in layouts) {
+            plain &= !NVSourceCapturesAreCurrent(layout);
+            plain &= [layout temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:1 effectiveRange:NULL] == nil;
+        }
+        Check(plain, @"crossing the layout budget clears previous captures in every layout");
+        for (NSUInteger i = 4; i < 20; i++) [storage removeLayoutManager:layouts[i]];
+        SourceAttributeAdditions = 0;
+        [analysis layoutsChanged];
+        Check(SourceAttributeAdditions == (small ? 3200 : 0), @"removing extra layouts restores highlighting when the same result fits the budget");
+        Check([storage isEqualToAttributedString:original], @"display fallback preserves source and stored attributes");
+        Check([[first temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] isEqual:[NSColor yellowColor]], @"display fallback preserves independent search attributes");
+        [analysis close]; [analysis release];
+        for (NSUInteger i = 0; i < 4; i++) [storage removeLayoutManager:layouts[i]];
+        [original release]; [storage release]; [parser release];
+    }
+    Check(UnsafeTemporaryChanges == 0, @"capture additions and removals stay outside character processing");
+}
 int main(int argc, const char **argv) {
     @autoreleasepool {
         Check(argc == 2, @"query path argument");
@@ -209,6 +270,7 @@ int main(int argc, const char **argv) {
         [[NSFileManager defaultManager] removeItemAtPath:temp error:NULL];
         CheckTextKit(directory);
         CheckLaidOutShortening(directory);
+        CheckDisplayBudget(directory);
         Benchmark(directory);
         NSLog(@"PASS: %lu source highlighting checks", (unsigned long)checks);
         [parser release];

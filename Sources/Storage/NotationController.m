@@ -824,6 +824,23 @@ bail:
 	[allNotesAlpha release];
 }
 
+- (BOOL)preserveExternalSourceData:(NSData*)data encoding:(NSStringEncoding)encoding forNote:(NoteObject*)note {
+	NSString *source = [NoteObject sourceStringFromData:data encoding:&encoding path:nil];
+	if (!source || !walWriter) return NO;
+	NSString *title = [titleOfNote(note) stringByAppendingFormat:@" (%@)", NSLocalizedString(@"external changes", nil)];
+	NoteObject *copy = [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc] initWithString:source] autorelease]
+		title:title delegate:nil format:SingleDatabaseFormat labels:labelsOfNote(note)] autorelease];
+	[copy rememberSourceData:data encoding:encoding];
+	[copy setSourceSyntaxIdentifier:[note sourceSyntaxIdentifier]];
+	[self _addNote:copy];
+	[copy makeNoteDirtyUpdateTime:NO updateFile:YES];
+	// Do not reenter the batched writer or directory scan while preserving a version.
+	// The original file may be replaced only after the copy has a file and a synced WAL record.
+	BOOL preserved = [copy writeUsingCurrentFileFormat] && [copy writeUsingJournal:walWriter] && [walWriter synchronize];
+	[self performSelector:@selector(sortAndRedisplayNotes) withObject:nil afterDelay:0.0];
+	return preserved;
+}
+
 - (void)addNewNote:(NoteObject*)note {
     [self _addNote:note];
 	

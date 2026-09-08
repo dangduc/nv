@@ -148,6 +148,7 @@ typedef struct _NoteCatalogEntry {
 - (void)addNotes:(NSArray*)noteArray;
 - (void)addNotesFromSync:(NSArray*)noteArray;
 - (void)addNewNote:(NoteObject*)aNoteObject;
+- (BOOL)preserveExternalSourceData:(NSData*)data encoding:(NSStringEncoding)encoding forNote:(NoteObject*)note;
 - (void)_addNote:(NoteObject*)aNoteObject;
 - (void)removeNote:(NoteObject*)aNoteObject;
 - (void)removeNotes:(NSArray*)noteArray;

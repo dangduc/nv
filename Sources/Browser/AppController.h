@@ -48,6 +48,7 @@
     NSArray *windowObjects;
     NSMutableDictionary *noteSelections;
     NSMutableDictionary *noteBodyStates;
+    NSMutableDictionary *viewerStateCaptureRequests;
     NVNoteEditingSession *editingSession;
     NSTextStorage *emptyEditorStorage;
     NSString *browserIdentifier;

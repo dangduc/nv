@@ -63,6 +63,7 @@ typedef NSRange NSRange32;
 - (NSString*)sourceMetadataUUID;
 - (NSDictionary*)sourceMetadata;
 - (void)setSourceMetadata:(NSDictionary*)metadata;
+- (void)rememberSourceBaselineData:(NSData*)data encoding:(NSStringEncoding)encoding;
 @end
 
 static NSUInteger NVSourceBOMLength(NSData *data, NSStringEncoding *encoding) {
@@ -101,7 +102,7 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 		return source;
 	}
 	NSStringEncoding fileAttributeEncoding = path ? [[NSFileManager defaultManager] textEncodingAttributeOfFSPath:[path fileSystemRepresentation]] : 0;
-	NSStringEncoding candidates[] = {fileAttributeEncoding, encoding ? *encoding : 0, NSUTF8StringEncoding, NSWindowsCP1252StringEncoding, NSMacOSRomanStringEncoding};
+	NSStringEncoding candidates[] = {fileAttributeEncoding, encoding ? *encoding : 0, NSUTF8StringEncoding, NSMacOSRomanStringEncoding, NSWindowsCP1252StringEncoding};
 	for (NSUInteger index = 0; index < sizeof(candidates) / sizeof(candidates[0]); index++) {
 		if (!candidates[index]) continue;
 		NSString *source = [[[NSString alloc] initWithData:data encoding:candidates[index]] autorelease];
@@ -147,12 +148,17 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	[[NSNotificationCenter defaultCenter] postNotificationName:NVNoteSyntaxDidChangeNotification object:self];
 }
 
-- (void)rememberSourceData:(NSData*)data encoding:(NSStringEncoding)encoding {
-	if (!data) return;
-	fileEncoding = sourceOriginalEncoding = encoding;
+- (void)rememberSourceBaselineData:(NSData*)data encoding:(NSStringEncoding)encoding {
 	NSData *retainedData = [data copy];
 	[sourceOriginalData release];
 	sourceOriginalData = retainedData;
+	sourceOriginalEncoding = encoding;
+}
+
+- (void)rememberSourceData:(NSData*)data encoding:(NSStringEncoding)encoding {
+	if (!data) return;
+	fileEncoding = encoding;
+	[self rememberSourceBaselineData:data encoding:encoding];
 	[sourceByteOrderMark release];
 	NSUInteger bomLength = NVSourceBOMLength(sourceOriginalData, NULL);
 	sourceByteOrderMark = bomLength ? [[sourceOriginalData subdataWithRange:NSMakeRange(0, bomLength)] retain] : nil;
@@ -179,6 +185,35 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 
 - (BOOL)sourceConversionPending {
 	return sourceConversionPending;
+}
+
+- (BOOL)preservePendingSourceFileChanges {
+	if (!sourceConversionPending || [delegate currentNoteStorageFormat] != PlainTextFormat) return YES;
+	NSString *path = [self noteFilePath];
+	if (!path) path = [[[delegate notesDirectoryURL] path] stringByAppendingPathComponent:filename];
+	NSError *readError = nil;
+	NSData *diskData = [NSData dataWithContentsOfFile:path options:NSDataReadingUncached error:&readError];
+	if (!diskData) {
+		if ([[readError domain] isEqualToString:NSCocoaErrorDomain] && [readError code] == NSFileReadNoSuchFileError) return YES;
+		[delegate noteDidNotWrite:self errorCode:kDataFormattingErr];
+		return NO;
+	}
+	if ([diskData isEqual:sourceOriginalData]) return YES;
+	NSStringEncoding diskEncoding = sourceOriginalEncoding ?: fileEncoding;
+	NSString *diskSource = [[self class] sourceStringFromData:diskData encoding:&diskEncoding path:path];
+	if (!diskSource) {
+		[delegate noteDidNotWrite:self errorCode:kDataFormattingErr];
+		return NO;
+	}
+	NSStringEncoding previousEncoding = sourceOriginalEncoding;
+	NSString *previousSource = [[self class] sourceStringFromData:sourceOriginalData encoding:&previousEncoding path:nil];
+	if (![diskSource isEqualToString:previousSource] && ![diskSource isEqualToString:[contentString string]] &&
+		![delegate preserveExternalSourceData:diskData encoding:diskEncoding forNote:self]) return NO;
+	// Advance the disk baseline only after its distinct source has a durable copy.
+	// Keep this note's selected encoding and BOM until its own write succeeds.
+	[self rememberSourceBaselineData:diskData encoding:diskEncoding];
+	[self makeNoteDirtyUpdateTime:NO updateFile:NO];
+	return YES;
 }
 
 - (id)init {
@@ -1340,6 +1375,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 
     NSInteger formatID = [delegate currentNoteStorageFormat];
 	if (formatID != PlainTextFormat) return NO;
+	if (![self preservePendingSourceFileChanges]) return NO;
 	NSError *encodingError = nil;
 	NSData *formattedData = [self sourceDataReturningError:&encodingError];
 	if (!formattedData) {
@@ -1392,6 +1428,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 		
 		
 		//finished writing to file successfully
+		[self rememberSourceData:formattedData encoding:fileEncoding];
 		shouldWriteToFile = NO;
 		sourceConversionPending = NO;
 		
@@ -1469,15 +1506,13 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	
 	if (NSUTF8StringEncoding != fileEncoding) {
 		[self _setFileEncoding:NSUTF8StringEncoding];
-		[sourceOriginalData release];
-		sourceOriginalData = nil;
-		[sourceByteOrderMark release];
-		sourceByteOrderMark = nil;
-		sourceOriginalEncoding = NSUTF8StringEncoding;
 		
 		if ([delegate currentNoteStorageFormat] == PlainTextFormat) didUpgrade = [self writeUsingCurrentFileFormat];
 
 		//make note dirty to ensure these changes are saved
+		[self makeNoteDirtyUpdateTime:NO updateFile:NO];
+	} else if (sourceConversionPending && [delegate currentNoteStorageFormat] == PlainTextFormat) {
+		didUpgrade = [self writeUsingCurrentFileFormat];
 		[self makeNoteDirtyUpdateTime:NO updateFile:NO];
 	}
 	return didUpgrade;
@@ -1492,6 +1527,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 }
 
 - (BOOL)setFileEncodingAndReinterpret:(NSStringEncoding)encoding {
+	if (sourceConversionPending) return NO;
 	//"reinterpret" the file using this encoding, also setting the actual file's extended attributes to match
 	BOOL updated = YES;
 	

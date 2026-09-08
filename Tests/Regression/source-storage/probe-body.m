@@ -2,6 +2,8 @@
     @try {
         NotationController *library = [[NVApplicationController sharedController] library];
         Swap([EncodingsManager class], @selector(offerUTF8ConversionForNote:), @selector(nv_cancelConversionForNote:));
+        Swap([WALStorageController class], @selector(synchronize), @selector(nv_recordSourceSynchronization));
+        Swap([NotationController class], @selector(storeDataAtomicallyInNotesDirectory:withName:destinationRef:), @selector(nv_checkSourceData:withName:destinationRef:));
         AlienNoteImporter *importer = [[[AlienNoteImporter alloc] init] autorelease];
         NSString *source = @"  \t# Heading\r\n\t café 😀 e\u0301\rFinal\n\n";
         NSArray *encodings = @[@(NSUTF8StringEncoding), @(NSUTF16LittleEndianStringEncoding), @(NSUTF16BigEndianStringEncoding), @(NSUTF32LittleEndianStringEncoding), @(NSUTF32BigEndianStringEncoding)];
@@ -36,6 +38,31 @@
         NSString *emptyPath = [TestDirectory stringByAppendingPathComponent:@"empty.txt"];
         [[NSData data] writeToFile:emptyPath atomically:YES];
         Check([[[importer noteWithFile:emptyPath] contentString] length] == 0, @"empty source imports without a synthetic body");
+        NSString *macText = @"  café £ –\r\n";
+        NSData *macBytes = [macText dataUsingEncoding:NSMacOSRomanStringEncoding];
+        NSString *macPath = [TestDirectory stringByAppendingPathComponent:@"unmarked-macroman.txt"];
+        [macBytes writeToFile:macPath atomically:YES];
+        Check([[NSFileManager defaultManager] textEncodingAttributeOfFSPath:[macPath fileSystemRepresentation]] == 0, @"MacRoman fallback fixture has no encoding attribute");
+        NSStringEncoding oldGuess = NSMacOSRomanStringEncoding;
+        NSString *oldDecoded = [NSMutableString newShortLivedStringFromData:[NSMutableData dataWithData:macBytes] ofGuessedEncoding:&oldGuess withPath:[macPath fileSystemRepresentation] orWithFSRef:NULL];
+        NoteObject *macNote = [importer noteWithFile:macPath];
+        Check([oldDecoded isEqualToString:macText] && [[[macNote contentString] string] isEqualToString:oldDecoded] && fileEncodingOfNote(macNote) == NSMacOSRomanStringEncoding, @"unmarked legacy text preserves the established MacRoman source characters");
+        Check([[macNote sourceDataReturningError:NULL] isEqual:macBytes], @"unmarked MacRoman retains its source bytes after correct character decoding");
+        NSStringEncoding cpHint = NSWindowsCP1252StringEncoding;
+        NSData *cpBytes = [macText dataUsingEncoding:cpHint];
+        Check([[NoteObject sourceStringFromData:cpBytes encoding:&cpHint path:nil] isEqualToString:macText] && cpHint == NSWindowsCP1252StringEncoding, @"an explicit CP-1252 hint takes precedence over legacy fallback");
+        NSString *cpPath = [TestDirectory stringByAppendingPathComponent:@"tagged-cp1252.txt"];
+        [cpBytes writeToFile:cpPath atomically:YES];
+        [[NSFileManager defaultManager] setTextEncodingAttribute:NSWindowsCP1252StringEncoding atFSPath:[cpPath fileSystemRepresentation]];
+        NoteObject *cpNote = [importer noteWithFile:cpPath];
+        Check([[[cpNote contentString] string] isEqualToString:macText] && fileEncodingOfNote(cpNote) == NSWindowsCP1252StringEncoding, @"an explicit CP-1252 file attribute preserves its intended characters");
+        NSString *utf8Path = [TestDirectory stringByAppendingPathComponent:@"unmarked-utf8.txt"];
+        [[macText dataUsingEncoding:NSUTF8StringEncoding] writeToFile:utf8Path atomically:YES];
+        Check([[[[importer noteWithFile:utf8Path] contentString] string] isEqualToString:macText], @"unmarked valid UTF-8 remains ahead of the legacy fallback");
+        NoteObject *bomConversion = [importer noteWithFile:[TestDirectory stringByAppendingPathComponent:@"source-1.md"]];
+        Check([bomConversion upgradeEncodingToUTF8] && [[bomConversion sourceDataReturningError:NULL] isEqual:[source dataUsingEncoding:NSUTF8StringEncoding]], @"explicit UTF-16 BOM conversion emits UTF-8 without the old BOM");
+        NoteObject *utf8BOM = [importer noteWithFile:oddBOMPath];
+        Check([utf8BOM upgradeEncodingToUTF8] && [[utf8BOM sourceDataReturningError:NULL] isEqual:oddBytes], @"requesting UTF-8 for an existing UTF-8 source retains its BOM");
         for (NSString *extension in @[@"json", @"textile", @"txt", @"csv", @"tsv"]) {
             NSString *path = [TestDirectory stringByAppendingPathComponent:[@"unchanged." stringByAppendingString:extension]];
             NSString *body = @"a,b\r\n  x\t y\r\n";
@@ -152,6 +179,58 @@
         NoteObject *decrypted = [decryptedNotes firstObject];
         Check(encryptedArchive && [[encryptedFrozen notationPrefs] doesEncryption] && archiveError == noErr && [[decrypted sourceDataReturningError:NULL] isEqual:[stored sourceDataReturningError:NULL]], @"encrypted library archive restores exact source bytes after decryption");
         Check([[decrypted valueForKey:@"sourceOriginalData"] isEqual:[stored valueForKey:@"sourceOriginalData"]] && [[[encryptedFrozen notationPrefs] valueForKey:@"sourceMetadataByNoteUUID"] count] == 0, @"original imported bytes are part of encrypted note data and absent from public library settings");
+        for (NSString *history in @[@"watcher", @"before-watcher", @"reinterpret"]) {
+            NoteObject *conflicting = [importer noteWithFile:legacyPath];
+            [conflicting setTitleString:[@"Pending history " stringByAppendingString:history]];
+            [library addNewNote:conflicting];
+            [library flushAllNoteChanges];
+            NSString *historyPath = [[conflicting noteFilePath] copy];
+            [conflicting setContentString:[[[NSAttributedString alloc] initWithString:unrepresentable] autorelease]];
+            Check([library flushAllNoteChanges] && [conflicting sourceConversionPending], @"review history persists the canceled conversion and local source");
+            NSUInteger notesBeforeEvent = [[library allNotes] count];
+            [[NSFileManager defaultManager] setAttributes:@{NSFileModificationDate: [NSDate dateWithTimeIntervalSinceNow:10]} ofItemAtPath:historyPath error:NULL];
+            [library synchronizeNotesFromDirectory];
+            Check([[library allNotes] count] == notesBeforeEvent && [[[conflicting contentString] string] isEqualToString:unrepresentable], @"same-byte metadata events do not create conflict notes or discard pending edits");
+            if ([history isEqualToString:@"reinterpret"]) {
+                EncodingsManager *manager = [EncodingsManager sharedManager];
+                [manager setValue:conflicting forKey:@"note"];
+                Check(![manager shouldUpdateNoteFromDisk], @"Text Encoding refuses to reread stale disk text while conversion is pending");
+                Check(![conflicting setFileEncodingAndReinterpret:NSMacOSRomanStringEncoding] && fileEncodingOfNote(conflicting) == NSWindowsCP1252StringEncoding, @"model reinterpretation rejects pending source without changing encoding");
+                Check([conflicting sourceConversionPending] && [[[conflicting contentString] string] isEqualToString:unrepresentable] && [[NSData dataWithContentsOfFile:historyPath] isEqual:legacyBytes], @"rejected reinterpretation preserves the local edit and original disk bytes");
+            } else {
+                NSString *external = [NSString stringWithFormat:@"%@ external durable café £\r\n", history];
+                NSData *externalBytes = [external dataUsingEncoding:NSWindowsCP1252StringEncoding];
+                Check([externalBytes writeToFile:historyPath atomically:NO], @"external writer completes its own distinct source version");
+                ProtectedSourceFilename = filenameOfNote(conflicting);
+                ExpectedExternalSource = external;
+                ConflictJournalSynchronized = NO;
+                ProtectedSourceWrites = 0;
+                if ([history isEqualToString:@"watcher"]) {
+                    [library synchronizeNotesFromDirectory];
+                    Check([[library allNotes] count] == notesBeforeEvent + 1 && [[[conflicting contentString] string] isEqualToString:unrepresentable], @"watcher preserves the external body as one separate note while retaining local source");
+                    [library synchronizeNotesFromDirectory];
+                    Check([[library allNotes] count] == notesBeforeEvent + 1, @"repeated watcher delivery does not duplicate the preserved external version");
+                }
+                Check([conflicting upgradeEncodingToUTF8] && ProtectedSourceWrites == 1, @"conversion checks and preserves external source even before watcher delivery");
+                ProtectedSourceFilename = nil; ExpectedExternalSource = nil;
+                BOOL externalPreserved = NO;
+                for (NoteObject *candidate in [library allNotes]) {
+                    if (candidate != conflicting && [[[candidate contentString] string] isEqualToString:external]) externalPreserved = [[candidate sourceDataReturningError:NULL] isEqual:externalBytes];
+                }
+                Check(externalPreserved && [[library allNotes] count] == notesBeforeEvent + 1, @"both conflict histories preserve exact external characters, bytes and encoding");
+                Check([[NSData dataWithContentsOfFile:historyPath] isEqual:[unrepresentable dataUsingEncoding:NSUTF8StringEncoding]], @"accepted conversion writes the complete local source only after preserving external changes");
+            }
+            Check([library flushAllNoteChanges], @"review history flushes its preserved versions");
+            FrozenNotation *historyArchive = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfFile:[TestDirectory stringByAppendingPathComponent:@"Notes/Notes & Settings"]]];
+            BOOL archivedLocal = NO, archivedExternal = [history isEqualToString:@"reinterpret"];
+            NSString *external = [NSString stringWithFormat:@"%@ external durable café £\r\n", history];
+            for (NoteObject *candidate in [historyArchive unpackedNotesReturningError:&archiveError]) {
+                if (memcmp([candidate uniqueNoteIDBytes], [conflicting uniqueNoteIDBytes], sizeof(CFUUIDBytes)) == 0) archivedLocal = [[[candidate contentString] string] isEqualToString:unrepresentable];
+                if ([[[candidate contentString] string] isEqualToString:external]) archivedExternal = YES;
+            }
+            Check(archivedLocal && archivedExternal, @"library archive retains every source version after the review history");
+            [historyPath release];
+        }
         NoteObject *pending = [importer noteWithFile:legacyPath];
         [pending setTitleString:@"Pending conversion"];
         [library addNewNote:pending];

@@ -28,6 +28,9 @@ extern const TSLanguage *tree_sitter_markdown_inline(void);
 // Plain-source fallback bounds memory, queue work, and display-attribute work.
 static const NSUInteger NVSourceMaximumLength = 512 * 1024;
 static const NSUInteger NVSourceMaximumCaptures = 30000;
+// Parsing and TextKit have separate budgets. Apply a whole revision only when
+// its capture writes fit across every attached layout; otherwise display plain.
+static const NSUInteger NVSourceMaximumDisplayOperations = 4096;
 typedef struct {
     TSParser *parser;
     TSTree *tree;
@@ -230,6 +233,7 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
 }
 - (void)clearDisplayCaptures {
     for (NSLayoutManager *layout in [storage layoutManagers]) {
+        if (!objc_getAssociatedObject(layout, &NVSourceCaptureRevisionKey)) continue;
         objc_setAssociatedObject(layout, &NVSourceCaptureRevisionKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [layout removeTemporaryAttribute:NVSourceCaptureAttributeName forCharacterRange:NSMakeRange(0, [storage length])];
     }
@@ -268,10 +272,13 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearDisplayCaptures) object:nil];
     [self invalidateCaptureRevision];
     [self clearDisplayCaptures];
+    NSArray *layouts = [storage layoutManagers];
+    NSUInteger layoutCount = [layouts count];
+    if (![captures count] || !layoutCount || [captures count] > NVSourceMaximumDisplayOperations / layoutCount) return;
     NVSourceCaptureRevision *revision = [[NVSourceCaptureRevision alloc] init];
     revision->sourceStorage = storage;
     captureRevision = revision;
-    for (NSLayoutManager *layout in [storage layoutManagers]) {
+    for (NSLayoutManager *layout in layouts) {
         objc_setAssociatedObject(layout, &NVSourceCaptureRevisionKey, revision, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         for (NSDictionary *capture in captures) {
             NSRange range = [capture[@"range"] rangeValue];
@@ -279,7 +286,7 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
         }
     }
     revision->valid = YES;
-    for (NSLayoutManager *layout in [storage layoutManagers]) [layout invalidateDisplayForCharacterRange:NSMakeRange(0, [storage length])];
+    for (NSLayoutManager *layout in layouts) [layout invalidateDisplayForCharacterRange:NSMakeRange(0, [storage length])];
 }
 - (void)layoutsChanged {
     if (captures) [self applyCaptures];

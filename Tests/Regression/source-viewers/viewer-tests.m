@@ -33,6 +33,108 @@ static id Evaluate(WKWebView *view, NSString *script) {
 static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInteger generation, NSURL *assets) {
     return [[[NVNoteContentSnapshot alloc] initWithLibraryIdentifier:@"isolated-library" noteIdentifier:note generation:generation title:note source:source contentType:@"public.plain-text" assetRootURL:assets] autorelease];
 }
+
+// Delay only the WebKit boundary, keeping production capture completion,
+// timeout, restoration, and timer ordering in control of the provider.
+@interface ControlledCaptureWebView : NSView {
+@public
+    NSMutableArray *captures;
+    NSMutableArray *timers;
+}
+@end
+@implementation ControlledCaptureWebView
+- (id)init {
+    if ((self = [super init])) { captures = [[NSMutableArray alloc] init]; timers = [[NSMutableArray alloc] init]; }
+    return self;
+}
+- (void)evaluateJavaScript:(NSString *)script completionHandler:(void (^)(id, NSError *))completion {
+    if (!completion) return;
+    if ([script isEqual:@"[document.baseURI,window.scrollX,window.scrollY]"]) [captures addObject:[[completion copy] autorelease]];
+    else if ([script isEqual:@"[window.scrollX,window.scrollY]"]) [timers addObject:[[completion copy] autorelease]];
+}
+- (BOOL)isHiddenOrHasHiddenAncestor { return NO; }
+- (void)stopLoading {}
+- (void)setNavigationDelegate:(id)delegate {}
+- (void)setUIDelegate:(id)delegate {}
+- (id)configuration { return nil; }
+- (void)dealloc { [captures release]; [timers release]; [super dealloc]; }
+@end
+
+@interface ControlledCaptureViewer : PreviewController
+- (void)prepare;
+@end
+@implementation ControlledCaptureViewer
+- (void)loadView { [self setView:[[[NSView alloc] init] autorelease]]; }
+- (void)prepare {
+    _webView = (WKWebView *)[[ControlledCaptureWebView alloc] init];
+    _snapshot = [Snapshot(@"Source", @"Ordered capture", 1, nil) retain];
+    _renderResult = [[NVMarkupRenderResult alloc] initWithSnapshot:_snapshot viewerIdentifier:@"html" HTML:@"<p>Source</p>"];
+    [_viewerIdentifier release]; _viewerIdentifier = [@"html" copy];
+    _documentBaseURL = [[NSURL URLWithString:@"nvalt-asset://controlled/"] retain];
+}
+@end
+static void Reply(NSArray *replies, NSUInteger index, id result) {
+    Check(index < [replies count], @"controlled WebKit received the expected request");
+    void (^reply)(id, NSError *) = [replies objectAtIndex:index]; reply(result, nil);
+}
+static NSArray *DocumentScroll(NSNumber *y) { return @[@"nvalt-asset://controlled/", @0, y]; }
+static double CachedScroll(PreviewController *viewer) { return [[[viewer viewerState] objectForKey:@"scrollY"] doubleValue]; }
+static void CaptureOrderingChecks(NSWindow *window) {
+    for (NSUInteger order = 0; order < 3; order++) {
+        ControlledCaptureViewer *viewer = [[ControlledCaptureViewer alloc] init]; [viewer prepare];
+        ControlledCaptureWebView *web = (id)[viewer webView];
+        [[window contentView] addSubview:web];
+        __block NSUInteger firstCalls = 0, secondCalls = 0;
+        [viewer restoreViewerState:@{@"scrollY": @100}];
+        [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {
+            Check([[snapshot noteIdentifier] isEqual:@"Ordered capture"] && [identifier isEqual:@"html"] && [NSThread isMainThread], @"superseded capture retains call-time identity on the main thread");
+            Check([[state objectForKey:@"scrollY"] doubleValue] == 100, @"older capture delivers its own immutable result even when superseded"); firstCalls++;
+        }];
+        [viewer restoreViewerState:@{@"scrollY": @200}];
+        [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {
+            Check([[state objectForKey:@"scrollY"] doubleValue] == 200, @"newer capture delivers its exact DOM result"); secondCalls++;
+        }];
+        if (order == 0) {
+            Reply(web->captures, 0, DocumentScroll(@100));
+            Check(CachedScroll(viewer) == 200, @"older completion cannot replace state while the newer capture is still pending");
+            Reply(web->captures, 1, DocumentScroll(@200));
+        } else {
+            Reply(web->captures, 1, DocumentScroll(@200));
+            if (order == 1) Reply(web->captures, 0, DocumentScroll(@100));
+            else PumpUntil(^BOOL { return firstCalls == 1; }, 2);
+        }
+        Check(CachedScroll(viewer) == 200 && firstCalls == 1 && secondCalls == 1, @"ordered, reversed, and older-timeout completions preserve the latest capture exactly once");
+        Reply(web->captures, 0, DocumentScroll(@999));
+        Check(CachedScroll(viewer) == 200 && firstCalls == 1, @"late repeated WebKit reply cannot change canonical state or repeat completion");
+        [viewer close]; [viewer release];
+    }
+    ControlledCaptureViewer *viewer = [[ControlledCaptureViewer alloc] init]; [viewer prepare];
+    ControlledCaptureWebView *web = (id)[viewer webView];
+    [[window contentView] addSubview:web];
+    [viewer restoreViewerState:@{@"scrollY": @100}];
+    __block NSUInteger restoredCalls = 0;
+    [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) { restoredCalls++; }];
+    Check([viewer hasPendingViewerStateCaptureForSnapshot:[viewer snapshot] viewerIdentifier:@"html"], @"latest pending capture is available for a rapid presentation return");
+    [viewer restoreViewerState:@{@"scrollY": @300}];
+    Check(![viewer hasPendingViewerStateCaptureForSnapshot:[viewer snapshot] viewerIdentifier:@"html"], @"explicit restoration supersedes an older pending capture");
+    Reply(web->captures, 0, DocumentScroll(@100));
+    Check(restoredCalls == 1 && CachedScroll(viewer) == 300, @"older DOM reply cannot overwrite explicit restored state");
+    [viewer performSelector:NSSelectorFromString(@"captureDisplayState:") withObject:nil];
+    [viewer captureViewerStateWithCompletion:^(NVNoteContentSnapshot *snapshot, NSString *identifier, NSDictionary *state) {}];
+    Reply(web->captures, 1, DocumentScroll(@400));
+    Reply(web->timers, 0, @[@0, @100]);
+    Check(CachedScroll(viewer) == 400, @"older timer reply cannot overwrite a newer explicit capture");
+    [viewer performSelector:NSSelectorFromString(@"captureDisplayState:") withObject:nil];
+    [viewer restoreViewerState:@{@"scrollY": @500}];
+    Reply(web->timers, 1, @[@0, @100]);
+    Check(CachedScroll(viewer) == 500, @"older timer reply cannot overwrite explicit restoration");
+    [viewer performSelector:NSSelectorFromString(@"captureDisplayState:") withObject:nil];
+    [viewer performSelector:NSSelectorFromString(@"captureDisplayState:") withObject:nil];
+    Reply(web->timers, 3, @[@0, @600]);
+    Reply(web->timers, 2, @[@0, @100]);
+    Check(CachedScroll(viewer) == 600, @"timer callbacks also preserve request order when replies reverse");
+    [viewer close]; [viewer release];
+}
 @interface ViewerTests : NSObject <NSApplicationDelegate>
 @end
 @implementation ViewerTests
@@ -47,6 +149,7 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
     PreviewController *viewer = [[PreviewController alloc] init];
     [window setContentView:[viewer view]];
     [window makeKeyAndOrderFront:nil];
+    CaptureOrderingChecks(window);
     [window setContentSize:NSMakeSize(420, 180)];
     [[viewer view] layoutSubtreeIfNeeded];
     Check(NSContainsRect([[viewer view] bounds], [[viewer valueForKey:@"_statusField"] frame]), @"loading and error status remains visible in a compact body");
@@ -124,6 +227,7 @@ static NVNoteContentSnapshot *Snapshot(NSString *source, NSString *note, NSUInte
         loadingCapture = YES;
     }];
     [viewer displaySnapshot:snapshot viewerIdentifier:@"html"];
+    Check([viewer hasPendingViewerStateCaptureForSnapshot:snapshot viewerIdentifier:@"html"], @"rapid A to B to A keeps the pending A capture despite the B fallback");
     PumpUntil(^BOOL{ return preciseCapture && loadingCapture && ![viewer loading]; }, 15);
     Check(![viewer renderError] && [Evaluate([viewer webView], @"window.scrollY") doubleValue] >= 1230, @"rapid A to B to A restores A's fresh captured offset before navigation completes");
     // Leaving for Source cancels rendering but preserves the precise callback.
