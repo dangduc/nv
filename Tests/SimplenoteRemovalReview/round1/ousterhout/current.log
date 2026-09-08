@@ -1,0 +1,101 @@
+2026-09-08 12:41:38.400 nvALT[24794:325641782] PASS: temporary library directory exists
+2026-09-08 12:41:38.401 nvALT[24794:325641782] PASS: temporary library opens
+2026-09-08 12:41:38.724 nvALT[24794:325641782] Archive boundary review, baseline=0
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: actual model factory creates the isolated archive
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: NoteObject fixture decodes through the actual model class
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: injected archive really contains the obsolete field
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: NoteObject visits obsolete payload 0 time(s), expected 0
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: rewrite retains the old field only in the baseline
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: rewritten archive reopens
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: archive boundary preserves all UUID bytes and the journal sequence
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: live note and tombstone identity preserve symmetric equality and hash
+2026-09-08 12:41:38.726 nvALT[24794:325641782] PASS: body, title, tags survive obsolete metadata removal
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: DeletedNoteObject fixture decodes through the actual model class
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: injected archive really contains the obsolete field
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: DeletedNoteObject visits obsolete payload 0 time(s), expected 0
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: rewrite retains the old field only in the baseline
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: rewritten archive reopens
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: archive boundary preserves all UUID bytes and the journal sequence
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: live note and tombstone identity preserve symmetric equality and hash
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: NotationPrefs fixture decodes through the actual model class
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: injected archive really contains the obsolete field
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: NotationPrefs visits obsolete payload 0 time(s), expected 0
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: rewrite retains the old field only in the baseline
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: rewritten archive reopens
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: local storage preferences survive obsolete account removal
+2026-09-08 12:41:38.727 nvALT[24794:325641782] PASS: obsolete account presence marks current preferences for rewrite
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: FrozenNotation fixture decodes through the actual model class
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: injected archive really contains the obsolete field
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: FrozenNotation visits obsolete payload 0 time(s), expected 0
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: rewrite retains the old field only in the baseline
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: rewritten archive reopens
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: library boundary preserves the packed local note while omitting remote deletion history
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: current local tombstone releases source lifetime dependency
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: copied identity and unsigned sequence survive mutation and release of the source
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.728 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.729 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: keyed and sequential tombstone copies agree after sequence advance
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: local protocol ordering agrees across both archive formats
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: source allocation is released exactly once
+2026-09-08 12:41:38.730 nvALT[24794:325641782] PASS: 98 archive boundary review assertions
+2026-09-08 12:41:38.755 nvALT[24794:325641782] verified 0 notes in 0.000195026 s

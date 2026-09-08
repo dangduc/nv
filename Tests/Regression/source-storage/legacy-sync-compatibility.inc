@@ -4,6 +4,7 @@
         CFUUIDBytes legacyIdentifier = { 0x10, 0x32, 0x54, 0x76, 0x98, 0xba, 0xdc, 0xfe, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
         NSString *fixtureDirectory = [NSString stringWithUTF8String:getenv("NV_SOURCE_STORAGE_FIXTURES")];
         NSData *legacyLibraryData = [NSData dataWithContentsOfFile:[fixtureDirectory stringByAppendingPathComponent:@"legacy-simplenote.notation"]];
+        SourceCheckLegacyFixtureMetadata(legacyLibraryData);
         Check(SourceArchiveHasKey(legacyLibraryData, @"syncServiceAccounts") && SourceArchiveHasKey(legacyLibraryData, @"deletedNoteSet"), @"legacy library fixture contains enabled account settings and remote deletion history");
         FrozenNotation *legacyFixture = [NSKeyedUnarchiver unarchiveObjectWithData:legacyLibraryData];
         Check(SourceArchiveHasKey([[legacyFixture valueForKey:@"notesData"] uncompressedData], @"syncServicesMD"), @"legacy note fixture includes remote upload metadata");

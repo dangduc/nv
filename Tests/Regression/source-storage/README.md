@@ -25,6 +25,7 @@ An archived GB18030 byte alias must retain its original bytes in source export a
 Source bytes stay inside note archives, which follow library encryption.
 It also checks the removal of rich-text imports, storage, and exports.
 A fixed archive from the pre-removal app contains an enabled Simplenote account, unsent local note changes, and remote deletion history.
+The suite checks the recognized `SN` account and exact dirty metadata before testing migration.
 The suite opens this archive through the local library controller and preserves its UUID, source bytes, title, tags, dates, journal sequence, and syntax.
 Saving and reopening must remove obsolete service fields while retaining the local note.
 See [fixture provenance](fixtures/README.md) for its producer, hash, and generation procedure.

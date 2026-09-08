@@ -1,0 +1,306 @@
+2026-09-08 12:40:48.737 nvALT[24567:325639949] PASS: temporary library directory exists
+2026-09-08 12:40:48.737 nvALT[24567:325639949] PASS: temporary library opens
+2026-09-08 12:40:49.056 nvALT[24567:325639949] PASS: explicit review manifest provided
+2026-09-08 12:40:49.057 nvALT[24567:325639949] PASS: native validation has six locales
+2026-09-08 12:40:49.057 nvALT[24567:325639949] PASS: de.lproj compiled nib exists
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj view outlet connected
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj owner implements addedExtension:
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj owner implements removedExtension:
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj owner implements addedType:
+2026-09-08 12:40:49.067 nvALT[24567:325639949] PASS: de.lproj owner implements removedType:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native tab count is two
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves addedType:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves removedType:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: de.lproj current storage formats initialized
+2026-09-08 12:40:49.068 nvALT[24567:325639949] PASS: en.lproj compiled nib exists
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj view outlet connected
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements addedExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements removedExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements addedType:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements removedType:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native tab count is two
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves addedType:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves removedType:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: en.lproj current storage formats initialized
+2026-09-08 12:40:49.072 nvALT[24567:325639949] PASS: fr.lproj compiled nib exists
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.075 nvALT[24567:325639949] PASS: fr.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj view outlet connected
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements addedExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements removedExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements addedType:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements removedType:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native tab count is two
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves addedType:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves removedType:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: fr.lproj current storage formats initialized
+2026-09-08 12:40:49.076 nvALT[24567:325639949] PASS: it.lproj compiled nib exists
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj view outlet connected
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements addedExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements removedExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements addedType:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements removedType:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native tab count is two
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves addedType:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves removedType:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: it.lproj current storage formats initialized
+2026-09-08 12:40:49.079 nvALT[24567:325639949] PASS: pt-PT.lproj compiled nib exists
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj view outlet connected
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements addedExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements removedExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements addedType:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements removedType:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native tab count is two
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves addedType:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves removedType:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.083 nvALT[24567:325639949] PASS: pt-PT.lproj current storage formats initialized
+2026-09-08 12:40:49.084 nvALT[24567:325639949] PASS: zh.lproj compiled nib exists
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj production owner instantiates compiled nib
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj allowedExtensionsTable outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj allowedTypesTable outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj changePasswordButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj confirmFileDeletionButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj enableEncryptionButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj fileAttributesHelpText outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj keyLengthField outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj keyLengthStepper outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj makeDefaultExtensionButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj newExtensionButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj newTypeButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj passwordSettingsMatrix outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj removeExtensionButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj removeFromKeychainButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj removeTypeButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj secureTextEntryButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj storageFormatPopupButton outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj view outlet connected
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements addedExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements removedExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements makeDefaultExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements addedType:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements removedType:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changedFileStorageFormat:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changedKeychainSettings:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements toggledEncryption:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changePassphrase:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changedKeyLength:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements changedSecureTextEntry:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj owner implements removeFromKeychain:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native tab count is two
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native tab identifiers survived compilation
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves addedExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves removedExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves makeDefaultExtension:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves addedType:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves removedType:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changedFileDeletionWarningSettings:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changedFileStorageFormat:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changedKeychainSettings:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves toggledEncryption:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changePassphrase:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changedKeyLength:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves changedSecureTextEntry:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native control action resolves removeFromKeychain:
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj native view hierarchy exposes prefs actions
+2026-09-08 12:40:49.088 nvALT[24567:325639949] PASS: zh.lproj current storage formats initialized
+2026-09-08 12:40:49.089 nvALT[24567:325639949] PASS: 304 native integration assertions across six locales
+2026-09-08 12:40:49.208 nvALT[24567:325639949] verified 0 notes in 0.000206947 s

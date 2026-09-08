@@ -1,0 +1,33 @@
+In file included from /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-gxr7wzgn/Review.m:1:
+/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round1/contrarian_data/../../../Regression/source-storage/support.h:45:43: warning: receiver 'NoteObject' is a forward class and corresponding @interface may not exist [-Wreceiver-forward-class]
+   45 |             if ([candidate isKindOfClass:[NoteObject class]] && [[[candidate contentString] string] isEqualToString:ExpectedExternalSource]) recoveredExternal = YES;
+      |                                           ^~~~~~~~~~
+/Users/duc/dev/nv/Sources/Browser/LabelsListController.h:27:8: note: forward declaration of class here
+   27 | @class NoteObject;
+      |        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/objc/NSObject.h:107:1: note: method 'class' is used for the forward class
+  107 | + (Class)class OBJC_SWIFT_UNAVAILABLE("use 'aClass.self' instead");
+      | ^
+In file included from /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-gxr7wzgn/Review.m:1:
+/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round1/contrarian_data/../../../Regression/source-storage/support.h:45:78: warning: instance method '-contentString' not found (return type defaults to 'id') [-Wobjc-method-access]
+   45 |             if ([candidate isKindOfClass:[NoteObject class]] && [[[candidate contentString] string] isEqualToString:ExpectedExternalSource]) recoveredExternal = YES;
+      |                                                                              ^~~~~~~~~~~~~
+/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round1/contrarian_data/../../../Regression/source-storage/support.h:59:17: warning: method definition for 'shouldUpdateNoteFromDisk' not found [-Wincomplete-implementation]
+   59 | @implementation EncodingsManager (NVSourceConversionTest)
+      |                 ^
+   60 | - (void)nv_cancelConversionForNote:(NoteObject*)note { SourceConversionOffers++; }
+   61 | @end
+/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round1/contrarian_data/../../../Regression/source-storage/support.h:57:1: note: method 'shouldUpdateNoteFromDisk' declared here
+   57 | - (BOOL)shouldUpdateNoteFromDisk;
+      | ^
+/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round1/contrarian_data/../../../Regression/source-storage/support.h:85:72: warning: instance method '-contentString' not found (return type defaults to 'id') [-Wobjc-method-access]
+   85 |     for (NoteObject *candidate in [library allNotes]) if ([[[candidate contentString] string] isEqualToString:body]) count++;
+      |                                                                        ^~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Browser/LabelsListController.h:27:8: note: receiver is instance of class declared here
+   27 | @class NoteObject;
+      |        ^
+4 warnings generated.
+2026-09-08 13:03:27.699 nvALT[29289:325681838] PASS: temporary library directory exists
+2026-09-08 13:03:27.700 nvALT[29289:325681838] PASS: temporary library opens
+2026-09-08 13:03:28.025 nvALT[29289:325681838] PASS: fixture guard reads the specified synthetic archive
+2026-09-08 13:03:28.025 nvALT[29289:325681838] FAIL: legacy fixture contains the exact enabled account under the recognized SN identifier

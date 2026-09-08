@@ -1,0 +1,131 @@
+2026-09-08 12:47:57.774 nvALT[26424:325656395] PASS: temporary library directory exists
+2026-09-08 12:47:57.775 nvALT[26424:325656395] PASS: temporary library opens
+2026-09-08 12:47:58.097 nvALT[26424:325656395] PASS: first process starts with an empty synthetic library
+2026-09-08 12:47:58.591 nvALT[26424:325656395] verified 9 notes in 0.000570059 s
+2026-09-08 12:47:58.591 nvALT[26424:325656395] PASS: nine-note checkpoint saves before the WAL-only history
+2026-09-08 12:47:58.592 nvALT[26424:325656395] PASS: checkpoint bytes are available for an unchanged-database crash-cut check
+2026-09-08 12:47:58.592 nvALT[26424:325656395] PASS: dirty deletion removes the live note
+2026-09-08 12:47:58.597 nvALT[26424:325656395] PASS: deletion Undo restores the same UUID with a newer journal sequence
+2026-09-08 12:47:58.598 nvALT[26424:325656395] PASS: deletion Redo removes the restored note
+2026-09-08 12:47:58.604 nvALT[26424:325656395] PASS: batch deletion Undo restores both identities
+2026-09-08 12:47:58.608 nvALT[26424:325656395] PASS: twenty deletion and Undo cycles advance journal ordering
+2026-09-08 12:47:58.609 nvALT[26424:325656395] PASS: late physical tombstone record is written after its newer restored note
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live dirty-delete matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live dirty-delete-undo matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live delete-undo-redo matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live edit-survives matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live batch-undo-a matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live batch-undo-b matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live twenty-cycles matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live late-stale-tombstone matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live untouched-control matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live born-and-deleted matches the literal operation model before crash
+2026-09-08 12:47:58.715 nvALT[26424:325656395] PASS: live born-deleted-restored matches the literal operation model before crash
+2026-09-08 12:47:58.716 nvALT[26424:325656395] PASS: independent operation ledger is written outside the note database
+2026-09-08 12:47:58.716 nvALT[26424:325656395] PASS: WAL fsync succeeds before abrupt exit
+2026-09-08 12:47:58.717 nvALT[26424:325656395] PASS: database bytes still equal the original checkpoint at the crash cut
+2026-09-08 12:47:58.717 nvALT[26424:325656395] KINGSBURY CRASH CUT: checkpoint=9 notes, expected=8 survivors, ledger=11 histories, assertions=25
+2026-09-08 12:47:59.049 nvALT[26432:325656528] PASS: temporary library directory exists
+2026-09-08 12:47:59.050 nvALT[26432:325656528] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.view-review.db81a05fee0f42ecbb280a9bc8bb6267/Interim Note-Changes: File exists
+2026-09-08 12:47:59.052 nvALT[26432:325656528] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-08 12:47:59.052 nvALT[26432:325656528] got a newer deleted note DeletedNoteObj(EEBC3638-187F-4806-BC5D-43BE5271F58B)
+2026-09-08 12:47:59.052 nvALT[26432:325656528] got a newer deleted note DeletedNoteObj(B5A31783-4AE4-4B4C-B2C8-B27558FF5A9D)
+2026-09-08 12:47:59.053 nvALT[26432:325656528] verified 8 notes in 0.000290036 s
+2026-09-08 12:47:59.054 nvALT[26432:325656528] PASS: temporary library opens
+2026-09-08 12:47:59.384 nvALT[26432:325656528] PASS: second process loads the independent expected-state ledger
+2026-09-08 12:47:59.384 nvALT[26432:325656528] PASS: restart history dirty-delete has expected existence=0
+2026-09-08 12:47:59.384 nvALT[26432:325656528] PASS: restart history dirty-delete-undo has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart dirty-delete-undo preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart dirty-delete-undo preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart dirty-delete-undo preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart dirty-delete-undo selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history delete-undo-redo has expected existence=0
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history edit-survives has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart edit-survives preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart edit-survives preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart edit-survives preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart edit-survives selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history batch-undo-a has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-a preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-a preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-a preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-a selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history batch-undo-b has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-b preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-b preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-b preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart batch-undo-b selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history twenty-cycles has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart twenty-cycles preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart twenty-cycles preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart twenty-cycles preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart twenty-cycles selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history late-stale-tombstone has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart late-stale-tombstone preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart late-stale-tombstone preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart late-stale-tombstone preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart late-stale-tombstone selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history untouched-control has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart untouched-control preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart untouched-control preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart untouched-control preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart untouched-control selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history born-and-deleted has expected existence=0
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart history born-deleted-restored has expected existence=1
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart born-deleted-restored preserves exact source
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart born-deleted-restored preserves title and tags
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart born-deleted-restored preserves checkpointed local syntax
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: restart born-deleted-restored selects expected newest LSN
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: recovery contains no duplicate, lost, or resurrected synthetic notes
+2026-09-08 12:47:59.385 nvALT[26432:325656528] PASS: recovered snapshot saves successfully
+2026-09-08 12:47:59.385 nvALT[26432:325656528] KINGSBURY PASS: 11 histories, 48 assertions in restart process
+2026-09-08 12:47:59.781 nvALT[26434:325656558] PASS: temporary library directory exists
+2026-09-08 12:47:59.783 nvALT[26434:325656558] PASS: temporary library opens
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: second process loads the independent expected-state ledger
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history dirty-delete has expected existence=0
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history dirty-delete-undo has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart dirty-delete-undo preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart dirty-delete-undo preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart dirty-delete-undo preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart dirty-delete-undo selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history delete-undo-redo has expected existence=0
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history edit-survives has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart edit-survives preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart edit-survives preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart edit-survives preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart edit-survives selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history batch-undo-a has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-a preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-a preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-a preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-a selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history batch-undo-b has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-b preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-b preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-b preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart batch-undo-b selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history twenty-cycles has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart twenty-cycles preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart twenty-cycles preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart twenty-cycles preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart twenty-cycles selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history late-stale-tombstone has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart late-stale-tombstone preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart late-stale-tombstone preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart late-stale-tombstone preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart late-stale-tombstone selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history untouched-control has expected existence=1
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart untouched-control preserves exact source
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart untouched-control preserves title and tags
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart untouched-control preserves checkpointed local syntax
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart untouched-control selects expected newest LSN
+2026-09-08 12:48:00.103 nvALT[26434:325656558] PASS: restart history born-and-deleted has expected existence=0
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: restart history born-deleted-restored has expected existence=1
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: restart born-deleted-restored preserves exact source
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: restart born-deleted-restored preserves title and tags
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: restart born-deleted-restored preserves checkpointed local syntax
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: restart born-deleted-restored selects expected newest LSN
+2026-09-08 12:48:00.104 nvALT[26434:325656558] PASS: recovery contains no duplicate, lost, or resurrected synthetic notes
+2026-09-08 12:48:00.106 nvALT[26434:325656558] verified 8 notes in 0.00105405 s
+2026-09-08 12:48:00.108 nvALT[26434:325656558] PASS: recovered snapshot saves successfully
+2026-09-08 12:48:00.108 nvALT[26434:325656558] KINGSBURY PASS: 11 histories, 48 assertions in restart process

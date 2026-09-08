@@ -1,0 +1,195 @@
+2026-09-08 12:50:24.820 nvALT[27063:325661726] PASS: temporary library directory exists
+2026-09-08 12:50:24.821 nvALT[27063:325661726] PASS: temporary library opens
+2026-09-08 12:50:25.140 nvALT[27063:325661726] PASS: reader is the Simplenote removal app
+2026-09-08 12:50:25.140 nvALT[27063:325661726] PASS: independent old-app source oracle is available
+2026-09-08 12:50:25.140 nvALT[27063:325661726] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:25.140 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.141 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.141 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.141 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.141 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.142 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.142 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.142 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.142 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.142 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.143 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.144 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.144 nvALT[27063:325661726] HISTORY PASSED: old-native, initial read plus 3 rewrite reads
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.145 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.146 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.147 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.147 nvALT[27063:325661726] HISTORY PASSED: obsolete-null, initial read plus 3 rewrite reads
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.148 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.149 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.150 nvALT[27063:325661726] HISTORY PASSED: obsolete-string, initial read plus 3 rewrite reads
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.150 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.151 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.152 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.153 nvALT[27063:325661726] HISTORY PASSED: obsolete-array, initial read plus 3 rewrite reads
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.153 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.154 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: unchanged Unicode or CP1252 source export returns the original exact bytes
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: rewrite drops obsolete account and remote deletion fields
+2026-09-08 12:50:25.155 nvALT[27063:325661726] PASS: rewrite drops remote note metadata
+2026-09-08 12:50:25.155 nvALT[27063:325661726] HISTORY PASSED: obsolete-data, initial read plus 3 rewrite reads
+2026-09-08 12:50:25.155 nvALT[27063:325661726] CONTRARIAN DATA CHECKS PASSED: 189

@@ -1,0 +1,104 @@
+2026-09-08 12:54:42.575 nvALT[27578:325667533] PASS: temporary library directory exists
+2026-09-08 12:54:42.575 nvALT[27578:325667533] PASS: temporary library opens
+2026-09-08 12:54:43.291 nvALT[27578:325667533] PASS: two native windows share one local library
+2026-09-08 12:54:43.369 nvALT[27578:325667533] Observed native toolbar configuration keys: (
+    "TB Is Shown",
+    "TB Icon Size Mode",
+    "TB Size Mode",
+    "TB Display Mode"
+)
+2026-09-08 12:54:43.426 nvALT[27578:325667533] Legacy toolbar history 0 requested=(
+    Sync
+) restored=(
+)
+2026-09-08 12:54:43.426 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:43.518 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:44.024 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:44.024 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:44.024 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:44.097 nvALT[27578:325667533] Legacy toolbar history 1 requested=(
+    Sync,
+    NewNote
+) restored=(
+    NewNote
+)
+2026-09-08 12:54:44.097 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:44.193 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:44.557 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:44.557 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:44.557 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:44.612 nvALT[27578:325667533] Legacy toolbar history 2 requested=(
+    NewNote,
+    Sync,
+    Search
+) restored=(
+    NewNote,
+    Search
+)
+2026-09-08 12:54:44.612 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:44.715 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:45.083 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:45.084 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:45.084 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:45.148 nvALT[27578:325667533] Legacy toolbar history 3 requested=(
+    Sync,
+    NSToolbarFlexibleSpaceItem
+) restored=(
+    NSToolbarFlexibleSpaceItem
+)
+2026-09-08 12:54:45.148 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:45.242 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:45.610 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:45.610 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:45.610 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:45.707 nvALT[27578:325667533] Legacy toolbar history 4 requested=(
+    More,
+    Preview
+) restored=(
+    More,
+    Preview
+)
+2026-09-08 12:54:45.707 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:45.798 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:46.168 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:46.169 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:46.169 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:46.231 nvALT[27578:325667533] Legacy toolbar history 5 requested=(
+) restored=(
+)
+2026-09-08 12:54:46.231 nvALT[27578:325667533] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:54:46.326 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:46.694 nvALT[27578:325667533] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:54:46.694 nvALT[27578:325667533] PASS: restoration leaves exactly one Search item
+2026-09-08 12:54:46.694 nvALT[27578:325667533] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:54:46.696 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:46.761 nvALT[27578:325667533] PASS: local UUID note URL reaches the active browser with Unicode and URL punctuation
+2026-09-08 12:54:46.762 nvALT[27578:325667533] PASS: local URL navigation leaves the inactive browser unchanged
+2026-09-08 12:54:46.768 nvALT[27578:325667533] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:54:46.836 nvALT[27578:325667533] PASS: local UUID note URL reaches the active browser with Unicode and URL punctuation
+2026-09-08 12:54:46.836 nvALT[27578:325667533] PASS: local URL navigation leaves the inactive browser unchanged
+2026-09-08 12:54:47.165 nvALT[27578:325667533] PASS: remaining Preferences window opens
+2026-09-08 12:54:47.217 nvALT[27578:325667533] PASS: native preference pane remains usable: General
+2026-09-08 12:54:47.499 nvALT[27578:325667533] PASS: native preference pane remains usable: Notes
+2026-09-08 12:54:47.623 nvALT[27578:325667533] PASS: native preference pane remains usable: Editing
+2026-09-08 12:54:47.858 nvALT[27578:325667533] PASS: native preference pane remains usable: Fonts & Colors
+2026-09-08 12:54:47.859 nvALT[27578:325667533] PASS: remaining preference action updates the shared setting
+2026-09-08 12:54:47.932 nvALT[27578:325667533] PASS: closing Preferences keeps both browser windows alive
+2026-09-08 12:54:47.995 nvALT[27578:325667533] PASS: reopening Preferences retains the changed local setting
+2026-09-08 12:54:48.144 nvALT[27578:325667533] PASS: two different note editors hold pending native compositions before termination
+2026-09-08 12:54:48.144 nvALT[27578:325667533] PASS: composition fixtures are still uncommitted in both note models
+2026-09-08 12:54:48.145 nvALT[27578:325667533] Termination decision duration: 0.001119 seconds
+2026-09-08 12:54:48.145 nvALT[27578:325667533] PASS: termination completes all window compositions and returns immediately without remote wait
+2026-09-08 12:54:48.145 nvALT[27578:325667533] PASS: termination decision commits pending source in both note models
+2026-09-08 12:54:48.145 nvALT[27578:325667533] PASS: normal application quit starts with a pending source composition
+2026-09-08 12:54:48.145 nvALT[27578:325667533] PASS: normal application quit starts with a pending source composition
+2026-09-08 12:54:48.145 nvALT[27578:325667533] WORKFLOW ROUND1 phase1: 53 checks passed; invoking normal termination with unflushed pending input
+2026-09-08 12:54:48.157 nvALT[27578:325667533] verified 2 notes in 0.000354052 s
+2026-09-08 12:54:48.449 nvALT[27599:325667949] PASS: temporary library directory exists
+2026-09-08 12:54:48.450 nvALT[27599:325667949] PASS: temporary library opens
+2026-09-08 12:54:48.772 nvALT[27599:325667949] PASS: relaunch has exactly the two local notes
+2026-09-08 12:54:48.772 nvALT[27599:325667949] PASS: normal termination preserved both composition commits: Workflow α / 😀
+2026-09-08 12:54:48.772 nvALT[27599:325667949] PASS: normal termination preserved both composition commits: Workflow β ? #
+2026-09-08 12:54:48.772 nvALT[27599:325667949] PASS: preference changed in native window survives termination and relaunch
+2026-09-08 12:54:48.772 nvALT[27599:325667949] WORKFLOW ROUND1 phase2: 6 checks passed
+2026-09-08 12:54:48.793 nvALT[27599:325667949] verified 2 notes in 0.000377059 s

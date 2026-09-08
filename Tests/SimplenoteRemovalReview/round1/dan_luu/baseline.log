@@ -1,0 +1,100 @@
+2026-09-08 12:46:06.521 nvALT[26058:325652571] PASS: temporary library directory exists
+2026-09-08 12:46:06.522 nvALT[26058:325652571] PASS: temporary library opens
+2026-09-08 12:46:06.840 nvALT[26058:325652571] PASS: create a separate disposable measured library
+2026-09-08 12:46:06.842 nvALT[26058:325652571] PASS: copy the identical baseline archive into the measured directory
+2026-09-08 12:46:06.905 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:06.975 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:07.377 nvALT[26058:325652571] verified 1024 notes in 0.056172 s
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.378 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:07.382 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=0 snapshotWrites=1 snapshotBytes=2133727 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=2048 databaseBytes=2133727 unchanged=1
+2026-09-08 12:46:07.433 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:07.497 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:07.891 nvALT[26058:325652571] verified 1024 notes in 0.0559491 s
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:07.892 nvALT[26058:325652571] PASS: unchanged reopened library has identical bytes, one existing preference snapshot, and zero journal writes
+2026-09-08 12:46:07.896 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=1 snapshotWrites=1 snapshotBytes=2133727 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=4096 databaseBytes=2133727 unchanged=1
+2026-09-08 12:46:07.947 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:08.010 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:08.407 nvALT[26058:325652571] verified 1024 notes in 0.055029 s
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.408 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:08.409 nvALT[26058:325652571] PASS: unchanged reopened library has identical bytes, one existing preference snapshot, and zero journal writes
+2026-09-08 12:46:08.412 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=2 snapshotWrites=1 snapshotBytes=2133727 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=6144 databaseBytes=2133727 unchanged=1
+2026-09-08 12:46:08.462 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:08.526 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:08.916 nvALT[26058:325652571] verified 1024 notes in 0.053265 s
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:08.917 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:08.918 nvALT[26058:325652571] PASS: unchanged reopened library has identical bytes, one existing preference snapshot, and zero journal writes
+2026-09-08 12:46:08.921 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=3 snapshotWrites=1 snapshotBytes=2133727 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=8192 databaseBytes=2133727 unchanged=1
+2026-09-08 12:46:08.971 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:09.042 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:09.448 nvALT[26058:325652571] verified 1024 notes in 0.053838 s
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.448 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.449 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:09.449 nvALT[26058:325652571] PASS: 64 source changes produce one snapshot and exactly 64 successful journal records
+2026-09-08 12:46:09.453 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=4 snapshotWrites=1 snapshotBytes=2136534 journalWrites=64 encodedNotes=1088 decodedNotes=2048 liveDecoded=10240 databaseBytes=2136534 unchanged=0
+2026-09-08 12:46:09.505 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:09.569 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:09.957 nvALT[26058:325652571] verified 1024 notes in 0.053189 s
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:09.958 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:09.959 nvALT[26058:325652571] PASS: edited library remains byte-stable with one existing preference snapshot per subsequent reopen
+2026-09-08 12:46:09.962 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=5 snapshotWrites=1 snapshotBytes=2136534 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=12288 databaseBytes=2136534 unchanged=1
+2026-09-08 12:46:10.013 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:10.078 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:10.466 nvALT[26058:325652571] verified 1024 notes in 0.0522311 s
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:10.467 nvALT[26058:325652571] PASS: edited library remains byte-stable with one existing preference snapshot per subsequent reopen
+2026-09-08 12:46:10.470 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=6 snapshotWrites=1 snapshotBytes=2136534 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=14336 databaseBytes=2136534 unchanged=1
+2026-09-08 12:46:10.522 nvALT[26058:325652571] PASS: all synthetic notes reopen
+2026-09-08 12:46:10.586 nvALT[26058:325652571] PASS: every source, UUID, title, tag, and syntax survives the repeated reopen
+2026-09-08 12:46:10.975 nvALT[26058:325652571] verified 1024 notes in 0.050602 s
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: real local snapshot save succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: unchanged repeated flush succeeds
+2026-09-08 12:46:10.976 nvALT[26058:325652571] PASS: five unchanged flushes do not write another snapshot
+2026-09-08 12:46:10.977 nvALT[26058:325652571] PASS: edited library remains byte-stable with one existing preference snapshot per subsequent reopen
+2026-09-08 12:46:10.979 nvALT[26058:325652571] DAN_CYCLE app=baseline cycle=7 snapshotWrites=1 snapshotBytes=2136534 journalWrites=0 encodedNotes=1024 decodedNotes=2048 liveDecoded=16384 databaseBytes=2136534 unchanged=1
+2026-09-08 12:46:10.979 nvALT[26058:325652571] DAN_RESULT app=baseline checks=83 cycles=8 notes=1024 totalSnapshotWrites=8 totalJournalWrites=64 firstSteadyBytes=2133727 editedBytes=2136534

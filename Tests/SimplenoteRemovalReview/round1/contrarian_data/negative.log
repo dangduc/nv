@@ -1,0 +1,51 @@
+2026-09-08 12:50:00.438 nvALT[26799:325660571] PASS: temporary library directory exists
+2026-09-08 12:50:00.438 nvALT[26799:325660571] PASS: temporary library opens
+2026-09-08 12:50:00.758 nvALT[26799:325660571] PASS: reader is the Simplenote removal app
+2026-09-08 12:50:00.758 nvALT[26799:325660571] PASS: independent old-app source oracle is available
+2026-09-08 12:50:00.758 nvALT[26799:325660571] PASS: fixture still has obsolete archive fields
+2026-09-08 12:50:00.758 nvALT[26799:325660571] PASS: obsolete account/deletion values do not prevent snapshot decoding
+2026-09-08 12:50:00.759 nvALT[26799:325660571] PASS: pending remote deletion does not remove or resurrect local records
+2026-09-08 12:50:00.759 nvALT[26799:325660571] snapshot={
+    characters = "{\"local\":\"caf\U00e9 \Ud83d\Ude00\"}\n\t";
+    createdDate = "710000000.25";
+    fileEncoding = 2483028224;
+    labelString = "local, caf\U00e9, \U65e5\U672c\U8a9e";
+    logSequenceNumber = 1898136929;
+    metadata =     {
+        futureLocalProperty =         {
+            keep = 1;
+            value = 42;
+        };
+        syntax = json;
+    };
+    modifiedDate = "710000111.75";
+    sourceByteOrderMark = {length = 2, bytes = 0xfffe};
+    sourceConflictOriginUUID = {length = 0, bytes = 0x};
+    sourceConversionPending = 0;
+    sourceOriginalData = {length = 46, bytes = 0xfffe7b00 22006c00 6f006300 61006c00 ... 7d000d00 0a000900 };
+    sourceOriginalEncoding = 2483028224;
+    titleString = "Pending source 0";
+    uuid = {length = 16, bytes = 0x21436587a9cbed0f31537597b9dbfd00};
+} expected={
+    characters = "{\"local\":\"caf\U00e9 \Ud83d\Ude00\"}\n\t";
+    createdDate = "710000000.25";
+    fileEncoding = 2483028224;
+    labelString = "local, caf\U00e9, \U65e5\U672c\U8a9e";
+    logSequenceNumber = 1898136928;
+    metadata =     {
+        futureLocalProperty =         {
+            keep = 1;
+            value = 42;
+        };
+        syntax = json;
+    };
+    modifiedDate = "710000111.75";
+    sourceByteOrderMark = {length = 2, bytes = 0xfffe};
+    sourceConflictOriginUUID = {length = 0, bytes = 0x};
+    sourceConversionPending = 0;
+    sourceOriginalData = {length = 46, bytes = 0xfffe7b00 22006c00 6f006300 61006c00 ... 7d000d00 0a000900 };
+    sourceOriginalEncoding = 2483028224;
+    titleString = "Pending source 0";
+    uuid = {length = 16, bytes = 0x21436587a9cbed0f31537597b9dbfd00};
+}
+2026-09-08 12:50:00.759 nvALT[26799:325660571] FAIL: UUID, local characters, tags, dates, sequence, encoding, BOM, conversion/conflict state and syntax remain exact

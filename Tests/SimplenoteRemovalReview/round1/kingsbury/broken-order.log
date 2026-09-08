@@ -1,0 +1,34 @@
+2026-09-08 12:48:36.971 nvALT[26527:325657795] PASS: temporary library directory exists
+2026-09-08 12:48:36.972 nvALT[26527:325657795] PASS: temporary library opens
+2026-09-08 12:48:37.291 nvALT[26527:325657795] PASS: first process starts with an empty synthetic library
+2026-09-08 12:48:37.782 nvALT[26527:325657795] verified 9 notes in 0.000568986 s
+2026-09-08 12:48:37.783 nvALT[26527:325657795] PASS: nine-note checkpoint saves before the WAL-only history
+2026-09-08 12:48:37.783 nvALT[26527:325657795] PASS: checkpoint bytes are available for an unchanged-database crash-cut check
+2026-09-08 12:48:37.784 nvALT[26527:325657795] PASS: dirty deletion removes the live note
+2026-09-08 12:48:37.789 nvALT[26527:325657795] PASS: deletion Undo restores the same UUID with a newer journal sequence
+2026-09-08 12:48:37.790 nvALT[26527:325657795] PASS: deletion Redo removes the restored note
+2026-09-08 12:48:37.795 nvALT[26527:325657795] PASS: batch deletion Undo restores both identities
+2026-09-08 12:48:37.800 nvALT[26527:325657795] PASS: twenty deletion and Undo cycles advance journal ordering
+2026-09-08 12:48:37.800 nvALT[26527:325657795] PASS: late physical tombstone record is written after its newer restored note
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live dirty-delete matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live dirty-delete-undo matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live delete-undo-redo matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live edit-survives matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live batch-undo-a matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live batch-undo-b matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live twenty-cycles matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live late-stale-tombstone matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live untouched-control matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live born-and-deleted matches the literal operation model before crash
+2026-09-08 12:48:37.906 nvALT[26527:325657795] PASS: live born-deleted-restored matches the literal operation model before crash
+2026-09-08 12:48:37.907 nvALT[26527:325657795] PASS: independent operation ledger is written outside the note database
+2026-09-08 12:48:37.907 nvALT[26527:325657795] PASS: WAL fsync succeeds before abrupt exit
+2026-09-08 12:48:37.907 nvALT[26527:325657795] PASS: database bytes still equal the original checkpoint at the crash cut
+2026-09-08 12:48:37.907 nvALT[26527:325657795] KINGSBURY CRASH CUT: checkpoint=9 notes, expected=8 survivors, ledger=11 histories, assertions=25
+2026-09-08 12:48:38.230 nvALT[26535:325658050] PASS: temporary library directory exists
+2026-09-08 12:48:38.231 nvALT[26535:325658050] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.view-review.abded12d34a14401bdf7e9d4e36d3d38/Interim Note-Changes: File exists
+2026-09-08 12:48:38.232 nvALT[26535:325658050] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-08 12:48:38.234 nvALT[26535:325658050] verified 11 notes in 0.000390053 s
+2026-09-08 12:48:38.234 nvALT[26535:325658050] PASS: temporary library opens
+2026-09-08 12:48:38.554 nvALT[26535:325658050] PASS: second process loads the independent expected-state ledger
+2026-09-08 12:48:38.554 nvALT[26535:325658050] FAIL: restart history dirty-delete has expected existence=0

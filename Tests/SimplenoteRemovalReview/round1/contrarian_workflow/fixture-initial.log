@@ -1,0 +1,84 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-e4a1_cdd/Review.m:159:18: warning: 'NVApplicationController' may not respond to 'handleGetURLEvent:withReplyEvent:'
+  159 |             [app handleGetURLEvent:event withReplyEvent:nil]; Pump();
+      |              ~~~ ^
+1 warning generated.
+2026-09-08 12:52:50.665 nvALT[27416:325664797] PASS: temporary library directory exists
+2026-09-08 12:52:50.666 nvALT[27416:325664797] PASS: temporary library opens
+2026-09-08 12:52:51.298 nvALT[27416:325664797] PASS: two native windows share one local library
+2026-09-08 12:52:51.378 nvALT[27416:325664797] Observed native toolbar configuration keys: (
+    "TB Is Shown",
+    "TB Icon Size Mode",
+    "TB Size Mode",
+    "TB Display Mode"
+)
+2026-09-08 12:52:51.437 nvALT[27416:325664797] Legacy toolbar history 0 requested=(
+    Sync
+) restored=(
+)
+2026-09-08 12:52:51.437 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:51.529 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:52.050 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:52.050 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:52.050 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:52.119 nvALT[27416:325664797] Legacy toolbar history 1 requested=(
+    Sync,
+    NewNote
+) restored=(
+    NewNote
+)
+2026-09-08 12:52:52.119 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:52.211 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:52.576 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:52.576 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:52.576 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:52.634 nvALT[27416:325664797] Legacy toolbar history 2 requested=(
+    NewNote,
+    Sync,
+    Search
+) restored=(
+    NewNote,
+    Search
+)
+2026-09-08 12:52:52.634 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:52.751 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:53.127 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:53.127 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:53.127 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:53.194 nvALT[27416:325664797] Legacy toolbar history 3 requested=(
+    Sync,
+    NSToolbarFlexibleSpaceItem
+) restored=(
+    NSToolbarFlexibleSpaceItem
+)
+2026-09-08 12:52:53.194 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:53.291 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:53.656 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:53.657 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:53.657 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:53.751 nvALT[27416:325664797] Legacy toolbar history 4 requested=(
+    More,
+    Preview
+) restored=(
+    More,
+    Preview
+)
+2026-09-08 12:52:53.751 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:53.845 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:54.218 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:54.218 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:54.218 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:54.286 nvALT[27416:325664797] Legacy toolbar history 5 requested=(
+) restored=(
+)
+2026-09-08 12:52:54.286 nvALT[27416:325664797] PASS: native restoration discards the removed Sync identifier
+2026-09-08 12:52:54.379 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:54.746 nvALT[27416:325664797] PASS: Search restores a usable toolbar from an obsolete or empty saved configuration
+2026-09-08 12:52:54.746 nvALT[27416:325664797] PASS: restoration leaves exactly one Search item
+2026-09-08 12:52:54.747 nvALT[27416:325664797] PASS: toolbar migration preserves both window queries and note selections
+2026-09-08 12:52:54.749 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:54.819 nvALT[27416:325664797] PASS: local UUID note URL reaches the active browser with Unicode and URL punctuation
+2026-09-08 12:52:54.819 nvALT[27416:325664797] PASS: local URL navigation leaves the inactive browser unchanged
+2026-09-08 12:52:54.826 nvALT[27416:325664797] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 12:52:54.891 nvALT[27416:325664797] PASS: local UUID note URL reaches the active browser with Unicode and URL punctuation
+2026-09-08 12:52:54.891 nvALT[27416:325664797] PASS: local URL navigation leaves the inactive browser unchanged
+2026-09-08 12:52:54.941 nvALT[27416:325664797] FAIL: remaining Preferences window opens

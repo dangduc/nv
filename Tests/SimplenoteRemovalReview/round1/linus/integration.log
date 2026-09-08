@@ -1,0 +1,712 @@
+reviewed SHA: f38a8cb3f1e5f74c57cfe5e8d5791f364201f1cb
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterHTML.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterHTML.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterHTMLScanner.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterHTMLScanner.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterJSON.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterJSON.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterMarkdown.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterMarkdown.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterMarkdownInline.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterMarkdownInline.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterMarkdownInlineScanner.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterMarkdownInlineScanner.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterMarkdownScanner.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterMarkdownScanner.c
+PASS: build input exists: Sources/Editor/TreeSitter/NVTreeSitterRuntime.c
+PASS: build input belongs to checkout: Sources/Editor/TreeSitter/NVTreeSitterRuntime.c
+PASS: build input exists: Sources/Editor/NVSourceHighlighter.m
+PASS: build input belongs to checkout: Sources/Editor/NVSourceHighlighter.m
+PASS: build input exists: Sources/Preview/NVNoteContentSnapshot.m
+PASS: build input belongs to checkout: Sources/Preview/NVNoteContentSnapshot.m
+PASS: build input exists: Sources/Preview/NVMarkupRenderer.m
+PASS: build input belongs to checkout: Sources/Preview/NVMarkupRenderer.m
+PASS: build input exists: Sources/Application/main.m
+PASS: build input belongs to checkout: Sources/Application/main.m
+PASS: build input exists: Sources/Browser/AppController.m
+PASS: build input belongs to checkout: Sources/Browser/AppController.m
+PASS: build input exists: Sources/Browser/AppController_MultipleWindows.m
+PASS: build input belongs to checkout: Sources/Browser/AppController_MultipleWindows.m
+PASS: build input exists: Sources/Browser/AppController_BrowserUI.m
+PASS: build input belongs to checkout: Sources/Browser/AppController_BrowserUI.m
+PASS: build input exists: Sources/Editor/NVNoteEditingSession.m
+PASS: build input belongs to checkout: Sources/Editor/NVNoteEditingSession.m
+PASS: build input exists: Sources/Browser/NVBrowserSession.m
+PASS: build input belongs to checkout: Sources/Browser/NVBrowserSession.m
+PASS: build input exists: Sources/Application/NVApplicationController.m
+PASS: build input belongs to checkout: Sources/Application/NVApplicationController.m
+PASS: build input exists: Sources/Storage/NotationController.m
+PASS: build input belongs to checkout: Sources/Storage/NotationController.m
+PASS: build input exists: Sources/Model/NoteObject.m
+PASS: build input belongs to checkout: Sources/Model/NoteObject.m
+PASS: build input exists: Sources/Utilities/NSData_transformations.m
+PASS: build input belongs to checkout: Sources/Utilities/NSData_transformations.m
+PASS: build input exists: ThirdParty/Crypto/pbkdf2.c
+PASS: build input belongs to checkout: ThirdParty/Crypto/pbkdf2.c
+PASS: build input exists: Sources/UI/ETNoteScrollView.m
+PASS: build input belongs to checkout: Sources/UI/ETNoteScrollView.m
+PASS: build input exists: ThirdParty/Crypto/hmacsha1.c
+PASS: build input belongs to checkout: ThirdParty/Crypto/hmacsha1.c
+PASS: build input exists: Sources/Editor/LinkingEditor.m
+PASS: build input belongs to checkout: Sources/Editor/LinkingEditor.m
+PASS: build input exists: Sources/Model/LabelObject.m
+PASS: build input belongs to checkout: Sources/Model/LabelObject.m
+PASS: build input exists: Sources/Model/FastListDataSource.m
+PASS: build input belongs to checkout: Sources/Model/FastListDataSource.m
+PASS: build input exists: Sources/Browser/LabelsListController.m
+PASS: build input belongs to checkout: Sources/Browser/LabelsListController.m
+PASS: build input exists: Sources/Utilities/NSString_NV.m
+PASS: build input belongs to checkout: Sources/Utilities/NSString_NV.m
+PASS: build input exists: Sources/Utilities/NSCollection_utils.m
+PASS: build input belongs to checkout: Sources/Utilities/NSCollection_utils.m
+PASS: build input exists: Sources/Utilities/BufferUtils.c
+PASS: build input belongs to checkout: Sources/Utilities/BufferUtils.c
+PASS: build input exists: Sources/Editor/AttributedPlainText.m
+PASS: build input belongs to checkout: Sources/Editor/AttributedPlainText.m
+PASS: build input exists: Sources/Preferences/GlobalPrefs.m
+PASS: build input belongs to checkout: Sources/Preferences/GlobalPrefs.m
+PASS: build input exists: Sources/Storage/WALController.m
+PASS: build input belongs to checkout: Sources/Storage/WALController.m
+PASS: build input exists: Sources/UI/EmptyView.m
+PASS: build input belongs to checkout: Sources/UI/EmptyView.m
+PASS: build input exists: Sources/UI/DualField.m
+PASS: build input belongs to checkout: Sources/UI/DualField.m
+PASS: build input exists: Sources/UI/NoteAttributeColumn.m
+PASS: build input belongs to checkout: Sources/UI/NoteAttributeColumn.m
+PASS: build input exists: Sources/Preferences/PrefsWindowController.m
+PASS: build input belongs to checkout: Sources/Preferences/PrefsWindowController.m
+PASS: build input exists: Sources/Preferences/NotationPrefs.m
+PASS: build input belongs to checkout: Sources/Preferences/NotationPrefs.m
+PASS: build input exists: Sources/Preferences/NotationPrefsViewController.m
+PASS: build input belongs to checkout: Sources/Preferences/NotationPrefsViewController.m
+PASS: build input exists: Sources/Storage/FrozenNotation.m
+PASS: build input belongs to checkout: Sources/Storage/FrozenNotation.m
+PASS: build input exists: Sources/Storage/NotationFileManager.m
+PASS: build input belongs to checkout: Sources/Storage/NotationFileManager.m
+PASS: build input exists: Sources/UI/HeaderViewWIthMenu.m
+PASS: build input belongs to checkout: Sources/UI/HeaderViewWIthMenu.m
+PASS: build input exists: Sources/Model/DeletedNoteObject.m
+PASS: build input belongs to checkout: Sources/Model/DeletedNoteObject.m
+PASS: build input exists: Sources/ImportExport/EncodingsManager.m
+PASS: build input belongs to checkout: Sources/ImportExport/EncodingsManager.m
+PASS: build input exists: Sources/Storage/DeletionManager.m
+PASS: build input belongs to checkout: Sources/Storage/DeletionManager.m
+PASS: build input exists: Sources/UI/NotesTableView.m
+PASS: build input belongs to checkout: Sources/UI/NotesTableView.m
+PASS: build input exists: Sources/Preferences/PassphrasePicker.m
+PASS: build input belongs to checkout: Sources/Preferences/PassphrasePicker.m
+PASS: build input exists: Sources/Preferences/PassphraseRetriever.m
+PASS: build input belongs to checkout: Sources/Preferences/PassphraseRetriever.m
+PASS: build input exists: Sources/Preferences/KeyDerivationManager.m
+PASS: build input belongs to checkout: Sources/Preferences/KeyDerivationManager.m
+PASS: build input exists: Sources/Preferences/PassphraseChanger.m
+PASS: build input belongs to checkout: Sources/Preferences/PassphraseChanger.m
+PASS: build input exists: Sources/UI/KeyDerivationDelaySlider.m
+PASS: build input belongs to checkout: Sources/UI/KeyDerivationDelaySlider.m
+PASS: build input exists: Sources/ImportExport/AlienNoteImporter.m
+PASS: build input belongs to checkout: Sources/ImportExport/AlienNoteImporter.m
+PASS: build input exists: Sources/ImportExport/StickiesDocument.m
+PASS: build input belongs to checkout: Sources/ImportExport/StickiesDocument.m
+PASS: build input exists: Sources/Editor/LinkingEditor_Indentation.m
+PASS: build input belongs to checkout: Sources/Editor/LinkingEditor_Indentation.m
+PASS: build input exists: Sources/ImportExport/BlorPasswordRetriever.m
+PASS: build input belongs to checkout: Sources/ImportExport/BlorPasswordRetriever.m
+PASS: build input exists: ThirdParty/Crypto/idea_ossl.c
+PASS: build input belongs to checkout: ThirdParty/Crypto/idea_ossl.c
+PASS: build input exists: ThirdParty/Crypto/broken_md5.c
+PASS: build input belongs to checkout: ThirdParty/Crypto/broken_md5.c
+PASS: build input exists: ThirdParty/PTHotKeys/PTHotKeyCenter.m
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTHotKeyCenter.m
+PASS: build input exists: ThirdParty/PTHotKeys/PTKeyBroadcaster.m
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTKeyBroadcaster.m
+PASS: build input exists: ThirdParty/PTHotKeys/PTKeyComboPanel.m
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTKeyComboPanel.m
+PASS: build input exists: ThirdParty/PTHotKeys/PTHotKey.m
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTHotKey.m
+PASS: build input exists: ThirdParty/PTHotKeys/PTKeyCombo.m
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTKeyCombo.m
+PASS: build input exists: Sources/Utilities/FSExchangeObjectsCompat.c
+PASS: build input belongs to checkout: Sources/Utilities/FSExchangeObjectsCompat.c
+PASS: build input exists: Sources/ImportExport/MultiplePageView.m
+PASS: build input belongs to checkout: Sources/ImportExport/MultiplePageView.m
+PASS: build input exists: Sources/ImportExport/ExporterManager.m
+PASS: build input belongs to checkout: Sources/ImportExport/ExporterManager.m
+PASS: build input exists: Sources/UI/BookmarksTable.m
+PASS: build input belongs to checkout: Sources/UI/BookmarksTable.m
+PASS: build input exists: Sources/Browser/BookmarksController.m
+PASS: build input belongs to checkout: Sources/Browser/BookmarksController.m
+PASS: build input exists: Sources/Editor/MultiTextFinder.m
+PASS: build input belongs to checkout: Sources/Editor/MultiTextFinder.m
+PASS: build input exists: Sources/ImportExport/TemporaryFileCache.m
+PASS: build input belongs to checkout: Sources/ImportExport/TemporaryFileCache.m
+PASS: build input exists: Sources/Preferences/NVPasswordGenerator.m
+PASS: build input belongs to checkout: Sources/Preferences/NVPasswordGenerator.m
+PASS: build input exists: Sources/UI/LinearDividerShader.m
+PASS: build input belongs to checkout: Sources/UI/LinearDividerShader.m
+PASS: build input exists: Sources/Utilities/InvocationRecorder.m
+PASS: build input belongs to checkout: Sources/Utilities/InvocationRecorder.m
+PASS: build input exists: Sources/Storage/NotationDirectoryManager.m
+PASS: build input belongs to checkout: Sources/Storage/NotationDirectoryManager.m
+PASS: build input exists: Sources/Application/SearchCommand.m
+PASS: build input belongs to checkout: Sources/Application/SearchCommand.m
+PASS: build input exists: Sources/Utilities/NSFileManager_NV.m
+PASS: build input belongs to checkout: Sources/Utilities/NSFileManager_NV.m
+PASS: build input exists: Sources/Utilities/SecureTextEntryManager.m
+PASS: build input belongs to checkout: Sources/Utilities/SecureTextEntryManager.m
+PASS: build input exists: Sources/Utilities/NSString_CustomTruncation.m
+PASS: build input belongs to checkout: Sources/Utilities/NSString_CustomTruncation.m
+PASS: build input exists: Sources/Browser/AppController_Importing.m
+PASS: build input belongs to checkout: Sources/Browser/AppController_Importing.m
+PASS: build input exists: Sources/Utilities/NSBezierPath_NV.m
+PASS: build input belongs to checkout: Sources/Utilities/NSBezierPath_NV.m
+PASS: build input exists: Sources/Storage/DiskUUIDEntry.m
+PASS: build input belongs to checkout: Sources/Storage/DiskUUIDEntry.m
+PASS: build input exists: Sources/UI/LabelColumnCell.m
+PASS: build input belongs to checkout: Sources/UI/LabelColumnCell.m
+PASS: build input exists: Sources/UI/UnifiedCell.m
+PASS: build input belongs to checkout: Sources/UI/UnifiedCell.m
+PASS: build input exists: Sources/Editor/TagEditingManager.m
+PASS: build input belongs to checkout: Sources/Editor/TagEditingManager.m
+PASS: build input exists: Sources/UI/ETTransparentScroller.m
+PASS: build input belongs to checkout: Sources/UI/ETTransparentScroller.m
+PASS: build input exists: Sources/UI/NotesTableHeaderCell.m
+PASS: build input belongs to checkout: Sources/UI/NotesTableHeaderCell.m
+PASS: build input exists: Sources/UI/DFView.m
+PASS: build input belongs to checkout: Sources/UI/DFView.m
+PASS: build input exists: Sources/Preview/PreviewController.m
+PASS: build input belongs to checkout: Sources/Preview/PreviewController.m
+PASS: build input exists: Sources/Browser/AppController_Preview.m
+PASS: build input belongs to checkout: Sources/Browser/AppController_Preview.m
+PASS: build input exists: Sources/UI/BTTransparentScroller.m
+PASS: build input belongs to checkout: Sources/UI/BTTransparentScroller.m
+PASS: build input exists: Sources/UI/ETTransparentButtonCell.m
+PASS: build input belongs to checkout: Sources/UI/ETTransparentButtonCell.m
+PASS: build input exists: Sources/UI/ETTransparentButton.m
+PASS: build input belongs to checkout: Sources/UI/ETTransparentButton.m
+PASS: build input exists: Sources/UI/WordCountToken.m
+PASS: build input belongs to checkout: Sources/UI/WordCountToken.m
+PASS: build input exists: Sources/UI/ETContentView.m
+PASS: build input belongs to checkout: Sources/UI/ETContentView.m
+PASS: build input exists: Sources/UI/ETScrollView.m
+PASS: build input belongs to checkout: Sources/UI/ETScrollView.m
+PASS: build input exists: Sources/ImportExport/ExternalEditorListController.m
+PASS: build input belongs to checkout: Sources/ImportExport/ExternalEditorListController.m
+PASS: build input exists: ThirdParty/ODBEditor/NSAppleEventDescriptor-Extensions.m
+PASS: build input belongs to checkout: ThirdParty/ODBEditor/NSAppleEventDescriptor-Extensions.m
+PASS: build input exists: ThirdParty/ODBEditor/ODBEditor.m
+PASS: build input belongs to checkout: ThirdParty/ODBEditor/ODBEditor.m
+PASS: build input exists: Sources/ImportExport/TemporaryFileCachePreparer.m
+PASS: build input belongs to checkout: Sources/ImportExport/TemporaryFileCachePreparer.m
+PASS: build input exists: Sources/UI/ETClipView.m
+PASS: build input belongs to checkout: Sources/UI/ETClipView.m
+PASS: build input exists: Sources/UI/ETOverlayScroller.m
+PASS: build input belongs to checkout: Sources/UI/ETOverlayScroller.m
+PASS: build input exists: Sources/Utilities/NSFileManager+DirectoryLocations.m
+PASS: build input belongs to checkout: Sources/Utilities/NSFileManager+DirectoryLocations.m
+PASS: build input exists: Resources/Syntax
+PASS: build input belongs to checkout: Resources/Syntax
+PASS: build input exists: Resources/Localization/de.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/pt-PT.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/it.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/fr.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/zh.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/en.lproj/InfoPlist.strings
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/InfoPlist.strings
+PASS: build input exists: Resources/Localization/de.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/pt-PT.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/fr.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/it.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/zh.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/en.lproj/ServicesMenu.strings
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/ServicesMenu.strings
+PASS: build input exists: Resources/Localization/de.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/zh.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/it.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/fr.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/en.lproj/KeyDerivationManager.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/KeyDerivationManager.nib
+PASS: build input exists: Resources/Localization/de.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: Resources/Localization/zh.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: Resources/Localization/it.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: Resources/Localization/fr.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: Resources/Localization/en.lproj/BlorPasswordRetriever.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/BlorPasswordRetriever.nib
+PASS: build input exists: ThirdParty/PTHotKeys/PTKeyCodes.plist
+PASS: build input belongs to checkout: ThirdParty/PTHotKeys/PTKeyCodes.plist
+PASS: build input exists: Resources/Localization/de.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/zh.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/it.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/fr.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/en.lproj/ExporterManager.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/ExporterManager.nib
+PASS: build input exists: Resources/Localization/de.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/zh.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/it.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/fr.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/en.lproj/SavedSearches.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/SavedSearches.nib
+PASS: build input exists: Resources/Localization/de.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/zh.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/it.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/fr.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/en.lproj/FindPanel.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/FindPanel.nib
+PASS: build input exists: Resources/Localization/de.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Localization/zh.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Localization/it.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Localization/fr.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Localization/en.lproj/ImporterAccessory.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/ImporterAccessory.nib
+PASS: build input exists: Resources/Images/DFCapLeftRoundedInactive.png
+PASS: build input belongs to checkout: Resources/Images/DFCapLeftRoundedInactive.png
+PASS: build input exists: Resources/Images/SplitViewDimple.tif
+PASS: build input belongs to checkout: Resources/Images/SplitViewDimple.tif
+PASS: build input exists: Resources/Images/SnapBackPressed.tif
+PASS: build input belongs to checkout: Resources/Images/SnapBackPressed.tif
+PASS: build input exists: Resources/Images/Pencil.png
+PASS: build input belongs to checkout: Resources/Images/Pencil.png
+PASS: build input exists: Resources/Images/TBMousedownBG.png
+PASS: build input belongs to checkout: Resources/Images/TBMousedownBG.png
+PASS: build input exists: Resources/Images/Clear.tif
+PASS: build input belongs to checkout: Resources/Images/Clear.tif
+PASS: build input exists: Resources/Notation.sdef
+PASS: build input belongs to checkout: Resources/Notation.sdef
+PASS: build input exists: Resources/Localization/fr.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Localization/en.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Localization/it.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Localization/de.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Localization/pt-PT.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Localization/zh.lproj/Contact.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/Contact.nvhelp
+PASS: build input exists: Resources/Images/Fonts & Colors.tiff
+PASS: build input belongs to checkout: Resources/Images/Fonts & Colors.tiff
+PASS: build input exists: Resources/Images/LinkBackPressed.tif
+PASS: build input belongs to checkout: Resources/Images/LinkBackPressed.tif
+PASS: build input exists: Resources/Images/MakeDefault_Pressed.tiff
+PASS: build input belongs to checkout: Resources/Images/MakeDefault_Pressed.tiff
+PASS: build input exists: Resources/Localization/de.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Localization/it.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Localization/zh.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Localization/en.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Localization/fr.lproj/TagEditingManager.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/TagEditingManager.xib
+PASS: build input exists: Resources/Images/TransparentScrollerKnobTop.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerKnobTop.tif
+PASS: build input exists: Resources/Images/TransparentScrollerSlotBottom.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerSlotBottom.tif
+PASS: build input exists: Resources/Images/TransparentScrollerSlotVerticalFill.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerSlotVerticalFill.tif
+PASS: build input exists: Resources/Localization/en.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Localization/de.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Localization/pt-PT.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Localization/fr.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Localization/it.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Localization/zh.lproj/How does this thing work?.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/How does this thing work?.nvhelp
+PASS: build input exists: Resources/Images/TabClose_Front_Pressed.tif
+PASS: build input belongs to checkout: Resources/Images/TabClose_Front_Pressed.tif
+PASS: build input exists: Resources/Images/TabClose_Front.tif
+PASS: build input belongs to checkout: Resources/Images/TabClose_Front.tif
+PASS: build input exists: ThirdParty/Textile_2.12
+PASS: build input belongs to checkout: ThirdParty/Textile_2.12
+PASS: build input exists: Resources/Images/TransparentButtonFillN.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonFillN.tiff
+PASS: build input exists: Resources/Images/TransparentButtonLeftN.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonLeftN.tiff
+PASS: build input exists: Resources/Images/TransparentButtonRightN.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonRightN.tiff
+PASS: build input exists: Resources/Help/Credits.html
+PASS: build input belongs to checkout: Resources/Help/Credits.html
+PASS: build input exists: Resources/Images/greyscrollervertbottom.tiff
+PASS: build input belongs to checkout: Resources/Images/greyscrollervertbottom.tiff
+PASS: build input exists: Resources/Images/greyscrollerverttop.tiff
+PASS: build input belongs to checkout: Resources/Images/greyscrollerverttop.tiff
+PASS: build input exists: Resources/Images/BTransparentScrollerSlotBottom.tif
+PASS: build input belongs to checkout: Resources/Images/BTransparentScrollerSlotBottom.tif
+PASS: build input exists: Resources/Images/greyscrollervertbottom3.tif
+PASS: build input belongs to checkout: Resources/Images/greyscrollervertbottom3.tif
+PASS: build input exists: Resources/Images/greyscrollerverttop3.tif
+PASS: build input belongs to checkout: Resources/Images/greyscrollerverttop3.tif
+PASS: build input exists: Resources/Localization/de.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/zh.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/it.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/en.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/fr.lproj/PassphrasePicker.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/PassphrasePicker.nib
+PASS: build input exists: Resources/Localization/de.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/it.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/zh.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/en.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/fr.lproj/MainMenu.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/MainMenu.xib
+PASS: build input exists: Resources/Localization/en.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Localization/de.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Localization/fr.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Localization/it.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Localization/zh.lproj/BrowserWindow.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/BrowserWindow.xib
+PASS: build input exists: Resources/Help/Acknowledgments.txt
+PASS: build input belongs to checkout: Resources/Help/Acknowledgments.txt
+PASS: build input exists: Resources/Images/greyscrollervertfill3.tif
+PASS: build input belongs to checkout: Resources/Images/greyscrollervertfill3.tif
+PASS: build input exists: Resources/Images/BTransparentScrollerSlotTop.tif
+PASS: build input belongs to checkout: Resources/Images/BTransparentScrollerSlotTop.tif
+PASS: build input exists: Resources/Images/scrollbarblue.tif
+PASS: build input belongs to checkout: Resources/Images/scrollbarblue.tif
+PASS: build input exists: Resources/Images/greyscrollervertfill.tiff
+PASS: build input belongs to checkout: Resources/Images/greyscrollervertfill.tiff
+PASS: build input exists: Resources/Images/TransparentButtonFillP.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonFillP.tiff
+PASS: build input exists: Resources/Images/TransparentButtonLeftP.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonLeftP.tiff
+PASS: build input exists: Resources/Localization/en.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Localization/de.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Localization/fr.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Localization/pt-PT.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Localization/it.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Localization/zh.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/Excruciatingly Useful Shortcuts.nvhelp
+PASS: build input exists: Resources/Images/TransparentButtonRightP.tiff
+PASS: build input belongs to checkout: Resources/Images/TransparentButtonRightP.tiff
+PASS: build input exists: Resources/Images/TabClose_Front_Rollover.tif
+PASS: build input belongs to checkout: Resources/Images/TabClose_Front_Rollover.tif
+PASS: build input exists: Resources/Images/TransparentScrollerKnobBottom.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerKnobBottom.tif
+PASS: build input exists: Resources/Images/TransparentScrollerKnobVerticalFill.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerKnobVerticalFill.tif
+PASS: build input exists: Resources/Images/TransparentScrollerSlotTop.tif
+PASS: build input belongs to checkout: Resources/Images/TransparentScrollerSlotTop.tif
+PASS: build input exists: Resources/Images/IBeamInverted.png
+PASS: build input belongs to checkout: Resources/Images/IBeamInverted.png
+PASS: build input exists: Resources/Images/ListDividerDrag.png
+PASS: build input belongs to checkout: Resources/Images/ListDividerDrag.png
+PASS: build input exists: Resources/Images/TBRolloverBG.png
+PASS: build input belongs to checkout: Resources/Images/TBRolloverBG.png
+PASS: build input exists: Resources/Images/PTKeyboardIcon.tiff
+PASS: build input belongs to checkout: Resources/Images/PTKeyboardIcon.tiff
+PASS: build input exists: Resources/Images/PasswordAssistantButton.tif
+PASS: build input belongs to checkout: Resources/Images/PasswordAssistantButton.tif
+PASS: build input exists: Resources/Images/PasswordAssistantButtonPressed.tif
+PASS: build input belongs to checkout: Resources/Images/PasswordAssistantButtonPressed.tif
+PASS: build input exists: Resources/Images/SplitViewDimple2.tif
+PASS: build input belongs to checkout: Resources/Images/SplitViewDimple2.tif
+PASS: build input exists: Resources/Images/Editing.tiff
+PASS: build input belongs to checkout: Resources/Images/Editing.tiff
+PASS: build input exists: Resources/Images/Notes.tiff
+PASS: build input belongs to checkout: Resources/Images/Notes.tiff
+PASS: build input exists: Resources/Images/General.tiff
+PASS: build input belongs to checkout: Resources/Images/General.tiff
+PASS: build input exists: Resources/Images/Add_Pressed.tiff
+PASS: build input belongs to checkout: Resources/Images/Add_Pressed.tiff
+PASS: build input exists: Resources/Images/Remove_Pressed.tiff
+PASS: build input belongs to checkout: Resources/Images/Remove_Pressed.tiff
+PASS: build input exists: Resources/Images/Remove.tiff
+PASS: build input belongs to checkout: Resources/Images/Remove.tiff
+PASS: build input exists: Resources/Images/MakeDefault.tiff
+PASS: build input belongs to checkout: Resources/Images/MakeDefault.tiff
+PASS: build input exists: Resources/Images/DFCapRightInactive.png
+PASS: build input belongs to checkout: Resources/Images/DFCapRightInactive.png
+PASS: build input exists: Resources/Images/DFCapRight.png
+PASS: build input belongs to checkout: Resources/Images/DFCapRight.png
+PASS: build input exists: Resources/Images/DFCapLeftRounded.png
+PASS: build input belongs to checkout: Resources/Images/DFCapLeftRounded.png
+PASS: build input exists: Resources/Images/Search.png
+PASS: build input belongs to checkout: Resources/Images/Search.png
+PASS: build input exists: Resources/Images/ClearPressed.tif
+PASS: build input belongs to checkout: Resources/Images/ClearPressed.tif
+PASS: build input exists: Resources/Images/LinkBack.tif
+PASS: build input belongs to checkout: Resources/Images/LinkBack.tif
+PASS: build input exists: Resources/Images/SnapBack.tif
+PASS: build input belongs to checkout: Resources/Images/SnapBack.tif
+PASS: build input exists: Resources/Localization/de.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/fr.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/pt-PT.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/it.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/zh.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/en.lproj/Localizable.strings
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/Localizable.strings
+PASS: build input exists: Resources/Localization/de.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/fr.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/it.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/zh.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/pt-PT.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/en.lproj/CarbonErrorStrings.plist
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/CarbonErrorStrings.plist
+PASS: build input exists: Resources/Localization/de.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/it.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/zh.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/en.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/fr.lproj/DeletionManager.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/DeletionManager.nib
+PASS: build input exists: Resources/Localization/de.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/it.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/zh.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/en.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/fr.lproj/EncodingsManager.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/EncodingsManager.nib
+PASS: build input exists: Resources/Localization/de.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/it.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/zh.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/en.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/fr.lproj/Preferences.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/Preferences.xib
+PASS: build input exists: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: build input exists: Resources/Images/Notality.icns
+PASS: build input belongs to checkout: Resources/Images/Notality.icns
+PASS: build input exists: Resources/Images/nvMenuDark.png
+PASS: build input belongs to checkout: Resources/Images/nvMenuDark.png
+PASS: build input exists: ThirdParty/ODBEditor/LICENSE.txt
+PASS: build input belongs to checkout: ThirdParty/ODBEditor/LICENSE.txt
+PASS: build input exists: Resources/Localization/en.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/de.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/fr.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/pt-PT.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/it.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/zh.lproj/This is the title of a note.nvhelp
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/This is the title of a note.nvhelp
+PASS: build input exists: Resources/Localization/de.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/zh.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/it.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/en.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/fr.lproj/PassphraseChanger.nib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/PassphraseChanger.nib
+PASS: build input exists: Resources/Localization/de.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/it.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/zh.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/en.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/fr.lproj/PassphraseRetriever.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/PassphraseRetriever.xib
+PASS: build input exists: Resources/Localization/zh.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/zh.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Localization/de.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/de.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Localization/it.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/it.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Localization/pt-PT.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/pt-PT.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Localization/fr.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/fr.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Localization/en.lproj/PTKeyComboPanel.xib
+PASS: build input belongs to checkout: Resources/Localization/en.lproj/PTKeyComboPanel.xib
+PASS: build input exists: Resources/Images/Add.tiff
+PASS: build input belongs to checkout: Resources/Images/Add.tiff
+PASS: build input exists: Resources/Images/Clear@2x.tif
+PASS: build input belongs to checkout: Resources/Images/Clear@2x.tif
+PASS: build input exists: Resources/Images/ClearPressed@2x.tif
+PASS: build input belongs to checkout: Resources/Images/ClearPressed@2x.tif
+PASS: build input exists: Resources/Images/DFCapLeftRounded@2x.png
+PASS: build input belongs to checkout: Resources/Images/DFCapLeftRounded@2x.png
+PASS: build input exists: Resources/Images/DFCapLeftRoundedInactive@2x.png
+PASS: build input belongs to checkout: Resources/Images/DFCapLeftRoundedInactive@2x.png
+PASS: build input exists: Resources/Images/DFCapRight@2x.png
+PASS: build input belongs to checkout: Resources/Images/DFCapRight@2x.png
+PASS: build input exists: Resources/Images/DFCapRightInactive@2x.png
+PASS: build input belongs to checkout: Resources/Images/DFCapRightInactive@2x.png
+PASS: build input exists: Resources/Images/Pencil@2x.png
+PASS: build input belongs to checkout: Resources/Images/Pencil@2x.png
+PASS: build input exists: Resources/Images/Search@2x.png
+PASS: build input belongs to checkout: Resources/Images/Search@2x.png
+PASS: build input exists: Resources/Images/LinkBack@2x.tif
+PASS: build input belongs to checkout: Resources/Images/LinkBack@2x.tif
+PASS: build input exists: Resources/Images/LinkBackPressed@2x.tif
+PASS: build input belongs to checkout: Resources/Images/LinkBackPressed@2x.tif
+PASS: build input exists: Resources/Images/SnapBack@2x.tif
+PASS: build input belongs to checkout: Resources/Images/SnapBack@2x.tif
+PASS: build input exists: Resources/Images/SnapBackPressed@2x.tif
+PASS: build input belongs to checkout: Resources/Images/SnapBackPressed@2x.tif
+PASS: build input exists: Resources/Images/TBMousedownBG@2x.png
+PASS: build input belongs to checkout: Resources/Images/TBMousedownBG@2x.png
+PASS: build input exists: Resources/Images/TBRolloverBG@2x.png
+PASS: build input belongs to checkout: Resources/Images/TBRolloverBG@2x.png
+PASS: build input exists: ThirdParty/MultiMarkdown/multimarkdown
+PASS: build input belongs to checkout: ThirdParty/MultiMarkdown/multimarkdown
+PASS: build phases contain no removed sync input
+PASS: all 16 removed sync images are absent from built app
+PASS: positive control: old executable contains class SimplenoteSession
+PASS: removed class absent from executable: SimplenoteSession
+PASS: positive control: old executable contains class SimplenoteEntryCollector
+PASS: removed class absent from executable: SimplenoteEntryCollector
+PASS: positive control: old executable contains class SyncResponseFetcher
+PASS: removed class absent from executable: SyncResponseFetcher
+PASS: positive control: old executable contains class SyncSessionController
+PASS: removed class absent from executable: SyncSessionController
+PASS: positive control: old executable contains sync-manager category method
+PASS: sync-manager category methods absent from executable
+PASS: removed direct framework dependency: SystemConfiguration
+PASS: removed direct framework dependency: IOKit
+PASS: compiled dependency records available
+PASS: 102 compiled dependency records do not require sync configuration
+PASS: CI no longer copies a removed config
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/de.lproj/NotationPrefsView.xib
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/en.lproj/NotationPrefsView.xib
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/fr.lproj/NotationPrefsView.xib
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/it.lproj/NotationPrefsView.xib
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/pt-PT.lproj/NotationPrefsView.xib
+PASS: retained connections have unchanged targets and IDs: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: only retired sync connections were removed: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: all connection destinations resolve: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: negative control: dangling outlet mutation is rejected: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: only Storage/Security tabs remain: Resources/Localization/zh.lproj/NotationPrefsView.xib
+PASS: six localized prefs XIBs are target resources
+PASS: 710 integration assertions; 331 build inputs; 102 compiler records; six-locale native manifest generated

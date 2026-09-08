@@ -1,0 +1,14 @@
+2026-09-08 13:02:16.667 nvALT[29047:325678939] PASS: temporary library directory exists
+2026-09-08 13:02:16.668 nvALT[29047:325678939] PASS: temporary library opens
+2026-09-08 13:02:16.993 nvALT[29047:325678939] PASS: fixture producer is an app with Simplenote support
+2026-09-08 13:02:16.993 nvALT[29047:325678939] PASS: fixture uses the old app's registered Simplenote service identifier
+2026-09-08 13:02:16.994 nvALT[29047:325678939] PASS: old app recognizes the enabled fixture account before archiving
+2026-09-08 13:02:16.994 nvALT[29047:325678939] PASS: live note has recognized pending upload metadata before archiving
+2026-09-08 13:02:16.994 nvALT[29047:325678939] PASS: tombstone has recognized pending deletion metadata before archiving
+2026-09-08 13:02:16.995 nvALT[29047:325678939] PASS: old app reads back the live note and deletion tombstone
+2026-09-08 13:02:16.995 nvALT[29047:325678939] PASS: old app recognizes the archived account as enabled
+2026-09-08 13:02:16.995 nvALT[29047:325678939] PASS: archived note retains recognized pending upload metadata
+2026-09-08 13:02:16.995 nvALT[29047:325678939] PASS: archived tombstone retains recognized pending deletion metadata
+2026-09-08 13:02:16.996 nvALT[29047:325678939] PASS: pre-removal app writes the legacy local library fixture
+2026-09-08 13:02:16.996 nvALT[29047:325678939] LEGACY FIXTURE GENERATED: 4233 bytes
+2026-09-08 13:02:16.996 nvALT[29047:325678939] LEGACY FIXTURE PRODUCER CHECKS PASSED: 12
