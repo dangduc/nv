@@ -138,6 +138,8 @@
     [editor doCommandBySelector:@selector(cancelOperation:)]; Pump();
 }
 
+#include "top-section-checks.inc"
+
 - (void)nv_runTests {
     @try {
         NVApplicationController *app = [NVApplicationController sharedController];
@@ -151,6 +153,9 @@
         [peer searchForString:@"Beta"]; [peer revealNote:beta options:0]; Pump();
         [window makeKeyAndOrderFront:self]; Pump();
         NSString *probe = [NSString stringWithUTF8String:getenv("NV_NATIVE_CONTROLS_PROBE") ?: "all"];
+        // Exercise View before the Search group customizes the native toolbar.
+        if ([probe isEqual:@"all"] || [probe isEqual:@"view"])
+            [self nv_checkViewMenuWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"search"]) {
             [self nv_checkSearchCommandWithQuery:@"al" note:alpha];
             [self nv_checkSearchCommandWithQuery:@"No matching note" note:nil];
@@ -189,7 +194,7 @@
             Check(![noteTagsField isEnabled] && ![noteTagsField currentEditor] && [library totalNoteCount] == count,
                 @"Tag Note without a selection does not begin metadata editing or create a note");
         }
-        Check([library totalNoteCount] == 2, @"control commands do not create notes");
+        Check([library totalNoteCount] == 2, @"control commands leave no extra notes");
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
         NSColor *listColor = [[notesTableView backgroundColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
         Check([listColor whiteComponent] > .99, @"native controls retain the white notes list");

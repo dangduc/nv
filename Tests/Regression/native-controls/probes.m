@@ -14,6 +14,8 @@
 #import "GlobalPrefs.h"
 #import "NSFileManager_NV.h"
 #import "ODBEditor.h"
+#import "PreviewController.h"
+#import "ETNoteScrollView.h"
 
 static NSString *TestDirectory;
 static NSUInteger Checks;

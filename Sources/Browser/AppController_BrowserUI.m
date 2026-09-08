@@ -12,6 +12,7 @@
 #import "EmptyView.h"
 #import "NSString_NV.h"
 #import "WordCountToken.h"
+#import "PreviewController.h"
 
 // Receive appearance changes on the view whose window supplies the appearance.
 @interface NVBrowserContentView : NSView
@@ -55,6 +56,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     NSSplitViewItem *listItem = [NSSplitViewItem splitViewItemWithViewController:listController];
     [listItem setMinimumThickness:84];
     [listItem setCanCollapse:NO];
+    [listItem setCollapseBehavior:NSSplitViewItemCollapseBehaviorPreferResizingSiblingsWithFixedSplitView];
     [listItem setHoldingPriority:251];
     NSSplitViewItem *editorItem = [NSSplitViewItem splitViewItemWithViewController:editorController];
     [editorItem setMinimumThickness:212];
@@ -133,20 +135,47 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [splitSubview addSubview:wordCounter];
     [wordCounter release];
     [self setupBodyPresentation];
-    [noteTitleField setNextKeyView:noteTagsField];
-    [noteTagsField setNextKeyView:textView];
+    [prefsController registerWithTarget:self forChangesInSettings:
+        @selector(setShowTitleInTopSection:sender:), @selector(setShowTagsInTopSection:sender:),
+        @selector(setShowBodyControlsInTopSection:sender:), @selector(setShowNotesList:sender:),
+        @selector(setShowWordCount:), nil];
     pendingListHeight = NSHeight([mainView bounds]) / 3.0;
+    [self updateNotesListVisibility];
     [self performSelector:@selector(restoreNotesListHeight) withObject:nil afterDelay:0];
 }
 
-- (CGFloat)notesListHeight { return NSHeight([notesSubview frame]); }
+- (CGFloat)notesListHeight {
+    return [[[browserSplitController splitViewItems] firstObject] isCollapsed] ? pendingListHeight : NSHeight([notesSubview frame]);
+}
 - (void)restoreNotesListHeight { [self setNotesListHeight:pendingListHeight]; }
 - (void)setNotesListHeight:(CGFloat)height {
     if (!isfinite(height)) return;
     [mainView layoutSubtreeIfNeeded];
     CGFloat maximum = MAX(84, NSHeight([splitView bounds]) - 212 - [splitView dividerThickness]);
-    [splitView setPosition:MIN(maximum, MAX(84, height)) ofDividerAtIndex:0];
+    pendingListHeight = MIN(maximum, MAX(84, height));
+    if ([[[browserSplitController splitViewItems] firstObject] isCollapsed]) return;
+    [splitView setPosition:pendingListHeight ofDividerAtIndex:0];
     [mainView layoutSubtreeIfNeeded];
+}
+
+- (void)updateNotesListVisibility {
+    NSSplitViewItem *item = [[browserSplitController splitViewItems] firstObject];
+    BOOL show = [prefsController showNotesList];
+    if (!item || [item isCollapsed] == !show) return;
+    if (!show) {
+        pendingListHeight = [self notesListHeight];
+        NSResponder *responder = [window firstResponder];
+        if ([responder isKindOfClass:[NSView class]] && [(NSView *)responder isDescendantOf:notesSubview]) {
+            if (currentNote) [self focusNoteBody];
+            else [window makeFirstResponder:field];
+        }
+    }
+    [item setCollapsed:!show];
+    [mainView layoutSubtreeIfNeeded];
+    if (show) [self restoreNotesListHeight];
+}
+- (IBAction)toggleNotesList:(id)sender {
+    [prefsController setShowNotesList:![prefsController showNotesList] sender:nil];
 }
 
 - (void)updateNoteHeader {
@@ -156,6 +185,72 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [noteTagsField setEnabled:currentNote != nil];
     [window setTitle:currentNote ? titleOfNote(currentNote) : @"nvALT"];
     [toolbar validateVisibleItems];
+}
+
+- (void)layoutNoteHeader {
+    if (!noteTitleField || !bodyModeControl) return;
+    BOOL showTitle = [prefsController showTitleInTopSection];
+    BOOL showTags = [prefsController showTagsInTopSection];
+    BOOL showControls = [prefsController showBodyControlsInTopSection];
+    BOOL hidingMetadata = (metadataControl == noteTitleField && !showTitle) ||
+        (metadataControl == noteTagsField && !showTags);
+    NSResponder *responder = [window firstResponder];
+    BOOL hidingFocusedControl = (!showTitle && (responder == noteTitleField || [noteTitleField currentEditor])) ||
+        (!showTags && (responder == noteTagsField || [noteTagsField currentEditor])) ||
+        (!showControls && (responder == bodyModeControl || responder == sourceSyntaxControl || responder == viewerTypeControl));
+    // Finish the field editor before its control disappears, including edits in
+    // another browser that receives this shared preference change.
+    if (hidingMetadata) [self commitNoteMetadata];
+    if (hidingMetadata || hidingFocusedControl) [self focusNoteBody];
+
+    [noteTitleField setHidden:!showTitle];
+    [noteTagsField setHidden:!showTags];
+    [bodyModeControl setHidden:!showControls];
+    [sourceSyntaxControl setHidden:!showControls || viewingNote];
+    [viewerTypeControl setHidden:!showControls || !viewingNote];
+
+    NSRect bounds = [splitSubview bounds];
+    CGFloat width = NSWidth(bounds), height = NSHeight(bounds), used = 8;
+    BOOL hasRow = showTitle || ![wordCounter isHidden];
+    if (hasRow) {
+        used += 24;
+        [noteTitleField setFrame:NSMakeRect(14, height - used, width - ([wordCounter isHidden] ? 28 : 150), 24)];
+        [wordCounter setFrame:NSMakeRect(width - 130, height - used, 116, 24)];
+    }
+    if (showTags) {
+        used += (hasRow ? 5 : 0) + 20;
+        [noteTagsField setFrame:NSMakeRect(14, height - used, width - 28, 20)];
+        hasRow = YES;
+    }
+    if (showControls) {
+        used += (hasRow ? 7 : 0) + 24;
+        [bodyModeControl setFrameOrigin:NSMakePoint(14, height - used)];
+        [sourceSyntaxControl setFrameOrigin:NSMakePoint(178, height - used)];
+        [viewerTypeControl setFrame:[sourceSyntaxControl frame]];
+        hasRow = YES;
+    }
+    CGFloat headerHeight = hasRow ? used + 8 : 0;
+    NSRect bodyFrame = NSMakeRect(0, 0, width, MAX(0, height - headerHeight));
+    [textScrollView setFrame:bodyFrame];
+    [editorStatusView setFrame:bodyFrame];
+    [[previewController view] setFrame:bodyFrame];
+    NSView *body = viewingNote && currentNote ? [previewController webView] : (NSView *)textView;
+    [noteTitleField setNextKeyView:showTags ? noteTagsField : body];
+    [noteTagsField setNextKeyView:body];
+    [bodyModeControl setNextKeyView:viewingNote ? viewerTypeControl : sourceSyntaxControl];
+    [sourceSyntaxControl setNextKeyView:body];
+    [viewerTypeControl setNextKeyView:body];
+    [splitSubview setNeedsDisplay:YES];
+}
+
+- (IBAction)toggleTitleInTopSection:(id)sender {
+    [prefsController setShowTitleInTopSection:![prefsController showTitleInTopSection] sender:nil];
+}
+- (IBAction)toggleTagsInTopSection:(id)sender {
+    [prefsController setShowTagsInTopSection:![prefsController showTagsInTopSection] sender:nil];
+}
+- (IBAction)toggleBodyControlsInTopSection:(id)sender {
+    [prefsController setShowBodyControlsInTopSection:![prefsController showBodyControlsInTopSection] sender:nil];
 }
 
 - (void)beginNoteMetadataEditing:(NSTextField *)control {
@@ -212,7 +307,8 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [[self browserSession] filterNotesFromString:@""];
     [self createNoteIfNecessary];
     [self updateNoteHeader];
-    [noteTitleField selectText:self];
+    if ([prefsController showTitleInTopSection]) [noteTitleField selectText:self];
+    else [self focusNoteBody];
 }
 - (IBAction)createNoteFromSearch:(id)sender {
     [self fieldAction:sender];

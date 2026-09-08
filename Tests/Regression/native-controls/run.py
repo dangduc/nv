@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise Search, Tab, and tag completion in an isolated native browser."""
+"""Exercise native commands and shared view controls in an isolated browser."""
 import argparse
 import fcntl
 import os
@@ -17,7 +17,7 @@ from compiler_support import include_flags
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
-parser.add_argument('--probe', choices=['all', 'search', 'tab', 'tags'], default='all')
+parser.add_argument('--probe', choices=['all', 'search', 'tab', 'tags', 'view'], default='all')
 arguments = parser.parse_args()
 if not arguments.app.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')

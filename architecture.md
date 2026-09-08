@@ -172,6 +172,17 @@ The search field holds a query independently of the selected note's title.
 Title and tag controls commit through the editing session and retain the original target note during an edit.
 New Note creates a blank note. Creation from search uses the query as the title.
 
+The View menu controls visibility for the notes list, title, tags, and body controls.
+These application preferences apply to all browser windows and persist across launches.
+Hidden header rows release their space to the body. Word Count retains its separate visibility setting.
+
+Hiding a metadata field commits its pending edit before moving focus to the body.
+Rename and Tags reveal their fields. New Note focuses the source when the title is hidden.
+The notes list collapses within the existing window frame and retains each window's expanded height for restoration.
+
+Show Source/Show Preview and the checked Syntax Type submenu remain available when the body controls are hidden.
+These commands use the active browser. Syntax remains a local property of the selected note, independent of its preview format.
+
 Search commands restore the toolbar and complete window layout before they focus the field.
 A search field with enough editing width receives focus directly.
 A hidden or compressed field uses the native toolbar expansion.

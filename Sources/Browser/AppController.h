@@ -236,6 +236,7 @@ void outletObjectAwoke(id sender);
 @interface AppController (Preview)
 - (void)ensurePreviewIsVisible;
 - (IBAction)togglePreview:(id)sender;
+- (IBAction)toggleSourcePreview:(id)sender;
 - (IBAction)toggleSourceView:(id)sender;
 - (IBAction)savePreview:(id)sender;
 - (IBAction)printPreview:(id)sender;
@@ -275,6 +276,12 @@ void outletObjectAwoke(id sender);
 @interface AppController (BrowserUI)
 - (void)setupBrowserContent;
 - (void)updateNoteHeader;
+- (void)layoutNoteHeader;
+- (IBAction)toggleTitleInTopSection:(id)sender;
+- (IBAction)toggleTagsInTopSection:(id)sender;
+- (IBAction)toggleBodyControlsInTopSection:(id)sender;
+- (IBAction)toggleNotesList:(id)sender;
+- (void)updateNotesListVisibility;
 - (void)commitNoteMetadata;
 - (void)beginNoteMetadataEditing:(NSTextField *)control;
 - (void)cancelNoteMetadataEditing;
