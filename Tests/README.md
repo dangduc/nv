@@ -23,14 +23,28 @@ The suite exercises real nibs and Cocoa editors. It checks independent search, s
 
 ## Review regression checks
 
-The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
+The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. The source redesign has a [validation record](SourceViewerReview/VALIDATION.md). Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
 
 ## Native dependency replacements
 
 Run `python3 Tests/Regression/native-dependencies/run.py` after a Development build.
-The copied app checks JSON requests and responses, detected links, disabled imports, updater removal, and sharing popover ownership.
+The copied app checks JSON requests and responses, detected links, disabled imports, updater removal, and removal of legacy preview commands.
 Network fetches are blocked. Clipboard writes use a private test pasteboard.
-Set `NV_DEPENDENCY_SCREENSHOTS` to an absolute PNG path to capture the result popover.
+
+## Source and viewer checks
+
+The aggregate regression command also runs the following suites:
+
+| Suite | Coverage |
+| --- | --- |
+| `source-highlighting/run.py` | Pinned parsers, UTF-16 ranges, incremental parsing, work limits, stale results, and temporary TextKit attributes. |
+| `source-storage/run.py` | Original bytes, encodings, BOM, line endings, archive reopen, local syntax, and source export. |
+| `source-viewers/run.py` | Immutable snapshots, conversion, inert HTML, helper errors, timeouts, and cancellation. |
+| `source-viewers/run-viewer.py` | Native WK viewer, local assets, remote blocking, Find, scroll, replacement, and teardown. |
+| `source-workflow/run.py` | Real Source/Preview controls, shared edits, composition, independent syntax, and restoration. |
+
+Set `NV_UI_ARTIFACTS` to an output directory when running `source-workflow/run.py` to capture the source and preview controls.
+`preview-lifetime/run.py` checks lazy allocation and resource release for both Source-only and rendered browser windows.
 
 ## Native browser UI
 

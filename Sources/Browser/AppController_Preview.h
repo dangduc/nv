@@ -8,9 +8,3 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AppController.h"
-
-@interface AppController (Preview)
-
--(NSString *)noteContent;
--(NSInteger)currentPreviewMode;
-@end

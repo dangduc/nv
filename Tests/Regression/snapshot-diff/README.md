@@ -19,4 +19,6 @@ Each generated hunk must be in bounds and in reverse nonoverlapping order. Apply
 
 Instrumentation counts character accesses and requested trace-buffer bytes without changing the helper body. The work-limit fixture contains 1,000,003 UTF-16 units and falls back after 1,999,990 character reads. The largest trace allocation is 2,117,680 bytes; each call releases it. The runner also enforces a 45-second process timeout and checks that the helper source stayed unchanged during execution.
 
-Final validation passed all 36,136 cases for helper SHA-256 `fb895681a945655cc35cf251e77530f93b66ff1b1ecd69cb02a6c5ddb9a50b70`. This validates text reconstruction and the observed allocation/work bounds. Cocoa selection behavior and attributed-text application have separate integration tests.
+Validation passes all 36,136 cases for helper SHA-256 `fb895681a945655cc35cf251e77530f93b66ff1b1ecd69cb02a6c5ddb9a50b70`.
+This validates source reconstruction and the observed allocation/work bounds.
+The selections integration suite checks Cocoa selection behavior and removal of authored rich attributes from source snapshots.

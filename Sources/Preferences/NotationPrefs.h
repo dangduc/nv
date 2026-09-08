@@ -24,6 +24,7 @@ including encryption, file formats, synchronization, passwords management, and o
 
 #define EPOC_ITERATION 4
 
+// Values after PlainTextFormat are reserved for decoding older archives.
 enum { SingleDatabaseFormat = 0, PlainTextFormat, RTFTextFormat, HTMLFormat, WordDocFormat, WordXMLFormat };
 
 extern NSString *NotationPrefsDidChangeNotification;
@@ -34,6 +35,8 @@ extern NSString *NotationPrefsDidChangeNotification;
 	
 	//password(s) stored in keychain or otherwise encrypted using notes password
 	NSMutableDictionary *syncServiceAccounts;
+	// Local source metadata is part of the library archive, never sync service data.
+	NSMutableDictionary *sourceMetadataByNoteUUID;
 	
 	unsigned int hashIterationCount, keyLengthInBits;
 	
@@ -66,6 +69,8 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 + (NSMutableArray*)defaultTypeStringsForFormat:(int)formatID;
 + (NSMutableArray*)defaultPathExtensionsForFormat:(int)formatID;
 - (BOOL)preferencesChanged;
+- (NSDictionary*)sourceMetadataForNoteUUID:(NSString*)noteUUID;
+- (void)setSourceMetadata:(NSDictionary*)metadata forNoteUUID:(NSString*)noteUUID;
 - (void)setForegroundTextColor:(NSColor*)aColor;
 - (NSColor*)foregroundColor;
 - (void)setBaseBodyFont:(NSFont*)aFont;

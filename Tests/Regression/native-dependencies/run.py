@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check native dependency replacements in a copied app with disposable notes and defaults."""
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -8,6 +9,10 @@ import shutil
 import subprocess
 import tempfile
 import uuid
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--compile-only', action='store_true', help='compile the harness without launching an app')
+args = parser.parse_args()
 
 repo = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(repo / "Tests"))
@@ -48,6 +53,9 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
         *include_flags(repo), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', str(dylib),
         str(harness)], check=True)
+    if args.compile_only:
+        print('PASS: native dependency harness compiles')
+        raise SystemExit(0)
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
     binary = app / 'Contents/MacOS' / info['CFBundleExecutable']
     arguments = [str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO',

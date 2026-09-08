@@ -81,7 +81,6 @@ static NSString *ShowGridKey = @"ShowGrid";
 static NSString *AlternatingRowsKey = @"AlternatingRows";
 static NSString *RTLKey = @"rtl";
 static NSString *ShowWordCount = @"ShowWordCount";
-static NSString *markupPreviewMode = @"markupPreviewMode";
 static NSString *UseAutoPairing = @"UseAutoPairing";
 static NSString *UseETScrollbarsOnLion = @"UseETScrollbarsOnLion";
 static NSString *UsesMarkdownCompletions = @"UsesMarkdownCompletions";
@@ -153,7 +152,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
             [NSNumber numberWithBool:YES],ShowDockIcon,
 			[NSNumber numberWithBool:NO], RTLKey,
             [NSNumber numberWithBool:YES], ShowWordCount,
-            [NSNumber numberWithInt:MultiMarkdownPreview], markupPreviewMode,
             [NSNumber numberWithBool:NO], ShowGridKey,
             [NSNumber numberWithBool:YES], AlternatingRowsKey,
             [NSNumber numberWithBool:NO], UseAutoPairing,
@@ -600,15 +598,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	
 	[defaults setObject:[NSArchiver archivedDataWithRootObject:noteBodyFont] forKey:NoteBodyFontKey]; 
 	
-	//restyle any PTF data on the clipboard to the new font
-	NSData *ptfData = [[NSPasteboard generalPasteboard] dataForType:NVPTFPboardType];
-	NSMutableAttributedString *newString = [[[NSMutableAttributedString alloc] initWithRTF:ptfData documentAttributes:nil] autorelease];
-	
-	[newString restyleTextToFont:noteBodyFont usingBaseFont:oldFont];
-	
-	if ((ptfData = [newString RTFFromRange:NSMakeRange(0, [newString length]) documentAttributes:nil])) {
-		[[NSPasteboard generalPasteboard] setData:ptfData forType:NVPTFPboardType];
-	}
 	[oldFont release];
 }
 

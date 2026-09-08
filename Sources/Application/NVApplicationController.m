@@ -89,10 +89,32 @@ AppController *NVControllerForView(NSView *view) {
         for (NSUInteger i = 0; i < [pending count]; i++) {
             NSMenu *candidate = pending[i];
             BOOL hasColors = NO, hasSystem = NO;
+            BOOL hasPreview = NO, hasViewerMenu = NO;
             for (NSMenuItem *item in [candidate itemArray]) {
                 if ([item submenu]) [pending addObject:[item submenu]];
                 if ([item action] == @selector(setBWColorScheme:)) hasColors = YES;
                 if ([item action] == @selector(setSystemColorScheme:)) hasSystem = YES;
+                if ([item action] == @selector(togglePreview:)) {
+                    hasPreview = YES;
+                    [item setTitle:NSLocalizedString(@"Toggle Preview", nil)];
+                }
+                if ([item action] == @selector(toggleSourceView:)) [item setTitle:NSLocalizedString(@"Show Source", nil)];
+                if ([item tag] == 24001) hasViewerMenu = YES;
+            }
+            // Only the main Preview menu contains Show Source. The status menu
+            // keeps its compact toggle without duplicate format submenus.
+            if (hasPreview && !hasViewerMenu && [candidate indexOfItemWithTarget:self andAction:@selector(toggleSourceView:)] >= 0) {
+                for (NSArray *spec in @[@[@"Preview Format", @"selectPreviewMode:", @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"]]],
+                                          @[@"Source Syntax", @"selectSourceSyntax:", @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"]]]]) {
+                    NSMenuItem *parent = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(spec[0], nil) action:NULL keyEquivalent:@""] autorelease];
+                    [parent setTag:24001];
+                    NSMenu *choices = [[[NSMenu alloc] initWithTitle:[parent title]] autorelease];
+                    for (NSArray *entry in spec[2]) {
+                        NSMenuItem *choice = [choices addItemWithTitle:NSLocalizedString(entry[0], nil) action:NSSelectorFromString(spec[1]) keyEquivalent:@""];
+                        [choice setTarget:self]; [choice setRepresentedObject:entry[1]];
+                    }
+                    [parent setSubmenu:choices]; [candidate addItem:parent];
+                }
             }
             if (hasColors && !hasSystem) {
                 NSMenuItem *system = [candidate addItemWithTitle:NSLocalizedString(@"Follow System Appearance", nil) action:@selector(setSystemColorScheme:) keyEquivalent:@""];
@@ -209,8 +231,8 @@ AppController *NVControllerForView(NSView *view) {
     return session;
 }
 - (void)reloadCachedEditingSessionsFromLibrary {
-    // Model restyling also affects cached notes that are absent from every editor.
-    // Each session defers its reload while an attached editor has marked text.
+    // Refresh the display font in cached sessions, including notes with no editor.
+    // Each session defers the refresh while an attached editor has marked text.
     for (NVNoteEditingSession *session in [editingSessions allValues]) [session reloadFromNote];
     [self scheduleBrowserRefresh];
 }

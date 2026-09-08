@@ -1,6 +1,6 @@
 # README screenshots
 
-These images show the Development app from revision `379f09a`, captured on September 7, 2026.
+The original three images show the Development app from revision `379f09a`, captured on September 7, 2026.
 The host ran macOS 13.7.8 with Xcode 15.2. The Intel app ran under Rosetta.
 
 - `native-light.png` shows the full library in light appearance.
@@ -11,7 +11,20 @@ All notes are sample content. The capture used a temporary library and a separat
 The capture skipped sync, update checks, and external editor initialization.
 The images contain native app windows without annotations or changes to the pixels.
 
-## Refresh the images
+`source-editor.png` and `readonly-viewer.png` show the source redesign on September 8, 2026.
+The host ran macOS 26.5.2 with Xcode 26.6 and SDK 26.5. The Intel app ran under Rosetta.
+The `source-workflow` regression suite captured the native window after its next frame was presented.
+These images contain disposable source fixtures, with no annotations or pixel changes.
+
+To refresh this pair after a Development build:
+
+```sh
+NV_UI_ARTIFACTS="$PWD/build/source-viewer-artifacts" python3 Tests/Regression/source-workflow/run.py
+```
+
+Inspect `editable-source.png` and `readonly-preview.png` in that output directory before replacing the two documentation images.
+
+## Refresh the original images
 
 1. Build the app with the command in the [main README](../../README.markdown#build-and-run).
 2. Use a disposable library with sample notes.

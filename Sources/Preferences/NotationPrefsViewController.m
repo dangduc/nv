@@ -83,6 +83,10 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 
 - (void)awakeFromNib {
     didAwakeFromNib = YES;
+	NSArray *formatItems = [[[storageFormatPopupButton itemArray] copy] autorelease];
+	for (NSMenuItem *item in formatItems) {
+		if ([item tag] != SingleDatabaseFormat && [item tag] != PlainTextFormat) [storageFormatPopupButton removeItem:item];
+	}
     [allowedExtensionsTable setDataSource:self];
     [allowedTypesTable setDataSource:self];
     [allowedExtensionsTable setDelegate:self];
@@ -460,7 +464,7 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 		NSDictionary *login = [NSDictionary dictionaryWithObjectsAndKeys:
 							   [syncAccountField stringValue], @"username", [syncPasswordField stringValue], @"password", nil];
 
-		loginVerifier = [[SyncResponseFetcher alloc] initWithURL:loginURL POSTData:[[login jsonStringValue] dataUsingEncoding:NSUTF8StringEncoding] headers:headers contentType:@"application/json" delegate:self];
+		loginVerifier = [[SyncResponseFetcher alloc] initWithURL:loginURL POSTData:[NSJSONSerialization dataWithJSONObject:login options:0 error:NULL] headers:headers contentType:@"application/json" delegate:self];
 
 		[loginVerifier start];
 		[self setVerificationStatus:VERIFY_IN_PROGRESS withString:@""];
@@ -561,9 +565,7 @@ enum {VERIFY_NOT_ATTEMPTED, VERIFY_FAILED, VERIFY_IN_PROGRESS, VERIFY_SUCCESS};
 		
 		[picker showAroundWindow:[view window] resultDelegate:self];
 	} else {
-		NSString *formatStrings[] = { NSLocalizedString(@"(WHAT??)",@"user shouldn't see this"), 
-			NSLocalizedString(@"plain text",nil), NSLocalizedString(@"rich text",nil), NSLocalizedString(@"HTML",nil) };
-		NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"Your notes are currently stored as %@ files on disk, but encryption requires a single database. Switch to a database format?",nil), formatStrings[format]]
+		NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Your notes are currently stored as plain text files on disk, but encryption requires a single database. Switch to a database format?",nil)
 										 defaultButton:NSLocalizedString(@"Use a single database file",nil) alternateButton:NSLocalizedString(@"Cancel",nil) otherButton:nil
 							 informativeTextWithFormat:NSLocalizedString(@"Notational Velocity supports encryption only for notes stored in a database file.",nil)];
 		

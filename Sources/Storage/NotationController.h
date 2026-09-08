@@ -128,6 +128,7 @@ typedef struct _NoteCatalogEntry {
 - (void)databaseEncryptionSettingsChanged;
 - (void)databaseSettingsChangedFromOldFormat:(NSInteger)oldFormat;
 
+- (NSURL *)notesDirectoryURL;
 - (NSInteger)currentNoteStorageFormat;
 - (void)synchronizeNoteChanges:(NSTimer*)timer;
 

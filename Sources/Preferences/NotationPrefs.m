@@ -39,6 +39,10 @@
 
 NSString *NotationPrefsDidChangeNotification = @"NotationPrefsDidChangeNotification";
 
+static BOOL NVUnsupportedSourceExtension(NSString *extension) {
+	return [extension length] && [@[@"rtf", @"rtfd", @"rtx", @"html", @"htm", @"shtml", @"xhtml", @"xht", @"webarchive", @"doc", @"docx", @"pdf", @"nvhelp"] containsObject:[extension lowercaseString]];
+}
+
 @implementation NotationPrefs
 
 NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serviceName) {
@@ -65,6 +69,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 		confirmFileDeletion = YES;
 		storesPasswordInKeychain = secureTextEntry = doesEncryption = NO;
 		syncServiceAccounts = [[NSMutableDictionary alloc] init];
+		sourceMetadataByNoteUUID = [[NSMutableDictionary alloc] init];
 		seenDiskUUIDEntries = [[NSMutableArray alloc] init];
 		notesStorageFormat = SingleDatabaseFormat;
 		hashIterationCount = DEFAULT_HASH_ITERATIONS;
@@ -94,6 +99,13 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 		
 		epochIteration = [decoder decodeInt32ForKey:VAR_STR(epochIteration)];
 		notesStorageFormat = [decoder decodeIntForKey:VAR_STR(notesStorageFormat)];
+		// Old document files remain untouched. Only archived characters remain supported.
+		if (notesStorageFormat != SingleDatabaseFormat && notesStorageFormat != PlainTextFormat) {
+			notesStorageFormat = SingleDatabaseFormat;
+			preferencesChanged = YES;
+		}
+		id localMetadata = [decoder decodeObjectForKey:VAR_STR(sourceMetadataByNoteUUID)];
+		sourceMetadataByNoteUUID = [localMetadata isKindOfClass:[NSDictionary class]] ? [localMetadata mutableCopy] : [[NSMutableDictionary alloc] init];
 		doesEncryption = [decoder decodeBoolForKey:VAR_STR(doesEncryption)];
 		storesPasswordInKeychain = [decoder decodeBoolForKey:VAR_STR(storesPasswordInKeychain)];
 		secureTextEntry = [decoder decodeBoolForKey:VAR_STR(secureTextEntry)];
@@ -188,6 +200,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 	}
 	
 	[coder encodeObject:[self syncServiceAccountsForArchiving] forKey:VAR_STR(syncServiceAccounts)];
+	[coder encodeObject:sourceMetadataByNoteUUID forKey:VAR_STR(sourceMetadataByNoteUUID)];
 	
 	[coder encodeObject:keychainDatabaseIdentifier forKey:VAR_STR(keychainDatabaseIdentifier)];
 	
@@ -200,6 +213,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 
 
 - (void)dealloc {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     unsigned int i;
     for (i=0; i<4; i++) {
@@ -210,6 +224,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 	free(allowedTypes);
 	
 	[syncServiceAccounts release];
+	[sourceMetadataByNoteUUID release];
 	[seenDiskUUIDEntries release];
 	[keychainDatabaseIdentifier release];
 	[baseBodyFont release];
@@ -219,44 +234,32 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 
 + (NSMutableArray*)defaultTypeStringsForFormat:(int)formatID {
-    switch (formatID) {
-	case SingleDatabaseFormat:
-	    return [NSMutableArray arrayWithCapacity:0];
-	case PlainTextFormat: 
-	    return [NSMutableArray arrayWithObjects:[(id)UTCreateStringForOSType(TEXT_TYPE_ID) autorelease], 
-			[(id)UTCreateStringForOSType(UTXT_TYPE_ID) autorelease], nil];
-	case RTFTextFormat: 
-	    return [NSMutableArray arrayWithObjects:[(id)UTCreateStringForOSType(RTF_TYPE_ID) autorelease], nil];
-	case HTMLFormat:
-	    return [NSMutableArray arrayWithObjects:[(id)UTCreateStringForOSType(HTML_TYPE_ID) autorelease], nil];
-	case WordDocFormat:
-		return [NSMutableArray arrayWithObjects:[(id)UTCreateStringForOSType(WORD_DOC_TYPE_ID) autorelease], nil];
-	default:
-	    NSLog(@"Unknown format ID: %d", formatID);
-    }
-    
-    return [NSMutableArray arrayWithCapacity:0];
+	if (formatID == PlainTextFormat) return [NSMutableArray arrayWithObjects:[(id)UTCreateStringForOSType(TEXT_TYPE_ID) autorelease], [(id)UTCreateStringForOSType(UTXT_TYPE_ID) autorelease], nil];
+	return [NSMutableArray array];
 }
 
 + (NSMutableArray*)defaultPathExtensionsForFormat:(int)formatID {
-    switch (formatID) {
-	case SingleDatabaseFormat:
-	    return [NSMutableArray arrayWithCapacity:0];
-	case PlainTextFormat: 
-	    return [NSMutableArray arrayWithObjects:@"txt", @"text", @"utf8", @"taskpaper", nil];
-	case RTFTextFormat: 
-	    return [NSMutableArray arrayWithObjects:@"rtf", nil];
-	case HTMLFormat:
-	    return [NSMutableArray arrayWithObjects:@"html", @"htm", nil];
-	case WordDocFormat:
-		return [NSMutableArray arrayWithObjects:@"doc", nil];
-	case WordXMLFormat:
-		return [NSMutableArray arrayWithObjects:@"docx", nil];
-	default:
-	    NSLog(@"Unknown format ID: %d", formatID);
-    }
-    
-    return [NSMutableArray arrayWithCapacity:0];
+	if (formatID == PlainTextFormat) return [NSMutableArray arrayWithObjects:@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv", nil];
+	return [NSMutableArray array];
+}
+
+- (NSDictionary*)sourceMetadataForNoteUUID:(NSString*)noteUUID {
+	id metadata = [sourceMetadataByNoteUUID objectForKey:noteUUID];
+	return [metadata isKindOfClass:[NSDictionary class]] ? metadata : nil;
+}
+
+- (void)setSourceMetadata:(NSDictionary*)metadata forNoteUUID:(NSString*)noteUUID {
+	if (![noteUUID length] || [[self sourceMetadataForNoteUUID:noteUUID] isEqual:metadata]) return;
+	if ([metadata count]) [sourceMetadataByNoteUUID setObject:[[metadata copy] autorelease] forKey:noteUUID];
+	else [sourceMetadataByNoteUUID removeObjectForKey:noteUUID];
+	preferencesChanged = YES;
+	// Saving library settings does not dirty the note or register a sync modification.
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(storeSourceMetadata) object:nil];
+	[self performSelector:@selector(storeSourceMetadata) withObject:nil afterDelay:0.2];
+}
+
+- (void)storeSourceMetadata {
+	if ([delegate respondsToSelector:@selector(flushAllNoteChanges)]) [delegate flushAllNoteChanges];
 }
 
 - (BOOL)preferencesChanged {
@@ -595,6 +598,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 
 - (void)setNotesStorageFormat:(NSInteger)formatID {
+	if (formatID != SingleDatabaseFormat && formatID != PlainTextFormat) return;
 	if (formatID != notesStorageFormat) {
 		NSInteger oldFormat = notesStorageFormat;
 		notesStorageFormat = formatID;	
@@ -880,28 +884,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 
 + (NSString*)pathExtensionForFormat:(NSInteger)format {
-    switch (format) {
-	case SingleDatabaseFormat:
-	case PlainTextFormat:
-	    
-	    return @"txt";
-	case RTFTextFormat:
-	    
-	    return @"rtf";
-	case HTMLFormat:
-	    
-	    return @"html";
-	case WordDocFormat:
-		
-		return @"doc";
-	case WordXMLFormat:
-		
-		return @"docx";
-	default:
-	    NSLog(@"storage format ID is unknown: %ld", format);
-    }
-    
-    return @"";
+	return (format == SingleDatabaseFormat || format == PlainTextFormat) ? @"txt" : @"";
 }
 
 //for our nstableview data source
@@ -929,7 +912,8 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 	return chosenExtIndices[notesStorageFormat];
 }
 - (NSString*)chosenPathExtensionForFormat:(NSInteger)format {
-	if (chosenExtIndices[format] >= [pathExtensions[format] count])
+	if (format != PlainTextFormat) return @"txt";
+	if (chosenExtIndices[format] >= [pathExtensions[format] count] || NVUnsupportedSourceExtension([pathExtensions[format] objectAtIndex:chosenExtIndices[format]]))
 		return [NotationPrefs pathExtensionForFormat:format];
 	
 	return [pathExtensions[format] objectAtIndex:chosenExtIndices[format]];
@@ -949,6 +933,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 - (void)addAllowedPathExtension:(NSString*)extension {
     
     NSString *actualExt = [extension stringAsSafePathExtension];
+	if (NVUnsupportedSourceExtension(actualExt)) return;
 	[pathExtensions[notesStorageFormat] addObject:actualExt];
 	
 	preferencesChanged = YES;
@@ -969,7 +954,8 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 - (BOOL)setChosenPathExtensionAtIndex:(NSUInteger)extensionIndex {
 	if ([pathExtensions[notesStorageFormat] count] > extensionIndex &&
-		[[pathExtensions[notesStorageFormat] objectAtIndex:extensionIndex] length]) {
+		[[pathExtensions[notesStorageFormat] objectAtIndex:extensionIndex] length] &&
+		!NVUnsupportedSourceExtension([pathExtensions[notesStorageFormat] objectAtIndex:extensionIndex])) {
 		chosenExtIndices[notesStorageFormat] = extensionIndex;
 		
 		preferencesChanged = YES;
@@ -998,6 +984,7 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 
 - (BOOL)setExtension:(NSString*)newExtension atIndex:(unsigned int)oldIndex {
+	if (NVUnsupportedSourceExtension([newExtension stringAsSafePathExtension])) return NO;
 	
     if (oldIndex < [pathExtensions[notesStorageFormat] count]) {
 		
@@ -1034,6 +1021,8 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 }
 
 - (BOOL)pathExtensionAllowed:(NSString*)anExtension forFormat:(NSInteger)formatID {
+	if (formatID != PlainTextFormat) return NO;
+	if (NVUnsupportedSourceExtension(anExtension)) return NO;
 	NSUInteger i;
     for (i=0; i<[pathExtensions[formatID] count]; i++) {
 		if ([anExtension compare:[pathExtensions[formatID] objectAtIndex:i] 
@@ -1061,6 +1050,8 @@ NSMutableDictionary *ServiceAccountDictInit(NotationPrefs *prefs, NSString* serv
 		return NO;
 	}
 	
+	if (notesStorageFormat != PlainTextFormat || NVUnsupportedSourceExtension([filename pathExtension]) ||
+		catEntry->fileType == RTF_TYPE_ID || catEntry->fileType == RTFD_TYPE_ID || catEntry->fileType == HTML_TYPE_ID || catEntry->fileType == WORD_DOC_TYPE_ID || catEntry->fileType == PDF_TYPE_ID) return NO;
 	if ([self pathExtensionAllowed:[filename pathExtension] forFormat:notesStorageFormat])
 		return YES;
     

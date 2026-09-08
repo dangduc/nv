@@ -1,672 +1,383 @@
-#import "NVApplicationController.h"
-//
-//  PreviewController.m
-//  Notation
-//
-//  Created by Christian Tietze on 15.10.10.
-//  Copyright 2010
-
 #import "PreviewController.h"
-#import "AppController.h" // TODO for the defines only, can you get around that?
-#import "AppController_Preview.h"
-#import "NSString_MultiMarkdown.h"
-#import "NSString_Markdown.h"
-#import "NSString_Textile.h"
-#import "NoteObject.h"
-#import "BTTransparentScroller.h"
-#import "NSFileManager_NV.h"
-#import "NSFileManager+DirectoryLocations.h"
+#import "NVMarkupRenderer.h"
+#import <math.h>
 
-#define kDefaultMarkupPreviewVisible @"markupPreviewVisible"
-
-@interface NSString (MIMEAdditions)
-+ (NSString*)MIMEBoundary;
-+ (NSString*)multipartMIMEStringWithDictionary:(NSDictionary*)dict;
-@end
-
-@implementation NSString (MIMEAdditions)
-//this returns a unique boundary which is used in constructing the multipart MIME body of the POST request
-+ (NSString*)MIMEBoundary
-{
-    static NSString* MIMEBoundary = nil;
-    if(!MIMEBoundary)
-        MIMEBoundary = [[NSString alloc] initWithFormat:@"----_=_nvALT_%@_=_----",[[NSProcessInfo processInfo] globallyUniqueString]];
-    return MIMEBoundary;
+@interface NVScopedAssetHandler : NSObject <WKURLSchemeHandler> {
+    NSURL *_rootURL;
+    NSString *_requestIdentifier;
 }
-//this create a correctly structured multipart MIME body for the POST request from a dictionary
-+ (NSString*)multipartMIMEStringWithDictionary:(NSDictionary*)dict
-{
-    NSMutableString* result = [NSMutableString string];
-    for (NSString* key in dict)
-    {
-        [result appendFormat:@"--%@\nContent-Disposition: form-data; name=\"%@\"\n\n%@\n",[NSString MIMEBoundary],key,[dict objectForKey:key]];
+- (NSURL *)setRootURL:(NSURL *)rootURL;
+@end
+@implementation NVScopedAssetHandler
+- (NSURL *)setRootURL:(NSURL *)rootURL {
+    [_rootURL release]; _rootURL = [[rootURL URLByResolvingSymlinksInPath] copy];
+    [_requestIdentifier release]; _requestIdentifier = [[[NSUUID UUID] UUIDString] copy];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"nvalt-asset://%@/", _requestIdentifier]];
+}
+- (void)webView:(WKWebView *)webView startURLSchemeTask:(id<WKURLSchemeTask>)task {
+    NSURL *URL = [[task request] URL];
+    NSError *error = nil;
+    NSData *data = nil;
+    NSString *MIME = nil;
+    if ([_rootURL isFileURL] && [[URL host] caseInsensitiveCompare:_requestIdentifier] == NSOrderedSame) {
+        NSString *root = [[_rootURL path] stringByStandardizingPath];
+        NSString *relative = [[URL path] stringByRemovingPercentEncoding];
+        while ([relative hasPrefix:@"/"]) relative = [relative substringFromIndex:1];
+        NSString *path = [[[root stringByAppendingPathComponent:relative] stringByStandardizingPath] stringByResolvingSymlinksInPath];
+        // Only passive, bounded assets within this explicit note scope are served.
+        NSDictionary *types = @{@"png":@"image/png", @"jpg":@"image/jpeg", @"jpeg":@"image/jpeg", @"gif":@"image/gif", @"webp":@"image/webp", @"svg":@"image/svg+xml", @"css":@"text/css", @"woff":@"font/woff", @"woff2":@"font/woff2", @"ttf":@"font/ttf"};
+        MIME = [types objectForKey:[[path pathExtension] lowercaseString]];
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+        if ([path hasPrefix:[root stringByAppendingString:@"/"]] && MIME && [[attributes objectForKey:NSFileType] isEqual:NSFileTypeRegular] && [attributes fileSize] <= 8 * 1024 * 1024)
+            data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:&error];
     }
-    [result appendFormat:@"\n--%@--\n",[NSString MIMEBoundary]];
-    return result;
+    if (!data) {
+        [task didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNoPermissionsToReadFile userInfo:@{NSLocalizedDescriptionKey:@"The viewer cannot read this asset outside its note's asset scope."}]];
+        return;
+    }
+    NSURLResponse *response = [[[NSURLResponse alloc] initWithURL:URL MIMEType:MIME expectedContentLength:[data length] textEncodingName:[MIME isEqual:@"text/css"] ? @"utf-8" : nil] autorelease];
+    [task didReceiveResponse:response]; [task didReceiveData:data]; [task didFinish];
+}
+- (void)webView:(WKWebView *)webView stopURLSchemeTask:(id<WKURLSchemeTask>)task { }
+- (void)dealloc { [_rootURL release]; [_requestIdentifier release]; [super dealloc]; }
+@end
+
+// WebKit and timeout callbacks retain this token, not the controller. Closing
+// a provider clears its owner and completes outstanding callbacks immediately.
+@interface NVViewerCaptureOwner : NSObject {
+@public
+    PreviewController *owner;
+}
+@end
+@implementation NVViewerCaptureOwner
+@end
+
+@interface NVViewerStateCapture : NSObject {
+@public
+    NVNoteContentSnapshot *snapshot;
+    NSString *viewerIdentifier;
+    NSString *documentBase;
+    NSDictionary *cachedState;
+    NVReadonlyViewerStateCompletion completion;
+    BOOL finished;
+}
+@end
+@implementation NVViewerStateCapture
+- (void)dealloc {
+    [snapshot release]; [viewerIdentifier release]; [documentBase release];
+    [cachedState release]; [completion release]; [super dealloc];
 }
 @end
 
-// JavaScript owns its logging bridge. It must not retain the preview controller.
-@interface NVPreviewScriptLogger : NSObject
-- (void)logJavaScriptString:(NSString *)text;
-@end
-
-@implementation NVPreviewScriptLogger
-+ (NSString *)webScriptNameForSelector:(SEL)selector {
-    return selector == @selector(logJavaScriptString:) ? @"log" : nil;
-}
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
-    return selector != @selector(logJavaScriptString:);
-}
-- (void)logJavaScriptString:(NSString *)text {
-    NSLog(@"JavaScript: %@", text);
-}
+@interface PreviewController ()
+- (void)loadRenderResult;
+- (void)showError:(NSError *)error;
+- (void)captureDisplayState:(NSTimer *)timer;
+- (void)findNext:(id)sender;
+- (void)finishStateCapture:(NVViewerStateCapture *)capture documentState:(id)documentState;
 @end
 
 @implementation PreviewController
-
-@synthesize preview;
-@synthesize isPreviewOutdated;
-@synthesize isPreviewSticky;
-
-+(void)initialize
-{
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO]
-                                                            forKey:kDefaultMarkupPreviewVisible];
-
-    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
-    /* Initialize webInspector. */
-    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"WebKitDeveloperExtras"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-}
-
-- (id)initWithBrowserController:(AppController *)controller
-{
-    if ((self = [super initWithWindowNibName:@"MarkupPreview" owner:self])) {
-        browserController = controller;
-        self.isPreviewOutdated = YES;
-        self.isPreviewSticky = NO;
-        // Load the nib before assigning its views to the popover content controllers.
-        NSWindow *previewWindow = [self window];
-        BOOL showPreviewWindow = [[NSUserDefaults standardUserDefaults] boolForKey:kDefaultMarkupPreviewVisible];
-        if (showPreviewWindow) {
-            [previewWindow orderFront:self];
-        }
-
-        [tabView selectTabViewItem:[tabView tabViewItemAtIndex:0]];
-
-        NSRect shCon = [shareConfirmation visibleRect];
-        shCon.origin.x = shCon.size.width - 130;
-        shCon.origin.y = 12;
-        shCon.size.width = 110;
-        shCon.size.height = 28;
-        shareConfirm = [[NSButton alloc] initWithFrame:shCon];
-        shCon.origin.x = 20;
-        shareCancel = [[NSButton alloc] initWithFrame:shCon];
-        [shareConfirm setTitle:@"Yes"];
-        [shareConfirm setBezelStyle:NSRoundedBezelStyle];
-        [shareConfirm setTarget:self];
-        [shareConfirm setAction:@selector(shareNote:)];
-        [shareCancel setTitle:@"No, thanks"];
-        [shareCancel setBezelStyle:NSRoundedBezelStyle];
-        [shareCancel setTarget:self];
-        [shareCancel setAction:@selector(cancelShare:)];
-        [shareConfirmation addSubview:shareCancel];
-        [shareConfirmation addSubview:shareConfirm];
-
-        shCon = [shareNotification visibleRect];
-        shCon.size.width = 150;
-        shCon.size.height = 28;
-        shCon.origin.x = (NSWidth([shareNotification bounds]) - shCon.size.width) / 2;
-        shCon.origin.y = 12;
-        viewOnWebButton = [[NSButton alloc] initWithFrame:shCon];
-        [viewOnWebButton setTitle:@"View in Browser"];
-        [viewOnWebButton setBezelStyle:NSRoundedBezelStyle];
-        [viewOnWebButton setTarget:self];
-        [viewOnWebButton setAction:@selector(openShareURL:)];
-        [shareNotification addSubview:viewOnWebButton];
-        NSViewController *confirmationContent = [[NSViewController alloc] initWithNibName:nil bundle:nil];
-        [confirmationContent setView:shareConfirmation];
-        confirmationPopover = [[NSPopover alloc] init];
-        [confirmationPopover setContentViewController:confirmationContent];
-        [confirmationPopover setBehavior:NSPopoverBehaviorTransient];
-        [confirmationPopover setContentSize:[shareConfirmation frame].size];
-        [confirmationContent release];
-
-        NSViewController *shareContent = [[NSViewController alloc] initWithNibName:nil bundle:nil];
-        [shareContent setView:shareNotification];
-        sharePopover = [[NSPopover alloc] init];
-        [sharePopover setContentViewController:shareContent];
-        [sharePopover setBehavior:NSPopoverBehaviorTransient];
-        [sharePopover setContentSize:[shareNotification frame].size];
-        [shareContent release];
+@synthesize snapshot = _snapshot, webView = _webView, viewerIdentifier = _viewerIdentifier, loading = _loading, renderError = _renderError;
+- (id)init {
+    if ((self = [super initWithNibName:nil bundle:nil])) {
+        _renderer = [[NVMarkupRenderer alloc] init];
+        _displayState = [[NSMutableDictionary alloc] init];
+        _stateCaptures = [[NSMutableSet alloc] init];
+        _captureOwner = [[NVViewerCaptureOwner alloc] init]; _captureOwner->owner = self;
+        _viewerIdentifier = [@"markdown" copy];
     }
     return self;
 }
-
--(void)awakeFromNib
-{
-    cssString = [[[self class] css] retain];
-    htmlString = [[[self class] html] retain];
-    lastNote = [[browserController selectedNoteObject] retain];
-    [sourceView setTextContainerInset:NSMakeSize(10.0,12.0)];
-    NSScrollView *scrlView=[sourceView enclosingScrollView];
-    if (!IsLionOrLater) {
-        NSRect vsRect=[[scrlView verticalScroller]frame];
-        BTTransparentScroller *theScroller=[[BTTransparentScroller alloc]initWithFrame:vsRect];
-        [scrlView setVerticalScroller:theScroller];
-        [theScroller release];
-    }
-    [scrlView setScrollsDynamically:YES];
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    if (IsLionOrLater) {
-        [scrlView setHorizontalScrollElasticity:NSScrollElasticityNone];
-        [scrlView setVerticalScrollElasticity:NSScrollElasticityAutomatic];
-        [scrlView setScrollerStyle:NSScrollerStyleOverlay];
-    }
-#endif
+- (void)loadView {
+    NSView *container = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 500, 300)] autorelease];
+    [self setView:container];
+    WKWebViewConfiguration *configuration = [[[WKWebViewConfiguration alloc] init] autorelease];
+    [configuration setWebsiteDataStore:[WKWebsiteDataStore nonPersistentDataStore]];
+    // CSP and DOM sanitization disable document scripts on every supported OS.
+    // Modern WebKit also separates content JavaScript from native evaluation.
+    if (@available(macOS 11.0, *)) [[configuration defaultWebpagePreferences] setAllowsContentJavaScript:NO];
+    [[configuration preferences] setJavaScriptCanOpenWindowsAutomatically:NO];
+    _assetHandler = [[NVScopedAssetHandler alloc] init];
+    [configuration setURLSchemeHandler:_assetHandler forURLScheme:@"nvalt-asset"];
+    _webView = [[WKWebView alloc] initWithFrame:[container bounds] configuration:configuration];
+    [_webView setNavigationDelegate:self]; [_webView setUIDelegate:self];
+    [_webView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [_webView setAccessibilityLabel:NSLocalizedString(@"Read-only note preview", nil)];
+    [container addSubview:_webView];
+    _statusField = [[NSTextField labelWithString:@""] retain];
+    [_statusField setFrame:NSMakeRect(18, NSHeight([container bounds]) - 60, NSWidth([container bounds]) - 36, 44)];
+    [_statusField setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+    [_statusField setHidden:YES];
+    [container addSubview:_statusField];
+    _findField = [[NSSearchField alloc] initWithFrame:NSMakeRect(12, 260, 476, 28)];
+    [_findField setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+    [_findField setPlaceholderString:NSLocalizedString(@"Find in preview", nil)];
+    [_findField setDelegate:self];
+    [_findField setTarget:self]; [_findField setAction:@selector(findNext:)];
+    [_findField setHidden:YES];
+    [container addSubview:_findField];
+    // No document is loaded before these rules are installed. Nonpersistent
+    // website data alone does not block network requests.
+    NSString *rules = @"[{\"trigger\":{\"url-filter\":\"^https?://\"},\"action\":{\"type\":\"block\"}},{\"trigger\":{\"url-filter\":\"^wss?://\"},\"action\":{\"type\":\"block\"}}]";
+    [[WKContentRuleListStore defaultStore] compileContentRuleListForIdentifier:@"nvALT-readonly-resources-v1" encodedContentRuleList:rules completionHandler:^(WKContentRuleList *list, NSError *error) {
+        if (_closed) return;
+        if (error || !list) { _ruleError = [(error ?: [NSError errorWithDomain:NVMarkupRendererErrorDomain code:NVMarkupInvalidOutput userInfo:@{NSLocalizedDescriptionKey:@"The viewer could not configure its resource rules."}]) retain]; [self showError:_ruleError]; return; }
+        _resourceRules = [list retain];
+        [[[_webView configuration] userContentController] addContentRuleList:list];
+        _rulesReady = YES;
+        [self loadRenderResult];
+    }];
 }
-
-//this is called as soon as the script environment is ready in the webview
-- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowScriptObject forFrame:(WebFrame *)frame
-{
-    NVPreviewScriptLogger *logger = [[[NVPreviewScriptLogger alloc] init] autorelease];
-    [windowScriptObject setValue:logger forKey:@"Cocoa"];
+- (NSString *)renderedHTML { return [_renderResult HTML]; }
+- (BOOL)canDisplaySnapshot:(NVNoteContentSnapshot *)snapshot { return [snapshot source] != nil; }
+- (NSSet *)capabilities {
+    if (@available(macOS 11.0, *)) return [NSSet setWithObjects:@"selection", @"copy", @"find", @"print", @"html-export", nil];
+    return [NSSet setWithObjects:@"selection", @"copy", @"find", @"html-export", nil];
 }
-
-// Above webView methods from <http://stackoverflow.com/questions/2288582/embedded-webkit-script-callbacks-how/2293305#2293305>
-
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
-    NSString *targetURL = [[request URL] scheme];
-
-    if (![[actionInformation objectForKey:@"WebActionNavigationTypeKey"] isEqualToNumber:[NSNumber numberWithInt:5]]) {
-        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
-        [listener ignore];
-    } else {
-        [listener use];
-    }
+- (void)displaySnapshot:(NVNoteContentSnapshot *)snapshot viewerIdentifier:(NSString *)identifier {
+    NSAssert([NSThread isMainThread], @"Viewer requests belong to the main thread.");
+    if (_closed) return;
+    [self view];
+    BOOL changedNote = ![[_snapshot noteIdentifier] isEqual:[snapshot noteIdentifier]] || ![[_snapshot libraryIdentifier] isEqual:[snapshot libraryIdentifier]];
+    BOOL changedViewer = ![_viewerIdentifier isEqual:identifier];
+    [self cancelRendering];
+    if (changedNote || changedViewer) { [_displayState removeAllObjects]; [_findField setStringValue:@""]; }
+    [_snapshot release]; _snapshot = [snapshot retain];
+    [_viewerIdentifier release]; _viewerIdentifier = [identifier copy];
+    [_renderResult release]; _renderResult = nil;
+    [_renderError release]; _renderError = nil;
+    _loading = YES;
+    [_webView setHidden:YES];
+    [_statusField setStringValue:NSLocalizedString(@"Preparing preview…", nil)]; [_statusField setHidden:NO];
+    if (_ruleError) { [self showError:_ruleError]; return; }
+    NSUInteger generation = _requestGeneration;
+    _renderOperation = [[_renderer renderSnapshot:snapshot viewerIdentifier:identifier completion:^(NVMarkupRenderResult *result, NSError *error) {
+        if (_closed || generation != _requestGeneration) return;
+        [_renderOperation release]; _renderOperation = nil;
+        if (error) { [self showError:error]; return; }
+        _renderResult = [result retain];
+        [self loadRenderResult];
+    }] retain];
 }
-
-- (void)webView:(WebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener {
-    NSLog(@"NEW WIN ACTION SENDER: %@",sender);
-    [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
-    [listener ignore];
+- (void)loadRenderResult {
+    if (!_rulesReady || !_renderResult || _closed || !_loading || _navigation || [_stateCaptures count]) return;
+    NSURL *baseURL = [_assetHandler setRootURL:[[_renderResult snapshot] assetRootURL]];
+    [_documentBaseURL release]; _documentBaseURL = [baseURL copy];
+    [_navigation release]; _navigation = [[_webView loadHTMLString:[_renderResult HTML] baseURL:baseURL] retain];
 }
-
--(void)requestPreviewUpdate:(NSNotification *)notification
-{
-    AppController *app = [notification object];
-    NSString *rawString = [app noteContent];
-    if (app == [[NVApplicationController sharedController] activeBrowser]) {
-        NSPasteboard *pb = [NSPasteboard pasteboardWithName:@"mkStreamingPreview"];
-        [pb clearContents];
-        [pb setString:rawString ?: @"" forType:(NSString *)kUTTypeUTF8PlainText];
-    }
-
-    if (![[self window] isVisible]) {
-        self.isPreviewOutdated = YES;
+- (void)showError:(NSError *)error {
+    [_renderError release]; _renderError = [error retain]; _loading = NO;
+    [_webView setHidden:YES];
+    [_statusField setStringValue:[error localizedDescription] ?: NSLocalizedString(@"The preview is unavailable.", nil)];
+    [_statusField setHidden:NO];
+}
+- (void)cancelRendering {
+    _requestGeneration++;
+    [_renderOperation cancel]; [_renderOperation release]; _renderOperation = nil;
+    [_webView stopLoading];
+    [_navigation release]; _navigation = nil;
+    _loading = NO;
+}
+- (void)close {
+    if (_closed) return;
+    _closed = YES;
+    [self cancelRendering]; [_renderer cancelAllRendering];
+    for (NVViewerStateCapture *capture in [[[_stateCaptures allObjects] copy] autorelease]) [self finishStateCapture:capture documentState:nil];
+    _captureOwner->owner = nil;
+    [_stateTimer invalidate]; [_stateTimer release]; _stateTimer = nil;
+    [_webView setNavigationDelegate:nil]; [_webView setUIDelegate:nil];
+    [[[_webView configuration] userContentController] removeAllContentRuleLists];
+    [_webView removeFromSuperview];
+    [_renderResult release]; _renderResult = nil;
+    [_snapshot release]; _snapshot = nil;
+    [_assetHandler setRootURL:nil];
+}
+- (NSDictionary *)viewerState { return [[_displayState copy] autorelease]; }
+- (void)captureViewerStateWithCompletion:(NVReadonlyViewerStateCompletion)completion {
+    NSAssert([NSThread isMainThread], @"Viewer state capture belongs to the main thread.");
+    if (!completion) return;
+    NVViewerStateCapture *capture = [[[NVViewerStateCapture alloc] init] autorelease];
+    capture->snapshot = [_snapshot retain];
+    capture->viewerIdentifier = [_viewerIdentifier copy];
+    capture->documentBase = [[_documentBaseURL absoluteString] copy];
+    capture->cachedState = [_displayState copy];
+    capture->completion = [completion copy];
+    // A loading request's identity can differ from the document still on screen.
+    // Its cached state is the only state that belongs to that request.
+    if (_closed || _loading || _renderError || !_renderResult || !_documentBaseURL) {
+        [self finishStateCapture:capture documentState:nil];
         return;
     }
-
-    if (self.isPreviewSticky) {
-        return;
-    }
-
-
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(preview:) object:app];
-
-    [self performSelector:@selector(preview:) withObject:app afterDelay:0.05];
+    [_stateCaptures addObject:capture];
+    NVViewerCaptureOwner *token = _captureOwner;
+    [_webView evaluateJavaScript:@"[document.baseURI,window.scrollX,window.scrollY]" completionHandler:^(id result, NSError *error) {
+        [token->owner finishStateCapture:capture documentState:result];
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [token->owner finishStateCapture:capture documentState:nil];
+    });
 }
-
-- (BOOL)previewIsVisible{
-    return [[self window] isVisible];
-}
-
--(void)togglePreview:(id)sender
-{
-
-    NSWindow *wnd = [self window];
-    if ([wnd isVisible]) {
-        [self cancelShare:self];
-        [self closeShareURLView];
-        //      // TODO: should the "stuck" note remain stuck when preview is closed?
-        //      if (self.isPreviewSticky)
-        //        [self makePreviewNotSticky:self];
-        [wnd orderOut:self];
-    } else {
-        if (self.isPreviewOutdated) {
-            // TODO high coupling; too many assumptions on architecture:
-            [self performSelector:@selector(preview:) withObject:browserController afterDelay:0.0];
+- (void)finishStateCapture:(NVViewerStateCapture *)capture documentState:(id)documentState {
+    if (capture->finished) return;
+    capture->finished = YES;
+    // Preserve the call-time query. Only offsets from the same immutable
+    // document base can replace the cached offsets.
+    NSMutableDictionary *state = [[capture->cachedState mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];
+    BOOL matchingDocument = [documentState isKindOfClass:[NSArray class]] && [documentState count] == 3 &&
+        [[documentState objectAtIndex:0] isKindOfClass:[NSString class]] &&
+        [[documentState objectAtIndex:0] caseInsensitiveCompare:capture->documentBase] == NSOrderedSame;
+    if (matchingDocument) {
+        for (NSUInteger index = 1; index < 3; index++) {
+            id value = [documentState objectAtIndex:index];
+            if ([value isKindOfClass:[NSNumber class]] && isfinite([value doubleValue]) && [value doubleValue] >= 0)
+                [state setObject:value forKey:index == 1 ? @"scrollX" : @"scrollY"];
         }
-        [tabView selectTabViewItem:[tabView tabViewItemAtIndex:0]];
-        [tabSwitcher setTitle:@"View Source"];
-
-        [wnd orderFront:self];
     }
-
-    // save visibility to defaults
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[wnd isVisible]]
-                                              forKey:kDefaultMarkupPreviewVisible];
-}
-
-- (void)close
-{
-    [self cancelShare:self];
-    [self closeShareURLView];
-    [super close];
-}
-
--(void)windowWillClose:(NSNotification *)notification
-{
-    [self cancelShare:self];
-    [self closeShareURLView];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO]
-                                              forKey:kDefaultMarkupPreviewVisible];
-    NSMenu *previewMenu = [[[NSApp mainMenu] itemWithTitle:@"Preview"] submenu];
-    [[previewMenu itemWithTitle:@"Toggle Preview Window"]setState:0];
-}
-
-+(NSString*)css {
-    NSFileManager *mgr = [NSFileManager defaultManager];
-    NSString *folder = [[NSFileManager defaultManager] applicationSupportDirectory];
-    NSString *cssFileName = @"custom.css";
-    NSString *customCSSPath = [folder stringByAppendingPathComponent: cssFileName];
-    if ([mgr fileExistsAtPath:customCSSPath]) {
-        return [NSString stringWithContentsOfFile:customCSSPath
-                                         encoding:NSUTF8StringEncoding
-                                            error:NULL];
-    } else {
-        NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"custom" ofType:@"css" inDirectory:nil];
-        return [NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:nil];
+    BOOL samePresentation = [[_snapshot libraryIdentifier] isEqual:[capture->snapshot libraryIdentifier]] &&
+        [[_snapshot noteIdentifier] isEqual:[capture->snapshot noteIdentifier]] && [_viewerIdentifier isEqual:capture->viewerIdentifier];
+    if (!_closed && samePresentation) {
+        for (NSString *key in @[@"scrollX", @"scrollY"]) if ([state objectForKey:key]) [_displayState setObject:[state objectForKey:key] forKey:key];
     }
-
-    //	if (![mgr fileExistsAtPath:customCSSPath]) {
-    //		[[self class] createCustomFiles];
-    //	}
-
-
+    // Removing the barrier before the callback is safe: new render completion
+    // remains queued on the main thread. The explicit load follows the callback.
+    [capture retain];
+    [_stateCaptures removeObject:capture];
+    NVReadonlyViewerStateCompletion callback = capture->completion; capture->completion = nil;
+    NSDictionary *immutableState = [[state copy] autorelease];
+    BOOL keepAlive = !_closed;
+    if (keepAlive) [self retain];
+    callback(capture->snapshot, capture->viewerIdentifier, immutableState);
+    [callback release];
+    [capture release];
+    if (keepAlive) { [self loadRenderResult]; [self release]; }
 }
-
-+(NSString*)html {
-    NSFileManager *mgr = [NSFileManager defaultManager];
-
-    NSString *folder = [[NSFileManager defaultManager] applicationSupportDirectory];
-    NSString *htmlFileName = @"template.html";
-    NSString *customHTMLPath = [folder stringByAppendingPathComponent: htmlFileName];
-    if ([mgr fileExistsAtPath:customHTMLPath]) {
-        return [NSString stringWithContentsOfFile:customHTMLPath
-                                         encoding:NSUTF8StringEncoding
-                                            error:NULL];
-    } else {
-        NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html" inDirectory:nil];
-        return [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+- (void)restoreViewerState:(NSDictionary *)state {
+    [_displayState removeAllObjects];
+    for (NSString *key in @[@"scrollX", @"scrollY"]) {
+        id value = [state objectForKey:key];
+        if ([value isKindOfClass:[NSNumber class]] && isfinite([value doubleValue]) && [value doubleValue] >= 0) [_displayState setObject:value forKey:key];
     }
-    //	if (![mgr fileExistsAtPath:customHTMLPath]) {
-    //		[[self class] createCustomFiles];
-    //	}
-}
-
--(void)preview:(id)object
-{
-    if (self.isPreviewSticky) {
-        return;
-    }
-    NSString *lastScrollPosition = [preview stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].scrollTop"];
-    //	NSString *lastScrollPosition = [[preview windowScriptObject] evaluateWebScript:@"document.getElementsByTagName('body')[0].scrollTop"];
-    AppController *app = object;
-    NSString *rawString = [app noteContent];
-
-    SEL mode = [self markupProcessorSelector:[app currentPreviewMode]];
-    NSString *processedString = [NSString performSelector:mode withObject:rawString];
-    NSString *previewString = processedString;
-    NSMutableString *outputString = [NSMutableString stringWithString:(NSString *)htmlString];
-    NSString *noteTitle =  ([app selectedNoteObject]) ? [NSString stringWithFormat:@"%@",titleOfNote([app selectedNoteObject])] : @"";
-
-    if (lastNote == [app selectedNoteObject]) {
-        NSString *restoreScrollPosition = [NSString stringWithFormat:@"\n<script>var body = document.getElementsByTagName('body')[0],oldscroll = %@;body.scrollTop = oldscroll;</script>",lastScrollPosition];
-        previewString = [processedString stringByAppendingString:restoreScrollPosition];
-    } else {
-        [cssString release];
-        [htmlString release];
-        cssString = [[[self class] css] retain];
-        htmlString = [[[self class] html] retain];
-        [lastNote release];
-        lastNote = [[app selectedNoteObject] retain];
-    }
-    NSString *nvSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
-
-    [outputString replaceOccurrencesOfString:@"{%support%}" withString:nvSupportPath options:0 range:NSMakeRange(0, [outputString length])];
-    [outputString replaceOccurrencesOfString:@"{%title%}" withString:noteTitle options:0 range:NSMakeRange(0, [outputString length])];
-    [outputString replaceOccurrencesOfString:@"{%content%}" withString:previewString options:0 range:NSMakeRange(0, [outputString length])];
-    [outputString replaceOccurrencesOfString:@"{%style%}" withString:cssString options:0 range:NSMakeRange(0, [outputString length])];
-
-    [[preview mainFrame] loadHTMLString:outputString baseURL:nil];
-    [preview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"var body = document.getElementsByTagName('body')[0],oldscroll = %@;body.scrollTop = oldscroll;",lastScrollPosition]];
-    [[self window] setTitle:noteTitle];
-
-    [sourceView replaceCharactersInRange:NSMakeRange(0, [[sourceView string] length]) withString:processedString];
-    self.isPreviewOutdated = NO;
-}
-
--(SEL)markupProcessorSelector:(NSInteger)previewMode
-{
-    if (previewMode == MarkdownPreview) {
-        previewMode = MultiMarkdownPreview;
-        return @selector(stringWithProcessedMultiMarkdown:);
-    } else if (previewMode == MultiMarkdownPreview) {
-        return @selector(stringWithProcessedMultiMarkdown:);
-    } else if (previewMode == TextilePreview) {
-        return @selector(stringWithProcessedTextile:);
-    }
-
-    return nil;
-}
-
-+ (void) createCustomFiles
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSString *folder = [[NSFileManager defaultManager] applicationSupportDirectory];
-    if ([fileManager fileExistsAtPath: folder] == NO)
-    {
-        [fileManager createFolderAtPath:folder];
-        //				[fileManager createDirectoryAtPath: folder attributes: nil];
-
-    }
-
-    NSString *cssFileName = @"custom.css";
-    NSString *cssFile = [folder stringByAppendingPathComponent: cssFileName];
-
-    if ([fileManager fileExistsAtPath:cssFile] == NO)
-    {
-        NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"customclean" ofType:@"css" inDirectory:nil];
-        NSString *cssString = [NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:nil];
-        NSData *cssData = [NSData dataWithBytes:[cssString UTF8String] length:[cssString length]];
-        [fileManager createFileAtPath:cssFile contents:cssData attributes:nil];
-    }
-
-    NSString *htmlFileName = @"template.html";
-    NSString *htmlFile = [folder stringByAppendingPathComponent: htmlFileName];
-
-    if ([fileManager fileExistsAtPath:htmlFile] == NO)
-    {
-        NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"templateclean" ofType:@"html" inDirectory:nil];
-        NSString *htmlString = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-        NSData *htmlData = [NSData dataWithBytes:[htmlString UTF8String] length:[htmlString length]];
-        [fileManager createFileAtPath:htmlFile contents:htmlData attributes:nil];
-    }
-
-}
-
-- (NSString *)urlEncodeValue:(NSString *)str
-{
-    NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR("?=&+"), kCFStringEncodingUTF8);
-    return [result autorelease];
-}
-
--(IBAction)makePreviewSticky:(id)sender
-{
-    self.isPreviewSticky = YES;
-    //  [[preview window] setTitle:@"Locked"];
-    [stickyPreviewButton setState:YES];
-    [stickyPreviewButton setToolTip:@"Return the preview to normal functionality."];
-    [stickyPreviewButton setAction:@selector(makePreviewNotSticky:)];
-    [shareButton setEnabled:NO];
-    [saveButton setEnabled:NO];
-    [[self window] setHidesOnDeactivate:NO];
-}
-
--(IBAction)makePreviewNotSticky:(id)sender
-{
-    self.isPreviewSticky = NO;
-    [[preview window] setTitle:@"Preview"];
-    [stickyPreviewButton setState:NO];
-    [stickyPreviewButton setToolTip:@"Maintain current note in Preview, even if you switch to other notes."];
-    [stickyPreviewButton setAction:@selector(makePreviewSticky:)];
-    [shareButton setEnabled:YES];
-    [saveButton setEnabled:YES];
-    self.isPreviewOutdated = YES;
-    [self performSelector:@selector(preview:) withObject:browserController afterDelay:0.0];
-    [[self window] setHidesOnDeactivate:YES];
-}
-
--(IBAction)printPreview:(id)sender
-{
-    NSTabViewItem *selectedTab=[tabView selectedTabViewItem];
-    //1 is webview   2 is source view
-    if ([selectedTab.identifier integerValue]==1) {
-        [tabView selectNextTabViewItem:self];
-    }
-    NSPrintInfo* printInfo = [NSPrintInfo sharedPrintInfo];
-
-    [printInfo setHorizontallyCentered:YES];
-    [printInfo setVerticallyCentered:NO];
-    NSPrintOperation *printOp=[[[preview mainFrame] frameView] printOperationWithPrintInfo:printInfo];
-    [printOp runOperationModalForWindow:tabView.window delegate:self didRunSelector:@selector(printOperationDidRun:success:contextInfo:) contextInfo:selectedTab];
-}
-
-- (void)printOperationDidRun:(NSPrintOperation *)printOperation  success:(BOOL)success  contextInfo:(void *)contextInfo{
-    NSTabViewItem *selTab=(NSTabViewItem *)contextInfo;
-    if (selTab&&(tabView.selectedTabViewItem!=selTab)) {
-        [tabView selectTabViewItem:selTab];
+    [_findField setStringValue:@""];
+    id query = [state objectForKey:@"find"];
+    if ([query isKindOfClass:[NSString class]]) { [_displayState setObject:query forKey:@"find"]; [_findField setStringValue:query]; }
+    if (!_loading && _renderResult) {
+        NSString *script = [NSString stringWithFormat:@"window.scrollTo(%f,%f)", [[_displayState objectForKey:@"scrollX"] doubleValue], [[_displayState objectForKey:@"scrollY"] doubleValue]];
+        [_webView evaluateJavaScript:script completionHandler:nil];
     }
 }
-
--(IBAction)shareNote:(id)sender
-{
-    AppController *app = browserController;
-    NSString *noteTitle = [NSString stringWithFormat:@"%@",titleOfNote([app selectedNoteObject])];
-    NSString *rawString = [app noteContent];
-    SEL mode = [self markupProcessorSelector:[app currentPreviewMode]];
-    NSString *processedString = [NSString performSelector:mode withObject:rawString];
-
-
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-                                    initWithURL:
-                                    [NSURL URLWithString:@"http://peg.gd/nvapi.php"]];
-    [request setHTTPMethod:@"POST"];
-    [request addValue:@"8bit" forHTTPHeaderField:@"Content-Transfer-Encoding"];
-    [request addValue: [NSString stringWithFormat:@"multipart/form-data; boundary=%@",[NSString MIMEBoundary]] forHTTPHeaderField: @"Content-Type"];
-    NSDictionary* postData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"8c4205ec33d8f6caeaaaa0c10a14138c", @"key",
-                              noteTitle, @"title",
-                              processedString, @"body",
-                              nil];
-    [request setHTTPBody: [[NSString multipartMIMEStringWithDictionary: postData] dataUsingEncoding: NSUTF8StringEncoding]];
-    NSHTTPURLResponse * response = nil;
-    NSError * error = nil;
-    NSData * responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSString * responseString = [[[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding] autorelease];
-    NSLog(@"RESPONSE STRING: %@", responseString);
-    NSLog(@"%ld",(long)response.statusCode);
-    if (response.statusCode == 200) {
-        [self showShareURL:responseString isError:NO];
-    } else {
-        [self showShareURL:@"Error connecting" isError:YES];
-    }
-
-    [request release];
-
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    [receivedData setLength:0];
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [receivedData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)[receivedData length]);
-
-    NSString * responseString = [[[NSString alloc] initWithData:receivedData encoding:NSASCIIStringEncoding] autorelease];
-    NSLog(@"RESPONSE STRING: %@", responseString);
-    [receivedData release];
-}
-
-- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSFileHandlingPanelOKButton) {
-
-        AppController *app = browserController;
-        NSString *rawString = [app noteContent];
-        NSString *processedString = [[[NSString alloc] init] autorelease];
-
-        if ([app currentPreviewMode] == MarkdownPreview) {
-            processedString = [NSString stringWithProcessedMarkdown:rawString];
-        } else if ([app currentPreviewMode] == MultiMarkdownPreview) {
-            processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedMultiMarkdown:rawString] : [NSString xhtmlWithProcessedMultiMarkdown:rawString];
-        } else if ([app currentPreviewMode] == TextilePreview) {
-            processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedTextile:rawString] : [NSString xhtmlWithProcessedTextile:rawString];
-        }
-        NSURL *file = [sheet URL];
-        NSError *error;
-        [processedString writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    }
-}
-
--(IBAction)saveHTML:(id)sender
-{
-    if (!accessoryView) {
-        if (![NSBundle loadNibNamed:@"SaveHTMLPreview" owner:self]) {
-            NSLog(@"Failed to load SaveHTMLPreview.nib");
-            NSBeep();
-            return;
-        }
-
-    }
-    // TODO high coupling; too many assumptions on architecture:
-    AppController *app = browserController;
-
-    NSSavePanel *savePanel = [NSSavePanel savePanel];
-    [savePanel setAccessoryView:accessoryView];
-    [savePanel setCanCreateDirectories:YES];
-    [savePanel setCanSelectHiddenExtension:YES];
-
-    NSArray *fileTypes = [[NSArray alloc] initWithObjects:@"html",@"xhtml",@"htm",nil];
-    [savePanel setAllowedFileTypes:fileTypes];
-
-
-    NSString *rawString = [app noteContent];
-    NSString *xhtmlOutput = [NSString xhtmlWithProcessedMultiMarkdown:rawString];
-    if ([xhtmlOutput hasPrefix:@"<?xml version="]) {
-        [includeTemplate setState:0];
-        [includeTemplate setEnabled:NO];
-        [templateNote setStringValue:@"Template embed unavailable because your note will render as a full XHTML document"];
-    } else {
-        [includeTemplate setEnabled:YES];
-        [templateNote setStringValue:@"Select this to embed the ouput within your current preview HTML and CSS"];
-    }
-
-    NSString *noteTitle =  ([app selectedNoteObject]) ? [NSString stringWithFormat:@"%@",titleOfNote([app selectedNoteObject])] : @"";
-    //	[savePanel beginSheetForDirectory:nil file:noteTitle modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
-    savePanel.nameFieldStringValue=noteTitle;
-    [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger returnCode) {
-        if (returnCode == NSFileHandlingPanelOKButton) {
-            NSString *processedString = [[[NSString alloc] init] autorelease];
-
-            if ([app currentPreviewMode] == MarkdownPreview) {
-                processedString = [NSString stringWithProcessedMarkdown:rawString];
-            } else if ([app currentPreviewMode] == MultiMarkdownPreview) {
-                processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedMultiMarkdown:rawString] : [NSString xhtmlWithProcessedMultiMarkdown:rawString];
-            } else if ([app currentPreviewMode] == TextilePreview) {
-                processedString = ( [includeTemplate state] == NSOnState ) ? [NSString documentWithProcessedTextile:rawString] : [NSString xhtmlWithProcessedTextile:rawString];
-            }
-            NSURL *file = [savePanel URL];
-            NSError *error;
-            [processedString writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error];
+- (void)captureDisplayState:(NSTimer *)timer {
+    if (_closed || _loading || ![[_webView window] isVisible] || [_webView isHiddenOrHasHiddenAncestor]) return;
+    NSUInteger generation = _requestGeneration;
+    [_webView evaluateJavaScript:@"[window.scrollX,window.scrollY]" completionHandler:^(id result, NSError *error) {
+        if (_closed || generation != _requestGeneration || ![result isKindOfClass:[NSArray class]] || [result count] != 2) return;
+        if ([[result objectAtIndex:0] isKindOfClass:[NSNumber class]] && [[result objectAtIndex:1] isKindOfClass:[NSNumber class]]) {
+            [_displayState setObject:[result objectAtIndex:0] forKey:@"scrollX"];
+            [_displayState setObject:[result objectAtIndex:1] forKey:@"scrollY"];
         }
     }];
-    [fileTypes release];
-
 }
-
--(IBAction)switchTabs:(id)sender
-{
-
-    if ([tabView indexOfTabViewItem:[tabView selectedTabViewItem]] == 0) {
-        [tabSwitcher setTitle:@"View Preview"];
-        [tabView selectTabViewItem:[tabView tabViewItemAtIndex:1]];
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    if (_closed || navigation != _navigation) return;
+    _loading = NO;
+    [_statusField setHidden:YES]; [_webView setHidden:NO];
+    NSDictionary *state = [[_displayState copy] autorelease]; [self restoreViewerState:state];
+    if (!_stateTimer) _stateTimer = [[NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(captureDisplayState:) userInfo:nil repeats:YES] retain];
+}
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error { if (!_closed && navigation == _navigation && [error code] != NSURLErrorCancelled) [self showError:error]; }
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error { [self webView:webView didFailNavigation:navigation withError:error]; }
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+    if (!_closed) [self showError:[NSError errorWithDomain:NVMarkupRendererErrorDomain code:NVMarkupHelperFailed userInfo:@{NSLocalizedDescriptionKey:@"The preview process stopped. Return to Source, then open Preview again."}]];
+}
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)action decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *URL = [[action request] URL];
+    NSString *scheme = [[URL scheme] lowercaseString];
+    if ([action navigationType] == WKNavigationTypeLinkActivated) {
+        if ([@[@"http", @"https", @"mailto"] containsObject:scheme]) [[NSWorkspace sharedWorkspace] openURL:URL];
+        else if ([scheme isEqual:@"nvalt-asset"] && [[URL fragment] length] && [[URL host] isEqual:[[webView URL] host]] && [[URL path] isEqual:[[webView URL] path]]) { decisionHandler(WKNavigationActionPolicyAllow); return; }
+        decisionHandler(WKNavigationActionPolicyCancel); return;
+    }
+    BOOL internalDocument = ![URL scheme] || [scheme isEqual:@"about"] || [scheme isEqual:@"nvalt-asset"];
+    decisionHandler(internalDocument && [action targetFrame] && [[action targetFrame] isMainFrame] ? WKNavigationActionPolicyAllow : WKNavigationActionPolicyCancel);
+}
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)action windowFeatures:(WKWindowFeatures *)features { return nil; }
+- (IBAction)performFindPanelAction:(id)sender {
+    if (_closed || _loading || _renderError || !_renderResult) return;
+    NSInteger tag = [sender respondsToSelector:@selector(tag)] ? [sender tag] : NSFindPanelActionShowFindPanel;
+    if (tag == NSFindPanelActionNext || tag == NSFindPanelActionPrevious) { [self findNext:sender]; return; }
+    if (tag == NSFindPanelActionSetFindString) {
+        NSUInteger generation = _requestGeneration;
+        [_webView evaluateJavaScript:@"window.getSelection().toString()" completionHandler:^(id value, NSError *error) {
+            if (_closed || generation != _requestGeneration) return;
+            if (![value isKindOfClass:[NSString class]] || ![value length]) { NSBeep(); return; }
+            [_findField setStringValue:value]; [_displayState setObject:value forKey:@"find"];
+            [_findField setHidden:NO]; [[_findField window] makeFirstResponder:_findField]; [_findField selectText:self];
+        }];
+        return;
+    }
+    if (tag != NSFindPanelActionShowFindPanel) return;
+    [_findField setHidden:NO];
+    [[_findField window] makeFirstResponder:_findField];
+    [_findField selectText:self];
+}
+- (void)findNext:(id)sender {
+    NSString *query = [_findField stringValue];
+    if (![query length] || _loading) return;
+    [_displayState setObject:query forKey:@"find"];
+    BOOL backwards = [sender respondsToSelector:@selector(tag)] && [sender tag] == NSFindPanelActionPrevious;
+    if (@available(macOS 11.0, *)) {
+        WKFindConfiguration *configuration = [[[WKFindConfiguration alloc] init] autorelease];
+        [configuration setBackwards:backwards]; [configuration setWraps:YES];
+        [_webView findString:query withConfiguration:configuration completionHandler:^(WKFindResult *result) { if (![result matchFound]) NSBeep(); }];
     } else {
-        [tabSwitcher setTitle:@"View Source"];
-        [tabView selectTabViewItem:[tabView tabViewItemAtIndex:0]];
+        NSData *encoded = [NSJSONSerialization dataWithJSONObject:@[query] options:0 error:NULL];
+        NSString *literal = [[[NSString alloc] initWithData:encoded encoding:NSUTF8StringEncoding] autorelease];
+        [_webView evaluateJavaScript:[NSString stringWithFormat:@"window.find((%@)[0],false,%@,true)", literal, backwards ? @"true" : @"false"] completionHandler:nil];
     }
 }
-
-- (IBAction)shareAsk:(id)sender
-{
-    if ([confirmationPopover isShown]) {
-        [self cancelShare:sender];
-    } else if ([sharePopover isShown]) {
-        [self hideShareURL:sender];
-    } else {
-        [self closeShareURLView];
-        [confirmationPopover showRelativeToRect:[shareButton bounds] ofView:shareButton preferredEdge:NSMaxYEdge];
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)selector {
+    if (control == _findField && selector == @selector(cancelOperation:)) {
+        [_findField setHidden:YES]; [[_webView window] makeFirstResponder:_webView]; return YES;
+    }
+    return NO;
+}
+- (BOOL)validateMenuItem:(NSMenuItem *)item {
+    if (_closed || _loading || _renderError || !_renderResult) return NO;
+    SEL action = [item action];
+    if (action == @selector(printPreview:)) return [[self capabilities] containsObject:@"print"];
+    if (action == @selector(saveHTML:)) return YES;
+    if (action == @selector(performFindPanelAction:)) {
+        NSInteger tag = [item tag];
+        return tag == NSFindPanelActionShowFindPanel || tag == NSFindPanelActionNext ||
+            tag == NSFindPanelActionPrevious || tag == NSFindPanelActionSetFindString;
+    }
+    return NO;
+}
+- (IBAction)printPreview:(id)sender {
+    if (_loading || _renderError || !_renderResult) return;
+    if (@available(macOS 11.0, *)) {
+        NSPrintOperation *operation = [_webView printOperationWithPrintInfo:[NSPrintInfo sharedPrintInfo]];
+        [operation runOperationModalForWindow:[[self view] window] delegate:nil didRunSelector:NULL contextInfo:NULL];
     }
 }
-
-- (void)showShareURL:(NSString *)url isError:(BOOL)isError
-{
-    [self cancelShare:self];
-    [self closeShareURLView];
-    [viewOnWebButton setHidden:isError];
-    if (isError) {
-        [urlTextField setStringValue:url ?: @"Error connecting"];
-    } else {
-        shareURL = [url copy];
-        NSPasteboard *pb = [NSPasteboard generalPasteboard];
-        [pb declareTypes:@[NSStringPboardType] owner:nil];
-        [pb setString:shareURL forType:NSStringPboardType];
-        [urlTextField setStringValue:[NSString stringWithFormat:@"Copied %@ to clipboard", shareURL]];
-    }
-    if ([[self window] isVisible]) {
-        [sharePopover showRelativeToRect:[shareButton bounds] ofView:shareButton preferredEdge:NSMaxYEdge];
-    }
+- (IBAction)saveHTML:(id)sender {
+    if (_loading || _renderError || !_renderResult) return;
+    // Capture the displayed result before the sheet. A later selection change
+    // must not change the title or bytes being exported.
+    NVMarkupRenderResult *result = [[_renderResult retain] autorelease];
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    [panel setAllowedFileTypes:@[@"html"]];
+    [panel setNameFieldStringValue:[[[result snapshot] title] length] ? [[[result snapshot] title] stringByAppendingPathExtension:@"html"] : NSLocalizedString(@"Note.html", @"Default HTML export filename")];
+    [panel beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse response) {
+        if (response != NSModalResponseOK) return;
+        NSError *error = nil;
+        if (![[result HTML] writeToURL:[panel URL] atomically:YES encoding:NSUTF8StringEncoding error:&error]) [[NSAlert alertWithError:error] runModal];
+    }];
 }
-
-- (void)closeShareURLView
-{
-    [sharePopover close];
-    [shareURL release];
-    shareURL = nil;
-}
-
-- (IBAction)hideShareURL:(id)sender
-{
-    [self closeShareURLView];
-}
-
-- (IBAction)cancelShare:(id)sender
-{
-    [confirmationPopover close];
-}
-
-- (IBAction)openShareURL:(id)sender
-{
-    if (shareURL) [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:shareURL]];
-    [self closeShareURLView];
-}
-
 - (void)dealloc {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self cancelShare:self];
-    [self closeShareURLView];
-    [confirmationPopover release];
-    [sharePopover release];
-    [preview release];
-    [htmlString release];
-    [cssString release];
-    [lastNote release];
-    [viewOnWebButton release];
-    [shareCancel release];
-    [shareConfirm release];
+    [self close];
+    [_webView release]; [_statusField release]; [_findField release]; [_renderer release]; [_renderResult release]; [_snapshot release];
+    [_renderError release]; [_viewerIdentifier release]; [_assetHandler release]; [_resourceRules release]; [_ruleError release]; [_displayState release]; [_stateCaptures release]; [_captureOwner release]; [_documentBaseURL release];
     [super dealloc];
 }
-
 @end

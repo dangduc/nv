@@ -77,7 +77,9 @@
 - (void)strikethroughNV:(id)sender;
 - (void)bold:(id)sender;
 - (void)italic:(id)sender;
-- (void)applyStyleOfTrait:(NSFontTraitMask)trait alternateAttributeName:(NSString*)attrName alternateAttributeValue:(id)value;
+- (NSString *)sourceSyntaxIdentifier;
+- (BOOL)usesMarkdownSource;
+- (BOOL)usesMarkupSource;
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex;
 
 - (BOOL)jumpToRenaming;

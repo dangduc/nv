@@ -362,7 +362,7 @@ void NotesDirFNSubscriptionProc(FNMessage message, OptionBits flags, void * refc
 		//assume the file on disk was modified by someone other than us
 				
 		//check if this note has changes in memory that still need to be committed -- that we _know_ the other writer never had a chance to see
-		if (![unwrittenNotes containsObject:aNoteObject]) {
+		if (![unwrittenNotes containsObject:aNoteObject] && ![aNoteObject sourceConversionPending]) {
 			
 			if (![aNoteObject updateFromCatalogEntry:catEntry]) {
 				NSLog(@"file %@ was modified but could not be updated", catEntry->filename);
@@ -665,5 +665,4 @@ void NotesDirFNSubscriptionProc(FNMessage message, OptionBits flags, void * refc
 }
 
 @end
-
 

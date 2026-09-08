@@ -17,7 +17,6 @@
 
 
 #import "AlienNoteImporter.h"
-#import "StickiesDocument.h"
 #import "BlorPasswordRetriever.h"
 #import "GlobalPrefs.h"
 #import "AttributedPlainText.h"
@@ -34,11 +33,7 @@ NSString *RetrievedPasswordKey = @"RetrievedPassword";
 NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 
 @interface AlienNoteImporter (Private)
-- (NSArray*)_importStickies:(NSString*)filename;
 - (NSArray*)_importBlorNotes:(NSString*)filename;
-- (NSArray*)_importTSVFile:(NSString*)filename;
-- (NSArray*)_importCSVFile:(NSString*)filename;
-- (NSArray*)_importDelimitedFile:(NSString*)filename withDelimiter:(NSString*)delimiter;
 @end
 
 @implementation AlienNoteImporter
@@ -66,14 +61,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 			[prefs setDoesEncryption:YES];
 			
 			[notation addNotes:noteArray];
-		} else {
-			//add localized RTF help notes (how do we handle initializing a new NV copy when the owner just wants to re-sync from web? they will get new help notes each time?)
-			NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"nvhelp" inDirectory:nil];
-			NSArray *helpNotes = [[[[AlienNoteImporter alloc] initWithStoragePaths:paths] autorelease] importedNotes];
-			if ([helpNotes count] > 0) {
-				[notation addNotes:helpNotes];
-				[[notation delegate] notation:notation revealNote:[helpNotes lastObject] options:NVEditNoteToReveal];
-			}
 		}
 		[prefsController setBlorImportAttempted:YES];
 	}
@@ -136,33 +123,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	[source release];
 	
 	[super dealloc];
-}
-
-+ (NSBundle *)PDFKitBundle {
-	static NSBundle *PDFKitBundle = nil;
-	if (PDFKitBundle == nil) {
-		NSString *PDFKitPath = @"/System/Library/Frameworks/Quartz.framework/Frameworks/PDFKit.framework";
-		if (![[NSFileManager defaultManager] fileExistsAtPath:PDFKitPath]) {
-			NSLog(@"Couldn't find PDFKit.framework");
-			return nil;
-		}
-		PDFKitBundle = [NSBundle bundleWithPath:PDFKitPath];
-		if (![PDFKitBundle load]) {
-			NSLog(@"Couldn't load PDFKit.framework");
-		}
-	}
-	return PDFKitBundle;
-}
-
-+ (Class)PDFDocClass {
-	static Class PDFDocClass = nil;
-	if (PDFDocClass == nil) {
-		PDFDocClass = [[self PDFKitBundle] classNamed:@"PDFDocument"];
-		if (PDFDocClass == nil) {
-			NSLog(@"Couldn't find PDFDocument class in PDFKit.framework");
-		}
-	}
-	return PDFDocClass;
 }
 
 - (NSDictionary*)documentSettings {
@@ -282,122 +242,32 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	return nil;
 }
 
-//auto-detect based on file type/extension/header
-//if unable to find, revert to spotlight importer
+// Import text source without extracting a rendered document or normalizing whitespace.
 - (NoteObject*)noteWithFile:(NSString*)filename {
-	// Import text and supported document formats.
 	NSString *extension = [[filename pathExtension] lowercaseString];
-	NSDictionary *attributes = [[NSFileManager defaultManager]attributesAtPath:filename followLink:YES];
-    //[[NSFileManager defaultManager] fileAttributesAtPath:filename traverseLink:YES];
+	NSDictionary *attributes = [[NSFileManager defaultManager] attributesAtPath:filename followLink:YES];
 	unsigned long fileType = [[attributes objectForKey:NSFileHFSTypeCode] unsignedLongValue];
-	
-	NSMutableAttributedString *attributedStringFromData = nil;
-
-	if (fileType == HTML_TYPE_ID ||
-		[@[@"htm", @"html", @"shtml", @"xhtml", @"xht", @"webarchive"] containsObject:extension] ||
-		[filename UTIOfFileConformsToType:@"public.html"] ||
-		[filename UTIOfFileConformsToType:@"com.apple.webarchive"]) {
-		return nil;
-	}
-	if (fileType == RTF_TYPE_ID || [extension isEqualToString:@"rtf"] || [extension isEqualToString:@"nvhelp"] || [extension isEqualToString:@"rtx"]) {
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithRTF:[NSData uncachedDataFromFile:filename] documentAttributes:NULL];
-		
-	} else if (fileType == RTFD_TYPE_ID || [extension isEqualToString:@"rtfd"]) {
-		NSFileWrapper *wrapper = [[[NSFileWrapper alloc] initWithPath:filename] autorelease];
-		if ([[attributes objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory])
-			attributedStringFromData = [[NSMutableAttributedString alloc] initWithRTFDFileWrapper:wrapper documentAttributes:NULL];
-		else
-			attributedStringFromData = [[NSMutableAttributedString alloc] initWithRTFD:[NSData uncachedDataFromFile:filename] documentAttributes:NULL];
-		
-	} else if (fileType == WORD_DOC_TYPE_ID || [extension isEqualToString:@"doc"]) {
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithDocFormat:[NSData uncachedDataFromFile:filename] documentAttributes:NULL];
-		
-	} else if ([extension isEqualToString:@"docx"]) {
-		NSData *data = [NSData uncachedDataFromFile:filename];
-		attributedStringFromData = [[NSMutableAttributedString alloc] initWithData:data
-			options:@{NSDocumentTypeDocumentOption: NSOfficeOpenXMLTextDocumentType} documentAttributes:NULL error:NULL];
-	} else if (fileType == PDF_TYPE_ID || [extension isEqualToString:@"pdf"]) {
-		//try PDFKit loading lazily
-		@try {
-			Class PdfDocClass = [[self class] PDFDocClass];
-			if (PdfDocClass != Nil) {
-				id doc = [[PdfDocClass alloc] initWithURL:[NSURL fileURLWithPath:filename]];
-				if (doc) {
-					//this method reliably crashes in 64-bit Leopard, and sometimes elsewhere as well
-					id sel = [doc performSelector:@selector(selectionForEntireDocument)];
-					if (sel) {
-						attributedStringFromData = [[NSMutableAttributedString alloc] initWithAttributedString:[sel attributedString]];
-						//maybe we could check pages and boundsForPage: to try to determine where a line was soft-wrapped in the document?
-					} else {
-						NSLog(@"Couldn't get entire doc selection for PDF");
-					}
-					[doc autorelease];
-				} else {
-					NSLog(@"Couldn't parse data into PDF");
-				}
-			} else {
-				NSLog(@"No PDFDocument!");
-			}
-		} @catch (NSException *e) {
-			NSLog(@"Error importing PDF %@ (%@, %@)", filename, [e name], [e reason]);
-		}
-	} else if (fileType == TEXT_TYPE_ID || [extension isEqualToString:@"txt"] || [extension isEqualToString:@"text"] ||
-			   [filename UTIOfFileConformsToType:@"public.plain-text"]) {
-		
-		NSMutableString *stringFromData = [NSMutableString newShortLivedStringFromFile:filename];
-		if (stringFromData) {
-			attributedStringFromData = [[NSMutableAttributedString alloc] initWithString:stringFromData 
-																			  attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-			[stringFromData release];
-		}
-		
-	}
-	// else {
-		//try spotlight importer if on 10.4
-	//}
-		
-
-	if (attributedStringFromData) {
-		[attributedStringFromData trimLeadingWhitespace];
-		[attributedStringFromData removeAttachments];
-		
-		NSString *processedFilename = [[filename lastPathComponent] stringByDeletingPathExtension];
-		NSUInteger bodyLoc = 0, prefixedSourceLength = 0;
-		NSString *title = [[attributedStringFromData string] syntheticTitleAndSeparatorWithContext:NULL bodyLoc:&bodyLoc maxTitleLen:36];
-		
-		//if the synthetic title (generally the first line of the content) is shorter than the filename itself, just use the filename as the title
-		//(or if this is a special case and we know the filename should be used)
-		if ([processedFilename length] > [title length] || [extension isEqualToString:@"nvhelp"] || [title isAMachineDirective] || 
-			[title isEqualToString:NSLocalizedString(@"Untitled Note", @"Title of a nameless note")]) {
-			title = processedFilename;
-			bodyLoc = 0;
-		} else {
-			title = [title stringByAppendingFormat:@" (%@)", processedFilename];
-		}
-		[attributedStringFromData santizeForeignStylesForImporting];
-		
-		[attributedStringFromData autorelease];
-		
-		//transfer any openmeta tags associated with this file as tags for the new note
-		NSArray *openMetaTags = [[NSFileManager defaultManager] getTagsAtFSPath:[filename fileSystemRepresentation]];
-		
-		//we do not also use filename as uniqueFilename, as we are only importing--not taking ownership
-		NoteObject *noteObject = [[NoteObject alloc] initWithNoteBody:attributedStringFromData title:title delegate:nil 
-															   format:SingleDatabaseFormat labels:[openMetaTags componentsJoinedByString:@" "]];				
-		if (noteObject) {
-			if (bodyLoc > 0 && [attributedStringFromData length] >= bodyLoc + prefixedSourceLength) [noteObject setSelectedRange:NSMakeRange(prefixedSourceLength, bodyLoc)];
-			if (shouldGrabCreationDates) {
-				[noteObject setDateAdded:CFDateGetAbsoluteTime((CFDateRef)[attributes objectForKey:NSFileCreationDate])];
-			}
-			[noteObject setDateModified:CFDateGetAbsoluteTime((CFDateRef)[attributes objectForKey:NSFileModificationDate])];
-			
-			return [noteObject autorelease];
-		} else {
-			NSLog(@"couldn't generate note object from imported attributed string??");
-		}
-		
-	}
-	return nil;
+	if (![[attributes objectForKey:NSFileType] isEqualToString:NSFileTypeRegular]) return nil;
+	if (fileType == HTML_TYPE_ID || fileType == RTF_TYPE_ID || fileType == RTFD_TYPE_ID || fileType == WORD_DOC_TYPE_ID || fileType == PDF_TYPE_ID ||
+		[@[@"htm", @"html", @"shtml", @"xhtml", @"xht", @"webarchive", @"rtf", @"rtfd", @"rtx", @"nvhelp", @"doc", @"docx", @"pdf"] containsObject:extension] ||
+		[filename UTIOfFileConformsToType:@"public.html"] || [filename UTIOfFileConformsToType:@"com.apple.webarchive"]) return nil;
+	if (fileType != TEXT_TYPE_ID &&
+		![@[@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv"] containsObject:extension] &&
+		![filename UTIOfFileConformsToType:@"public.plain-text"]) return nil;
+	NSData *data = [NSData dataWithContentsOfFile:filename options:NSDataReadingUncached error:NULL];
+	NSStringEncoding encoding = NSUTF8StringEncoding;
+	NSString *sourceText = [NoteObject sourceStringFromData:data encoding:&encoding path:filename];
+	if (!sourceText) return nil;
+	NSAttributedString *body = [[[NSAttributedString alloc] initWithString:sourceText attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]] autorelease];
+	NSArray *tags = [[NSFileManager defaultManager] getTagsAtFSPath:[filename fileSystemRepresentation]];
+	NoteObject *note = [[[NoteObject alloc] initWithNoteBody:body title:[[filename lastPathComponent] stringByDeletingPathExtension] delegate:nil format:SingleDatabaseFormat labels:[tags componentsJoinedByString:@" "]] autorelease];
+	[note rememberSourceData:data encoding:encoding];
+	[note setSourceSyntaxIdentifier:[NoteObject sourceSyntaxIdentifierForPathExtension:extension]];
+	NSDate *created = [attributes objectForKey:NSFileCreationDate];
+	NSDate *modified = [attributes objectForKey:NSFileModificationDate];
+	if (shouldGrabCreationDates && created) [note setDateAdded:[created timeIntervalSinceReferenceDate]];
+	if (modified) [note setDateModified:[modified timeIntervalSinceReferenceDate]];
+	return note;
 }
 
 - (NSArray*)notesInDirectory:(NSString*)filename {
@@ -434,12 +304,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	
 	if ([extension isEqualToString:@"blor"]) {
 		return [self _importBlorNotes:filename];
-	} else if ([[filename lastPathComponent] isEqualToString:@"StickiesDatabase"]) {
-		return [self _importStickies:filename];
-	} else if ([extension isEqualToString:@"tsv"]) {
-        return [self _importTSVFile:filename];
-	} else if ([extension isEqualToString:@"csv"]) {
-        return [self _importCSVFile:filename];
 	} else {
 		NoteObject *note = [self noteWithFile:filename];
 		if (note)
@@ -452,56 +316,6 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 @end
 
 @implementation AlienNoteImporter (Private)
-
-- (NSArray*)_importStickies:(NSString*)filename {
-	NSMutableArray *stickyNotes = nil;
-	NS_DURING
-		NSData *stickyData = [NSData uncachedDataFromFile:filename];
-		NSUnarchiver *unarchiver = [[NSUnarchiver alloc] initForReadingWithData:stickyData];
-		[unarchiver decodeClassName:@"Document" asClassName:@"StickiesDocument"];
-		stickyNotes = [[unarchiver decodeObject] retain];
-		[unarchiver release];
-	NS_HANDLER
-		stickyNotes = nil;
-		NSLog(@"Error parsing stickies database: %@", [localException reason]);
-	NS_ENDHANDLER
-	
-	if (stickyNotes && [stickyNotes isKindOfClass:[NSMutableArray class]]) {
-		NSMutableArray *notes = [NSMutableArray arrayWithCapacity:[stickyNotes count]];
-		
-		unsigned int i;
-		for (i=0; i<[stickyNotes count]; i++) {
-			StickiesDocument *doc = [stickyNotes objectAtIndex:i];
-			if ([doc isKindOfClass:[StickiesDocument class]]) {
-				NSMutableAttributedString *attributedString = [[[NSMutableAttributedString alloc] initWithRTFD:[doc RTFDData] documentAttributes:NULL] autorelease];
-				[attributedString removeAttachments];
-				[attributedString santizeForeignStylesForImporting];
-				NSString *syntheticTitle = [attributedString trimLeadingSyntheticTitle];
-				
-				NoteObject *noteObject = [[[NoteObject alloc] initWithNoteBody:attributedString title:syntheticTitle 
-																	  delegate:nil format:SingleDatabaseFormat labels:nil] autorelease];
-				if (noteObject) {
-					[noteObject setDateAdded:CFDateGetAbsoluteTime((CFDateRef)[doc creationDate])];
-					[noteObject setDateModified:CFDateGetAbsoluteTime((CFDateRef)[doc modificationDate])];
-
-					[notes addObject:noteObject];
-				} else {
-					NSLog(@"couldn't generate note object from sticky note??");
-				}
-			} else {
-				NSLog(@"Sticky document is wrong: %@", [doc description]);
-			}
-		}
-		
-		[stickyNotes release];
-		
-		return notes;
-	} else {
-		NSLog(@"Sticky notes array is wrong: %@", [stickyNotes description]);
-	}
-	
-	return nil;
-}
 
 - (NSArray*)_importBlorNotes:(NSString*)filename {
 	
@@ -553,61 +367,4 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 	return array;
 }
 
-- (NSArray*)_importTSVFile:(NSString*)filename {
-	return [self _importDelimitedFile:filename withDelimiter:@"\t"];
-}
-- (NSArray*)_importCSVFile:(NSString*)filename {
-	return [self _importDelimitedFile:filename withDelimiter:@","];
-}
-
-- (NSArray*)_importDelimitedFile:(NSString*)filename withDelimiter:(NSString*)delimiter {
-	
-	NSMutableString *contents = [NSMutableString newShortLivedStringFromFile:filename];
-	if (!contents) return nil;
-    
-    // normalize newlines
-    [contents replaceOccurrencesOfString:@"\r\n" withString:@"\n" options:0 range:NSMakeRange(0, [contents length])];
-    [contents replaceOccurrencesOfString:@"\r" withString:@"\n" options:0 range:NSMakeRange(0, [contents length])];
-    
-    NSMutableArray *notes = [NSMutableArray array];
-    NSArray *lines = [contents componentsSeparatedByString:@"\n"];
-    NSEnumerator *en = [lines objectEnumerator];
-    NSString *curLine;
-	
-	CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
-	
-    // Assume first entry in line is note title and any other entries go in the note body
-    while ((curLine = [en nextObject])) {
-        NSArray *fields = [curLine componentsSeparatedByString:delimiter];
-        NSUInteger count = [fields count];
-        if (count > 1) {
-            NSMutableString *s = [NSMutableString string];
-            NSUInteger i;
-            for (i = 1; i < count; ++i) {
-                NSString *entry = [fields objectAtIndex:i];
-                if ([entry length] > 0)
-                    [s appendString:[NSString stringWithFormat:@"%@\n", entry]];
-            }
-            
-            if (0 == [s length])
-                continue;
-            
-            NSString *title = [fields objectAtIndex:0];
-			NSMutableAttributedString *attributedBody = [[[NSMutableAttributedString alloc] initWithString:s attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]] autorelease];
-			[attributedBody addLinkAttributesForRange:NSMakeRange(0, [attributedBody length])];
-			[attributedBody addStrikethroughNearDoneTagsForRange:NSMakeRange(0, [attributedBody length])];
-			
-            NoteObject *note = [[[NoteObject alloc] initWithNoteBody:attributedBody title:title delegate:nil format:SingleDatabaseFormat labels:nil] autorelease];
-			if (note) {
-				now += 1.0; //to ensure a consistent sort order
-				[note setDateAdded:now];
-				[note setDateModified:now];
-				[notes addObject:note];
-			}
-        }
-    }
-	[contents release];
-    
-    return (notes);
-}
 @end

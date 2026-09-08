@@ -12,6 +12,27 @@
 #import "NSString_NV.h"
 #import "SyncSessionController.h"
 #import "SecureTextEntryManager.h"
+#import "PreviewController.h"
+
+static NSDictionary *ValidatedBodyState(id value) {
+    if (![value isKindOfClass:[NSDictionary class]]) return @{};
+    NSMutableDictionary *state = [NSMutableDictionary dictionary];
+    id scroll = [value objectForKey:@"sourceScroll"];
+    if ([scroll isKindOfClass:[NSString class]]) {
+        NSPoint point = NSPointFromString(scroll);
+        if (isfinite(point.x) && isfinite(point.y) && point.x >= 0 && point.y >= 0) [state setObject:scroll forKey:@"sourceScroll"];
+    }
+    id viewers = [value objectForKey:@"viewers"];
+    if ([viewers isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary *validViewers = [NSMutableDictionary dictionary];
+        for (NSString *identifier in @[@"markdown", @"textile", @"html"]) {
+            id viewerState = [viewers objectForKey:identifier];
+            if ([viewerState isKindOfClass:[NSDictionary class]]) [validViewers setObject:viewerState forKey:identifier];
+        }
+        [state setObject:validViewers forKey:@"viewers"];
+    }
+    return state;
+}
 
 @implementation AppController (MultipleWindows)
 - (NVBrowserSession *)browserSession { return (NVBrowserSession *)notationController; }
@@ -26,6 +47,7 @@
     [notesTableView abortEditing];
     [notesTableView deselectAll:self];
     [self _setCurrentNote:nil];
+    [self discardViewer];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SyncSessionsChangedVisibleStatusNotification object:nil];
     [[self browserSession] setDelegate:nil];
     [notationController release];
@@ -37,6 +59,8 @@
     [notesTableView reloadData];
     [self setEmptyViewState:YES];
     [noteSelections removeAllObjects];
+    [noteBodyStates removeAllObjects];
+    presentationStateGeneration++;
     [windowUndoManager removeAllActions];
     if (oldQuery) {
         [typedString release]; typedString = [oldQuery copy]; typedStringIsCached = YES;
@@ -95,10 +119,14 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 - (NSDictionary *)browserWindowState {
+    [self captureBodyPresentation];
     NSMutableDictionary *state = [NSMutableDictionary dictionary];
     [state setObject:[window stringWithSavedFrame] ?: @"" forKey:@"frame"];
     [state setObject:@2 forKey:@"layoutVersion"];
     [state setObject:@NO forKey:@"horizontalLayout"];
+    [state setObject:@1 forKey:@"presentationVersion"];
+    [state setObject:@(viewingNote) forKey:@"viewingNote"];
+    [state setObject:selectedViewerIdentifier forKey:@"viewerIdentifier"];
     [state setObject:[[self browserSession] searchString] ?: @"" forKey:@"search"];
     [state setObject:[[[self browserSession] sortColumn] identifier] ?: NoteTitleColumnString forKey:@"sort"];
     [state setObject:@([[self browserSession] reverseSorted]) forKey:@"reverse"];
@@ -109,10 +137,14 @@
         [state setObject:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]] forKey:@"note"];
         [state setObject:NSStringFromRange([textView selectedRange]) forKey:@"selection"];
         [state setObject:NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"editorScroll"];
+        NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];
+        if ([noteBodyStates objectForKey:key]) [state setObject:[noteBodyStates objectForKey:key] forKey:@"bodyState"];
     }
     return state;
 }
 - (void)restoreBrowserWindowState:(NSDictionary *)state {
+    [self setViewingNote:NO];
+    presentationStateGeneration++;
     if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:[state objectForKey:@"frame"]];
     browserHorizontalLayout = NO;
     NSString *query = [state objectForKey:@"search"];
@@ -147,6 +179,17 @@
     [notesTableView restoreColumnLayoutState:[state objectForKey:@"columns"]];
     if ([[state objectForKey:@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString([state objectForKey:@"listScroll"])];
     if (currentNote && [[state objectForKey:@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString([state objectForKey:@"editorScroll"])];
+    NSString *viewer = [state objectForKey:@"viewerIdentifier"];
+    if ([@[@"markdown", @"textile", @"html"] containsObject:viewer]) {
+        [selectedViewerIdentifier release]; selectedViewerIdentifier = [viewer copy];
+    }
+    if (currentNote) {
+        [noteBodyStates setObject:ValidatedBodyState([state objectForKey:@"bodyState"]) forKey:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]]];
+    }
+    id version = [state objectForKey:@"presentationVersion"], viewMode = [state objectForKey:@"viewingNote"];
+    [self setViewingNote:[version isKindOfClass:[NSNumber class]] && [version integerValue] == 1 &&
+        [viewMode isKindOfClass:[NSNumber class]] && [viewMode boolValue]];
+    [self updateBodyPresentation];
     // AppKit finishes restoring the toolbar and window constraints on the next
     // run-loop turn. Apply the saved divider after that final content resize.
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restoreNotesListHeight) object:nil];

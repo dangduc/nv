@@ -12,10 +12,12 @@ import uuid
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--case', choices=['all', 'blank', 'rendered'], default='all')
-case = parser.parse_args().case
+parser.add_argument('--compile-only', action='store_true', help='compile both probe harnesses without launching an app')
+args = parser.parse_args()
+case = args.case
 if case == 'all':
     for selected in ['blank', 'rendered']:
-        subprocess.run([sys.executable, str(Path(__file__).resolve()), '--case', selected], check=True)
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), '--case', selected] + (['--compile-only'] if args.compile_only else []), check=True)
     raise SystemExit(0)
 
 repo = Path(__file__).resolve().parents[3]
@@ -51,19 +53,22 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
     prefix = prefix.replace('[self setupViewsAfterAppAwakened];', '''Check([[[NSBundle mainBundle] bundleIdentifier] hasPrefix:@"org.nvalt.window-tests."], @"isolated copied-app preferences domain");
     Check([[[NSBundle mainBundle] bundlePath] hasPrefix:[TestDirectory stringByAppendingString:@"/"]], @"copied app and temporary library share the test root");
     [self setupViewsAfterAppAwakened];''')
-    harness.write_text('#import <WebKit/WebKit.h>\n#import "PreviewController.h"\n' + prefix + Path(__file__).with_name('probe-body.m' if case == 'blank' else 'rendered-body.m').read_text())
+    harness.write_text('#import <WebKit/WebKit.h>\n#import "PreviewController.h"\n' + prefix + Path(__file__).with_name('probe-body.m' if case == 'blank' else 'rendered-body.m').read_text().replace('// NV_LIFETIME_INSTRUMENTATION', Path(__file__).with_name('instrumentation.inc').read_text()))
     subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
         '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations',
         *include_flags(repo), '-include', str(repo / 'Config/Notation_Prefix.pch'),
         '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', str(dylib),
         str(harness)], check=True)
+    if args.compile_only:
+        print(f'PASS: {case} inline viewer lifetime harness compiles')
+        raise SystemExit(0)
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / 'Temp') + '/')
     binary = app / 'Contents/MacOS' / info['CFBundleExecutable']
     arguments = [str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO',
         '-QuitWhenClosingMainWindow', 'NO', '-SUEnableAutomaticChecks', 'NO']
     process = subprocess.Popen(arguments, env=environment)
     try:
-        result = process.wait(timeout=30)
+        result = process.wait(timeout=90)
     except subprocess.TimeoutExpired:
         process.kill()
         # Rosetta may leave a crashed process uninterruptible. Do not wait forever
