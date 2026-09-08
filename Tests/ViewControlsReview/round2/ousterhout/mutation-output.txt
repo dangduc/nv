@@ -1,0 +1,31 @@
+2026-09-08 04:37:17.926 nvALT[66339:325021391] PASS: temporary library directory exists
+2026-09-08 04:37:17.927 nvALT[66339:325021391] PASS: temporary library opens
+2026-09-08 04:37:18.665 nvALT[66339:325021391] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:18.721 nvALT[66339:325021391] PASS: source composition remains live and uncommitted
+2026-09-08 04:37:18.935 nvALT[66339:325021391] PASS: shared visibility and word-count callbacks preserve marked source and its selection
+2026-09-08 04:37:18.935 nvALT[66339:325021391] PASS: layout callbacks retain source focus and do not prematurely commit or create Undo
+2026-09-08 04:37:19.281 nvALT[66339:325021391] PASS: shared visibility and word-count callbacks preserve marked source and its selection
+2026-09-08 04:37:19.281 nvALT[66339:325021391] PASS: layout callbacks retain source focus and do not prematurely commit or create Undo
+2026-09-08 04:37:19.286 nvALT[66339:325021391] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:19.289 nvALT[66339:325021391] PASS: two windows retain native source and metadata compositions
+2026-09-08 04:37:19.344 nvALT[66339:325021391] PASS: hiding a marked title commits both compositions to their shared original note
+2026-09-08 04:37:19.344 nvALT[66339:325021391] PASS: metadata callback completes marked input and releases its original editing target
+2026-09-08 04:37:19.344 nvALT[66339:325021391] PASS: both source responders remain owned by their original windows after the callback
+2026-09-08 04:37:19.344 nvALT[66339:325021391] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:19.346 nvALT[66339:325021391] PASS: Undo dispatches through the focused source responder
+2026-09-08 04:37:19.396 nvALT[66339:325021391] PASS: Undo removes the hidden title commit before the preceding source composition
+2026-09-08 04:37:19.396 nvALT[66339:325021391] PASS: the second Undo dispatches through the source responder
+2026-09-08 04:37:19.448 nvALT[66339:325021391] PASS: the next Undo removes source composition once in both attached editors
+2026-09-08 04:37:19.551 nvALT[66339:325021391] PASS: Redo restores composition and hidden metadata in their original order
+2026-09-08 04:37:19.553 nvALT[66339:325021391] PASS: new View menu commands route through the application coordinator
+2026-09-08 04:37:19.559 nvALT[66339:325021391] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:19.559 nvALT[66339:325021391] PASS: the actual View menu command is enabled
+2026-09-08 04:37:19.560 nvALT[66339:325021391] PASS: the native responder chain dispatches the View command
+2026-09-08 04:37:19.560 nvALT[66339:325021391] PASS: hidden syntax action changes only the active note
+2026-09-08 04:37:19.560 nvALT[66339:325021391] PASS: the actual View menu command is enabled
+2026-09-08 04:37:19.607 nvALT[66339:325021391] PASS: the native responder chain dispatches the View command
+2026-09-08 04:37:19.608 nvALT[66339:325021391] PASS: Show Preview changes only its originating browser
+2026-09-08 04:37:19.614 nvALT[66339:325021391] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:37:19.614 nvALT[66339:325021391] PASS: the actual View menu command is enabled
+2026-09-08 04:37:19.614 nvALT[66339:325021391] PASS: the native responder chain dispatches the View command
+2026-09-08 04:37:19.614 nvALT[66339:325021391] FAIL: a peer menu command does not inherit the previous active note

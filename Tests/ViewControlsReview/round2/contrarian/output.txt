@@ -1,0 +1,212 @@
+2026-09-08 04:45:48.439 nvALT[68918:325043190] PASS: temporary library directory exists
+2026-09-08 04:45:48.439 nvALT[68918:325043190] PASS: temporary library opens
+2026-09-08 04:45:48.766 nvALT[68918:325043190] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:45:48.834 nvALT[68918:325043190] PASS: fixture starts with an actually empty shared library
+2026-09-08 04:45:48.834 nvALT[68918:325043190] HISTORY 1: empty library, hidden toolbar, collapse the focused empty list
+2026-09-08 04:45:48.928 nvALT[68918:325043190] PASS: the empty notes list owns native focus before it is hidden
+2026-09-08 04:45:48.929 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:48.929 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:48.930 nvALT[68918:325043190] PASS: application dispatch accepts toggleTitleInTopSection:
+2026-09-08 04:45:48.981 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:48.981 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:48.982 nvALT[68918:325043190] PASS: application dispatch accepts toggleTagsInTopSection:
+2026-09-08 04:45:49.033 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.033 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.035 nvALT[68918:325043190] PASS: application dispatch accepts toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.086 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:49.086 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:49.090 nvALT[68918:325043190] PASS: application dispatch accepts toggleNotesList:
+2026-09-08 04:45:49.141 nvALT[68918:325043190] PASS: actual notes list and every header row remain hidden
+2026-09-08 04:45:49.142 nvALT[68918:325043190] OBSERVATION empty collapse toolbarVisible=0 firstResponder=<NSWindow: 0x7fcb3720e3a0> fieldEditor=(null) listHidden=1
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: empty-state menu validation starts without a selected note
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains renameNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation disables renameNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains tagNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation disables tagNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation disables deleteNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains toggleSourcePreview:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation disables toggleSourcePreview:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains selectSourceSyntax:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation disables selectSourceSyntax:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:49.142 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: the empty-library status view occupies the released header space
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:49.143 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:49.261 nvALT[68918:325043190] PASS: application dispatch accepts bringFocusToControlField:
+2026-09-08 04:45:49.514 nvALT[68918:325043190] PASS: Search opens a visible native field editor from the empty hidden interface
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native field editing sets the exact browser query
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: empty-state menu validation starts without a selected note
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains renameNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation disables renameNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains tagNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation disables tagNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation disables deleteNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains toggleSourcePreview:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation disables toggleSourcePreview:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains selectSourceSyntax:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation disables selectSourceSyntax:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:49.571 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.572 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.678 nvALT[68918:325043190] PASS: Tab keeps empty-result Search focused and creates no accidental note
+2026-09-08 04:45:49.842 nvALT[68918:325043190] PASS: Return creates exactly one note with the native Search query as title
+2026-09-08 04:45:49.842 nvALT[68918:325043190] PASS: actual notes list and every header row remain hidden
+2026-09-08 04:45:49.842 nvALT[68918:325043190] PASS: note creation gives the visible editable Source the actual first responder
+2026-09-08 04:45:49.843 nvALT[68918:325043190] PASS: nil-target body input resolves through the native responder chain
+2026-09-08 04:45:49.894 nvALT[68918:325043190] PASS: responder-chain input commits the exact source characters
+2026-09-08 04:45:49.894 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:49.894 nvALT[68918:325043190] PASS: native validation enables deleteNote:
+2026-09-08 04:45:49.895 nvALT[68918:325043190] PASS: application dispatch accepts deleteNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native Delete removes the last note with list and header hidden
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: empty-state menu validation starts without a selected note
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native menu contains renameNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native validation disables renameNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native menu contains tagNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native validation disables tagNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native validation disables deleteNote:
+2026-09-08 04:45:49.945 nvALT[68918:325043190] PASS: native menu contains toggleSourcePreview:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation disables toggleSourcePreview:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains selectSourceSyntax:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation disables selectSourceSyntax:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:49.946 nvALT[68918:325043190] HISTORY 2: close every browser, use View menus, then New Window
+2026-09-08 04:45:50.015 nvALT[68918:325043190] PASS: closing the last native window leaves the shared empty library open
+2026-09-08 04:45:50.015 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:50.015 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:50.016 nvALT[68918:325043190] PASS: application dispatch accepts toggleTitleInTopSection:
+2026-09-08 04:45:50.067 nvALT[68918:325043190] PASS: a no-window View command reaches the retained application owner
+2026-09-08 04:45:50.067 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:50.067 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:50.069 nvALT[68918:325043190] PASS: application dispatch accepts toggleTitleInTopSection:
+2026-09-08 04:45:50.119 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:50.119 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:50.229 nvALT[68918:325043190] PASS: application dispatch accepts newWindow:
+2026-09-08 04:45:50.279 nvALT[68918:325043190] PASS: the native New Window menu opens exactly one browser after all windows close
+2026-09-08 04:45:50.280 nvALT[68918:325043190] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: the reopened browser attaches to the original shared library
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: actual notes list and every header row remain hidden
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: empty-state menu validation starts without a selected note
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: native menu contains renameNote:
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: native validation disables renameNote:
+2026-09-08 04:45:50.340 nvALT[68918:325043190] PASS: native menu contains tagNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation disables tagNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation disables deleteNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains toggleSourcePreview:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation disables toggleSourcePreview:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains selectSourceSyntax:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation disables selectSourceSyntax:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:50.341 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:50.345 nvALT[68918:325043190] PASS: application dispatch accepts newNote:
+2026-09-08 04:45:50.395 nvALT[68918:325043190] PASS: New Note creates exactly one note in the reopened empty library
+2026-09-08 04:45:50.395 nvALT[68918:325043190] PASS: note creation gives the visible editable Source the actual first responder
+2026-09-08 04:45:50.396 nvALT[68918:325043190] PASS: nil-target body input resolves through the native responder chain
+2026-09-08 04:45:50.448 nvALT[68918:325043190] PASS: responder-chain input commits the exact source characters
+2026-09-08 04:45:50.510 nvALT[68918:325043190] PASS: closing the secondary browser retains its note and the same open library
+2026-09-08 04:45:50.510 nvALT[68918:325043190] HISTORY 3: Dock reopen, no-match filter, and New Note with hidden title
+2026-09-08 04:45:50.618 nvALT[68918:325043190] PASS: the native application reopen callback accepts the zero-window state
+2026-09-08 04:45:50.669 nvALT[68918:325043190] PASS: Dock reopen creates exactly one browser
+2026-09-08 04:45:50.670 nvALT[68918:325043190] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:45:50.731 nvALT[68918:325043190] PASS: actual notes list and every header row remain hidden
+2026-09-08 04:45:50.731 nvALT[68918:325043190] PASS: Dock reopen reuses the shared library and keeps the previously created note
+2026-09-08 04:45:50.826 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:50.826 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:50.939 nvALT[68918:325043190] PASS: application dispatch accepts bringFocusToControlField:
+2026-09-08 04:45:51.195 nvALT[68918:325043190] PASS: Search opens a visible native field editor from the empty hidden interface
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native field editing sets the exact browser query
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: the reopened browser reaches an actual zero-result query over a nonempty library
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: empty-state menu validation starts without a selected note
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native menu contains renameNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native validation disables renameNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native menu contains tagNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native validation disables tagNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native menu contains deleteNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native validation disables deleteNote:
+2026-09-08 04:45:51.247 nvALT[68918:325043190] PASS: native menu contains toggleSourcePreview:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation disables toggleSourcePreview:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains selectSourceSyntax:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation disables selectSourceSyntax:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains newWindow:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables newWindow:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains bringFocusToControlField:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables bringFocusToControlField:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains toggleTitleInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables toggleTitleInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains toggleTagsInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables toggleTagsInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains toggleBodyControlsInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables toggleBodyControlsInTopSection:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native menu contains newNote:
+2026-09-08 04:45:51.248 nvALT[68918:325043190] PASS: native validation enables newNote:
+2026-09-08 04:45:51.252 nvALT[68918:325043190] PASS: application dispatch accepts newNote:
+2026-09-08 04:45:51.302 nvALT[68918:325043190] PASS: New Note clears the unmatched query and creates a distinct note after reopen
+2026-09-08 04:45:51.302 nvALT[68918:325043190] PASS: actual notes list and every header row remain hidden
+2026-09-08 04:45:51.302 nvALT[68918:325043190] PASS: note creation gives the visible editable Source the actual first responder
+2026-09-08 04:45:51.303 nvALT[68918:325043190] PASS: nil-target body input resolves through the native responder chain
+2026-09-08 04:45:51.353 nvALT[68918:325043190] PASS: responder-chain input commits the exact source characters
+2026-09-08 04:45:51.354 nvALT[68918:325043190] PASS: the second creation leaves the original note's exact source intact
+2026-09-08 04:45:51.354 nvALT[68918:325043190] PASS: native menu contains toggleNotesList:
+2026-09-08 04:45:51.354 nvALT[68918:325043190] PASS: native validation enables toggleNotesList:
+2026-09-08 04:45:51.362 nvALT[68918:325043190] PASS: application dispatch accepts toggleNotesList:
+2026-09-08 04:45:51.414 nvALT[68918:325043190] PASS: Show Notes List restores both notes and the new note selection after both reopen paths
+2026-09-08 04:45:51.415 nvALT[68918:325043190] verified 2 notes in 0.000339031 s
+2026-09-08 04:45:51.416 nvALT[68918:325043190] CONTRARIAN ROUND 2 PASSED: 206 checks

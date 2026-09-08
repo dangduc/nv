@@ -1,0 +1,727 @@
+2026-09-08 04:49:21.767 nvALT[70416:325054364] PASS: temporary library directory exists
+2026-09-08 04:49:21.768 nvALT[70416:325054364] PASS: temporary library opens
+2026-09-08 04:49:22.087 nvALT[70416:325054364] PASS: fixture includes production View controls
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:22.280 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:22.281 nvALT[70416:325054364] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:49:22.540 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:22.644 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:22.748 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:22.851 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:22.955 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:23.059 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:23.186 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:23.387 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:23.438 nvALT[70416:325054364] MEASURE edit phase=before_churn windows=1 edits=8 count_calls=16 count_ms=228.643 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=430.078 sync_min_ms=52.807 sync_max_ms=56.079
+2026-09-08 04:49:23.438 nvALT[70416:325054364] PASS: native edits commit the exact expected shared source
+2026-09-08 04:49:23.438 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:23.438 nvALT[70416:325054364] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.688 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:23.922 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:23.955 nvALT[70416:325054364] MEASURE lifecycle cycle=1 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=1
+2026-09-08 04:49:23.955 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.210 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:24.288 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.438 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:24.459 nvALT[70416:325054364] MEASURE lifecycle cycle=2 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=2
+2026-09-08 04:49:24.459 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.709 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:24.789 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:24.938 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:24.971 nvALT[70416:325054364] MEASURE lifecycle cycle=3 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=3
+2026-09-08 04:49:24.971 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.228 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:25.288 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.456 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:25.477 nvALT[70416:325054364] MEASURE lifecycle cycle=4 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=4
+2026-09-08 04:49:25.477 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.736 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:25.815 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:25.966 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:25.993 nvALT[70416:325054364] MEASURE lifecycle cycle=5 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=5
+2026-09-08 04:49:25.993 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.246 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:26.331 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:26.481 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:26.481 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.481 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.481 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.482 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:26.502 nvALT[70416:325054364] MEASURE lifecycle cycle=6 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=6
+2026-09-08 04:49:26.502 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.763 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:26.829 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:26.996 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:27.030 nvALT[70416:325054364] MEASURE lifecycle cycle=7 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=7
+2026-09-08 04:49:27.030 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.288 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:27.345 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.514 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:27.535 nvALT[70416:325054364] MEASURE lifecycle cycle=8 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=8
+2026-09-08 04:49:27.535 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:27.788 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:27.868 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.019 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:28.047 nvALT[70416:325054364] MEASURE lifecycle cycle=9 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=9
+2026-09-08 04:49:28.047 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.295 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:28.372 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:28.521 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.522 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:28.543 nvALT[70416:325054364] MEASURE lifecycle cycle=10 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=10
+2026-09-08 04:49:28.543 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:28.793 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:28.878 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.028 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:29.063 nvALT[70416:325054364] MEASURE lifecycle cycle=11 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=11
+2026-09-08 04:49:29.063 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: open cycle adds exactly one browser
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 2 browser observers
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 2 browser observers
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 2 browser observers
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.315 nvALT[70416:325054364] PASS: open cycle attaches exactly one additional source layout
+2026-09-08 04:49:29.377 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: close cycle removes the additional browser
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 1 browser observers
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 1 browser observers
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:29.546 nvALT[70416:325054364] PASS: close cycle detaches the additional source layout
+2026-09-08 04:49:29.567 nvALT[70416:325054364] MEASURE lifecycle cycle=12 open_browsers=1 preference_callbacks=6 closed_callbacks=0 count_calls=1 header_layouts=4 shared_layouts=1 browser_deallocs=12
+2026-09-08 04:49:29.567 nvALT[70416:325054364] PASS: six post-close settings reach only the surviving browser and perform one word count
+2026-09-08 04:49:29.568 nvALT[70416:325054364] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:49:29.836 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:29.941 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:29.945 nvALT[70416:325054364] dealloc linkinged
+2026-09-08 04:49:30.047 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.152 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.256 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.361 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.466 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.571 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:30.621 nvALT[70416:325054364] MEASURE edit phase=after_churn windows=1 edits=8 count_calls=16 count_ms=234.009 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=443.368 sync_min_ms=53.230 sync_max_ms=65.867
+2026-09-08 04:49:30.622 nvALT[70416:325054364] PASS: native edits commit the exact expected shared source
+2026-09-08 04:49:30.622 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:30.622 nvALT[70416:325054364] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: setShowTitleInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: setShowTagsInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: setShowBodyControlsInTopSection:sender: has exactly 4 browser observers
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: setShowNotesList:sender: has exactly 4 browser observers
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: setShowWordCount: has exactly 4 browser observers
+2026-09-08 04:49:31.356 nvALT[70416:325054364] PASS: preference observer list contains no duplicate target
+2026-09-08 04:49:31.364 nvALT[70416:325054364] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:49:31.688 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:31.839 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:31.990 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.137 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.287 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.440 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.588 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.735 nvALT[70416:325054364] PASS: native edit leaves exactly one source layout per attached window before pool drain
+2026-09-08 04:49:32.786 nvALT[70416:325054364] MEASURE edit phase=four_windows windows=4 edits=8 count_calls=40 count_ms=596.179 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=810.642 sync_min_ms=95.544 sync_max_ms=120.528
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: native edits commit the exact expected shared source
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: every attached window displays the current word count
+2026-09-08 04:49:32.786 nvALT[70416:325054364] PASS: source edits cause no preference callbacks or viewer work
+2026-09-08 04:49:33.096 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.096 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.176 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.176 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.254 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.254 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.332 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.332 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.408 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.408 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.486 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.487 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.563 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.563 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.640 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.640 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.717 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.717 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.795 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.795 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.873 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.873 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.952 nvALT[70416:325054364] PASS: resize keeps the independently visible word counter inside the body header
+2026-09-08 04:49:33.952 nvALT[70416:325054364] PASS: resize preserves exactly four source layouts
+2026-09-08 04:49:33.952 nvALT[70416:325054364] MEASURE resize windows=4 resized_windows=1 commands=12 count_calls=0 layout_calls=0 pref_calls=0 display_calls=0 js_calls=0 sync_total_ms=351.127
+2026-09-08 04:49:33.952 nvALT[70416:325054364] PASS: source resizing does not count words, dispatch preferences, or contact a viewer
+2026-09-08 04:49:34.297 nvALT[70416:325054364] PASS: mode fixture loads a real HTML viewer
+2026-09-08 04:49:34.883 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:35.085 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:35.172 nvALT[70416:325054364] MEASURE visible_viewer_reflow cycle=1 count_calls=0 layout_calls=16 pref_calls=32 display_calls=0 js_calls=2
+2026-09-08 04:49:35.172 nvALT[70416:325054364] PASS: visible viewer header and list changes cause no word count or render request
+2026-09-08 04:49:35.175 nvALT[70416:325054364] JS TRACE script=[document.baseURI,window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x0000000102937a5d -[PreviewController captureViewerStateWithCompletion:] + 1341",
+    "2   nvALT                               0x000000010293aafa -[AppController(Preview) captureBodyPresentation] + 1130",
+    "3   nvALT                               0x000000010293b290 -[AppController(Preview) setViewingNote:] + 80",
+    "4   nvALT                               0x000000010293b4ae -[AppController(Preview) togglePreview:] + 46",
+    "5   ViewReview.dylib                    0x000000010b53b87d -[AppController(NVWindowTests) nv_runTests] + 5453",
+    "6   Foundation                          0x00007ff81321e4f5 __NSFireDelayedPerform + 438",
+    "7   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20"
+)
+2026-09-08 04:49:35.586 nvALT[70416:325054364] PASS: Source command hides the existing viewer
+2026-09-08 04:49:35.628 nvALT[70416:325054364] JS TRACE script=window.scrollTo(0.000000,0.000000) stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x00000001029385ff -[PreviewController restoreViewerState:] + 1071",
+    "2   nvALT                               0x00000001029389da -[PreviewController webView:didFinishNavigation:] + 154",
+    "3   WebKit                              0x00007ff91bb0534c _ZN6WebKit15NavigationState16NavigationClient19didFinishNavigationERNS_12WebPageProxyEPN3API10NavigationEPNS4_6ObjectE + 168",
+    "4   WebKit                              0x00007ff91bee2aff _ZN6WebKit12WebPageProxy21didFinishLoadForFrameERN3IPC10ConnectionEN3WTF23ObjectIdentifierGenericIN7WebCore19FrameIdentifierTypeENS4_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_13FrameInfoDataEONS6_15ResourceRequestENSt3__18optionalINS5_INS6_24NavigationIdentifierTypeES9_yEEEERKNS_8UserDataENS4_8WallTimeE + 1175",
+    "5   WebKit                              0x00007ff91b995f36 _ZN6WebKit12WebPageProxy17didReceiveMessageERN3IPC10ConnectionERNS1_7DecoderE + 25628",
+    "6   WebKit                              0x00007ff91c47042e _ZN3IPC18MessageReceiverMap15dispatchMessageERNS_10ConnectionERNS_7DecoderE + 218",
+    "7   WebKit                              0x00007ff91bf68fb6 _ZN6WebKit15WebProcessProxy15dispatchMessageERN3IPC10ConnectionERNS1_7DecoderE + 32"
+)
+2026-09-08 04:49:35.683 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:35.886 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:36.050 nvALT[70416:325054364] MEASURE mode_cycle cycle=1 count_calls=0 layout_calls=3 source_display_calls=0 source_js_calls=1 total_display_calls=1 total_js_calls=4
+2026-09-08 04:49:36.050 nvALT[70416:325054364] PASS: Preview command returns to the same loaded viewer
+2026-09-08 04:49:36.050 nvALT[70416:325054364] PASS: Source/Preview cycle reuses its provider and does not count words
+2026-09-08 04:49:36.050 nvALT[70416:325054364] PASS: Source/Preview cycle preserves one shared source layout for its note
+2026-09-08 04:49:36.089 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:36.283 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:36.485 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:36.510 nvALT[70416:325054364] MEASURE visible_viewer_reflow cycle=2 count_calls=0 layout_calls=16 pref_calls=32 display_calls=0 js_calls=3
+2026-09-08 04:49:36.510 nvALT[70416:325054364] PASS: visible viewer header and list changes cause no word count or render request
+2026-09-08 04:49:36.514 nvALT[70416:325054364] JS TRACE script=[document.baseURI,window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x0000000102937a5d -[PreviewController captureViewerStateWithCompletion:] + 1341",
+    "2   nvALT                               0x000000010293aafa -[AppController(Preview) captureBodyPresentation] + 1130",
+    "3   nvALT                               0x000000010293b290 -[AppController(Preview) setViewingNote:] + 80",
+    "4   nvALT                               0x000000010293b4ae -[AppController(Preview) togglePreview:] + 46",
+    "5   ViewReview.dylib                    0x000000010b53b87d -[AppController(NVWindowTests) nv_runTests] + 5453",
+    "6   Foundation                          0x00007ff81321e4f5 __NSFireDelayedPerform + 438",
+    "7   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20"
+)
+2026-09-08 04:49:36.924 nvALT[70416:325054364] PASS: Source command hides the existing viewer
+2026-09-08 04:49:36.961 nvALT[70416:325054364] JS TRACE script=window.scrollTo(0.000000,0.000000) stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x00000001029385ff -[PreviewController restoreViewerState:] + 1071",
+    "2   nvALT                               0x00000001029389da -[PreviewController webView:didFinishNavigation:] + 154",
+    "3   WebKit                              0x00007ff91bb0534c _ZN6WebKit15NavigationState16NavigationClient19didFinishNavigationERNS_12WebPageProxyEPN3API10NavigationEPNS4_6ObjectE + 168",
+    "4   WebKit                              0x00007ff91bee2aff _ZN6WebKit12WebPageProxy21didFinishLoadForFrameERN3IPC10ConnectionEN3WTF23ObjectIdentifierGenericIN7WebCore19FrameIdentifierTypeENS4_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_13FrameInfoDataEONS6_15ResourceRequestENSt3__18optionalINS5_INS6_24NavigationIdentifierTypeES9_yEEEERKNS_8UserDataENS4_8WallTimeE + 1175",
+    "5   WebKit                              0x00007ff91b995f36 _ZN6WebKit12WebPageProxy17didReceiveMessageERN3IPC10ConnectionERNS1_7DecoderE + 25628",
+    "6   WebKit                              0x00007ff91c47042e _ZN3IPC18MessageReceiverMap15dispatchMessageERNS_10ConnectionERNS_7DecoderE + 218",
+    "7   WebKit                              0x00007ff91bf68fb6 _ZN6WebKit15WebProcessProxy15dispatchMessageERN3IPC10ConnectionERNS1_7DecoderE + 32"
+)
+2026-09-08 04:49:37.084 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:37.283 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:37.386 nvALT[70416:325054364] MEASURE mode_cycle cycle=2 count_calls=0 layout_calls=3 source_display_calls=0 source_js_calls=1 total_display_calls=1 total_js_calls=4
+2026-09-08 04:49:37.386 nvALT[70416:325054364] PASS: Preview command returns to the same loaded viewer
+2026-09-08 04:49:37.386 nvALT[70416:325054364] PASS: Source/Preview cycle reuses its provider and does not count words
+2026-09-08 04:49:37.386 nvALT[70416:325054364] PASS: Source/Preview cycle preserves one shared source layout for its note
+2026-09-08 04:49:37.485 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:37.684 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:37.833 nvALT[70416:325054364] MEASURE visible_viewer_reflow cycle=3 count_calls=0 layout_calls=16 pref_calls=32 display_calls=0 js_calls=2
+2026-09-08 04:49:37.833 nvALT[70416:325054364] PASS: visible viewer header and list changes cause no word count or render request
+2026-09-08 04:49:37.837 nvALT[70416:325054364] JS TRACE script=[document.baseURI,window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x0000000102937a5d -[PreviewController captureViewerStateWithCompletion:] + 1341",
+    "2   nvALT                               0x000000010293aafa -[AppController(Preview) captureBodyPresentation] + 1130",
+    "3   nvALT                               0x000000010293b290 -[AppController(Preview) setViewingNote:] + 80",
+    "4   nvALT                               0x000000010293b4ae -[AppController(Preview) togglePreview:] + 46",
+    "5   ViewReview.dylib                    0x000000010b53b87d -[AppController(NVWindowTests) nv_runTests] + 5453",
+    "6   Foundation                          0x00007ff81321e4f5 __NSFireDelayedPerform + 438",
+    "7   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20"
+)
+2026-09-08 04:49:38.246 nvALT[70416:325054364] PASS: Source command hides the existing viewer
+2026-09-08 04:49:38.283 nvALT[70416:325054364] JS TRACE script=window.scrollTo(0.000000,0.000000) stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x00000001029385ff -[PreviewController restoreViewerState:] + 1071",
+    "2   nvALT                               0x00000001029389da -[PreviewController webView:didFinishNavigation:] + 154",
+    "3   WebKit                              0x00007ff91bb0534c _ZN6WebKit15NavigationState16NavigationClient19didFinishNavigationERNS_12WebPageProxyEPN3API10NavigationEPNS4_6ObjectE + 168",
+    "4   WebKit                              0x00007ff91bee2aff _ZN6WebKit12WebPageProxy21didFinishLoadForFrameERN3IPC10ConnectionEN3WTF23ObjectIdentifierGenericIN7WebCore19FrameIdentifierTypeENS4_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_13FrameInfoDataEONS6_15ResourceRequestENSt3__18optionalINS5_INS6_24NavigationIdentifierTypeES9_yEEEERKNS_8UserDataENS4_8WallTimeE + 1175",
+    "5   WebKit                              0x00007ff91b995f36 _ZN6WebKit12WebPageProxy17didReceiveMessageERN3IPC10ConnectionERNS1_7DecoderE + 25628",
+    "6   WebKit                              0x00007ff91c47042e _ZN3IPC18MessageReceiverMap15dispatchMessageERNS_10ConnectionERNS_7DecoderE + 218",
+    "7   WebKit                              0x00007ff91bf68fb6 _ZN6WebKit15WebProcessProxy15dispatchMessageERN3IPC10ConnectionERNS1_7DecoderE + 32"
+)
+2026-09-08 04:49:38.287 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:38.486 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:38.686 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:38.710 nvALT[70416:325054364] MEASURE mode_cycle cycle=3 count_calls=0 layout_calls=3 source_display_calls=0 source_js_calls=1 total_display_calls=1 total_js_calls=5
+2026-09-08 04:49:38.711 nvALT[70416:325054364] PASS: Preview command returns to the same loaded viewer
+2026-09-08 04:49:38.711 nvALT[70416:325054364] PASS: Source/Preview cycle reuses its provider and does not count words
+2026-09-08 04:49:38.711 nvALT[70416:325054364] PASS: Source/Preview cycle preserves one shared source layout for its note
+2026-09-08 04:49:38.884 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:39.083 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:39.178 nvALT[70416:325054364] MEASURE visible_viewer_reflow cycle=4 count_calls=0 layout_calls=16 pref_calls=32 display_calls=0 js_calls=2
+2026-09-08 04:49:39.178 nvALT[70416:325054364] PASS: visible viewer header and list changes cause no word count or render request
+2026-09-08 04:49:39.180 nvALT[70416:325054364] JS TRACE script=[document.baseURI,window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x0000000102937a5d -[PreviewController captureViewerStateWithCompletion:] + 1341",
+    "2   nvALT                               0x000000010293aafa -[AppController(Preview) captureBodyPresentation] + 1130",
+    "3   nvALT                               0x000000010293b290 -[AppController(Preview) setViewingNote:] + 80",
+    "4   nvALT                               0x000000010293b4ae -[AppController(Preview) togglePreview:] + 46",
+    "5   ViewReview.dylib                    0x000000010b53b87d -[AppController(NVWindowTests) nv_runTests] + 5453",
+    "6   Foundation                          0x00007ff81321e4f5 __NSFireDelayedPerform + 438",
+    "7   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20"
+)
+2026-09-08 04:49:39.590 nvALT[70416:325054364] PASS: Source command hides the existing viewer
+2026-09-08 04:49:39.626 nvALT[70416:325054364] JS TRACE script=window.scrollTo(0.000000,0.000000) stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x00000001029385ff -[PreviewController restoreViewerState:] + 1071",
+    "2   nvALT                               0x00000001029389da -[PreviewController webView:didFinishNavigation:] + 154",
+    "3   WebKit                              0x00007ff91bb0534c _ZN6WebKit15NavigationState16NavigationClient19didFinishNavigationERNS_12WebPageProxyEPN3API10NavigationEPNS4_6ObjectE + 168",
+    "4   WebKit                              0x00007ff91bee2aff _ZN6WebKit12WebPageProxy21didFinishLoadForFrameERN3IPC10ConnectionEN3WTF23ObjectIdentifierGenericIN7WebCore19FrameIdentifierTypeENS4_38ObjectIdentifierMainThreadAccessTraitsIyEEyEEONS_13FrameInfoDataEONS6_15ResourceRequestENSt3__18optionalINS5_INS6_24NavigationIdentifierTypeES9_yEEEERKNS_8UserDataENS4_8WallTimeE + 1175",
+    "5   WebKit                              0x00007ff91b995f36 _ZN6WebKit12WebPageProxy17didReceiveMessageERN3IPC10ConnectionERNS1_7DecoderE + 25628",
+    "6   WebKit                              0x00007ff91c47042e _ZN3IPC18MessageReceiverMap15dispatchMessageERNS_10ConnectionERNS_7DecoderE + 218",
+    "7   WebKit                              0x00007ff91bf68fb6 _ZN6WebKit15WebProcessProxy15dispatchMessageERN3IPC10ConnectionERNS1_7DecoderE + 32"
+)
+2026-09-08 04:49:39.684 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:39.887 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:40.052 nvALT[70416:325054364] MEASURE mode_cycle cycle=4 count_calls=0 layout_calls=3 source_display_calls=0 source_js_calls=1 total_display_calls=1 total_js_calls=4
+2026-09-08 04:49:40.053 nvALT[70416:325054364] PASS: Preview command returns to the same loaded viewer
+2026-09-08 04:49:40.053 nvALT[70416:325054364] PASS: Source/Preview cycle reuses its provider and does not count words
+2026-09-08 04:49:40.053 nvALT[70416:325054364] PASS: Source/Preview cycle preserves one shared source layout for its note
+2026-09-08 04:49:40.053 nvALT[70416:325054364] PASS: all lifecycle, resize, and visibility commands preserve exact note source
+2026-09-08 04:49:40.053 nvALT[70416:325054364] DAN LUU ROUND 2 REVIEW PASSED: 409 checks
+2026-09-08 04:49:40.099 nvALT[70416:325054364] JS TRACE script=[window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x000000010293875c -[PreviewController captureDisplayState:] + 300",
+    "2   Foundation                          0x00007ff81323de78 __NSFireTimer + 67",
+    "3   CoreFoundation                      0x00007ff81203ed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20",
+    "4   CoreFoundation                      0x00007ff81203e9a3 __CFRunLoopDoTimer + 803",
+    "5   CoreFoundation                      0x00007ff81203e5e8 __CFRunLoopDoTimers + 249",
+    "6   CoreFoundation                      0x00007ff812025f18 __CFRunLoopRun + 2037",
+    "7   CoreFoundation                      0x00007ff8120ed385 _CFRunLoopRunSpecificWithOptions + 496"
+)
+2026-09-08 04:49:40.164 nvALT[70416:325054364] JS TRACE script=[document.baseURI,window.scrollX,window.scrollY] stack=(
+    "0   ViewReview.dylib                    0x000000010b538ce4 -[WKWebView(NVLifecycleCounters) nv_r2JS:completionHandler:] + 68",
+    "1   nvALT                               0x0000000102937a5d -[PreviewController captureViewerStateWithCompletion:] + 1341",
+    "2   nvALT                               0x000000010293aafa -[AppController(Preview) captureBodyPresentation] + 1130",
+    "3   nvALT                               0x00000001028cf8d5 -[AppController(MultipleWindows) browserWindowState] + 37",
+    "4   nvALT                               0x00000001028dad88 -[NVApplicationController saveWindowStates] + 312",
+    "5   nvALT                               0x00000001028dbd2c -[NVApplicationController applicationWillTerminate:] + 60",
+    "6   CoreFoundation                      0x00007ff81201c321 __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 137",
+    "7   CoreFoundation                      0x00007ff8120a32e7 ___CFXRegistrationPost_block_invoke + 86"
+)
+2026-09-08 04:49:40.198 nvALT[70416:325054364] verified 2 notes in 0.000555992 s

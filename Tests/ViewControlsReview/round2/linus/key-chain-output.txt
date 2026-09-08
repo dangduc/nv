@@ -1,0 +1,164 @@
+2026-09-08 04:38:45.353 nvALT[67155:325026187] PASS: temporary library directory exists
+2026-09-08 04:38:45.354 nvALT[67155:325026187] PASS: temporary library opens
+2026-09-08 04:38:45.682 nvALT[67155:325026187] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:38:46.963 nvALT[67155:325026187] PASS: header fixture starts with stable native Source focus
+2026-09-08 04:38:46.965 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.017 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.070 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.121 nvALT[67155:325026187] KEY CHAIN mode=0 mask=0
+2026-09-08 04:38:47.121 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:47.181 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.232 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:47.233 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.283 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:47.285 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.335 nvALT[67155:325026187] KEY CHAIN mode=0 mask=1
+2026-09-08 04:38:47.335 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:47.396 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:47.452 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:47.457 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.507 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:47.509 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.559 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:47.561 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.613 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.664 nvALT[67155:325026187] KEY CHAIN mode=0 mask=2
+2026-09-08 04:38:47.664 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:47.716 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:47.769 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:47.773 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.823 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:47.824 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.875 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:47.876 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:47.927 nvALT[67155:325026187] KEY CHAIN mode=0 mask=3
+2026-09-08 04:38:47.927 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:47.979 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:48.031 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:48.084 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:48.136 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:48.141 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.191 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:48.192 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.242 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:48.243 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.295 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.347 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.398 nvALT[67155:325026187] KEY CHAIN mode=0 mask=4
+2026-09-08 04:38:48.398 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:48.403 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.454 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:48.455 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.505 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:48.506 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.556 nvALT[67155:325026187] KEY CHAIN mode=0 mask=5
+2026-09-08 04:38:48.556 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:48.612 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:48.664 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:48.669 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.721 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:48.722 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.772 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:48.774 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.826 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:48.876 nvALT[67155:325026187] KEY CHAIN mode=0 mask=6
+2026-09-08 04:38:48.876 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:48.928 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:48.980 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:48.986 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.036 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:49.037 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.087 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:49.088 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.139 nvALT[67155:325026187] KEY CHAIN mode=0 mask=7
+2026-09-08 04:38:49.139 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:49.195 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:49.247 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:49.300 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:49.352 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:49.357 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.408 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:49.409 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.459 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:49.465 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.726 nvALT[67155:325026187] PASS: Preview has finished rendering before native navigation
+2026-09-08 04:38:49.728 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.779 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.832 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.883 nvALT[67155:325026187] KEY CHAIN mode=1 mask=0
+2026-09-08 04:38:49.883 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:49.885 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.935 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:49.941 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:49.991 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:49.993 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.044 nvALT[67155:325026187] KEY CHAIN mode=1 mask=1
+2026-09-08 04:38:50.044 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:50.095 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:50.149 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:50.151 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.202 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:50.207 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.257 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:50.259 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.311 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.361 nvALT[67155:325026187] KEY CHAIN mode=1 mask=2
+2026-09-08 04:38:50.361 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:50.413 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:50.465 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:50.466 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.517 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:50.522 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.572 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:50.574 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.624 nvALT[67155:325026187] KEY CHAIN mode=1 mask=3
+2026-09-08 04:38:50.624 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:50.679 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:50.731 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:50.783 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:50.836 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:50.837 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.888 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:50.893 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.943 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:50.945 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:50.997 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.049 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.100 nvALT[67155:325026187] KEY CHAIN mode=1 mask=4
+2026-09-08 04:38:51.100 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:51.101 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.152 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:51.157 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.208 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:51.209 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.259 nvALT[67155:325026187] KEY CHAIN mode=1 mask=5
+2026-09-08 04:38:51.259 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:51.312 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:51.364 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:51.365 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.417 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:51.422 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.472 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:51.474 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.525 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.576 nvALT[67155:325026187] KEY CHAIN mode=1 mask=6
+2026-09-08 04:38:51.576 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:51.628 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:51.680 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:51.682 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.733 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:51.738 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.788 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:51.789 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:51.840 nvALT[67155:325026187] KEY CHAIN mode=1 mask=7
+2026-09-08 04:38:51.840 nvALT[67155:325026187] PASS: native visibility commands establish the requested header combination
+2026-09-08 04:38:51.895 nvALT[67155:325026187] PASS: visible title receives native field editing focus
+2026-09-08 04:38:51.947 nvALT[67155:325026187] PASS: native Tab from title reaches visible tags or the current body
+2026-09-08 04:38:52.000 nvALT[67155:325026187] PASS: visible tags receive native field editing focus
+2026-09-08 04:38:52.052 nvALT[67155:325026187] PASS: native Tab from tags reaches the current body
+2026-09-08 04:38:52.054 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:52.104 nvALT[67155:325026187] PASS: Source/Preview command focuses the destination across every header combination
+2026-09-08 04:38:52.110 nvALT[67155:325026187] PASS: requested native View command exists, is enabled, and dispatches
+2026-09-08 04:38:52.160 nvALT[67155:325026187] PASS: Source/Preview return restores body focus across every header combination
+2026-09-08 04:38:52.160 nvALT[67155:325026187] PASS: native navigation and mode commands preserve exact title and source
+2026-09-08 04:38:52.160 nvALT[67155:325026187] LINUS KEY CHAIN PASSED: 147 checks; 16 scenarios

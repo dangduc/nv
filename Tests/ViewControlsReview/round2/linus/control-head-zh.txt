@@ -1,0 +1,184 @@
+2026-09-08 04:36:36.909 nvALT[66222:325019872] PASS: temporary library directory exists
+2026-09-08 04:36:36.910 nvALT[66222:325019872] PASS: temporary library opens
+2026-09-08 04:36:37.230 nvALT[66222:325019872] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:36:37.482 nvALT[66222:325019872] PASS: existing Search menu command is available
+2026-09-08 04:36:37.482 nvALT[66222:325019872] CONTROL preferred localization (
+    zh
+)
+2026-09-08 04:36:37.612 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:37.968 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=0 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:38.488 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=0 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {480.00, 158.50}}, Bounds = {{0.00, 0.00}, {480.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {480.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:38.488 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:38.489 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:38.566 nvALT[66222:325019872] PASS: Search item is present before removal
+2026-09-08 04:36:38.638 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:38.999 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=1 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:39.518 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=1 bodyImmediate=1 body500ms=0 responder=<NSWindow: 0x7f9e9b91b140>
+2026-09-08 04:36:39.518 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:39.518 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:39.820 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:40.177 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=2 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:40.686 nvALT[66222:325019872] OBSERVE width=480 repetition=0 history=2 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {480.00, 158.50}}, Bounds = {{0.00, 0.00}, {480.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {480.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:40.686 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:40.686 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:40.779 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:41.135 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=0 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:41.652 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=0 bodyImmediate=1 body500ms=0 responder=<NSWindow: 0x7f9e9b91b140>
+2026-09-08 04:36:41.652 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:41.652 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:41.727 nvALT[66222:325019872] PASS: Search item is present before removal
+2026-09-08 04:36:41.797 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:42.152 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=1 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:42.668 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=1 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {480.00, 158.50}}, Bounds = {{0.00, 0.00}, {480.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {480.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:42.668 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:42.668 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:42.977 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:43.333 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=2 Search350ms=1 fieldWidth=280.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {231.50, 17.00}}, Bounds = {{0.00, 0.00}, {231.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {231.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:43.852 nvALT[66222:325019872] OBSERVE width=480 repetition=1 history=2 bodyImmediate=1 body500ms=0 responder=<NSWindow: 0x7f9e9b91b140>
+2026-09-08 04:36:43.852 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:43.852 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:44.002 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:44.358 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=0 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:44.873 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=0 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:44.873 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:44.873 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:44.975 nvALT[66222:325019872] PASS: Search item is present before removal
+2026-09-08 04:36:45.047 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:45.401 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=1 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:45.909 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=1 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:45.909 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:45.909 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:46.239 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:46.595 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=2 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:47.103 nvALT[66222:325019872] OBSERVE width=780 repetition=0 history=2 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:47.103 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:47.103 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:47.209 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:47.565 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=0 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:48.078 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=0 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:48.079 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:48.079 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:48.182 nvALT[66222:325019872] PASS: Search item is present before removal
+2026-09-08 04:36:48.252 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:48.610 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=1 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:49.121 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=1 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:49.121 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:49.121 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:49.434 nvALT[66222:325019872] PASS: existing native Search command dispatches
+2026-09-08 04:36:49.793 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=2 Search350ms=1 fieldWidth=318.0 key=1 fieldEditor=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+ responder=<NSTextView: 0x7f9e9b86d390>
+    Frame = {{22.50, 3.00}, {269.50, 17.00}}, Bounds = {{0.00, 0.00}, {269.50, 17.00}}
+    Horizontally resizable: YES, Vertically resizable: YES
+    MinSize = {269.50, 17.00}, MaxSize = {40000.00, 40000.00}
+2026-09-08 04:36:50.303 nvALT[66222:325019872] OBSERVE width=780 repetition=1 history=2 bodyImmediate=1 body500ms=1 responder=<LinkingEditor: 0x7f9e9c867400>
+    Frame = {{0.00, 0.00}, {780.00, 158.50}}, Bounds = {{0.00, 0.00}, {780.00, 158.50}}
+    Horizontally resizable: NO, Vertically resizable: YES
+    MinSize = {780.00, 158.50}, MaxSize = {798.00, 10000000.00}
+2026-09-08 04:36:50.303 nvALT[66222:325019872] PASS: restoring Search leaves exactly one Search toolbar item
+2026-09-08 04:36:50.303 nvALT[66222:325019872] PASS: Search histories preserve note selection and query
+2026-09-08 04:36:50.303 nvALT[66222:325019872] PASS: all common-action histories preserve exact source contents
+2026-09-08 04:36:50.303 nvALT[66222:325019872] LINUS CONTROL FINISHED: 45 checks; 12 histories; 0 Search misses; 3 delayed body misses

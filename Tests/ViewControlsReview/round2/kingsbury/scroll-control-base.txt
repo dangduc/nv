@@ -1,0 +1,56 @@
+2026-09-08 04:39:31.265 nvALT[67426:325028422] PASS: temporary library directory exists
+2026-09-08 04:39:31.265 nvALT[67426:325028422] PASS: temporary library opens
+2026-09-08 04:39:31.992 nvALT[67426:325028422] PASS: base-compatible control starts at source scroll 650
+2026-09-08 04:39:32.649 nvALT[67426:325028422] PASS: base-compatible control renders Preview before checkpoint
+2026-09-08 04:39:32.649 nvALT[67426:325028422] CONTROL before relaunch editorScroll={0, 650} bodyState={
+    sourceScroll = "{0, 650}";
+    viewers =     {
+        markdown =         {
+        };
+    };
+}
+2026-09-08 04:39:32.649 nvALT[67426:325028422] PASS: checkpoint stores source scroll 650 while Preview is visible
+2026-09-08 04:39:32.651 nvALT[67426:325028422] verified 1 notes in 0.000386 s
+2026-09-08 04:39:32.651 nvALT[67426:325028422] SCROLL CONTROL PHASE 1 PASSED: 5 checks
+2026-09-08 04:39:33.038 nvALT[67456:325028845] PASS: temporary library directory exists
+2026-09-08 04:39:33.039 nvALT[67456:325028845] PASS: temporary library opens
+2026-09-08 04:39:33.360 nvALT[67456:325028845] PASS: base-compatible relaunch starts in Preview
+2026-09-08 04:39:33.361 nvALT[67456:325028845] CONTROL restored state before returning Source={
+    bodyState =     {
+        sourceScroll = "{0, 44}";
+        viewers =         {
+            markdown =             {
+            };
+        };
+    };
+    columns =     {
+        vertical =         {
+            order =             (
+                Title,
+                "Date Modified"
+            );
+            widths =             {
+                "Date Modified" = 100;
+                Title = 658;
+            };
+        };
+    };
+    divider = 175;
+    editorScroll = "{0, 44}";
+    frame = "288 263 780 660 0 0 1470 923 ";
+    horizontalLayout = 0;
+    layoutVersion = 2;
+    listScroll = "{0, -28}";
+    note = "267124A7-C5F7-4542-8982-BD6E6F88CE29";
+    presentationVersion = 1;
+    reverse = 1;
+    search = "";
+    selection = "{350, 9}";
+    sort = "Date Modified";
+    viewerIdentifier = markdown;
+    viewingNote = 1;
+}
+2026-09-08 04:39:33.412 nvALT[67456:325028845] CONTROL observed post-relaunch Source scroll=44; expected=650
+2026-09-08 04:39:33.412 nvALT[67456:325028845] PASS: base-compatible relaunch preserves selection
+2026-09-08 04:39:33.414 nvALT[67456:325028845] verified 1 notes in 0.000439048 s
+2026-09-08 04:39:33.415 nvALT[67456:325028845] SCROLL CONTROL PHASE 2 COMPLETED: 4 checks

@@ -1,0 +1,11 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-22sw4yvk/Review.m:155:26: warning: instance method '-setConfirmNoteDeletion:' not found (return type defaults to 'id') [-Wobjc-method-access]
+  155 |         [prefsController setConfirmNoteDeletion:NO];
+      |                          ^~~~~~~~~~~~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Preferences/GlobalPrefs.h:48:12: note: receiver is instance of class declared here
+   48 | @interface GlobalPrefs : NSObject {
+      |            ^
+1 warning generated.
+2026-09-08 04:43:54.739 nvALT[68493:325039461] PASS: temporary library directory exists
+2026-09-08 04:43:54.740 nvALT[68493:325039461] PASS: temporary library opens
+2026-09-08 04:43:55.065 nvALT[68493:325039461] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:43:55.132 nvALT[68493:325039461] FAIL exception -[GlobalPrefs setConfirmNoteDeletion:]: unrecognized selector sent to instance 0x60000317ed80
