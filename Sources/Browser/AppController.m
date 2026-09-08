@@ -66,6 +66,10 @@
 
 
 
+@interface AppController ()
+- (void)selectSearchField;
+@end
+
 @implementation AppController
 
 @synthesize isEditing;
@@ -1544,10 +1548,17 @@ terminateApp:
 		NSUInteger selectedNoteIndex = [notationController indexInFilteredListForNoteIdenticalTo:note];
 		
 		if (selectedNoteIndex == NSNotFound) {
-			NSLog(@"Note was not visible--showing all notes and trying again");
-			[self cancelOperation:nil];
-			
+            // Library refreshes are deferred. A newly added note can be absent
+            // from this browser's cached list even when its query matches.
+            [[self browserSession] refilterNotes];
 			selectedNoteIndex = [notationController indexInFilteredListForNoteIdenticalTo:note];
+            if (selectedNoteIndex == NSNotFound && [[[self sharedNotationController] allNotes] containsObject:note]) {
+                // Reveal also serves background browsers; cancelOperation:
+                // intentionally ignores windows that are not key.
+                [field setStringValue:@""];
+                [self controlTextDidChange:[NSNotification notificationWithName:NSControlTextDidChangeNotification object:field]];
+                selectedNoteIndex = [notationController indexInFilteredListForNoteIdenticalTo:note];
+            }
 		}
 		
 		if (selectedNoteIndex != NSNotFound) {
@@ -1599,10 +1610,9 @@ terminateApp:
 - (void)searchForString:(NSString*)string {
     if (!string) return;
     [self setDualFieldIsVisible:YES];
-    if (@available(macOS 11.0, *)) [(NSSearchToolbarItem *)dualFieldItem beginSearchInteraction];
     [field setStringValue:string];
     [self controlTextDidChange:[NSNotification notificationWithName:NSControlTextDidChangeNotification object:field]];
-    [field selectText:self];
+    [self selectSearchField];
 }
 
 - (void)bookmarksController:(BookmarksController*)controller restoreNoteBookmark:(NoteBookmark*)aBookmark inBackground:(BOOL)inBG {
@@ -1864,24 +1874,27 @@ terminateApp:
     [[NVApplicationController sharedController] browserBecameActive:self];
 
     if (focus) [self setDualFieldIsVisible:YES];
+    if (activate && ![NSApp isActive]) [NSApp activateIgnoringOtherApps:YES];
+    [self setEmptyViewState:currentNote == nil];
+    self.isEditing = NO;
+    if (![window isKeyWindow] || ![window isVisible]) [window makeKeyAndOrderFront:nil];
+    if (focus) [self selectSearchField];
+}
 
-    CGFloat delay=0.0f;
-    if (activate&&![NSApp isActive]) {
-        delay=0.03f;
-        [NSApp activateIgnoringOtherApps:YES];
+- (void)selectSearchField {
+    // Toolbar customization attaches restored items during window layout.
+    [[[window contentView] superview] layoutSubtreeIfNeeded];
+    // Starting an interaction also queues a later focus change. Use it only
+    // when the adaptive toolbar has hidden or compressed the field. Match
+    // the minimum editing width used by the legacy toolbar item.
+    if (@available(macOS 11.0, *)) {
+        if (![field window] || [field isHiddenOrHasHiddenAncestor] || NSWidth([field bounds]) < 140) {
+            [(NSSearchToolbarItem *)dualFieldItem beginSearchInteraction];
+            return;
+        }
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (focus) {
-            if (@available(macOS 11.0, *)) [(NSSearchToolbarItem *)dualFieldItem beginSearchInteraction];
-            [field selectText:nil];
-        }
-
-        [self setEmptyViewState:currentNote == nil];
-        self.isEditing = NO;
-        if (!window.isMainWindow||!window.isVisible) {
-            [window makeKeyAndOrderFront:nil];
-        }
-    });
+    [window makeFirstResponder:field];
+    [field selectText:self];
 }
 
 - (NSWindow*)window {

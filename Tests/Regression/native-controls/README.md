@@ -3,6 +3,8 @@
 The probe sends Search through the application menu after removing its toolbar item.
 It checks that Search restores and focuses the field without changing the query or selection.
 It also checks hidden toolbars, repeated Search commands, and a peer browser.
+The editor must be visible after Search, with at least 140 points of field width.
+Later navigation to the body must retain focus after pending toolbar actions finish.
 
 Keyboard checks send Tab through the actual search field editor, with and without a selected note.
 Completion checks use the header field editor and existing library tags.
@@ -16,6 +18,7 @@ python3 Tests/Regression/native-controls/run.py
 
 Use `--probe search`, `--probe tab`, or `--probe tags` to select one group.
 Use `--app PATH` to select another build.
+Set `NV_UI_ARTIFACTS` to an existing directory to save a screenshot of restored Search.
 Each group rejects the preserved pre-correction app at `build/NativeUIReview/round1/nvALT.app`.
 
 The runner uses a copied app, temporary notes, a unique preferences domain, and the shared GUI lock.
@@ -28,3 +31,7 @@ The earlier runner used a fixed 50 ms delay without an activation assertion.
 The runner now requests native activation and waits up to two seconds for the intended key window and active browser.
 If this prerequisite fails, the probe stops before the menu action.
 The probe does not assign the active browser directly or replace the menu action with a controller call.
+
+The restored toolbar item also needs window layout before its field can receive focus.
+Search completes this layout and focuses an available field directly.
+The native expansion runs only for a hidden or compressed field, to avoid a delayed focus change after body navigation.

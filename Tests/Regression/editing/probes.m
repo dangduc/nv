@@ -67,6 +67,7 @@ static void Swap(Class cls, SEL original, SEL replacement) {
     Check(library != nil && err == noErr, @"temporary library opens");
     [self setNotationController:library];
     [self prepareAdditionalWindow];
+    [NSApp activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront:self];
     [self performSelector:@selector(nv_runTests) withObject:nil afterDelay:0.3];
 }
@@ -148,8 +149,35 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [ea undo:self]; Pump();
         Check([[[firstEdit contentString] string] isEqualToString:@"initial"], @"undo removes the first marked edit");
         Check([ea validateMenuItem:redoItem], @"redo menu enables the finalized composition after undo");
-        NoteObject *noop = MakeNote(library, @"Unchanged external snapshot", @"base");
+        [a searchForString:@"Unchanged external snapshot"]; Pump();
+        [NSApp activateIgnoringOtherApps:YES];
+        [[b window] makeKeyAndOrderFront:self];
+        NSDate *activationDeadline = [NSDate dateWithTimeIntervalSinceNow:2];
+        while ((![[b window] isKeyWindow] || ![NSApp isActive] || [app activeBrowser] != b) &&
+            [activationDeadline timeIntervalSinceNow] > 0) Pump();
+        if (![[b window] isKeyWindow] || ![NSApp isActive] || [app activeBrowser] != b)
+            NSLog(@"Reveal fixture: active=%d key=%@ main=%@ peer=%@ activeBrowser=%@ expected=%@",
+                [NSApp isActive], [NSApp keyWindow], [NSApp mainWindow], [b window], [app activeBrowser], b);
+        Check([[b window] isKeyWindow] && [NSApp isActive] && [app activeBrowser] == b,
+            @"the peer browser is active before background reveal");
+        NoteObject *noop = [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc] initWithString:@"base"] autorelease]
+            title:@"Unchanged external snapshot" delegate:library format:[library currentNoteStorageFormat] labels:@""] autorelease];
+        [library addNewNote:noop];
+        Check([[a browserSession] indexInFilteredListForNoteIdenticalTo:noop] == NSNotFound,
+            @"a new matching note is absent before the background browser refresh");
+        [a revealNote:noop options:0];
+        Check([a selectedNoteObject] == noop && [[a fieldSearchString] isEqual:@"Unchanged external snapshot"],
+            @"reveal refreshes a stale browser list without clearing its matching query");
+        Check([[b window] isKeyWindow], @"background reveal preserves the active window");
+        // Keep the background browser filtered away from the target. Reveal
+        // must select the requested note without requiring that window to be key.
+        [a searchForString:@"First marked edit"]; Pump();
+        [[b window] makeKeyAndOrderFront:self]; Pump();
         [a revealNote:noop options:0]; [b revealNote:noop options:0]; Pump();
+        Check([a selectedNoteObject] == noop && [b selectedNoteObject] == noop,
+            @"background reveal selects the requested note in both editors");
+        Check([[a fieldSearchString] length] == 0 && [[b fieldSearchString] length] == 0 && [[b window] isKeyWindow],
+            @"revealing an excluded note clears its browser query without activating that window");
         [eb insertText:@"!" replacementRange:NSMakeRange(4,0)]; Pump();
         NSAttributedString *baseline = [[noop contentString] copy];
         [eb setMarkedText:@"LOCAL" selectedRange:NSMakeRange(5,0) replacementRange:NSMakeRange(5,0)];
