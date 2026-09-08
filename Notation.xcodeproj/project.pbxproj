@@ -23,9 +23,6 @@
 		212089B10B0C24F500A15A69 /* AlienNoteImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 212089B00B0C24F500A15A69 /* AlienNoteImporter.m */; };
 		212089D80B0C2CA500A15A69 /* StickiesDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 212089D70B0C2CA500A15A69 /* StickiesDocument.m */; };
 		212B84620978422300F3597F /* NSString_NV.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B84610978422300F3597F /* NSString_NV.m */; };
-		212C6952110E1940004DD82C /* TitlebarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 212C6951110E1940004DD82C /* TitlebarButton.m */; };
-		212C6A2A110E371B004DD82C /* TBSynchronizingWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A23110E371B004DD82C /* TBSynchronizingWhite.png */; };
-		212C6A2C110E371B004DD82C /* TBDownArrowWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A25110E371B004DD82C /* TBDownArrowWhite.png */; };
 		212C6A2E110E371B004DD82C /* TBMousedownBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A27110E371B004DD82C /* TBMousedownBG.png */; };
 		212C6EA3110E493C004DD82C /* Clear.tif in Resources */ = {isa = PBXBuildFile; fileRef = 212C6EA1110E493C004DD82C /* Clear.tif */; };
 		212DCA470A6AD28700F74E46 /* EncodingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 212DCA460A6AD28700F74E46 /* EncodingsManager.m */; };
@@ -64,8 +61,6 @@
 		219588D20961D7F200972B8C /* LinkingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 219588D10961D7F200972B8C /* LinkingEditor.m */; };
 		219739FB0AFE42A10046683E /* PassphraseRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 219739FA0AFE42A10046683E /* PassphraseRetriever.m */; };
 		21973FF10B0060C80046683E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21973FBC0B0060C80046683E /* Security.framework */; };
-		219D1BB3110EA66A005E7DF5 /* TBAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = 219D1BB2110EA66A005E7DF5 /* TBAlert.png */; };
-		219D254A1113FE34005E7DF5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 219D25491113FE34005E7DF5 /* SystemConfiguration.framework */; };
 		219FD3160B2CC655004E132B /* LinkingEditor_Indentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 219FD3150B2CC655004E132B /* LinkingEditor_Indentation.m */; };
 		219FD63E0B309B69004E132B /* BlorPasswordRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 219FD63D0B309B69004E132B /* BlorPasswordRetriever.m */; };
 		21A2F95E09DF3FDC001AF0B5 /* NotationPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A2F95D09DF3FDC001AF0B5 /* NotationPrefs.m */; };
@@ -74,13 +69,8 @@
 		21A38EE412EA864400CEB5F0 /* MakeDefault_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 21A38EE212EA864400CEB5F0 /* MakeDefault_Pressed.tiff */; };
 		21A6E6FD0974204F008436A9 /* LabelsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A6E6FC0974204F008436A9 /* LabelsListController.m */; };
 		21A73DC8099712A8009F8A6C /* WALController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A73DC7099712A8009F8A6C /* WALController.m */; };
-		21AD2550110A8BA600B7A985 /* SimplenoteEntryCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AD254F110A8BA600B7A985 /* SimplenoteEntryCollector.m */; };
-		21AD2850110BE99B00B7A985 /* SyncSessionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AD284F110BE99B00B7A985 /* SyncSessionController.m */; };
-		21AD292D110C188800B7A985 /* TinyAlert.tif in Resources */ = {isa = PBXBuildFile; fileRef = 21AD292C110C188800B7A985 /* TinyAlert.tif */; };
 		21B1BC361104D20E0004A7D0 /* InvocationRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B1BC351104D20E0004A7D0 /* InvocationRecorder.m */; };
-		21B1C172110764570004A7D0 /* statusError.png in Resources */ = {isa = PBXBuildFile; fileRef = 21B1C16F110764570004A7D0 /* statusError.png */; };
 		21B548FA112F307E00E163A1 /* NotationDirectoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B548F8112F307E00E163A1 /* NotationDirectoryManager.m */; };
-		21B54C021134F2E800E163A1 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B54C011134F2E800E163A1 /* IOKit.framework */; };
 		21B64A2612E61FA700D87EFC /* LabelColumnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B64A2512E61FA700D87EFC /* LabelColumnCell.m */; };
 		21B64C4E12E62A5700D87EFC /* UnifiedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B64C4D12E62A5700D87EFC /* UnifiedCell.m */; };
 		21BD2ED110DAF31500BA3DF6 /* LinearDividerShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BD2ECF10DAF31500BA3DF6 /* LinearDividerShader.m */; };
@@ -95,9 +85,6 @@
 		21DB4BE612DE4E3D0057F52B /* NSString_CustomTruncation.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DB4BE512DE4E3D0057F52B /* NSString_CustomTruncation.m */; };
 		21DC788F097894B600E59B09 /* NSCollection_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DC788E097894B600E59B09 /* NSCollection_utils.m */; };
 		21DF19B410D172F600543C35 /* DFCapLeftRoundedInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 21DF19B010D172F600543C35 /* DFCapLeftRoundedInactive.png */; };
-		21F078FC10EC280E004FE56F /* NotationSyncServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F078FB10EC280E004FE56F /* NotationSyncServiceManager.m */; };
-		21F0794310EC5EA2004FE56F /* SimplenoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F0794210EC5EA2004FE56F /* SimplenoteSession.m */; };
-		21F0797E10EC93B0004FE56F /* SyncResponseFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F0797D10EC93B0004FE56F /* SyncResponseFetcher.m */; };
 		21F1CD6D0B3A38DB001FB5F6 /* PTHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F1CD660B3A38DB001FB5F6 /* PTHotKeyCenter.m */; };
 		21F1CD6F0B3A38DB001FB5F6 /* PTKeyBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F1CD690B3A38DB001FB5F6 /* PTKeyBroadcaster.m */; };
 		21F1CD700B3A38DB001FB5F6 /* PTKeyCodes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21F1CD6A0B3A38DB001FB5F6 /* PTKeyCodes.plist */; };
@@ -167,9 +154,6 @@
 		5CF96DD1132EA29D0079B3FD /* TransparentScrollerSlotTop.tif in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B35391307220E00014119 /* TransparentScrollerSlotTop.tif */; };
 		5CF96DD6132EA29D0079B3FD /* IBeamInverted.png in Resources */ = {isa = PBXBuildFile; fileRef = 21DB407D12D5383F0057F52B /* IBeamInverted.png */; };
 		5CF96DD7132EA29D0079B3FD /* ListDividerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DA1AC12D15F310004B9CE /* ListDividerDrag.png */; };
-		5CF96DD9132EA29D0079B3FD /* TBDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6E99110E46F0004DD82C /* TBDownArrow.png */; };
-		5CF96DDA132EA29D0079B3FD /* TBAlertWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A22110E371B004DD82C /* TBAlertWhite.png */; };
-		5CF96DDC132EA29D0079B3FD /* TBSynchronizing.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A24110E371B004DD82C /* TBSynchronizing.png */; };
 		5CF96DDE132EA29D0079B3FD /* TBRolloverBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A26110E371B004DD82C /* TBRolloverBG.png */; };
 		5CF96DE1132EA29D0079B3FD /* PTKeyboardIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 213FB0230B3CB1C4004C74BD /* PTKeyboardIcon.tiff */; };
 		5CF96DE2132EA29D0079B3FD /* PasswordAssistantButton.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2144950D0ADC883000E2A2B6 /* PasswordAssistantButton.tif */; };
@@ -189,14 +173,12 @@
 		5CF96DF7132EA29D0079B3FD /* ClearPressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 212C6EA2110E493C004DD82C /* ClearPressed.tif */; };
 		5CF96DF8132EA29D0079B3FD /* LinkBack.tif in Resources */ = {isa = PBXBuildFile; fileRef = 216D9C2B12CFEF2A0004B9CE /* LinkBack.tif */; };
 		5CF96DFA132EA29D0079B3FD /* SnapBack.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2143D2F310E953F500127EA6 /* SnapBack.tif */; };
-		5CF96DFC132EA29D0079B3FD /* statusValidated.png in Resources */ = {isa = PBXBuildFile; fileRef = 21B1C16E110764570004A7D0 /* statusValidated.png */; };
-		5CF96DFE132EA29D0079B3FD /* statusInProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = 21B1C170110764570004A7D0 /* statusInProgress.png */; };
 		5CF96DFF132EA29D0079B3FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2114C259095885C800614E74 /* Localizable.strings */; };
 		5CF96E04132EA29D0079B3FD /* CarbonErrorStrings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 212850860B56E549005F6E34 /* CarbonErrorStrings.plist */; };
 		5CF96E09132EA29D0079B3FD /* DeletionManager.nib in Resources */ = {isa = PBXBuildFile; fileRef = 212DCFF50A6E005000F74E46 /* DeletionManager.nib */; };
 		5CF96E0A132EA29D0079B3FD /* EncodingsManager.nib in Resources */ = {isa = PBXBuildFile; fileRef = 212DCB2F0A6AE38500F74E46 /* EncodingsManager.nib */; };
 		5CF96E0B132EA29D0079B3FD /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 219195E409D3A20F00586B15 /* Preferences.xib */; };
-		5CF96E0C132EA29D0079B3FD /* NotationPrefsView.nib in Resources */ = {isa = PBXBuildFile; fileRef = 21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.nib */; };
+		5CF96E0C132EA29D0079B3FD /* NotationPrefsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -212,14 +194,8 @@
 		B683A0D416F1CDA600564A1D /* LinkBackPressed@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */; };
 		B683A0D516F1CDA600564A1D /* SnapBack@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */; };
 		B683A0D616F1CDA600564A1D /* SnapBackPressed@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CA16F1CDA600564A1D /* SnapBackPressed@2x.tif */; };
-		B683A0D716F1CDA600564A1D /* TBAlert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CB16F1CDA600564A1D /* TBAlert@2x.png */; };
-		B683A0D816F1CDA600564A1D /* TBAlertWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CC16F1CDA600564A1D /* TBAlertWhite@2x.png */; };
-		B683A0D916F1CDA600564A1D /* TBDownArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CD16F1CDA600564A1D /* TBDownArrow@2x.png */; };
-		B683A0DA16F1CDA600564A1D /* TBDownArrowWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CE16F1CDA600564A1D /* TBDownArrowWhite@2x.png */; };
 		B683A0DB16F1CDA600564A1D /* TBMousedownBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0CF16F1CDA600564A1D /* TBMousedownBG@2x.png */; };
 		B683A0DC16F1CDA600564A1D /* TBRolloverBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0D016F1CDA600564A1D /* TBRolloverBG@2x.png */; };
-		B683A0DD16F1CDA600564A1D /* TBSynchronizing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0D116F1CDA600564A1D /* TBSynchronizing@2x.png */; };
-		B683A0DE16F1CDA600564A1D /* TBSynchronizingWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B683A0D216F1CDA600564A1D /* TBSynchronizingWhite@2x.png */; };
 		B69E26F016F0B523001C6E4B /* Clear@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B69E26E816F0B523001C6E4B /* Clear@2x.tif */; };
 		B69E26F116F0B523001C6E4B /* ClearPressed@2x.tif in Resources */ = {isa = PBXBuildFile; fileRef = B69E26E916F0B523001C6E4B /* ClearPressed@2x.tif */; };
 		B69E26F216F0B523001C6E4B /* DFCapLeftRounded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26EA16F0B523001C6E4B /* DFCapLeftRounded@2x.png */; };
@@ -291,15 +267,8 @@
 		212089D70B0C2CA500A15A69 /* StickiesDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickiesDocument.m; sourceTree = "<group>"; };
 		212B84600978422300F3597F /* NSString_NV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_NV.h; sourceTree = "<group>"; };
 		212B84610978422300F3597F /* NSString_NV.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSString_NV.m; sourceTree = "<group>"; };
-		212C6950110E1940004DD82C /* TitlebarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlebarButton.h; sourceTree = "<group>"; };
-		212C6951110E1940004DD82C /* TitlebarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitlebarButton.m; sourceTree = "<group>"; };
-		212C6A22110E371B004DD82C /* TBAlertWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBAlertWhite.png; path = TBAlertWhite.png; sourceTree = "<group>"; };
-		212C6A23110E371B004DD82C /* TBSynchronizingWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBSynchronizingWhite.png; path = TBSynchronizingWhite.png; sourceTree = "<group>"; };
-		212C6A24110E371B004DD82C /* TBSynchronizing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBSynchronizing.png; path = TBSynchronizing.png; sourceTree = "<group>"; };
-		212C6A25110E371B004DD82C /* TBDownArrowWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBDownArrowWhite.png; path = TBDownArrowWhite.png; sourceTree = "<group>"; };
 		212C6A26110E371B004DD82C /* TBRolloverBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBRolloverBG.png; path = TBRolloverBG.png; sourceTree = "<group>"; };
 		212C6A27110E371B004DD82C /* TBMousedownBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBMousedownBG.png; path = TBMousedownBG.png; sourceTree = "<group>"; };
-		212C6E99110E46F0004DD82C /* TBDownArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBDownArrow.png; path = TBDownArrow.png; sourceTree = "<group>"; };
 		212C6EA1110E493C004DD82C /* Clear.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Clear.tif; path = Clear.tif; sourceTree = "<group>"; };
 		212C6EA2110E493C004DD82C /* ClearPressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ClearPressed.tif; path = ClearPressed.tif; sourceTree = "<group>"; };
 		212DCA450A6AD28700F74E46 /* EncodingsManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EncodingsManager.h; sourceTree = "<group>"; };
@@ -357,7 +326,7 @@
 		217D4281096545A000E84749 /* LabelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelObject.m; sourceTree = "<group>"; };
 		2181171109F311110020A252 /* DeletedNoteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeletedNoteObject.h; sourceTree = "<group>"; };
 		2181171209F311110020A252 /* DeletedNoteObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeletedNoteObject.m; sourceTree = "<group>"; };
-		2181193909FA9CF90020A252 /* SynchronizedNoteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchronizedNoteProtocol.h; sourceTree = "<group>"; };
+		2181193909FA9CF90020A252 /* LogNoteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogNoteProtocol.h; sourceTree = "<group>"; };
 		21813561105AF27400A0AE18 /* Acknowledgments.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Acknowledgments.txt; sourceTree = "<group>"; };
 		21918FCE09C49B2400586B15 /* EmptyView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = EmptyView.m; sourceTree = "<group>"; };
 		21918FCF09C49B2500586B15 /* EmptyView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EmptyView.h; sourceTree = "<group>"; };
@@ -379,8 +348,6 @@
 		219739F90AFE42A10046683E /* PassphraseRetriever.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PassphraseRetriever.h; sourceTree = "<group>"; };
 		219739FA0AFE42A10046683E /* PassphraseRetriever.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PassphraseRetriever.m; sourceTree = "<group>"; };
 		21973FBC0B0060C80046683E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		219D1BB2110EA66A005E7DF5 /* TBAlert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TBAlert.png; path = TBAlert.png; sourceTree = "<group>"; };
-		219D25491113FE34005E7DF5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		219FD3140B2CC655004E132B /* LinkingEditor_Indentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkingEditor_Indentation.h; sourceTree = "<group>"; };
 		219FD3150B2CC655004E132B /* LinkingEditor_Indentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkingEditor_Indentation.m; sourceTree = "<group>"; };
 		219FD63C0B309B69004E132B /* BlorPasswordRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorPasswordRetriever.h; sourceTree = "<group>"; };
@@ -399,19 +366,10 @@
 		21A6E6FC0974204F008436A9 /* LabelsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelsListController.m; sourceTree = "<group>"; };
 		21A73DC6099712A8009F8A6C /* WALController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WALController.h; sourceTree = "<group>"; };
 		21A73DC7099712A8009F8A6C /* WALController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WALController.m; sourceTree = "<group>"; };
-		21AD254E110A8BA600B7A985 /* SimplenoteEntryCollector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplenoteEntryCollector.h; sourceTree = "<group>"; };
-		21AD254F110A8BA600B7A985 /* SimplenoteEntryCollector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplenoteEntryCollector.m; sourceTree = "<group>"; };
-		21AD284E110BE99B00B7A985 /* SyncSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncSessionController.h; sourceTree = "<group>"; };
-		21AD284F110BE99B00B7A985 /* SyncSessionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncSessionController.m; sourceTree = "<group>"; };
-		21AD292C110C188800B7A985 /* TinyAlert.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = TinyAlert.tif; path = TinyAlert.tif; sourceTree = "<group>"; };
 		21B1BC341104D20E0004A7D0 /* InvocationRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvocationRecorder.h; sourceTree = "<group>"; };
 		21B1BC351104D20E0004A7D0 /* InvocationRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvocationRecorder.m; sourceTree = "<group>"; };
-		21B1C16E110764570004A7D0 /* statusValidated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusValidated.png; path = statusValidated.png; sourceTree = "<group>"; };
-		21B1C16F110764570004A7D0 /* statusError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusError.png; path = statusError.png; sourceTree = "<group>"; };
-		21B1C170110764570004A7D0 /* statusInProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusInProgress.png; path = statusInProgress.png; sourceTree = "<group>"; };
 		21B548F8112F307E00E163A1 /* NotationDirectoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotationDirectoryManager.m; sourceTree = "<group>"; };
 		21B548F9112F307E00E163A1 /* NotationDirectoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotationDirectoryManager.h; sourceTree = "<group>"; };
-		21B54C011134F2E800E163A1 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		21B64A2412E61FA700D87EFC /* LabelColumnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelColumnCell.h; sourceTree = "<group>"; };
 		21B64A2512E61FA700D87EFC /* LabelColumnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelColumnCell.m; sourceTree = "<group>"; };
 		21B64C4D12E62A5700D87EFC /* UnifiedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnifiedCell.m; sourceTree = "<group>"; };
@@ -421,8 +379,7 @@
 		21C0F8A112C7E7160068693F /* Fonts & Colors.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Fonts & Colors.tiff"; path = "Fonts & Colors.tiff"; sourceTree = "<group>"; };
 		21C737930B50C73E0048C08A /* MultiplePageView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MultiplePageView.h; sourceTree = "<group>"; };
 		21C737940B50C73E0048C08A /* MultiplePageView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MultiplePageView.m; sourceTree = "<group>"; };
-		21CB29AD10EEE39400360118 /* SyncServiceSessionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncServiceSessionProtocol.h; sourceTree = "<group>"; };
-		21CF80F210FD33B90094AA90 /* SynchronizedNoteMixIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchronizedNoteMixIns.h; sourceTree = "<group>"; };
+		21CF80F210FD33B90094AA90 /* LogNoteMixIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogNoteMixIns.h; sourceTree = "<group>"; };
 		21D5834D0B78F0CC00245E29 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		21D60126098FDB46007440DF /* GlobalPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalPrefs.h; sourceTree = "<group>"; };
 		21D60127098FDB46007440DF /* GlobalPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalPrefs.m; sourceTree = "<group>"; };
@@ -442,12 +399,6 @@
 		21DF19AF10D172F600543C35 /* DFCapRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DFCapRight.png; path = DFCapRight.png; sourceTree = "<group>"; };
 		21DF19B010D172F600543C35 /* DFCapLeftRoundedInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DFCapLeftRoundedInactive.png; path = DFCapLeftRoundedInactive.png; sourceTree = "<group>"; };
 		21DF19B110D172F600543C35 /* DFCapLeftRounded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DFCapLeftRounded.png; path = DFCapLeftRounded.png; sourceTree = "<group>"; };
-		21F078FA10EC280E004FE56F /* NotationSyncServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotationSyncServiceManager.h; sourceTree = "<group>"; };
-		21F078FB10EC280E004FE56F /* NotationSyncServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotationSyncServiceManager.m; sourceTree = "<group>"; };
-		21F0794110EC5EA2004FE56F /* SimplenoteSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplenoteSession.h; sourceTree = "<group>"; };
-		21F0794210EC5EA2004FE56F /* SimplenoteSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplenoteSession.m; sourceTree = "<group>"; };
-		21F0797C10EC93B0004FE56F /* SyncResponseFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncResponseFetcher.h; sourceTree = "<group>"; };
-		21F0797D10EC93B0004FE56F /* SyncResponseFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncResponseFetcher.m; sourceTree = "<group>"; };
 		21F1CD650B3A38DB001FB5F6 /* PTHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PTHotKeyCenter.h; path = PTHotKeyCenter.h; sourceTree = "<group>"; };
 		21F1CD660B3A38DB001FB5F6 /* PTHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PTHotKeyCenter.m; path = PTHotKeyCenter.m; sourceTree = "<group>"; };
 		21F1CD680B3A38DB001FB5F6 /* PTKeyBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PTKeyBroadcaster.h; path = PTKeyBroadcaster.h; sourceTree = "<group>"; };
@@ -473,7 +424,7 @@
 		5C0C545C13A54E5A0008BC90 /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/DeletionManager.nib; sourceTree = "<group>"; };
 		5C0C545D13A54E670008BC90 /* it */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = it; path = it.lproj/EncodingsManager.nib; sourceTree = "<group>"; };
 		5C0C545E13A54E920008BC90 /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/EncodingsManager.nib; sourceTree = "<group>"; };
-		5C0C546013A54ED90008BC90 /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/NotationPrefsView.nib; sourceTree = "<group>"; };
+		5C0C546013A54ED90008BC90 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/NotationPrefsView.xib; sourceTree = "<group>"; };
 		5C177AE5141EF95200BC0C0A /* ETClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETClipView.h; sourceTree = "<group>"; };
 		5C177AE6141EF95200BC0C0A /* ETClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETClipView.m; sourceTree = "<group>"; };
 		5C1D1CE217344B2200139AFE /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/TagEditingManager.xib; sourceTree = "<group>"; };
@@ -491,15 +442,15 @@
 		5C4366601DA2673B0086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/DeletionManager.nib; sourceTree = "<group>"; };
 		5C4366611DA267420086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/EncodingsManager.nib; sourceTree = "<group>"; };
 		5C4366621DA2674B0086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preferences.xib; sourceTree = "<group>"; };
-		5C4366631DA267650086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/NotationPrefsView.nib; sourceTree = "<group>"; };
+		5C4366631DA267650086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NotationPrefsView.xib; sourceTree = "<group>"; };
 		5C4366641DA267690086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PassphrasePicker.nib; sourceTree = "<group>"; };
 		5C4366651DA267700086FF84 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/PassphraseChanger.nib; sourceTree = "<group>"; };
 		5C4366661DA267810086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = "pt-PT"; path = "pt-PT.lproj/PassphraseChanger.nib"; sourceTree = "<group>"; };
 		5C4366671DA267820086FF84 /* fr */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = fr; path = fr.lproj/PassphraseChanger.nib; sourceTree = "<group>"; };
 		5C4366681DA267890086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = "pt-PT"; path = "pt-PT.lproj/PassphrasePicker.nib"; sourceTree = "<group>"; };
 		5C4366691DA2678B0086FF84 /* fr */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = fr; path = fr.lproj/PassphrasePicker.nib; sourceTree = "<group>"; };
-		5C43666A1DA267910086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = "pt-PT"; path = "pt-PT.lproj/NotationPrefsView.nib"; sourceTree = "<group>"; };
-		5C43666B1DA267940086FF84 /* fr */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = fr; path = fr.lproj/NotationPrefsView.nib; sourceTree = "<group>"; };
+		5C43666A1DA267910086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "pt-PT"; path = "pt-PT.lproj/NotationPrefsView.xib"; sourceTree = "<group>"; };
+		5C43666B1DA267940086FF84 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/NotationPrefsView.xib; sourceTree = "<group>"; };
 		5C43666C1DA267980086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "pt-PT"; path = "pt-PT.lproj/Preferences.xib"; sourceTree = "<group>"; };
 		5C43666D1DA2679A0086FF84 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/Preferences.xib; sourceTree = "<group>"; };
 		5C43666E1DA2679E0086FF84 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = "pt-PT"; path = "pt-PT.lproj/EncodingsManager.nib"; sourceTree = "<group>"; };
@@ -550,7 +501,7 @@
 		5C48A29013A55006006B73DD /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/ImporterAccessory.nib; sourceTree = "<group>"; };
 		5C48A29213A5500F006B73DD /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/SavedSearches.nib; sourceTree = "<group>"; };
 		5C48A29613A5501F006B73DD /* zh */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh; path = zh.lproj/FindPanel.nib; sourceTree = "<group>"; };
-		5C48A29713A55057006B73DD /* it */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = it; path = it.lproj/NotationPrefsView.nib; sourceTree = "<group>"; };
+		5C48A29713A55057006B73DD /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/NotationPrefsView.xib; sourceTree = "<group>"; };
 		5C48A29913A55061006B73DD /* it */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = it; path = it.lproj/PassphrasePicker.nib; sourceTree = "<group>"; };
 		5C48A29B13A55078006B73DD /* it */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = it; path = it.lproj/PassphraseChanger.nib; sourceTree = "<group>"; };
 		5C48A29E13A5508C006B73DD /* it */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = it; path = it.lproj/KeyDerivationManager.nib; sourceTree = "<group>"; };
@@ -645,7 +596,6 @@
 		5CC2DF0A13083BCF006772D9 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		5CCEEF1B130B599B00E15B77 /* DFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFView.h; sourceTree = "<group>"; };
 		5CCEEF1C130B599B00E15B77 /* DFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFView.m; sourceTree = "<group>"; };
-		5CD58D771D9DA3C70004E1B8 /* SimperiumConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimperiumConfig.h; sourceTree = "<group>"; };
 		5CDBA8EA13A5450200E7494E /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5CDBA8EB13A547B700E7494E /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/Preferences.xib; sourceTree = "<group>"; };
 		5CE5B00C1422796900FB554C /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/PTKeyComboPanel.xib; sourceTree = "<group>"; };
@@ -671,7 +621,7 @@
 		5CF96CC8132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5CF96CC9132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = de; path = de.lproj/KeyDerivationManager.nib; sourceTree = "<group>"; };
 		5CF96CCC132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		5CF96CD0132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = de; path = de.lproj/NotationPrefsView.nib; sourceTree = "<group>"; };
+		5CF96CD0132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/NotationPrefsView.xib; sourceTree = "<group>"; };
 		5CF96CD1132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = de; path = de.lproj/PassphraseChanger.nib; sourceTree = "<group>"; };
 		5CF96CD2132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = de; path = de.lproj/PassphrasePicker.nib; sourceTree = "<group>"; };
 		5CF96CD4132EA1970079B3FD /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/Preferences.xib; sourceTree = "<group>"; };
@@ -699,14 +649,8 @@
 		B683A0C816F1CDA600564A1D /* LinkBackPressed@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "LinkBackPressed@2x.tif"; path = "LinkBackPressed@2x.tif"; sourceTree = "<group>"; };
 		B683A0C916F1CDA600564A1D /* SnapBack@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "SnapBack@2x.tif"; path = "SnapBack@2x.tif"; sourceTree = "<group>"; };
 		B683A0CA16F1CDA600564A1D /* SnapBackPressed@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "SnapBackPressed@2x.tif"; path = "SnapBackPressed@2x.tif"; sourceTree = "<group>"; };
-		B683A0CB16F1CDA600564A1D /* TBAlert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBAlert@2x.png"; path = "TBAlert@2x.png"; sourceTree = "<group>"; };
-		B683A0CC16F1CDA600564A1D /* TBAlertWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBAlertWhite@2x.png"; path = "TBAlertWhite@2x.png"; sourceTree = "<group>"; };
-		B683A0CD16F1CDA600564A1D /* TBDownArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBDownArrow@2x.png"; path = "TBDownArrow@2x.png"; sourceTree = "<group>"; };
-		B683A0CE16F1CDA600564A1D /* TBDownArrowWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBDownArrowWhite@2x.png"; path = "TBDownArrowWhite@2x.png"; sourceTree = "<group>"; };
 		B683A0CF16F1CDA600564A1D /* TBMousedownBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBMousedownBG@2x.png"; path = "TBMousedownBG@2x.png"; sourceTree = "<group>"; };
 		B683A0D016F1CDA600564A1D /* TBRolloverBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBRolloverBG@2x.png"; path = "TBRolloverBG@2x.png"; sourceTree = "<group>"; };
-		B683A0D116F1CDA600564A1D /* TBSynchronizing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBSynchronizing@2x.png"; path = "TBSynchronizing@2x.png"; sourceTree = "<group>"; };
-		B683A0D216F1CDA600564A1D /* TBSynchronizingWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TBSynchronizingWhite@2x.png"; path = "TBSynchronizingWhite@2x.png"; sourceTree = "<group>"; };
 		B69E26E816F0B523001C6E4B /* Clear@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Clear@2x.tif"; path = "Clear@2x.tif"; sourceTree = "<group>"; };
 		B69E26E916F0B523001C6E4B /* ClearPressed@2x.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "ClearPressed@2x.tif"; path = "ClearPressed@2x.tif"; sourceTree = "<group>"; };
 		B69E26EA16F0B523001C6E4B /* DFCapLeftRounded@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DFCapLeftRounded@2x.png"; path = "DFCapLeftRounded@2x.png"; sourceTree = "<group>"; };
@@ -730,7 +674,6 @@
 		9079499920632A356F90B0FA /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "it"; path = it.lproj/BrowserWindow.xib; sourceTree = "<group>"; };
 		4629B55C2D60AE93673268B1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "pt-PT"; path = "pt-PT.lproj/BrowserWindow.xib"; sourceTree = "<group>"; };
 		BEB38FCF22A23E64C58789F0 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh"; path = zh.lproj/BrowserWindow.xib; sourceTree = "<group>"; };
-		6F0D8225E6986AC14136B197 /* SimperiumConfig-example.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimperiumConfig-example.h"; sourceTree = "<group>"; };
 		57DE1303E670DBAF05A8F1F9 /* BTransparentScrollerKnobBottom.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BTransparentScrollerKnobBottom.tif; sourceTree = "<group>"; };
 		F899B71AB1290C7699E2497F /* BTransparentScrollerKnobHorizontalFill.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BTransparentScrollerKnobHorizontalFill.tif; sourceTree = "<group>"; };
 		CAA4AF56D1A53BC33FEC6C20 /* BTransparentScrollerKnobLeft.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BTransparentScrollerKnobLeft.tif; sourceTree = "<group>"; };
@@ -902,8 +845,6 @@
 				210C07530B6BF0A2005D23A8 /* WebKit.framework in Frameworks */,
 				B41000000000000000000001 /* libxml2.tbd in Frameworks */,
 				21D583620B78F0CC00245E29 /* ApplicationServices.framework in Frameworks */,
-				219D254A1113FE34005E7DF5 /* SystemConfiguration.framework in Frameworks */,
-				21B54C021134F2E800E163A1 /* IOKit.framework in Frameworks */,
 				5C367EE91DA2C06F0043C8EC /* libcrypto.a in Frameworks */,
 				2191926709C52AA600586B15 /* libz.dylib in Frameworks */,
 			);
@@ -921,11 +862,9 @@
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				214493E70ADB892C00E2A2B6 /* CoreServices.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-				21B54C011134F2E800E163A1 /* IOKit.framework */,
 				2191926609C52AA600586B15 /* libz.dylib */,
 				21973FBC0B0060C80046683E /* Security.framework */,
 				214494F80ADC7C8D00E2A2B6 /* SecurityInterface.framework */,
-				219D25491113FE34005E7DF5 /* SystemConfiguration.framework */,
 				210C07230B6BF0A1005D23A8 /* WebKit.framework */,
 				B41000000000000000000002 /* libxml2.tbd */,
 			);
@@ -1012,30 +951,14 @@
 				B683A0CA16F1CDA600564A1D /* SnapBackPressed@2x.tif */,
 				21BD2F3510DAF61700BA3DF6 /* SplitViewDimple.tif */,
 				5C5713F01309A42600961090 /* SplitViewDimple2.tif */,
-				21B1C16F110764570004A7D0 /* statusError.png */,
-				21B1C170110764570004A7D0 /* statusInProgress.png */,
-				21B1C16E110764570004A7D0 /* statusValidated.png */,
 				5C96F4FE131C2F9500A2E4AC /* TabClose_Front.tif */,
 				5C96F4FC131C2F9500A2E4AC /* TabClose_Front_Pressed.tif */,
 				5C96F4FD131C2F9500A2E4AC /* TabClose_Front_Rollover.tif */,
 				F4DDE40E3B815D06DA6A0F2C /* tan_column_header.png */,
-				219D1BB2110EA66A005E7DF5 /* TBAlert.png */,
-				B683A0CB16F1CDA600564A1D /* TBAlert@2x.png */,
-				212C6A22110E371B004DD82C /* TBAlertWhite.png */,
-				B683A0CC16F1CDA600564A1D /* TBAlertWhite@2x.png */,
-				212C6E99110E46F0004DD82C /* TBDownArrow.png */,
-				B683A0CD16F1CDA600564A1D /* TBDownArrow@2x.png */,
-				212C6A25110E371B004DD82C /* TBDownArrowWhite.png */,
-				B683A0CE16F1CDA600564A1D /* TBDownArrowWhite@2x.png */,
 				212C6A27110E371B004DD82C /* TBMousedownBG.png */,
 				B683A0CF16F1CDA600564A1D /* TBMousedownBG@2x.png */,
 				212C6A26110E371B004DD82C /* TBRolloverBG.png */,
 				B683A0D016F1CDA600564A1D /* TBRolloverBG@2x.png */,
-				212C6A24110E371B004DD82C /* TBSynchronizing.png */,
-				B683A0D116F1CDA600564A1D /* TBSynchronizing@2x.png */,
-				212C6A23110E371B004DD82C /* TBSynchronizingWhite.png */,
-				B683A0D216F1CDA600564A1D /* TBSynchronizingWhite@2x.png */,
-				21AD292C110C188800B7A985 /* TinyAlert.tif */,
 				5C96F703131C49D400A2E4AC /* TransparentButtonFillN.tiff */,
 				5C96F704131C49D400A2E4AC /* TransparentButtonFillP.tiff */,
 				5C96F705131C49D400A2E4AC /* TransparentButtonLeftN.tiff */,
@@ -1076,8 +999,6 @@
 				21395BC60B7FDD35007BCFAA /* Notation.launchorder */,
 				32CA4F630368D1EE00C91783 /* Notation_Prefix.pch */,
 				5C4479DF17020153000AA45A /* nvaDevConfig.h */,
-				6F0D8225E6986AC14136B197 /* SimperiumConfig-example.h */,
-				5CD58D771D9DA3C70004E1B8 /* SimperiumConfig.h */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1114,7 +1035,6 @@
 				DBF633D0496211EC98D5A7E3 /* Preferences */,
 				2F2B0D29924F44F73F74B974 /* Preview */,
 				BBD55CCFC3F9514311872541 /* Storage */,
-				303AD76950D5C2D8CC1AC161 /* Sync */,
 				F347C69442A86D3A55228109 /* UI */,
 				A12B5C31C0617D2BFC9B68AA /* Utilities */,
 			);
@@ -1133,26 +1053,6 @@
 				5CA10F19131C297000DE1F91 /* PreviewController.m */,
 			);
 			path = Preview;
-			sourceTree = "<group>";
-		};
-		303AD76950D5C2D8CC1AC161 /* Sync */ = {
-			isa = PBXGroup;
-			children = (
-				21F078FA10EC280E004FE56F /* NotationSyncServiceManager.h */,
-				21F078FB10EC280E004FE56F /* NotationSyncServiceManager.m */,
-				21AD254E110A8BA600B7A985 /* SimplenoteEntryCollector.h */,
-				21AD254F110A8BA600B7A985 /* SimplenoteEntryCollector.m */,
-				21F0794110EC5EA2004FE56F /* SimplenoteSession.h */,
-				21F0794210EC5EA2004FE56F /* SimplenoteSession.m */,
-				21CF80F210FD33B90094AA90 /* SynchronizedNoteMixIns.h */,
-				2181193909FA9CF90020A252 /* SynchronizedNoteProtocol.h */,
-				21F0797C10EC93B0004FE56F /* SyncResponseFetcher.h */,
-				21F0797D10EC93B0004FE56F /* SyncResponseFetcher.m */,
-				21CB29AD10EEE39400360118 /* SyncServiceSessionProtocol.h */,
-				21AD284E110BE99B00B7A985 /* SyncSessionController.h */,
-				21AD284F110BE99B00B7A985 /* SyncSessionController.m */,
-			);
-			path = Sync;
 			sourceTree = "<group>";
 		};
 		49F8457FF8391671F0C85C1F /* ImportExport */ = {
@@ -1221,7 +1121,7 @@
 				21544FB80B06331800C0D1D5 /* KeyDerivationManager.nib */,
 				2114C259095885C800614E74 /* Localizable.strings */,
 				5CF96BFD132EA0300079B3FD /* MainMenu.xib */,
-				21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.nib */,
+				21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.xib */,
 				214495810ADCC07E00E2A2B6 /* PassphraseChanger.nib */,
 				214495740ADCC06300E2A2B6 /* PassphrasePicker.nib */,
 				5C84319314229D810020E5A7 /* PassphraseRetriever.xib */,
@@ -1454,6 +1354,8 @@
 		DBA8AE3056F30EB03BC91A83 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21CF80F210FD33B90094AA90 /* LogNoteMixIns.h */,
+				2181193909FA9CF90020A252 /* LogNoteProtocol.h */,
 				2181171109F311110020A252 /* DeletedNoteObject.h */,
 				2181171209F311110020A252 /* DeletedNoteObject.m */,
 				21A30EA50971D11D0071E9AF /* FastListDataSource.h */,
@@ -1572,8 +1474,6 @@
 				2B4AA675FCC4BDE359EE4C72 /* QuickSearchTable.m */,
 				5CC2DF0913083BCF006772D9 /* StatusItemView.h */,
 				5CC2DF0A13083BCF006772D9 /* StatusItemView.m */,
-				212C6950110E1940004DD82C /* TitlebarButton.h */,
-				212C6951110E1940004DD82C /* TitlebarButton.m */,
 				21DB49BA12DE19480057F52B /* UnifiedCell.h */,
 				21B64C4D12E62A5700D87EFC /* UnifiedCell.m */,
 				77E7E59053DB5244B4683D7B /* WhiteTransparentScroller.h */,
@@ -1933,13 +1833,8 @@
 				21BD2F3610DAF61700BA3DF6 /* SplitViewDimple.tif in Resources */,
 				2143D2F410E953F500127EA6 /* SnapBackPressed.tif in Resources */,
 				2143D3D910E987B100127EA6 /* Pencil.png in Resources */,
-				21B1C172110764570004A7D0 /* statusError.png in Resources */,
-				21AD292D110C188800B7A985 /* TinyAlert.tif in Resources */,
-				212C6A2A110E371B004DD82C /* TBSynchronizingWhite.png in Resources */,
-				212C6A2C110E371B004DD82C /* TBDownArrowWhite.png in Resources */,
 				212C6A2E110E371B004DD82C /* TBMousedownBG.png in Resources */,
 				212C6EA3110E493C004DD82C /* Clear.tif in Resources */,
-				219D1BB3110EA66A005E7DF5 /* TBAlert.png in Resources */,
 				57F27F7B11973A7F00C63ACF /* Notation.sdef in Resources */,
 				5C8BCF881DA2617C0036FA7E /* Contact.nvhelp in Resources */,
 				21C0F8A212C7E7160068693F /* Fonts & Colors.tiff in Resources */,
@@ -1980,9 +1875,6 @@
 				5CF96DD1132EA29D0079B3FD /* TransparentScrollerSlotTop.tif in Resources */,
 				5CF96DD6132EA29D0079B3FD /* IBeamInverted.png in Resources */,
 				5CF96DD7132EA29D0079B3FD /* ListDividerDrag.png in Resources */,
-				5CF96DD9132EA29D0079B3FD /* TBDownArrow.png in Resources */,
-				5CF96DDA132EA29D0079B3FD /* TBAlertWhite.png in Resources */,
-				5CF96DDC132EA29D0079B3FD /* TBSynchronizing.png in Resources */,
 				5CF96DDE132EA29D0079B3FD /* TBRolloverBG.png in Resources */,
 				5CF96DE1132EA29D0079B3FD /* PTKeyboardIcon.tiff in Resources */,
 				5CF96DE2132EA29D0079B3FD /* PasswordAssistantButton.tif in Resources */,
@@ -2002,14 +1894,12 @@
 				5CF96DF7132EA29D0079B3FD /* ClearPressed.tif in Resources */,
 				5CF96DF8132EA29D0079B3FD /* LinkBack.tif in Resources */,
 				5CF96DFA132EA29D0079B3FD /* SnapBack.tif in Resources */,
-				5CF96DFC132EA29D0079B3FD /* statusValidated.png in Resources */,
-				5CF96DFE132EA29D0079B3FD /* statusInProgress.png in Resources */,
 				5CF96DFF132EA29D0079B3FD /* Localizable.strings in Resources */,
 				5CF96E04132EA29D0079B3FD /* CarbonErrorStrings.plist in Resources */,
 				5CF96E09132EA29D0079B3FD /* DeletionManager.nib in Resources */,
 				5CF96E0A132EA29D0079B3FD /* EncodingsManager.nib in Resources */,
 				5CF96E0B132EA29D0079B3FD /* Preferences.xib in Resources */,
-				5CF96E0C132EA29D0079B3FD /* NotationPrefsView.nib in Resources */,
+				5CF96E0C132EA29D0079B3FD /* NotationPrefsView.xib in Resources */,
 				93A158BE133C497400E1E7DA /* Notality.icns in Resources */,
 				5C2CC18A134989D7006FFE56 /* nvMenuDark.png in Resources */,
 				93B90E84138601C100BEC5FB /* LICENSE.txt in Resources */,
@@ -2030,14 +1920,8 @@
 				B683A0D416F1CDA600564A1D /* LinkBackPressed@2x.tif in Resources */,
 				B683A0D516F1CDA600564A1D /* SnapBack@2x.tif in Resources */,
 				B683A0D616F1CDA600564A1D /* SnapBackPressed@2x.tif in Resources */,
-				B683A0D716F1CDA600564A1D /* TBAlert@2x.png in Resources */,
-				B683A0D816F1CDA600564A1D /* TBAlertWhite@2x.png in Resources */,
-				B683A0D916F1CDA600564A1D /* TBDownArrow@2x.png in Resources */,
-				B683A0DA16F1CDA600564A1D /* TBDownArrowWhite@2x.png in Resources */,
 				B683A0DB16F1CDA600564A1D /* TBMousedownBG@2x.png in Resources */,
 				B683A0DC16F1CDA600564A1D /* TBRolloverBG@2x.png in Resources */,
-				B683A0DD16F1CDA600564A1D /* TBSynchronizing@2x.png in Resources */,
-				B683A0DE16F1CDA600564A1D /* TBSynchronizingWhite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2120,12 +2004,7 @@
 				21469C8C0BEBA6A10094835F /* TemporaryFileCache.m in Sources */,
 				D3EECA00106F66C70023D7F8 /* NVPasswordGenerator.m in Sources */,
 				21BD2ED110DAF31500BA3DF6 /* LinearDividerShader.m in Sources */,
-				21F078FC10EC280E004FE56F /* NotationSyncServiceManager.m in Sources */,
-				21F0794310EC5EA2004FE56F /* SimplenoteSession.m in Sources */,
-				21F0797E10EC93B0004FE56F /* SyncResponseFetcher.m in Sources */,
 				21B1BC361104D20E0004A7D0 /* InvocationRecorder.m in Sources */,
-				21AD2550110A8BA600B7A985 /* SimplenoteEntryCollector.m in Sources */,
-				21AD2850110BE99B00B7A985 /* SyncSessionController.m in Sources */,
 				21B548FA112F307E00E163A1 /* NotationDirectoryManager.m in Sources */,
 				57F27FB91197407400C63ACF /* SearchCommand.m in Sources */,
 				216D987F12CE68AD0004B9CE /* NSFileManager_NV.m in Sources */,
@@ -2343,7 +2222,7 @@
 			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
-		21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.nib */ = {
+		21A2FA7A09DF64E9001AF0B5 /* NotationPrefsView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5CF96CD0132EA1970079B3FD /* de */,
@@ -2353,7 +2232,7 @@
 				5C43666A1DA267910086FF84 /* pt-PT */,
 				5C43666B1DA267940086FF84 /* fr */,
 			);
-			name = NotationPrefsView.nib;
+			name = NotationPrefsView.xib;
 			sourceTree = "<group>";
 		};
 		21FF94ED0B5AD22800DB6A2F /* ExporterManager.nib */ = {

@@ -16,7 +16,7 @@
 static NSString *TestDirectory;
 static NSUInteger Checks;
 static BOOL DisplayChangeInProgress;
-static NSUInteger DisplayWriteRequests, DisplaySyncRequests;
+static NSUInteger DisplayWriteRequests;
 static void Check(BOOL result, NSString *description) {
     if (!result) { NSLog(@"FAIL: %@", description); exit(1); }
     NSLog(@"PASS: %@", description); Checks++;
@@ -45,16 +45,11 @@ static NSDictionary *HistoryState(NVNoteEditingSession *session) {
 }
 @interface NotationController (NVFontWriteAudit)
 - (void)nv_fontScheduleWriteForNote:(NoteObject *)note;
-- (void)nv_fontSchedulePushForNote:(id)note;
 @end
 @implementation NotationController (NVFontWriteAudit)
 - (void)nv_fontScheduleWriteForNote:(NoteObject *)note {
     if (DisplayChangeInProgress) DisplayWriteRequests++;
     [self nv_fontScheduleWriteForNote:note];
-}
-- (void)nv_fontSchedulePushForNote:(id)note {
-    if (DisplayChangeInProgress) DisplaySyncRequests++;
-    [self nv_fontSchedulePushForNote:note];
 }
 @end
 
@@ -87,7 +82,6 @@ static NSDictionary *HistoryState(NVNoteEditingSession *session) {
     Swap([NSFileManager class], @selector(applicationSupportDirectory), @selector(nv_testSupportDirectory));
     Swap([ODBEditor class], @selector(initializeDatabase:), @selector(nv_skipExternalEditorInitialization:));
     Swap([NotationController class], @selector(scheduleWriteForNote:), @selector(nv_fontScheduleWriteForNote:));
-    Swap([NotationController class], @selector(schedulePushToAllSyncServicesForNote:), @selector(nv_fontSchedulePushForNote:));
 }
 - (void)nv_testDelayed { }
 - (void)nv_finishTests { [NSApp terminate:self]; }
@@ -143,7 +137,7 @@ static NSDictionary *HistoryState(NVNoteEditingSession *session) {
         for (NSUInteger index = 0; index < [notes count]; index++) {
             Check([ModelState(notes[index]) isEqual:modelStates[index]], @"font and foreground changes preserve note attributes, source bytes, date, and journal sequence");
         }
-        Check(DisplayWriteRequests == 0 && DisplaySyncRequests == 0, @"display changes schedule no note writes or sync pushes");
+        Check(DisplayWriteRequests == 0, @"display changes schedule no note writes");
         Check([HistoryState(alphaSession) isEqual:history], @"display changes preserve existing body Undo and Redo history");
         Check([alphaSession sourceGeneration] == sourceGeneration, @"display changes do not advance source generation");
         NSFont *sessionFont = [[alphaSession textStorage] attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
@@ -173,13 +167,13 @@ static NSDictionary *HistoryState(NVNoteEditingSession *session) {
         NSFont *compositionFont = [NSFont fontWithName:[newFont fontName] size:[newFont pointSize] + 2.0];
         NSDictionary *compositionModel = ModelState(beta);
         DisplayChangeInProgress = YES;
-        DisplayWriteRequests = DisplaySyncRequests = 0;
+        DisplayWriteRequests = 0;
         [[GlobalPrefs defaultPrefs] setNoteBodyFont:compositionFont sender:self];
         [browser settingChangedForSelectorString:@"setNoteBodyFont:sender:"]; Pump();
         DisplayChangeInProgress = NO;
         Check([editor hasMarkedText] && [[editor string] isEqualToString:@"draft beta body"], @"cached-session reload defers replacement during marked text");
         Check([ModelState(beta) isEqual:compositionModel], @"font changes do not commit another pending composition");
-        Check(DisplayWriteRequests == 0 && DisplaySyncRequests == 0, @"font changes during composition schedule no source writes or sync pushes");
+        Check(DisplayWriteRequests == 0, @"font changes during composition schedule no source writes");
         [editor unmarkText]; [browser finishEditing]; Pump();
         Check([[[beta contentString] string] isEqualToString:@"draft beta body"], @"deferred font refresh preserves composed text on commit");
         Check([[[editor textStorage] attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL] pointSize] == [compositionFont pointSize], @"composition completion applies the deferred display font");

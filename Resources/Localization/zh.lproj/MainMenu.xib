@@ -679,8 +679,6 @@ CA
                 <outlet property="notesScrollView" destination="1013" id="1275"/>
                 <outlet property="notesTableView" destination="1014" id="1027"/>
                 <outlet property="statBarMenu" destination="1130" id="1165"/>
-                <outlet property="syncWaitPanel" destination="1079" id="1085"/>
-                <outlet property="syncWaitSpinner" destination="1082" id="1084"/>
                 <outlet property="textScrollView" destination="1016" id="1276"/>
                 <outlet property="textView" destination="1017" id="1030"/>
                 <outlet property="window" destination="21" id="217"/>
@@ -743,46 +741,6 @@ CA
                 <outlet property="nextKeyView" destination="1067" id="1306"/>
             </connections>
         </customView>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1079" userLabel="quit waiting" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="454" y="634" width="353" height="106"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <value key="minSize" type="size" width="213" height="107"/>
-            <view key="contentView" id="1080">
-                <rect key="frame" x="0.0" y="0.0" width="353" height="106"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button verticalHuggingPriority="750" id="1081">
-                        <rect key="frame" x="240" y="12" width="99" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Quit Now" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1104">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="syncWaitQuit:" target="213" id="1086"/>
-                        </connections>
-                    </button>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" id="1082">
-                        <rect key="frame" x="20" y="54" width="32" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </progressIndicator>
-                    <textField verticalHuggingPriority="750" id="1083">
-                        <rect key="frame" x="70" y="60" width="266" height="20"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Waiting for changes to finish uploading…" id="1105">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                </subviews>
-            </view>
-        </window>
         <menu title="barMenu" id="1130">
             <items>
                 <menuItem title="书签" tag="901" id="1203">

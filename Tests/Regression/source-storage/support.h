@@ -1,8 +1,7 @@
 #import "NotationPrefs.h"
 #import "FrozenNotation.h"
 #import "AlienNoteImporter.h"
-#import "SimplenoteEntryCollector.h"
-#import "SyncResponseFetcher.h"
+#import "DeletedNoteObject.h"
 #import "EncodingsManager.h"
 #import "NotationDirectoryManager.h"
 #import "NotationFileManager.h"
@@ -94,4 +93,29 @@ static NSUInteger SourceNotesWithBody(NotationController *library, NSString *bod
 @end
 @implementation NVSourcePrefsDelegate
 - (NotationPrefs*)notationPrefs { return prefs; }
+@end
+
+#import "NSData_transformations.h"
+
+static BOOL SourceArchiveHasKey(NSData *data, NSString *key) {
+    NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:NULL];
+    Check([plist isKindOfClass:[NSDictionary class]], @"archive inspection reads a keyed property list");
+    for (id object in [plist objectForKey:@"$objects"])
+        if ([object isKindOfClass:[NSDictionary class]] && [object objectForKey:key] != nil) return YES;
+    return NO;
+}
+
+// Sequential archives require consuming the old metadata object between UUID
+// and sequence. Skipping it changes the type of the next decoded value.
+@interface NVLegacySequentialTombstone : NSObject <NSCoding>
+@end
+@implementation NVLegacySequentialTombstone
+- (void)encodeWithCoder:(NSCoder *)coder {
+    CFUUIDBytes identifier = { 0x10, 0x32, 0x54, 0x76, 0x98, 0xba, 0xdc, 0xfe, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
+    unsigned int sequence = 0xf1234567U;
+    [coder encodeValueOfObjCType:@encode(CFUUIDBytes) at:&identifier];
+    [coder encodeObject:@{@"Simplenote": @{@"key": @"old-remote-deletion"}}];
+    [coder encodeValueOfObjCType:@encode(unsigned int) at:&sequence];
+}
+- (id)initWithCoder:(NSCoder *)coder { [self release]; return nil; }
 @end

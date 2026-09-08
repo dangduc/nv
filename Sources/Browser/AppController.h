@@ -80,7 +80,6 @@
     NoteObject *metadataNote;
     NSTextField *metadataControl;
     NSString *metadataOriginalValue;
-    NSToolbarItem *syncToolbarItem;
     BOOL committingMetadata, searchHasPendingComposition;
     CGFloat pendingListHeight;
     IBOutlet ETScrollView *notesScrollView;
@@ -89,12 +88,9 @@
     IBOutlet LinkingEditor *textView;
 	IBOutlet EmptyView *editorStatusView;
     IBOutlet NSWindow *window;
-	IBOutlet NSPanel *syncWaitPanel;
-	IBOutlet NSProgressIndicator *syncWaitSpinner;
 	NSToolbar *toolbar;
 	NSToolbarItem *dualFieldItem;
 	
-	BOOL waitedForUncommittedChanges;
 	
 	
 	NSString *URLToInterpretOnLaunch;
@@ -125,10 +121,8 @@ void outletObjectAwoke(id sender);
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)files;
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 - (void)applicationWillTerminate:(NSNotification *)notification;
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 - (BOOL)horizontalLayout;
 - (BOOL)validateMenuItem:(NSMenuItem *)item;
-- (void)syncSessionsChangedVisibleStatus:(NSNotification *)notification;
 - (void)titleUpdatedForNote:(NoteObject *)note;
 - (void)notation:(NotationController *)notation revealNotes:(NSArray *)notes;
 - (void)setNotationController:(NotationController*)newNotation;
@@ -166,8 +160,6 @@ void outletObjectAwoke(id sender);
 
 - (void)restoreListStateUsingPreferences;
 
-- (void)_finishSyncWait;
-- (IBAction)syncWaitQuit:(id)sender;
 
 - (void)setTableAllowsMultipleSelection;
 
@@ -286,14 +278,12 @@ void outletObjectAwoke(id sender);
 - (void)beginNoteMetadataEditing:(NSTextField *)control;
 - (void)cancelNoteMetadataEditing;
 - (void)updateSearchAffordance;
-- (void)updateSyncToolbarItem;
 - (CGFloat)notesListHeight;
 - (void)setNotesListHeight:(CGFloat)height;
 - (void)restoreNotesListHeight;
 - (IBAction)newNote:(id)sender;
 - (IBAction)createNoteFromSearch:(id)sender;
 - (IBAction)showNoteActions:(id)sender;
-- (IBAction)showSyncStatus:(id)sender;
 - (IBAction)applyNoteMetadata:(id)sender;
 - (IBAction)setSystemColorScheme:(id)sender;
 - (void)browserAppearanceChanged;

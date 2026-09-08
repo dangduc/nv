@@ -678,8 +678,6 @@ CA
                 <outlet property="notesScrollView" destination="1229" id="1285"/>
                 <outlet property="notesTableView" destination="1230" id="1239"/>
                 <outlet property="statBarMenu" destination="1124" id="1159"/>
-                <outlet property="syncWaitPanel" destination="1079" id="1085"/>
-                <outlet property="syncWaitSpinner" destination="1082" id="1084"/>
                 <outlet property="textScrollView" destination="1225" id="1284"/>
                 <outlet property="textView" destination="1226" id="1242"/>
                 <outlet property="window" destination="1220" id="1254"/>
@@ -739,46 +737,6 @@ CA
                 </tokenField>
             </subviews>
         </customView>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1079" userLabel="quit waiting" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="454" y="633" width="353" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <value key="minSize" type="size" width="213" height="107"/>
-            <view key="contentView" id="1080">
-                <rect key="frame" x="0.0" y="0.0" width="353" height="107"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button verticalHuggingPriority="750" id="1081">
-                        <rect key="frame" x="179" y="12" width="160" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Jetzt beenden" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1090">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="syncWaitQuit:" target="213" id="1086"/>
-                        </connections>
-                    </button>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" id="1082">
-                        <rect key="frame" x="20" y="55" width="32" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </progressIndicator>
-                    <textField verticalHuggingPriority="750" id="1083">
-                        <rect key="frame" x="70" y="48" width="266" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Warte auf Hochladen der Änderungen…" id="1091">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                </subviews>
-            </view>
-        </window>
         <menu title="barMenu" id="1124">
             <items>
                 <menuItem title="Lesezeichen" tag="901" id="1199">

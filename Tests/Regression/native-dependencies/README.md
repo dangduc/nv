@@ -7,10 +7,13 @@ python3 Tests/Regression/native-dependencies/run.py
 ```
 
 The runner uses a copied app, a separate preferences domain, and disposable notes.
-It blocks sync requests and redirects clipboard writes to a private test pasteboard.
+It redirects clipboard writes to a private test pasteboard.
 
-The checks cover login, index, changes, note creation, update, and deletion JSON.
-They also cover Unicode link ranges, email and file URLs, wiki links, disabled imports, and updater menus.
+The checks cover Unicode link ranges, email and file URLs, wiki links, disabled imports, and updater menus.
+They check local UUID note links and safe title-search fallback for short UUIDs and retired remote identifiers.
+Simplenote service and network classes must be absent.
+Each of the six localized library preferences interfaces must load its storage and security tabs.
+The remaining format controls and encryption outlets must stay connected.
 
 Source windows must leave the inline viewer unallocated until the user selects Preview.
 The suite checks that sharing, sticky previews, generated-source tabs, and script templates are absent.

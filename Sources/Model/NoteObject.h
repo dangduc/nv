@@ -24,7 +24,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NotationController.h"
 #import "BufferUtils.h"
-#import "SynchronizedNoteProtocol.h"
+#import "LogNoteProtocol.h"
 
 extern NSString *const NVNoteSyntaxDidChangeNotification;
 
@@ -38,7 +38,7 @@ typedef struct _NoteFilterContext {
 	BOOL useCachedPositions;
 } NoteFilterContext;
 
-@interface NoteObject : NSObject <NSCoding, SynchronizedNote> {
+@interface NoteObject : NSObject <NSCoding, LogNote> {
 	NSAttributedString *tableTitleString;
 	NSMutableAttributedString *contentString;
 	
@@ -65,10 +65,9 @@ typedef struct _NoteFilterContext {
 	//not determined until it's time to read to or write from a text file
 	FSRef *noteFileRef;
 
-	//the first for syncing w/ NV server, as the ID cannot be encrypted
+	// Stable identity for notes, links, and journal recovery.
 	CFUUIDBytes uniqueNoteIDBytes;
 	
-	NSMutableDictionary *syncServicesMD;
 	NSDictionary *pendingSourceMetadata;
 	// These bytes stay inside the encrypted note archive, not the library preferences.
 	NSData *sourceOriginalData, *sourceByteOrderMark;
@@ -109,13 +108,12 @@ NSInteger compareFilename(id *a, id *b);
 NSInteger compareNodeID(id *a, id *b);
 NSInteger compareFileSize(id *a, id *b);
 
-//syncing w/ server and from journal
+// Journal identity and ordering.
 - (CFUUIDBytes *)uniqueNoteIDBytes;
-- (NSDictionary*)syncServicesMD;
 - (unsigned int)logSequenceNumber;
 - (void)incrementLSN;
 
-- (BOOL)youngerThanLogObject:(id<SynchronizedNote>)obj;
+- (BOOL)youngerThanLogObject:(id<LogNote>)obj;
 
 	//syncing w/ files in directory
 	NSInteger storageFormatOfNote(NoteObject *note);
@@ -184,12 +182,6 @@ NSInteger compareFileSize(id *a, id *b);
 - (void)_drawLabelBlocksInRect:(NSRect)aRect rightAlign:(BOOL)onRight highlighted:(BOOL)isHighlighted getSizeOnly:(NSSize*)reqSize;
 - (void)drawLabelBlocksInRect:(NSRect)aRect rightAlign:(BOOL)onRight highlighted:(BOOL)isHighlighted;
 
-- (void)setSyncObjectAndKeyMD:(NSDictionary*)aDict forService:(NSString*)serviceName;
-- (void)removeAllSyncMDForService:(NSString*)serviceName;
-//- (void)removeKey:(NSString*)aKey forService:(NSString*)serviceName;
-- (void)updateWithSyncBody:(NSString*)newBody andTitle:(NSString*)newTitle;
-- (void)registerModificationWithOwnedServices;
-
 - (OSStatus)writeCurrentFileEncodingToFSRef:(FSRef*)fsRef;
 - (void)_setFileEncoding:(NSStringEncoding)encoding;
 - (BOOL)setFileEncodingAndReinterpret:(NSStringEncoding)encoding;
@@ -233,7 +225,6 @@ NSInteger compareFileSize(id *a, id *b);
 - (void)setContentString:(NSAttributedString*)attributedString;
 - (NSAttributedString*)contentString;
 - (NSAttributedString*)printableStringRelativeToBodyFont:(NSFont*)bodyFont;
-- (NSString*)combinedContentWithContextSeparator:(NSString*)sepWContext;
 - (void)_resanitizeContent;
 - (void)updateDateStrings;
 - (void)setDateModified:(CFAbsoluteTime)newTime;

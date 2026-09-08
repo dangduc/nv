@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NotationController.h"
 
-// A view of one library. This object never opens files or starts synchronization.
+// A view of one library. This object never opens files or owns library persistence.
 @interface NVBrowserSession : NSObject {
     NotationController *library;
     id delegate;

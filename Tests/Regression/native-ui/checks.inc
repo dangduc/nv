@@ -9,6 +9,18 @@
         Check([split isKindOfClass:[NSSplitView class]] && ![split isVertical], @"browser uses a native horizontal divider");
         Check([field isKindOfClass:[NSSearchField class]] && [field isEditable], @"search is an editable native search control");
         Check([[browserWindow toolbar] allowsUserCustomization], @"toolbar supports standard customization");
+        NSToolbar *nativeToolbar = [browserWindow toolbar];
+        Check(![[self toolbarDefaultItemIdentifiers:nativeToolbar] containsObject:@"Sync"] &&
+              ![[self toolbarAllowedItemIdentifiers:nativeToolbar] containsObject:@"Sync"], @"toolbar defaults and customization omit Sync");
+        NSDictionary *savedToolbarConfiguration = [[[nativeToolbar configurationDictionary] copy] autorelease];
+        NSMutableDictionary *legacyToolbarConfiguration = [[savedToolbarConfiguration mutableCopy] autorelease];
+        [legacyToolbarConfiguration setObject:@[@"NewNote", @"Sync", @"Search"] forKey:@"TB Item Identifiers"];
+        [nativeToolbar setConfigurationFromDictionary:legacyToolbarConfiguration];
+        NSMutableArray *restoredIdentifiers = [NSMutableArray array];
+        for (NSToolbarItem *item in [nativeToolbar items]) [restoredIdentifiers addObject:[item itemIdentifier]];
+        Check(![restoredIdentifiers containsObject:@"Sync"] && [restoredIdentifiers containsObject:@"NewNote"] &&
+              [restoredIdentifiers containsObject:@"Search"], @"restoring an old toolbar ignores Sync and preserves active commands");
+        [nativeToolbar setConfigurationFromDictionary:savedToolbarConfiguration];
         NSMenu *noteMenu = [[[NSApp mainMenu] itemWithTag:NOTES_MENU_ID] submenu];
         NSMenuItem *newNoteItem = [noteMenu itemAtIndex:[noteMenu indexOfItemWithTarget:app andAction:@selector(newNote:)]];
         Check([[newNoteItem keyEquivalent] isEqual:@"n"], @"Note menu exposes Command-N for New Note");

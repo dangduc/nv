@@ -10,7 +10,6 @@
 #import "NotationPrefs.h"
 #import "BookmarksController.h"
 #import "NSString_NV.h"
-#import "SyncSessionController.h"
 #import "SecureTextEntryManager.h"
 #import "PreviewController.h"
 
@@ -48,7 +47,6 @@ static NSDictionary *ValidatedBodyState(id value) {
     [notesTableView deselectAll:self];
     [self _setCurrentNote:nil];
     [self discardViewer];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SyncSessionsChangedVisibleStatusNotification object:nil];
     [[self browserSession] setDelegate:nil];
     [notationController release];
     notationController = (id)[[NVBrowserSession alloc] initWithLibrary:library];
@@ -73,9 +71,6 @@ static NSDictionary *ValidatedBodyState(id value) {
         if ([library aliasNeedsUpdating]) [prefsController setAliasDataForDefaultDirectory:[library aliasDataForNoteDirectory] sender:self];
         if (!oldQuery) [self restoreListStateUsingPreferences];
     }
-    [self updateSyncToolbarItem];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncSessionsChangedVisibleStatus:)
-        name:SyncSessionsChangedVisibleStatusNotification object:[library syncSessionController]];
     if ([[library notationPrefs] secureTextEntry]) [[SecureTextEntryManager sharedInstance] enableSecureTextEntry];
     else [[SecureTextEntryManager sharedInstance] disableSecureTextEntry];
     [textView setAllowsUndo:NO];
@@ -85,7 +80,7 @@ static NSDictionary *ValidatedBodyState(id value) {
 - (void)prepareAdditionalWindow {
     hasLaunched = YES;
     [window makeFirstResponder:field];
-    // Visual preferences are global; changing libraries and starting services remain application-owned.
+    // Visual preferences are global; changing libraries remains application-owned.
     for (NSString *selector in @[@"setForegroundTextColor:sender:", @"setBackgroundTextColor:sender:",
         @"setTableFontSize:sender:", @"setTableColumnsShowPreview:sender:", @"addTableColumn:sender:", @"removeTableColumn:sender:"]) {
         [prefsController registerForSettingChange:NSSelectorFromString(selector) withTarget:self];

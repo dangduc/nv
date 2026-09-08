@@ -28,7 +28,7 @@ The app restores open windows and their saved views after a restart. A library c
 
 ### Native controls and appearance
 
-The toolbar contains New Note, Preview, Note Actions, Sync Status, and Search or Create. Standard toolbar customization controls which items appear.
+The toolbar contains New Note, Preview, Note Actions, and Search or Create. Standard toolbar customization controls which items appear.
 
 The title and tags sit between the list and the body. Tags use completion from the library. The editor supports system colors and custom colors. The notes list stays white, with optional pale alternating rows.
 
@@ -74,7 +74,7 @@ It uses an Intel macOS 15 runner with Xcode 16.4.
 3. Extract `nvALT.app` from the ZIP file.
 
 Downloads require a GitHub login. App archives expire after 30 days.
-These are unsigned Development builds without notarization or Simplenote credentials. Apple Silicon Macs require Rosetta.
+These are unsigned Development builds without notarization. Apple Silicon Macs require Rosetta.
 
 Successful `master` builds create a `build-<run number>` tag at the built commit.
 A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
@@ -109,19 +109,7 @@ The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK.
    cd nv
    ```
 
-2. Prepare the sync configuration:
-
-   For an existing checkout, move your local `SimperiumConfig.h` into `Config/` before you build.
-
-   If `Config/SimperiumConfig.h` is absent, create it from the example:
-
-   ```sh
-   test -e Config/SimperiumConfig.h || cp Config/SimperiumConfig-example.h Config/SimperiumConfig.h
-   ```
-
-   The placeholder supports local use without sync. Simplenote sync requires your own API key.
-
-3. Build the Development app:
+2. Build the Development app:
 
    ```sh
    xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
@@ -130,8 +118,8 @@ The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK.
      GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
    ```
 
-4. Quit any other nvALT build before the first run.
-5. Run the app:
+3. Quit any other nvALT build before the first run.
+4. Run the app:
 
    ```sh
    open build/DerivedData/Build/Products/Development/nvALT.app
@@ -147,7 +135,7 @@ The build retains the upstream application identifier and can use existing nvALT
 | --- | --- |
 | `Sources/` | Application code, grouped by responsibility. Headers stay beside their implementations. |
 | `Resources/` | Images, help, syntax queries, interfaces, and localized resources in `Localization/*.lproj/`. |
-| `Config/` | Application plist, prefix header, sync configuration, and linker order files. |
+| `Config/` | Application plist, prefix header, and linker order files. |
 | `ThirdParty/` | Bundled source dependencies, markup processors, and OpenSSL. |
 | `Scripts/` | Development utilities. |
 | `Tests/` | Cocoa integration suites, regression checks, CI checks, and review records. |
@@ -166,13 +154,14 @@ python3 Tests/run-regression-tests.py
 
 The suites use temporary notes and a copy of the app. They cover shared edits, Undo/Redo, window restoration, search, metadata, preview ownership, and appearance.
 
-[Tests/README.md](Tests/README.md) describes focused checks and full-screen checks. [The review record](Tests/NativeUIReview/VALIDATION.md) lists results and limits. Live sync services and external editor apps need separate manual checks.
+[Tests/README.md](Tests/README.md) describes focused checks and full-screen checks. [The review record](Tests/NativeUIReview/VALIDATION.md) lists results and limits. External editor apps need separate manual checks.
 
 ## Source and preview
 
 New notes start as editable Plain Text. The syntax menu enables Tree-sitter highlighting for Markdown, HTML, and JSON.
 Textile source supports markup insertion commands with plain display.
-Syntax settings stay in the local library. They are independent of each window's preview format and are not sent to Simplenote.
+Simplenote support is removed. Existing local notes remain available.
+Syntax settings stay in the local library. They are independent of each window's preview format.
 
 Each window can edit Source or show a read-only preview of the same note.
 Switching modes retains the source, Undo, caret, and scroll position. Existing composition commits only in the editor being hidden.

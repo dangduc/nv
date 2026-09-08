@@ -12,29 +12,8 @@
 
 //used by DeletedNoteObject and NoteObject
 
-- (void)setSyncObjectAndKeyMD:(NSDictionary*)aDict forService:(NSString*)serviceName {
-	NSMutableDictionary *dict = [syncServicesMD objectForKey:serviceName];
-	if (!dict) {
-		dict = [[NSMutableDictionary alloc] initWithDictionary:aDict];
-		if (!syncServicesMD) syncServicesMD = [[NSMutableDictionary alloc] init];
-		[syncServicesMD setObject:dict forKey:serviceName];
-		[dict release];
-	} else {
-		[dict addEntriesFromDictionary:aDict];
-	}
-}
-- (void)removeAllSyncMDForService:(NSString*)serviceName {
-	[syncServicesMD removeObjectForKey:serviceName];
-}
-//- (void)removeKey:(NSString*)aKey forService:(NSString*)serviceName {
-//	[[syncServicesMD objectForKey:serviceName] removeObjectForKey:aKey];
-//}
-
 - (CFUUIDBytes *)uniqueNoteIDBytes {
     return &uniqueNoteIDBytes;
-}
-- (NSDictionary*)syncServicesMD {
-    return syncServicesMD;
 }
 - (unsigned int)logSequenceNumber {
     return logSequenceNumber;
@@ -42,7 +21,7 @@
 - (void)incrementLSN {
     logSequenceNumber++;
 }
-- (BOOL)youngerThanLogObject:(id<SynchronizedNote>)obj {
+- (BOOL)youngerThanLogObject:(id<LogNote>)obj {
 	return [self logSequenceNumber] < [obj logSequenceNumber];
 }
 
@@ -56,6 +35,6 @@
 	return finalHash;
 }
 - (BOOL)isEqual:(id)otherNote {
-	CFUUIDBytes *otherBytes = [(id <SynchronizedNote>)otherNote uniqueNoteIDBytes];
+	CFUUIDBytes *otherBytes = [(id <LogNote>)otherNote uniqueNoteIDBytes];
 	return memcmp(otherBytes, &uniqueNoteIDBytes, sizeof(CFUUIDBytes)) == 0;
 }

@@ -24,14 +24,14 @@
 @implementation FrozenNotation
 
 - (id)initWithCoder:(NSCoder*)decoder {
-	if ([decoder containsValueForKey:VAR_STR(prefs)]) {
+	if ([decoder allowsKeyedCoding] && [decoder containsValueForKey:VAR_STR(prefs)]) {
 		prefs = [[decoder decodeObjectForKey:VAR_STR(prefs)] retain];
 		notesData = [[decoder decodeObjectForKey:VAR_STR(notesData)] retain];
-		deletedNoteSet = [[decoder decodeObjectForKey:VAR_STR(deletedNoteSet)] retain];
 	} else {
 		NSLog(@"FrozenNotation: decoding legacy %@", decoder);
 		prefs = [[decoder decodeObject] retain];
 		notesData = [[decoder decodeObject] retain];
+		// Consume the obsolete remote deletion-history slot.
 		(void)[decoder decodeObject];
 	}	
 	return self;
@@ -41,15 +41,15 @@
 	if ([coder allowsKeyedCoding]) {
 		[coder encodeObject:prefs forKey:VAR_STR(prefs)];
 		[coder encodeObject:notesData forKey:VAR_STR(notesData)];
-		[coder encodeObject:deletedNoteSet forKey:VAR_STR(deletedNoteSet)];
 	} else {
 		[coder encodeObject:prefs];
 		[coder encodeObject:notesData];
-		[coder encodeObject:deletedNoteSet];
+		// Preserve the obsolete deletion-history slot in legacy archives.
+		[coder encodeObject:nil];
 	}
 }
 
-- (id)initWithNotes:(NSMutableArray*)notes deletedNotes:(NSMutableSet*)antiNotes prefs:(NotationPrefs*)somePrefs {
+- (id)initWithNotes:(NSMutableArray*)notes prefs:(NotationPrefs*)somePrefs {
 	
 	if (self=[super init]) {
 
@@ -60,7 +60,6 @@
 		[archiver release];
 		
 		prefs = [somePrefs retain];
-		deletedNoteSet = [antiNotes retain];		
 		
 		NSMutableData *oldNotesData = notesData;
 		notesData = [[notesData compressedData] retain];
@@ -94,15 +93,12 @@
 	[allNotes release];
 	[notesData release];
 	[prefs release];
-	[deletedNoteSet release];
 	
 	[super dealloc];
 }
 
-+ (NSData*)frozenDataWithExistingNotes:(NSMutableArray*)notes 
-						  deletedNotes:(NSMutableSet*)antiNotes 
-								 prefs:(NotationPrefs*)prefs {
-	FrozenNotation *frozenNotation = [[FrozenNotation alloc] initWithNotes:notes deletedNotes:antiNotes prefs:prefs];
++ (NSData*)frozenDataWithExistingNotes:(NSMutableArray*)notes prefs:(NotationPrefs*)prefs {
+	FrozenNotation *frozenNotation = [[FrozenNotation alloc] initWithNotes:notes prefs:prefs];
 
 	if (!frozenNotation)
 		return nil;
@@ -214,10 +210,6 @@
 	}
 	
 	return allNotes;
-}
-
-- (NSMutableSet*)deletedNotes {
-	return deletedNoteSet;
 }
 
 - (NotationPrefs*)notationPrefs {

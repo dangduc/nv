@@ -15,32 +15,23 @@
    - Neither the name of Notational Velocity nor the names of its contributors may be used to endorse 
      or promote products derived from this software without specific prior written permission. */
 
-
 #import <Cocoa/Cocoa.h>
-#import "SynchronizedNoteProtocol.h"
+#import "LogNoteProtocol.h"
 
-//archived instances of this class are stored in the journal and on the server
+// Archived instances record deletions in the journal.
 //the sole purpose of these objects is to aid in the removal of existing notes
 
-@interface DeletedNoteObject : NSObject <NSCoding, SynchronizedNote> {
+@interface DeletedNoteObject : NSObject <NSCoding, LogNote> {
     unsigned int logSequenceNumber;
     CFUUIDBytes uniqueNoteIDBytes;
-    NSMutableDictionary *syncServicesMD;
-	id <SynchronizedNote> originalNote;
 }
 
-+ (id)deletedNoteWithNote:(id <SynchronizedNote>)aNote;
-- (id)initWithExistingObject:(id<SynchronizedNote>)note;
-
-- (id<SynchronizedNote>)originalNote;
++ (id)deletedNoteWithNote:(id <LogNote>)aNote;
+- (id)initWithExistingObject:(id<LogNote>)note;
 
 - (CFUUIDBytes *)uniqueNoteIDBytes;
-- (NSDictionary *)syncServicesMD;
 - (unsigned int)logSequenceNumber;
 - (void)incrementLSN;
-- (BOOL)youngerThanLogObject:(id<SynchronizedNote>)obj;
-
-//- (void)removeKey:(NSString*)aKey forService:(NSString*)serviceName;
-- (void)removeAllSyncMDForService:(NSString*)serviceName;
+- (BOOL)youngerThanLogObject:(id<LogNote>)obj;
 
 @end

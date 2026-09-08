@@ -22,7 +22,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "SynchronizedNoteProtocol.h"
+#import "LogNoteProtocol.h"
 
 extern NSString *NoteTitleColumnString;
 extern NSString *NoteLabelsColumnString;
@@ -178,7 +178,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (double)scrollOffsetOfLastSelectedNote;
 - (CFUUIDBytes)UUIDBytesOfLastSelectedNote;
 - (NSString*)lastSearchString;
-- (void)setLastSearchString:(NSString*)string selectedNote:(id<SynchronizedNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender;
+- (void)setLastSearchString:(NSString*)string selectedNote:(id<LogNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender;
 
 - (void)saveCurrentBookmarksFromSender:(id)sender;
 - (BookmarksController*)bookmarksController;
