@@ -1,0 +1,31 @@
+2026-09-08 13:15:52.275 nvALT[32379:325708140] PASS: temporary library directory exists
+2026-09-08 13:15:52.276 nvALT[32379:325708140] PASS: temporary library opens
+2026-09-08 13:15:52.595 nvALT[32379:325708140] PASS: failure history starts from an empty disposable library
+2026-09-08 13:15:52.825 nvALT[32379:325708140] verified 4 notes in 0.000458002 s
+2026-09-08 13:15:52.825 nvALT[32379:325708140] PASS: four-note checkpoint stores before failure injection
+2026-09-08 13:15:52.826 nvALT[32379:325708140] PASS: checkpoint bytes exist and both dirty flags are clear
+2026-09-08 13:15:52.826 nvALT[32379:325708140] PASS: checkpoint retains a live WAL for subsequent edits
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: history A has dirty local notes and dirty local syntax preferences before the store
+2026-09-08 13:15:52.827 nvALT[32379:325708140] INJECT: reject serialized database store, status=-34, bytes=3428, attempt=1
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: explicit snapshot write failure propagates as a failed flush
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: fault is hit once after serialization and before database replacement
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: failed snapshot does not mark local notes or preferences stored
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: failed snapshot leaves the previous checkpoint byte-for-byte unchanged
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: failed snapshot keeps the same WAL and never closes the sole new local records
+2026-09-08 13:15:52.827 nvALT[32379:325708140] PASS: preserved WAL can still synchronize after the failed snapshot
+2026-09-08 13:15:52.828 nvALT[32379:325708140] INJECT: reject serialized database store, status=-34, bytes=3428, attempt=2
+2026-09-08 13:15:52.828 nvALT[32379:325708140] PASS: failed flushEverything preserves its original journal instead of rotating it
+2026-09-08 13:15:52.828 nvALT[32379:325708140] verified 3 notes in 0.000239015 s
+2026-09-08 13:15:52.829 nvALT[32379:325708140] PASS: successful retry stores the snapshot before closing and restarting its WAL
+2026-09-08 13:15:52.829 nvALT[32379:325708140] PASS: successful retry clears both dirty flags
+2026-09-08 13:15:52.829 nvALT[32379:325708140] PASS: retry replaces the checkpoint with changed local data
+2026-09-08 13:15:52.829 nvALT[32379:325708140] PASS: successful retry retains local edit, deletion, and syntax without reintroducing a removed note
+2026-09-08 13:15:52.882 nvALT[32379:325708140] PASS: history B live state matches independent source and metadata model for retained through failure
+2026-09-08 13:15:52.882 nvALT[32379:325708140] PASS: history B live state matches independent source and metadata model for delete-before-retry
+2026-09-08 13:15:52.882 nvALT[32379:325708140] PASS: history B live state matches independent source and metadata model for delete-before-close
+2026-09-08 13:15:52.882 nvALT[32379:325708140] PASS: history B live state matches independent source and metadata model for untouched
+2026-09-08 13:15:52.882 nvALT[32379:325708140] PASS: history B live state matches independent source and metadata model for created-before-failed-close
+2026-09-08 13:15:52.883 nvALT[32379:325708140] INJECT: reject serialized database store, status=-34, bytes=3473, attempt=3
+2026-09-08 13:15:52.883 nvALT[32379:325708140] PASS: closeAllResources attempts the failed snapshot store exactly once
+2026-09-08 13:15:52.883 nvALT[32379:325708140] PASS: failed resource close leaves the pending local snapshot dirty
+2026-09-08 13:15:52.883 nvALT[32379:325708140] FAIL: failed resource close preserves the sole WAL containing local edits, creation, and deletion

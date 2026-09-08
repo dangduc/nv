@@ -1,0 +1,99 @@
+2026-09-08 13:09:58.096 nvALT[31097:325697244] PASS: temporary library directory exists
+2026-09-08 13:09:58.097 nvALT[31097:325697244] PASS: temporary library opens
+2026-09-08 13:09:58.855 nvALT[31097:325697244] verified 2 notes in 0.000424027 s
+2026-09-08 13:09:58.875 nvALT[31097:325697244] PASS: fixture creates three separate native browser windows
+2026-09-08 13:09:58.967 nvALT[31097:325697244] PASS: initial local notes and syntax reach the database
+2026-09-08 13:09:58.967 nvALT[31097:325697244] PASS: ODB callback first runs against database storage
+2026-09-08 13:09:58.968 nvALT[31097:325697244] PASS: disposable UTF-8 BOM file represents an external editor save
+2026-09-08 13:09:58.968 nvALT[31097:325697244] Could not get an fsref for file with name External Local Note.txt: -43
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update commits the exact source in the note model
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update reaches both native source editors
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: both editors retain the same shared source storage
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update preserves both selected note identities
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update preserves each window's title-matching query
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external source change preserves locally stored syntax
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: temporary external filename does not replace the note title
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update leaves a third window and its other note untouched
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: source export contract retains exact externally supplied bytes and BOM
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: both native selections remain within externally changed source
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: external update neither loses nor duplicates notes
+2026-09-08 13:09:59.026 nvALT[31097:325697244] PASS: export target is inside the disposable test directory
+2026-09-08 13:09:59.027 nvALT[31097:325697244] PASS: source export creates the requested local file
+2026-09-08 13:09:59.027 nvALT[31097:325697244] PASS: actual exported file equals the external source byte for byte
+2026-09-08 13:09:59.027 nvALT[31097:325697244] File already existed!
+2026-09-08 13:09:59.027 nvALT[31097:325697244] PASS: source export respects overwrite protection
+2026-09-08 13:09:59.027 nvALT[31097:325697244] PASS: refused overwrite leaves the existing export unchanged
+2026-09-08 13:09:59.028 nvALT[31097:325697244] verified 2 notes in 0.000311017 s
+2026-09-08 13:09:59.029 nvALT[31097:325697244] PASS: ODB change flushes to the local database without sync services
+2026-09-08 13:09:59.029 nvALT[31097:325697244] writing note External Local Note, because it didn't exist
+2026-09-08 13:09:59.030 nvALT[31097:325697244] writing note Separate Note, because it didn't exist
+2026-09-08 13:09:59.032 nvALT[31097:325697244] verified 2 notes in 0.000311017 s
+2026-09-08 13:09:59.033 nvALT[31097:325697244] PASS: switch to separate source files completes
+2026-09-08 13:09:59.034 nvALT[31097:325697244] Backing source location=/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-70dwmco9/Notes/External Local Note.txt fixture root=/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-70dwmco9 bytes={length = 39, bytes = 0xefbbbf7b 22657874 65726e61 6c223a22 ... 6e65223a 327d0d0a } expected={length = 39, bytes = 0xefbbbf7b 22657874 65726e61 6c223a22 ... 6e65223a 327d0d0a }
+2026-09-08 13:09:59.034 nvALT[31097:325697244] PASS: separate source file contains the prior exact external bytes
+2026-09-08 13:09:59.034 nvALT[31097:325697244] PASS: second external save uses a UTF-16 little-endian BOM
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update commits the exact source in the note model
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update reaches both native source editors
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: both editors retain the same shared source storage
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update preserves both selected note identities
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update preserves each window's title-matching query
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external source change preserves locally stored syntax
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: temporary external filename does not replace the note title
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update leaves a third window and its other note untouched
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: source export contract retains exact externally supplied bytes and BOM
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: both native selections remain within externally changed source
+2026-09-08 13:09:59.087 nvALT[31097:325697244] PASS: external update neither loses nor duplicates notes
+2026-09-08 13:09:59.089 nvALT[31097:325697244] verified 2 notes in 0.000306964 s
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: ODB callback writes changed encoding and exact bytes to the backing file
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: export target is inside the disposable test directory
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: source export creates the requested local file
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: actual exported file equals the external source byte for byte
+2026-09-08 13:09:59.090 nvALT[31097:325697244] File already existed!
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: source export respects overwrite protection
+2026-09-08 13:09:59.090 nvALT[31097:325697244] PASS: refused overwrite leaves the existing export unchanged
+2026-09-08 13:09:59.091 nvALT[31097:325697244] PASS: an independent local writer changes the backing source file
+2026-09-08 13:09:59.092 nvALT[31097:325697244] FILE WAS MODIFIED: External Local Note.txt
+2026-09-08 13:09:59.092 nvALT[31097:325697244] PASS: explicit directory reconciliation reads the modified file
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update commits the exact source in the note model
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update reaches both native source editors
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: both editors retain the same shared source storage
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update preserves both selected note identities
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update preserves each window's title-matching query
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external source change preserves locally stored syntax
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: temporary external filename does not replace the note title
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update leaves a third window and its other note untouched
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: source export contract retains exact externally supplied bytes and BOM
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: both native selections remain within externally changed source
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: external update neither loses nor duplicates notes
+2026-09-08 13:09:59.143 nvALT[31097:325697244] PASS: export target is inside the disposable test directory
+2026-09-08 13:09:59.144 nvALT[31097:325697244] PASS: source export creates the requested local file
+2026-09-08 13:09:59.144 nvALT[31097:325697244] PASS: actual exported file equals the external source byte for byte
+2026-09-08 13:09:59.144 nvALT[31097:325697244] File already existed!
+2026-09-08 13:09:59.144 nvALT[31097:325697244] PASS: source export respects overwrite protection
+2026-09-08 13:09:59.144 nvALT[31097:325697244] PASS: refused overwrite leaves the existing export unchanged
+2026-09-08 13:09:59.145 nvALT[31097:325697244] verified 2 notes in 0.000294924 s
+2026-09-08 13:09:59.145 nvALT[31097:325697244] PASS: reconciled local source reaches the database snapshot
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update commits the exact source in the note model
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update reaches both native source editors
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: both editors retain the same shared source storage
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update preserves both selected note identities
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update preserves each window's title-matching query
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external source change preserves locally stored syntax
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: temporary external filename does not replace the note title
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update leaves a third window and its other note untouched
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: source export contract retains exact externally supplied bytes and BOM
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: both native selections remain within externally changed source
+2026-09-08 13:09:59.198 nvALT[31097:325697244] PASS: external update neither loses nor duplicates notes
+2026-09-08 13:09:59.200 nvALT[31097:325697244] verified 2 notes in 0.000339031 s
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: native typing after external reconciliation still commits exact local source bytes
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: export target is inside the disposable test directory
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: source export creates the requested local file
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: actual exported file equals the external source byte for byte
+2026-09-08 13:09:59.201 nvALT[31097:325697244] File already existed!
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: source export respects overwrite protection
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: refused overwrite leaves the existing export unchanged
+2026-09-08 13:09:59.201 nvALT[31097:325697244] PASS: ODB close callback removes only its temporary file and preserves the backing file
+2026-09-08 13:09:59.202 nvALT[31097:325697244] PASS: written local snapshot reopens both notes
+2026-09-08 13:09:59.202 nvALT[31097:325697244] PASS: reopened local snapshot preserves final source characters and encoding bytes
+2026-09-08 13:09:59.202 nvALT[31097:325697244] LINUS ROUND2 PASS: 82 checks, ODB database and plain-file callbacks, native directory reconciliation, shared editors, exports, and archive
+2026-09-08 13:09:59.225 nvALT[31097:325697244] verified 2 notes in 0.000312924 s

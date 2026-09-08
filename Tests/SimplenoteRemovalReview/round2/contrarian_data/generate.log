@@ -1,0 +1,27 @@
+2026-09-08 13:14:49.475 nvALT[32085:325705241] PASS: temporary library directory exists
+2026-09-08 13:14:49.476 nvALT[32085:325705241] PASS: temporary library opens
+2026-09-08 13:14:49.795 nvALT[32085:325705241] PASS: encrypted producer is the old app with the registered SN service
+2026-09-08 13:14:49.804 nvALT[32085:325705241] PASS: test intercepts legacy cleanup before any keychain access or identifier allocation
+2026-09-08 13:14:49.804 nvALT[32085:325705241] PASS: encrypted fixture starts with recognized enabled-account and pending-upload state
+2026-09-08 13:14:49.805 nvALT[32085:325705241] PASS: archive retains encryption without a keychain password
+2026-09-08 13:14:49.805 nvALT[32085:325705241] PASS: outer obsolete account and tombstone fields match this archive generation
+2026-09-08 13:14:49.805 nvALT[32085:325705241] PASS: syntax stays in public library preferences while original source data stays in the note payload
+2026-09-08 13:14:49.805 nvALT[32085:325705241] PASS: outer archive contains neither exact source bytes nor the literal UTF-8 source marker
+2026-09-08 13:14:49.813 nvALT[32085:325705241] PASS: wrong passphrase is rejected by the original verifier
+2026-09-08 13:14:49.814 nvALT[32085:325705241] PASS: rejected passphrase does not install a master key
+2026-09-08 13:14:49.814 nvALT[32085:325705241] decryption key length was wrong size: 0
+2026-09-08 13:14:49.814 nvALT[32085:325705241] Error decrypting data!
+2026-09-08 13:14:49.814 nvALT[32085:325705241] PASS: archive cannot release notes without an accepted passphrase
+2026-09-08 13:14:49.814 nvALT[32085:325705241] PASS: failed no-key read leaves ciphertext intact for a retry
+2026-09-08 13:14:49.822 nvALT[32085:325705241] PASS: correct synthetic passphrase succeeds after the rejected attempt
+2026-09-08 13:14:49.822 nvALT[32085:325705241] PASS: correct passphrase restores exactly one local note
+2026-09-08 13:14:49.822 nvALT[32085:325705241] PASS: encrypted note retains its fixed UUID and journal sequence
+2026-09-08 13:14:49.822 nvALT[32085:325705241] PASS: encrypted note retains exact Unicode, whitespace, title, tags, and dates
+2026-09-08 13:14:49.822 nvALT[32085:325705241] PASS: UTF-32 original bytes, transport BOM, and literal leading U+FEFF survive together
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: local syntax remains associated with the same note UUID
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: decrypted note metadata matches the original or rewritten archive generation
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: successful read actually decrypts and unpacks the note payload
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: fixture archives the production preferences class
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: old encrypted self-read retains recognized remote account and deletion history
+2026-09-08 13:14:49.823 nvALT[32085:325705241] PASS: old app writes the fixed encrypted compatibility artifact
+2026-09-08 13:14:49.823 nvALT[32085:325705241] ENCRYPTED OLD PRODUCER CHECKS PASSED: 24

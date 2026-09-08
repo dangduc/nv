@@ -1,0 +1,66 @@
+2026-09-08 13:15:23.648 nvALT[32239:325706666] PASS: temporary library directory exists
+2026-09-08 13:15:23.649 nvALT[32239:325706666] PASS: temporary library opens
+2026-09-08 13:15:23.974 nvALT[32239:325706666] PASS: encrypted reader is the Simplenote removal app
+2026-09-08 13:15:23.975 nvALT[32239:325706666] PASS: archive retains encryption without a keychain password
+2026-09-08 13:15:23.975 nvALT[32239:325706666] PASS: outer obsolete account and tombstone fields match this archive generation
+2026-09-08 13:15:23.975 nvALT[32239:325706666] PASS: syntax stays in public library preferences while original source data stays in the note payload
+2026-09-08 13:15:23.975 nvALT[32239:325706666] PASS: outer archive contains neither exact source bytes nor the literal UTF-8 source marker
+2026-09-08 13:15:23.983 nvALT[32239:325706666] PASS: wrong passphrase is rejected by the original verifier
+2026-09-08 13:15:23.983 nvALT[32239:325706666] PASS: rejected passphrase does not install a master key
+2026-09-08 13:15:23.983 nvALT[32239:325706666] decryption key length was wrong size: 0
+2026-09-08 13:15:23.983 nvALT[32239:325706666] Error decrypting data!
+2026-09-08 13:15:23.983 nvALT[32239:325706666] PASS: archive cannot release notes without an accepted passphrase
+2026-09-08 13:15:23.983 nvALT[32239:325706666] PASS: failed no-key read leaves ciphertext intact for a retry
+2026-09-08 13:15:23.991 nvALT[32239:325706666] PASS: correct synthetic passphrase succeeds after the rejected attempt
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: correct passphrase restores exactly one local note
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: encrypted note retains its fixed UUID and journal sequence
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: encrypted note retains exact Unicode, whitespace, title, tags, and dates
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: UTF-32 original bytes, transport BOM, and literal leading U+FEFF survive together
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: local syntax remains associated with the same note UUID
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: decrypted note metadata matches the original or rewritten archive generation
+2026-09-08 13:15:23.992 nvALT[32239:325706666] PASS: successful read actually decrypts and unpacks the note payload
+2026-09-08 13:15:23.992 nvALT[32239:325706666] ENCRYPTED HISTORY PASSED: generation 0
+2026-09-08 13:15:23.993 nvALT[32239:325706666] PASS: current rewrite uses a new encryption session while preserving the passphrase
+2026-09-08 13:15:23.994 nvALT[32239:325706666] PASS: rewritten encrypted archive is retained for independent old-reader verification
+2026-09-08 13:15:23.994 nvALT[32239:325706666] PASS: archive retains encryption without a keychain password
+2026-09-08 13:15:23.994 nvALT[32239:325706666] PASS: outer obsolete account and tombstone fields match this archive generation
+2026-09-08 13:15:23.994 nvALT[32239:325706666] PASS: syntax stays in public library preferences while original source data stays in the note payload
+2026-09-08 13:15:23.994 nvALT[32239:325706666] PASS: outer archive contains neither exact source bytes nor the literal UTF-8 source marker
+2026-09-08 13:15:24.002 nvALT[32239:325706666] PASS: wrong passphrase is rejected by the original verifier
+2026-09-08 13:15:24.002 nvALT[32239:325706666] PASS: rejected passphrase does not install a master key
+2026-09-08 13:15:24.002 nvALT[32239:325706666] decryption key length was wrong size: 0
+2026-09-08 13:15:24.002 nvALT[32239:325706666] Error decrypting data!
+2026-09-08 13:15:24.002 nvALT[32239:325706666] PASS: archive cannot release notes without an accepted passphrase
+2026-09-08 13:15:24.002 nvALT[32239:325706666] PASS: failed no-key read leaves ciphertext intact for a retry
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: correct synthetic passphrase succeeds after the rejected attempt
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: correct passphrase restores exactly one local note
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: encrypted note retains its fixed UUID and journal sequence
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: encrypted note retains exact Unicode, whitespace, title, tags, and dates
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: UTF-32 original bytes, transport BOM, and literal leading U+FEFF survive together
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: local syntax remains associated with the same note UUID
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: decrypted note metadata matches the original or rewritten archive generation
+2026-09-08 13:15:24.010 nvALT[32239:325706666] PASS: successful read actually decrypts and unpacks the note payload
+2026-09-08 13:15:24.010 nvALT[32239:325706666] ENCRYPTED HISTORY PASSED: generation 1
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: current rewrite uses a new encryption session while preserving the passphrase
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: rewritten encrypted archive is retained for independent old-reader verification
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: archive retains encryption without a keychain password
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: outer obsolete account and tombstone fields match this archive generation
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: syntax stays in public library preferences while original source data stays in the note payload
+2026-09-08 13:15:24.011 nvALT[32239:325706666] PASS: outer archive contains neither exact source bytes nor the literal UTF-8 source marker
+2026-09-08 13:15:24.019 nvALT[32239:325706666] PASS: wrong passphrase is rejected by the original verifier
+2026-09-08 13:15:24.019 nvALT[32239:325706666] PASS: rejected passphrase does not install a master key
+2026-09-08 13:15:24.019 nvALT[32239:325706666] decryption key length was wrong size: 0
+2026-09-08 13:15:24.019 nvALT[32239:325706666] Error decrypting data!
+2026-09-08 13:15:24.019 nvALT[32239:325706666] PASS: archive cannot release notes without an accepted passphrase
+2026-09-08 13:15:24.019 nvALT[32239:325706666] PASS: failed no-key read leaves ciphertext intact for a retry
+2026-09-08 13:15:24.027 nvALT[32239:325706666] PASS: correct synthetic passphrase succeeds after the rejected attempt
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: correct passphrase restores exactly one local note
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: encrypted note retains its fixed UUID and journal sequence
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: encrypted note retains exact Unicode, whitespace, title, tags, and dates
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: UTF-32 original bytes, transport BOM, and literal leading U+FEFF survive together
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: local syntax remains associated with the same note UUID
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: decrypted note metadata matches the original or rewritten archive generation
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: successful read actually decrypts and unpacks the note payload
+2026-09-08 13:15:24.028 nvALT[32239:325706666] ENCRYPTED HISTORY PASSED: generation 2
+2026-09-08 13:15:24.028 nvALT[32239:325706666] PASS: reader needed no keychain cleanup override
+2026-09-08 13:15:24.028 nvALT[32239:325706666] ENCRYPTED CURRENT READER CHECKS PASSED: 56

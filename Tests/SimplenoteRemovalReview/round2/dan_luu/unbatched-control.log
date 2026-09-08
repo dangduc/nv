@@ -1,0 +1,9 @@
+2026-09-08 13:08:08.693 nvALT[30697:325692230] PASS: temporary library directory exists
+2026-09-08 13:08:08.693 nvALT[30697:325692230] PASS: temporary library opens
+2026-09-08 13:08:09.012 nvALT[30697:325692230] PASS: create disposable plain-file library
+2026-09-08 13:08:09.015 nvALT[30697:325692230] verified 0 notes in 0.000362039 s
+2026-09-08 13:08:09.383 nvALT[30697:325692230] verified 8 notes in 0.000483036 s
+2026-09-08 13:08:09.384 nvALT[30697:325692230] PASS: fixture files and initial snapshot are fully stored before counting
+2026-09-08 13:08:09.384 nvALT[30697:325692230] PASS: all model characters and physical UTF-8 source bytes match the independent expected strings
+2026-09-08 13:08:09.385 nvALT[30697:325692230] PASS: plain-file workload uses the real journal and file writer
+2026-09-08 13:08:09.636 nvALT[30697:325692230] FAIL: 320 source commits queue without synchronous persistence

@@ -1,0 +1,65 @@
+2026-09-08 13:16:35.737 nvALT[32469:325709255] PASS: temporary library directory exists
+2026-09-08 13:16:35.738 nvALT[32469:325709255] PASS: temporary library opens
+2026-09-08 13:16:36.058 nvALT[32469:325709255] PASS: baseline-only adapter bypasses the pre-existing unsupported popup removeItem selector
+2026-09-08 13:16:36.370 nvALT[32469:325709255] PASS: fixture starts with two local windows and no encryption or stored password
+2026-09-08 13:16:36.837 nvALT[32469:325709255] PASS: Notes preferences hosts its expected native tab count in its window
+2026-09-08 13:16:36.837 nvALT[32469:325709255] PASS: storage history begins in database format
+2026-09-08 13:16:36.837 nvALT[32469:325709255] PASS: native storage popup retains its controller action connection
+2026-09-08 13:16:36.837 nvALT[32469:325709255] writing note Workflow source, because it didn't exist
+2026-09-08 13:16:36.840 nvALT[32469:325709255] verified 1 notes in 0.000330091 s
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: selected storage format invokes the native control action
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: database-to-file action creates an individual note file
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: all file checks address the runner's disposable directory
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: individual UTF-8 file preserves all source characters
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: plain-file format enables its remaining native extension controls
+2026-09-08 13:16:36.842 nvALT[32469:325709255] PASS: native storage popup retains its controller action connection
+2026-09-08 13:16:37.137 nvALT[32469:325709255] PASS: selected storage format invokes the native control action
+2026-09-08 13:16:37.137 nvALT[32469:325709255] PASS: actual native sheet offers Cancel
+2026-09-08 13:16:37.405 nvALT[32469:325709255] PASS: canceling actual cleanup sheet keeps plain-file storage
+2026-09-08 13:16:37.405 nvALT[32469:325709255] PASS: storage and security actions preserve exact model and both native source editors
+2026-09-08 13:16:37.405 nvALT[32469:325709255] PASS: disposable individual note file retains exactly its captured bytes
+2026-09-08 13:16:37.405 nvALT[32469:325709255] PASS: both browser windows remain alive over the same local library
+2026-09-08 13:16:37.405 nvALT[32469:325709255] PASS: native storage popup retains its controller action connection
+2026-09-08 13:16:37.692 nvALT[32469:325709255] PASS: selected storage format invokes the native control action
+2026-09-08 13:16:37.692 nvALT[32469:325709255] PASS: actual native sheet offers Keep Files
+2026-09-08 13:16:37.694 nvALT[32469:325709255] verified 1 notes in 0.000468969 s
+2026-09-08 13:16:37.961 nvALT[32469:325709255] PASS: Keep Files changes to database storage through the native sheet callback
+2026-09-08 13:16:37.961 nvALT[32469:325709255] PASS: database format disables individual-file extension controls
+2026-09-08 13:16:37.961 nvALT[32469:325709255] PASS: storage and security actions preserve exact model and both native source editors
+2026-09-08 13:16:37.961 nvALT[32469:325709255] PASS: disposable individual note file retains exactly its captured bytes
+2026-09-08 13:16:37.961 nvALT[32469:325709255] PASS: both browser windows remain alive over the same local library
+2026-09-08 13:16:37.963 nvALT[32469:325709255] PASS: remaining native encryption button retains its controller action
+2026-09-08 13:16:37.963 nvALT[32469:325709255] PICKER TEST DOUBLE: invocation 1 storage=0
+2026-09-08 13:16:37.963 nvALT[32469:325709255] PASS: database encryption action invokes picker test double with correct window and delegate
+2026-09-08 13:16:37.963 nvALT[32469:325709255] PASS: picker cancellation leaves encryption and password-change controls off
+2026-09-08 13:16:37.964 nvALT[32469:325709255] PASS: native storage popup retains its controller action connection
+2026-09-08 13:16:37.966 nvALT[32469:325709255] verified 1 notes in 0.000452995 s
+2026-09-08 13:16:37.967 nvALT[32469:325709255] PASS: selected storage format invokes the native control action
+2026-09-08 13:16:38.252 nvALT[32469:325709255] PASS: actual native sheet offers Cancel
+2026-09-08 13:16:38.520 nvALT[32469:325709255] PASS: canceling actual encryption mismatch sheet queues no picker and leaves file format unchanged
+2026-09-08 13:16:38.520 nvALT[32469:325709255] PASS: storage and security actions preserve exact model and both native source editors
+2026-09-08 13:16:38.520 nvALT[32469:325709255] PASS: disposable individual note file retains exactly its captured bytes
+2026-09-08 13:16:38.520 nvALT[32469:325709255] PASS: both browser windows remain alive over the same local library
+2026-09-08 13:16:38.803 nvALT[32469:325709255] PASS: actual native sheet offers Use a single database file
+2026-09-08 13:16:39.376 nvALT[32469:325709255] PASS: accepted encryption mismatch presents the actual file-cleanup sheet next
+2026-09-08 13:16:39.376 nvALT[32469:325709255] PASS: InvocationRecorder defers picker while file-cleanup choice is pending
+2026-09-08 13:16:39.376 nvALT[32469:325709255] PASS: actual native sheet offers Cancel
+2026-09-08 13:16:39.642 nvALT[32469:325709255] PASS: canceling cleanup leaves source files and picker unmodified
+2026-09-08 13:16:39.642 nvALT[32469:325709255] OBSERVATION canceled cleanup retains queued invocation=1
+2026-09-08 13:16:39.642 nvALT[32469:325709255] PASS: storage and security actions preserve exact model and both native source editors
+2026-09-08 13:16:39.642 nvALT[32469:325709255] PASS: disposable individual note file retains exactly its captured bytes
+2026-09-08 13:16:39.642 nvALT[32469:325709255] PASS: both browser windows remain alive over the same local library
+2026-09-08 13:16:39.924 nvALT[32469:325709255] PASS: actual native sheet offers Use a single database file
+2026-09-08 13:16:40.476 nvALT[32469:325709255] PASS: actual native sheet offers Keep Files
+2026-09-08 13:16:40.477 nvALT[32469:325709255] verified 1 notes in 0.000243902 s
+2026-09-08 13:16:40.744 nvALT[32469:325709255] PICKER TEST DOUBLE: invocation 2 storage=0
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: retained InvocationRecorder invokes picker exactly once after accepted storage conversion
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: queued invocation runs after database conversion and clears its pending slot
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: deferred picker cancellation leaves encryption off without storing any password
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: storage and security actions preserve exact model and both native source editors
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: disposable individual note file retains exactly its captured bytes
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: both browser windows remain alive over the same local library
+2026-09-08 13:16:40.757 nvALT[32469:325709255] PASS: all native keychain-item lookups were intercepted with an empty test result
+2026-09-08 13:16:40.776 nvALT[32469:325709255] PASS: closing preferences after all workflows leaves both browsers alive
+2026-09-08 13:16:40.776 nvALT[32469:325709255] CONTRARIAN WORKFLOW ROUND 2 COMPLETE: 55 checks
+2026-09-08 13:16:40.886 nvALT[32469:325709255] verified 1 notes in 0.000265002 s

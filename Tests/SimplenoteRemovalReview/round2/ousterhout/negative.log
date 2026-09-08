@@ -1,0 +1,32 @@
+2026-09-08 13:09:35.110 nvALT[31018:325695977] PASS: temporary library directory exists
+2026-09-08 13:09:35.110 nvALT[31018:325695977] PASS: temporary library opens
+2026-09-08 13:09:35.605 nvALT[31018:325695977] PASS: two real browser controllers own separate windows
+2026-09-08 13:09:35.723 nvALT[31018:325695977] OWNERSHIP HISTORY 1
+2026-09-08 13:09:35.797 nvALT[31018:325695977] PASS: both browsers access the same library owner
+2026-09-08 13:09:35.797 nvALT[31018:325695977] PASS: two separate layouts attach to one cached text storage
+2026-09-08 13:09:35.797 nvALT[31018:325695977] PASS: selected note has exactly two editor attachments
+2026-09-08 13:09:35.805 nvALT[31018:325695977] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:09:35.861 nvALT[31018:325695977] PASS: native source typing commits once and appears in the peer editor
+2026-09-08 13:09:35.912 nvALT[31018:325695977] PASS: switching the peer note detaches only its own layout
+2026-09-08 13:09:35.912 nvALT[31018:325695977] PASS: detaching the peer preserves both exact note bodies
+2026-09-08 13:09:35.964 nvALT[31018:325695977] PASS: returning to the note reuses the original session
+2026-09-08 13:09:35.964 nvALT[31018:325695977] PASS: replacement uses a new disposable notes directory
+2026-09-08 13:09:35.964 nvALT[31018:325695977] PASS: replacement directory has a valid file reference
+2026-09-08 13:09:35.964 nvALT[31018:325695977] PASS: replacement starts with an independent empty library
+2026-09-08 13:09:36.015 nvALT[31018:325695977] PASS: same UUID deliberately names distinct model objects across libraries
+2026-09-08 13:09:36.023 nvALT[31018:325695977] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 13:09:36.027 nvALT[31018:325695977] PASS: peer has a real uncommitted marked-text edit at the replacement boundary
+2026-09-08 13:09:36.029 nvALT[31018:325695977] verified 2 notes in 0.000309944 s
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: library replacement commits composition into its original note before detaching
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: old cached session closes exactly once and releases its source analysis
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: both browser layouts leave the closed session
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: closed session removes its old source Undo and Redo targets
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: coordinator detaches the old library delegate before owning the replacement
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: both windows switch to the replacement library
+2026-09-08 13:09:36.089 nvALT[31018:325695977] PASS: replacement clears both old note selections
+2026-09-08 13:09:36.090 nvALT[31018:325695977] PASS: replacement evicts the old session from the UUID cache
+2026-09-08 13:09:36.142 nvALT[31018:325695977] PASS: reused UUID receives a new session for the replacement model identity
+2026-09-08 13:09:36.142 nvALT[31018:325695977] PASS: both layouts show exact replacement source despite the matching old UUID
+2026-09-08 13:09:36.168 nvALT[31018:325695977] verified 2 notes in 0.000338912 s
+2026-09-08 13:09:36.660 nvALT[31018:325695977] PASS: delayed old-model update actually executes after replacement
+2026-09-08 13:09:36.660 nvALT[31018:325695977] FAIL: closed session receives no old-model notification callbacks

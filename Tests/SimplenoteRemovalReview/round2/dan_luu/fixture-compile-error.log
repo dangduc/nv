@@ -1,0 +1,22 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/Review.m:252:66: warning: instance method '-dateModified' not found (return type defaults to 'id') [-Wobjc-method-access]
+  252 |         for (NoteObject *note in notes) [dates addObject:@([note dateModified])];
+      |                                                                  ^~~~~~~~~~~~
+/Users/duc/dev/nv/Sources/Model/NoteObject.h:41:12: note: receiver is instance of class declared here
+   41 | @interface NoteObject : NSObject <NSCoding, LogNote> {
+      |            ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/Review.m:252:58: error: illegal type 'id' used in a boxed expression
+  252 |         for (NoteObject *note in notes) [dates addObject:@([note dateModified])];
+      |                                                          ^~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/Review.m:257:89: warning: instance method '-dateModified' not found (return type defaults to 'id') [-Wobjc-method-access]
+  257 |         for (NSUInteger i = 0; i < 8; i++) datesUnchanged = datesUnchanged && [notes[i] dateModified] == [dates[i] doubleValue];
+      |                                                                                         ^~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/Review.m:257:103: error: invalid operands to binary expression ('id' and 'double')
+  257 |         for (NSUInteger i = 0; i < 8; i++) datesUnchanged = datesUnchanged && [notes[i] dateModified] == [dates[i] doubleValue];
+      |                                                                               ~~~~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 2 errors generated.
+Traceback (most recent call last):
+  File "/Users/duc/dev/nv/Tests/ViewControlsReview/run-probe.py", line 47, in <module>
+    subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib',
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13', '-dynamiclib', '-undefined', 'dynamic_lookup', '-fno-objc-arc', '-Wno-deprecated-declarations', '-I', '/Users/duc/dev/nv', '-I', '/Users/duc/dev/nv/Config', '-I', '/Users/duc/dev/nv/Sources/Application', '-I', '/Users/duc/dev/nv/Sources/Browser', '-I', '/Users/duc/dev/nv/Sources/Editor', '-I', '/Users/duc/dev/nv/Sources/ImportExport', '-I', '/Users/duc/dev/nv/Sources/Model', '-I', '/Users/duc/dev/nv/Sources/Preferences', '-I', '/Users/duc/dev/nv/Sources/Preview', '-I', '/Users/duc/dev/nv/Sources/Storage', '-I', '/Users/duc/dev/nv/Sources/UI', '-I', '/Users/duc/dev/nv/Sources/Utilities', '-I', '/Users/duc/dev/nv/ThirdParty/Crypto', '-I', '/Users/duc/dev/nv/ThirdParty/ODBEditor', '-I', '/Users/duc/dev/nv/ThirdParty/PTHotKeys', '-I', '/Users/duc/dev/nv/ThirdParty/OpenSSL/include', '-I', '/Users/duc/dev/nv/ThirdParty/TreeSitter/runtime/include', '-I', '/Users/duc/dev/nv/Tests/SimplenoteRemovalReview/round2/dan_luu', '-include', '/Users/duc/dev/nv/Config/Notation_Prefix.pch', '-framework', 'Cocoa', '-framework', 'Carbon', '-framework', 'WebKit', '-o', '/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/ViewReview.dylib', '/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-39ijxhzi/Review.m']' returned non-zero exit status 1.
