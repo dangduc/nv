@@ -1,0 +1,117 @@
+2026-09-08 04:30:28.261 nvALT[65051:325010474] PASS: temporary library directory exists
+2026-09-08 04:30:28.261 nvALT[65051:325010474] PASS: temporary library opens
+2026-09-08 04:30:29.286 nvALT[65051:325010474] PASS: the two windows begin with distinct expanded divider heights
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: all three header preferences reach each browser
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: all three header preferences reach each browser
+2026-09-08 04:30:29.348 nvALT[65051:325010474] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:29.401 nvALT[65051:325010474] PASS: a collapsed resize retains the peer's expanded height
+2026-09-08 04:30:29.454 nvALT[65051:325010474] PASS: a collapsed shrink and expansion preserve the original divider height
+2026-09-08 04:30:29.454 nvALT[65051:325010474] PASS: the independent expected state persists for the next process
+2026-09-08 04:30:29.455 nvALT[65051:325010474] PASS: the native coordinator stores exactly two windows for relaunch
+2026-09-08 04:30:29.456 nvALT[65051:325010474] verified 2 notes in 0.000361085 s
+2026-09-08 04:30:29.456 nvALT[65051:325010474] KINGSBURY PHASE 1 PASSED: 13 checks
+2026-09-08 04:30:29.796 nvALT[65058:325010761] PASS: temporary library directory exists
+2026-09-08 04:30:29.797 nvALT[65058:325010761] PASS: temporary library opens
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the second process reads the first process's expected state
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: normal startup restores both persisted browser windows
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: a new process restores all four hidden preferences from its defaults
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: relaunch preserves each window's saved expanded height while collapsed
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: relaunch retains each selected note while its list is hidden
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: relaunch preserves each window's saved expanded height while collapsed
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: relaunch retains each selected note while its list is hidden
+2026-09-08 04:30:30.115 nvALT[65058:325010761] PASS: the source library survives the real process boundary
+2026-09-08 04:30:30.178 nvALT[65058:325010761] PASS: Show restores the physical divider to its separate saved height
+2026-09-08 04:30:30.178 nvALT[65058:325010761] PASS: Show restores the physical divider to its separate saved height
+2026-09-08 04:30:30.294 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:30.375 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:30.375 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:30.490 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:30.507 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:30.507 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:30.625 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:30.642 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:30.642 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:30.759 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:30.783 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:30.783 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:30.892 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:30.981 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:30.982 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.093 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.116 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.116 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.228 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.248 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.248 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.358 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.375 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.375 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.478 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.566 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.567 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.673 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.689 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.689 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.790 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.804 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.804 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:31.907 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:31.923 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:31.923 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.026 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.119 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.119 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.226 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.243 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.243 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.347 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.366 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.366 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.473 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.489 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.489 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.593 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.659 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.659 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.772 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.788 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.788 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:32.893 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:32.908 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:32.908 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:33.011 nvALT[65058:325010761] PASS: a window created within a toggle history inherits physical collapse
+2026-09-08 04:30:33.033 nvALT[65058:325010761] PASS: closing an interleaved browser preserves the original owners
+2026-09-08 04:30:33.033 nvALT[65058:325010761] PASS: interleaved creation and closure preserve both expanded divider heights
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: legacy side-by-side state restores the required list-above-editor layout
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: legacy width becomes a list height without revealing the hidden list
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: a disposable replacement library directory exists
+2026-09-08 04:30:33.159 nvALT[65058:325010761] PASS: the replacement library has a valid native directory reference
+2026-09-08 04:30:33.161 nvALT[65058:325010761] verified 2 notes in 0.000478029 s
+2026-09-08 04:30:33.162 nvALT[65058:325010761] PASS: the replacement library opens
+2026-09-08 04:30:33.222 nvALT[65058:325010761] PASS: library replacement retains one shared library for every existing browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: library replacement retains one shared library for every existing browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: the actual list is collapsed in each browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: all three header preferences reach each browser
+2026-09-08 04:30:33.243 nvALT[65058:325010761] PASS: the hidden header and word count leave no reserved header area
+2026-09-08 04:30:33.270 nvALT[65058:325010761] PASS: library replacement preserves the browser's independent list height
+2026-09-08 04:30:33.270 nvALT[65058:325010761] PASS: visibility callbacks do not create notes during library replacement
+2026-09-08 04:30:33.271 nvALT[65058:325010761] verified 1 notes in 0.000236034 s
+2026-09-08 04:30:33.272 nvALT[65058:325010761] KINGSBURY PHASE 2 PASSED: 99 checks

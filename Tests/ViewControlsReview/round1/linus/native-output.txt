@@ -1,0 +1,68 @@
+2026-09-08 04:28:03.300 nvALT[64576:325005607] PASS: temporary library directory exists
+2026-09-08 04:28:03.301 nvALT[64576:325005607] PASS: temporary library opens
+2026-09-08 04:28:03.629 nvALT[64576:325005607] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: the loaded menu has the existing View anchor
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: the initial menu contains six new entries
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: repeated menu setup adds no duplicate items
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.646 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup preserves all five source syntax identities
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup leaves Word Count without the obsolete double-toggle binding
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated menu setup adds no duplicate items
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup preserves all five source syntax identities
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup leaves Word Count without the obsolete double-toggle binding
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated menu setup adds no duplicate items
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup preserves all five source syntax identities
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup leaves Word Count without the obsolete double-toggle binding
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated menu setup adds no duplicate items
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: each new action occurs once, in order, and targets the coordinator
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup preserves all five source syntax identities
+2026-09-08 04:28:03.647 nvALT[64576:325005607] PASS: repeated setup leaves Word Count without the obsolete double-toggle binding
+2026-09-08 04:28:03.771 nvALT[64576:325005607] PASS: native Search settles before the focus scenarios
+2026-09-08 04:28:04.281 nvALT[64576:325005607] PASS: the native Preview finishes loading
+2026-09-08 04:28:04.281 nvALT[64576:325005607] PASS: the Preview fixture has a valid rendered note
+2026-09-08 04:28:04.342 nvALT[64576:325005607] PASS: untouched metadata has native keyboard focus in Preview
+2026-09-08 04:28:04.347 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.398 nvALT[64576:325005607] PASS: hiding untouched metadata transfers keyboard focus into Preview
+2026-09-08 04:28:04.399 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.524 nvALT[64576:325005607] PASS: untouched metadata has native keyboard focus in Preview
+2026-09-08 04:28:04.527 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.662 nvALT[64576:325005607] PASS: hiding untouched metadata transfers keyboard focus into Preview
+2026-09-08 04:28:04.663 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.717 nvALT[64576:325005607] PASS: the Preview format popup has keyboard focus
+2026-09-08 04:28:04.718 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.768 nvALT[64576:325005607] PASS: hiding the focused format popup transfers focus into Preview
+2026-09-08 04:28:04.769 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:04.821 nvALT[64576:325005607] PASS: the Search customization fixture has its toolbar item
+2026-09-08 04:28:04.894 nvALT[64576:325005607] PASS: Search returns after toolbar customization and receives a visible field editor
+2026-09-08 04:28:04.896 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:05.453 nvALT[64576:325005607] PASS: header layout retains body focus after a completed Search restoration
+2026-09-08 04:28:05.458 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:05.510 nvALT[64576:325005607] PASS: the Search customization fixture has its toolbar item
+2026-09-08 04:28:05.596 nvALT[64576:325005607] PASS: Search returns after toolbar customization and receives a visible field editor
+2026-09-08 04:28:05.599 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:06.154 nvALT[64576:325005607] PASS: header layout retains body focus after a completed Search restoration
+2026-09-08 04:28:06.161 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:06.212 nvALT[64576:325005607] PASS: the Search customization fixture has its toolbar item
+2026-09-08 04:28:06.297 nvALT[64576:325005607] PASS: Search returns after toolbar customization and receives a visible field editor
+2026-09-08 04:28:06.299 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:06.858 nvALT[64576:325005607] PASS: header layout retains body focus after a completed Search restoration
+2026-09-08 04:28:06.864 nvALT[64576:325005607] PASS: native menu action dispatches
+2026-09-08 04:28:06.915 nvALT[64576:325005607] LINUS REVIEW CHECKS PASSED (67 checks)

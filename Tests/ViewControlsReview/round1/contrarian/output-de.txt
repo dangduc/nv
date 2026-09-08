@@ -1,0 +1,192 @@
+2026-09-08 04:29:19.257 nvALT[64770:325008072] PASS: temporary library directory exists
+2026-09-08 04:29:19.258 nvALT[64770:325008072] PASS: temporary library opens
+2026-09-08 04:29:19.583 nvALT[64770:325008072] PASS: native activation makes the intended browser key and active before commands
+2026-09-08 04:29:19.683 nvALT[64770:325008072] PASS: fixture uses stock 480-point content width
+2026-09-08 04:29:19.683 nvALT[64770:325008072] FIXTURE preferred localization (
+    de
+)
+2026-09-08 04:29:19.830 nvALT[64770:325008072] PASS: localized Word Count menu has no obsolete value binding
+2026-09-08 04:29:19.830 nvALT[64770:325008072] HISTORY 0: Search customization runs before View commands
+2026-09-08 04:29:19.906 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:19.906 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:19.911 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.267 nvALT[64770:325008072] PASS: Search restores a visible native field after customization
+2026-09-08 04:29:20.267 nvALT[64770:325008072] PASS: Search restoration has exactly one toolbar item
+2026-09-08 04:29:20.267 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.267 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.268 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.320 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.320 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.321 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.372 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.372 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.373 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.424 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.424 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.430 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.480 nvALT[64770:325008072] PASS: hiding every note row and list leaves active Search editing intact
+2026-09-08 04:29:20.536 nvALT[64770:325008072] PASS: native Search continues filtering with every note row hidden
+2026-09-08 04:29:20.589 nvALT[64770:325008072] PASS: Tab reaches Source from customized Search with every note row hidden
+2026-09-08 04:29:20.589 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.589 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.641 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.691 nvALT[64770:325008072] PASS: hidden-row View command reaches and focuses Preview
+2026-09-08 04:29:20.692 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.692 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.693 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.744 nvALT[64770:325008072] PASS: hidden-row View command restores focused editable Source
+2026-09-08 04:29:20.746 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.746 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.750 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.806 nvALT[64770:325008072] PASS: Rename reveals its row after Search customization
+2026-09-08 04:29:20.857 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.857 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.860 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:20.911 nvALT[64770:325008072] PASS: Tags reveals its row after Search customization
+2026-09-08 04:29:20.963 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:20.963 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:20.965 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.016 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.016 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.018 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.069 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.069 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.071 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.123 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:21.123 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:21.123 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:21.123 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.123 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.125 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.176 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:21.176 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:21.176 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:21.176 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.176 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.194 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.245 nvALT[64770:325008072] PASS: New Note focuses editable Source with title and list hidden after Search customization
+2026-09-08 04:29:21.246 nvALT[64770:325008072] PASS: new hidden-interface note accepts and commits native body input
+2026-09-08 04:29:21.362 nvALT[64770:325008072] HISTORY 1: Search customization runs before View commands
+2026-09-08 04:29:21.414 nvALT[64770:325008072] PASS: customization can find native Search item
+2026-09-08 04:29:21.468 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.468 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.482 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.843 nvALT[64770:325008072] PASS: Search restores a visible native field after customization
+2026-09-08 04:29:21.843 nvALT[64770:325008072] PASS: Search restoration has exactly one toolbar item
+2026-09-08 04:29:21.843 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.844 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.846 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.898 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.898 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.901 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:21.953 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:21.953 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:21.956 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.007 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.008 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.014 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.065 nvALT[64770:325008072] PASS: hiding every note row and list leaves active Search editing intact
+2026-09-08 04:29:22.118 nvALT[64770:325008072] PASS: native Search continues filtering with every note row hidden
+2026-09-08 04:29:22.173 nvALT[64770:325008072] PASS: Tab reaches Source from customized Search with every note row hidden
+2026-09-08 04:29:22.173 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.174 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.196 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.246 nvALT[64770:325008072] PASS: hidden-row View command reaches and focuses Preview
+2026-09-08 04:29:22.246 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.246 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.248 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.298 nvALT[64770:325008072] PASS: hidden-row View command restores focused editable Source
+2026-09-08 04:29:22.298 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.298 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.302 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.357 nvALT[64770:325008072] PASS: Rename reveals its row after Search customization
+2026-09-08 04:29:22.410 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.410 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.413 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.464 nvALT[64770:325008072] PASS: Tags reveals its row after Search customization
+2026-09-08 04:29:22.516 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.516 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.518 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.569 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.570 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.572 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.622 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.623 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.626 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.678 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:22.678 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:22.678 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:22.678 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.678 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.682 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.733 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:22.733 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:22.734 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:22.734 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:22.734 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:22.756 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:22.807 nvALT[64770:325008072] PASS: New Note focuses editable Source with title and list hidden after Search customization
+2026-09-08 04:29:22.808 nvALT[64770:325008072] PASS: new hidden-interface note accepts and commits native body input
+2026-09-08 04:29:22.915 nvALT[64770:325008072] HISTORY 2: Search customization runs before View commands
+2026-09-08 04:29:23.066 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.066 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.189 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.546 nvALT[64770:325008072] PASS: Search restores a visible native field after customization
+2026-09-08 04:29:23.546 nvALT[64770:325008072] PASS: Search restoration has exactly one toolbar item
+2026-09-08 04:29:23.546 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.546 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.550 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.601 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.602 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.604 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.655 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.655 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.658 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.709 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.710 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.716 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.767 nvALT[64770:325008072] PASS: hiding every note row and list leaves active Search editing intact
+2026-09-08 04:29:23.819 nvALT[64770:325008072] PASS: native Search continues filtering with every note row hidden
+2026-09-08 04:29:23.876 nvALT[64770:325008072] PASS: Tab reaches Source from customized Search with every note row hidden
+2026-09-08 04:29:23.876 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.876 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.895 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.946 nvALT[64770:325008072] PASS: hidden-row View command reaches and focuses Preview
+2026-09-08 04:29:23.946 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.946 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:23.948 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:23.998 nvALT[64770:325008072] PASS: hidden-row View command restores focused editable Source
+2026-09-08 04:29:23.998 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:23.999 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.002 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.057 nvALT[64770:325008072] PASS: Rename reveals its row after Search customization
+2026-09-08 04:29:24.109 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.109 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.113 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.164 nvALT[64770:325008072] PASS: Tags reveals its row after Search customization
+2026-09-08 04:29:24.216 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.216 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.218 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.269 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.269 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.272 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.324 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.324 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.328 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.379 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:24.379 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:24.380 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:24.380 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.380 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.384 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.435 nvALT[64770:325008072] PASS: native Word Count action changes preference exactly once
+2026-09-08 04:29:24.435 nvALT[64770:325008072] PASS: Word Count visibility matches the changed preference
+2026-09-08 04:29:24.436 nvALT[64770:325008072] PASS: Word Count menu check matches current visibility
+2026-09-08 04:29:24.436 nvALT[64770:325008072] PASS: requested native menu command exists
+2026-09-08 04:29:24.436 nvALT[64770:325008072] PASS: requested native menu command is enabled
+2026-09-08 04:29:24.458 nvALT[64770:325008072] PASS: native application dispatch accepts command
+2026-09-08 04:29:24.508 nvALT[64770:325008072] PASS: New Note focuses editable Source with title and list hidden after Search customization
+2026-09-08 04:29:24.510 nvALT[64770:325008072] PASS: new hidden-interface note accepts and commits native body input
+2026-09-08 04:29:24.616 nvALT[64770:325008072] PASS: the original notes retain exact source characters across all histories
+2026-09-08 04:29:24.617 nvALT[64770:325008072] verified 2 notes in 0.000365973 s
+2026-09-08 04:29:24.618 nvALT[64770:325008072] CONTRARIAN REVIEW PASSED: 184 checks
