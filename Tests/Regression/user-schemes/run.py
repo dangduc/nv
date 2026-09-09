@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
 parser.add_argument('--artifacts', type=Path, help='Write screenshots of the disposable windows and settings')
 args = parser.parse_args()
+subprocess.run([sys.executable, str(here / 'compatibility.py')], check=True)
 environment = dict(os.environ)
 if args.artifacts:
     args.artifacts.mkdir(parents=True, exist_ok=True)

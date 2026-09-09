@@ -1,0 +1,27 @@
+PASS: the unchanged production method compiles with availability errors enabled for macOS 10.13
+2026-09-09 16:26:23.761 compatibility[65338:343299100] PASS: the fixture has distinct native appearances
+2026-09-09 16:26:23.762 compatibility[65338:343299100] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:23.762 compatibility[65338:343299100] PASS: a successful User or System update restores the previous appearance
+2026-09-09 16:26:23.762 compatibility[65338:343299100] PASS: the update retains both resolved colors beyond the callback pool
+2026-09-09 16:26:23.762 compatibility[65338:343299100] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:23.763 compatibility[65338:343299100] PASS: the injected update exception reaches the caller
+2026-09-09 16:26:23.763 compatibility[65338:343299100] PASS: a failed User or System update still restores the previous appearance
+2026-09-09 16:26:23.763 compatibility[65338:343299100] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:23.763 compatibility[65338:343299100] PASS: a successful User or System update restores the previous appearance
+2026-09-09 16:26:23.763 compatibility[65338:343299100] PASS: the update retains both resolved colors beyond the callback pool
+2026-09-09 16:26:23.764 compatibility[65338:343299100] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:23.764 compatibility[65338:343299100] PASS: the injected update exception reaches the caller
+2026-09-09 16:26:23.764 compatibility[65338:343299100] PASS: a failed User or System update still restores the previous appearance
+2026-09-09 16:26:23.764 compatibility[65338:343299100] PASS: fixed schemes do not enter the appearance scope
+2026-09-09 16:26:23.764 compatibility[65338:343299100] PASS: fixed schemes do not enter the appearance scope
+2026-09-09 16:26:23.765 compatibility[65338:343299100] PASS: successful updates invalidate the notes table and failures propagate before invalidation
+2026-09-09 16:26:23.765 compatibility[65338:343299100] APPEARANCE COMPATIBILITY PASSED (16 checks)
+REJECTED: macOS 10.14 guard for the macOS 11 selector
+2026-09-09 16:26:24.825 compatibility[65349:343299173] PASS: the fixture has distinct native appearances
+2026-09-09 16:26:24.826 compatibility[65349:343299173] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:24.826 compatibility[65349:343299173] PASS: a successful User or System update restores the previous appearance
+2026-09-09 16:26:24.826 compatibility[65349:343299173] PASS: the update retains both resolved colors beyond the callback pool
+2026-09-09 16:26:24.826 compatibility[65349:343299173] PASS: the fallback applies the owning browser appearance during color update
+2026-09-09 16:26:24.827 compatibility[65349:343299173] PASS: the injected update exception reaches the caller
+2026-09-09 16:26:24.827 compatibility[65349:343299173] FAIL: a failed User or System update still restores the previous appearance
+REJECTED: restoration only after successful updates
