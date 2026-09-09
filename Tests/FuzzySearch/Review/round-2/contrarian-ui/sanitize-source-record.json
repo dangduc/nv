@@ -1,0 +1,24 @@
+{
+  "head": "a611cee399db63eb9edb0958358469c0eda30945",
+  "architecture": "arm64",
+  "sanitizers": true,
+  "sources": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "082fa72f1732f769aacea051b6e0380b60ca207386d23a59214ce12be0befbcf",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Tests/FuzzySearch/Review/round-2/contrarian-ui/probe.m": "e17b156cdc0f2428100726657beed4b0f33b96b270c085b9c250c9f491dca6af",
+    "Sources/UI/NotesTableView.m": "775a9d9fbfa17ea7c7e0a4d27bb46c1cac2aac69032be712336f5df172d8992c",
+    "Sources/Browser/AppController.m": "e587b1bb37ad64166b78db8e7109f4dbe60f911fab6a27146188c2655024c4a6",
+    "Sources/Editor/TagEditingManager.m": "9095011f7278dfc7932e6e5458ed12c99de7e0d8a0d8f4ce198a2c1d4d0df834"
+  },
+  "sources_stable_during_compilation": true,
+  "extracted_methods": {
+    "primary-selection.inc": "90619a8061a370393cbc4fc46d4a4c5a7c12661a3459128b7bc95081176915db",
+    "multi-tag.inc": "add9ffd02fe4668ac98f8e7504010483252d7dbfe776453fb6d028ffed119edf",
+    "delete-note.inc": "f7a4626daae04193e3c43c50077888dc746e684ca38ad8ccafe04c950e29f261"
+  }
+}

@@ -1,0 +1,15 @@
+CASE responder-refusal old_editor_preserved=1 retry_target_correct=1
+CASE reorder old_row=1 resolved_row=0
+CASE title-removal fallback_row=4
+CASE pending new_editor=0 capture=0
+CASE requested-deletion new_editor=0
+CASE requested-replacement same_uuid=1 new_editor=0
+CASE library-replacement new_editor=0 replacement_unchanged=1
+CASE old-target-deletion stale_writes=0 next_target_correct=1
+CASE duplicate-context old_title=0 new_title=2 unique_targets=1 context_notifications=1
+CASE delayed-delete selected_rows=4 deleted_notes=2 removal_calls=1
+CASE delayed-delete-library-replacement removal_calls=0
+CASE delayed-delete-removed-target surviving_targets=2
+ROUND 2 INTERACTION REVIEW PASSED (71 checks)
+2026-09-09 03:09:38.784 browser-tests[1478:342607339] Error received in message reply handler: Connection invalid
+2026-09-09 03:09:38.784 browser-tests[1478:342607342] Connection Invalid error for service com.apple.hiservices-xpcservice.
