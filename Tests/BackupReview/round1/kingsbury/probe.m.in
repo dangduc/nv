@@ -5,7 +5,7 @@
 #define kUseCachesFolderForInterimNoteChanges 1
 #define kWriteJournalErr 42
 
-static NSUInteger reads, destroys, processed, checks;
+static NSUInteger reads, destroys, processed, restarts, checks;
 static NSString *fixtureDirectory;
 static NSError *NVCheckpointError(NSInteger code, NSString *message) {
     return [NSError errorWithDomain:@"Review" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
@@ -77,7 +77,7 @@ static NSString *JournalPath(void) { return [fixtureDirectory stringByAppendingP
 - (BOOL)flushAllNoteChanges { return YES; }
 - (void)refilterNotes {}
 - (NSInteger)currentNoteStorageFormat { return 0; }
-- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format {}
+- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format { restarts++; }
 // INITIALIZATION
 // RESUME
 - (void)dealloc { [notationPrefs release]; [walWriter release]; [super dealloc]; }
@@ -87,7 +87,7 @@ int main(int argc, const char **argv) {
     @autoreleasepool {
         Check(argc == 3, @"arguments supplied");
         fixtureDirectory = [NSString stringWithUTF8String:argv[1]];
-        BOOL guarded = strcmp(argv[2], "guarded") == 0;
+        BOOL regression = strcmp(argv[2], "regression") == 0;
         unlink([JournalPath() fileSystemRepresentation]);
         Check([@{@"foreign-note":@"notes belonging to a competing library"} writeToFile:JournalPath() atomically:NO], @"write disposable competing WAL fixture");
         int competitorFD = open([JournalPath() fileSystemRepresentation], O_WRONLY | O_APPEND);
@@ -106,25 +106,42 @@ int main(int argc, const char **argv) {
         BOOL resumed = [originalLibrary resumeAfterBackupRestoreFailureWithError:&error];
         struct stat stillOpen;
         Check(fstat(competitorFD, &stillOpen) == 0, @"inspect competing writer identity");
-        if (guarded) {
-            Check(!resumed && error != nil && originalLibrary->backupRestorePrepared, @"guarded rollback reports inability to resume");
-            Check(reads == 0 && destroys == 0 && processed == 0, @"guarded rollback neither imports nor deletes competing state");
-            Check(stillOpen.st_nlink == 1 && [[NSData dataWithContentsOfFile:JournalPath()] isEqual:original], @"guarded rollback preserves the named competing journal");
-            printf("GUARDED: refused collision, recovery calls=0, deleted journals=0, competing descriptor links=1\n");
+        if (regression) {
+            Check(!resumed && error != nil && originalLibrary->backupRestorePrepared, @"rollback reports inability to resume");
+            Check([error code] == kWriteJournalErr && [[error localizedDescription] length] > 0, @"rollback returns the visible journal failure");
+            Check(originalLibrary->walWriter == nil && restarts == 0, @"failed rollback leaves monitoring stopped and has no writer");
+            Check(reads == 0 && destroys == 0 && processed == 0, @"rollback neither imports nor deletes competing state");
+            Check(stillOpen.st_nlink == 1 && [[NSData dataWithContentsOfFile:JournalPath()] isEqual:original], @"rollback preserves the named competing journal");
+            Check(![originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && originalLibrary->backupRestorePrepared,
+                @"retry refuses a journal that remains occupied");
+            Check(reads == 0 && destroys == 0 && processed == 0 && restarts == 0,
+                @"failed retry preserves journal and monitoring state");
+            printf("REGRESSION: refused collision and retry, recovery calls=0, deleted journals=0, competing descriptor links=1\n");
         } else {
             Check(resumed && error == nil && !originalLibrary->backupRestorePrepared, @"baseline reports successful rollback");
             Check(reads == 1 && destroys == 1 && processed == 1, @"baseline processes foreign fixture then deletes its journal");
             Check(stillOpen.st_nlink == 0 && [[NSData dataWithContentsOfFile:JournalPath()] length] == 0, @"baseline unlinks competing writer and replaces pathname with empty journal");
             printf("BASELINE ISSUE: reported success, foreign-note processing calls=1, deleted journals=1, competing descriptor links=0\n");
         }
-        [originalLibrary release];
         close(competitorFD);
         unlink([JournalPath() fileSystemRepresentation]);
 
-        // The candidate does not disable rollback when the path is still free.
+        if (regression) {
+            error = NVCheckpointError(-1, @"stale error");
+            Check([originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && !originalLibrary->backupRestorePrepared,
+                @"same original library resumes after journal contention ends");
+            Check(originalLibrary->walWriter != nil && restarts == 1 && error == nil,
+                @"successful retry creates a writer, clears error, and restarts monitoring once");
+            Check([originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && restarts == 1,
+                @"retry after successful resume is idempotent");
+        }
+        [originalLibrary release];
+        unlink([JournalPath() fileSystemRepresentation]);
+
         originalLibrary = [NotationController new];
         originalLibrary->backupRestorePrepared = YES;
-        Check([originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && !originalLibrary->backupRestorePrepared, @"uncontended rollback still creates a new writer");
+        Check([originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && !originalLibrary->backupRestorePrepared,
+            @"uncontended rollback still creates a new writer");
         [originalLibrary release];
         unlink([JournalPath() fileSystemRepresentation]);
         printf("PASS: %lu assertions (%s), extracted production methods; WAL crypto/decoder/UI are stubs\n", (unsigned long)checks, argv[2]);

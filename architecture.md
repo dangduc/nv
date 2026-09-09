@@ -192,6 +192,8 @@ Restore writes a complete archive into a new, empty folder.
 It commits current edits and synchronizes the active checkpoint before it closes the old recovery journal.
 The restored initializer exclusively creates a new journal and never recovers an existing application-wide journal.
 If initialization fails, the coordinator resumes the original library.
+Rollback also creates its journal exclusively. An occupied journal stays untouched,
+and restore reports that the original journal could not reopen.
 After successful preparation, browser and editing-session teardown skips further commits to the old library.
 Global preference callbacks run after all browsers attach to the restored library.
 

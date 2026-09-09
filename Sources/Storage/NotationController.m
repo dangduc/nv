@@ -451,7 +451,10 @@ returnResult:
         char *convertedPath=strdup([cPath UTF8String]);
 		//initialize the journal if necessary
 		if (!(walWriter = [[WALStorageController alloc] initWithParentFSRep:convertedPath encryptionKey:walSessionKey])) {
-            if (openingRestoredLibrary) {
+            // A restore switch already checkpointed the original library and
+            // removed its journal. Any journal now present belongs to another
+            // writer; neither replacement nor rollback may recover or remove it.
+            if (openingRestoredLibrary || backupRestorePrepared) {
                 free(convertedPath);
                 goto bail;
             }
