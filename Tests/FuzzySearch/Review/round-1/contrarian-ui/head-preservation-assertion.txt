@@ -1,0 +1,12 @@
+FAIL: starting an edit on another row must commit the previous title
+start indexes=<NSIndexSet: 0xbc2fc93912df4f67>[number of indexes: 1 (in 1 ranges), indexes: (0)] native=0 primary=0 key=title:00000000000000000000000000000005 edited=-1
+shift-down indexes=<NSIndexSet: 0xbc2fc93912df4f77>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+shift-down twice indexes=<NSIndexSet: 0xbc2fc93912df4f57>[number of indexes: 3 (in 1 ranges), indexes: (0-2)] native=2 primary=2 key=fuzzy:00000000000000000000000000000005 edited=-1
+shift-up shrink indexes=<NSIndexSet: 0xbc2fc93912df4f77>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+INLINE second edit title0=road title1=road zebra editor=road zebra
+Traceback (most recent call last):
+  File "/Users/duc/dev/nv/Tests/FuzzySearch/Review/round-1/contrarian-ui/run.py", line 66, in <module>
+    subprocess.run([str(exe)], check=True, timeout=90)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/duc/dev/nv/build/FuzzySearchContrarianUI/arm64/browser-tests']' returned non-zero exit status 1.
