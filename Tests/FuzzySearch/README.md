@@ -10,6 +10,7 @@ python3 Tests/FuzzySearch/Persistence/run.py
 python3 Tests/FuzzySearch/Highlights/run.py
 python3 Tests/FuzzySearch/HighlightBounds/run.py --negative-controls
 python3 Tests/FuzzySearch/Lifecycle/run.py
+python3 Tests/FuzzySearch/PositionMapping/run.py
 ```
 
 Each runner accepts `--sanitize` and `--arch x86_64`.
@@ -26,6 +27,7 @@ It checks immediate invalidation in two observers before any model commit.
 | Highlights | Shared character edits invalidate source highlights without treating attribute changes as source mutations. |
 | HighlightBounds | Bounded background discovery, exact source compatibility, stale-publication guards, and capped TextKit attributes. |
 | Lifecycle | Main-thread callback disposal after completion, cancellation, replacement, and browser teardown. |
+| PositionMapping | Independent Unicode range expectations and deterministic worker scheduling during long position mapping. |
 
 After an Intel Development app build, run the production UI probe:
 

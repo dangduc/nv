@@ -105,6 +105,9 @@ An edited open note can remain as one retained row after the matches, without in
 
 Visible fuzzy rows request native positions for excerpts. The primary selected row has an independent source-position channel.
 NFC positions map back to original UTF-16 composed-character ranges.
+Mapping resumes between complete composed sequences in batches of at most 4,096 sequences, with a 4 ms time target.
+Each continuation joins the back of the worker queue so another browser can search while mapping continues.
+Native position extraction and individual composed-sequence operations remain indivisible.
 Search highlights use only temporary background attributes on each editor's layout manager.
 Shared character edits clear stale highlights in every attached editor, including before composition commits.
 Snapshot highlights stay suppressed while live source differs from committed source.

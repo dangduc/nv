@@ -28,17 +28,17 @@ The reports identify the repaired source with file and method hashes.
 | Perspective | Evidence | Finding and status |
 | --- | --- | --- |
 | John Ousterhout: cancellation ownership | [Report](round-2/ousterhout/findings.md) | P2: queued canceled work can release the browser session on the worker. Fixed; 236 native and sanitizer lifecycle checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600257714). |
-| Dan Luu: shared-worker responsiveness | [Report](round-2/luu/findings.md) | P2: long position mapping delays another browser query. Fix delegated. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600400103). |
+| Dan Luu: shared-worker responsiveness | [Report](round-2/luu/findings.md) | P2: long position mapping delays another browser query. Fixed with resumable mapping; independent Unicode and scheduling checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600400103). |
 | Linus Torvalds: Unicode and display boundaries | [Report](round-2/torvalds/findings.md) | No actionable finding; 40,171 native and sanitizer assertions. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600291250). |
 | Kyle Kingsbury: intent ordering | [Report](round-2/kingsbury/findings.md) | P2: older restoration strands newer Reveal. Fixed; 78 native and sanitizer checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600211154). |
 | Contrarian: duplicate-row interactions | [Report](round-2/contrarian-ui/findings.md) | No new actionable finding; 71 native and sanitizer checks. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600211333). |
 | Contrarian: compatibility and restoration | [Report](round-2/contrarian-compat/findings.md) | No actionable finding; 279 native and sanitizer assertions. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600366739). |
 
-All six second-round reviews are complete. Service fixes remain in progress.
+All six second-round reviews and their fixes are complete.
 
 ## Round 3
 
-The final interaction review has started on the repaired browser code. Service reviews follow the worker fixes.
+The final interaction, ownership, and mapping correctness reviews are in progress on the repaired code.
 
 ## Validation limits
 

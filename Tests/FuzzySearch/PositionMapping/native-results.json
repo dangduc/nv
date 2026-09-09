@@ -1,0 +1,20 @@
+{
+  "arch": "arm64",
+  "sanitized": false,
+  "mutation": null,
+  "exit_code": 0,
+  "stdout": "correctness_ms=278.767\nlane,ascii,32774,32774,complete,baseline_ms=0.033,peer_ms=0.942,positions_ms=6.263,native_positions_ms=0.115\nlane,decomposed,32774,49158,complete,baseline_ms=0.084,peer_ms=2.279,positions_ms=7.910,native_positions_ms=0.316\nlane,ascii,4194310,4194310,complete,baseline_ms=0.540,peer_ms=15.793,positions_ms=776.991,native_positions_ms=14.623\nlane,decomposed,4194310,6291462,complete,baseline_ms=6.334,peer_ms=107.168,positions_ms=1006.931,native_positions_ms=98.894\nlane,ascii,32774,32774,cancel,baseline_ms=0.024,peer_ms=0.891,positions_ms=0.000,native_positions_ms=0.113\nlane,decomposed,32774,49158,cancel,baseline_ms=0.069,peer_ms=2.177,positions_ms=0.000,native_positions_ms=0.312\nPASS 277839 checks\n",
+  "stderr": "",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "toolchain": "Xcode 26.6\nBuild version 17F113",
+  "production_service_sha256": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+  "compiled_service_sha256": "a4ff0caa2228f9570c0d0f19c59e257338583ef272edb83d35ceaf373cf72fc7",
+  "sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Tests/FuzzySearch/PositionMapping/probe.m": "8b3c9202e7ff0aa3d3aeb8d6fb2a49bb41d60475fbddae57ea2395875aa82143"
+  }
+}
