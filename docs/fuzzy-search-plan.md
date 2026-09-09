@@ -356,3 +356,7 @@ The defaults proposed for review are Fuzzy for new sessions, Exact for legacy st
 Title matches will appear first, and a note can appear in both groups.
 The native-order requirement applies to the complete fuzzy group.
 The main unresolved engineering question is whether complete-note matching meets the Intel latency and cancellation targets without upstream matcher changes.
+
+Position mapping now resumes in bounded worker batches. The 4 MiB ASCII peer-query fixture fell from about 744 ms to 15.8 ms.
+The decomposed Unicode fixture still waits about 107 ms, mostly in unchanged native position extraction.
+These are measured cases, not latency guarantees. See [mapping validation](../Tests/FuzzySearch/PositionMapping/README.md).
