@@ -1,0 +1,67 @@
+{
+  "command": [
+    "Tests/FuzzySearch/Review/round-3/contrarian-compat/run.py",
+    "--negative-control"
+  ],
+  "head_at_capture": "de0d194d3dc9fd4d8d09334eeb046e63f3f59cb5",
+  "production_revision": "11f571f",
+  "legacy_revision": "a9539cca76e260546310caa4918d018f802b064b",
+  "exit_code": 0,
+  "stdout": "PASS: 1397 assertions across 274 legacy Exact comparisons; 43 queries, three entry routes, two sort directions\n",
+  "stderr": "",
+  "architecture": "arm64",
+  "source_snapshot": "build/FuzzySearchReview/round-3/contrarian-compat/native/source-snapshot",
+  "legacy_sources": {
+    "Sources/Browser/NVBrowserSession.h": {
+      "original_sha256": "ef7a4f631776bf0e658ea4f48f7ff841d052446c423dfaa9f003c7eec98a600a",
+      "renamed_sha256": "ce5d2066960a2ab7bde932a20a9ff3255aeb95ba9d0d8733ace292b1ffe6c469"
+    },
+    "Sources/Browser/NVBrowserSession.m": {
+      "original_sha256": "9960a5602ae49e4faf10330df409a239697e9047b33bd0c09e57203946cac2da",
+      "renamed_sha256": "d280b86b929c45c43af56f9fcddf1b0f0790cff1c1a11b9e30de23861786d20d"
+    }
+  },
+  "production_sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Browser/NVBrowserSession.h": "973227594f6fa1b5db0fe55f15318472774ec2b21e76858e94157a4c0c4f2001",
+    "Sources/Search/NVSearchQuery.h": "8cf1dbf4f86a92d552e99c0fce881cec9f520b64caddc4ca04d6b70d60d06d5d",
+    "Sources/Search/NVSearchCorpus.h": "25e00f12d1774c9a70838bb2b0b9230cdc92227d1a74b5a954ec0799ccfd2d12",
+    "Sources/Search/NVSearchService.h": "9f49e0ac86baa0ebe4e29c6fba362a045ffb99807d56ac3e74b34eca24c0ee43",
+    "Sources/Model/NoteObject.h": "ee366e42f136164481f17cc325e7784609a3ddf7c344a558ee763685a36a059b",
+    "Sources/Preferences/GlobalPrefs.h": "0c430cdee3a7fd9a65d71eb913d00e3071a8c895e9b8be8b4af1fd107f3601c2",
+    "Config/Notation_Prefix.pch": "0392c8d9e048dd5130ab4f62be6c3bd7a54ac7ab8bf6440e3a59820636a918c1"
+  },
+  "matches_production_revision": {
+    "Sources/Search/NVFZF.c": true,
+    "ThirdParty/fzf-native/fzf.c": true,
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": true,
+    "Sources/Search/NVSearchQuery.m": true,
+    "Sources/Search/NVSearchCorpus.m": true,
+    "Sources/Search/NVSearchService.m": true,
+    "Sources/Browser/NVBrowserSession.m": true,
+    "Sources/Browser/NVBrowserSession.h": true,
+    "Sources/Search/NVSearchQuery.h": true,
+    "Sources/Search/NVSearchCorpus.h": true,
+    "Sources/Search/NVSearchService.h": true,
+    "Sources/Model/NoteObject.h": true,
+    "Sources/Preferences/GlobalPrefs.h": true,
+    "Config/Notation_Prefix.pch": true
+  },
+  "fixture_sha256": {
+    "Tests/FuzzySearch/Browser/browser-tests.m": "7a71a8fbeee84a8a1c49f47d58eef9c0b70647d15790fa5d899969ef29ec4792",
+    "Tests/FuzzySearch/Review/round-3/contrarian-compat/cases.m": "3bcceb5a171d2c86d720e271b8aa81e8e524dce0ff894197f2f7d5e7e4614560",
+    "Tests/FuzzySearch/Review/round-3/contrarian-compat/run.py": "2b406b4299a6a29a19e9c371717d99b24b8278272d9dc0ee7aba7fa22f05fc94"
+  },
+  "assembled_probe_sha256": "96ed2e3755281eb5cbfea4cd32eaa574bb7e8f3803e8ab63167124f2ec79b0f2",
+  "negative_control": {
+    "name": "omit-colon-separator",
+    "exit_code": 1,
+    "output": "Context: route 0; query: road:copper; current=0 legacy=2\nFAIL: legacy Exact ordered results match\n"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "head": "de0d194d3dc9fd4d8d09334eeb046e63f3f59cb5",
+  "stable_service_commit": "11f571f",
+  "arch": "arm64",
+  "sanitize": true,
+  "mutation": null,
+  "exit_code": 0,
+  "stdout": "gated,0,utf16=189022,utf8=360036,batches=20,submit_main_ms=0.021,delivery_ms=105.502,peer_delivery_ms=0.000,max_batch_ms=28.633,max_resumed_batch_ms=3.795,apply_main_ms=0.206,clear_main_ms=0.004,events=q0|q1|q2|q3|positions\nungated,0,utf16=189022,utf8=360036,batches=20,submit_main_ms=0.019,delivery_ms=98.813,peer_delivery_ms=29.454,max_batch_ms=28.428,max_resumed_batch_ms=3.741,apply_main_ms=0.137,clear_main_ms=0.004,events=q|positions\nungated,1,utf16=189022,utf8=360036,batches=20,submit_main_ms=0.018,delivery_ms=98.725,peer_delivery_ms=29.337,max_batch_ms=28.312,max_resumed_batch_ms=3.735,apply_main_ms=0.150,clear_main_ms=0.004,events=q|positions\nPASS: 82 checks\n",
+  "stderr": "",
+  "source_sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+    "Sources/Search/NVSearchQuery.h": "8cf1dbf4f86a92d552e99c0fce881cec9f520b64caddc4ca04d6b70d60d06d5d",
+    "Sources/Search/NVSearchService.h": "9f49e0ac86baa0ebe4e29c6fba362a045ffb99807d56ac3e74b34eca24c0ee43",
+    "Sources/Editor/LinkingEditor.m": "f874f22f21690c4631f1f6c7f82893697ba33a4b18fed82d37c3d56e386ab128"
+  },
+  "compiled_service_sha256": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+  "fixture_sha256": "3b12dd4d91d8ae6bd96745237df9c6fed050373657337c5c07050f58d0faff57",
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-3/luu/run.py",
+    "--sanitize"
+  ],
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113"
+}
