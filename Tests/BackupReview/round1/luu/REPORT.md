@@ -43,6 +43,9 @@ Do not drop integrity checks solely to improve this metric.
 
 ## Executable evidence
 
+After the fix, the default command checks corrected behavior. Add `--baseline` to reproduce the recorded defect from `30c3cf8`.
+See [FIX.md](FIX.md) for corrected results and added regression coverage.
+
 Command:
 
 ```sh

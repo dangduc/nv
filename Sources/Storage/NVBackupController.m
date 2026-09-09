@@ -94,6 +94,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
 }
 - (void)setLibrary:(NotationController *)newLibrary {
     contextGeneration++;
+    retentionPending = YES;
     [library release]; library = [newLibrary retain];
     [libraryIdentifier release]; libraryIdentifier = nil;
     [librarySettings release]; librarySettings = nil;
@@ -168,7 +169,11 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
             return NO;
         }
     }
-    for (NSString *key in bounds) if ([values objectForKey:key]) [librarySettings setObject:[values objectForKey:key] forKey:key];
+    for (NSString *key in bounds) if ([values objectForKey:key]) {
+        if (![key isEqualToString:@"interval"] && ![[values objectForKey:key] isEqual:[librarySettings objectForKey:key]])
+            retentionPending = YES;
+        [librarySettings setObject:[values objectForKey:key] forKey:key];
+    }
     if ([values objectForKey:@"enabled"]) [librarySettings setObject:@([[values objectForKey:@"enabled"] boolValue]) forKey:@"enabled"];
     [self saveSettings];
     [nextAttempt release]; nextAttempt = [[NSDate date] retain];
@@ -270,10 +275,12 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
         [metadata setObject:existingRoot forKey:@"existingRoot"];
         [metadata setObject:existingRootIdentity forKey:@"existingRootIdentity"];
     }
+    if (previousSnapshot) [metadata setObject:[[previousSnapshot lastPathComponent] stringByDeletingPathExtension] forKey:@"protectedSnapshotIdentifier"];
     NSDictionary *retention = [self settings];
     NSUInteger context = contextGeneration;
+    long long retentionDay = (long long)floor([date timeIntervalSince1970] / 86400.0);
+    BOOL maintainUnchanged = retentionPending || lastRetentionDay != retentionDay;
     busy = YES;
-    [latestError release]; latestError = nil;
     [self changed];
     [worker addOperationWithBlock:^{ @autoreleasepool {
         // A directory alone cannot establish that unchanged content remains recoverable.
@@ -281,26 +288,38 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
         BOOL verified = previousData && [previousData isEqualToData:[snapshot objectForKey:@"data"]];
         NSError *writeError = nil;
         NSDictionary *result = verified ? nil : [NVBackupStore publishArchiveData:[snapshot objectForKey:@"data"] metadata:metadata inDirectory:destination retention:retention error:&writeError];
+        NSError *retentionError = [result objectForKey:@"retentionError"];
+        if (verified && maintainUnchanged)
+            [NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:retention error:&retentionError];
         unsigned long long bytes = 0;
         NSError *listingError = nil;
-        NSArray *entries = result ? [NVBackupStore snapshotsInDirectory:destination error:&listingError] : nil;
+        NSArray *entries = (result || (verified && maintainUnchanged)) ? [NVBackupStore snapshotsInDirectory:destination error:&listingError] : nil;
         for (NSDictionary *entry in entries) bytes += [[entry objectForKey:@"size"] unsignedLongLongValue];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             busy = NO;
             if (stopped || context != contextGeneration) { [self changed]; return; }
-            if (verified) { [self setError:nil]; return; }
-            if (result) {
-                [librarySettings setObject:[result objectForKey:@"date"] forKey:@"lastDate"];
-                [librarySettings setObject:[snapshot objectForKey:@"generation"] forKey:@"lastGeneration"];
-                [librarySettings setObject:[[result objectForKey:@"snapshotURL"] path] forKey:@"lastSnapshot"];
+            if (result || verified) {
+                if (result) {
+                    [librarySettings setObject:[result objectForKey:@"date"] forKey:@"lastDate"];
+                    [librarySettings setObject:[snapshot objectForKey:@"generation"] forKey:@"lastGeneration"];
+                    [librarySettings setObject:[[result objectForKey:@"snapshotURL"] path] forKey:@"lastSnapshot"];
+                }
                 if (entries) [librarySettings setObject:@(bytes) forKey:@"storageBytes"];
+                NSError *maintenanceError = retentionError ?: listingError;
+                if (result || maintainUnchanged) {
+                    retentionPending = maintenanceError != nil;
+                    if (!retentionPending) lastRetentionDay = retentionDay;
+                }
                 [self saveSettings];
                 NSMutableArray *notices = [NSMutableArray arrayWithObject:NSLocalizedString(@"Includes committed notes. Unfinished text composition and metadata edits are excluded.", nil)];
                 NSError *primaryError = [snapshot objectForKey:@"sourceWriteError"] ?: [snapshot objectForKey:@"journalWriteError"];
                 if (primaryError) [notices addObject:[primaryError localizedDescription]];
-                if (bytes > [[retention objectForKey:@"maxBytes"] unsignedLongLongValue]) [notices addObject:NSLocalizedString(@"The three retained snapshots exceed the storage target.", nil)];
+                if ([[librarySettings objectForKey:@"storageBytes"] unsignedLongLongValue] > [[retention objectForKey:@"maxBytes"] unsignedLongLongValue]) [notices addObject:NSLocalizedString(@"The three retained snapshots exceed the storage target.", nil)];
                 [latestNotice release]; latestNotice = [[notices componentsJoinedByString:@"\n"] copy];
-                [self setError:[result objectForKey:@"retentionError"] ?: listingError];
+                if (maintenanceError) {
+                    [nextAttempt release]; nextAttempt = [[NSDate dateWithTimeIntervalSinceNow:300] retain];
+                }
+                [self setError:maintenanceError];
             } else {
                 [nextAttempt release]; nextAttempt = [[NSDate dateWithTimeIntervalSinceNow:300] retain];
                 [self setError:writeError];
@@ -322,6 +341,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     NSData *bookmark = [root bookmarkDataWithOptions:NSURLBookmarkCreationMinimalBookmark includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
     if (!bookmark) { [self setError:error]; return; }
     [librarySettings setObject:bookmark forKey:@"destinationBookmark"];
+    retentionPending = YES;
     for (NSString *key in @[@"lastDate",@"lastGeneration",@"lastSnapshot",@"storageBytes"]) [librarySettings removeObjectForKey:key];
     [self saveSettings];
     [nextAttempt release]; nextAttempt = [[NSDate date] retain];

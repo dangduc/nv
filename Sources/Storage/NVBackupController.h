@@ -17,6 +17,8 @@ extern NSString * const NVBackupStatusDidChangeNotification;
     NSUInteger contextGeneration;
     BOOL busy;
     BOOL stopped;
+    BOOL retentionPending;
+    long long lastRetentionDay;
 }
 - (id)initWithApplicationController:(NVApplicationController *)controller;
 - (void)setLibrary:(NotationController *)newLibrary;

@@ -40,14 +40,27 @@ int main(int argc, const char *argv[]) {
         printf("publication count after retention failure: %lu\n", (unsigned long)publications);
         failRetention = NO;
         Tick(controller, 1000900); Complete(worker);
-        Check(publications == 1 && [verificationURLs count] == 1, @"unchanged check does not retry publication/retention");
-        Check(![[controller statusText] containsString:@"Injected retention failure"], @"unchanged verification erases unresolved retention error");
+        Check(publications == 1 && [verificationURLs count] == 1, @"unchanged check does not duplicate publication");
+#ifdef EXPECT_FIXED
+        Check(maintenanceCalls == 1 && ![[controller statusText] containsString:@"Injected retention failure"], @"successful maintenance resolves retention error");
+#else
+        Check(maintenanceCalls == 0 && ![[controller statusText] containsString:@"Injected retention failure"], @"unchanged verification erases unresolved retention error");
+#endif
         NSError *error = nil;
         Check([controller setSettings:@{@"recent":@3, @"daily":@0, @"weekly":@0} error:&error], @"lower retention accepted");
         Tick(controller, 1000900); Complete(worker);
-        Check(publications == 1 && [verificationURLs count] == 2, @"lower retention only verifies archive and never reaches store policy");
+        Check(publications == 1 && [verificationURLs count] == 2, @"lower retention does not duplicate the current snapshot");
+#ifdef EXPECT_FIXED
+        Check(maintenanceCalls == 2, @"lower retention reaches the store without another snapshot");
+#else
+        Check(maintenanceCalls == 0, @"lower retention only verifies archive and never reaches store policy");
+#endif
         printf("publication count after retry and changed retention: %lu\n", (unsigned long)publications);
-        printf("PASS: 5 retention-contract assertions; unresolved retention error is erased, changed policy is not applied to unchanged library\n");
+#ifdef EXPECT_FIXED
+        printf("PASS: corrected retention contract; failed pruning retries and changed policy reaches the store without duplicate snapshots\n");
+#else
+        printf("PASS: baseline retention defect; unresolved error is erased, changed policy is not applied to unchanged library\n");
+#endif
         [controller stop]; [controller release];
     }
     return 0;

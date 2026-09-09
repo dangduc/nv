@@ -13,6 +13,9 @@ static NSTimeInterval clockTime = 1000000;
 static NSString *testRoot;
 static NSUInteger publications;
 static BOOL failPublication;
+static BOOL failPublicationRetention, failMaintenance;
+static NSUInteger maintenanceCalls;
+static NSMutableArray *maintenanceMetadata, *maintenancePolicies;
 static NSMutableArray *publishedMetadata, *publishedDestinations, *publishedData;
 static NSMutableDictionary *expectedArchiveData;
 static NSMutableArray *verificationURLs;
@@ -120,7 +123,15 @@ static void ReplaceClassMethod(Class cls, SEL selector, IMP implementation) {
     [[NSFileManager defaultManager] createDirectoryAtURL:snapshot withIntermediateDirectories:YES attributes:nil error:NULL];
     [data writeToURL:[snapshot URLByAppendingPathComponent:@"archive.bin"] atomically:YES];
     [expectedArchiveData setObject:data forKey:[snapshot path]];
-    return @{@"date":[NSDate date], @"snapshotURL":snapshot};
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:@{@"date":[NSDate date], @"snapshotURL":snapshot}];
+    if (failPublicationRetention) [result setObject:[NSError errorWithDomain:@"FixtureStore" code:2 userInfo:@{NSLocalizedDescriptionKey:@"Injected retention failure"}] forKey:@"retentionError"];
+    return result;
+}
++ (BOOL)pruneSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata retention:(NSDictionary *)retention error:(NSError **)error {
+    maintenanceCalls++;
+    [maintenanceMetadata addObject:metadata]; [maintenancePolicies addObject:retention];
+    if (failMaintenance && error) *error = [NSError errorWithDomain:@"FixtureStore" code:2 userInfo:@{NSLocalizedDescriptionKey:@"Injected retention failure"}];
+    return !failMaintenance;
 }
 + (NSArray *)snapshotsInDirectory:(NSURL *)directory error:(NSError **)error { return @[@{@"size":@1234}]; }
 + (NSData *)archiveDataAtSnapshotURL:(NSURL *)url error:(NSError **)error {
@@ -156,6 +167,58 @@ static void Complete(ManualQueue *worker) {
 static void Tick(NVBackupController *controller, NSTimeInterval timestamp) {
     clockTime = timestamp;
     [controller checkForBackupAtDate:[NSDate date]];
+}
+
+static void RetentionChecks(ManualQueue *worker) {
+    maintenanceMetadata = [NSMutableArray new]; maintenancePolicies = [NSMutableArray new];
+    NVBackupController *controller = [[NVBackupController alloc] initWithApplicationController:nil];
+    [[controller valueForKey:@"timer"] invalidate]; [controller setValue:worker forKey:@"worker"];
+    FixtureLibrary *library = [[FixtureLibrary alloc] initWithIdentifier:@"retention-policy"];
+    Attach(controller, library);
+    NSUInteger before = publications, beforeMaintenance = maintenanceCalls;
+    failPublicationRetention = YES;
+    Tick(controller, 40000000); Complete(worker);
+    Check([[controller statusText] containsString:@"Injected retention failure"], @"Publication reports its failed retention");
+    failPublicationRetention = NO; failMaintenance = YES;
+    Tick(controller, 40000300);
+    Check([[controller statusText] containsString:@"Injected retention failure"], @"Unresolved retention error remains visible during retry");
+    Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 1 && publications == before + 1 && [[controller statusText] containsString:@"Injected retention failure"],
+        @"Unchanged checkpoint retries pruning without another snapshot and retains its error on failure");
+    Tick(controller, 40000599); Check([worker pendingCount] == 0, @"Retention failure respects the five-minute retry bound");
+    failMaintenance = NO;
+    Tick(controller, 40000600); Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 2 && publications == before + 1 && ![[controller statusText] containsString:@"Injected retention failure"],
+        @"Successful cleanup clears the retention error without a duplicate snapshot");
+    NSDate *lastDate = [[[controller settings] objectForKey:@"lastDate"] retain];
+    NSString *lastSnapshot = [[[controller settings] objectForKey:@"lastSnapshot"] copy];
+    NSError *error = nil;
+    Check([controller setSettings:@{@"recent":@3, @"daily":@0, @"weekly":@0} error:&error], @"Accept stricter retention");
+    Tick(controller, clockTime); Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 3 && [[[maintenancePolicies lastObject] objectForKey:@"recent"] integerValue] == 3,
+        @"Policy changes prune unchanged content using the selected policy");
+    Check([[[controller settings] objectForKey:@"lastDate"] isEqual:lastDate] && [[[controller settings] objectForKey:@"lastSnapshot"] isEqual:lastSnapshot],
+        @"Maintenance preserves the last successful backup identity and capture date");
+    Check([[[maintenanceMetadata lastObject] objectForKey:@"protectedSnapshotIdentifier"] isEqual:[[lastSnapshot lastPathComponent] stringByDeletingPathExtension]],
+        @"Maintenance protects the already verified current snapshot");
+    Check([controller setSettings:@{@"recent":@3, @"daily":@0, @"weekly":@0} error:&error], @"Accept unchanged retention settings");
+    Tick(controller, clockTime); Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 3, @"Unchanged settings do not repeat a full retention scan");
+    Tick(controller, clockTime + 86400); Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 4 && publications == before + 1, @"A new UTC day applies time-based retention to unchanged content");
+    Tick(controller, clockTime + 900); Complete(worker);
+    Check(maintenanceCalls == beforeMaintenance + 4, @"Routine unchanged checks do not rescan history within the same day");
+    [controller setSettings:@{@"recent":@4} error:&error];
+    Tick(controller, clockTime); [worker runNext];
+    FixtureLibrary *peer = [[FixtureLibrary alloc] initWithIdentifier:@"retention-peer"];
+    Attach(controller, peer); [completionQueue runNext];
+    Check(![[controller settings] objectForKey:@"storageBytes"] && [[controller valueForKey:@"retentionPending"] boolValue],
+        @"Old maintenance completion cannot clear the replacement library's pending maintenance or write status");
+    Check([[[maintenanceMetadata lastObject] objectForKey:@"libraryIdentifier"] isEqual:@"retention-policy"],
+        @"Queued maintenance preserves its original library identity");
+    Tick(controller, clockTime); Complete(worker);
+    Check(![[controller valueForKey:@"retentionPending"] boolValue], @"New library clears pending maintenance only after its own successful publication");
+    [controller stop]; [controller release]; [library release]; [peer release]; [lastDate release]; [lastSnapshot release];
 }
 
 int main(int argc, const char *argv[]) {
@@ -407,7 +470,14 @@ int main(int argc, const char *argv[]) {
         NSString *rootIdentity = [NSString stringWithFormat:@"%llu:%llu", (unsigned long long)customRootInfo.st_dev, (unsigned long long)customRootInfo.st_ino];
         Check([[[publishedMetadata lastObject] objectForKey:@"existingRootIdentity"] isEqual:rootIdentity],
             @"Publication captures custom-root device and inode before queueing");
+        [validation setSettings:@{@"enabled":@YES, @"recent":@9999} error:NULL];
+        NSUInteger beforeCustomMaintenance = maintenanceCalls;
+        maintenanceMetadata = [NSMutableArray new]; maintenancePolicies = [NSMutableArray new];
+        Tick(validation, clockTime); Complete(worker);
+        Check(maintenanceCalls == beforeCustomMaintenance + 1 && [[[maintenanceMetadata lastObject] objectForKey:@"existingRootIdentity"] isEqual:rootIdentity],
+            @"Unchanged maintenance carries the captured custom-root device and inode");
         [validation stop]; [validation release];
+        RetentionChecks(worker);
         NSLog(@"PASS: production scheduling, integrity verification, changes, pending edits, clocks, wake, retry, switch, stop, restart, disablement, manual backup, capture failure, moved/copied libraries, and corrupt persisted settings");
     }
     return 0;

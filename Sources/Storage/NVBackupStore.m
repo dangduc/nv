@@ -105,9 +105,9 @@ static int NVOpenDirectory(NSURL *url, BOOL create, NSError **error) {
     return descriptor;
 }
 
-static int NVOpenPublicationDirectory(NSURL *directory, NSDictionary *metadata, NSError **error) {
+static int NVOpenOperationDirectory(NSURL *directory, NSDictionary *metadata, BOOL create, NSError **error) {
     NSURL *existingRoot = [metadata objectForKey:@"existingRoot"];
-    if (!existingRoot) return NVOpenDirectory(directory, YES, error);
+    if (!existingRoot) return NVOpenDirectory(directory, create, error);
     NSString *identifier = [metadata objectForKey:@"libraryIdentifier"];
     NSString *expectedIdentity = [metadata objectForKey:@"existingRootIdentity"];
     if (![expectedIdentity isKindOfClass:[NSString class]] || ![expectedIdentity length]) {
@@ -131,7 +131,7 @@ static int NVOpenPublicationDirectory(NSURL *directory, NSDictionary *metadata, 
     }
     const char *name = [identifier fileSystemRepresentation];
     int child = openat(parent, name, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
-    if (child < 0 && errno == ENOENT) {
+    if (child < 0 && errno == ENOENT && create) {
         if (mkdirat(parent, name, 0700) != 0 && errno != EEXIST) {
             NVSystemError(error, @"Cannot create the library backup folder"); close(parent); return -1;
         }
@@ -478,7 +478,7 @@ static int NVLock(int directory, NSError **error) {
         [[metadata objectForKey:@"appVersion"] length] > 256) {
         NVError(error, EINVAL, @"The captured backup data or metadata is invalid, or exceeds 512 MiB."); return nil;
     }
-    int root = NVOpenPublicationDirectory(directory, metadata, error);
+    int root = NVOpenOperationDirectory(directory, metadata, YES, error);
     if (root < 0) return nil;
     int lock = NVLock(root, error);
     if (lock < 0) { close(root); return nil; }
@@ -627,6 +627,26 @@ static int NVLock(int directory, NSError **error) {
     if (lock < 0) { close(root); return NO; }
     NSDictionary *owner = NVReadOwner(root, NO, error);
     BOOL result = owner && NVPrune(root, directory, [owner objectForKey:@"libraryIdentifier"], retention, nil, error);
+    close(lock); close(root);
+    return result;
+}
+
++ (BOOL)pruneSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata
+                       retention:(NSDictionary *)retention error:(NSError **)error {
+    if (error) *error = nil;
+    NSString *identifier = [metadata objectForKey:@"libraryIdentifier"];
+    NSString *protectedIdentifier = [metadata objectForKey:@"protectedSnapshotIdentifier"];
+    if (!NVUUID(identifier) || (protectedIdentifier && !NVUUID(protectedIdentifier)))
+        return NVError(error, EINVAL, @"The backup maintenance identity is invalid.");
+    int root = NVOpenOperationDirectory(directory, metadata, NO, error);
+    if (root < 0) return NO;
+    int lock = NVLock(root, error);
+    if (lock < 0) { close(root); return NO; }
+    NSDictionary *owner = NVReadOwner(root, NO, error);
+    BOOL result = NO;
+    if (owner && ![[owner objectForKey:@"libraryIdentifier"] isEqual:identifier])
+        NVError(error, EINVAL, @"The backup destination belongs to another library.");
+    else if (owner) result = NVPrune(root, directory, identifier, retention, protectedIdentifier, error);
     close(lock); close(root);
     return result;
 }

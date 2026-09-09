@@ -161,6 +161,8 @@ Legacy unkeyed records retain empty compatibility slots so their field order sta
 `NVApplicationController` owns one [NVBackupController](Sources/Storage/NVBackupController.m) for the shared library.
 The controller checks the schedule while the application is open, including periods with no browser windows.
 Backups default to a 15-minute interval and skip unchanged checkpoints.
+Unchanged libraries apply pending retention changes and retry failed cleanup.
+A new UTC day also schedules cleanup for expired daily and weekly history.
 Preferences > Backups contains the interval, destination, retention, status, and manual actions.
 These settings belong to the local installation and library UUID.
 
