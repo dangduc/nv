@@ -64,7 +64,7 @@ int main(int argc, const char **argv) {
         [pool drain];
         Check(DescriptorCount() == baseline, @"enumeration and retention close descriptors after draining autoreleases");
     }
-    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:history error:&error], @"explicit plaintext deletion succeeds");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:history metadata:metadata error:&error], @"explicit plaintext deletion succeeds");
     Check([[NVBackupStore snapshotsInDirectory:history error:&error] count] == 0, @"plaintext deletion leaves no complete package");
     Check(DescriptorCount() == baseline, @"explicit deletion closes all descriptors");
     printf("PASS: %lu checks; 140 injected publication failures, 20 real lock-contention failures, 20 partial-restore failures; descriptor count %d -> %d\n",

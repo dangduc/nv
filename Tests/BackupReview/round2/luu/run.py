@@ -10,10 +10,18 @@ ROOT = Path(__file__).resolve().parents[4]
 HERE = Path(__file__).resolve().parent
 parser = argparse.ArgumentParser()
 parser.add_argument("--settings-only", action="store_true")
+parser.add_argument("--retry-mutation", action="store_true", help="Restore the interval-only clock correction in a temporary source copy; the regression must fail.")
 args = parser.parse_args()
 includes = [flag for folder in sorted({p.parent for p in (ROOT / "Sources").rglob("*.h")}) for flag in ("-I", str(folder))]
 with tempfile.TemporaryDirectory(prefix="nvalt-r2-luu-", dir=ROOT / "build") as temporary:
     temp = Path(temporary).resolve()
+    production = ROOT / "Sources/Storage/NVBackupController.m"
+    if args.retry_mutation:
+        source = production.read_text()
+        before = "NSTimeInterval delay = nextAttemptDelay > 0 ? nextAttemptDelay : interval;"
+        assert source.count(before) == 1
+        production = temp / "retry-mutation.m"
+        production.write_text(source.replace(before, "NSTimeInterval delay = interval;", 1))
     common = ["xcrun", "clang", "-arch", "arm64", "-fno-objc-arc", "-fblocks", "-O1", "-Wno-deprecated-declarations", "-Wno-incomplete-implementation", "-mmacosx-version-min=11.0", "-DNVBACKUPSTORE_TESTING", *includes, "-I", str(ROOT)]
     fixture = (ROOT / "Tests/BackupCoordinator/coordinator.m").read_text()
     prefix = fixture.split("@implementation NVBackupStore")[0]
@@ -23,7 +31,7 @@ with tempfile.TemporaryDirectory(prefix="nvalt-r2-luu-", dir=ROOT / "build") as 
     settings.write_text(prefix + helpers + (HERE / "settings-main.inc").read_text())
     for name, flags in (("ordinary", []), ("fast-math", ["-ffast-math"])):
         binary = temp / name
-        subprocess.run([*common, *flags, str(settings), str(ROOT / "Sources/Storage/NVBackupController.m"), str(ROOT / "Sources/Storage/NVBackupStore.m"), "-framework", "Cocoa", "-framework", "CoreServices", "-o", str(binary)], check=True)
+        subprocess.run([*common, *flags, str(settings), str(production), str(ROOT / "Sources/Storage/NVBackupStore.m"), "-framework", "Cocoa", "-framework", "CoreServices", "-o", str(binary)], check=True)
         result = subprocess.run([str(binary), str(temp / (name + "-data"))], timeout=30)
         print(f"SETTINGS_BUILD mode={name} exit={result.returncode}", flush=True)
         if result.returncode:
@@ -36,7 +44,7 @@ with tempfile.TemporaryDirectory(prefix="nvalt-r2-luu-", dir=ROOT / "build") as 
     assert small_data in large_prefix
     large_prefix = large_prefix.replace(small_data, 'ReviewArchiveData')
     frequency.write_text(large_prefix + helpers + (HERE / "frequency-main.inc").read_text())
-    subprocess.run([*common, str(frequency), str(ROOT / "Sources/Storage/NVBackupController.m"), str(HERE / "measured-store.m"), "-framework", "Cocoa", "-framework", "CoreServices", "-o", str(temp / "frequency")], check=True)
+    subprocess.run([*common, str(frequency), str(production), str(HERE / "measured-store.m"), "-framework", "Cocoa", "-framework", "CoreServices", "-o", str(temp / "frequency")], check=True)
     subprocess.run([str(temp / "frequency"), str(temp / "frequency-data")], check=True, timeout=30)
     subprocess.run([*common, str(HERE / "memory.m"), str(HERE / "measured-store.m"), "-framework", "Foundation", "-o", str(temp / "memory")], check=True)
     peaks = []

@@ -196,7 +196,7 @@ static void DisabledManualChecks(ManualQueue *worker) {
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         Check(argc >= 2, @"Temporary fixture root supplied");
-        BOOL expectContextIsolation = argc == 3 && strcmp(argv[2], "--expect-context-isolation") == 0;
+        BOOL expectContextIsolation = !(argc == 3 && strcmp(argv[2], "--expect-baseline-context") == 0);
         testRoot = [[NSString stringWithUTF8String:argv[1]] copy];
         memoryDefaults = [MemoryDefaults new]; completionQueue = [ManualQueue new];
         publishedMetadata = [NSMutableArray new]; publishedDestinations = [NSMutableArray new]; publishedData = [NSMutableArray new];

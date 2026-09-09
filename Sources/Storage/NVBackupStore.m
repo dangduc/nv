@@ -651,14 +651,18 @@ static int NVLock(int directory, NSError **error) {
     return result;
 }
 
-+ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)directory error:(NSError **)error {
++ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata error:(NSError **)error {
     if (error) *error = nil;
-    int root = NVOpenDirectory(directory, NO, error);
+    NSString *identifier = [metadata objectForKey:@"libraryIdentifier"];
+    if (!NVUUID(identifier)) return NVError(error, EINVAL, @"The backup deletion identity is invalid.");
+    int root = NVOpenOperationDirectory(directory, metadata, NO, error);
     if (root < 0) return NO;
     int lock = NVLock(root, error);
     if (lock < 0) { close(root); return NO; }
     NSDictionary *owner = NVReadOwner(root, NO, error);
-    NSArray *snapshots = owner ? NVSnapshots(root, directory, [owner objectForKey:@"libraryIdentifier"], error) : nil;
+    BOOL matchingOwner = owner && [[owner objectForKey:@"libraryIdentifier"] isEqual:identifier];
+    if (owner && !matchingOwner) NVError(error, EINVAL, @"The backup destination belongs to another library.");
+    NSArray *snapshots = matchingOwner ? NVSnapshots(root, directory, identifier, error) : nil;
     BOOL result = snapshots != nil;
     for (NSDictionary *snapshot in snapshots) {
         if ([[snapshot objectForKey:@"encrypted"] boolValue]) continue;
