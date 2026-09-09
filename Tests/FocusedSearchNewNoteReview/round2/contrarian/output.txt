@@ -1,0 +1,19 @@
+2026-09-09 14:23:48.727 nvALT[51961:343175893] PASS: temporary library directory exists
+2026-09-09 14:23:48.728 nvALT[51961:343175893] PASS: temporary library opens
+2026-09-09 14:23:48.810 nvALT[51961:343175893] verified 0 notes in 0.000198007 s
+2026-09-09 14:23:49.048 nvALT[51961:343175893] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:23:49.212 nvALT[51961:343175893] PASS: first browser begins with focused populated Search
+2026-09-09 14:23:49.357 nvALT[51961:343175893] PASS: the fixture has two distinct browsers
+2026-09-09 14:23:49.358 nvALT[51961:343175893] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:23:49.369 nvALT[51961:343175893] PASS: the key browser's title field owns its shared field editor
+2026-09-09 14:23:49.369 nvALT[51961:343175893] PASS: a background browser retains a Search editor without keyboard focus
+2026-09-09 14:23:49.402 nvALT[51961:343175893] PASS: native Command-N routes to the key browser
+2026-09-09 14:23:49.402 nvALT[51961:343175893] PASS: metadata focus creates the default title, ignoring both windows' populated Search fields
+2026-09-09 14:23:49.402 nvALT[51961:343175893] PASS: native Command-N commits only the original metadata and preserves its body
+2026-09-09 14:23:49.402 nvALT[51961:343175893] PASS: the inactive browser keeps its original selection and query
+2026-09-09 14:23:49.402 nvALT[51961:343175893] PASS: the inactive Search editor is still present at the direct-action boundary
+2026-09-09 14:23:49.416 nvALT[51961:343175893] PASS: the direct action creates a separate note in its owning browser
+2026-09-09 14:23:49.416 nvALT[51961:343175893] PASS: an inactive Search editor cannot supply a title without keyboard focus
+2026-09-09 14:23:49.416 nvALT[51961:343175893] PASS: the inactive-browser action preserves the peer selection and starts empty source
+2026-09-09 14:23:49.416 nvALT[51961:343175893] PASS: 16 round 2 contrarian assertions
+2026-09-09 14:23:49.547 nvALT[51961:343175893] verified 3 notes in 0.000383019 s

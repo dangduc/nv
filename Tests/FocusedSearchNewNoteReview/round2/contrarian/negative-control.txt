@@ -1,0 +1,16 @@
+2026-09-09 14:24:06.863 nvALT[51978:343176388] PASS: temporary library directory exists
+2026-09-09 14:24:06.864 nvALT[51978:343176388] PASS: temporary library opens
+2026-09-09 14:24:06.928 nvALT[51978:343176388] verified 0 notes in 0.000203967 s
+2026-09-09 14:24:07.187 nvALT[51978:343176388] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:24:07.260 nvALT[51978:343176388] PASS: first browser begins with focused populated Search
+2026-09-09 14:24:07.406 nvALT[51978:343176388] PASS: the fixture has two distinct browsers
+2026-09-09 14:24:07.407 nvALT[51978:343176388] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:24:07.421 nvALT[51978:343176388] PASS: the key browser's title field owns its shared field editor
+2026-09-09 14:24:07.421 nvALT[51978:343176388] PASS: a background browser retains a Search editor without keyboard focus
+2026-09-09 14:24:07.455 nvALT[51978:343176388] PASS: native Command-N routes to the key browser
+2026-09-09 14:24:07.455 nvALT[51978:343176388] PASS: metadata focus creates the default title, ignoring both windows' populated Search fields
+2026-09-09 14:24:07.455 nvALT[51978:343176388] PASS: native Command-N commits only the original metadata and preserves its body
+2026-09-09 14:24:07.455 nvALT[51978:343176388] PASS: the inactive browser keeps its original selection and query
+2026-09-09 14:24:07.455 nvALT[51978:343176388] PASS: the inactive Search editor is still present at the direct-action boundary
+2026-09-09 14:24:07.469 nvALT[51978:343176388] PASS: the direct action creates a separate note in its owning browser
+2026-09-09 14:24:07.469 nvALT[51978:343176388] FAIL: an inactive Search editor cannot supply a title without keyboard focus
