@@ -166,7 +166,7 @@
             NSInteger titleColumn = [notesTableView columnWithIdentifier:NoteTitleColumnString];
             Check(titleColumn >= 0, @"appearance checks contain a visible title column");
             [self setSystemColorScheme:self];
-            for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
+            for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSAppearanceNameAqua]) {
                 [browserWindow setAppearance:[NSAppearance appearanceNamed:appearance]]; Pump();
                 CGFloat brightness = [[[self backgrndColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent];
                 Check([appearance isEqual:NSAppearanceNameAqua] ? brightness > .8 : brightness < .3,
@@ -179,6 +179,7 @@
                 [notesTableView setNeedsDisplay:YES];
                 [[browserWindow contentView] layoutSubtreeIfNeeded];
                 [browserWindow displayIfNeeded];
+                CheckNativeListAppearance(notesTableView, appearance);
                 for (NSInteger row = 1; row <= 2; row++) {
                     CheckNativeListRowPixels(notesTableView, row, titleColumn, appearance);
                 }
@@ -191,10 +192,22 @@
                     [[bitmap representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:path atomically:YES];
                 }
             }
+            [[GlobalPrefs defaultPrefs] setBackgroundTextColor:[NSColor colorWithCalibratedRed:.88 green:.72 blue:.32 alpha:1] sender:self];
             [self setUserColorScheme:self];
             NSColor *custom = [[self backgrndColor] retain];
-            [browserWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]]; Pump();
-            Check([[self backgrndColor] isEqual:custom], @"explicit editor colors survive appearance changes");
+            [[GlobalPrefs defaultPrefs] setAlternatingRows:NO sender:self];
+            for (NSString *appearance in @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
+                [browserWindow setAppearance:[NSAppearance appearanceNamed:appearance]]; Pump();
+                Check([[self backgrndColor] isEqual:custom], @"explicit editor colors survive appearance changes");
+                Check(![notesTableView usesAlternatingRowBackgroundColors], @"custom editor checks exercise plain note rows");
+                CheckNativeListAppearance(notesTableView, appearance);
+                [notesTableView setNeedsDisplay:YES];
+                [[browserWindow contentView] layoutSubtreeIfNeeded];
+                [browserWindow displayIfNeeded];
+                for (NSInteger row = 1; row <= 2; row++) {
+                    CheckNativeListRowPixels(notesTableView, row, titleColumn, appearance);
+                }
+            }
             [custom release];
         }
         [created release]; [alpha release]; [beta release];

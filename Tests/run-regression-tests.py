@@ -6,6 +6,7 @@ import sys
 
 repo = Path(__file__).resolve().parents[1]
 checks = [
+    'native-list/run-native.py',
     'source-highlighting/run.py',
     'source-storage/run.py',
     'source-viewers/run.py',

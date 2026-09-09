@@ -14,7 +14,7 @@ Every window keeps the notes list above the editor. All windows share one notes 
 | Layout | Stacked or side-by-side panes. | The notes list always stays above the editor. Each window saves its divider height. |
 | Controls | Custom window controls and a combined search/title field. | A native toolbar contains Search or Create. Separate fields edit the title and tags. |
 | Search | The combined field also shows the selected title. | The search query stays visible after selection changes. An unmatched query offers an explicit Create action. |
-| Appearance | Legacy window controls and color schemes. | Native macOS controls, automatic editor colors, and a white notes list in light and dark appearances. |
+| Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. The editor also supports custom colors. |
 
 Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
 
@@ -30,16 +30,18 @@ The app restores open windows and their saved views after a restart. A library c
 
 The toolbar contains New Note, Preview, Note Actions, and Search or Create. Standard toolbar customization controls which items appear.
 
-The title and tags sit between the list and the body. Tags use completion from the library. The editor supports system colors and custom colors. The notes list stays white, with optional pale alternating rows.
+The title and tags sit between the list and the body. Tags use completion from the library. The editor supports system colors and custom colors. The notes list follows system light and dark modes, with optional alternating rows.
 
 The **View** menu can hide the notes list, title, tags, or Source/Preview controls. These visibility settings apply to all windows.
 Hidden rows release space to the body. Showing the notes list restores each window's previous divider height.
 The **Show Source/Show Preview** command and **Syntax Type** submenu remain available when the controls are hidden.
 
 <details>
-<summary>Dark appearance with a white notes list</summary>
+<summary>Earlier dark appearance</summary>
 
-![Dark toolbar and editor with the notes list still white](docs/screenshots/native-dark.png)
+![Earlier layout with a fixed light notes list](docs/screenshots/native-dark.png)
+
+This earlier screenshot predates system colors for the notes list.
 
 </details>
 
@@ -57,7 +59,7 @@ The Source/Preview screenshots show this redesign on macOS 26.5.2. All screensho
 | Create from a search | If no note matches, press **Return** or click **Create**. |
 | Edit the title or tags | Edit the field above the body. Press **Return** to commit, or **Escape** to cancel. |
 | Resize the list | Drag the divider between the list and the editor. |
-| Use system colors | Select **Follow System Appearance** in the color menu. |
+| Use system editor colors | Select **Follow System Appearance** in the color menu. |
 | Open a preview | Select **Preview** above the body, then choose Markdown, Textile, or HTML. |
 | Return to editing | Select **Source** above the body. |
 | Select source syntax | In Source, choose Plain Text, Markdown, Textile, HTML, or JSON. |

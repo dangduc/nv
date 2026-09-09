@@ -213,7 +213,8 @@ The localized nibs supply reusable views and connections.
 The split view uses `setVertical:NO`: its horizontal divider keeps the list above the body.
 Automatic macOS window tabbing is disabled.
 
-The notes list uses a white background and an explicit Aqua appearance in both light and dark modes.
+The notes list inherits the window appearance and uses system colors for backgrounds, text, and selection.
+Cached previews retain dynamic text colors. Cached tag images use the resolved drawing color as part of their key.
 The editor can follow system appearance or use configured colors.
 [LinkingEditor](Sources/Editor/LinkingEditor.m) applies display colors and search highlights through each editor's layout manager.
 An appearance change must not rewrite shared note content.
