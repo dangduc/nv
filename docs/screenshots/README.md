@@ -2,14 +2,16 @@
 
 ## Current images
 
-The five `readme-*.png` images show the Development app from commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`.
-This is the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
+`readme-source.png` shows the Development app with the application code from merged commit `90daa85e71d4b9495de56eba70cf66add901af33`.
+The executable was built at `504f30353275663d5174656b03805625275e603a`.
+Its application source matches that merged commit.
+The other four `readme-*.png` images show commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`, the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
 The capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113) and SDK 26.5.
 The Intel app runs under Rosetta.
 
 | Image | Content |
 | --- | --- |
-| `readme-source.png` | Editable Markdown source, the monospace body font, and hidden header rows. |
+| `readme-source.png` | Editable Markdown source, hidden header rows, and the full window with its native shadow against a neutral background. |
 | `readme-dark.png` | The same note with system colors in the editor and notes list. |
 | `readme-search.png` | Active Fuzzy search, literal title priority, duplicate occurrences, and no completed-search summary. |
 | `readme-preview.png` | The same source as a read-only Markdown preview in WebKit. |
@@ -23,12 +25,29 @@ The capture selects light or dark appearance and disables search autocomplete fo
 The app builds from the normal Development scheme.
 A probe through `Tests/ViewControlsReview/run-probe.py` opens the sample notes and selects the native app states.
 WindowServer captures each complete window, including the WebKit preview.
+The source image includes a borderless native window as a neutral background.
+Only the app window and background window appear in that capture.
+The margin measures 64 points at the top and sides, and 96 points below the app window.
+WindowServer captures the native window shadow directly.
 The two-window image includes only the two sample window IDs.
 The images contain no annotations or pixel changes.
-The capture run passed 21 state and image checks.
+The original five-image capture passed 21 state and image checks.
+The refreshed source capture passed 11 state and image checks.
 
-The captured executable has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
-The README changes contain no application code. Merge the defaults change before the README describes these settings as defaults.
+The refreshed source executable has SHA-256 `ffd2506757bfb23cfc26450ce1a736a578babd22af606a313427a6db7e399c43`.
+The executable for the other four images has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
+The README changes contain no application code.
+
+To refresh only the source image after a Development build:
+
+```sh
+NV_README_SOURCE_SCREENSHOT="$PWD/docs/screenshots/readme-source.png" \
+  python3 Tests/ViewControlsReview/run-probe.py --probe docs/screenshots/capture-source.inc
+```
+
+The [capture probe](capture-source.inc) uses the same disposable sample notes as the original image.
+Inspect the image before publication.
+Update the captured revision and executable hash above.
 
 ## Historical images
 
