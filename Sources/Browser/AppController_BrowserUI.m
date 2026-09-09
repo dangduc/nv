@@ -23,14 +23,6 @@
 }
 @end
 
-static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *label) {
-    if (@available(macOS 11.0, *)) {
-        NSImage *image = [NSImage imageWithSystemSymbolName:name accessibilityDescription:label];
-        if (image) return image;
-    }
-    return [NSImage imageNamed:fallback];
-}
-
 @implementation AppController (BrowserUI)
 - (void)setupBrowserContent {
     browserHorizontalLayout = NO;
@@ -347,18 +339,27 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [field removeFromSuperview];
     [wrapper removeFromSuperview];
     [field setFrame:NSMakeRect(0, 0, 260, 24)];
+    // A single resizable item gives search all space beside the window controls.
+    dualFieldItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"Search"];
+    // Let the container expand instead of using NSSearchField's intrinsic width.
+    NSView *searchContainer = [[NSView alloc] initWithFrame:[field frame]];
+    [searchContainer setAutoresizingMask:NSViewWidthSizable];
+    [field setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [searchContainer addSubview:field];
+    [NSLayoutConstraint activateConstraints:@[
+        [[field leadingAnchor] constraintEqualToAnchor:[searchContainer leadingAnchor]],
+        [[field trailingAnchor] constraintEqualToAnchor:[searchContainer trailingAnchor]],
+        [[field topAnchor] constraintEqualToAnchor:[searchContainer topAnchor]],
+        [[field bottomAnchor] constraintEqualToAnchor:[searchContainer bottomAnchor]]
+    ]];
+    [dualFieldItem setView:searchContainer];
+    [searchContainer release];
+    [dualFieldItem setMinSize:NSMakeSize(140, 24)];
+    [dualFieldItem setMaxSize:NSMakeSize(CGFLOAT_MAX, 24)];
     if (@available(macOS 11.0, *)) {
-        NSSearchToolbarItem *item = [[NSSearchToolbarItem alloc] initWithItemIdentifier:@"Search"];
-        [item setSearchField:field];
-        [item setPreferredWidthForSearchField:280];
-        dualFieldItem = item;
         [window setToolbarStyle:NSWindowToolbarStyleUnifiedCompact];
-    } else {
-        dualFieldItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"Search"];
-        [dualFieldItem setView:field];
-        [dualFieldItem setMinSize:NSMakeSize(140, 24)];
-        [dualFieldItem setMaxSize:NSMakeSize(400, 24)];
     }
+    [window setTitleVisibility:NSWindowTitleHidden];
     [field release];
     [dualFieldItem setLabel:NSLocalizedString(@"Search or Create", nil)];
     [dualFieldItem setPaletteLabel:[dualFieldItem label]];
@@ -367,49 +368,23 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     // by the field delegate so those actions cannot accidentally create a note.
     [field setTarget:nil];
     [field setAction:NULL];
-    toolbar = [[NSToolbar alloc] initWithIdentifier:@"NVBrowserToolbar"];
-    [toolbar setAllowsUserCustomization:YES];
-    [toolbar setAutosavesConfiguration:YES];
+    // Start a fixed search-only layout without restoring legacy toolbar buttons.
+    toolbar = [[NSToolbar alloc] initWithIdentifier:@"NVBrowserSearchToolbar"];
+    [toolbar setAllowsUserCustomization:NO];
+    [toolbar setAutosavesConfiguration:NO];
     [toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
     [toolbar setDelegate:self];
     [window setToolbar:toolbar];
     [window setInitialFirstResponder:field];
 }
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)aToolbar {
-    return @[@"NewNote", @"Preview", @"More", NSToolbarFlexibleSpaceItemIdentifier, @"Search"];
+    return @[@"Search"];
 }
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)aToolbar {
-    return @[@"NewNote", @"Preview", @"More", @"Search", NSToolbarSpaceItemIdentifier, NSToolbarFlexibleSpaceItemIdentifier];
+    return @[@"Search"];
 }
 - (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)inserted {
-    if ([identifier isEqual:@"Search"]) return dualFieldItem;
-    NSDictionary *spec = @{
-        @"NewNote": @[@"New Note", @"square.and.pencil", NSImageNameAddTemplate, @"newNote:"],
-        @"Preview": @[@"Preview", @"doc.richtext", NSImageNameQuickLookTemplate, @"togglePreview:"],
-        @"More": @[@"Note Actions", @"ellipsis.circle", NSImageNameActionTemplate, @"showNoteActions:"]
-    };
-    NSArray *values = [spec objectForKey:identifier];
-    if (!values) return nil;
-    NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
-    NSString *label = NSLocalizedString([values objectAtIndex:0], nil);
-    [item setLabel:label]; [item setPaletteLabel:label]; [item setToolTip:label];
-    [item setImage:BrowserSymbol([values objectAtIndex:1], [values objectAtIndex:2], label)];
-    [item setTarget:self]; [item setAction:NSSelectorFromString([values objectAtIndex:3])];
-    return item;
-}
-- (BOOL)validateToolbarItem:(NSToolbarItem *)item {
-    SEL action = [item action];
-    if (action == @selector(togglePreview:)) return currentNote != nil;
-    if (action == @selector(showNoteActions:)) return [notesTableView numberOfSelectedRows] > 0;
-    return [self sharedNotationController] != nil;
-}
-- (IBAction)showNoteActions:(id)sender {
-    NSMenu *menu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Note Actions", nil)] autorelease];
-    for (NSArray *spec in @[@[@"Rename", @"renameNote:"], @[@"Tags…", @"tagNote:"], @[@"Copy Note Link", @"copyNoteLink:"], @[@"Export…", @"exportNote:"], @[@"Delete…", @"deleteNote:"]]) {
-        NSMenuItem *item = [menu addItemWithTitle:NSLocalizedString(spec[0], nil) action:NSSelectorFromString(spec[1]) keyEquivalent:@""];
-        [item setTarget:self];
-    }
-    [menu popUpMenuPositioningItem:nil atLocation:NSMakePoint(14, NSHeight([mainView bounds])) inView:mainView];
+    return [identifier isEqual:@"Search"] ? dualFieldItem : nil;
 }
 - (IBAction)setSystemColorScheme:(id)sender {
     userScheme = 3;

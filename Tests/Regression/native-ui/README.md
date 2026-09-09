@@ -1,7 +1,8 @@
 # Native browser controls
 
-The toolbar contains New Note, Preview, Note Actions, and Search or Create. Standard toolbar customization controls the visible items.
-The checks restore an old toolbar configuration with Sync and verify that active commands remain available.
+The toolbar contains Search or Create, which fills the available width beside the window controls. The window hides its title.
+Note commands remain available through menus. The toolbar ignores saved layouts from the previous toolbar.
+The checks restore an old toolbar configuration and verify that action icons remain absent.
 
 - Use Command-N to create a blank note and edit its title.
 - Type in Search or Create to filter notes. Selection does not replace the query.

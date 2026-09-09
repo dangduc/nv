@@ -40,7 +40,7 @@
 
 @interface AppController : NSWindowController
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-<NSToolbarDelegate, NSToolbarItemValidation, NSTableViewDelegate, NSWindowDelegate, NSSearchFieldDelegate, NSTextViewDelegate>
+<NSToolbarDelegate, NSTableViewDelegate, NSWindowDelegate, NSSearchFieldDelegate, NSTextViewDelegate>
 #endif
 {
     BOOL applicationOwner, awakenedViews, browserHorizontalLayout, reloadingNotesList;
@@ -317,7 +317,6 @@ void outletObjectAwoke(id sender);
 - (void)restoreNotesListHeight;
 - (IBAction)newNote:(id)sender;
 - (IBAction)createNoteFromSearch:(id)sender;
-- (IBAction)showNoteActions:(id)sender;
 - (IBAction)applyNoteMetadata:(id)sender;
 - (IBAction)setSystemColorScheme:(id)sender;
 - (void)browserAppearanceChanged;

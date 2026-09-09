@@ -2011,17 +2011,8 @@ terminateApp:
 }
 
 - (void)selectSearchField {
-    // Toolbar customization attaches restored items during window layout.
+    // Attach and size the toolbar field before focusing its native editor.
     [[[window contentView] superview] layoutSubtreeIfNeeded];
-    // Starting an interaction also queues a later focus change. Use it only
-    // when the adaptive toolbar has hidden or compressed the field. Match
-    // the minimum editing width used by the legacy toolbar item.
-    if (@available(macOS 11.0, *)) {
-        if (![field window] || [field isHiddenOrHasHiddenAncestor] || NSWidth([field bounds]) < 140) {
-            [(NSSearchToolbarItem *)dualFieldItem beginSearchInteraction];
-            return;
-        }
-    }
     [window makeFirstResponder:field];
     [field selectText:self];
 }

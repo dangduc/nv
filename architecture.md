@@ -277,10 +277,10 @@ The notes list collapses within the existing window frame and retains each windo
 Show Source/Show Preview and the checked Syntax Type submenu remain available when the body controls are hidden.
 These commands use the active browser. Syntax remains a local property of the selected note, independent of its preview format.
 
-Search commands restore the toolbar and complete window layout before they focus the field.
-A search field with enough editing width receives focus directly.
-A hidden or compressed field uses the native toolbar expansion.
-This avoids a second, delayed focus change after the user moves to the note body.
+The toolbar contains one search field that fills the available width beside the window controls.
+The window hides its title but retains the note title for the Window menu and accessibility.
+The toolbar ignores saved layouts from the previous toolbar. Note commands remain available through menus.
+Search commands restore the toolbar and complete window layout before they focus the field directly.
 
 The body header selects Source or Preview. New notes and windows start in Source with Plain Text syntax.
 A restored window can return to its saved preview.
