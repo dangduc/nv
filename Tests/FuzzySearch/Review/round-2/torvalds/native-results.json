@@ -1,0 +1,242 @@
+{
+  "head": "abdd49c89ddcf5123fc3249234fc01238ff4cc59",
+  "utc": "2026-09-09T10:19:12.133966+00:00",
+  "mode": "native",
+  "sources": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "082fa72f1732f769aacea051b6e0380b60ca207386d23a59214ce12be0befbcf",
+    "Sources/Search/NVSearchQuery.h": "8cf1dbf4f86a92d552e99c0fce881cec9f520b64caddc4ca04d6b70d60d06d5d",
+    "Sources/Search/NVSearchService.h": "50b426db14165987c7a2f9fcde63ad356aff96497b2bdeff123942f1be5f571c",
+    "Sources/Search/NVSearchCorpus.h": "25e00f12d1774c9a70838bb2b0b9230cdc92227d1a74b5a954ec0799ccfd2d12",
+    "Sources/Editor/LinkingEditor.m": "f874f22f21690c4631f1f6c7f82893697ba33a4b18fed82d37c3d56e386ab128",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Tests/FuzzySearch/Review/round-2/torvalds/probe.m": "0bc3895778d94dcbb14669524fbbefe8457fa8433b1af526737f40c1a743bdef",
+    "Tests/FuzzySearch/Review/round-2/torvalds/run.py": "2b8cf41b34d851b0acd780dd7b3973c3da8ee0d3fda9dcaca6a9f37a12e6bd29"
+  },
+  "commands": [
+    {
+      "command": [
+        "sw_vers"
+      ],
+      "exit": 0,
+      "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcodebuild",
+        "-version"
+      ],
+      "exit": 0,
+      "stdout": "Xcode 26.6\nBuild version 17F113\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-std=c11",
+        "-c",
+        "/Users/duc/dev/nv/Sources/Search/NVFZF.c",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/0.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-std=c11",
+        "-c",
+        "/Users/duc/dev/nv/ThirdParty/fzf-native/fzf.c",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/1.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-std=c11",
+        "-c",
+        "/Users/duc/dev/nv/ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/2.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-Wall",
+        "-Werror",
+        "-c",
+        "/Users/duc/dev/nv/Sources/Search/NVSearchQuery.m",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/3.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-Wall",
+        "-Werror",
+        "-c",
+        "/Users/duc/dev/nv/Sources/Search/NVSearchCorpus.m",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/4.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-Wall",
+        "-Werror",
+        "-c",
+        "/Users/duc/dev/nv/Sources/Search/NVSearchService.m",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/5.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-Wall",
+        "-Werror",
+        "-c",
+        "/Users/duc/dev/nv/Tests/FuzzySearch/Review/round-2/torvalds/probe.m",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/6.o"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-g",
+        "-O2",
+        "-DUTF8PROC_STATIC",
+        "-I/Users/duc/dev/nv/Sources/Search",
+        "-I/Users/duc/dev/nv/ThirdParty/fzf-native",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/0.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/1.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/2.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/3.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/4.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/5.o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/6.o",
+        "-framework",
+        "Foundation",
+        "-o",
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/boundary-review"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/duc/dev/nv/build/FuzzySearchReview/round-2/torvalds/native/boundary-review"
+      ],
+      "exit": 0,
+      "stdout": "PASS: occurrence caps 0/1/2047/2048/2049/unlimited, merged ranges, parsed-term order, literals, graphemes, and cancellation.\nPASS: all 1,024 scalar subsets map to independently specified UTF-16 graphemes; adjacent fields merge only across selected separators.\nPASS: deferred publication, exact source compatibility, copied mutable inputs, native presentation cap, owner replacement, peer isolation, and invalidation.\nPASS: native positions map into original title/tag/source UTF-16 fields; both complete result groups exceed the presentation cap.\nROUND 2 C/FOUNDATION BOUNDARY REVIEW PASSED: 40171 assertions.\n",
+      "stderr": ""
+    }
+  ],
+  "changed_sources": []
+}
