@@ -154,6 +154,7 @@ void outletObjectAwoke(id sender);
 
 - (IBAction)fieldAction:(id)sender;
 - (NoteObject*)createNoteIfNecessary;
+- (NoteObject*)createNoteIfNecessaryWithTitle:(NSString *)title;
 - (void)searchForString:(NSString*)string;
 - (void)selectSearchField;
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts;

@@ -315,6 +315,8 @@
     }
 }
 - (IBAction)newNote:(id)sender {
+    // Capture the live field editor before ending editing or clearing the query.
+    NSString *title = [self searchFieldHasFocus] ? [[[(NSTextView *)[field currentEditor] string] copy] autorelease] : nil;
     [self cancelSearchIntents];
     [self finishEditing];
     [self setViewingNote:NO];
@@ -322,7 +324,7 @@
     [field setStringValue:@""];
     [typedString release]; typedString = [@"" copy]; typedStringIsCached = YES;
     [[self browserSession] filterNotesFromString:@""];
-    [self createNoteIfNecessary];
+    [self createNoteIfNecessaryWithTitle:title];
     [self updateNoteHeader];
     if ([prefsController showTitleInTopSection]) [noteTitleField selectText:self];
     else [self focusNoteBody];

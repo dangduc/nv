@@ -78,7 +78,7 @@ All screenshots use disposable sample notes.
 | Action | Instruction |
 | --- | --- |
 | Open another window | Choose **Window > New Window**, or press **Command-Shift-N**. |
-| Create a blank note | Press **Command-N**. |
+| Create a note | Press **Command-N**. If the search field has focus and contains text, that text becomes the title. |
 | Find a note | Type in **Search or Create**. Use **Command-J** or **Command-K** to move through the results. |
 | Edit a search result | Select the note. Then press **Return**. |
 | Create from a search | If no note matches, press **Return** or click **Create**. |

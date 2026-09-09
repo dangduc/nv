@@ -16,13 +16,18 @@ After a Development build, run:
 python3 Tests/Regression/native-controls/run.py
 ```
 
-Use `--probe search`, `--probe tab`, `--probe tags`, or `--probe view` to select one group.
+Use `--probe search`, `--probe tab`, `--probe tags`, `--probe view`, or `--probe new-note` to select one group.
 Use `--app PATH` to select another build.
 Set `NV_UI_ARTIFACTS` to an existing directory to save a screenshot of restored Search.
 The Search, Tab, and Tags groups reject the preserved pre-correction app at `build/NativeUIReview/round1/nvALT.app`.
 
 The runner uses a copied app, temporary notes, a unique preferences domain, and the shared GUI lock.
 Normal startup services are disabled. The process has a 90-second timeout.
+
+The New Note group sends Command-N through the application menu.
+It checks focused Exact and Fuzzy queries, live field text, pending searches, and input-method composition.
+It also checks empty queries, focus in other controls, and routing between browser windows.
+New notes keep an empty body and Plain Text syntax. Pending search callbacks must preserve the new selection.
 
 An earlier sequential run reported a Search focus failure while the peer browser remained active.
 The intended window was not key, and its Search field had no editor.

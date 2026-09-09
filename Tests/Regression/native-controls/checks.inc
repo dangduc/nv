@@ -139,6 +139,7 @@
 }
 
 #include "top-section-checks.inc"
+#include "new-note-checks.inc"
 
 - (void)nv_runTests {
     @try {
@@ -194,6 +195,8 @@
             Check(![noteTagsField isEnabled] && ![noteTagsField currentEditor] && [library totalNoteCount] == count,
                 @"Tag Note without a selection does not begin metadata editing or create a note");
         }
+        if ([probe isEqual:@"all"] || [probe isEqual:@"new-note"])
+            [self nv_checkNewNoteWithPeer:peer alpha:alpha beta:beta];
         Check([library totalNoteCount] == 2, @"control commands leave no extra notes");
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
         NSColor *listColor = [[notesTableView backgroundColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
