@@ -2,7 +2,8 @@
 
 PR: [native fuzzy search with title-first rows](https://github.com/fastducduc/nv/pull/10).
 
-The requested review has three rounds with six perspectives per round.
+All three requested review rounds are complete, with six perspectives per round.
+All actionable findings were assigned to implementation agents and fixed. The final round found no new actionable defects.
 The named perspectives guide independent subagents; the named people did not perform or endorse these reviews.
 Each reviewer writes executable evidence and records its scope and limits. Implementation agents address confirmed findings.
 
@@ -38,14 +39,31 @@ All six second-round reviews and their fixes are complete.
 
 ## Round 3
 
-The final interaction, ownership, and mapping correctness reviews are in progress on the repaired code.
+Reviewed production code: `11f571f`. Later commits contain review records and documentation.
+
+| Perspective | Evidence | Finding and status |
+| --- | --- | --- |
+| John Ousterhout: callback ownership | [Report](round-3/ousterhout/findings.md) | No actionable finding; 144 native and sanitizer checks. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600658540). |
+| Dan Luu: repeated peer scheduling | [Report](round-3/luu/findings.md) | No actionable finding; 82 native and sanitizer checks, no-yield control rejected. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600766630). |
+| Linus Torvalds: mapping boundaries and output ownership | [Report](round-3/torvalds/findings.md) | No actionable finding; 93 native and sanitizer checks. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600766806). |
+| Kyle Kingsbury: interleaved selection histories | [Report](round-3/kingsbury/findings.md) | No actionable finding; 44 native and sanitizer assertions across four new histories. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600658833). |
+| Contrarian: delayed tag actions and same-note occurrences | [Report](round-3/contrarian-ui/findings.md) | No actionable finding; 89 native and sanitizer checks, three negative controls rejected. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600572748). |
+| Contrarian: independent legacy Exact comparison | [Report](round-3/contrarian-compat/findings.md) | No actionable finding; 1,397 native and sanitizer assertions against the pre-PR session. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600766960). |
+
+The maintained lifecycle, bounded-highlight, and position-mapping suites run in Intel CI.
+The original review records remain available beside separate repair evidence. Reports state where fixtures replace full-app behavior.
 
 ## Validation limits
 
-[Intel CI passed](https://github.com/fastducduc/nv/actions/runs/34335599567) at `e4d3ac4`, including native search suites, the app build, and archive checks.
+[Intel CI passed](https://github.com/fastducduc/nv/actions/runs/34341896868) at `a9636d6`, including all maintained search suites, the app build, and archive checks.
+That run includes the complete production repairs reviewed in round three.
 Local builds use macOS 26.5.2 and Xcode 26.6; local native probes use arm64.
 The copied Intel app cannot start on this host. Full desktop validation and a production UI screenshot remain unavailable.
 Native or extracted-method fixtures do not establish full desktop behavior.
 
 The 150 ms warm-search target remains unmet for the generated 10,000-note, 50 MiB corpus.
 See [service measurements](../Measurements/README.md) and [native measurements](../Core/BENCHMARK.md).
+
+The 20,000-row publication fixture also exceeds the initial 8 ms target.
+Individual native calls and unusually long composed sequences can exceed the worker time target.
+See the [position-mapping record](../PositionMapping/README.md) for measured improvements and remaining limits.
