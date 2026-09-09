@@ -1,0 +1,152 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:22:17: warning: method definition for 'nv_ouFallbackAppearanceChanged' not found [-Wincomplete-implementation]
+   22 | @implementation AppController (OUScopeReview)
+      |                 ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:20:1: note: method 'nv_ouFallbackAppearanceChanged' declared here
+   20 | - (void)nv_ouFallbackAppearanceChanged;
+      | ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:185:61: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  185 |         [window setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+      |                                                             ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:185:61: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  185 |         [window setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+      |                                                             ^~~~~~~~~~~~~~~~~~~~~~~~   
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:192:64: warning: 'NSAppearanceNameAccessibilityHighContrastAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  192 |         NSAppearance *sentinel = [NSAppearance appearanceNamed:NSAppearanceNameAccessibilityHighContrastAqua];
+      |                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:76:38: note: 'NSAppearanceNameAccessibilityHighContrastAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   76 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityHighContrastAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-yt8iuy56/Review.m:192:64: note: enclose 'NSAppearanceNameAccessibilityHighContrastAqua' in an @available check to silence this warning
+  192 |         NSAppearance *sentinel = [NSAppearance appearanceNamed:NSAppearanceNameAccessibilityHighContrastAqua];
+      |                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+2026-09-09 16:32:41.906 nvALT[68548:343319406] PASS: temporary library directory exists
+2026-09-09 16:32:41.907 nvALT[68548:343319406] PASS: temporary library opens
+2026-09-09 16:32:41.972 nvALT[68548:343319406] verified 0 notes in 0.000238895 s
+2026-09-09 16:32:42.432 nvALT[68548:343319406] PASS: the fixture has two native browser controllers
+2026-09-09 16:32:42.596 nvALT[68548:343319406] PASS: both native browsers attach to one shared source storage
+2026-09-09 16:32:42.598 nvALT[68548:343319406] SCOPE: fallback=0 outer=2 inner=2 failure=0
+2026-09-09 16:32:42.598 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.598 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.598 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.599 nvALT[68548:343319406] SCOPE: fallback=0 outer=2 inner=2 failure=1
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.599 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.600 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.600 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.600 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.601 nvALT[68548:343319406] SCOPE: fallback=0 outer=2 inner=3 failure=0
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.601 nvALT[68548:343319406] SCOPE: fallback=0 outer=2 inner=3 failure=1
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.601 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.602 nvALT[68548:343319406] SCOPE: fallback=0 outer=3 inner=2 failure=0
+2026-09-09 16:32:42.602 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.602 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.602 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.603 nvALT[68548:343319406] SCOPE: fallback=0 outer=3 inner=2 failure=1
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.603 nvALT[68548:343319406] SCOPE: fallback=0 outer=3 inner=3 failure=0
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.603 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.604 nvALT[68548:343319406] SCOPE: fallback=0 outer=3 inner=3 failure=1
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.604 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.604 nvALT[68548:343319406] SCOPE: fallback=1 outer=2 inner=2 failure=0
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.605 nvALT[68548:343319406] SCOPE: fallback=1 outer=2 inner=2 failure=1
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.605 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.606 nvALT[68548:343319406] SCOPE: fallback=1 outer=2 inner=3 failure=0
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.606 nvALT[68548:343319406] SCOPE: fallback=1 outer=2 inner=3 failure=1
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.606 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.607 nvALT[68548:343319406] SCOPE: fallback=1 outer=3 inner=2 failure=0
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.607 nvALT[68548:343319406] SCOPE: fallback=1 outer=3 inner=2 failure=1
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.607 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.608 nvALT[68548:343319406] SCOPE: fallback=1 outer=3 inner=3 failure=0
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the nested browser restores the outer browser appearance before its real update
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the nested update retains the palette resolved for the owning browser
+2026-09-09 16:32:42.608 nvALT[68548:343319406] SCOPE: fallback=1 outer=3 inner=3 failure=1
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the native browser update runs within its own appearance scope
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: one outer update invokes exactly one nested peer update
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the nested exception propagates only in the injected failure case
+2026-09-09 16:32:42.608 nvALT[68548:343319406] PASS: the complete nested scope restores the original caller appearance
+2026-09-09 16:32:42.609 nvALT[68548:343319406] PASS: nested successful and failed appearance updates leave the shared source unchanged
+2026-09-09 16:32:42.609 nvALT[68548:343319406] OUSTERHOUT ROUND 2 PASSED (109 checks)

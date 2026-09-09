@@ -1,0 +1,80 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:129:68: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  129 |         [[peer window] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+      |                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:129:68: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  129 |         [[peer window] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+      |                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~   
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:154:51: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  154 |                 step % 2 ? NSAppearanceNameAqua : NSAppearanceNameDarkAqua]];
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:154:51: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  153 |             [settingsWindow setAppearance:[NSAppearance appearanceNamed:
+  154 |                 step % 2 ? NSAppearanceNameAqua : NSAppearanceNameDarkAqua]];
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~   
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:169:51: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  169 |                 step % 2 ? NSAppearanceNameAqua : NSAppearanceNameDarkAqua]];
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:169:51: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  168 |             [window setAppearance:[NSAppearance appearanceNamed:
+  169 |                 step % 2 ? NSAppearanceNameAqua : NSAppearanceNameDarkAqua]];
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~   
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:171:28: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  171 |                 step % 2 ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-n6ezs3e0/Review.m:171:28: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  170 |             [[peer window] setAppearance:[NSAppearance appearanceNamed:
+  171 |                 step % 2 ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~                          
+4 warnings generated.
+2026-09-09 16:36:45.068 nvALT[70741:343333929] PASS: temporary library directory exists
+2026-09-09 16:36:45.068 nvALT[70741:343333929] PASS: temporary library opens
+2026-09-09 16:36:45.156 nvALT[70741:343333929] verified 0 notes in 0.000200987 s
+2026-09-09 16:36:45.580 nvALT[70741:343333929] PASS: the fixture creates a second real browser
+2026-09-09 16:36:45.604 nvALT[70741:343333929] PASS: opposite-appearance browsers share the real searched source
+2026-09-09 16:36:45.666 nvALT[70741:343333929] PASS: both real search views restore their source decorations
+2026-09-09 16:36:46.821 nvALT[70741:343333929] PASS: the visible global highlight checkbox starts enabled
+2026-09-09 16:36:46.874 nvALT[70741:343333929] PASS: a native checkbox click disables the shared highlight preference
+2026-09-09 16:36:46.924 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:47.071 nvALT[70741:343333929] PASS: Settings appearance changes retain the selected dark color-panel target
+2026-09-09 16:36:47.071 nvALT[70741:343333929] PASS: the active dark edit changes the prior value
+2026-09-09 16:36:47.122 nvALT[70741:343333929] PASS: the shared native panel edits only dark highlight despite the Settings appearance
+2026-09-09 16:36:47.329 nvALT[70741:343333929] PASS: editing colors and changing browser appearance retain the disabled global preference
+2026-09-09 16:36:47.380 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:47.448 nvALT[70741:343333929] PASS: Settings appearance changes retain the selected dark color-panel target
+2026-09-09 16:36:47.449 nvALT[70741:343333929] PASS: the active dark edit changes the prior value
+2026-09-09 16:36:47.501 nvALT[70741:343333929] PASS: the shared native panel edits only dark highlight despite the Settings appearance
+2026-09-09 16:36:47.708 nvALT[70741:343333929] PASS: editing colors and changing browser appearance retain the disabled global preference
+2026-09-09 16:36:47.760 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:47.837 nvALT[70741:343333929] PASS: Settings appearance changes retain the selected dark color-panel target
+2026-09-09 16:36:47.837 nvALT[70741:343333929] PASS: the active dark edit changes the prior value
+2026-09-09 16:36:47.890 nvALT[70741:343333929] PASS: the shared native panel edits only dark highlight despite the Settings appearance
+2026-09-09 16:36:48.098 nvALT[70741:343333929] PASS: editing colors and changing browser appearance retain the disabled global preference
+2026-09-09 16:36:48.150 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:48.223 nvALT[70741:343333929] PASS: Settings appearance changes retain the selected dark color-panel target
+2026-09-09 16:36:48.224 nvALT[70741:343333929] PASS: the active dark edit changes the prior value
+2026-09-09 16:36:48.277 nvALT[70741:343333929] PASS: the shared native panel edits only dark highlight despite the Settings appearance
+2026-09-09 16:36:48.486 nvALT[70741:343333929] PASS: editing colors and changing browser appearance retain the disabled global preference
+2026-09-09 16:36:48.537 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:48.641 nvALT[70741:343333929] PASS: switching the native panel to the light well leaves the dark palette intact
+2026-09-09 16:36:48.692 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:48.746 nvALT[70741:343333929] PASS: the same global checkbox re-enables search highlights
+2026-09-09 16:36:48.797 nvALT[70741:343333929] PASS: both real search views restore their source decorations
+2026-09-09 16:36:48.797 nvALT[70741:343333929] PASS: re-enabled real search decorations use the latest independent light and dark edits
+2026-09-09 16:36:48.903 nvALT[70741:343333929] PASS: both real search views restore their source decorations
+2026-09-09 16:36:49.008 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:49.117 nvALT[70741:343333929] PASS: the global checkbox removes source decorations from both real search views
+2026-09-09 16:36:49.221 nvALT[70741:343333929] PASS: both real search views restore their source decorations
+2026-09-09 16:36:49.221 nvALT[70741:343333929] PASS: checkbox, color-panel, scheme, and appearance transitions preserve source content and attributes
+2026-09-09 16:36:49.221 nvALT[70741:343333929] CONTRARIAN ROUND 2 PASSED (38 checks)
