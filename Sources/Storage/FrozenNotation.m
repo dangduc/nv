@@ -139,7 +139,7 @@
 		
 	} @catch (NSException *e) {
 		*err = kCoderErr;
-		NSLog(@"(VERIFY) Error unarchiving notes from data (%@, %@)", [e name], [e reason]);
+		NSLog(@"The archived note payload could not be decoded.");
 		return nil;
 	}
 	
@@ -204,7 +204,7 @@
                 allNotes = [[NSUnarchiver unarchiveObjectWithData:notesData] retain];
 		} @catch (NSException *e) {
 			*err = kCoderErr;
-			NSLog(@"Error unarchiving notes from data (%@, %@)", [e name], [e reason]);
+			NSLog(@"The archived note payload could not be decoded.");
 			return(nil);
 		}
 	}

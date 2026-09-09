@@ -60,6 +60,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 		confirmFileDeletion = YES;
 		storesPasswordInKeychain = secureTextEntry = doesEncryption = NO;
 		sourceMetadataByNoteUUID = [[NSMutableDictionary alloc] init];
+		backupLibraryIdentifier = [[[NSUUID UUID] UUIDString] copy];
 		seenDiskUUIDEntries = [[NSMutableArray alloc] init];
 		notesStorageFormat = SingleDatabaseFormat;
 		hashIterationCount = DEFAULT_HASH_ITERATIONS;
@@ -86,7 +87,19 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 		firstTimeUsed = NO;
 		
 		preferencesChanged = NO;
-		
+        id savedIdentifier = [decoder decodeObjectForKey:VAR_STR(backupLibraryIdentifier)];
+        if ([savedIdentifier isKindOfClass:[NSString class]] && [[[NSUUID alloc] initWithUUIDString:savedIdentifier] autorelease])
+            backupLibraryIdentifier = [savedIdentifier copy];
+        else {
+            backupLibraryIdentifier = [[[NSUUID UUID] UUIDString] copy];
+            preferencesChanged = YES;
+        }
+        int64_t savedGeneration = [decoder decodeInt64ForKey:VAR_STR(backupCheckpointGeneration)];
+        backupCheckpointGeneration = savedGeneration > 0 ? (unsigned long long)savedGeneration : 0;
+        id savedDate = [decoder decodeObjectForKey:VAR_STR(backupCheckpointDate)];
+        backupCheckpointDate = [savedDate isKindOfClass:[NSDate class]] ? [savedDate copy] : nil;
+        if (!backupCheckpointGeneration || !backupCheckpointDate) preferencesChanged = YES;
+
 		epochIteration = [decoder decodeInt32ForKey:VAR_STR(epochIteration)];
 		notesStorageFormat = [decoder decodeIntForKey:VAR_STR(notesStorageFormat)];
 		// Old document files remain untouched. Only archived characters remain supported.
@@ -190,6 +203,9 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 	}
 	
 	[coder encodeObject:sourceMetadataByNoteUUID forKey:VAR_STR(sourceMetadataByNoteUUID)];
+    [coder encodeObject:backupLibraryIdentifier forKey:VAR_STR(backupLibraryIdentifier)];
+    [coder encodeInt64:(int64_t)backupCheckpointGeneration forKey:VAR_STR(backupCheckpointGeneration)];
+    [coder encodeObject:backupCheckpointDate forKey:VAR_STR(backupCheckpointDate)];
 	
 	[coder encodeObject:keychainDatabaseIdentifier forKey:VAR_STR(keychainDatabaseIdentifier)];
 	
@@ -213,10 +229,16 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 	free(allowedTypes);
 	
 	[sourceMetadataByNoteUUID release];
+	[backupLibraryIdentifier release];
+	[backupCheckpointDate release];
 	[seenDiskUUIDEntries release];
 	[keychainDatabaseIdentifier release];
 	[baseBodyFont release];
 	[foregroundColor release];
+    [masterSalt release];
+    [dataSessionSalt release];
+    [verifierKey release];
+    [masterKey release];
     
     [super dealloc];
 }
@@ -248,6 +270,46 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 
 - (void)storeSourceMetadata {
 	if ([delegate respondsToSelector:@selector(flushAllNoteChanges)]) [delegate flushAllNoteChanges];
+}
+
+- (NSString*)backupLibraryIdentifier { return backupLibraryIdentifier; }
+- (unsigned long long)backupCheckpointGeneration { return backupCheckpointGeneration; }
+- (NSDate*)backupCheckpointDate { return backupCheckpointDate; }
+
+- (void)setBackupCheckpointGeneration:(unsigned long long)generation date:(NSDate*)date {
+    backupCheckpointGeneration = generation;
+    [backupCheckpointDate release];
+    backupCheckpointDate = [date copy];
+}
+
+- (void)renewBackupLibraryIdentifier {
+    [backupLibraryIdentifier release];
+    backupLibraryIdentifier = [[[NSUUID UUID] UUIDString] copy];
+    [self setBackupCheckpointGeneration:0 date:nil];
+    preferencesChanged = YES;
+}
+
+- (void)prepareForOfflineBackupRestore {
+    NSAssert(!delegate, @"Restore preferences must not belong to an open library");
+    offlineBackupRestore = YES;
+    storesPasswordInKeychain = NO;
+    [self forgetKeychainIdentifier];
+    [seenDiskUUIDEntries removeAllObjects];
+    [self renewBackupLibraryIdentifier];
+    [self setNotesStorageFormat:SingleDatabaseFormat];
+}
+
+- (void)finishOfflineBackupRestore { offlineBackupRestore = NO; }
+
+- (BOOL)matchesBackupEncryptionSettings:(NotationPrefs*)other {
+    if (![other isKindOfClass:[NotationPrefs class]] || notesStorageFormat != SingleDatabaseFormat ||
+        other->notesStorageFormat != SingleDatabaseFormat || doesEncryption != other->doesEncryption ||
+        backupCheckpointGeneration != other->backupCheckpointGeneration ||
+        ![backupLibraryIdentifier isEqual:other->backupLibraryIdentifier]) return NO;
+    if (!doesEncryption) return YES;
+    return keyLengthInBits == other->keyLengthInBits && hashIterationCount == other->hashIterationCount &&
+        [masterSalt isEqual:other->masterSalt] && [dataSessionSalt isEqual:other->dataSessionSalt] &&
+        [verifierKey isEqual:other->verifierKey];
 }
 
 - (BOOL)preferencesChanged {
@@ -294,6 +356,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 - (void)setForegroundTextColor:(NSColor*)aColor {
+    if (foregroundColor == aColor || [foregroundColor isEqual:aColor]) return;
 	[foregroundColor autorelease];
 	foregroundColor = [aColor retain];
 	
@@ -305,6 +368,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 - (void)setBaseBodyFont:(NSFont*)aFont {
+    if (baseBodyFont == aFont || [baseBodyFont isEqual:aFont]) return;
 	[baseBodyFont autorelease];
 	baseBodyFont = [aFont retain];
 		
@@ -350,6 +414,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 - (void)removeKeychainData {
+    if (offlineBackupRestore) return;
 	SecKeychainItemRef itemRef = [self currentKeychainItem];
 	if (itemRef) {
 		OSStatus err = SecKeychainItemDelete(itemRef);
@@ -384,6 +449,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 - (void)setKeychainData:(NSData*)data {
+    if (offlineBackupRestore) return;
 	
 	OSStatus status = noErr;
 	
@@ -417,6 +483,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 - (void)setStoresPasswordInKeychain:(BOOL)value {
+    if (offlineBackupRestore) { storesPasswordInKeychain = NO; return; }
 	storesPasswordInKeychain = value;
 	preferencesChanged = YES;
 	

@@ -328,6 +328,9 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
 }
 - (void)close {
     [self commitPendingTextChanges];
+    [self closeWithoutCommitting];
+}
+- (void)closeWithoutCommitting {
     [sourceHighlighter close]; [sourceHighlighter release]; sourceHighlighter = nil;
     [[note undoManager] removeAllActionsWithTarget:self];
     [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];

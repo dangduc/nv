@@ -15,6 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class NotationPrefsViewController;
+@class NVBackupPreferencesViewController;
 @class GlobalPrefs;
 
 @interface PrefsWindowController : NSObject 
@@ -58,6 +59,7 @@
 	IBOutlet NSButton *autoPairButton;
     
 	GlobalPrefs *prefsController;
+    NVBackupPreferencesViewController *backupPreferencesViewController;
 }
 - (void)showWindow:(id)sender;
 

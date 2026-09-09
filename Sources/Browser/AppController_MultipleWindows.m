@@ -39,13 +39,17 @@ static NSDictionary *ValidatedBodyState(id value) {
 - (NSString *)browserIdentifier { return browserIdentifier; }
 - (void)retainWindowObjects:(NSArray *)objects { windowObjects = [objects retain]; }
 - (void)attachLibrary:(NotationController *)library {
+    [self attachLibrary:library finishingOldLibrary:YES];
+}
+- (void)attachLibrary:(NotationController *)library finishingOldLibrary:(BOOL)finishOldLibrary {
     [self setupViewsAfterAppAwakened];
     NSString *oldQuery = [[[self browserSession] searchString] copy];
     NoteAttributeColumn *oldSort = [[[self browserSession] sortColumn] retain];
     BOOL oldReverse = [[self browserSession] reverseSorted];
+    // Detach before deselection callbacks can finish editing the old note.
+    [self _setCurrentNote:nil finishingEditing:finishOldLibrary];
     [notesTableView abortEditing];
     [notesTableView deselectAll:self];
-    [self _setCurrentNote:nil];
     [self discardViewer];
     [[self browserSession] setDelegate:nil];
     [notationController release];

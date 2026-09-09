@@ -41,6 +41,35 @@
 #import "DeletionManager.h"
 #import "nvaDevConfig.h"
 #import "EncodingsManager.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+
+static NSError *NVCheckpointError(NSInteger code, NSString *description) {
+    return [NSError errorWithDomain:@"NVBackupArchiveErrorDomain" code:code
+        userInfo:@{NSLocalizedDescriptionKey: description}];
+}
+
+static BOOL NVSynchronizeBackupCheckpoint(NSData *data, NSURL *directory) {
+    int directoryFD = open([[directory path] fileSystemRepresentation], O_RDONLY | O_DIRECTORY | O_NOFOLLOW);
+    if (directoryFD < 0) return NO;
+    int descriptor = openat(directoryFD, [NotesDatabaseFileName fileSystemRepresentation], O_RDWR | O_NOFOLLOW);
+    BOOL valid = descriptor >= 0;
+    struct stat info;
+    if (valid) valid = fstat(descriptor, &info) == 0 && S_ISREG(info.st_mode) && info.st_size == [data length];
+    unsigned char buffer[65536];
+    NSUInteger offset = 0;
+    while (valid && offset < [data length]) {
+        size_t amount = MIN(sizeof(buffer), [data length] - offset);
+        ssize_t count = pread(descriptor, buffer, amount, (off_t)offset);
+        if (count <= 0 || memcmp(buffer, (const unsigned char*)[data bytes] + offset, (size_t)count)) valid = NO;
+        else offset += count;
+    }
+    if (valid) valid = fsync(descriptor) == 0 && fsync(directoryFD) == 0;
+    if (descriptor >= 0) close(descriptor);
+    close(directoryFD);
+    return valid;
+}
 
 @implementation NotationController
 
@@ -125,6 +154,30 @@
     return nil;
 }
 
+- (id)initWithRestoredDirectoryRef:(FSRef*)directoryRef error:(OSStatus*)err {
+    return [self initWithRestoredDirectoryRef:directoryRef unlockedPrefs:nil error:err];
+}
+
+- (id)initWithRestoredDirectoryRef:(FSRef*)directoryRef unlockedPrefs:(NotationPrefs*)prefs error:(OSStatus*)err {
+    restoreUnlockedPrefs = [prefs retain];
+    openingRestoredLibrary = YES;
+    self = [self initWithDirectoryRef:directoryRef error:err];
+    if (self) {
+        if (![walWriter synchronize] || ![walWriter synchronizeParentDirectory]) {
+            [walWriter destroyLogFilePreservingWriterOnFailure];
+            [walWriter release]; walWriter = nil;
+            *err = kJournalingError;
+            [self release];
+            return nil;
+        }
+        openingRestoredLibrary = NO;
+        [notationPrefs finishOfflineBackupRestore];
+        [restoreUnlockedPrefs release]; restoreUnlockedPrefs = nil;
+        // The coordinator binds GlobalPrefs only after browsers detach from the old library.
+    }
+    return self;
+}
+
 - (id)initWithDirectoryRef:(FSRef*)directoryRef error:(OSStatus*)err {
     
     *err = noErr;
@@ -140,6 +193,7 @@
 		OSStatus anErr = noErr;
 		if ((anErr = [self _readAndInitializeSerializedNotes]) != noErr) {
 			*err = anErr;
+            [self release];
 			return nil;
 		}
 		
@@ -148,6 +202,9 @@
 		[self databaseSettingsChangedFromOldFormat:[notationPrefs notesStorageFormat]];
 		if (!walWriter) {
 			*err = kJournalingError;
+            [self stopFileNotifications];
+            [NSObject cancelPreviousPerformRequestsWithTarget:self];
+            [self release];
 			return nil;
 		}
 		
@@ -243,6 +300,7 @@
 	UInt64 fileSize = 0;
 	char *notesData = NULL;
 	OSStatus err = noErr, result = noErr;
+    NSMutableArray *notesToVerify = nil;
 	if ((err = FSRefReadData(notesFileRef, BlockSizeForNotation(self), &fileSize, (void**)&notesData, forceReadMask)) != noErr)
 		return [NSNumber numberWithInt:err];
 	
@@ -260,7 +318,7 @@
 		goto returnResult;
 	}
 	//unpack notes using the current NotationPrefs instance (not the just-unarchived one), with which we presumably just used to encrypt it
-	NSMutableArray *notesToVerify = [[frozenNotation unpackedNotesWithPrefs:notationPrefs returningError:&err] retain];	
+	notesToVerify = [[frozenNotation unpackedNotesWithPrefs:notationPrefs returningError:&err] retain];
 	if (noErr != err) {
 		result = err;
 		goto returnResult;
@@ -282,6 +340,7 @@
 	
 	NSLog(@"verified %lu notes in %g s", [notesToVerify count], (float)[[NSDate date] timeIntervalSinceDate:date]);
 returnResult:
+    [notesToVerify release];
 	if (notesData) free(notesData);
 	return [NSNumber numberWithInt:result];
 }
@@ -320,8 +379,14 @@ returnResult:
 	
 	[notationPrefs release];
 	
-	if (!(notationPrefs = [[frozenNotation notationPrefs] retain]))
-		notationPrefs = [[NotationPrefs alloc] init];
+    if ((openingRestoredLibrary && [[frozenNotation notationPrefs] doesEncryption] && !restoreUnlockedPrefs) ||
+        (restoreUnlockedPrefs && ![restoreUnlockedPrefs matchesBackupEncryptionSettings:[frozenNotation notationPrefs]])) {
+        if (notesData) free(notesData);
+        notationPrefs = nil;
+        return kNoAuthErr;
+    }
+    notationPrefs = [(restoreUnlockedPrefs ?: [frozenNotation notationPrefs]) retain];
+    if (!notationPrefs) notationPrefs = [[NotationPrefs alloc] init];
 	[notationPrefs setDelegate:self];
 
 	//notationPrefs will have the index of the current disk UUID (or we will add it otherwise) 
@@ -329,24 +394,34 @@ returnResult:
 	[self initializeDiskUUIDIfNecessary];
 	
 	[allNotes release];
+    allNotes = nil;
 	
 	//frozennotation will work out passwords, keychains, decryption, etc...
-	if (!(allNotes = [[frozenNotation unpackedNotesReturningError:&err] retain])) {
+    NSMutableArray *decodedNotes = restoreUnlockedPrefs ?
+        [frozenNotation unpackedNotesWithPrefs:restoreUnlockedPrefs returningError:&err] :
+        [frozenNotation unpackedNotesReturningError:&err];
+	if (!(allNotes = [decodedNotes retain])) {
 		//notes could be nil because the user cancelled password authentication
 		//or because they were corrupted, or for some other reason
-		if (err != noErr)
+		if (err != noErr) {
+            if (notesData) free(notesData);
 			return err;
+        }
 		
 		allNotes = [[NSMutableArray alloc] init];
 	} else {
 		[allNotes makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
 	}
 	
-	[prefsController setNotationPrefs:notationPrefs sender:self];
+    if (!openingRestoredLibrary) [prefsController setNotationPrefs:notationPrefs sender:self];
 	
 	[self makeForegroundTextColorMatchGlobalPrefs];
 	
-	if(notesData)
+	if (fileSize && notesData) {
+        [backupCheckpointData release];
+        backupCheckpointData = [[NSData alloc] initWithBytes:notesData length:fileSize];
+    }
+    if(notesData)
 	    free(notesData);
 	
 	return noErr;
@@ -376,6 +451,10 @@ returnResult:
         char *convertedPath=strdup([cPath UTF8String]);
 		//initialize the journal if necessary
 		if (!(walWriter = [[WALStorageController alloc] initWithParentFSRep:convertedPath encryptionKey:walSessionKey])) {
+            if (openingRestoredLibrary) {
+                free(convertedPath);
+                goto bail;
+            }
 			//journal file probably already exists, so try to recover it
 			WALRecoveryController *walReader = [[[WALRecoveryController alloc] initWithParentFSRep:convertedPath encryptionKey:walSessionKey] autorelease];
 			if (walReader) {
@@ -540,40 +619,160 @@ bail:
 }
 
 - (BOOL)flushAllNoteChanges {
-    //write only if preferences or notes have been changed
-    if (notesChanged || [notationPrefs preferencesChanged]) {
-		
-		//finish writing notes and/or db journal entries
-		[self synchronizeNoteChanges:changeWritingTimer];	
-		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(synchronizeNoteChanges:) object:nil];
-		
-		if (walWriter) {
-			if (![walWriter synchronize])
-				NSLog(@"Couldn't sync wal file--is this an error for note flushing?");
-			[NSObject cancelPreviousPerformRequestsWithTarget:walWriter selector:@selector(synchronize) object:nil];
-		}
-		
-		//purge attr-mod-times for old disk uuids here
-		[self purgeOldPerDiskInfoFromNotes];
-		
-		
-		NSData *serializedData = [FrozenNotation frozenDataWithExistingNotes:allNotes prefs:notationPrefs];
-		if (!serializedData) {
-			
-			NSLog(@"serialized data is nil!");
-			return NO;
-		}
-		
-		//we should have all journal records on disk by now
-		if ([self storeDataAtomicallyInNotesDirectory:serializedData withName:NotesDatabaseFileName destinationRef:&noteDatabaseRef 
-								   verifyWithSelector:@selector(verifyDataAtTemporaryFSRef:withFinalName:) verificationDelegate:self] != noErr)
-			return NO;
-		
-		[notationPrefs setPreferencesAreStored];
-		notesChanged = NO;
-		
+    if (!(notesChanged || [notationPrefs preferencesChanged])) return YES;
+
+    [backupCheckpointError release];
+    backupCheckpointError = nil;
+    [self synchronizeNoteChanges:changeWritingTimer];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(synchronizeNoteChanges:) object:nil];
+    backupJournalSyncFailed = walWriter && ![walWriter synchronize];
+    if (backupJournalSyncFailed) NSLog(@"The note journal could not be synchronized.");
+    [NSObject cancelPreviousPerformRequestsWithTarget:walWriter selector:@selector(synchronize) object:nil];
+    [self purgeOldPerDiskInfoFromNotes];
+
+    unsigned long long previousGeneration = [notationPrefs backupCheckpointGeneration];
+    NSDate *previousDate = [[notationPrefs backupCheckpointDate] retain];
+    NSData *serializedData = nil;
+    OSStatus writeError = noErr;
+    @try {
+        if (previousGeneration >= INT64_MAX) {
+            backupCheckpointError = [NVCheckpointError(1, @"The library checkpoint counter is exhausted.") retain];
+        } else {
+            [notationPrefs setBackupCheckpointGeneration:previousGeneration + 1 date:[NSDate date]];
+            serializedData = [FrozenNotation frozenDataWithExistingNotes:allNotes prefs:notationPrefs];
+            if (!serializedData)
+                backupCheckpointError = [NVCheckpointError(2, @"The library archive could not be created.") retain];
+            else {
+                writeError = [self storeDataAtomicallyInNotesDirectory:serializedData withName:NotesDatabaseFileName
+                    destinationRef:&noteDatabaseRef verifyWithSelector:@selector(verifyDataAtTemporaryFSRef:withFinalName:) verificationDelegate:self];
+                if (writeError != noErr)
+                    backupCheckpointError = [NVCheckpointError(writeError, @"The library checkpoint could not be written and verified.") retain];
+            }
+        }
+    } @catch (NSException *exception) {
+        backupCheckpointError = [NVCheckpointError(3, @"The library archive could not be encoded or verified.") retain];
     }
-	
+    if (backupCheckpointError) {
+        [notationPrefs setBackupCheckpointGeneration:previousGeneration date:previousDate];
+        [previousDate release];
+        return NO;
+    }
+    [previousDate release];
+    [backupCheckpointData release];
+    backupCheckpointData = [serializedData copy];
+    [notationPrefs setPreferencesAreStored];
+    notesChanged = NO;
+    return YES;
+}
+
+- (NSDictionary*)backupSnapshotWithError:(NSError**)error {
+    if (error) *error = nil;
+    if (![NSThread isMainThread] || capturingBackup || backupRestorePrepared) {
+        if (error) *error = NVCheckpointError(4, @"The library is not available for backup capture.");
+        return nil;
+    }
+    capturingBackup = YES;
+    BOOL flushed = NO;
+    @try { flushed = [self flushAllNoteChanges]; }
+    @catch (NSException *exception) {
+        [backupCheckpointError release];
+        backupCheckpointError = [NVCheckpointError(8, @"The library checkpoint could not finish.") retain];
+    }
+    @finally { capturingBackup = NO; }
+    if (flushed && backupJournalSyncFailed && walWriter) {
+        backupJournalSyncFailed = ![walWriter synchronize];
+        if (!backupJournalSyncFailed && lastWriteError == kWriteJournalErr) lastWriteError = noErr;
+    }
+    if (!flushed) {
+        if (error) *error = backupCheckpointError ?: NVCheckpointError(5, @"The library checkpoint failed.");
+        return nil;
+    }
+    if (!backupCheckpointData) {
+        // A clean library can use its already committed bytes without a new encryption session.
+        NSError *readError = nil;
+        backupCheckpointData = [[NSData dataWithContentsOfURL:[[self notesDirectoryURL] URLByAppendingPathComponent:NotesDatabaseFileName]
+            options:NSDataReadingUncached error:&readError] copy];
+        if (![backupCheckpointData length]) {
+            [backupCheckpointData release]; backupCheckpointData = nil;
+            if (error) *error = readError ?: NVCheckpointError(6, @"The committed library archive could not be read.");
+            return nil;
+        }
+    }
+    NSMutableDictionary *snapshot = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        backupCheckpointData, @"data", [notationPrefs backupLibraryIdentifier], @"libraryIdentifier",
+        @([notationPrefs backupCheckpointGeneration]), @"generation", @([notationPrefs doesEncryption]), @"encrypted",
+        @([allNotes count]), @"noteCount", [notationPrefs backupCheckpointDate] ?: [NSDate date], @"captureDate", nil];
+    if (lastWriteError != noErr)
+        [snapshot setObject:NVCheckpointError(lastWriteError, @"Some primary note files or journal records could not be written; the backup includes their committed note content.") forKey:@"sourceWriteError"];
+    if (backupJournalSyncFailed)
+        [snapshot setObject:NVCheckpointError(kWriteJournalErr, @"The primary recovery journal could not be synchronized.") forKey:@"journalWriteError"];
+    return [[snapshot copy] autorelease];
+}
+
+- (BOOL)prepareForBackupRestoreWithError:(NSError**)error {
+    if (![NSThread isMainThread] || capturingBackup || backupRestorePrepared) {
+        if (error) *error = NVCheckpointError(4, @"The library is not available for a restore switch.");
+        return NO;
+    }
+    // A historical autosave error is not evidence that storage is still unavailable.
+    // Retry the note's own pending-write flag; the legacy batch can have cleared its set.
+    lastWriteError = noErr;
+    if ([self currentNoteStorageFormat] != SingleDatabaseFormat) {
+        for (NoteObject *note in allNotes) if ([note hasPendingSourceFileWrite]) [self scheduleWriteForNote:note];
+    }
+    NSDictionary *snapshot = [self backupSnapshotWithError:error];
+    if (!snapshot) return NO;
+    if ([self currentNoteStorageFormat] != SingleDatabaseFormat) {
+        for (NoteObject *note in allNotes) {
+            if ([note sourceConversionPending]) {
+                if (error) *error = NVCheckpointError(7, @"A note still needs a source-file encoding conversion. Finish the conversion before replacing the library.");
+                return NO;
+            }
+        }
+    }
+    if ([snapshot objectForKey:@"sourceWriteError"] || [snapshot objectForKey:@"journalWriteError"]) {
+        if (error) *error = [snapshot objectForKey:@"sourceWriteError"] ?: [snapshot objectForKey:@"journalWriteError"];
+        return NO;
+    }
+    if (!NVSynchronizeBackupCheckpoint([snapshot objectForKey:@"data"], [self notesDirectoryURL])) {
+        if (error) *error = NVCheckpointError(9, @"The active library checkpoint could not be synchronized. Its recovery journal remains open.");
+        return NO;
+    }
+    if (walWriter && (![walWriter synchronize] || ![walWriter destroyLogFilePreservingWriterOnFailure])) {
+        if (error) *error = NVCheckpointError(kWriteJournalErr, @"The active recovery journal could not be closed. The library was not replaced.");
+        return NO;
+    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:walWriter];
+    [walWriter release]; walWriter = nil;
+    [self stopFileNotifications];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    if (changeWritingTimer) {
+        [changeWritingTimer invalidate]; [changeWritingTimer release]; changeWritingTimer = nil;
+    }
+    backupRestorePrepared = YES;
+    return YES;
+}
+
+- (void)finishPreparedBackupRestore {
+    NSAssert(backupRestorePrepared, @"Only a safely checkpointed library can finish a restore switch");
+    // ODB cancellation removes callbacks; it does not read or commit the external file.
+    [allNotes makeObjectsPerformSelector:@selector(abortEditingInExternalEditor)];
+    [deletionManager cancelPanelReturningCode:NSRunStoppedResponse];
+    [allNotes makeObjectsPerformSelector:@selector(disconnectLabels)];
+    [allNotes makeObjectsPerformSelector:@selector(detachFromClosedLibrary)];
+    [notationPrefs setDelegate:nil];
+    delegate = nil;
+}
+
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError**)error {
+    if (error) *error = nil;
+    if (!backupRestorePrepared) return YES;
+    if (![self initializeJournaling]) {
+        if (error) *error = NVCheckpointError(kWriteJournalErr, @"The original library recovery journal could not be reopened.");
+        return NO;
+    }
+    backupRestorePrepared = NO;
+    [self databaseSettingsChangedFromOldFormat:[self currentNoteStorageFormat]];
     return YES;
 }
 
@@ -611,6 +810,7 @@ bail:
 	NSInteger currentStorageFormat = [notationPrefs notesStorageFormat];
     
 	if (!walWriter && ![self initializeJournaling]) {
+        if (openingRestoredLibrary) return;
 		[self performSelector:@selector(handleJournalError) withObject:nil afterDelay:0.0];
 	}
 	
@@ -660,6 +860,7 @@ bail:
 - (void)noteDidNotWrite:(NoteObject*)note errorCode:(OSStatus)error {
     [unwrittenNotes addObject:note];
     
+    if (capturingBackup) { lastWriteError = error; return; }
     if (error != lastWriteError) {
 		NSRunAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Changed notes could not be saved because %@.",
 																	 @"alert title appearing when notes couldn't be written"), 
@@ -1559,6 +1760,9 @@ bail:
     [allNotes release];
 	[notationPrefs release];
 	[unwrittenNotes release];
+    [backupCheckpointData release];
+    [backupCheckpointError release];
+    [restoreUnlockedPrefs release];
     
     [super dealloc];
 }

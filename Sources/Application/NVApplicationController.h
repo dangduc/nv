@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-@class AppController, NotationController, NoteObject, NVNoteEditingSession;
+@class AppController, NotationController, NoteObject, NVNoteEditingSession, NVBackupController;
 
 @interface NVApplicationController : NSObject <NSApplicationDelegate> {
     AppController *initialBrowser;
@@ -8,6 +8,7 @@
     NSMutableArray *browsers;
     NotationController *library;
     NSMutableDictionary *editingSessions;
+    NVBackupController *backupController;
     BOOL terminating;
     BOOL restoring;
     BOOL preservingExternalContents;
@@ -17,6 +18,8 @@
 - (AppController *)activeBrowser;
 - (NSArray *)browserControllers;
 - (NotationController *)library;
+- (NVBackupController *)backupController;
+- (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error;
 - (void)setLibrary:(NotationController *)newLibrary;
 - (void)browserBecameActive:(AppController *)browser;
 - (void)browserWillClose:(AppController *)browser;

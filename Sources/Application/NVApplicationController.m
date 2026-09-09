@@ -8,9 +8,16 @@
 #import "BookmarksController.h"
 #import "NotationPrefs.h"
 #import "NSString_NV.h"
+#import "NVBackupController.h"
+#import "NVBackupStore.h"
+#import "LinkingEditor.h"
 
 static NVApplicationController *NVSharedApplicationController;
 static NSString * const NVBrowserWindowsKey = @"NVBrowserWindows";
+
+@interface NVApplicationController ()
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
+@end
 
 AppController *NVControllerForView(NSView *view) {
     if ([view respondsToSelector:@selector(delegate)]) {
@@ -43,6 +50,7 @@ AppController *NVControllerForView(NSView *view) {
 }
 - (NSArray *)browserControllers { return [[browsers copy] autorelease]; }
 - (NotationController *)library { return library; }
+- (NVBackupController *)backupController { return backupController; }
 - (AppController *)activeBrowser {
     id controller = [[NSApp mainWindow] windowController];
     if ([browsers containsObject:controller]) return controller;
@@ -183,21 +191,75 @@ AppController *NVControllerForView(NSView *view) {
     [self restoreWindowStates];
 }
 - (void)setLibrary:(NotationController *)newLibrary {
+    [self setLibrary:newLibrary finishingOldLibrary:YES];
+}
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish {
     if (newLibrary == library) return;
-    for (AppController *browser in [self browserControllers]) [browser finishEditing];
-    for (NVNoteEditingSession *session in [editingSessions allValues]) [session close];
+    if (finish) for (AppController *browser in [self browserControllers]) [browser finishEditing];
+    for (NVNoteEditingSession *session in [editingSessions allValues]) {
+        if (finish) [session close];
+        else [session closeWithoutCommitting];
+    }
     [editingSessions removeAllObjects];
     [library setDelegate:nil];
-    [library closeAllResources];
+    if (finish) [library closeAllResources];
+    else [library finishPreparedBackupRestore];
     [library autorelease];
     library = [newLibrary retain];
     [library setDelegate:self];
     [library setUndoManager:[[[NSUndoManager alloc] init] autorelease]];
     [library filterNotesFromString:@""];
-    for (AppController *browser in [self browserControllers]) [browser attachLibrary:library];
+    for (AppController *browser in [self browserControllers]) [browser attachLibrary:library finishingOldLibrary:finish];
     // The MainMenu owner also retains the application-level preference and status UI.
-    if (![browsers containsObject:initialBrowser]) [initialBrowser attachLibrary:library];
+    if (![browsers containsObject:initialBrowser]) [initialBrowser attachLibrary:library finishingOldLibrary:finish];
+    if (!finish) [[GlobalPrefs defaultPrefs] setNotationPrefs:[library notationPrefs] sender:self];
     [[[GlobalPrefs defaultPrefs] bookmarksController] setDataSource:library];
+    if (!backupController) backupController = [[NVBackupController alloc] initWithApplicationController:self];
+    [backupController setLibrary:library];
+}
+- (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error {
+    if (error) *error = nil;
+    if (terminating || restoring || !library || ![archive objectForKey:@"data"] || !directory) {
+        if (error) *error = [NSError errorWithDomain:@"NVBackupRestore" code:3 userInfo:@{
+            NSLocalizedDescriptionKey:NSLocalizedString(@"The library is not available for a restore operation.", nil)}];
+        return NO;
+    }
+    for (AppController *browser in [self browserControllers]) {
+        if ([[browser valueForKey:@"textView"] hasMarkedText]) {
+            if (error) *error = [NSError errorWithDomain:@"NVBackupRestore" code:1 userInfo:@{
+                NSLocalizedDescriptionKey:NSLocalizedString(@"Finish composing text before switching to a restored library.", nil)}];
+            return NO;
+        }
+    }
+    NSString *originalPath = [[[library notesDirectoryURL] URLByResolvingSymlinksInPath] path];
+    NSString *newPath = [[directory URLByResolvingSymlinksInPath] path];
+    if ([newPath isEqual:originalPath] || [newPath hasPrefix:[originalPath stringByAppendingString:@"/"]]) {
+        if (error) *error = [NSError errorWithDomain:@"NVBackupRestore" code:2 userInfo:@{
+            NSLocalizedDescriptionKey:NSLocalizedString(@"Restore into an empty folder outside the active notes folder.", nil)}];
+        return NO;
+    }
+    if (![NVBackupStore writeRestoreArchiveData:[archive objectForKey:@"data"] toEmptyDirectory:directory error:error]) return NO;
+    for (AppController *browser in [self browserControllers]) [browser finishEditing];
+    for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
+    if (![library prepareForBackupRestoreWithError:error]) return NO;
+    restoring = YES;
+    FSRef ref;
+    OSStatus status = FSPathMakeRef((const UInt8 *)[newPath fileSystemRepresentation], &ref, NULL);
+    NotationController *replacement = status == noErr ? [[NotationController alloc] initWithRestoredDirectoryRef:&ref
+        unlockedPrefs:[archive objectForKey:@"unlockedPrefs"] error:&status] : nil;
+    if (replacement) {
+        [self setLibrary:replacement finishingOldLibrary:NO];
+        [replacement release];
+        restoring = NO;
+        [self saveWindowStates];
+        return YES;
+    }
+    NSError *resumeError = nil;
+    [library resumeAfterBackupRestoreFailureWithError:&resumeError];
+    restoring = NO;
+    if (error) *error = resumeError ?: [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:@{
+        NSLocalizedDescriptionKey:NSLocalizedString(@"The restored library could not open. The original library remains selected.", nil)}];
+    return NO;
 }
 - (IBAction)newWindow:(id)sender {
     if (!library) return;
@@ -333,6 +395,7 @@ AppController *NVControllerForView(NSView *view) {
 - (void)applicationWillTerminate:(NSNotification *)notification {
     [self saveWindowStates];
     terminating = YES;
+    [backupController stop];
     for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
     [initialBrowser applicationWillTerminate:notification];
     for (NVNoteEditingSession *session in [editingSessions allValues]) [session close];

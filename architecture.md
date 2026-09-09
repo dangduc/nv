@@ -156,6 +156,47 @@ Existing archives can contain obsolete account settings and remote metadata. The
 New snapshots omit remote metadata. Journal records retain note UUIDs, sequence numbers, and local deletion records.
 Legacy unkeyed records retain empty compatibility slots so their field order stays readable.
 
+## Automatic backups
+
+`NVApplicationController` owns one [NVBackupController](Sources/Storage/NVBackupController.m) for the shared library.
+The controller checks the schedule while the application is open, including periods with no browser windows.
+Backups default to a 15-minute interval and skip unchanged checkpoints.
+Preferences > Backups contains the interval, destination, retention, status, and manual actions.
+These settings belong to the local installation and library UUID.
+
+`NotationPrefs` archives the library UUID, checkpoint generation, and capture date with the notes.
+Each successful database checkpoint advances the generation. Failed checkpoints restore the previous generation and remain dirty.
+`NotationController` supplies the exact immutable bytes from that checkpoint.
+Archive creation stays on the main thread because encryption changes the preference salt.
+The serial backup worker receives no mutable notes or encryption keys.
+Active composition remains active, and backups contain the last committed model content.
+
+[NVBackupStore](Sources/Storage/NVBackupStore.m) writes private staging files and checks their SHA-256 checksum before publication.
+It publishes complete snapshot directories through an exclusive atomic rename, then applies retention.
+Retention checks library ownership and preserves at least three complete snapshots.
+The newest checkpoint remains protected after clock changes.
+A failed write leaves earlier complete snapshots available.
+An operation already in progress can finish in its original destination after a library switch.
+Its completion cannot update the new library's backup status or retention.
+
+Both storage modes use complete library archives. These archives preserve source bytes, encodings, tags, and syntax metadata.
+The existing encryption protects note data. Some library settings remain readable, and older backups can require an older password.
+The format supports archives through 512 MiB. It does not include arbitrary linked files or future native payloads.
+
+[NVBackupArchive](Sources/Storage/NVBackupArchive.m) decodes a selected backup before any active-library teardown.
+Recovery creates a new library UUID, clears filesystem associations, and selects database storage.
+This prevents missing individual text files from becoming external deletions during startup reconciliation.
+The prepared password state remains in memory and avoids a second password prompt during the switch.
+
+Restore writes a complete archive into a new, empty folder.
+It commits current edits and synchronizes the active checkpoint before it closes the old recovery journal.
+The restored initializer exclusively creates a new journal and never recovers an existing application-wide journal.
+If initialization fails, the coordinator resumes the original library.
+After successful preparation, browser and editing-session teardown skips further commits to the old library.
+Global preference callbacks run after all browsers attach to the restored library.
+
+[Backup usage](docs/automatic-backups.md) describes the controls and recovery limits.
+
 ## Browser UI and previews
 
 [AppController_BrowserUI.m](Sources/Browser/AppController_BrowserUI.m) builds the native toolbar, title and tag fields, and `NSSplitViewController` layout.

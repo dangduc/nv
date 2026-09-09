@@ -25,8 +25,12 @@ checks = [
     'columns/run-probes.py',
     'restoration/run-canaries.py',
 ]
-for check in checks:
-    print('Running ' + check, flush=True)
-    subprocess.run([sys.executable, str(repo / 'Tests/Regression' / check)],
+paths = [repo / 'Tests' / check for check in [
+    'BackupStore/run.py', 'BackupStore/run-teardown.py',
+    'BackupCoordinator/run.py', 'BackupPreferences/run.py', 'BackupArchive/native/run.py', 'BackupArchive/run.py',
+]] + [repo / 'Tests/Regression' / check for check in checks]
+for path in paths:
+    print('Running ' + str(path.relative_to(repo)), flush=True)
+    subprocess.run([sys.executable, str(path)],
                    cwd=repo, check=True)
 print('ALL REGRESSION CHECKS PASSED', flush=True)

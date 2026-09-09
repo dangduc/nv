@@ -1,0 +1,183 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger commits, finishes, closes, detaches, checks;
+static void Check(BOOL condition, NSString *message) {
+    checks++;
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+
+@interface FakeUndo : NSObject
+- (void)removeAllActionsWithTarget:(id)target;
+@end
+@implementation FakeUndo
+- (void)removeAllActionsWithTarget:(id)target {}
+@end
+@interface NoteObject : NSObject { CFUUIDBytes identifier; FakeUndo *undo; }
+- (CFUUIDBytes *)uniqueNoteIDBytes;
+- (id)undoManager;
+@end
+@implementation NoteObject
+- (id)init { if ((self = [super init])) undo = [FakeUndo new]; return self; }
+- (CFUUIDBytes *)uniqueNoteIDBytes { return &identifier; }
+- (id)undoManager { return undo; }
+- (void)dealloc { [undo release]; [super dealloc]; }
+@end
+@interface FakeHighlighter : NSObject
+- (void)close;
+@end
+@implementation FakeHighlighter
+- (void)close { closes++; }
+@end
+@interface FakeStorage : NSObject
+- (void)removeLayoutManager:(id)manager;
+- (void)addLayoutManager:(id)manager;
+@end
+@implementation FakeStorage
+- (void)removeLayoutManager:(id)manager {}
+- (void)addLayoutManager:(id)manager {}
+@end
+@interface FakeLayout : NSObject { FakeStorage *storage; }
+- (id)textStorage;
+@end
+@implementation FakeLayout
+- (id)init { if ((self = [super init])) storage = [FakeStorage new]; return self; }
+- (id)textStorage { return storage; }
+- (void)dealloc { [storage release]; [super dealloc]; }
+@end
+@interface FakeTextView : NSObject { FakeLayout *layout; }
+- (id)layoutManager;
+- (NSRange)selectedRange;
+- (void)setAllowsUndo:(BOOL)value;
+@end
+@implementation FakeTextView
+- (id)init { if ((self = [super init])) layout = [FakeLayout new]; return self; }
+- (id)layoutManager { return layout; }
+- (NSRange)selectedRange { return NSMakeRange(0, 0); }
+- (void)setAllowsUndo:(BOOL)value {}
+- (void)dealloc { [layout release]; [super dealloc]; }
+@end
+
+@interface NVNoteEditingSession : NSObject {
+    NoteObject *note; FakeHighlighter *sourceHighlighter; NSObject *metadataUndoTarget;
+}
+- (void)commitPendingTextChanges;
+- (void)close;
+- (void)closeWithoutCommitting;
+- (void)sourceLayoutDidDetach;
+- (void)sourceLayoutDidAttach;
+- (NSTextStorage *)textStorage;
+@end
+@implementation NVNoteEditingSession
+- (id)init {
+    if ((self = [super init])) { note = [NoteObject new]; sourceHighlighter = [FakeHighlighter new]; metadataUndoTarget = [NSObject new]; }
+    return self;
+}
+- (void)commitPendingTextChanges { commits++; }
+- (void)sourceLayoutDidDetach { detaches++; }
+- (void)sourceLayoutDidAttach {}
+- (NSTextStorage *)textStorage { return nil; }
+// SESSION_METHODS
+- (void)dealloc { [sourceHighlighter release]; [note release]; [metadataUndoTarget release]; [super dealloc]; }
+@end
+@interface NVApplicationController : NSObject
++ (id)sharedController;
+- (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note;
+@end
+@implementation NVApplicationController
++ (id)sharedController { static id owner; if (!owner) owner = [self new]; return owner; }
+- (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note { return nil; }
+@end
+@interface NSString (FakeIdentity)
++ (NSString *)uuidStringWithBytes:(CFUUIDBytes)identifier;
+@end
+@implementation NSString (FakeIdentity)
++ (NSString *)uuidStringWithBytes:(CFUUIDBytes)identifier { return @"note"; }
+@end
+@class AppController, NotationController, NoteAttributeColumn;
+@interface FakeTable : NSObject { AppController *browser; }
+- (id)initWithBrowser:(AppController *)controller;
+- (void)abortEditing;
+- (void)deselectAll:(id)sender;
+@end
+@interface FakeBrowserSession : NSObject
+- (NSString *)searchString;
+- (id)sortColumn;
+- (BOOL)reverseSorted;
+@end
+@implementation FakeBrowserSession
+- (NSString *)searchString { return nil; }
+- (id)sortColumn { return nil; }
+- (BOOL)reverseSorted { return NO; }
+@end
+@interface AppController : NSObject {
+    NoteObject *currentNote; NVNoteEditingSession *editingSession; FakeTextView *textView;
+    NSMutableDictionary *noteSelections; NSTextStorage *emptyEditorStorage; BOOL viewingNote;
+    FakeTable *notesTableView;
+}
+- (void)seedEditor;
+- (void)finishEditing;
+- (void)captureBodyPresentation;
+- (void)updateNoteHeader;
+- (void)updateBodyPresentation;
+- (void)discardViewer;
+- (void)updateViewerSnapshot;
+- (void)setupViewsAfterAppAwakened;
+- (FakeBrowserSession *)browserSession;
+- (void)_setCurrentNote:(NoteObject *)note;
+- (void)_setCurrentNote:(NoteObject *)note finishingEditing:(BOOL)value;
+- (void)attachLibrary:(NotationController *)library;
+- (void)attachLibrary:(NotationController *)library finishingOldLibrary:(BOOL)value;
+@end
+@implementation FakeTable
+- (id)initWithBrowser:(AppController *)controller { if ((self = [super init])) browser = controller; return self; }
+- (void)abortEditing {}
+- (void)deselectAll:(id)sender { [browser _setCurrentNote:nil]; }
+@end
+@implementation AppController
+- (id)init {
+    if ((self = [super init])) {
+        textView = [FakeTextView new]; noteSelections = [NSMutableDictionary new];
+        emptyEditorStorage = (id)[FakeStorage new]; notesTableView = [[FakeTable alloc] initWithBrowser:self];
+    }
+    return self;
+}
+- (void)seedEditor { currentNote = [NoteObject new]; editingSession = [NVNoteEditingSession new]; }
+- (void)finishEditing { finishes++; [editingSession commitPendingTextChanges]; }
+- (void)captureBodyPresentation {}
+- (void)updateNoteHeader {}
+- (void)updateBodyPresentation {}
+- (void)discardViewer {}
+- (void)updateViewerSnapshot {}
+- (void)setupViewsAfterAppAwakened {}
+- (FakeBrowserSession *)browserSession { return [[[FakeBrowserSession alloc] init] autorelease]; }
+// EDITOR_METHODS
+// ATTACHMENT_METHODS
+- (void)dealloc {
+    [currentNote release]; [editingSession release]; [textView release]; [noteSelections release];
+    [emptyEditorStorage release]; [notesTableView release]; [super dealloc];
+}
+@end
+
+int main(void) {
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    NVNoteEditingSession *session = [NVNoteEditingSession new];
+    [session closeWithoutCommitting];
+    Check(commits == 0 && closes == 1, @"prepared session teardown closes the highlighter without committing");
+    [session release];
+    session = [NVNoteEditingSession new];
+    [session close];
+    Check(commits == 1 && closes == 2, @"ordinary session teardown still commits once");
+    [session release];
+    AppController *browser = [AppController new];
+    [browser seedEditor];
+    commits = finishes = detaches = 0;
+    [browser attachLibrary:nil finishingOldLibrary:NO];
+    Check(finishes == 0 && commits == 0 && detaches == 1, @"prepared browser teardown does not commit through deselection callbacks");
+    [browser seedEditor];
+    [browser attachLibrary:nil];
+    Check(finishes == 1 && commits == 1 && detaches == 2, @"ordinary browser attachment still commits once");
+    [browser release];
+    printf("PASS: %lu teardown assertions using extracted production methods\n", (unsigned long)checks);
+    [pool drain];
+    return 0;
+}

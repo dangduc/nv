@@ -95,6 +95,11 @@ typedef struct _NoteCatalogEntry {
     WALStorageController *walWriter;
     NSMutableSet *unwrittenNotes;
 	BOOL notesChanged;
+    NSData *backupCheckpointData;
+    NSError *backupCheckpointError;
+    NotationPrefs *restoreUnlockedPrefs;
+    BOOL capturingBackup, backupRestorePrepared, openingRestoredLibrary;
+    BOOL backupJournalSyncFailed;
 	NSTimer *changeWritingTimer;
 	NSUndoManager *undoManager;
 }
@@ -103,6 +108,9 @@ typedef struct _NoteCatalogEntry {
 - (id)initWithAliasData:(NSData*)data error:(OSStatus*)err;
 - (id)initWithDefaultDirectoryReturningError:(OSStatus*)err;
 - (id)initWithDirectoryRef:(FSRef*)directoryRef error:(OSStatus*)err;
+// A restored library must never recover another library's application-wide journal.
+- (id)initWithRestoredDirectoryRef:(FSRef*)directoryRef error:(OSStatus*)err;
+- (id)initWithRestoredDirectoryRef:(FSRef*)directoryRef unlockedPrefs:(NotationPrefs*)prefs error:(OSStatus*)err;
 - (void)setAliasNeedsUpdating:(BOOL)needsUpdate;
 - (BOOL)aliasNeedsUpdating;
 - (NSData*)aliasDataForNoteDirectory;
@@ -113,6 +121,11 @@ typedef struct _NoteCatalogEntry {
 - (void)checkJournalExistence;
 - (void)closeJournal;
 - (BOOL)flushAllNoteChanges;
+// Main thread only. The immutable data and generation describe the same successful checkpoint.
+- (NSDictionary*)backupSnapshotWithError:(NSError**)error;
+- (BOOL)prepareForBackupRestoreWithError:(NSError**)error;
+- (void)finishPreparedBackupRestore;
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError**)error;
 - (void)flushEverything;
 
 - (void)mirrorAllOMToFinderTags;

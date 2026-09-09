@@ -14,6 +14,7 @@
 #import "PTKeyComboPanel.h"
 #import "PTKeyCombo.h"
 #import "NotationPrefsViewController.h"
+#import "NVBackupPreferencesViewController.h"
 #import "ExternalEditorListController.h"
 #import "NSData_transformations.h"
 #import "NSString_NV.h"
@@ -41,6 +42,15 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [prefsController unregisterTarget:self];
+    [backupPreferencesViewController release];
+    [centerStyle release];
+    [items release];
+    [super dealloc];
+}
+
 - (void)showWindow:(id)sender {
 	if (!window) {
 		if (![NSBundle loadNibNamed:@"Preferences" owner:self])  {
@@ -49,6 +59,7 @@
 		}
 	}
 	[checkSpellingButton setState:[prefsController checkSpellingAsYouType]];
+    [backupPreferencesViewController refreshControls];
 	if (![window isVisible])
 		[window center];
 	
@@ -389,6 +400,7 @@
     [item setLabel:localizedTitle];
     //[item setToolTip:@"General settings: appearance and behavior"];
     [item setImage:[[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"tiff"]] autorelease]];
+    if ([name isEqualToString:@"Backups"]) [item setImage:[NSImage imageNamed:NSImageNameFolderSmart]];
     [item setTarget:self];
     [item setAction:@selector(switchViews:)];
     [items setObject:item forKey:name];
@@ -459,6 +471,7 @@
     
     [self addToolbarItemWithName:@"General"];
     [self addToolbarItemWithName:@"Notes"];	
+    [self addToolbarItemWithName:@"Backups"];
     [self addToolbarItemWithName:@"Editing"];
 	[self addToolbarItemWithName:@"Fonts & Colors"];
 		
@@ -486,7 +499,7 @@
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)theToolbar {
-    return [NSArray arrayWithObjects:@"General", @"Notes", @"Editing", @"Fonts & Colors", nil];
+    return [NSArray arrayWithObjects:@"General", @"Notes", @"Backups", @"Editing", @"Fonts & Colors", nil];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar {
@@ -513,6 +526,10 @@
          prefsView = generalView;
     } else if([sender isEqualToString:@"Notes"]) {
         prefsView = [self databaseView];
+    } else if([sender isEqualToString:@"Backups"]) {
+        if (!backupPreferencesViewController) backupPreferencesViewController = [[NVBackupPreferencesViewController alloc] init];
+        prefsView = [backupPreferencesViewController view];
+        [backupPreferencesViewController refreshControls];
     } else if([sender isEqualToString:@"Editing"]) {
         prefsView = editingView;
     } else if([sender isEqualToString:@"Fonts & Colors"]) {
