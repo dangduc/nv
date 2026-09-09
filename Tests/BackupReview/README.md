@@ -21,6 +21,17 @@ Native probes can test production methods or components, with the dependencies
 described in each report. They do not establish full application integration.
 See [the validation record](../BackupValidation.md).
 
+Run current native review regressions from the repository root:
+
+```sh
+python3 Tests/BackupReview/run.py
+```
+
+Use `--round 1`, `--round 2`, or `--round 3` to select one round.
+Logs go to `build/BackupReview/validation/`.
+Reports record their original reviewed revisions. Correction records explain
+the regression modes and any explicit options for reproducing earlier behavior.
+
 ## Posted reviews
 
 | Round | Lens | PR comment | Evidence |
@@ -45,3 +56,8 @@ See [the validation record](../BackupValidation.md).
 | Rollback can recover a competing journal | P1 | `89ef4fe`: [exclusive rollback and regression](round1/kingsbury/FIX.md) |
 | Unchanged snapshots skip retention and hide cleanup errors | P2 | `a89f835`: [maintenance and retry](round1/luu/FIX.md) |
 | A backup discards active numeric preference edits | P2 | `34c3e4a`: [draft preservation](round1/contrarian_workflow/FIX.md) |
+| Closing Preferences leaves a numeric draft unsaved | P2 | `dae119b`: [close contract](round2/ousterhout/FIX.md) |
+| Plaintext deletion trusts another library's owner record | P2 | `cf4aa78`: [identity-bound deletion](round2/torvalds/FIX.md) |
+| A short interval reduces the failure retry delay | P3 | `cf4aa78`: [intentional retry delay](round2/torvalds/FIX.md) |
+| An obsolete decode replaces the current status | P3 | `cf4aa78`: [context isolation](round2/torvalds/FIX.md) |
+| Failed rollback returns to editing without a journal | P1 | `f7b938e`: [modal recovery and external-editor preflight](round2/kingsbury/FIX.md) |
