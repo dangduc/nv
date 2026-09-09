@@ -1,0 +1,94 @@
+2026-09-09 16:35:57.286 nvALT[69947:343329154] PASS: temporary library directory exists
+2026-09-09 16:35:57.287 nvALT[69947:343329154] PASS: temporary library opens
+2026-09-09 16:35:57.384 nvALT[69947:343329154] verified 0 notes in 0.000197053 s
+2026-09-09 16:35:57.871 nvALT[69947:343329154] PASS: two native browser windows share the disposable library
+2026-09-09 16:35:57.937 nvALT[69947:343329154] verified 2 notes in 0.000374079 s
+2026-09-09 16:35:58.121 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:58.121 nvALT[69947:343329154] PASS: both editors initially share the Markdown source storage
+2026-09-09 16:35:58.121 nvALT[69947:343329154] PASS: the initial real Exact search supplies a source decoration before composition
+2026-09-09 16:35:58.127 nvALT[69947:343329154] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 16:35:58.139 nvALT[69947:343329154] PASS: native source composition changes live storage while the model retains committed text
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:58.370 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:58.696 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:58.922 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:59.153 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:59.384 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:59.612 nvALT[69947:343329154] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: appearance, palette edits, and peer navigation retain the active marked range, selection, and focus
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: presentation changes do not alter live composition attributes or its source generation
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: presentation changes neither commit the composition nor add source Undo entries
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: uncommitted composition cannot acquire stale committed-source search backgrounds
+2026-09-09 16:35:59.613 nvALT[69947:343329154] PASS: the peer's different note keeps independent source storage during composition
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: explicitly ending composition commits the complete source and adds an Undo action
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: committing the composing note leaves the peer note and its history unchanged
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: the explicit ForegroundTextColor edit has a persistent preference value
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: the explicit BackgroundTextColor edit has a persistent preference value
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: the explicit SearchTermHighlightColor edit has a persistent preference value
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: the explicit DarkBackgroundTextColor edit has a persistent preference value
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: the explicit DarkSearchTermHighlightColor edit has a persistent preference value
+2026-09-09 16:35:59.673 nvALT[69947:343329154] PASS: editing other palette channels does not materialize or mutate the untouched dark foreground default
+2026-09-09 16:35:59.674 nvALT[69947:343329154] PASS: the independent restart oracle records both note identities and palette bytes
+2026-09-09 16:35:59.676 nvALT[69947:343329154] verified 2 notes in 0.000530005 s
+2026-09-09 16:35:59.677 nvALT[69947:343329154] PASS: both notes checkpoint successfully before restart
+2026-09-09 16:35:59.678 nvALT[69947:343329154] PASS: the preference checkpoint completes before process exit
+2026-09-09 16:35:59.678 nvALT[69947:343329154] KINGSBURY USER SCHEME ROUND 2 FIRST LAUNCH PASSED (62 checks)
+2026-09-09 16:36:00.016 nvALT[70018:343329612] PASS: temporary library directory exists
+2026-09-09 16:36:00.017 nvALT[70018:343329612] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.view-review.dd3029d3ffa2496aa255df6d4663409c/Interim Note-Changes: File exists
+2026-09-09 16:36:00.017 nvALT[70018:343329612] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-09 16:36:00.018 nvALT[70018:343329612] PASS: temporary library opens
+2026-09-09 16:36:00.088 nvALT[70018:343329612] verified 2 notes in 0.00029099 s
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the second process opens exactly the two checkpointed notes
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the archived ForegroundTextColor value survives process restart byte for byte
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the archived BackgroundTextColor value survives process restart byte for byte
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the archived SearchTermHighlightColor value survives process restart byte for byte
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the archived DarkBackgroundTextColor value survives process restart byte for byte
+2026-09-09 16:36:00.337 nvALT[70018:343329612] PASS: the archived DarkSearchTermHighlightColor value survives process restart byte for byte
+2026-09-09 16:36:00.338 nvALT[70018:343329612] PASS: the unedited dark foreground stays registration-only and retains its default after restart
+2026-09-09 16:36:00.338 nvALT[70018:343329612] PASS: the persisted menu choice is still the existing User Scheme value
+2026-09-09 16:36:00.338 nvALT[70018:343329612] PASS: the reopened note retains its exact UUID and title
+2026-09-09 16:36:00.338 nvALT[70018:343329612] PASS: committed source, syntax metadata, and tags survive the appearance/edit checkpoint
+2026-09-09 16:36:00.585 nvALT[70018:343329612] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:36:00.585 nvALT[70018:343329612] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:36:00.810 nvALT[70018:343329612] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:36:00.810 nvALT[70018:343329612] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:36:00.810 nvALT[70018:343329612] PASS: reopening and drawing both palettes retains the committed source
+2026-09-09 16:36:00.810 nvALT[70018:343329612] PASS: the reopened note retains its exact UUID and title
+2026-09-09 16:36:00.810 nvALT[70018:343329612] PASS: committed source, syntax metadata, and tags survive the appearance/edit checkpoint
+2026-09-09 16:36:01.060 nvALT[70018:343329612] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:36:01.060 nvALT[70018:343329612] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:36:01.288 nvALT[70018:343329612] PASS: the browser inherits application appearance through the native callback
+2026-09-09 16:36:01.288 nvALT[70018:343329612] PASS: the editor selects the expected palette after lifecycle changes
+2026-09-09 16:36:01.288 nvALT[70018:343329612] PASS: reopening and drawing both palettes retains the committed source
+2026-09-09 16:36:01.288 nvALT[70018:343329612] KINGSBURY USER SCHEME ROUND 2 RELAUNCH PASSED (24 checks)
