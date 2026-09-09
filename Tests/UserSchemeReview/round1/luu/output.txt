@@ -1,0 +1,156 @@
+2026-09-09 16:20:06.130 nvALT[62402:343282044] PASS: temporary library directory exists
+2026-09-09 16:20:06.131 nvALT[62402:343282044] PASS: temporary library opens
+2026-09-09 16:20:06.191 nvALT[62402:343282044] verified 0 notes in 0.000196934 s
+2026-09-09 16:20:06.449 nvALT[62402:343282044] PASS: native application appearance is available
+2026-09-09 16:20:06.590 nvALT[62402:343282044] PASS: a real peer browser exists
+2026-09-09 16:20:06.775 nvALT[62402:343282044] PASS: markdown has real current captures in both editors
+2026-09-09 16:20:06.775 nvALT[62402:343282044] PASS: the two syntax views share one source storage
+2026-09-09 16:20:06.775 nvALT[62402:343282044] PASS: the syntax sample has a nonempty parser capture
+2026-09-09 16:20:06.775 nvALT[62402:343282044] PASS: the ordinary sample has no syntax override
+2026-09-09 16:20:06.854 nvALT[62402:343282044] verified 1 notes in 0.000342965 s
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:06.881 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.003 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.003 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.004 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.004 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.004 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.004 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.004 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.133 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.134 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.257 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.381 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:07.636 nvALT[62402:343282044] OBSERVATION: markdown six two-window appearance updates with explicit 100ms pumps took 861.515ms
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: six appearance changes neither invalidate source analysis nor call the parser again
+2026-09-09 16:20:07.636 nvALT[62402:343282044] PASS: syntax recoloring preserves all shared source and model attributes
+2026-09-09 16:20:07.804 nvALT[62402:343282044] PASS: html has real current captures in both editors
+2026-09-09 16:20:07.804 nvALT[62402:343282044] PASS: the two syntax views share one source storage
+2026-09-09 16:20:07.804 nvALT[62402:343282044] PASS: the syntax sample has a nonempty parser capture
+2026-09-09 16:20:07.804 nvALT[62402:343282044] PASS: the ordinary sample has no syntax override
+2026-09-09 16:20:07.894 nvALT[62402:343282044] verified 2 notes in 0.000429034 s
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:07.932 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.058 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.183 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.184 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.309 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.431 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.554 nvALT[62402:343282044] OBSERVATION: html six two-window appearance updates with explicit 100ms pumps took 750.446ms
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: six appearance changes neither invalidate source analysis nor call the parser again
+2026-09-09 16:20:08.554 nvALT[62402:343282044] PASS: syntax recoloring preserves all shared source and model attributes
+2026-09-09 16:20:08.723 nvALT[62402:343282044] PASS: json has real current captures in both editors
+2026-09-09 16:20:08.723 nvALT[62402:343282044] PASS: the two syntax views share one source storage
+2026-09-09 16:20:08.723 nvALT[62402:343282044] PASS: the syntax sample has a nonempty parser capture
+2026-09-09 16:20:08.723 nvALT[62402:343282044] PASS: the ordinary sample has no syntax override
+2026-09-09 16:20:08.811 nvALT[62402:343282044] verified 3 notes in 0.000434995 s
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.849 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:08.973 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.102 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.223 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.345 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: an unpinned real window inherits application appearance and switches its palette
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: ordinary drawing resolves the newly inherited palette
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: existing current syntax captures stay colored across the appearance change
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: syntax glyph brightness changes with the actual editor background
+2026-09-09 16:20:09.468 nvALT[62402:343282044] OBSERVATION: json six two-window appearance updates with explicit 100ms pumps took 744.470ms
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: six appearance changes neither invalidate source analysis nor call the parser again
+2026-09-09 16:20:09.468 nvALT[62402:343282044] PASS: syntax recoloring preserves all shared source and model attributes
+2026-09-09 16:20:09.468 nvALT[62402:343282044] LUU USER SCHEME ROUND 1 PASSED (148 checks)

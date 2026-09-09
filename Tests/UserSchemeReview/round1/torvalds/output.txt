@@ -1,0 +1,72 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-jjj7b53g/Review.m:134:64: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  134 |     [window setAppearance:[NSAppearance appearanceNamed:dark ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+      |                                                                ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-jjj7b53g/Review.m:134:64: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  134 |     [window setAppearance:[NSAppearance appearanceNamed:dark ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+      |                                                                ^~~~~~~~~~~~~~~~~~~~~~~~                          
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-jjj7b53g/Review.m:224:43: warning: 'performAsCurrentDrawingAppearance:' is only available on macOS 11.0 or newer [-Wunguarded-availability-new]
+  224 |             [[window effectiveAppearance] performAsCurrentDrawingAppearance:^{
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  225 |                 Check([defaults integerForKey:@"ColorScheme"] == 3 && ![self usesDarkUserColorScheme] &&
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  226 |                     NVSameRGBA([self foregrndColor], [NSColor textColor]) && NVSameRGBA([self backgrndColor], [NSColor textBackgroundColor]),
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  227 |                     @"System keeps value 3 and resolves native colors without selecting the dark User palette");
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  228 |             }];
+      |             ~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:36:1: note: 'performAsCurrentDrawingAppearance:' has been marked as being introduced in macOS 11.0 here, but the deployment target is macOS 10.13.0
+   36 | - (void)performAsCurrentDrawingAppearance:(void (NS_NOESCAPE ^)(void))block API_AVAILABLE(macos(11.0));
+      | ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-jjj7b53g/Review.m:224:43: note: enclose 'performAsCurrentDrawingAppearance:' in an @available check to silence this warning
+  224 |             [[window effectiveAppearance] performAsCurrentDrawingAppearance:^{
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  225 |                 Check([defaults integerForKey:@"ColorScheme"] == 3 && ![self usesDarkUserColorScheme] &&
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  226 |                     NVSameRGBA([self foregrndColor], [NSColor textColor]) && NVSameRGBA([self backgrndColor], [NSColor textBackgroundColor]),
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  227 |                     @"System keeps value 3 and resolves native colors without selecting the dark User palette");
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  228 |             }];
+      |             ~~ 
+2 warnings generated.
+2026-09-09 16:19:48.458 nvALT[62322:343281351] PASS: temporary library directory exists
+2026-09-09 16:19:48.459 nvALT[62322:343281351] PASS: temporary library opens
+2026-09-09 16:19:48.541 nvALT[62322:343281351] verified 0 notes in 0.000196934 s
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: startup preserves the original light color archive bytes
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: a dark fallback exists only in registration defaults before the user edits it
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: startup preserves the original light color archive bytes
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: a dark fallback exists only in registration defaults before the user edits it
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: startup preserves the original light color archive bytes
+2026-09-09 16:19:48.782 nvALT[62322:343281351] PASS: a dark fallback exists only in registration defaults before the user edits it
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: a nil palette setter leaves its archived preference unchanged
+2026-09-09 16:19:48.783 nvALT[62322:343281351] PASS: nil palette setters produce no preference callbacks
+2026-09-09 16:19:48.937 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.106 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.270 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.433 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.601 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.773 nvALT[62322:343281351] PASS: browser foreground and background survive the palette callback autorelease pool
+2026-09-09 16:19:49.773 nvALT[62322:343281351] PASS: appearance transitions do not rewrite the original light archive or color space
+2026-09-09 16:19:49.773 nvALT[62322:343281351] PASS: appearance transitions do not rewrite the original light archive or color space
+2026-09-09 16:19:49.773 nvALT[62322:343281351] PASS: appearance transitions do not rewrite the original light archive or color space
+2026-09-09 16:19:49.773 nvALT[62322:343281351] PASS: the legacy highlight dictionary still equals the legacy light compositing getter in dark appearance
+2026-09-09 16:19:49.774 nvALT[62322:343281351] PASS: a retained highlight result remains valid and unchanged after later preferences and pool drainage
+2026-09-09 16:19:49.775 nvALT[62322:343281351] PASS: a new highlight read reflects later preferences independently of the retained result
+2026-09-09 16:19:49.775 nvALT[62322:343281351] PASS: the dark highlight handles the exact transparent and opaque endpoints
+2026-09-09 16:19:49.776 nvALT[62322:343281351] PASS: the dark highlight handles the exact transparent and opaque endpoints
+2026-09-09 16:19:49.947 nvALT[62322:343281351] PASS: fixed color schemes keep their selection and colors across light and dark appearance
+2026-09-09 16:19:50.122 nvALT[62322:343281351] PASS: fixed color schemes keep their selection and colors across light and dark appearance
+2026-09-09 16:19:50.294 nvALT[62322:343281351] PASS: fixed color schemes keep their selection and colors across light and dark appearance
+2026-09-09 16:19:50.457 nvALT[62322:343281351] PASS: fixed color schemes keep their selection and colors across light and dark appearance
+2026-09-09 16:19:50.620 nvALT[62322:343281351] PASS: System keeps value 3 and resolves native colors without selecting the dark User palette
+2026-09-09 16:19:50.788 nvALT[62322:343281351] PASS: System keeps value 3 and resolves native colors without selecting the dark User palette
+2026-09-09 16:19:50.788 nvALT[62322:343281351] TORVALDS ROUND 1 PASSED (35 checks)
