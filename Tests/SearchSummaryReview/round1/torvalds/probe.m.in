@@ -1,0 +1,175 @@
+#import <Cocoa/Cocoa.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// The session provides current, ordinary states. Controls and action dispatch use AppKit.
+@interface NVBrowserSession : NSObject {
+@public
+    NSString *query, *mode;
+    NSError *error;
+    BOOL terms, current, pending;
+    NSUInteger count, resultReads, distinctReads, refilterCalls;
+}
+- (NSString *)searchString;
+- (NSString *)searchMode;
+- (BOOL)hasSearchTerms;
+- (BOOL)searchResultsAreCurrent;
+- (BOOL)searchPending;
+- (NSError *)searchError;
+- (NSUInteger)resultCount;
+- (NSUInteger)distinctResultNoteCount;
+- (void)refilterNotes;
+@end
+@implementation NVBrowserSession
+- (NSString *)searchString { return query; }
+- (NSString *)searchMode { return mode; }
+- (BOOL)hasSearchTerms { return terms; }
+- (BOOL)searchResultsAreCurrent { return current; }
+- (BOOL)searchPending { return pending; }
+- (NSError *)searchError { return error; }
+- (NSUInteger)resultCount { ++resultReads; return current ? count : 0; }
+- (NSUInteger)distinctResultNoteCount { ++distinctReads; return current ? count : 0; }
+- (void)refilterNotes {
+    ++refilterCalls;
+    [error release]; error = nil;
+    current = NO; pending = YES;
+}
+- (void)dealloc { [query release]; [mode release]; [error release]; [super dealloc]; }
+@end
+
+@interface ReviewController : NSObject {
+@public
+    NVBrowserSession *fixture;
+    NSSearchField *field;
+    NSTextField *searchStatusField;
+    NSButton *createNoteButton;
+    NSView *notesSubview;
+    NSScrollView *notesScrollView;
+    BOOL searchStatusDelayElapsed;
+    NSUInteger cancelCalls, fieldActionCalls;
+    id fieldActionSender;
+}
+- (NVBrowserSession *)browserSession;
+- (void)updateSearchAffordance;
+- (IBAction)createNoteFromSearch:(id)sender;
+- (IBAction)retrySearch:(id)sender;
+- (void)cancelSearchIntents;
+- (void)fieldAction:(id)sender;
+@end
+
+@implementation ReviewController
+- (id)init {
+    if ((self = [super init])) {
+        fixture = [NVBrowserSession new];
+        field = [[NSSearchField alloc] initWithFrame:NSMakeRect(0, 0, 320, 24)];
+        searchStatusField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 320, 24)];
+        createNoteButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 320, 32)];
+        [createNoteButton setTarget:self];
+        [createNoteButton setHidden:YES];
+        notesSubview = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 180)];
+        notesScrollView = [[NSScrollView alloc] initWithFrame:[notesSubview bounds]];
+    }
+    return self;
+}
+- (NVBrowserSession *)browserSession { return fixture; }
+- (void)cancelSearchIntents { ++cancelCalls; }
+- (void)fieldAction:(id)sender { ++fieldActionCalls; fieldActionSender = sender; }
+/* PRODUCTION_METHODS */
+- (void)dealloc {
+    [fixture release]; [field release]; [searchStatusField release];
+    [createNoteButton release]; [notesSubview release]; [notesScrollView release];
+    [super dealloc];
+}
+@end
+
+static NSUInteger passed;
+static void Check(BOOL condition, NSString *message) {
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+    ++passed;
+    printf("PASS: %s\n", [message UTF8String]);
+}
+static void Configure(ReviewController *c, NSString *mode, NSString *query,
+                      BOOL terms, BOOL current, BOOL pending, NSUInteger count, NSError *error) {
+    NVBrowserSession *s = c->fixture;
+    [s->mode release]; s->mode = [mode copy];
+    [s->query release]; s->query = [query copy];
+    [s->error release]; s->error = [error retain];
+    s->terms = terms; s->current = current; s->pending = pending; s->count = count;
+}
+static void Status(ReviewController *c, NSString *expected, BOOL visible, NSString *stage) {
+    Check([[c->searchStatusField stringValue] isEqual:expected], [stage stringByAppendingString:@": status text"]);
+    Check([[c->searchStatusField toolTip] isEqual:expected], [stage stringByAppendingString:@": status tooltip"]);
+    Check([[c->field toolTip] isEqual:expected], [stage stringByAppendingString:@": field tooltip"]);
+    Check([c->searchStatusField isHidden] == !visible, [stage stringByAppendingString:@": status visibility"]);
+    NSRect expectedFrame = [c->notesSubview bounds];
+    if (visible) expectedFrame.size.height -= 24;
+    Check(NSEqualRects([c->notesScrollView frame], expectedFrame), [stage stringByAppendingString:@": list frame"]);
+}
+static void Button(ReviewController *c, BOOL visible, SEL action, NSString *stage) {
+    Check([c->createNoteButton isHidden] == !visible, [stage stringByAppendingString:@": button visibility"]);
+    Check([c->createNoteButton isEnabled], [stage stringByAppendingString:@": button enabled"]);
+    Check([c->createNoteButton action] == action, [stage stringByAppendingString:@": action selector"]);
+    Check([c->createNoteButton target] == c, [stage stringByAppendingString:@": action target"]);
+    Check([c respondsToSelector:action], [stage stringByAppendingString:@": handler exists"]);
+}
+int main(void) {
+    @autoreleasepool {
+        [NSApplication sharedApplication];
+        ReviewController *c = [ReviewController new];
+        NSError *error = [NSError errorWithDomain:@"Review" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Search temporarily unavailable"}];
+        Configure(c, @"fuzzy", @"alpha", YES, NO, NO, 0, error);
+        [c updateSearchAffordance];
+        Status(c, @"Search temporarily unavailable", YES, @"failure");
+        Button(c, YES, @selector(retrySearch:), @"failure");
+        Check([[c->createNoteButton title] isEqual:@"Retry Search"], @"failure: retry label");
+        Check(c->fixture->resultReads == 0, @"failure: unavailable count is not read");
+
+        [c->createNoteButton performClick:nil];
+        Check(c->cancelCalls == 1 && c->fixture->refilterCalls == 1, @"Retry dispatch cancels intents and refilters once");
+        Check(c->fieldActionCalls == 0, @"Retry does not dispatch creation");
+        Status(c, @"", NO, @"retry before delay");
+        Button(c, NO, @selector(createNoteFromSearch:), @"retry before delay");
+        c->searchStatusDelayElapsed = YES;
+        [c updateSearchAffordance];
+        Status(c, @"Searching…", YES, @"pending after delay");
+        Button(c, NO, @selector(createNoteFromSearch:), @"pending after delay");
+        Check(c->fixture->resultReads == 0, @"pending: unavailable count is not read");
+
+        Configure(c, @"fuzzy", @"alpha", YES, YES, NO, 17, nil);
+        [c updateSearchAffordance];
+        Status(c, @"", NO, @"completed fuzzy matches");
+        Button(c, NO, @selector(createNoteFromSearch:), @"completed fuzzy matches");
+
+        NSString *title = @"café 日本語 🔎";
+        Configure(c, @"fuzzy", title, YES, YES, NO, 0, nil);
+        [c updateSearchAffordance];
+        Status(c, @"", NO, @"completed fuzzy zero");
+        Button(c, YES, @selector(createNoteFromSearch:), @"completed fuzzy zero");
+        NSString *label = @"Create “café 日本語 🔎” — Return";
+        Check([[c->createNoteButton title] isEqual:label], @"Create preserves Unicode query in title");
+        Check([[c->createNoteButton toolTip] isEqual:label], @"Create preserves Unicode query in tooltip");
+        [c->createNoteButton performClick:nil];
+        Check(c->fieldActionCalls == 1 && c->fieldActionSender == c->createNoteButton, @"Create forwards the original sender once");
+        Check(c->cancelCalls == 1 && c->fixture->refilterCalls == 1, @"Create does not dispatch Retry");
+
+        Configure(c, @"exact", @"alpha", YES, YES, NO, 3, nil);
+        [c updateSearchAffordance];
+        Status(c, @"", NO, @"completed exact matches");
+        Button(c, NO, @selector(createNoteFromSearch:), @"completed exact matches");
+        Configure(c, @"exact", @"alpha", YES, YES, NO, 0, nil);
+        [c updateSearchAffordance];
+        Status(c, @"", NO, @"completed exact zero");
+        Button(c, YES, @selector(createNoteFromSearch:), @"completed exact zero");
+
+        NSUInteger reads = c->fixture->resultReads;
+        Configure(c, @"fuzzy", nil, NO, YES, NO, 0, nil);
+        [c updateSearchAffordance];
+        Status(c, @"", NO, @"empty query");
+        Button(c, NO, @selector(createNoteFromSearch:), @"empty query");
+        Check(c->fixture->resultReads == reads, @"empty query: count is not read");
+        Check(c->fixture->distinctReads == 0, @"summary-only distinct count is never read");
+        printf("TORVALDS_SUMMARY_PASS assertions=%lu states=8\n", (unsigned long)passed);
+        [c release];
+    }
+    return 0;
+}
