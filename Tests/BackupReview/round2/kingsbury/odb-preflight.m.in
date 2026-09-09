@@ -1,0 +1,210 @@
+#import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
+#import "ODBEditor.h"
+#import "ODBEditorSuite.h"
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#define SingleDatabaseFormat 0
+#define PlainTextFormat 1
+#define NotePreviewString 1
+#define kWriteJournalErr 42
+
+static NSString *NotesDatabaseFileName = @"Notes & Settings";
+static NSString *fixtureDirectory, *editingPath;
+static NSUInteger checks, journalCloses, monitorStops;
+static BOOL registerDuringSnapshot;
+static void Check(BOOL condition, NSString *message) {
+    checks++;
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+static NSData *Bytes(NSString *text) { return [text dataUsingEncoding:NSUTF8StringEncoding]; }
+static NSString *JournalPath(void) { return [fixtureDirectory stringByAppendingPathComponent:@"Interim Note-Changes"]; }
+static NSError *NVCheckpointError(NSInteger code, NSString *message) {
+    return [NSError errorWithDomain:@"Review" code:code userInfo:@{NSLocalizedDescriptionKey: message}];
+}
+// PRODUCTION_CHECKPOINT_SYNC
+// PRODUCTION_CONSTANTS
+
+@interface ODBEditor (Fixture)
+- (void)registerPath:(NSString *)path client:(id)client;
+- (NSUInteger)sessionCount;
+- (void)handleModifiedFileEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply;
+- (void)handleClosedFileEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply;
+@end
+@implementation ODBEditor
++ (id)sharedODBEditor { static id editor; if (!editor) editor = [self new]; return editor; }
+- (id)init { if ((self = [super init])) _filePathsBeingEdited = [NSMutableDictionary new]; return self; }
+- (void)registerPath:(NSString *)path client:(id)client {
+    [_filePathsBeingEdited setObject:@{ODBEditorNonRetainedClient: [NSValue valueWithNonretainedObject:client],
+        ODBEditorFileName: path, ODBEditorIsEditingString: @NO} forKey:path];
+}
+- (NSUInteger)sessionCount { return [_filePathsBeingEdited count]; }
+- (void)abortEditingFile:(NSString *)path { Check(NO, @"preparation must not cancel an editor session"); }
+- (void)abortAllEditingSessionsForClient:(id)client { Check(NO, @"preparation must not cancel client sessions"); }
+- (void)initializeDatabase:(NotationPrefs *)prefs { Check(NO, @"preparation must not reinitialize the editor"); }
+- (BOOL)editFile:(NSString *)path inEditor:(ExternalEditor *)editor options:(NSDictionary *)options forClient:(id)client context:(NSDictionary *)context {
+    Check(NO, @"fixture never opens an external editor"); return NO;
+}
+- (BOOL)editNote:(NoteObject *)note inEditor:(ExternalEditor *)editor context:(NSDictionary *)context {
+    Check(NO, @"fixture never opens an external editor"); return NO;
+}
+- (BOOL)editString:(NSString *)string inEditor:(ExternalEditor *)editor options:(NSDictionary *)options forClient:(id)client context:(NSDictionary *)context {
+    Check(NO, @"fixture never opens an external editor"); return NO;
+}
+// PRODUCTION_QUERY
+// PRODUCTION_EVENTS
+@end
+
+@interface Writer : NSObject { int fd; }
+- (BOOL)synchronize;
+- (BOOL)destroyLogFilePreservingWriterOnFailure;
+- (void)writeData:(NSData *)data;
+@end
+@implementation Writer
+- (id)init {
+    if ((self = [super init])) fd = open([JournalPath() fileSystemRepresentation], O_CREAT | O_EXCL | O_RDWR, 0600);
+    Check(fd >= 0, @"fixture journal opens exclusively");
+    return self;
+}
+- (void)writeData:(NSData *)data {
+    Check(ftruncate(fd, 0) == 0 && lseek(fd, 0, SEEK_SET) == 0 &&
+          write(fd, [data bytes], [data length]) == (ssize_t)[data length] && fsync(fd) == 0,
+          @"fixture journal persists external content");
+}
+- (BOOL)synchronize { return fsync(fd) == 0; }
+- (BOOL)destroyLogFilePreservingWriterOnFailure { journalCloses++; return unlink([JournalPath() fileSystemRepresentation]) == 0; }
+- (void)dealloc { if (fd >= 0) close(fd); [super dealloc]; }
+@end
+
+@interface NSObject (FixtureNotifications)
+- (void)scheduleWriteForNote:(NoteObject *)note;
+- (void)note:(NoteObject *)note attributeChanged:(NSInteger)attribute;
+- (void)contentsUpdatedForNote:(NoteObject *)note;
+@end
+@interface NoteObject : NSObject { @public id delegate; NSData *body; }
+- (BOOL)hasPendingSourceFileWrite;
+- (BOOL)sourceConversionPending;
+- (BOOL)updateFromData:(NSMutableData *)data inFormat:(NSInteger)format;
+- (void)makeNoteDirtyUpdateTime:(BOOL)updateTime updateFile:(BOOL)updateFile;
+@end
+@implementation NoteObject
+- (id)init { if ((self = [super init])) body = [Bytes(@"before restore") retain]; return self; }
+- (BOOL)hasPendingSourceFileWrite { return NO; }
+- (BOOL)sourceConversionPending { return NO; }
+- (BOOL)updateFromData:(NSMutableData *)data inFormat:(NSInteger)format {
+    if (!data) return NO;
+    [body release]; body = [data copy]; return YES;
+}
+- (void)makeNoteDirtyUpdateTime:(BOOL)updateTime updateFile:(BOOL)updateFile { [delegate scheduleWriteForNote:self]; }
+// PRODUCTION_NOTE_EVENTS
+- (void)dealloc { [body release]; [super dealloc]; }
+@end
+
+@interface NotationController : NSObject {
+@public
+    NSArray *allNotes;
+    BOOL capturingBackup, backupRestorePrepared;
+    NSInteger lastWriteError;
+    Writer *walWriter;
+    NSTimer *changeWritingTimer;
+}
+- (BOOL)prepareForBackupRestoreWithError:(NSError **)error;
+- (NSInteger)currentNoteStorageFormat;
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error;
+- (NSURL *)notesDirectoryURL;
+- (void)stopFileNotifications;
+@end
+@implementation NotationController
+- (id)init {
+    if ((self = [super init])) {
+        NoteObject *note = [[NoteObject new] autorelease];
+        note->delegate = self;
+        allNotes = [[NSArray alloc] initWithObjects:note, nil];
+        walWriter = [Writer new];
+        [walWriter writeData:note->body];
+    }
+    return self;
+}
+- (id)delegate { return nil; }
+- (NSInteger)currentNoteStorageFormat { return SingleDatabaseFormat; }
+- (NSURL *)notesDirectoryURL { return [NSURL fileURLWithPath:fixtureDirectory]; }
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error {
+    NoteObject *note = [allNotes objectAtIndex:0];
+    NSData *data = [[note->body copy] autorelease];
+    Check([data writeToURL:[[self notesDirectoryURL] URLByAppendingPathComponent:NotesDatabaseFileName] options:NSDataWritingAtomic error:error],
+          @"fixture checkpoint writes note content");
+    if (registerDuringSnapshot) {
+        [[ODBEditor sharedODBEditor] registerPath:editingPath client:note];
+        registerDuringSnapshot = NO;
+    }
+    return @{ @"data": data };
+}
+- (void)scheduleWriteForNote:(NoteObject *)note { [walWriter writeData:note->body]; }
+- (void)note:(NoteObject *)note attributeChanged:(NSInteger)attribute {}
+- (void)stopFileNotifications { monitorStops++; }
+// PRODUCTION_PREPARE
+- (void)dealloc { [walWriter release]; [allNotes release]; [super dealloc]; }
+@end
+
+static NSAppleEventDescriptor *EventForPath(NSString *path, AEEventID eventID) {
+    NSAppleEventDescriptor *event = [NSAppleEventDescriptor appleEventWithEventClass:kODBEditorSuite eventID:eventID
+        targetDescriptor:nil returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+    [event setParamDescriptor:[NSAppleEventDescriptor descriptorWithDescriptorType:typeFileURL
+        data:Bytes([[NSURL fileURLWithPath:path] absoluteString])] forKeyword:keyDirectObject];
+    return event;
+}
+
+int main(int argc, const char **argv) {
+    @autoreleasepool {
+        Check(argc == 2, @"fixture receives its temporary directory");
+        fixtureDirectory = [[NSString stringWithUTF8String:argv[1]] stringByResolvingSymlinksInPath];
+        editingPath = [fixtureDirectory stringByAppendingPathComponent:@"external.txt"];
+        NSString *secondPath = [fixtureDirectory stringByAppendingPathComponent:@"external-second.txt"];
+        NotationController *library = [[NotationController new] autorelease];
+        NoteObject *note = [library->allNotes objectAtIndex:0];
+        ODBEditor *editor = [ODBEditor sharedODBEditor];
+        NSObject *otherClient = [[NSObject new] autorelease];
+        Check(![editor hasEditingSessionsForClient:note], @"a note without sessions does not block restore");
+        [editor registerPath:@"/unrelated-fixture-client" client:otherClient];
+        Check(![editor hasEditingSessionsForClient:note] && [editor hasEditingSessionsForClient:otherClient],
+              @"the session query compares client identity");
+        Check([Bytes(@"external pending") writeToFile:editingPath atomically:YES] &&
+              [Bytes(@"second pending") writeToFile:secondPath atomically:YES], @"external temporary files exist");
+        registerDuringSnapshot = YES;
+        NSError *error = nil;
+        Writer *originalWriter = library->walWriter;
+        Check(![library prepareForBackupRestoreWithError:&error] && [error code] == 10,
+              @"active external editor prevents preparation");
+        Check(!library->backupRestorePrepared && library->walWriter == originalWriter && journalCloses == 0 && monitorStops == 0,
+              @"refusal retains the original journal and directory monitoring");
+        [editor registerPath:secondPath client:note];
+        Check([editor sessionCount] == 3 && [editor hasEditingSessionsForClient:note],
+              @"refusal retains every external-editor callback registration");
+        Check([[NSData dataWithContentsOfFile:editingPath] isEqual:Bytes(@"external pending")] &&
+              [[NSData dataWithContentsOfFile:secondPath] isEqual:Bytes(@"second pending")],
+              @"refusal leaves temporary editor bytes unchanged");
+        [editor handleModifiedFileEvent:EventForPath(editingPath, kAEModifiedFile) withReplyEvent:nil];
+        Check([note->body isEqual:Bytes(@"external pending")] &&
+              [[NSData dataWithContentsOfFile:JournalPath()] isEqual:note->body],
+              @"the next external save reaches the original note and its journal");
+        [editor handleClosedFileEvent:EventForPath(editingPath, kAEClosedFile) withReplyEvent:nil];
+        Check(![[NSFileManager defaultManager] fileExistsAtPath:editingPath] && [editor hasEditingSessionsForClient:note],
+              @"normal close removes only the closed session and temporary file");
+        error = nil;
+        Check(![library prepareForBackupRestoreWithError:&error] && [error code] == 10 && journalCloses == 0,
+              @"the last active session still prevents preparation");
+        [editor handleModifiedFileEvent:EventForPath(secondPath, kAEModifiedFile) withReplyEvent:nil];
+        [editor handleClosedFileEvent:EventForPath(secondPath, kAEClosedFile) withReplyEvent:nil];
+        Check(![editor hasEditingSessionsForClient:note] && [editor sessionCount] == 1,
+              @"closing the last note session keeps unrelated clients intact");
+        error = nil;
+        Check([library prepareForBackupRestoreWithError:&error] && !error && library->backupRestorePrepared && !library->walWriter,
+              @"restore retry succeeds after the final external save and close");
+        Check([[NSData dataWithContentsOfFile:[fixtureDirectory stringByAppendingPathComponent:NotesDatabaseFileName]] isEqual:Bytes(@"second pending")] &&
+              journalCloses == 1 && monitorStops == 1, @"successful preparation checkpoints the final external content before closing its journal");
+        printf("PASS: %lu assertions; extracted preparation, ODB query/event dispatch, and note callbacks; fixture journal and checkpoint bytes\n", (unsigned long)checks);
+    }
+    return 0;
+}

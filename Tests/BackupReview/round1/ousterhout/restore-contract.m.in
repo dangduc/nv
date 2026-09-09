@@ -4,13 +4,23 @@
 static NSMutableArray *events;
 static BOOL rejectPreparation, rejectInitialization, rejectResume, composing;
 static BOOL oldPrepared;
-static NSUInteger checks;
+static NSUInteger checks, panelVisits;
 static NSURL *sourceDirectory;
+static id fixtureApplication;
+#define NSApp ((NSApplication *)fixtureApplication)
+static NSInteger ReviewRecoveryPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
+#define NSRunCriticalAlertPanel ReviewRecoveryPanel
 static void Check(BOOL success, NSString *message) {
     checks++;
     if (!success) { NSLog(@"FAIL: %@ (%@)", message, events); exit(1); }
 }
 static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Review" code:1 userInfo:@{NSLocalizedDescriptionKey:message}]; }
+@interface ReviewApplication : NSObject
+- (void)terminate:(id)sender;
+@end
+@implementation ReviewApplication
+- (void)terminate:(id)sender { Check(NO, @"restore-order fixture only chooses Retry and never terminates an application"); }
+@end
 @interface NotationController : NSObject
 - (NSURL *)notesDirectoryURL;
 - (BOOL)prepareForBackupRestoreWithError:(NSError **)error;
@@ -32,6 +42,7 @@ static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Rev
 }
 - (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError **)error {
     [events addObject:@"resume-old"];
+    if (error) *error = nil;
     if (rejectResume) { if (error) *error = Error(@"resume failure"); return NO; }
     oldPrepared = NO; return YES;
 }
@@ -67,7 +78,7 @@ static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Rev
 @end
 @interface NVApplicationController : NSObject {
 @public
-    BOOL terminating, restoring;
+    BOOL terminating, restoring, backupRestoreInProgress;
     NotationController *library;
     NSMutableDictionary *editingSessions;
     NSArray *browsers;
@@ -89,6 +100,7 @@ static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Rev
 - (NSArray *)browserControllers { return browsers; }
 - (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish {
     Check(oldPrepared && !finish, @"prepared replacement requests no-commit teardown");
+    Check(backupRestoreInProgress && restoring, @"replacement attachment keeps the command guard active");
     [events addObject:finish ? @"switch:YES" : @"switch:NO"];
     [library release]; library = [newLibrary retain];
 }
@@ -97,19 +109,32 @@ static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Rev
 - (void)dealloc { [library release]; [browsers release]; [editingSessions release]; [super dealloc]; }
 @end
 
+static NVApplicationController *activeApp;
+static NSInteger ReviewRecoveryPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) {
+    panelVisits++;
+    Check(panelVisits == 1 && oldPrepared && activeApp->restoring && activeApp->backupRestoreInProgress,
+          @"resume failure stays paused until the recovery dialog retries");
+    [events addObject:@"recovery-retry"];
+    rejectResume = NO;
+    return NSAlertDefaultReturn;
+}
+
 static void Reset(void) {
     [events removeAllObjects];
     oldPrepared = rejectPreparation = rejectInitialization = rejectResume = composing = NO;
+    panelVisits = 0;
 }
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         Check(argc == 2, @"temporary target supplied");
         events = [NSMutableArray new];
+        fixtureApplication = [ReviewApplication new];
         sourceDirectory = [[NSURL fileURLWithPath:@"/a-distinct-original-library"] retain];
         NSURL *target = [NSURL fileURLWithPath:[NSString stringWithUTF8String:argv[1]]];
         NSDictionary *archive = @{@"data":[@"verified bytes" dataUsingEncoding:NSUTF8StringEncoding]};
         NSError *error = nil;
         NVApplicationController *app = [NVApplicationController new];
+        activeApp = app;
         Reset(); composing = YES;
         Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && [events count] == 0, @"composition rejects restore before storage writes");
         Reset();
@@ -123,12 +148,16 @@ int main(int argc, const char *argv[]) {
               @"failed initialization resumes original library and clears restoration guard");
         Check([[events lastObject] isEqual:@"resume-old"], @"failed replacement invokes original journal resume");
         Reset(); rejectInitialization = rejectResume = YES;
-        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && [[error localizedDescription] isEqual:@"resume failure"], @"resume failure is returned instead of replacement-open error");
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && error.code == -1 && !oldPrepared && !app->restoring && !app->backupRestoreInProgress,
+              @"resume failure retries and returns the replacement-open error after journal recovery");
+        Check([events isEqual:@[@"archive-write",@"browser-finish",@"session-commit",@"prepare-old",@"init-new",@"resume-old",@"recovery-retry",@"resume-old"]],
+              @"failed resume never returns before the recovery retry succeeds");
         Reset();
         Check([app restoreBackupArchive:archive toDirectory:target error:&error] && app->library != original && !app->restoring, @"successful replacement changes selected library and clears guard");
         Check([events isEqual:@[@"archive-write",@"browser-finish",@"session-commit",@"prepare-old",@"init-new",@"switch:NO",@"save-windows"]], @"successful replacement follows expected boundary ordering");
         printf("PASS: %lu extracted application restore-contract checks\n", (unsigned long)checks);
         [app release];
+        [fixtureApplication release];
     }
     return 0;
 }

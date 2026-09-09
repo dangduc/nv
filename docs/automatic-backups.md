@@ -37,7 +37,10 @@ The separate deletion action deletes recognized unencrypted snapshots after conf
 
 nvALT checks the archive before it switches libraries. The restored library opens in database storage.
 The original library remains in its original folder. A restore failure leaves the original library selected.
+If that library cannot resume saving, nvALT pauses editing and shows Retry and Quit.
+Close any other copy of nvALT, then select Retry. You can also quit and reopen nvALT.
 If a note needs an encoding conversion, complete that conversion before switching libraries.
+Close active external-editor sessions before restoring. Their temporary files remain intact when this check blocks a restore.
 You can select separate text-file storage for the restored library through the existing Notes preferences.
 
 Automatic backups resume after launch or wake. Missed intervals produce one current snapshot, rather than copies for each interval.

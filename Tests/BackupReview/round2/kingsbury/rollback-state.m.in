@@ -12,7 +12,14 @@ static NSString *NoteDateModifiedColumnString = @"modified";
 static NSString *fixtureDirectory;
 static NSURL *sourceDirectory;
 static NSUInteger checks, recoveryReads, journalWrites, checkpointWrites, restarts, replacementAttempts;
-static BOOL introduceCollision;
+static BOOL introduceCollision, throwOnNextOpen;
+static id fixtureApplication;
+static NSUInteger panelVisits, terminationCalls, externalEvents, forwardedCalls;
+static const char *exitMode;
+static void ReviewTerminationCallback(void);
+#define NSApp ((NSApplication *)fixtureApplication)
+static NSInteger ReviewRecoveryPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) __attribute__((unused));
+#define NSRunCriticalAlertPanel ReviewRecoveryPanel
 static void Check(BOOL condition, NSString *message) {
     checks++;
     if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
@@ -64,6 +71,11 @@ static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sour
 @end
 @implementation WALStorageController
 - (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key {
+    if (throwOnNextOpen) {
+        throwOnNextOpen = NO;
+        [self release];
+        [NSException raise:@"FixtureJournal" format:@"fixture-note-secret: journal initialization raised"];
+    }
     if ((self = [super init])) {
         NSString *file = [[NSString stringWithUTF8String:path] stringByAppendingPathComponent:@"Interim Note-Changes"];
         fd = open([file fileSystemRepresentation], O_CREAT | O_EXCL | O_WRONLY | O_APPEND, 0600);
@@ -108,6 +120,14 @@ static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sour
 @end
 @implementation FrozenNotation
 + (NSData *)frozenDataWithExistingNotes:(NSArray *)notes prefs:(FakePrefs *)prefs { return Bytes(((NoteObject *)[notes objectAtIndex:0])->body); }
+@end
+@interface ODBEditor : NSObject
++ (id)sharedODBEditor;
+- (BOOL)hasEditingSessionsForClient:(id)client;
+@end
+@implementation ODBEditor
++ (id)sharedODBEditor { return nil; }
+- (BOOL)hasEditingSessionsForClient:(id)client { return NO; }
 @end
 
 @interface NotationController : NSObject {
@@ -169,6 +189,10 @@ static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sour
     self = [self init];
     replacementAttempts++;
     if (introduceCollision) Check([Bytes(@"competing library journal") writeToFile:JournalPath() atomically:NO], @"create competing journal in prepared gap");
+    if (strcmp(exitMode, "initialization") == 0) {
+        [self release];
+        [NSException raise:@"FixtureInitialization" format:@"fixture-note-secret: replacement initialization raised"];
+    }
     openingRestoredLibrary = YES;
     if (![self initializeJournaling]) { *error = -1; [self release]; return nil; }
     return self;
@@ -192,15 +216,27 @@ static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sour
 // application method determines commit calls and restoration guard changes.
 @interface AppController : NSObject
 - (void)finishEditing;
+- (void)application:(NSApplication *)application openFiles:(NSArray *)files;
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply;
+- (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+- (NSUInteger)fixtureMutation;
 @end
 @implementation AppController
 - (void)finishEditing {}
+- (void)application:(NSApplication *)application openFiles:(NSArray *)files { externalEvents++; }
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply { externalEvents++; }
+- (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error { externalEvents++; }
+- (void)applicationWillTerminate:(NSNotification *)notification { ReviewTerminationCallback(); }
+- (NSUInteger)fixtureMutation { forwardedCalls++; return 91; }
 @end
 @interface NVNoteEditingSession : NSObject
 - (void)commitPendingTextChanges;
+- (void)close;
 @end
 @implementation NVNoteEditingSession
 - (void)commitPendingTextChanges {}
+- (void)close {}
 @end
 @interface NVBackupStore : NSObject
 + (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)directory error:(NSError **)error;
@@ -210,32 +246,136 @@ static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sour
     return [data writeToURL:[directory URLByAppendingPathComponent:@"fixture-restore-archive"] options:0 error:error];
 }
 @end
+@interface NVBackupController : NSObject
+- (void)stop;
+@end
 @interface NVApplicationController : NSObject {
 @public
-    BOOL terminating, restoring;
+    BOOL terminating, finishingTermination, restoring, backupRestoreInProgress;
     NotationController *library;
     NSMutableDictionary *editingSessions;
+    NSArray *browsers;
+    AppController *operationBrowser;
+    AppController *initialBrowser;
+    NVBackupController *backupController;
 }
 - (NSArray *)browserControllers;
 - (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
 - (void)saveWindowStates;
 - (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error;
+- (AppController *)activeBrowser;
+- (id)forwardTargetForSelector:(SEL)selector;
+- (void)newWindow:(id)sender;
+#ifdef EXPECT_FIXED
+- (BOOL)rejectInvocationDuringBackupRestore:(NSInvocation *)invocation;
+- (void)application:(NSApplication *)application openFiles:(NSArray *)files;
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply;
+- (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser;
+- (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+#endif
 @end
 @implementation NVApplicationController
-- (id)init { if ((self = [super init])) { library = [NotationController new]; editingSessions = [NSMutableDictionary new]; } return self; }
+- (id)init { if ((self = [super init])) { library = [NotationController new]; editingSessions = [NSMutableDictionary new]; browsers = [[NSArray alloc] initWithObjects:[[[AppController alloc] init] autorelease], nil]; initialBrowser = [browsers objectAtIndex:0]; } return self; }
 - (NSArray *)browserControllers { return @[]; }
+- (AppController *)activeBrowser { return [browsers objectAtIndex:0]; }
+- (id)forwardTargetForSelector:(SEL)selector { return [self activeBrowser]; }
+- (void)newWindow:(id)sender { Check(NO, @"fixture never needs another browser"); }
 - (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish { Check(NO, @"failure test never switches library"); }
 - (void)saveWindowStates {}
 // PRODUCTION_RESTORE
-- (void)dealloc { [library release]; [editingSessions release]; [super dealloc]; }
+// PRODUCTION_EVENTS
+- (void)dealloc { [library release]; [editingSessions release]; [browsers release]; [super dealloc]; }
 @end
+
+static NVApplicationController *activeApp;
+@interface ReviewApplication : NSObject
+- (void)terminate:(id)sender;
+- (void)replyToOpenOrPrint:(NSApplicationDelegateReply)reply;
+@end
+@implementation ReviewApplication
+- (void)terminate:(id)sender {
+    terminationCalls++;
+    Check(activeApp->backupRestoreInProgress && activeApp->restoring, @"quit stays inside the recovery boundary");
+    if (strcmp(exitMode, "terminating") == 0) {
+#ifdef EXPECT_FIXED
+        [activeApp applicationWillTerminate:nil];
+#endif
+    }
+    if (terminationCalls == 2) [NSException raise:@"FixtureTerminate" format:@"fixture-note-secret: termination raised before it started"];
+    // The first return models cancellation. No real NSApplication is created.
+}
+- (void)replyToOpenOrPrint:(NSApplicationDelegateReply)reply { Check(reply == NSApplicationDelegateReplyFailure, @"nested file open reports refusal to its sender"); }
+@end
+
+static void ReviewTerminationCallback(void) {
+#ifdef EXPECT_FIXED
+    Check(activeApp->terminating && activeApp->finishingTermination, @"active termination callback can access its checkpoint");
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[activeApp->library methodSignatureForSelector:@selector(flushAllNoteChanges)]];
+    [invocation setSelector:@selector(flushAllNoteChanges)];
+    [activeApp performLibraryInvocation:invocation fromBrowser:[activeApp activeBrowser]];
+    BOOL saved = NO; [invocation getReturnValue:&saved];
+    Check(saved, @"normal termination checkpoint passes through the browser session");
+    Check(unlink([JournalPath() fileSystemRepresentation]) == 0, @"contention ends while simulated termination has started");
+    [NSException raise:@"FixtureTerminate" format:@"fixture-note-secret: termination callback failed after it started"];
+#endif
+}
+
+static void CheckBlockedEvents(void) {
+#ifdef EXPECT_FIXED
+    [activeApp application:(NSApplication *)fixtureApplication openFiles:@[@"/fixture/import.txt"]];
+    NSAppleEventDescriptor *reply = [NSAppleEventDescriptor appleEventWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:nil returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+    [activeApp handleGetURLEvent:nil withReplyEvent:reply];
+    Check([[reply paramDescriptorForKeyword:keyErrorNumber] int32Value] == errAEEventNotHandled && externalEvents == 0,
+          @"nested URL and file events never reach the browser");
+    NSString *serviceError = nil;
+    [activeApp createFromSelection:nil userData:nil error:&serviceError];
+    Check([serviceError length] > 0 && externalEvents == 0, @"paused Services request reports an error without creating a note");
+    NSMethodSignature *signature = [[activeApp activeBrowser] methodSignatureForSelector:@selector(fixtureMutation)];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setSelector:@selector(fixtureMutation)];
+    NSUInteger result = 99;
+    [invocation setReturnValue:&result];
+    [activeApp forwardInvocation:invocation];
+    [invocation getReturnValue:&result];
+    Check(result == 0 && forwardedCalls == 0, @"paused forwarded command returns zero and makes no mutation");
+    result = 99; [invocation setReturnValue:&result];
+    [activeApp performLibraryInvocation:invocation fromBrowser:[activeApp activeBrowser]];
+    [invocation getReturnValue:&result];
+    Check(result == 0 && forwardedCalls == 0, @"paused browser-to-library invocation returns zero and makes no mutation");
+#endif
+}
+static NSInteger ReviewRecoveryPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) {
+    panelVisits++;
+    Check(panelVisits <= 6, @"recovery sequence has a bounded fixture response count");
+    Check(activeApp->backupRestoreInProgress && activeApp->restoring && activeApp->library->backupRestorePrepared,
+          @"every dialog keeps the original library paused");
+    if (strcmp(exitMode, "terminating") == 0 && panelVisits == 2) {
+        Check(activeApp->terminating && !activeApp->finishingTermination && activeApp->library->walWriter == nil && alternateButton == nil && [defaultButton isEqual:@"Quit"],
+              @"started termination cannot resume editing even after journal contention ends");
+        CheckBlockedEvents();
+        printf("PASS: started termination exception returns to Quit-only dialog; fake application only\n");
+        fflush(stdout);
+        _exit(75); // Ends only this standalone fixture after its modal-boundary assertion.
+    }
+    Check([[NSData dataWithContentsOfFile:JournalPath()] isEqual:Bytes(@"competing library journal")] && recoveryReads == 0,
+          @"recovery dialog preserves the competing journal");
+    CheckBlockedEvents();
+    if (panelVisits <= 2) return NSAlertAlternateReturn;
+    if (panelVisits == 3) {
+        throwOnNextOpen = YES;
+        [NSException raise:@"FixturePanel" format:@"fixture-note-secret: panel failed"];
+    }
+    if (panelVisits == 5) Check(unlink([JournalPath() fileSystemRepresentation]) == 0, @"last retry releases competing journal");
+    return NSAlertDefaultReturn;
+}
 
 static void EditAndDrain(NotationController *library, NSString *text) {
     NoteObject *note = [library->allNotes objectAtIndex:0];
     [note->body release]; note->body = [text copy];
     [library scheduleWriteForNote:note];
     Check(library->notesChanged && [library->unwrittenNotes count] == 1 && library->changeWritingTimer != nil,
-          @"normal edit schedules an autosave even while restore remains prepared");
+          @"normal edit schedules an autosave");
     // Invoke the exact timer target without waiting 15 seconds.
     [library synchronizeNoteChanges:library->changeWritingTimer];
     [NSObject cancelPreviousPerformRequestsWithTarget:library];
@@ -245,6 +385,7 @@ static void EditAndDrain(NotationController *library, NSString *text) {
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         Check(argc == 3, @"temporary root and exit mode supplied");
+        exitMode = argv[2];
         fixtureDirectory = [NSString stringWithUTF8String:argv[1]];
         sourceDirectory = [NSURL fileURLWithPath:[fixtureDirectory stringByAppendingPathComponent:@"original"]];
         NSURL *target = [NSURL fileURLWithPath:[fixtureDirectory stringByAppendingPathComponent:@"replacement"]];
@@ -252,6 +393,8 @@ int main(int argc, const char *argv[]) {
         for (NSURL *url in @[sourceDirectory,target,retryTarget])
             Check([[NSFileManager defaultManager] createDirectoryAtURL:url withIntermediateDirectories:NO attributes:nil error:NULL], @"create disposable library directory");
         NVApplicationController *app = [NVApplicationController new];
+        activeApp = app;
+        fixtureApplication = [ReviewApplication new];
         NotationController *original = app->library;
         Check([original initializeJournaling] && [original flushAllNoteChanges], @"original starts with durable checkpoint and journal");
         Check([CheckpointData() isEqual:Bytes(@"before restore")], @"initial fixture checkpoint contains committed text");
@@ -259,6 +402,33 @@ int main(int argc, const char *argv[]) {
         introduceCollision = YES;
         NSError *error = nil;
         Check(![app restoreBackupArchive:archive toDirectory:target error:&error], @"replacement and rollback both refuse the competing journal");
+#ifdef EXPECT_FIXED
+        Check(error.code == -1 && original == app->library && !app->restoring && !app->backupRestoreInProgress,
+              @"restore returns its replacement error only after original recovery succeeds");
+        Check(!original->backupRestorePrepared && original->walWriter != nil && restarts == 1 && panelVisits == 5 && terminationCalls == 2,
+              @"retries survive cancellation, termination exception, panel exception, and persistent collision");
+        Check(recoveryReads == 0, @"all recovery retries preserve exclusive initialization");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[app activeBrowser] methodSignatureForSelector:@selector(fixtureMutation)]];
+        [invocation setSelector:@selector(fixtureMutation)];
+        [app forwardInvocation:invocation];
+        NSUInteger returned = 0; [invocation getReturnValue:&returned];
+        Check(returned == 91 && forwardedCalls == 1, @"ordinary forwarded command works after recovery");
+        [app application:(NSApplication *)fixtureApplication openFiles:@[@"/fixture/import.txt"]];
+        [app handleGetURLEvent:nil withReplyEvent:nil];
+        [app createFromSelection:nil userData:nil error:NULL];
+        Check(externalEvents == 3, @"ordinary external open events and Services work after recovery");
+        EditAndDrain(original, @"edit after recovery");
+        Check(journalWrites == 1 && [[NSData dataWithContentsOfFile:JournalPath()] isEqual:Bytes(@"edit after recovery")],
+              @"first edit after restore returns reaches the recovery journal");
+        if (strcmp(exitMode, "abrupt") == 0) {
+            printf("FIXED_ABRUPT_EXIT: later edit has a named recovery journal\n"); fflush(stdout); _exit(73);
+        }
+        Check([original backupSnapshotWithError:&error] != nil && error == nil && [CheckpointData() isEqual:Bytes(@"edit after recovery")],
+              @"backup capture also resumes and checkpoints later edits");
+        printf("PASS: %lu fixed recovery assertions; extracted production methods, mocked panels/application, fixture model/archive, real filesystem writes\n", (unsigned long)checks);
+        [app release]; [fixtureApplication release];
+        return 0;
+#else
         Check(error.code == kWriteJournalErr && original == app->library && !app->restoring, @"application returns rollback error with original selected and restoration guard clear");
         Check(original->backupRestorePrepared && original->walWriter == nil && recoveryReads == 0, @"original remains prepared without a journal and competing records stay unread");
         NSUInteger writesBefore = checkpointWrites;
@@ -304,6 +474,7 @@ int main(int argc, const char *argv[]) {
         printf("CONTROL: explicit_checkpoint_saved=1 internal_resume_succeeded=1 later_autosave_journal_writes=1\n");
         [app release];
         printf("PASS: %lu assertions; extracted production methods, fixture model/archive/UI, real journal and checkpoint filesystem writes\n", (unsigned long)checks);
+#endif
     }
     return 0;
 }

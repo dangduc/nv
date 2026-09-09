@@ -21,7 +21,7 @@ with tempfile.TemporaryDirectory(prefix="nv-review-restore-") as temporary:
     mutations = {
         "skip-original-prepare": method.replace("if (![library prepareForBackupRestoreWithError:error]) return NO;", ""),
         "recommit-after-prepare": method.replace("restoring = YES;", "restoring = YES; for (AppController *browser in [self browserControllers]) [browser finishEditing];", 1),
-        "skip-resume-on-failure": method.replace("[library resumeAfterBackupRestoreFailureWithError:&resumeError];", ""),
+        "skip-resume-on-failure": method.replace("[library resumeAfterBackupRestoreFailureWithError:&resumeError]", "YES"),
     }
     for name, changed in mutations.items():
         if method == changed:

@@ -180,6 +180,8 @@ The newest checkpoint remains protected after clock changes.
 A failed write leaves earlier complete snapshots available.
 An operation already in progress can finish in its original destination after a library switch.
 Its completion cannot update the new library's backup status or retention.
+Explicit plaintext-backup deletion checks the captured library UUID and selected-folder identity.
+An owner or folder mismatch leaves those backups untouched.
 
 Both storage modes use complete library archives. These archives preserve source bytes, encodings, tags, and syntax metadata.
 The existing encryption protects note data. Some library settings remain readable, and older backups can require an older password.
@@ -191,11 +193,14 @@ This prevents missing individual text files from becoming external deletions dur
 The prepared password state remains in memory and avoids a second password prompt during the switch.
 
 Restore writes a complete archive into a new, empty folder.
+Active external-editor sessions must close before preparation can finish.
+This check preserves their temporary files and prevents direct save callbacks during recovery.
 It commits current edits and synchronizes the active checkpoint before it closes the old recovery journal.
 The restored initializer exclusively creates a new journal and never recovers an existing application-wide journal.
 If initialization fails, the coordinator resumes the original library.
 Rollback also creates its journal exclusively. An occupied journal stays untouched,
-and restore reports that the original journal could not reopen.
+and a Retry/Quit dialog keeps the application in recovery until its journal reopens or the application quits.
+The coordinator rejects editing commands and external open requests while this transition runs.
 After successful preparation, browser and editing-session teardown skips further commits to the old library.
 Global preference callbacks run after all browsers attach to the restored library.
 

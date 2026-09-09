@@ -17,6 +17,7 @@ static NSString * const NVBrowserWindowsKey = @"NVBrowserWindows";
 
 @interface NVApplicationController ()
 - (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
+- (BOOL)rejectInvocationDuringBackupRestore:(NSInvocation *)invocation;
 @end
 
 AppController *NVControllerForView(NSView *view) {
@@ -191,6 +192,7 @@ AppController *NVControllerForView(NSView *view) {
     [self restoreWindowStates];
 }
 - (void)setLibrary:(NotationController *)newLibrary {
+    if (backupRestoreInProgress) return;
     [self setLibrary:newLibrary finishingOldLibrary:YES];
 }
 - (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish {
@@ -243,26 +245,57 @@ AppController *NVControllerForView(NSView *view) {
     for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
     if (![library prepareForBackupRestoreWithError:error]) return NO;
     restoring = YES;
+    backupRestoreInProgress = YES;
     FSRef ref;
     OSStatus status = FSPathMakeRef((const UInt8 *)[newPath fileSystemRepresentation], &ref, NULL);
-    NotationController *replacement = status == noErr ? [[NotationController alloc] initWithRestoredDirectoryRef:&ref
-        unlockedPrefs:[archive objectForKey:@"unlockedPrefs"] error:&status] : nil;
+    NotationController *replacement = nil;
+    @try {
+        if (status == noErr) replacement = [[NotationController alloc] initWithRestoredDirectoryRef:&ref
+            unlockedPrefs:[archive objectForKey:@"unlockedPrefs"] error:&status];
+    } @catch (NSException *exception) {
+        status = -1;
+        NSLog(@"Could not initialize the restored library.");
+    }
     if (replacement) {
         [self setLibrary:replacement finishingOldLibrary:NO];
         [replacement release];
+        backupRestoreInProgress = NO;
         restoring = NO;
         [self saveWindowStates];
         return YES;
     }
     NSError *resumeError = nil;
-    [library resumeAfterBackupRestoreFailureWithError:&resumeError];
+    // The original checkpoint is safe, but ordinary database autosave needs a
+    // journal. Keep the application modal until exclusive resume succeeds.
+    for (;;) {
+        @try {
+            if (!terminating && [library resumeAfterBackupRestoreFailureWithError:&resumeError]) break;
+        } @catch (NSException *exception) {
+            NSLog(@"Could not resume the original library during backup restore recovery.");
+        }
+        @try {
+            NSInteger response = NSRunCriticalAlertPanel(
+                terminating ? NSLocalizedString(@"nvALT could not finish quitting.", nil) :
+                    NSLocalizedString(@"The original library cannot resume saving.", nil),
+                terminating ? NSLocalizedString(@"Your notes are saved. Choose Quit to try again.", nil) :
+                    NSLocalizedString(@"Your notes are saved. Quit any other copy of nvALT, then choose Retry. You can also quit and reopen nvALT.", nil),
+                terminating ? NSLocalizedString(@"Quit", nil) : NSLocalizedString(@"Retry", nil),
+                terminating ? nil : NSLocalizedString(@"Quit", nil), nil);
+            if (terminating || response == NSAlertAlternateReturn) [NSApp terminate:self];
+        } @catch (NSException *exception) {
+            // A canceled or exceptional termination must not expose editors
+            // after the original journal failed to reopen.
+            NSLog(@"Could not complete backup restore recovery.");
+        }
+    }
+    backupRestoreInProgress = NO;
     restoring = NO;
     if (error) *error = resumeError ?: [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:@{
         NSLocalizedDescriptionKey:NSLocalizedString(@"The restored library could not open. The original library remains selected.", nil)}];
     return NO;
 }
 - (IBAction)newWindow:(id)sender {
-    if (!library) return;
+    if (!library || backupRestoreInProgress) return;
     AppController *browser = [[AppController alloc] init];
     NSNib *nib = [[NSNib alloc] initWithNibNamed:@"BrowserWindow" bundle:[NSBundle mainBundle]];
     NSArray *objects = nil;
@@ -330,6 +363,9 @@ AppController *NVControllerForView(NSView *view) {
     [self scheduleBrowserRefresh];
 }
 - (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser {
+    // Only the active termination callback can use normal checkpoint calls.
+    // A failed termination returns to the same paused command boundary.
+    if (!finishingTermination && [self rejectInvocationDuringBackupRestore:invocation]) return;
     AppController *previous = operationBrowser;
     operationBrowser = browser;
     @try { [invocation invokeWithTarget:library]; }
@@ -361,6 +397,7 @@ AppController *NVControllerForView(NSView *view) {
     [self scheduleBrowserRefresh];
 }
 - (void)setNote:(NoteObject *)note metadataValue:(NSString *)value isTitle:(BOOL)isTitle {
+    if (backupRestoreInProgress) return;
     if (![[library allNotes] containsObject:note]) return;
     [[self editingSessionForNote:note] setMetadataValue:value isTitle:isTitle];
 }
@@ -395,26 +432,45 @@ AppController *NVControllerForView(NSView *view) {
 - (void)applicationWillTerminate:(NSNotification *)notification {
     [self saveWindowStates];
     terminating = YES;
-    [backupController stop];
-    for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
-    [initialBrowser applicationWillTerminate:notification];
-    for (NVNoteEditingSession *session in [editingSessions allValues]) [session close];
+    finishingTermination = YES;
+    @try {
+        [backupController stop];
+        for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
+        [initialBrowser applicationWillTerminate:notification];
+        for (NVNoteEditingSession *session in [editingSessions allValues]) [session close];
+    } @finally {
+        finishingTermination = NO;
+    }
 }
 - (IBAction)toggleNVActivation:(id)sender {
+    if (backupRestoreInProgress) return;
     if (![browsers count]) [self newWindow:sender];
     else [[self activeBrowser] toggleNVActivation:sender];
 }
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)files {
+    if (backupRestoreInProgress) { [sender replyToOpenOrPrint:NSApplicationDelegateReplyFailure]; return; }
     if (library && ![browsers count]) [self newWindow:sender];
     [[self activeBrowser] application:sender openFiles:files];
 }
+- (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+    if (backupRestoreInProgress) {
+        if (error) *error = NSLocalizedString(@"Finish restoring the library before creating a note from a selection.", nil);
+        return;
+    }
+    [[self forwardTargetForSelector:_cmd] createFromSelection:pboard userData:userData error:error];
+}
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply {
+    if (backupRestoreInProgress) {
+        [reply setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:errAEEventNotHandled] forKeyword:keyErrorNumber];
+        return;
+    }
     if (library && ![browsers count]) [self newWindow:self];
     [[self activeBrowser] handleGetURLEvent:event withReplyEvent:reply];
 }
 - (void)refreshNotesList { for (AppController *browser in [self browserControllers]) [browser refreshNotesList]; }
 - (void)updateRTL { for (AppController *browser in [self browserControllers]) [browser updateRTL]; }
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visible {
+    if (backupRestoreInProgress) return NO;
     if (![browsers count]) [self newWindow:self];
     else [[[self activeBrowser] window] makeKeyAndOrderFront:self];
     return YES;
@@ -423,6 +479,7 @@ AppController *NVControllerForView(NSView *view) {
     return [self applicationShouldHandleReopen:application hasVisibleWindows:NO];
 }
 - (BOOL)validateMenuItem:(NSMenuItem *)item {
+    if (backupRestoreInProgress) return NO;
     if ([item action] == @selector(newWindow:)) return library != nil;
     id target = [self forwardTargetForSelector:[item action]];
     return [target respondsToSelector:@selector(validateMenuItem:)] ? [target validateMenuItem:item] : YES;
@@ -443,7 +500,17 @@ AppController *NVControllerForView(NSView *view) {
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)selector {
     return [super methodSignatureForSelector:selector] ?: [[self forwardTargetForSelector:selector] methodSignatureForSelector:selector];
 }
+- (BOOL)rejectInvocationDuringBackupRestore:(NSInvocation *)invocation {
+    if (!backupRestoreInProgress) return NO;
+    NSUInteger length = [[invocation methodSignature] methodReturnLength];
+    if (length) {
+        NSMutableData *zero = [NSMutableData dataWithLength:length];
+        [invocation setReturnValue:[zero mutableBytes]];
+    }
+    return YES;
+}
 - (void)forwardInvocation:(NSInvocation *)invocation {
+    if ([self rejectInvocationDuringBackupRestore:invocation]) return;
     SEL selector = [invocation selector];
     if (selector == @selector(setSystemColorScheme:) || selector == @selector(setBWColorScheme:) ||
         selector == @selector(setLCColorScheme:) || selector == @selector(setUserColorScheme:)) {

@@ -737,6 +737,14 @@ bail:
         if (error) *error = [snapshot objectForKey:@"sourceWriteError"] ?: [snapshot objectForKey:@"journalWriteError"];
         return NO;
     }
+    // ODB save events reach notes directly, including during a recovery dialog.
+    // Keep their sessions and temporary files intact until the editor closes.
+    for (NoteObject *note in allNotes) {
+        if ([[ODBEditor sharedODBEditor] hasEditingSessionsForClient:note]) {
+            if (error) *error = NVCheckpointError(10, @"Finish editing notes in other applications before restoring a backup.");
+            return NO;
+        }
+    }
     if (!NVSynchronizeBackupCheckpoint([snapshot objectForKey:@"data"], [self notesDirectoryURL])) {
         if (error) *error = NVCheckpointError(9, @"The active library checkpoint could not be synchronized. Its recovery journal remains open.");
         return NO;
