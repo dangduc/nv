@@ -472,8 +472,24 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 //use with rangesOfWordsInString:(NSString*)findString earliestRange:(NSRange*)aRange inRange:
 - (NSDictionary *)currentSearchHighlightAttributes {
     AppController *browser = NVControllerForView(self);
-    return [prefsController searchTermHighlightAttributesForDarkAppearance:[browser usesDarkUserColorScheme]
-        backgroundColor:[browser backgrndColor] ?: [self backgroundColor]];
+    __block NSDictionary *attributes = nil;
+    void (^resolve)(void) = ^{
+        attributes = [[prefsController searchTermHighlightAttributesForDarkAppearance:[browser usesDarkUserColorScheme]
+            backgroundColor:[browser backgrndColor] ?: [self backgroundColor]] retain];
+    };
+    // Search completions arrive outside drawing, where named colors need an explicit appearance.
+    if (@available(macOS 11.0, *)) [[self effectiveAppearance] performAsCurrentDrawingAppearance:resolve];
+    else {
+        NSAppearance *previousAppearance = [[NSAppearance currentAppearance] retain];
+        @try {
+            [NSAppearance setCurrentAppearance:[self effectiveAppearance]];
+            resolve();
+        } @finally {
+            [NSAppearance setCurrentAppearance:previousAppearance];
+            [previousAppearance release];
+        }
+    }
+    return [attributes autorelease];
 }
 
 - (void)setSearchHighlightRanges:(NSArray *)ranges {

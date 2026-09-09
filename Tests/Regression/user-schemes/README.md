@@ -9,6 +9,7 @@ python3 Tests/Regression/user-schemes/run.py --artifacts build/user-schemes-arti
 The runner copies the app and uses temporary notes and a unique preferences domain.
 It seeds the three existing color keys, then launches the copied app twice.
 It also compiles the production appearance method for macOS 10.13 and tests its older-system fallback.
+An additional copied-app launch checks dynamic colors selected through the native color panel.
 
 The checks cover:
 
@@ -20,6 +21,7 @@ The checks cover:
 - Search backgrounds composite the raw highlight alpha over each browser background.
 - Source attributes and Undo history remain unchanged.
 - Both custom palettes and the existing User Scheme choice survive relaunch.
+- Named colors from macOS's System color list resolve under each browser's appearance, including asynchronous search highlights.
 
 The fixture sets each test window's Aqua or Dark Aqua appearance.
 This exercises AppKit appearance callbacks without changing the user's system setting.
