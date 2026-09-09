@@ -14,7 +14,11 @@ disposable data. They do not access personal notes.
 | --- | --- | --- |
 | 1 | `30c3cf816c80e4ff957223d55f22b36074880ef1` | Six reviews posted; three unique findings |
 | 2 | `a89f8351646f824f51ed6ea80b94f724f37d0303` | Six reviews posted; five findings |
-| 3 | Pending | Pending |
+| 3 | `8ebbcb511415958f700ca54e4216e6447464d284` | Six reviews posted; no new actionable findings |
+
+All 18 reviews are complete. Delegated agents corrected the eight distinct
+findings from rounds 1 and 2. Round 3 added executable checks of the corrected
+code and found no new actionable issue within its documented scope.
 
 The host's Intel application startup stall prevents full desktop validation.
 Native probes can test production methods or components, with the dependencies
@@ -48,6 +52,12 @@ the regression modes and any explicit options for reproducing earlier behavior.
 | 2 | Kingsbury | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5594078283) | [Report](round2/kingsbury/REPORT.md) |
 | 2 | Contrarian data | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5594078891) | [Report](round2/contrarian_data/REPORT.md) |
 | 2 | Contrarian workflow | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5594089742) | [Report](round2/contrarian_workflow/REPORT.md) |
+| 3 | Luu | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595243181) | [Report](round3/luu/REPORT.md) |
+| 3 | Torvalds | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595243650) | [Report](round3/torvalds/REPORT.md) |
+| 3 | Ousterhout | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595269663) | [Report](round3/ousterhout/REPORT.md) |
+| 3 | Kingsbury | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595297045) | [Report](round3/kingsbury/REPORT.md) |
+| 3 | Contrarian data | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595333958) | [Report](round3/contrarian_data/REPORT.md) |
+| 3 | Contrarian workflow | [Review](https://github.com/fastducduc/nv/pull/8#issuecomment-5595355109) | [Report](round3/contrarian_workflow/REPORT.md) |
 
 ## Findings and corrections
 

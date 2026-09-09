@@ -41,6 +41,8 @@ The filesystem suite injects interrupted writes and checks retention, corruption
 The coordinator suite uses the production controller with a fake clock and controlled worker completions.
 The native archive suite uses the production model and archive code with UI stubs and a test crypto provider.
 It does not replace the copied-app checks of the shipping Intel/OpenSSL runtime or window and journal lifecycle.
+The [backup review record](BackupReview/README.md) links review findings, corrections, and additional native probes.
+Run those probes with `python3 Tests/BackupReview/run.py`.
 
 ## Native dependency replacements
 

@@ -1,0 +1,326 @@
+#import <Cocoa/Cocoa.h>
+#import <objc/runtime.h>
+#import "NoteObject.h"
+#import "NotationPrefs.h"
+#import "FrozenNotation.h"
+#import "NVBackupArchive.h"
+#import "NVBackupController.h"
+#import "NVBackupStore.h"
+#import "NSFileManager+DirectoryLocations.h"
+
+extern NSString *NotesDatabaseFileName;
+@interface NoteObject (ReviewPrivateMetadata)
+- (NSString *)sourceMetadataUUID;
+@end
+
+static NSUInteger checks;
+static NSString *testRoot;
+static id memoryDefaults;
+static void Check(BOOL result, NSString *message) {
+    if (!result) { NSLog(@"FAIL: %@", message); exit(1); }
+    checks++;
+}
+static NSError *NVCheckpointError(NSInteger code, NSString *description) {
+    return [NSError errorWithDomain:@"NVBackupArchiveErrorDomain" code:code
+        userInfo:@{NSLocalizedDescriptionKey: description}];
+}
+
+// The production coordinator sees only an in-memory defaults domain and a
+// disposable application-support path. No standard preferences are read.
+@interface MemoryDefaults : NSObject { NSMutableDictionary *values; }
+- (NSDictionary *)dictionaryForKey:(NSString *)key;
+- (void)setObject:(id)object forKey:(NSString *)key;
+- (id)objectForKey:(NSString *)key;
+- (BOOL)boolForKey:(NSString *)key;
+- (NSInteger)integerForKey:(NSString *)key;
+@end
+@implementation MemoryDefaults
+- (id)init { if ((self = [super init])) values = [NSMutableDictionary new]; return self; }
+- (NSDictionary *)dictionaryForKey:(NSString *)key { return [values objectForKey:key]; }
+- (id)objectForKey:(NSString *)key { return [values objectForKey:key]; }
+- (id)valueForKey:(NSString *)key { return [values objectForKey:key]; }
+- (BOOL)boolForKey:(NSString *)key { return [[values objectForKey:key] boolValue]; }
+- (NSInteger)integerForKey:(NSString *)key { return [[values objectForKey:key] integerValue]; }
+- (NSString *)stringForKey:(NSString *)key { return [values objectForKey:key]; }
+- (float)floatForKey:(NSString *)key { return [[values objectForKey:key] floatValue]; }
+- (double)doubleForKey:(NSString *)key { return [[values objectForKey:key] doubleValue]; }
+- (NSArray *)arrayForKey:(NSString *)key { return [values objectForKey:key]; }
+- (void)registerDefaults:(NSDictionary *)defaults {
+    for (NSString *key in defaults) if (![values objectForKey:key]) [values setObject:defaults[key] forKey:key];
+}
+- (void)setObject:(id)object forKey:(NSString *)key {
+    [values setObject:[[object copy] autorelease] forKey:key];
+}
+- (void)dealloc { [values release]; [super dealloc]; }
+@end
+static id MemoryStandardDefaults(id self, SEL selector) { return memoryDefaults; }
+@implementation NSFileManager (DirectoryLocations)
+- (NSString *)applicationSupportDirectory { return [testRoot stringByAppendingPathComponent:@"support"]; }
+@end
+
+@interface ProbeJournal : NSObject
+- (BOOL)synchronize;
+@end
+@implementation ProbeJournal
+- (BOOL)synchronize { return YES; }
+@end
+
+// The archive/model/prefs/controller/store compile unchanged. Only capture's
+// storage dependencies and library initialization are fixtures. The two capture
+// methods below come verbatim from the current NotationController on each run.
+@interface CaptureProbe : NSObject {
+@public
+    NotationPrefs *notationPrefs;
+    NSMutableArray *allNotes;
+    BOOL notesChanged, capturingBackup, backupRestorePrepared, backupJournalSyncFailed;
+    NSError *backupCheckpointError;
+    NSData *backupCheckpointData;
+    NSTimer *changeWritingTimer;
+    ProbeJournal *walWriter;
+    OSStatus lastWriteError;
+    FSRef noteDatabaseRef;
+    NSURL *directory;
+    NSUInteger checkpointWrites;
+}
+- (id)initWithData:(NSData *)data unlockedPrefs:(NotationPrefs *)prepared password:(NSData *)password directory:(NSURL *)url;
+- (NotationPrefs *)notationPrefs;
+- (BOOL)flushAllNoteChanges;
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error;
+- (void)synchronizeNoteChanges:(NSTimer *)timer;
+- (void)purgeOldPerDiskInfoFromNotes;
+- (NSURL *)notesDirectoryURL;
+- (NSString *)uniqueFilenameForTitle:(NSString *)title fromNote:(NoteObject *)note;
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name
+    destinationRef:(FSRef *)reference verifyWithSelector:(SEL)selector verificationDelegate:(id)verifier;
+@end
+@implementation CaptureProbe
+- (id)initWithData:(NSData *)data unlockedPrefs:(NotationPrefs *)prepared password:(NSData *)password directory:(NSURL *)url {
+    if ((self = [super init])) {
+        directory = [url retain];
+        Check([[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:YES
+            attributes:@{NSFilePosixPermissions: @0700} error:NULL], @"create disposable library directory");
+        FrozenNotation *archive = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NotationPrefs *decoded = [archive notationPrefs];
+        notationPrefs = [(prepared ?: decoded) retain];
+        if (prepared) Check([prepared matchesBackupEncryptionSettings:decoded], @"prepared settings match restored disk archive");
+        else if ([notationPrefs doesEncryption]) Check([notationPrefs canLoadPassphraseData:password], @"normal reopen unlocks with its own archived password settings");
+        OSStatus status = noErr;
+        allNotes = [[archive unpackedNotesWithPrefs:notationPrefs returningError:&status] retain];
+        Check(status == noErr && allNotes != nil, @"fixture initialization decodes production payload");
+        [notationPrefs setDelegate:self];
+        [allNotes makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
+        if (prepared) [notationPrefs finishOfflineBackupRestore];
+        Check([data writeToURL:[directory URLByAppendingPathComponent:NotesDatabaseFileName] atomically:YES], @"seed completed library archive");
+        backupCheckpointData = [data copy];
+        walWriter = [ProbeJournal new];
+    }
+    return self;
+}
+- (NotationPrefs *)notationPrefs { return notationPrefs; }
+- (void)synchronizeNoteChanges:(NSTimer *)timer { lastWriteError = noErr; }
+- (void)purgeOldPerDiskInfoFromNotes {}
+- (NSURL *)notesDirectoryURL { return directory; }
+- (NSString *)uniqueFilenameForTitle:(NSString *)title fromNote:(NoteObject *)note {
+    return [[note sourceMetadataUUID] stringByAppendingPathExtension:@"txt"];
+}
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name
+    destinationRef:(FSRef *)reference verifyWithSelector:(SEL)selector verificationDelegate:(id)verifier {
+    checkpointWrites++;
+    return [data writeToURL:[directory URLByAppendingPathComponent:name] atomically:YES] ? noErr : ioErr;
+}
+// EXTRACTED_CAPTURE_METHODS
+- (void)dealloc {
+    [notationPrefs setDelegate:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:notationPrefs];
+    [allNotes makeObjectsPerformSelector:@selector(detachFromClosedLibrary)];
+    [directory release]; [notationPrefs release]; [allNotes release]; [walWriter release];
+    [backupCheckpointData release]; [backupCheckpointError release];
+    [super dealloc];
+}
+@end
+
+static NVBackupController *Controller(CaptureProbe *library) {
+    // NSObject init leaves the real scheduling timer and worker absent. This
+    // probe calls production identity/settings methods and the store directly.
+    NVBackupController *controller = [[NVBackupController alloc] init];
+    [controller setLibrary:(id)library];
+    [NSObject cancelPreviousPerformRequestsWithTarget:controller];
+    return controller;
+}
+static NSDictionary *Snapshot(CaptureProbe *library) {
+    NSError *error = nil;
+    NSDictionary *snapshot = [library backupSnapshotWithError:&error];
+    Check(snapshot != nil && error == nil, @"production capture succeeds");
+    FrozenNotation *archive = [NSKeyedUnarchiver unarchiveObjectWithData:snapshot[@"data"]];
+    Check([snapshot[@"libraryIdentifier"] isEqual:[[archive notationPrefs] backupLibraryIdentifier]],
+        @"capture envelope and archived library identity agree");
+    Check([snapshot[@"generation"] unsignedLongLongValue] == [[archive notationPrefs] backupCheckpointGeneration],
+        @"capture envelope and archived generation agree");
+    return snapshot;
+}
+static NSDictionary *Publish(NVBackupController *controller, NSDictionary *snapshot) {
+    NSError *error = nil;
+    NSMutableDictionary *metadata = [[snapshot mutableCopy] autorelease];
+    [metadata removeObjectForKey:@"data"];
+    [metadata setObject:@"native-review" forKey:@"appVersion"];
+    NSDictionary *result = [NVBackupStore publishArchiveData:snapshot[@"data"] metadata:metadata
+        inDirectory:[controller destinationURL] retention:[controller settings] error:&error];
+    if (!result || error) NSLog(@"Publication fixture error at %@: %@", [controller destinationURL], error);
+    Check(result != nil && error == nil, @"production store publishes complete real archive");
+    Check([[NVBackupStore archiveDataAtSnapshotURL:result[@"snapshotURL"] error:&error] isEqual:snapshot[@"data"]] && error == nil,
+        @"production verified read preserves checkpoint bytes exactly");
+    return result;
+}
+static void SetPolicy(NVBackupController *controller, NSDictionary *policy) {
+    NSError *error = nil;
+    Check([controller setSettings:policy error:&error] && !error, @"production controller saves library settings");
+    [NSObject cancelPreviousPerformRequestsWithTarget:controller];
+}
+static NSData *SourceBytes(void) {
+    const unsigned char bom[] = {0xfe, 0xff};
+    NSMutableData *bytes = [NSMutableData dataWithBytes:bom length:sizeof(bom)];
+    [bytes appendData:[@"Café 雪\r\n{\"source\":true}\r\n" dataUsingEncoding:NSUTF16BigEndianStringEncoding]];
+    return bytes;
+}
+static void Preservation(CaptureProbe *library, NSString *noteID, NSData *bytes, NSString *syntax) {
+    Check([library->allNotes count] == 1, @"one supported source note survives");
+    NoteObject *note = library->allNotes[0];
+    Check([[note sourceMetadataUUID] isEqual:noteID], @"note UUID survives library identity changes");
+    Check([[note sourceSyntaxIdentifier] isEqual:syntax], @"attached note obtains syntax from its current library");
+    NSError *error = nil;
+    Check([[note sourceDataReturningError:&error] isEqual:bytes] && !error, @"unchanged export retains exact UTF-16 BE source and BOM");
+    Check([[note valueForKey:@"sourceOriginalData"] isEqual:bytes], @"original source data survives later checkpoint");
+    Check((uint32_t)note->fileEncoding == (uint32_t)NSUTF16BigEndianStringEncoding, @"source encoding identity survives later checkpoint");
+    Check([note->titleString isEqual:@"Source identity"] && [note->labelString isEqual:@"alpha, 雪"], @"title and tags survive later checkpoint");
+    Check(note->createdDate == 12345.25 && note->modifiedDate == 23456.5, @"metadata-only edit preserves authored dates");
+}
+
+static void Run(BOOL encrypted) {
+    NSURL *root = [NSURL fileURLWithPath:[testRoot stringByAppendingPathComponent:encrypted ? @"encrypted" : @"plaintext"] isDirectory:YES];
+    NSData *password = [@"disposable lifecycle password" dataUsingEncoding:NSUTF8StringEncoding];
+    NotationPrefs *seedPrefs = [NotationPrefs new];
+    // Valid archived display settings prevent unrelated legacy migration from
+    // dirtying every reopened fixture when the UI scaffolding returns nil.
+    [seedPrefs setValue:[NSFont systemFontOfSize:12] forKey:@"baseBodyFont"];
+    [seedPrefs setForegroundTextColor:[NSColor blackColor]];
+    [seedPrefs prepareForOfflineBackupRestore];
+    [seedPrefs setNotesStorageFormat:PlainTextFormat];
+    if (encrypted) { [seedPrefs setPassphraseData:password inKeychain:NO]; [seedPrefs setDoesEncryption:YES]; }
+    NoteObject *seed = [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc]
+        initWithString:@"Café 雪\r\n{\"source\":true}\r\n"] autorelease] title:@"Source identity"
+        delegate:nil format:PlainTextFormat labels:@"alpha, 雪"] autorelease];
+    NSData *bytes = SourceBytes();
+    [seed rememberSourceData:bytes encoding:NSUTF16BigEndianStringEncoding];
+    seed->createdDate = 12345.25; seed->modifiedDate = 23456.5;
+    NSString *noteID = [[seed sourceMetadataUUID] copy];
+    [seedPrefs setSourceMetadata:@{@"syntax": @"markdown"} forNoteUUID:noteID];
+    [seedPrefs setBackupCheckpointGeneration:31 date:[NSDate dateWithTimeIntervalSince1970:1234567890]];
+    NSData *seedData = [FrozenNotation frozenDataWithExistingNotes:[NSMutableArray arrayWithObject:seed] prefs:seedPrefs];
+    CaptureProbe *original = [[CaptureProbe alloc] initWithData:seedData unlockedPrefs:nil password:password
+        directory:[root URLByAppendingPathComponent:@"original"]];
+    NVBackupController *originalController = Controller(original);
+    NSString *originalID = [[originalController libraryIdentifier] copy];
+    SetPolicy(originalController, @{@"enabled": @NO, @"interval": @60, @"recent": @7, @"daily": @0, @"weekly": @0});
+    NSDictionary *originalPolicy = [[originalController settings] copy];
+    NSDictionary *originalSnapshot = Snapshot(original);
+    NSDictionary *originalPackage = Publish(originalController, originalSnapshot);
+    Preservation(original, noteID, bytes, @"markdown");
+
+    NSError *error = nil;
+    NSData *stored = [NVBackupStore archiveDataAtSnapshotURL:originalPackage[@"snapshotURL"] error:&error];
+    NSDictionary *restore = [NVBackupArchive restoredArchiveFromData:stored passphraseData:password error:&error];
+    Check(restore && !error, @"restore decodes an actual published archive");
+    Check(![restore[@"libraryIdentifier"] isEqual:originalID], @"offline restore assigns independent library identity");
+    CaptureProbe *restored = [[CaptureProbe alloc] initWithData:restore[@"data"] unlockedPrefs:restore[@"unlockedPrefs"]
+        password:password directory:[root URLByAppendingPathComponent:@"restored"]];
+    NVBackupController *restoredController = Controller(restored);
+    NSString *restoredID = [[restoredController libraryIdentifier] copy];
+    Check([restoredID isEqual:restore[@"libraryIdentifier"]], @"first attach preserves offline restore identity");
+    Check([[restoredController settings][@"enabled"] boolValue] && [[restoredController settings][@"interval"] intValue] == 900 &&
+        [[restoredController settings][@"recent"] intValue] == 96, @"restored library starts with independent installation settings");
+    Check(![[restoredController destinationURL] isEqual:[originalController destinationURL]], @"restored backup destination differs from original destination");
+    Preservation(restored, noteID, bytes, @"markdown");
+    Check([restored->notationPrefs notesStorageFormat] == SingleDatabaseFormat, @"restored library stays in database storage");
+    NoteObject *restoredNote = restored->allNotes[0];
+    [restoredNote setSourceSyntaxIdentifier:@"json"];
+    Check([restored->notationPrefs preferencesChanged] && !restored->notesChanged, @"syntax edit dirties only current library preferences");
+    Check([[original->allNotes[0] sourceSyntaxIdentifier] isEqual:@"markdown"], @"syntax edit leaves original library metadata unchanged");
+    SetPolicy(restoredController, @{@"interval": @120, @"recent": @3, @"daily": @0, @"weekly": @0});
+    Check([[originalController settings] isEqual:originalPolicy], @"restored policy edit leaves original settings unchanged");
+    NSDictionary *next = Snapshot(restored);
+    Check([next[@"generation"] intValue] == 2 && restored->checkpointWrites == 1,
+        @"next restored checkpoint advances generation one to two exactly once");
+    NSDictionary *restoredPackage = Publish(restoredController, next);
+    Check([Snapshot(restored)[@"data"] isEqual:next[@"data"]] && restored->checkpointWrites == 1,
+        @"clean restored capture reuses the completed second generation");
+
+    // A reopen at the same path and a rename on this volume keep the identity.
+    CaptureProbe *reopened = [[CaptureProbe alloc] initWithData:next[@"data"] unlockedPrefs:nil password:password
+        directory:restored->directory];
+    NVBackupController *reopenedController = Controller(reopened);
+    Check([[reopenedController libraryIdentifier] isEqual:restoredID], @"ordinary reopen keeps restored library identity");
+    Check([[reopenedController settings] isEqual:[restoredController settings]], @"ordinary reopen retrieves the restored settings");
+    Preservation(reopened, noteID, bytes, @"json");
+    Check([Snapshot(reopened)[@"data"] isEqual:next[@"data"]] && reopened->checkpointWrites == 0,
+        @"ordinary clean reopen preserves exact archived checkpoint");
+    NSURL *movedURL = [root URLByAppendingPathComponent:@"moved-restored"];
+    Check([[NSFileManager defaultManager] moveItemAtURL:reopened->directory toURL:movedURL error:&error], @"rename disposable restored directory");
+    [reopened->directory release]; reopened->directory = [movedURL retain];
+    [reopenedController setLibrary:(id)reopened];
+    [NSObject cancelPreviousPerformRequestsWithTarget:reopenedController];
+    Check([[reopenedController libraryIdentifier] isEqual:restoredID], @"folder move keeps identity through device and inode claim");
+    Check([[reopenedController destinationURL] isEqual:[restoredController destinationURL]], @"folder move keeps the prior backup destination");
+    Check([[reopenedController settings] isEqual:[restoredController settings]], @"folder move keeps local retention settings");
+
+    // An ordinary copy shares note UUIDs and archive bytes, but must not share
+    // backup ownership with the still-existing restored source directory.
+    NSURL *copiedURL = [root URLByAppendingPathComponent:@"copied-restored"];
+    Check([[NSFileManager defaultManager] copyItemAtURL:movedURL toURL:copiedURL error:&error], @"copy disposable library while source remains present");
+    CaptureProbe *copied = [[CaptureProbe alloc] initWithData:[NSData dataWithContentsOfURL:[copiedURL URLByAppendingPathComponent:NotesDatabaseFileName]]
+        unlockedPrefs:nil password:password directory:copiedURL];
+    NVBackupController *copiedController = Controller(copied);
+    Check(![[copiedController libraryIdentifier] isEqual:restoredID] &&
+        ![[copiedController libraryIdentifier] isEqual:originalID], @"copied live library receives a third backup identity");
+    Check([copied->notationPrefs backupCheckpointGeneration] == 0 && [copied->notationPrefs preferencesChanged],
+        @"copy identity renewal requires a new archive checkpoint");
+    Check([[copiedController settings][@"interval"] intValue] == 900, @"copied library does not inherit source policy");
+    Preservation(copied, noteID, bytes, @"json");
+    NSDictionary *copiedSnapshot = Snapshot(copied);
+    Check([copiedSnapshot[@"generation"] intValue] == 1 && copied->checkpointWrites == 1,
+        @"first copied-library checkpoint archives its renewed identity");
+    NSDictionary *copiedPackage = Publish(copiedController, copiedSnapshot);
+
+    // Explicit deletion in one valid library namespace cannot delete history
+    // in either related library, even though every note UUID is the same.
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:[reopenedController destinationURL]
+        metadata:@{@"libraryIdentifier": restoredID} error:&error] && !error, @"plaintext deletion accepts restored namespace ownership");
+    NSArray *remaining = [NVBackupStore snapshotsInDirectory:[reopenedController destinationURL] error:&error];
+    Check(remaining && [remaining count] == (encrypted ? 1 : 0), @"plaintext deletion follows archive encryption state");
+    Check([[NVBackupStore archiveDataAtSnapshotURL:originalPackage[@"snapshotURL"] error:&error] isEqual:stored],
+        @"restored-library deletion preserves original historical archive");
+    Check([[NVBackupStore archiveDataAtSnapshotURL:copiedPackage[@"snapshotURL"] error:&error] isEqual:copiedSnapshot[@"data"]],
+        @"restored-library deletion preserves copied-library archive");
+    if (encrypted) Check([[NVBackupStore archiveDataAtSnapshotURL:restoredPackage[@"snapshotURL"] error:&error] isEqual:next[@"data"]],
+        @"plaintext deletion preserves restored encrypted archive");
+    NSLog(@"IDENTITY LIFECYCLE CASE PASS: encrypted=%d", encrypted);
+    for (NVBackupController *controller in @[originalController, restoredController, reopenedController, copiedController]) {
+        [controller setLibrary:nil]; [controller stop]; [controller release];
+    }
+    [original release]; [restored release]; [reopened release]; [copied release];
+    [seedPrefs release]; [noteID release]; [originalID release]; [restoredID release]; [originalPolicy release];
+}
+
+int main(int argc, char **argv) { @autoreleasepool {
+    Check(argc == 2, @"runner supplies disposable fixture root");
+    testRoot = [[[NSString stringWithUTF8String:argv[1]] stringByAppendingPathComponent:@"fixtures"] copy];
+    memoryDefaults = [MemoryDefaults new];
+    Method method = class_getClassMethod([NSUserDefaults class], @selector(standardUserDefaults));
+    class_replaceMethod(object_getClass([NSUserDefaults class]), @selector(standardUserDefaults),
+        (IMP)MemoryStandardDefaults, method_getTypeEncoding(method));
+    Run(NO); Run(YES);
+    Check([[NSFileManager defaultManager] removeItemAtPath:testRoot error:NULL], @"remove all disposable source and backup folders");
+    NSLog(@"ROUND 3 CONTRARIAN DATA PASS: %lu checks; production archives, controller identity/settings, store, and extracted capture",
+        (unsigned long)checks);
+    [memoryDefaults release]; [testRoot release];
+    return 0;
+}}
