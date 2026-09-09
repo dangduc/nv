@@ -1,6 +1,7 @@
 #import "NVApplicationController.h"
 #import "NVNoteEditingSession.h"
 #import "NVSourceHighlighter.h"
+#import "NVSearchQuery.h"
 #import "NoteObject.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
   Redistribution and use in source and binary forms, with or without modification, are permitted 
@@ -472,7 +473,9 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     NSColor *color = [[prefsController searchTermHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
     if (!color) return;
     NSUInteger length = [[self string] length];
+    NSUInteger displayed = 0;
     for (NSValue *value in ranges) {
+        if (displayed++ == NVSearchMaximumDisplayedRanges) break;
         NSRange range = [value rangeValue];
         if (range.location <= length && range.length <= length - range.location && range.length)
             [[self layoutManager] addTemporaryAttribute:NSBackgroundColorAttributeName value:color forCharacterRange:range];
@@ -484,7 +487,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	long bodyLength = (long)[[self string] length];
 	NSDictionary *highlightDict = [prefsController searchTermHighlightAttributes];
 	
-	for (rangeIndex = 0; rangeIndex < CFArrayGetCount(ranges); rangeIndex++) {
+	for (rangeIndex = 0; rangeIndex < MIN(CFArrayGetCount(ranges), NVSearchMaximumDisplayedRanges); rangeIndex++) {
 		CFRange *range = (CFRange *)CFArrayGetValueAtIndex(ranges, rangeIndex);
 		
 		if (range && range->length > 0 && range->location + range->length <= bodyLength) {
@@ -496,49 +499,19 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight {
-	
-	//if lengths of respective UTF8-string equivalents for contentString are the same, we should revert to cstring-based algorithm
-	
-	CFStringRef quoteStr = CFSTR("\"");
-	NSRange firstRange = NSMakeRange(NSNotFound,0);
-	CFRange quoteRange = CFStringFind((CFStringRef)typedString, quoteStr, 0);
-	CFArrayRef terms = CFStringCreateArrayBySeparatingStrings(NULL, (CFStringRef)typedString, 
-															  quoteRange.location == kCFNotFound ? CFSTR(" ") : quoteStr);
-	if (terms) {
-		CFIndex termIndex, rangeIndex;
-		CFStringRef bodyString = (CFStringRef)[self string];
-		NSDictionary *highlightDict = [prefsController searchTermHighlightAttributes];
-		
-		for (termIndex = 0; termIndex < CFArrayGetCount(terms); termIndex++) {
-			CFStringRef term = CFArrayGetValueAtIndex(terms, termIndex);
-			if (CFStringGetLength(term) > 0) {
-				CFArrayRef ranges = CFStringCreateArrayWithFindResults(NULL, bodyString, term, CFRangeMake(0, CFStringGetLength(bodyString)),
-																	   kCFCompareCaseInsensitive);
-				if (!ranges)
-					continue;
-				for (rangeIndex = 0; rangeIndex < CFArrayGetCount(ranges); rangeIndex++) {
-					CFRange *range = (CFRange *)CFArrayGetValueAtIndex(ranges, rangeIndex);
-					
-					if (range && range->length > 0 && range->location + range->length <= CFStringGetLength(bodyString)) {
-						if (firstRange.location > (NSUInteger)range->location) {
-							firstRange = *(NSRange*)range;
-							if (noHighlight) {
-								CFRelease(ranges);
-								goto returnEarly;
-							}
-						}
-						[[self layoutManager] addTemporaryAttributes:highlightDict forCharacterRange:*(NSRange*)range];
-					} else {
-						NSLog(@"highlightTermsTemporarily: Invalid range (%@)", range ? NSStringFromRange(*(NSRange*)range) : @"?");
-					}
-				}
-				CFRelease(ranges);
-			}
-		}
-	returnEarly:
-		CFRelease(terms);
-	}
-	return (firstRange);
+    NSRange first = NSMakeRange(NSNotFound, 0);
+    NSString *separator = [typedString rangeOfString:@"\""].location == NSNotFound ? @" " : @"\"";
+    for (NSString *term in [typedString componentsSeparatedByString:separator]) {
+        if (![term length]) continue;
+        CFRange found = CFStringFind((CFStringRef)[self string], (CFStringRef)term, kCFCompareCaseInsensitive);
+        if (found.location != kCFNotFound && (NSUInteger)found.location < first.location) {
+            first = NSMakeRange(found.location, found.length);
+            if (noHighlight) break;
+        }
+    }
+    // Preserve the legacy first-match caret lookup. Backgrounds are installed
+    // asynchronously, without constructing another complete match array here.
+    return first;
 }
 
 - (NSRange)selectionRangeForProposedRange:(NSRange)proposedSelRange granularity:(NSSelectionGranularity)granularity {

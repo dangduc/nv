@@ -87,6 +87,11 @@ int main(void) {
         defaults->values[@"LastSearchString"] = @""; defaults->values[@"LastSearchMode"] = @"exact";
         StateController *explicit = Controller(library, service); [explicit restoreListStateUsingPreferences];
         Check([[explicit searchMode] isEqual:@"exact"], "explicit Exact with empty search restores Exact");
+#ifdef EXPECT_LEGACY_EMPTY
+        defaults->values[@"LastSearchMode"] = @"fuzzy";
+        StateController *explicitFuzzy = Controller(library, service); [explicitFuzzy restoreListStateUsingPreferences];
+        Check([[explicitFuzzy searchMode] isEqual:@"fuzzy"], "explicit Fuzzy with empty search restores Fuzzy");
+#endif
         [defaults->values removeAllObjects];
 
         StateController *controller = Controller(library, service);
@@ -98,7 +103,12 @@ int main(void) {
         BOOL handled = [controller control:(id)controller->field textView:(id)controller->field->editor doCommandBySelector:@selector(insertTab:)];
         printf("TAB: handled=%d query=%s restored_mode=%s rows=%lu\n", handled, [[controller fieldSearchString] UTF8String], [[controller searchMode] UTF8String], (unsigned long)[controller->notationController resultCount]);
 #ifdef EXPECT_TAB_MODE
-        Check([[controller searchMode] isEqual:@"fuzzy"], "Tab autocomplete preserves the active Fuzzy mode");
+        Check(handled && [[controller searchMode] isEqual:@"fuzzy"], "Tab autocomplete preserves the active Fuzzy mode");
+        Complete(controller);
+        Check([controller->notationController resultCount] == 4, "Tab preserves both fuzzy groups including the gapped body match");
+        [controller->notesTableView deselectAll:nil];
+        handled = [controller control:(id)controller->field textView:(id)controller->field->editor doCommandBySelector:@selector(insertTabIgnoringFieldEditor:)];
+        Check(handled && [[controller searchMode] isEqual:@"fuzzy"], "alternate Tab selector preserves the active Fuzzy mode");
 #else
         Check(handled && [[controller searchMode] isEqual:@"exact"], "witness: Tab autocomplete changes an existing Fuzzy query to Exact");
 #endif

@@ -107,6 +107,7 @@ static NSUInteger ClosedWindows;
 - (NotationController *)sharedNotationController;
 - (NSString *)searchMode;
 - (void)cancelSearchIntents;
+- (void)cancelTransientSearchIntents;
 - (void)searchForString:(NSString *)string mode:(NSString *)mode;
 - (void)controlTextDidChange:(NSNotification *)notification;
 - (void)controlTextDidEndEditing:(NSNotification *)notification;
@@ -289,6 +290,12 @@ int main(void) {
         NSDictionary *state = @{@"search":@"road", @"searchMode":@"fuzzy", @"note":[NSString uuidStringWithBytes:*[road uniqueNoteIDBytes]], @"searchRowKey":fuzzyKey, @"selection":NSStringFromRange(NSMakeRange(1, 2))};
         StateController *restored = Controller(library, service); [restored restoreBrowserWindowState:state];
         Check(restored->pendingSearchRestoration != nil, "restoration defers while matching is pending");
+#if NV_REVIEW_EXPECT_FIXED
+        restored->window->key = NO;
+        [restored windowDidResignKey:[NSNotification notificationWithName:NSWindowDidResignKeyNotification object:restored->window]];
+        [restored controlTextDidEndEditing:[NSNotification notificationWithName:NSControlTextDidEndEditingNotification object:restored->field]];
+        Check(restored->pendingSearchRestoration != nil, "focus departure preserves programmatic restoration");
+#endif
         Complete(restored);
         Check(restored->currentNote == road && [restored->selectedSearchRowKey isEqual:fuzzyKey] && NSEqualRanges(restored->textView->selection, NSMakeRange(1, 2)), "restoration resolves duplicate occurrence and caret after completion");
         NSMutableDictionary *legacy = [[state mutableCopy] autorelease]; [legacy removeObjectForKey:@"searchMode"];
@@ -323,18 +330,41 @@ int main(void) {
         // Regression witness: plural Reveal still routes query clearing through
         // cancelOperation:, which intentionally ignores non-key windows.
         controller->window->key = YES; Pending(controller, @"copper");
-        [controller notation:(id)session revealNotes:@[road, body]];
-        controller->window->key = NO; Complete(controller); PrintState(@"background-plural-reveal", controller);
+        [controller notation:(id)session revealNotes:@[road, body, road]];
+        controller->window->key = NO;
+#if NV_REVIEW_EXPECT_FIXED
+        [controller windowDidResignKey:[NSNotification notificationWithName:NSWindowDidResignKeyNotification object:controller->window]];
+        Check([[controller->pendingSearchReveal objectForKey:@"notes"] count] == 2 && !controller->searchAutocompletePending,
+              "key resignation preserves unique plural Reveal targets and cancels autocomplete");
+#endif
+        Complete(controller); PrintState(@"background-plural-reveal", controller);
         NSIndexSet *revealed = [session indexesOfNotes:@[road, body]];
         if (NV_REVIEW_EXPECT_FIXED) {
-            Check([[session searchString] isEqual:@""] && [revealed count] == 2 &&
-                  [[session notesAtIndexes:[controller->notesTableView selectedRowIndexes]] isEqual:@[road, body]],
+            NSArray *selectedNotes = [session notesAtIndexes:[controller->notesTableView selectedRowIndexes]];
+            Check([[session searchString] isEqual:@""] && [revealed count] == 2 && [selectedNotes count] == 2 &&
+                  [[NSSet setWithArray:selectedNotes] isEqualToSet:[NSSet setWithArray:@[road, body]]],
                   "plural Reveal selects all target notes after its browser resigns key");
         } else {
             Check([[session searchString] isEqual:@"copper"] && [revealed count] == 1 &&
                   [[session notesAtIndexes:[controller->notesTableView selectedRowIndexes]] isEqual:@[body]],
                   "WITNESS: plural Reveal loses the excluded target after its browser resigns key");
         }
+
+#if NV_REVIEW_EXPECT_FIXED
+        Pending(controller, @"road"); Complete(controller);
+        NSUInteger backgroundFocuses = controller->bodyFocuses;
+        [controller notation:(id)session revealNotes:@[road, body, road]];
+        Check([[session searchString] isEqual:@"road"] && [[session notesAtIndexes:[controller->notesTableView selectedRowIndexes]] count] == 2 &&
+              ![controller->window isKeyWindow] && controller->bodyFocuses == backgroundFocuses,
+              "duplicate plural Reveal keeps an inclusive query and does not activate a background browser");
+        controller->window->key = YES; Pending(controller, @"Rivet");
+        Check(controller->searchAutocompletePending, "typed fuzzy query has transient autocomplete intent");
+        controller->window->key = NO;
+        [controller windowDidResignKey:[NSNotification notificationWithName:NSWindowDidResignKeyNotification object:controller->window]];
+        controller->window->key = YES;
+        Check(!controller->searchAutocompletePending, "autocomplete stays canceled after leaving and returning to the browser");
+        Complete(controller);
+#endif
 
         controller->window->key = YES; Pending(controller, @"mutation-zero"); [controller performSearchReturn];
         NSUInteger beforeMutation = controller->creations;

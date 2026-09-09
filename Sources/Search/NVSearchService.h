@@ -31,6 +31,7 @@
 @end
 
 typedef void (^NVSearchCompletion)(NVSearchResult *result, NSError *error);
+typedef void (^NVSearchLiteralRangesCompletion)(NSArray *ranges, NSString *source, NSError *error);
 typedef void (^NVSearchPositionsCompletion)(NVSearchPositions *positions, NSError *error);
 
 /* Own one instance per active library. All public calls occur on main.
@@ -42,6 +43,7 @@ typedef void (^NVSearchPositionsCompletion)(NVSearchPositions *positions, NSErro
     void *_engine;
     NSMutableDictionary *_requests;
     NSMutableDictionary *_positionRequests;
+    NSMutableDictionary *_literalRangeRequests;
     NSUInteger _nextRequestID;
 }
 @property(nonatomic, readonly) NSUInteger corpusRevision;
@@ -60,6 +62,14 @@ typedef void (^NVSearchPositionsCompletion)(NVSearchPositions *positions, NSErro
 - (void)requestPositionsForNoteUUID:(NSData *)uuid requestID:(NSUInteger)requestID owner:(id)owner completion:(NVSearchPositionsCompletion)completion;
 - (void)requestPositionsForNoteUUID:(NSData *)uuid requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion;
 - (void)cancelPositionRequestsForOwner:(id)positionOwner;
+/* Source display uses a bounded literal scan on the shared worker. It does
+   not require a fuzzy result, so Exact mode uses the same presentation path.
+   One pending request per browser owner; cancellation never publishes ranges. */
+- (void)requestLiteralRangesInSource:(NSString *)source query:(NSString *)query owner:(id)owner completion:(NVSearchLiteralRangesCompletion)completion;
+- (void)requestLiteralRangesInSource:(NSString *)source matchingSource:(NSString *)displayedSource query:(NSString *)query owner:(id)owner completion:(NVSearchLiteralRangesCompletion)completion;
+/* Native positions use the same off-main source compatibility check. */
+- (void)validateSourceRanges:(NSArray *)ranges source:(NSString *)source matchingSource:(NSString *)displayedSource owner:(id)owner completion:(NVSearchLiteralRangesCompletion)completion;
+- (void)cancelLiteralRangesForOwner:(id)owner;
 @end
 
 /* Maps NFC Unicode-codepoint positions to original UTF-16 grapheme ranges.

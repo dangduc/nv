@@ -105,6 +105,10 @@ NFC positions map back to original UTF-16 composed-character ranges.
 Search highlights use only temporary background attributes on each editor's layout manager.
 Shared character edits clear stale highlights in every attached editor, including before composition commits.
 Snapshot highlights stay suppressed while live source differs from committed source.
+The search worker compares immutable source copies and discovers literal ranges with cancellation checks.
+Source decoration stops after 2,048 literal occurrences and installs at most 2,048 temporary background ranges.
+This display limit does not change note membership, complete source matching, or native result order.
+Generation and occurrence checks reject highlights after shared character edits or selection changes.
 The [search design](docs/fuzzy-search-plan.md) and [test guide](Tests/FuzzySearch/README.md) describe the boundaries and validation limits.
 
 Selection, editor scroll, list scroll, divider height, and column layout belong to the browser.

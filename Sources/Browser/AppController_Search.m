@@ -12,7 +12,7 @@
 - (NSString *)searchMode { return [[self browserSession] searchMode] ?: @"exact"; }
 - (NSString *)selectedSearchResultRowKey { return selectedSearchRowKey; }
 - (BOOL)searchFieldHasFocus {
-    return [field currentEditor] && [window firstResponder] == [field currentEditor];
+    return [window isKeyWindow] && [field currentEditor] && [window firstResponder] == [field currentEditor];
 }
 - (void)setupSearchControls {
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Search Mode", nil)] autorelease];
@@ -26,9 +26,12 @@
     [field setPlaceholderString:[[self searchMode] isEqual:@"fuzzy"] ? NSLocalizedString(@"Fuzzy Search or Create", nil) : NSLocalizedString(@"Exact Search or Create", nil)];
     [field setAccessibilityLabel:[field placeholderString]];
 }
-- (void)cancelSearchIntents {
+- (void)cancelTransientSearchIntents {
     searchAutocompletePending = NO;
     [pendingSearchReturnQuery release]; pendingSearchReturnQuery = nil;
+}
+- (void)cancelSearchIntents {
+    [self cancelTransientSearchIntents];
     [pendingSearchRestoration release]; pendingSearchRestoration = nil;
     [pendingSearchReveal release]; pendingSearchReveal = nil;
 }
@@ -156,25 +159,28 @@
     NSUInteger generation = ++searchHighlightGeneration;
     [textView removeHighlightedTerms];
     NVBrowserSession *session = [self browserSession];
+    NVSearchService *service = [[NVApplicationController sharedController] searchService];
+    [service cancelLiteralRangesForOwner:session];
     if (!currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
-    NSString *committed = [[currentNote contentString] string];
-    if (![[textView string] isEqual:committed]) return;
     NSInteger row = [notesTableView primarySelectedRow];
     if (row < 0) return;
     NSString *kind = [session matchKindAtIndex:row];
-    if (![kind isEqual:@"fuzzy"]) {
-        if (![kind isEqual:@"retained"]) {
-            NVSearchQuery *query = [[[NVSearchQuery alloc] initWithString:[session searchString]] autorelease];
-            [textView setSearchHighlightRanges:[query literalRangesInString:committed]];
-        }
-        return;
-    }
+    if ([kind isEqual:@"retained"]) return;
     NSString *key = [[session rowKeyAtIndex:row] copy];
-    [session requestSourceHighlightsForRow:row completion:^(NSArray *ranges, NSString *source) {
-        if (generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&
-            [[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key] && [[textView string] isEqual:source])
-            [textView setSearchHighlightRanges:ranges];
+    NSString *displayedSource = [[textView string] copy];
+    BOOL (^isCurrent)(void) = ^BOOL {
+        return generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&
+            [[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key];
+    };
+    NVSearchLiteralRangesCompletion apply = ^(NSArray *ranges, NSString *source, NSError *error) {
+        // Shared character notifications advance this generation immediately.
+        // The worker compared immutable source copies before returning ranges.
+        if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];
+    };
+    if ([kind isEqual:@"fuzzy"]) [session requestSourceHighlightsForRow:row completion:^(NSArray *ranges, NSString *source) {
+        if (isCurrent()) [service validateSourceRanges:ranges source:source matchingSource:displayedSource owner:session completion:apply];
     }];
-    [key release];
+    else [service requestLiteralRangesInSource:[[currentNote contentString] string] matchingSource:displayedSource query:[session searchString] owner:session completion:apply];
+    [displayedSource release]; [key release];
 }
 @end

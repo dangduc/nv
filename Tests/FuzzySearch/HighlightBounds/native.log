@@ -1,0 +1,6 @@
+components,source_copy_ms,0.001,source_equality_ms,36.405,editor_copy_ms,0.011,copied_equality_ms,36.632
+source_bytes,query,submission_ms,application_ms,clear_ms,displayed_ranges
+8388608,a,0.031,0.520,0.408,2048
+8388608,meeting,0.440,2.592,0.750,2048
+8388608,absent,0.691,0.672,0.647,0
+HIGHLIGHT BOUNDS PASSED: 106 checks

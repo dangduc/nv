@@ -1088,7 +1088,7 @@ terminateApp:
 			}
 			if (!currentNote && [notationController preferredSelectedNoteIndex] != NSNotFound && [prefsController autoCompleteSearches]) {
 				//if the current note is deselected and re-searching would auto-complete this search, then allow tab to trigger it
-				[self searchForString:[self fieldSearchString]];
+				[self searchForString:[self fieldSearchString] mode:[self searchMode]];
 				return YES;
 			} else if ([textView isHidden]) {
 				return YES;
@@ -1529,7 +1529,7 @@ terminateApp:
     if (control == noteTitleField || control == noteTagsField) [self beginNoteMetadataEditing:control];
 }
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    if ([notification object] == field) [self cancelSearchIntents];
+    if ([notification object] == field) [self cancelTransientSearchIntents];
     if ([notification object] == metadataControl) [self commitNoteMetadata];
     if ([notification object] == field && searchHasPendingComposition) {
         searchHasPendingComposition = NO;
@@ -1625,7 +1625,7 @@ terminateApp:
 	//to be invoked after loading a notationcontroller
 	
 	NSString *searchString = [prefsController lastSearchString];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LastSearchMode"])
+    if (searchString || [[NSUserDefaults standardUserDefaults] objectForKey:@"LastSearchMode"])
         [[self browserSession] setSearchMode:[prefsController lastSearchMode]];
 	if ([searchString length])
 		[self searchForString:searchString mode:[prefsController lastSearchMode]];
@@ -1720,15 +1720,28 @@ terminateApp:
 }
 
 - (void)notation:(NotationController*)notation revealNotes:(NSArray*)notes {
-    if (![[self browserSession] searchResultsAreCurrent]) {
-        [pendingSearchReveal release]; pendingSearchReveal = [@{@"notes":[[notes copy] autorelease]} copy];
+    NVBrowserSession *session = [self browserSession];
+    NSHashTable *members = [NSHashTable hashTableWithOptions:NSPointerFunctionsObjectPointerPersonality];
+    for (NoteObject *note in [[self sharedNotationController] allNotes]) [members addObject:note];
+    NSMutableSet *seen = [NSMutableSet set];
+    NSMutableArray *targets = [NSMutableArray array];
+    for (NoteObject *note in notes) {
+        if (![members containsObject:note]) continue;
+        NSData *uuid = [NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)];
+        if (![seen containsObject:uuid]) { [seen addObject:uuid]; [targets addObject:note]; }
+    }
+    if (![targets count]) return;
+    if (![session searchResultsAreCurrent]) {
+        [pendingSearchReveal release]; pendingSearchReveal = [@{@"notes":[[targets copy] autorelease]} copy];
         return;
     }
-	NSIndexSet *indexes = [notation indexesOfNotes:notes];
-	if ([notes count] != [indexes count]) {
-		[self cancelOperation:nil];
-		
-		indexes = [notation indexesOfNotes:notes];
+	NSIndexSet *indexes = [session indexesOfNotes:targets];
+	if ([targets count] != [indexes count]) {
+        // Reveal can finish in a background browser. Clear only its query;
+        // cancelOperation: is a foreground keyboard command that also changes focus.
+        [field setStringValue:@""];
+        [self controlTextDidChange:[NSNotification notificationWithName:NSControlTextDidChangeNotification object:field]];
+		indexes = [session indexesOfNotes:targets];
 	}
 	if ([indexes count]) {
 		[notesTableView selectRowIndexes:indexes byExtendingSelection:NO];
@@ -1864,6 +1877,7 @@ terminateApp:
 
 
 - (void)windowDidResignKey:(NSNotification *)notification{
+    [self cancelTransientSearchIntents];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];    
 }
 

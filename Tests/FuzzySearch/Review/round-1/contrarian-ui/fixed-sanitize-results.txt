@@ -1,0 +1,10 @@
+start indexes=<NSIndexSet: 0x94b2252cffca919f>[number of indexes: 1 (in 1 ranges), indexes: (0)] native=0 primary=0 key=title:00000000000000000000000000000005 edited=-1
+shift-down indexes=<NSIndexSet: 0x94b2252cffca918f>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+shift-down twice indexes=<NSIndexSet: 0x94b2252cffca91af>[number of indexes: 3 (in 1 ranges), indexes: (0-2)] native=2 primary=2 key=fuzzy:00000000000000000000000000000005 edited=-1
+shift-up shrink indexes=<NSIndexSet: 0x94b2252cffca918f>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+INLINE second edit title0=road modified title1=road zebra editor=road zebra
+INLINE tab title0=road tabbed edited=-1 captured=0 editor=(null)
+NATIVE PRIMARY EVIDENCE: selectedRow=3, occurrencePrimary=0
+FUZZY BROWSER TESTS PASSED (102 checks)
+2026-09-09 02:55:16.736 browser-tests[94675:342566599] Connection Invalid error for service com.apple.hiservices-xpcservice.
+2026-09-09 02:55:16.736 browser-tests[94675:342566587] Error received in message reply handler: Connection invalid

@@ -24,7 +24,7 @@ helpers = fixture[fixture.index('static BOOL Spin('):fixture.index('int main(voi
 groups = {
     'Sources/Browser/AppController_Search.m': [
         '- (NSString *)searchMode', '- (NSString *)selectedSearchResultRowKey', '- (BOOL)searchFieldHasFocus',
-        '- (void)cancelSearchIntents', '- (void)searchForString:', '- (IBAction)selectSearchMode:',
+        '- (void)cancelTransientSearchIntents', '- (void)cancelSearchIntents', '- (void)searchForString:', '- (IBAction)selectSearchMode:',
         '- (IBAction)retrySearch:', '- (void)showSearchProgress', '- (void)browserSessionSearchStateDidChange:',
         '- (void)browserSessionSearchDidComplete:', '- (void)performSearchReturn'],
     'Sources/Browser/AppController.m': [

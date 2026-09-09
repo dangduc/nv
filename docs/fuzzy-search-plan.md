@@ -345,6 +345,9 @@ The record will identify the hardware, macOS/Xcode versions, architecture, corpu
 These were initial proposals, not measured guarantees. The implementation measurement revises the 150 ms release gate to a performance follow-up.
 On arm64, a 10,000-note corpus of about 50 MiB requires roughly 0.5–1.3 seconds in the native scorer alone.
 The app keeps complete results and native order; it does not claim the original latency target.
+The [first performance review](../Tests/FuzzySearch/Review/round-1/luu/findings.md) also measured about 35–38 ms to publish 20,000 occurrences.
+That fixture exceeds the proposed 8 ms publication target and excludes real table painting.
+Both targets remain performance follow-ups, without changing membership or native order.
 Intel latency, complete UI publication, and desktop behavior still require runtime validation.
 One native matcher call remains uninterruptible. Cancellation measurements must include individual large notes.
 It must not truncate notes, alter the fuzzy group's native order, or label incomplete output as a complete search.
