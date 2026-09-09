@@ -1,5 +1,39 @@
 # README screenshots
 
+## Current images
+
+The five `readme-*.png` images show the Development app from commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`.
+This is the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
+The capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113) and SDK 26.5.
+The Intel app runs under Rosetta.
+
+| Image | Content |
+| --- | --- |
+| `readme-source.png` | Editable Markdown source, the monospace body font, and hidden header rows. |
+| `readme-dark.png` | The same note with system colors in the editor and notes list. |
+| `readme-search.png` | Active Fuzzy search, literal title priority, duplicate occurrences, and no completed-search summary. |
+| `readme-preview.png` | The same source as a read-only Markdown preview in WebKit. |
+| `readme-windows.png` | Two windows with independent queries, selections, and divider heights in one shared library. |
+
+The capture uses four sample notes, a temporary library, and a separate preferences domain.
+Markdown syntax is selected for the sample notes. New notes still start as Plain Text.
+The header visibility and body font use the defaults from PR #12.
+The capture selects light or dark appearance and disables search autocomplete for stable queries.
+
+The app builds from the normal Development scheme.
+A probe through `Tests/ViewControlsReview/run-probe.py` opens the sample notes and selects the native app states.
+WindowServer captures each complete window, including the WebKit preview.
+The two-window image includes only the two sample window IDs.
+The images contain no annotations or pixel changes.
+The capture run passed 21 state and image checks.
+
+The captured executable has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
+The README changes contain no application code. Merge the defaults change before the README describes these settings as defaults.
+
+## Historical images
+
+Earlier images remain available for the review records that link to them.
+
 The original three images show the Development app from revision `379f09a`, captured on September 7, 2026.
 The host ran macOS 13.7.8 with Xcode 15.2. The Intel app ran under Rosetta.
 
