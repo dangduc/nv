@@ -1623,6 +1623,7 @@ terminateApp:
 
 - (void)restoreListStateUsingPreferences {
 	//to be invoked after loading a notationcontroller
+	[self cancelSearchIntents];
 	
 	NSString *searchString = [prefsController lastSearchString];
     if (searchString || [[NSUserDefaults standardUserDefaults] objectForKey:@"LastSearchMode"])
@@ -1656,8 +1657,11 @@ terminateApp:
 }
 
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts {
+	if (note && ![[[self sharedNotationController] allNotes] containsObject:note]) return NSNotFound;
+    // An accepted selection command replaces older restoration or Reveal work,
+    // whether it can select immediately or must wait for current results.
+    [self cancelSearchIntents];
 	if (note) {
-        if (![[[self sharedNotationController] allNotes] containsObject:note]) return NSNotFound;
         if (![[self browserSession] searchResultsAreCurrent]) {
             [pendingSearchReveal release];
             pendingSearchReveal = [@{@"note":note, @"options":@(opts)} copy];
@@ -1731,6 +1735,7 @@ terminateApp:
         if (![seen containsObject:uuid]) { [seen addObject:uuid]; [targets addObject:note]; }
     }
     if (![targets count]) return;
+    [self cancelSearchIntents];
     if (![session searchResultsAreCurrent]) {
         [pendingSearchReveal release]; pendingSearchReveal = [@{@"notes":[[targets copy] autorelease]} copy];
         return;

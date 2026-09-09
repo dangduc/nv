@@ -19,7 +19,19 @@ Reviewed production implementation: `c7e61cb`.
 | Contrarian: interaction assumptions | [Report](round-1/contrarian-ui/findings.md) | P2 public-method robustness: overlapping inline editors replace the prior target too soon. Ordinary app reachability is unproven. Guard fixed; 102 native and sanitizer checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5599878262). |
 | Contrarian: compatibility assumptions | [Report](round-1/contrarian-compat/findings.md) | Two P2s: present-empty legacy search restores Fuzzy; Tab changes Fuzzy to Exact. Fixed; native and sanitizer regression checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600029967). |
 
-Round 1 fixes are complete. Round 2 is in progress; round 3 follows the second-round fixes.
+Round 1 fixes are complete.
+
+## Round 2
+
+The reports identify the repaired source with file and method hashes.
+
+| Perspective | Evidence | Finding and status |
+| --- | --- | --- |
+| John Ousterhout: cancellation ownership | [Report](round-2/ousterhout/findings.md) | P2: queued canceled work can release the browser session on the worker. Fix delegated. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600257714). |
+| Kyle Kingsbury: intent ordering | [Report](round-2/kingsbury/findings.md) | P2: older restoration strands newer Reveal. Fixed; 78 native and sanitizer checks pass. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600211154). |
+| Contrarian: duplicate-row interactions | [Report](round-2/contrarian-ui/findings.md) | No new actionable finding; 71 native and sanitizer checks. [PR comment](https://github.com/fastducduc/nv/pull/10#issuecomment-5600211333). |
+
+The other round-two reviews are in progress. Round 3 follows the second-round fixes.
 
 ## Validation limits
 

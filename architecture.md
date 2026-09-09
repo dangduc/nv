@@ -97,6 +97,7 @@ Return while pending records an intent bound to the query, request, and search-f
 Only a current completion can open a result or create a note after both groups report zero matches.
 Query changes, selection changes, composition, and focus changes cancel that intent.
 Reveal and restoration wait for current results before resolving row keys.
+Each accepted Reveal or restoration replaces older pending selection intents. Invalid Reveal targets preserve the current intent.
 If a completed query excludes the requested note, Reveal clears that browser's query.
 An edited open note can remain as one retained row after the matches, without increasing result counts.
 
