@@ -1,0 +1,32 @@
+{
+  "head": "c7e61cbd5cd863cc285d09614b4cd3a2b18e11e7",
+  "branch": "codex/fuzzy-search-plan",
+  "sources": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "Sources/Search/NVFZF.h": "b7cbf50758a4e64b9bdf507f60dba2cc7645fa082f83fb5219729552187392ff",
+    "Sources/Search/NVSearchCorpus.h": "25e00f12d1774c9a70838bb2b0b9230cdc92227d1a74b5a954ec0799ccfd2d12",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchQuery.h": "ce919973cf554125c29939a88a49f253fc60e6aaef90031aaf601c1206b1bce4",
+    "Sources/Search/NVSearchQuery.m": "21a8256caf98fa5a3a357619249624c6785042216f6d813e39a8ea760312b78f",
+    "Sources/Search/NVSearchService.h": "cb0dcae5217daf0bc672e5d62a4216a4c42eb0041d2f02bc71d634957356b36d",
+    "Sources/Search/NVSearchService.m": "14e02e1b44b24be3b83ecd1ac9ec164256b68c12d51e4d68e6496b84061901b6",
+    "Sources/Search/NativePattern.inc": "4e7767cae2bfda6823de784927e063b4520910585e6d9e5fd135fa1891929721",
+    "Sources/Search/NativeRanking.inc": "6c793abb5c65f402a7ed29a4d2a41bcd5161b160657100870a8d142fac4b95b5",
+    "Sources/Search/ORIGIN.md": "175614eecbf07ac4c2fb977507e17b44130e789769655ad4ee4cae443a02590c",
+    "ThirdParty/fzf-native/LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "ThirdParty/fzf-native/LICENSE-MIT": "7dfaa2bcbb885e82c3b32ecc4e47ff59825b1ad2bbe0b032f16ede685e795af4",
+    "ThirdParty/fzf-native/README.md": "3017548f42bc83f0d9b7bf9cd2b33b21a7454fc1e644873e7a1b8c54970d4dc6",
+    "ThirdParty/fzf-native/fzf-normalize.inc": "ed3fb2f8ea30fdf7c1d4548320a3233757885ed4a23bb45fafb827c3a0de91e4",
+    "ThirdParty/fzf-native/fzf-private.h": "ab447dddb1f74f3d32758855b3b7bf592f8af80b1c103cae8580b64ff11d578f",
+    "ThirdParty/fzf-native/fzf-score-input.inc": "e131916a22c4049ea031c66150faa879a9e930b2e605901c855b4849c5b73433",
+    "ThirdParty/fzf-native/fzf-simd-prefilter.h": "2e61fd4266048f5348cd5a125e48a18132ab19b34d985a38951164ddeda625b8",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/fzf.h": "6d58153ed07c2d54ab64ff2e2b290838e45a3903e3ef9903dceeb261b6ef7df7",
+    "ThirdParty/fzf-native/upstream.json": "ab1df12c89f0cd6e27d594b7b8b3c1372ffacf2005de1fb4f68b277b4199f5a6",
+    "ThirdParty/fzf-native/utf8_char_index.h": "efc2e7a9acd68f2a4b48d954aee4d0acdc8ec005d03173ba77a8024f68f6d339",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/LICENSE.md": "3b510150d34f248a221bb88e1d811238d6c6c18b51231822c42974c39bb07256",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.h": "d947b38124a9f218631b537dd7a367f6a2a6a992c72caa46b3f3e7c81e6138ee",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc_data.c": "65ed6822f5df8ab2d20137493d06bef6db4f5bee3fd65c3b2683954a0e517756"
+  }
+}

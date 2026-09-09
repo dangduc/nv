@@ -1,0 +1,25 @@
++ sw_vers
+ProductName:		macOS
+ProductVersion:		26.5.2
+BuildVersion:		25F84
++ xcodebuild -version
+Xcode 26.6
+Build version 17F113
++ clang --version
+Apple clang version 21.0.0 (clang-2100.1.1.101)
+Target: arm64-apple-darwin25.5.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer -c /Users/duc/dev/nv/Sources/Search/NVFZF.c -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/0.o
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer -c /Users/duc/dev/nv/ThirdParty/fzf-native/fzf.c -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/1.o
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer -c /Users/duc/dev/nv/ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/2.o
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer -c /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/reference.c -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/3.o
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer -c /Users/duc/dev/nv/Tests/FuzzySearch/Review/round-1/torvalds/probe.c -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/4.o
++ clang -std=c11 -O1 -g -Wall -Wextra -Werror -Wno-unused-function -Wno-unused-parameter -Wno-sign-compare -DUTF8PROC_STATIC -I /Users/duc/dev/nv/Sources/Search -I /Users/duc/dev/nv/ThirdParty/fzf-native -arch arm64 -mmacosx-version-min=11.0 -fsanitize=address,undefined -fno-omit-frame-pointer /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/0.o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/1.o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/2.o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/3.o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/4.o -o /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/review-probe
++ /Users/duc/dev/nv/build/FuzzySearchReview/round-1/torvalds/arm64-sanitize/review-probe
+PASS: 1,500 generated typed-literal corpora, 48,000 membership and position comparisons.
+PASS: 300 generated mixed Unicode corpora match independent upstream order and all score diagnostics.
+PASS: NFC composition, Hangul composition, canonical mark ordering, codepoint offsets, and accent preservation.
+PASS: copied terms, serial engine migration, finish states, and cancellation after one scored candidate.
+PASS: maximum query length, rank saturation, invalid candidate/collection bounds, and engine recovery.
+PASS: 431292 independent review assertions.

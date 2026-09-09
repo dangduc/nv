@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-1/ousterhout/run.py",
+    "--sanitize"
+  ],
+  "head": "c7e61cbd5cd863cc285d09614b4cd3a2b18e11e7",
+  "exit_code": 0,
+  "stdout": "OWNERSHIP REVIEW: 64 checks passed\n",
+  "stderr": "",
+  "sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "21a8256caf98fa5a3a357619249624c6785042216f6d813e39a8ea760312b78f",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "14e02e1b44b24be3b83ecd1ac9ec164256b68c12d51e4d68e6496b84061901b6",
+    "Tests/FuzzySearch/Review/round-1/ousterhout/ownership-probe.m": "6e1277c5e5215c5f54031f59522520deed43ae18bd94ef9dce0cb9052807ce8a"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "baseline": "a9539cca76e260546310caa4918d018f802b064b",
+  "head": "c7e61cbd5cd863cc285d09614b4cd3a2b18e11e7",
+  "sha256": {
+    "AGENTS.md": "f7a1843c2ee3cfdd751abff160b4f7805cace0d89f4d0b2db18cd25dab762513",
+    "architecture.md": "cf3a8a466c5dc38be8f082bdf19d89f7a44cc5a3fc8eadc9d5c54661d2c696a3",
+    "docs/fuzzy-search-plan.md": "92fd16ec9fff87f83ea4f02f11b83d648285bcd89f29654d88639ce40b6195a8",
+    "Sources/Search/NVSearchService.h": "cb0dcae5217daf0bc672e5d62a4216a4c42eb0041d2f02bc71d634957356b36d",
+    "Sources/Search/NVSearchService.m": "14e02e1b44b24be3b83ecd1ac9ec164256b68c12d51e4d68e6496b84061901b6",
+    "Sources/Search/NVSearchCorpus.h": "25e00f12d1774c9a70838bb2b0b9230cdc92227d1a74b5a954ec0799ccfd2d12",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchQuery.m": "21a8256caf98fa5a3a357619249624c6785042216f6d813e39a8ea760312b78f",
+    "Sources/Application/NVApplicationController.m": "9bb74df2dda41c6c8a57c8b3851786f4b985f969cf68ba9eae1c975981b50c0a",
+    "Sources/Browser/NVBrowserSession.h": "973227594f6fa1b5db0fe55f15318472774ec2b21e76858e94157a4c0c4f2001",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Browser/AppController_Search.m": "59881c8f62cae9e743916b86ea8dd4ebeb3e20994c41034141bad5ff40de5b69",
+    "Sources/Browser/AppController.m": "e09557a05315305f4fd42ecc189c932c094846ee0a9314c269bd9c86229c7e72",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Sources/Model/NoteObject.m": "6bc4e496fb14ab8823491e9142a8e55a37ce4d0df005025a973824747d412d67",
+    "Sources/Storage/NotationController.m": "383f01546b0a0cb9ec5337b47a73ce9b09379cc091768bb3081ca6fe41915e3f"
+  }
+}
