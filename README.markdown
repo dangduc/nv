@@ -1,10 +1,15 @@
 # nvALT — dangduc fork
 
-nvALT is a macOS notes app with editable source and read-only Markdown, Textile, and HTML previews. This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows and native macOS controls.
+nvALT is a macOS notes app with editable source and read-only Markdown, Textile, and HTML previews.
+This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
 Every window keeps the notes list above the editor. All windows share one notes library.
 
-![Editable Markdown source with local syntax highlighting](docs/screenshots/source-editor.png)
+A fresh installation uses Fuzzy search and a monospace body font.
+The title, tags, and Source/Preview header rows start hidden.
+Existing font and visibility preferences remain unchanged.
+
+![Editable note source with the optional header rows hidden](docs/screenshots/readme-source.png)
 
 ## What changes in this fork
 
@@ -12,7 +17,7 @@ Every window keeps the notes list above the editor. All windows share one notes 
 | --- | --- | --- |
 | Windows | One main notes window. | Multiple windows share one library. Each window has its own search, selection, sort order, and scroll position. |
 | Layout | Stacked or side-by-side panes. | The notes list always stays above the editor. Each window saves its divider height. |
-| Controls | Custom window controls and a combined search/title field. | A native toolbar contains Search or Create. Separate fields edit the title and tags. |
+| Controls | Custom window controls and a combined search/title field. | One search field fills the title bar. Optional body fields edit the title and tags. |
 | Search | The combined field also shows the selected title. | Fuzzy searches complete note sources. Literal title matches appear first, followed by native fuzzy order. Exact remains available. |
 | Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. The editor also supports custom colors. |
 
@@ -24,61 +29,78 @@ Each window can show a different note or search. Edits to the same note appear i
 
 The app restores open windows and their saved views after a restart. A library change applies to all windows.
 
+![Two windows with independent searches and selections in one library](docs/screenshots/readme-windows.png)
+
 ### Search
 
 Choose **Fuzzy** or **Exact** from the search-field menu. Each window keeps its own mode.
 Fuzzy matches characters in order, so `mtg` can match `meeting`. It searches titles, tags, and complete committed source text.
-Double quotes require a contiguous phrase. Spaces and colons separate terms; punctuation remains literal.
+Double quotes require a contiguous phrase. Spaces and colons separate terms, and other punctuation remains literal.
 
 Literal title matches appear first. The full fuzzy list follows in the order returned by `fzf-native`.
-A note can appear in both groups. Either row opens the same note; selecting both affects that note once in bulk actions.
+A note can appear in both groups. Either row opens the same note.
+If you select both occurrences, bulk actions process that note once.
 Column sorting changes the title group. The fuzzy group keeps its native order.
 
-Search runs in the background. Return waits for a complete result before opening a note or creating from an unmatched query.
+Fuzzy search runs in the background. Return waits for a complete result before opening a note or creating from an unmatched query.
 Exact retains the earlier substring search over titles, tags, and bodies.
 Older saved windows and bookmarks without a search mode restore as Exact.
 
-![Two windows share a library with independent garden and travel searches](docs/screenshots/multiple-windows.png)
+After a successful search, the list uses its full height.
+A delayed **Searching…** message appears while a search is pending.
+Failed searches show an error and **Retry Search**.
+
+![Fuzzy search results above the source editor](docs/screenshots/readme-search.png)
 
 ### Native controls and appearance
 
-The toolbar contains New Note, Preview, Note Actions, and Search or Create. Standard toolbar customization controls which items appear.
+The title bar contains one search field beside the window controls.
+Note commands remain available through menus and shortcuts.
 
-The title and tags sit between the list and the body. Tags use completion from the library. The editor supports system colors and custom colors. The notes list follows system light and dark modes, with optional alternating rows.
-
-The **View** menu can hide the notes list, title, tags, or Source/Preview controls. These visibility settings apply to all windows.
+The **View** menu can show or hide the notes list, title, tags, and Source/Preview controls.
+These visibility preferences apply to all windows.
 Hidden rows release space to the body. Showing the notes list restores each window's previous divider height.
-The **Show Source/Show Preview** command and **Syntax Type** submenu remain available when the controls are hidden.
+**Note > Rename** and **Note > Tag** reveal hidden fields before editing.
+Tags offer completion from the library.
 
-<details>
-<summary>Earlier dark appearance</summary>
+Source, preview, and syntax commands work with hidden header rows.
+The notes list follows system light and dark appearance, with optional alternating rows.
+The editor can follow the system appearance or use custom colors and fonts.
+Choose **View > Color Schemes > Follow System Appearance** for system editor colors.
 
-![Earlier layout with a fixed light notes list](docs/screenshots/native-dark.png)
+![Dark appearance with a native search field and notes list](docs/screenshots/readme-dark.png)
 
-This earlier screenshot predates system colors for the notes list.
-
-</details>
-
-The multiple-window and native appearance screenshots show the earlier layout on macOS 13.7.8.
-The Source/Preview screenshots show this redesign on macOS 26.5.2. All screenshots use sample notes.
+All screenshots use disposable sample notes.
+[Screenshot details](docs/screenshots/README.md) record the captured revision and environment.
 
 ## Use the app
 
 | Action | Instruction |
 | --- | --- |
 | Open another window | Choose **Window > New Window**, or press **Command-Shift-N**. |
-| Create a blank note | Press **Command-N**. Enter the title, or edit the source if the title is hidden. |
+| Create a blank note | Press **Command-N**. |
 | Find a note | Type in **Search or Create**. Use **Command-J** or **Command-K** to move through the results. |
 | Edit a search result | Select the note. Then press **Return**. |
 | Create from a search | If no note matches, press **Return** or click **Create**. |
-| Edit the title or tags | Edit the field above the body. Press **Return** to commit, or **Escape** to cancel. |
+| Edit the title | Choose **Note > Rename**. Press **Return** to commit, or **Escape** to cancel. |
+| Edit tags | Choose **Note > Tag**. Press **Return** to commit, or **Escape** to cancel. |
 | Resize the list | Drag the divider between the list and the editor. |
-| Use system editor colors | Select **Follow System Appearance** in the color menu. |
-| Open a preview | Select **Preview** above the body, then choose Markdown, Textile, or HTML. |
-| Return to editing | Select **Source** above the body. |
-| Select source syntax | In Source, choose Plain Text, Markdown, Textile, HTML, or JSON. |
-| Select syntax with hidden controls | Choose **View > Syntax Type**, then select the syntax. |
-| Hide the list or header rows | Use the visibility commands after **View > Hide/Show Note Previews in Title**. |
+| Use system editor colors | Choose **View > Color Schemes > Follow System Appearance**. |
+| Open a preview | Choose **Preview > Preview Format**, then select Markdown, Textile, or HTML. |
+| Return to editing | Choose **Preview > Show Source**. |
+| Select source syntax | Choose **View > Syntax Type**, then select Plain Text, Markdown, Textile, HTML, or JSON. |
+| Show optional controls | Use the title, tag, and Source/Preview visibility commands in **View**. |
+| Show or hide the notes list | Choose **View > Show Notes List** or **Hide Notes List**. |
+| Manage backups | Open **Preferences > Backups**. |
+
+## Automatic backups
+
+Automatic backups run while nvALT is open, with a default 15-minute interval.
+Unchanged libraries do not create duplicate automatic snapshots.
+**Preferences > Backups** controls the destination, interval, and retention.
+It also offers **Back Up Now**, **Show Backups in Finder**, and **Restore Backup…**.
+A restore opens the backup in a new, empty folder and leaves the original library in place.
+[Backup usage](docs/automatic-backups.md) describes snapshot contents, encryption, and recovery limits.
 
 ## Automated builds
 
@@ -183,17 +205,18 @@ Each window can edit Source or show a read-only preview of the same note.
 Switching modes retains the source, Undo, caret, and scroll position. Existing composition commits only in the editor being hidden.
 Markdown preview uses MultiMarkdown. Preview and Save HTML use the same rendered result.
 
-![Read-only Markdown preview in the same browser body](docs/screenshots/readonly-viewer.png)
+![Read-only Markdown preview in the same window](docs/screenshots/readme-preview.png)
 
 Preview offers selection, Copy, Find, and HTML export. Printing requires macOS 11 or later.
 
+Notes can use a single database or separate plain-text files.
 Plain-text paste and imports preserve source characters, whitespace, and line endings.
 Text imports retain their original bytes, encoding, and byte-order mark where possible.
 An edit that cannot use the original encoding offers UTF-8 conversion.
 
 Rich-text notes, rich-text import/export, detached previews, sticky previews, sharing, and custom templates are no longer supported.
 The viewer blocks active note scripts and remote resources. Passive local assets can load from the note's directory.
-Native file storage and Quick Look previews are planned for a later milestone.
+Quick Look previews are not included.
 
 ## Contribute and credits
 
