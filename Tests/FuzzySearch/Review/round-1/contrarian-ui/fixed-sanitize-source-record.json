@@ -1,0 +1,17 @@
+{
+  "head": "68151012c999cb7efc7e6c32309600cac88eb9a6",
+  "baseline_inline": false,
+  "architecture": "arm64",
+  "sanitizers": true,
+  "sources": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "55f2b0c0a19a68bca78c60fd52bb138a1c305cbb83509f47d573610739b28a98",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Tests/FuzzySearch/Review/round-1/contrarian-ui/probe.m": "14c0e79f2f14a047932a156ef39ea31bff76c0b7fe2c8dfa6c03e99923efc291"
+  },
+  "extracted_methods_sha256": "90619a8061a370393cbc4fc46d4a4c5a7c12661a3459128b7bc95081176915db"
+}

@@ -62,5 +62,10 @@ for i, source in enumerate(sources):
 exe = out / "browser-tests"
 subprocess.run(["xcrun", "clang", *flags, *objects, "-framework", "Cocoa", "-framework", "Carbon", "-o", str(exe)], check=True)
 record = {"head": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(), "baseline_inline": a.baseline_inline, "architecture": a.arch or "native", "sanitizers": a.sanitize, "sources": {source: hashlib.sha256((ROOT / source).read_bytes()).hexdigest() for source in sources}, "extracted_methods_sha256": hashlib.sha256((out / "primary-selection.inc").read_bytes()).hexdigest()}
-(Path(__file__).parent / ("baseline-source-record.json" if a.baseline_inline else "preservation-assertion-source-record.json" if a.expect_inline_preserved else "sanitize-source-record.json" if a.sanitize else "native-source-record.json")).write_text(json.dumps(record, indent=2) + "\n")
-subprocess.run([str(exe)], check=True, timeout=90)
+(Path(__file__).parent / ("baseline-source-record.json" if a.baseline_inline else ("fixed-sanitize-source-record.json" if a.sanitize else "fixed-native-source-record.json") if a.expect_inline_preserved else "sanitize-source-record.json" if a.sanitize else "native-source-record.json")).write_text(json.dumps(record, indent=2) + "\n")
+result = subprocess.run([str(exe)], capture_output=True, text=True, timeout=90)
+print(result.stdout, end="")
+print(result.stderr, end="")
+if a.expect_inline_preserved and not a.baseline_inline:
+    (Path(__file__).parent / ("fixed-sanitize-results.txt" if a.sanitize else "fixed-native-results.txt")).write_text(result.stdout + result.stderr)
+raise SystemExit(result.returncode)

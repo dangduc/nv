@@ -41,16 +41,25 @@
     return YES;
 }
 - (NSArray *)literalRangesInString:(NSString *)string {
+    return [self literalRangesInString:string maximumCount:NSUIntegerMax cancellation:nil];
+}
+- (NSArray *)literalRangesInString:(NSString *)string maximumCount:(NSUInteger)maximumCount cancellation:(BOOL (^)(void))cancelled {
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+    NSUInteger occurrences = 0, length = [string length];
     for (NVSearchTerm *term in _terms) {
-        NSRange remaining = NSMakeRange(0, [string length]);
-        while (remaining.length) {
+        if (occurrences == maximumCount) break;
+        NSRange remaining = NSMakeRange(0, length);
+        while (remaining.length && occurrences < maximumCount) {
+            if (cancelled && cancelled()) return nil;
             NSRange range = [string rangeOfString:[term text] options:NSCaseInsensitiveSearch range:remaining];
+            if (cancelled && cancelled()) return nil;
             if (range.location == NSNotFound || !range.length) break;
             [indexes addIndexesInRange:[string rangeOfComposedCharacterSequencesForRange:range]];
-            remaining = NSMakeRange(NSMaxRange(range), [string length] - NSMaxRange(range));
+            ++occurrences;
+            remaining = NSMakeRange(NSMaxRange(range), length - NSMaxRange(range));
         }
     }
+    if (cancelled && cancelled()) return nil;
     NSMutableArray *ranges = [NSMutableArray array];
     [indexes enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
         [ranges addObject:[NSValue valueWithRange:range]];

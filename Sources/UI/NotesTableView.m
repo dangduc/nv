@@ -1315,18 +1315,25 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 
 - (void)editColumn:(NSInteger)columnIndex row:(NSInteger)rowIndex withEvent:(NSEvent *)event select:(BOOL)flag {
     if (![self searchRowsAreAvailable]) return;
-    
-    [(AppController *)[self delegate] setIsEditing:YES];
+    NVBrowserSession *session = [[[NVControllerForView(self) browserSession] retain] autorelease];
+    NoteObject *requestedNote = [[[session noteObjectAtFilteredIndex:(NSUInteger)rowIndex] retain] autorelease];
+    NSString *requestedKey = [[[session rowKeyAtIndex:(NSUInteger)rowIndex] copy] autorelease];
+    if (!requestedNote || !requestedKey) return;
 	BOOL isTitleCol = [self columnWithIdentifier:NoteTitleColumnString] == columnIndex;
 	
 	//if event's mouselocation is inside rowIndex cell's tag rect and this edit is in horizontal mode in the title column
 	BOOL tagsInTitleColumn = [self browserHorizontalLayout] && ((isTitleCol && [self eventIsTagEdit:event forColumn:columnIndex row:rowIndex]) ||
 																SYNTHETIC_TAGS_COLUMN_INDEX == columnIndex);
 	
-	if ([self editedRow] == rowIndex && [self currentEditor]) {
-		//this row is currently being edited; finish editing before start it again anywhere else
-		[[self window] makeFirstResponder:self];
+	if ([self currentEditor]) {
+        // Keep the old target until AppKit validates and commits its field editor.
+        if (![[self window] makeFirstResponder:self] || [self currentEditor]) return;
+        if (session != [NVControllerForView(self) browserSession] || ![self searchRowsAreAvailable]) return;
+        NSUInteger nextRow = [session indexForRowKey:requestedKey];
+        if (nextRow == NSNotFound || [session noteObjectAtFilteredIndex:nextRow] != requestedNote) return;
+        rowIndex = (NSInteger)nextRow;
 	}
+    [(AppController *)[self delegate] setIsEditing:YES];
 	lastEventActivatedTagEdit = tagsInTitleColumn;
 	
 	if (tagsInTitleColumn && !ColumnIsSet(NoteLabelsColumn, [globalPrefs tableColumnsBitmap])) {
@@ -1334,20 +1341,19 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 	}
 
     [self clearInlineEditTarget];
-    NVBrowserSession *session = [NVControllerForView(self) browserSession];
-    inlineEditNote = [[session noteObjectAtFilteredIndex:(NSUInteger)rowIndex] retain];
+    inlineEditNote = [requestedNote retain];
     inlineEditSession = [session retain];
     inlineEditRow = rowIndex;
 	
 	[super editColumn:tagsInTitleColumn ? 0 : columnIndex row:rowIndex withEvent:event select:flag];
-    if (![self currentEditor]) [self clearInlineEditTarget];
+    if (![self currentEditor]) { [self clearInlineEditTarget]; return; }
 	
 	//become/resignFirstResponder can't handle the field-editor case for row-highlighting style, so do it here:
 	[self updateTitleDereferencorState];
 	
 	//this is way easier and faster than a custom formatter! just change the title while we're editing!
 	if (isTitleCol || tagsInTitleColumn) {
-		NoteObject *note = [(FastListDataSource*)[self dataSource] immutableObjects][rowIndex];
+		NoteObject *note = requestedNote;
 		
 		NSTextView *editor = (NSTextView*)[self currentEditor];
 		[editor setString: tagsInTitleColumn ? labelsOfNote(note) : titleOfNote(note)];

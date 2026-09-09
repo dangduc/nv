@@ -132,6 +132,6 @@ record = {'command': [sys.executable, *sys.argv], 'head': subprocess.check_outpu
     'sha256': {source: hashlib.sha256((ROOT / source).read_bytes()).hexdigest() for source in inputs},
     'production_equal_c7e61cb': {source: (ROOT / source).read_bytes() == subprocess.check_output(['git', 'show', 'c7e61cb:' + source])
         for source in inputs if source.startswith('Sources/')}}
-name = (a.expect_fixed + ('-sanitize' if a.sanitize else '')) if a.expect_fixed else ('compile-only' if a.compile_only else 'sanitize' if a.sanitize else 'native')
+name = ('fixed-sanitize' if a.sanitize else 'fixed-native') if a.expect_fixed == 'all' else (a.expect_fixed + ('-sanitize' if a.sanitize else '')) if a.expect_fixed else ('compile-only' if a.compile_only else 'sanitize' if a.sanitize else 'native')
 (HERE / (name + '-results.json')).write_text(json.dumps(record, indent=2) + '\n')
 raise SystemExit(result.returncode if result else 0)

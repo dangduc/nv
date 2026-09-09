@@ -288,6 +288,7 @@ void outletObjectAwoke(id sender);
 - (NSString *)selectedSearchResultRowKey;
 - (void)searchForString:(NSString *)string mode:(NSString *)mode;
 - (void)cancelSearchIntents;
+- (void)cancelTransientSearchIntents;
 - (BOOL)searchFieldHasFocus;
 - (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session;
 - (void)browserSessionSearchDidComplete:(NVBrowserSession *)session;

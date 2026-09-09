@@ -38,6 +38,7 @@ jobs:
           python3 Tests/FuzzySearch/Browser/run.py --arch x86_64
           python3 Tests/FuzzySearch/Persistence/run.py --arch x86_64
           python3 Tests/FuzzySearch/Highlights/run.py --arch x86_64
+          python3 Tests/FuzzySearch/HighlightBounds/run.py --arch x86_64 --negative-controls
 
       - name: Build without signing
         shell: bash

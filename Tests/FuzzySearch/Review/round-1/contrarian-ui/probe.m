@@ -24,6 +24,7 @@ NSString *NoteTitleColumnString = @"title";
 static NSUInteger ContentsReads, LibraryReads, Comparisons, Checks;
 static BOOL Autocomplete;
 static NSUInteger LabelWrites, ClosedTagEditors;
+static NVBrowserSession *InvalidateDuringTitleCommit;
 static void Check(BOOL condition, const char *message) {
     if (!condition) { fprintf(stderr, "FAIL: %s\n", message); exit(1); }
     Checks++;
@@ -43,7 +44,13 @@ static void Check(BOOL condition, const char *message) {
 - (CFUUIDBytes *)uniqueNoteIDBytes { return &uniqueNoteIDBytes; }
 - (NSMutableAttributedString *)contentString { ContentsReads++; return contentString; }
 - (void)setContentString:(NSAttributedString *)contents { [contentString setAttributedString:contents]; }
-- (void)setTitleString:(NSString *)title { [titleString release]; titleString = [title copy]; }
+- (void)setTitleString:(NSString *)title {
+    [titleString release]; titleString = [title copy];
+    if (InvalidateDuringTitleCommit) {
+        NVBrowserSession *session = InvalidateDuringTitleCommit; InvalidateDuringTitleCommit = nil;
+        [session invalidateSearch];
+    }
+}
 - (void)setLabelString:(NSString *)labels { [labelString release]; labelString = [labels copy]; LabelWrites++; }
 - (void)dealloc { [contentString release]; [titleString release]; [labelString release]; [super dealloc]; }
 @end
@@ -324,6 +331,18 @@ static void CheckNativeInteractions(void) {
     Check([a->titleString isEqualToString:@"road"], "HEAD regression reproduces: previous inline title discarded by target replacement");
 #endif
     [window makeFirstResponder:table];
+#if EXPECT_INLINE_PRESERVED
+    [table selectRowAndScroll:0]; [table editColumn:0 row:0 withEvent:nil select:YES];
+    [(NSTextView *)[table currentEditor] setString:@"road committed before invalidation"];
+    InvalidateDuringTitleCommit = session;
+    [table editColumn:0 row:1 withEvent:nil select:YES];
+    Check([a->titleString isEqualToString:@"road committed before invalidation"] && ![session searchResultsAreCurrent] &&
+          ![table currentEditor] && ![table hasInlineEditTarget],
+          "overlapping edit commits its old note and refuses a new stale row after commit invalidates search");
+    Capture(service, library); [session refilterNotes];
+    Check(Spin(^BOOL { return [session searchResultsAreCurrent]; }), "inline invalidation fixture finishes its refreshed search");
+    [table reloadData];
+#endif
     [table selectRowAndScroll:0];
     [table editColumn:0 row:0 withEvent:nil select:YES];
     [(NSTextView *)[table currentEditor] setString:@"road tabbed"];

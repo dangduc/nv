@@ -52,3 +52,5 @@ The initial 150 ms target for 10,000 notes totaling 50 MiB is not met.
 Native scoring alone takes about 0.5–1.3 seconds on the measured arm64 corpus.
 Queries remain asynchronous and results remain complete. Large individual native calls can delay cancellation.
 Intel performance and complete UI publication require separate measurements.
+
+The [source-highlight bound checks](HighlightBounds/FIX.md) cover cancellation, source compatibility, and the 2,048-range display limit.
