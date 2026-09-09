@@ -327,6 +327,53 @@ static void ExistingRoot(void) {
         @"reject malformed selected-root metadata");
 }
 
+static void Maintenance(void) {
+    NSURL *selected = Folder(@"maintenance-root");
+    Check([[NSFileManager defaultManager] createDirectoryAtURL:selected withIntermediateDirectories:NO attributes:nil error:NULL], @"create maintenance root");
+    struct stat identity;
+    Check(stat([[selected path] fileSystemRepresentation], &identity) == 0, @"capture maintenance root identity");
+    NSURL *destination = [selected URLByAppendingPathComponent:library isDirectory:YES];
+    NSMutableDictionary *metadata = [NSMutableDictionary dictionaryWithDictionary:Metadata(5, NO)];
+    [metadata setObject:selected forKey:@"existingRoot"];
+    [metadata setObject:[NSString stringWithFormat:@"%llu:%llu", (unsigned long long)identity.st_dev, (unsigned long long)identity.st_ino] forKey:@"existingRootIdentity"];
+    NSDictionary *policy = @{@"recent":@3, @"daily":@0, @"weekly":@0, @"maxBytes":@(ULLONG_MAX)};
+    NSError *error = nil;
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && error, @"maintenance rejects a missing library folder");
+    Check(![[NSFileManager defaultManager] fileExistsAtPath:[destination path]], @"maintenance does not recreate the library folder");
+    NSMutableDictionary *first = nil;
+    for (NSUInteger generation=1; generation<=5; generation++) {
+        NVBackupStoreCurrentDate = [NSDate dateWithTimeIntervalSince1970:1000000+generation*100];
+        NSDictionary *published = Publish(destination, generation, NO);
+        if (!first) first = [NSMutableDictionary dictionaryWithDictionary:published];
+    }
+    [metadata setObject:[first objectForKey:@"snapshotIdentifier"] forKey:@"protectedSnapshotIdentifier"];
+    NVBackupStoreFailurePoint = @"prune";
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && error, @"maintenance reports pruning failure");
+    NVBackupStoreFailurePoint = nil;
+    Check([Snapshots(destination) count] == 5, @"failed maintenance preserves prior snapshots");
+    Check([NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && !error, @"maintenance retries with captured identity");
+    // The retained recent three, highest generation, and explicitly protected old snapshot form a union.
+    Check([Snapshots(destination) count] == 4 && [[NVBackupStore archiveDataAtSnapshotURL:[first objectForKey:@"snapshotURL"] error:&error] isEqual:payload],
+        @"maintenance protects the verified current snapshot even when its date or generation is old");
+    NSMutableDictionary *foreign = [[metadata mutableCopy] autorelease];
+    [foreign removeObjectForKey:@"existingRoot"]; [foreign removeObjectForKey:@"existingRootIdentity"];
+    [foreign setObject:[[NSUUID UUID] UUIDString] forKey:@"libraryIdentifier"];
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:foreign retention:policy error:&error] && [error code] == EINVAL, @"maintenance rejects a different library owner");
+    Check([Snapshots(destination) count] == 4, @"foreign maintenance preserves all snapshots");
+    [metadata setObject:@"invalid" forKey:@"protectedSnapshotIdentifier"];
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && [error code] == EINVAL, @"maintenance validates protected snapshot identity");
+    [metadata removeObjectForKey:@"protectedSnapshotIdentifier"];
+    NSURL *moved = Folder(@"maintenance-root-moved");
+    Check([[NSFileManager defaultManager] moveItemAtURL:selected toURL:moved error:NULL], @"move original maintenance root");
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && error, @"maintenance rejects an unavailable custom root");
+    Check(![[NSFileManager defaultManager] fileExistsAtPath:[selected path]], @"maintenance never recreates the custom root");
+    Check([[NSFileManager defaultManager] createDirectoryAtURL:selected withIntermediateDirectories:NO attributes:nil error:NULL], @"replace custom root with a different directory");
+    Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && [error code] == ESTALE, @"maintenance rejects replaced custom-root identity");
+    Check([[[NSFileManager defaultManager] contentsOfDirectoryAtURL:selected includingPropertiesForKeys:nil options:0 error:NULL] count] == 0, @"rejected maintenance leaves replacement root empty");
+    Check([Snapshots([moved URLByAppendingPathComponent:library isDirectory:YES]) count] == 4, @"rejected maintenance preserves snapshots in original root");
+    NVBackupStoreCurrentDate = nil;
+}
+
 int main(int argc, const char **argv) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     Check(argc == 2, @"test destination supplied");
@@ -335,7 +382,7 @@ int main(int argc, const char **argv) {
     for (NSUInteger index = 0; index < [bytes length]; index++) ((unsigned char *)[bytes mutableBytes])[index] = (unsigned char)(index * 17);
     payload = bytes;
     unlimited = @{ @"recent":@100000, @"daily":@0, @"weekly":@0, @"maxBytes":@(ULLONG_MAX) };
-    Basic(); Faults(); Interrupted(); Corruption(); UnsafePaths(); Retention(); RestoreWriter(); ExistingRoot();
+    Basic(); Faults(); Interrupted(); Corruption(); UnsafePaths(); Retention(); RestoreWriter(); ExistingRoot(); Maintenance();
     printf("PASS: %lu backup store assertions\n", (unsigned long)checks);
     [pool drain];
     return 0;

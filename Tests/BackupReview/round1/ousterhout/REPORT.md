@@ -29,6 +29,9 @@ Three negative mutations are rejected: removing preparation, recommitting after 
 
 ## Commands and results
 
+The retention runner now checks corrected behavior by default. Add `--baseline` to reproduce the historical results below from `30c3cf8`.
+The consolidated fix is documented in [the measurement review's fix record](../luu/FIX.md).
+
 From the repository root:
 
 - `python3 Tests/BackupReview/round1/ousterhout/run.py`

@@ -17,6 +17,11 @@ extern NSString * const NVBackupStoreErrorDomain;
 // its contents or removes the selected directory, including on failure.
 + (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)directory error:(NSError **)error;
 + (BOOL)pruneSnapshotsInDirectory:(NSURL *)directory retention:(NSDictionary *)retention error:(NSError **)error;
+// Maintenance validates the captured library/root identity without creating
+// directories. Optional protectedSnapshotIdentifier keeps the verified current
+// snapshot available even after clock changes or equal-date publications.
++ (BOOL)pruneSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata
+                       retention:(NSDictionary *)retention error:(NSError **)error;
 + (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)directory error:(NSError **)error;
 @end
 
