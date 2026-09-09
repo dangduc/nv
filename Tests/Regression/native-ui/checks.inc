@@ -63,8 +63,9 @@
             @"explicit Create action uses the query as the title");
         NoteObject *created = [[self selectedNoteObject] retain];
         [self newNote:self]; Pump();
-        Check([library totalNoteCount] == 4 && [noteTitleField currentEditor] != nil,
-            @"New Note creates a blank note and focuses its title");
+        Check([library totalNoteCount] == 4 && [noteTitleField isHidden] && ![noteTitleField currentEditor] &&
+            [browserWindow firstResponder] == textView,
+            @"New Note creates a blank note and focuses Source while the title is hidden");
         Check([[[[self selectedNoteObject] contentString] string] length] == 0, @"New Note never copies the previous body");
         [self searchForString:@""]; [self revealNote:alpha options:0]; Pump();
         [[library undoManager] removeAllActions];

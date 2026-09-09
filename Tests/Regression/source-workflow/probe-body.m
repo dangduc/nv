@@ -22,6 +22,8 @@
         NSSegmentedControl *mode = [a valueForKey:@"bodyModeControl"];
         NSPopUpButton *syntaxControl = [a valueForKey:@"sourceSyntaxControl"];
         NSPopUpButton *viewerControl = [a valueForKey:@"viewerTypeControl"];
+        // This workflow exercises the visible Source/Preview and syntax controls.
+        [prefsController setShowBodyControlsInTopSection:YES sender:nil];
         Check([mode selectedSegment] == 0 && [mode isEnabled] && ![mode isHiddenOrHasHiddenAncestor], @"Source and Preview controls are visible for a selected note");
         Check([[note sourceSyntaxIdentifier] isEqualToString:@"plain"] && [[[syntaxControl selectedItem] representedObject] isEqualToString:@"plain"], @"new note and syntax selector start with Plain Text");
         Check(![syntaxControl isHidden] && [viewerControl isHidden], @"Source mode exposes syntax selection");
