@@ -88,16 +88,26 @@
     for (NSMenuItem *item in @[title, tags, controls, list, mode])
         Check([item target] == app, @"new View commands route through the application coordinator");
     [viewMenu update];
-    Check([prefsController showTitleInTopSection] && [prefsController showTagsInTopSection] &&
-        [prefsController showBodyControlsInTopSection], @"new application preferences show all three header rows by default");
+    Check(![prefsController showTitleInTopSection] && ![prefsController showTagsInTopSection] &&
+        ![prefsController showBodyControlsInTopSection], @"new application preferences hide all three header rows by default");
+    Check([noteTitleField isHidden] && [noteTagsField isHidden] && [bodyModeControl isHidden] &&
+        [sourceSyntaxControl isHidden] && [viewerTypeControl isHidden], @"Source initially hides all header controls");
+    Check([[title title] isEqual:NSLocalizedString(@"Show Title in Top Section", nil)] &&
+        [[tags title] isEqual:NSLocalizedString(@"Show Tag in Top Section", nil)] &&
+        [[controls title] isEqual:NSLocalizedString(@"Show Source-Preview Toggle and Syntax Type in Top Section", nil)],
+        @"visibility commands initially offer Show with the requested titles");
+    Check([[mode title] isEqual:NSLocalizedString(@"Show Preview", nil)], @"Source offers the Show Preview command");
+    [self nv_checkSyntaxMenu:syntax selected:@"plain" enabled:YES];
+
+    // Show the rows explicitly before testing native edits and Hide commands.
+    for (NSMenuItem *item in @[title, tags, controls]) [self nv_sendMenuItem:item];
+    [viewMenu update];
     Check(![noteTitleField isHidden] && ![noteTagsField isHidden] && ![bodyModeControl isHidden] &&
-        ![sourceSyntaxControl isHidden] && [viewerTypeControl isHidden], @"Source initially shows all applicable header controls");
+        ![sourceSyntaxControl isHidden] && [viewerTypeControl isHidden], @"Show commands expose all applicable Source header controls");
     Check([[title title] isEqual:NSLocalizedString(@"Hide Title in Top Section", nil)] &&
         [[tags title] isEqual:NSLocalizedString(@"Hide Tag in Top Section", nil)] &&
         [[controls title] isEqual:NSLocalizedString(@"Hide Source-Preview Toggle and Syntax Type in Top Section", nil)],
-        @"visibility commands initially offer Hide with the requested titles");
-    Check([[mode title] isEqual:NSLocalizedString(@"Show Preview", nil)], @"Source offers the Show Preview command");
-    [self nv_checkSyntaxMenu:syntax selected:@"plain" enabled:YES];
+        @"visible row commands offer Hide with the requested titles");
     [self nv_captureViewControls:@"view-controls-expanded.png"];
 
     // Keep native metadata edits open while the actual View commands hide them.

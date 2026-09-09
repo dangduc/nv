@@ -149,9 +149,9 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:YES], MakeURLsClickableKey,
 			[NSNumber numberWithBool:YES], HighlightSearchTermsKey, 
 			[NSNumber numberWithBool:YES], TableColumnsHaveBodyPreviewKey, 
-			[NSNumber numberWithBool:YES], ShowTitleInTopSectionKey,
-			[NSNumber numberWithBool:YES], ShowTagsInTopSectionKey,
-			[NSNumber numberWithBool:YES], ShowBodyControlsInTopSectionKey,
+			[NSNumber numberWithBool:NO], ShowTitleInTopSectionKey,
+			[NSNumber numberWithBool:NO], ShowTagsInTopSectionKey,
+			[NSNumber numberWithBool:NO], ShowBodyControlsInTopSectionKey,
 			[NSNumber numberWithBool:YES], ShowNotesListKey,
 			[NSNumber numberWithDouble:0.0], LastScrollOffsetKey,
 			@"General", LastSelectedPreferencesPaneKey, 
@@ -169,7 +169,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
             [NSNumber numberWithBool:NO], UsesMarkdownCompletions,
 
 			[NSArchiver archivedDataWithRootObject:
-			 [NSFont fontWithName:@"Helvetica" size:12.0f]], NoteBodyFontKey,
+			 [NSFont userFixedPitchFontOfSize:12.0f]], NoteBodyFontKey,
 			
 			[NSArchiver archivedDataWithRootObject:[NSColor blackColor]], ForegroundTextColorKey,
 			[NSArchiver archivedDataWithRootObject:[NSColor whiteColor]], BackgroundTextColorKey,
