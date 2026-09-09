@@ -10,7 +10,9 @@
     NSMutableDictionary *editingSessions;
     NVBackupController *backupController;
     BOOL terminating;
+    BOOL finishingTermination;
     BOOL restoring;
+    BOOL backupRestoreInProgress;
     BOOL preservingExternalContents;
 }
 + (NVApplicationController *)sharedController;
@@ -32,6 +34,7 @@
 - (void)reloadCachedEditingSessionsFromLibrary;
 - (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser;
 - (void)preserveExternalContents:(NSAttributedString *)contents forNote:(NoteObject *)note;
+- (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error;
 @end
 
 AppController *NVControllerForView(NSView *view);

@@ -121,6 +121,13 @@ static ODBEditor	*_sharedODBEditor;
 	}
 }
 
+- (BOOL)hasEditingSessionsForClient:(id)client {
+    for (NSDictionary *session in [_filePathsBeingEdited objectEnumerator]) {
+        if ([[session objectForKey:ODBEditorNonRetainedClient] nonretainedObjectValue] == client) return YES;
+    }
+    return NO;
+}
+
 - (void)abortAllEditingSessionsForClient:(id)client {
 	 //#warning REVIEW if we created a temporary file for this session should we try to delete it and/or close it in the editor?
 

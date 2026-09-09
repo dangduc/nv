@@ -21,6 +21,7 @@ extern NSString * const ODBEditorCustomPathKey;
 
 - (void)abortEditingFile:(NSString *)path;
 - (void)abortAllEditingSessionsForClient:(id)client;
+- (BOOL)hasEditingSessionsForClient:(id)client;
 
 - (void)initializeDatabase:(NotationPrefs*)prefs;
 
