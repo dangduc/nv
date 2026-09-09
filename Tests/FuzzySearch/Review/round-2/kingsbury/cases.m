@@ -146,6 +146,75 @@ int main(void) {
         printf("RESTORE_THEN_PLURAL first_selected_count=%lu first_selected_restored=%d second_selected_count=%lu\n",
                (unsigned long)[firstSelection count], [firstSelection isEqual:@[road]], (unsigned long)[secondSelection count]);
 
+#if NV_REVIEW_EXPECT_FIXED
+        // The same replacement rule applies in reverse order. A later saved
+        // state keeps its exact occurrence and caret after just one completion.
+        for (NSUInteger plural = 0; plural < 2; plural++) {
+            StateController *controller = Controller(library, service);
+            Pending(controller, @"road");
+            if (plural) [controller notation:(id)controller->notationController revealNotes:@[body, gaps]];
+            else [controller revealNote:body options:0];
+            NSDictionary *state = RestoreState(road, @"road", @"fuzzy", NSMakeRange(2, 3));
+            [controller restoreBrowserWindowState:state];
+            Check(controller->pendingSearchRestoration && !controller->pendingSearchReveal,
+                  "newer window restoration exclusively replaces earlier singular or plural Reveal");
+            Complete(controller);
+            Check(controller->currentNote == road && [[controller selectedSearchResultRowKey] isEqual:state[@"searchRowKey"]] &&
+                  NSEqualRanges(controller->textView->selection, NSMakeRange(2, 3)) &&
+                  !controller->pendingSearchRestoration && !controller->pendingSearchReveal,
+                  "newer restoration applies its occurrence and caret on the first completion");
+            RepeatCompletion(controller, 2);
+            Check(controller->currentNote == road && NSEqualRanges(controller->textView->selection, NSMakeRange(2, 3)),
+                  "repeated completion cannot revive the superseded Reveal");
+        }
+
+        // Multiple Reveal requests replace each other in arrival order, including
+        // across singular/plural forms and an earlier pending saved state.
+        for (NSUInteger plural = 0; plural < 2; plural++) {
+            StateController *controller = Controller(library, service);
+            [controller restoreBrowserWindowState:RestoreState(road, @"road", @"fuzzy", NSMakeRange(1, 1))];
+            [controller performSearchReturn];
+            controller->searchAutocompletePending = YES;
+            [controller revealNote:body options:0];
+            Check(!controller->pendingSearchReturnQuery && !controller->searchAutocompletePending &&
+                  !controller->pendingSearchRestoration && controller->pendingSearchReveal,
+                  "valid Reveal supersedes all older transient and programmatic intents");
+            [controller notation:(id)controller->notationController revealNotes:@[road, body]];
+            if (plural) [controller notation:(id)controller->notationController revealNotes:@[body, gaps, body]];
+            else [controller revealNote:gaps options:0];
+            Resign(controller); Complete(controller);
+            NSArray *selected = [controller->notationController notesAtIndexes:[controller->notesTableView selectedRowIndexes]];
+            Check(plural ? ([selected count] == 2 && [selected containsObject:body] && [selected containsObject:gaps]) : [selected isEqual:@[gaps]],
+                  "latest singular or plural Reveal wins on one background completion");
+            Check(!controller->pendingSearchRestoration && !controller->pendingSearchReveal && !controller->window->key,
+                  "latest Reveal consumes all programmatic work without activating its browser");
+            RepeatCompletion(controller, 2);
+            Check([[controller->notationController notesAtIndexes:[controller->notesTableView selectedRowIndexes]] isEqual:selected],
+                  "multiple Reveal history leaves no stranded selection for later completions");
+        }
+
+        // Rejected foreign targets do not supersede a valid intent from this
+        // library, but a valid immediate Reveal does replace deferred work.
+        StateController *invalid = Controller(library, service);
+        [invalid restoreBrowserWindowState:RestoreState(road, @"road", @"fuzzy", NSMakeRange(1, 2))];
+        NSDictionary *validRestoration = [[invalid->pendingSearchRestoration retain] autorelease];
+        NoteObject *foreign = Note(@"Foreign", @"road");
+        Check([invalid revealNote:foreign options:0] == NSNotFound && invalid->pendingSearchRestoration == validRestoration,
+              "foreign singular Reveal leaves the valid pending restoration intact");
+        [invalid notation:(id)invalid->notationController revealNotes:@[foreign]];
+        Check(invalid->pendingSearchRestoration == validRestoration && !invalid->pendingSearchReveal,
+              "foreign plural Reveal leaves the valid pending restoration intact");
+        invalid->searchApplyingResult = YES;
+        Complete(invalid);
+        invalid->searchApplyingResult = NO;
+        Check(invalid->pendingSearchRestoration == validRestoration, "held completion retains the earlier selection intent");
+        [invalid revealNote:body options:0];
+        Check(invalid->currentNote == body && !invalid->pendingSearchRestoration && !invalid->pendingSearchReveal,
+              "immediately applicable Reveal also replaces older deferred selection work");
+        RepeatCompletion(invalid, 2);
+        Check(invalid->currentNote == body, "later completion cannot overwrite an immediate newer Reveal");
+#endif
+
         [service invalidate];
         printf("ROUND TWO STATE REVIEW: %lu checks passed\n", (unsigned long)Checks);
     }
