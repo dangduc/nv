@@ -195,7 +195,7 @@ static void UnsafePaths(void) {
     NSURL *unexpected = [newURL URLByAppendingPathComponent:@"unrelated"];
     Check([@"keep me" writeToURL:unexpected atomically:YES encoding:NSUTF8StringEncoding error:NULL], @"unexpected package entry fixture");
     Check(![NVBackupStore archiveDataAtSnapshotURL:newURL error:&error] && error, @"reject unexpected package entries");
-    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:folder error:&error], @"plaintext delete skips malformed packages");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:folder metadata:Metadata(1, NO) error:&error], @"plaintext delete skips malformed packages");
     Check([[NSFileManager defaultManager] fileExistsAtPath:[unexpected path]], @"plaintext deletion preserves unrelated package content");
     NSString *stageName = [@".nvbackup-stage-" stringByAppendingString:[[NSUUID UUID] UUIDString]];
     NSURL *foreignStage = [folder URLByAppendingPathComponent:stageName];
@@ -210,7 +210,7 @@ static void UnsafePaths(void) {
     Check(foreignSnapshot != nil, @"foreign complete snapshot fixture");
     NSURL *copiedForeign = [folder URLByAppendingPathComponent:[[foreignSnapshot objectForKey:@"snapshotURL"] lastPathComponent]];
     Check([[NSFileManager defaultManager] copyItemAtURL:[foreignSnapshot objectForKey:@"snapshotURL"] toURL:copiedForeign error:&error], @"copy unrelated library snapshot");
-    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:folder error:&error], @"delete only owned plaintext snapshots");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:folder metadata:Metadata(1, NO) error:&error], @"delete only owned plaintext snapshots");
     Check([[NSFileManager defaultManager] fileExistsAtPath:[copiedForeign path]], @"preserve complete foreign snapshot");
     NSURL *ownerURL = [folder URLByAppendingPathComponent:@".nvbackup-library.plist"];
     Check([@{@"formatVersion": @99, @"libraryIdentifier": library} writeToURL:ownerURL atomically:YES], @"malformed ownership fixture");
@@ -244,7 +244,7 @@ static void Retention(void) {
     NVBackupStoreCurrentDate = nil;
     NSURL *mixed = Folder(@"plaintext");
     Publish(mixed, 1, NO); Publish(mixed, 2, YES); Publish(mixed, 3, NO); Publish(mixed, 4, YES);
-    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:mixed error:&error], @"explicit plaintext deletion succeeds");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:mixed metadata:Metadata(1, NO) error:&error], @"explicit plaintext deletion succeeds");
     Check([Generations(mixed) isEqual:[NSSet setWithArray:@[@2,@4]]], @"plaintext deletion keeps encrypted history");
 }
 
@@ -339,6 +339,7 @@ static void Maintenance(void) {
     NSDictionary *policy = @{@"recent":@3, @"daily":@0, @"weekly":@0, @"maxBytes":@(ULLONG_MAX)};
     NSError *error = nil;
     Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && error, @"maintenance rejects a missing library folder");
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:metadata error:&error] && [error code] == ENOENT, @"deletion rejects a missing library folder");
     Check(![[NSFileManager defaultManager] fileExistsAtPath:[destination path]], @"maintenance does not recreate the library folder");
     NSMutableDictionary *first = nil;
     for (NSUInteger generation=1; generation<=5; generation++) {
@@ -359,6 +360,7 @@ static void Maintenance(void) {
     [foreign removeObjectForKey:@"existingRoot"]; [foreign removeObjectForKey:@"existingRootIdentity"];
     [foreign setObject:[[NSUUID UUID] UUIDString] forKey:@"libraryIdentifier"];
     Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:foreign retention:policy error:&error] && [error code] == EINVAL, @"maintenance rejects a different library owner");
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:foreign error:&error] && [error code] == EINVAL, @"deletion rejects a different library owner");
     Check([Snapshots(destination) count] == 4, @"foreign maintenance preserves all snapshots");
     [metadata setObject:@"invalid" forKey:@"protectedSnapshotIdentifier"];
     Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && [error code] == EINVAL, @"maintenance validates protected snapshot identity");
@@ -366,9 +368,11 @@ static void Maintenance(void) {
     NSURL *moved = Folder(@"maintenance-root-moved");
     Check([[NSFileManager defaultManager] moveItemAtURL:selected toURL:moved error:NULL], @"move original maintenance root");
     Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && error, @"maintenance rejects an unavailable custom root");
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:metadata error:&error] && [error code] == ENOENT, @"deletion rejects an unavailable custom root");
     Check(![[NSFileManager defaultManager] fileExistsAtPath:[selected path]], @"maintenance never recreates the custom root");
     Check([[NSFileManager defaultManager] createDirectoryAtURL:selected withIntermediateDirectories:NO attributes:nil error:NULL], @"replace custom root with a different directory");
     Check(![NVBackupStore pruneSnapshotsInDirectory:destination metadata:metadata retention:policy error:&error] && [error code] == ESTALE, @"maintenance rejects replaced custom-root identity");
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:metadata error:&error] && [error code] == ESTALE, @"deletion rejects replaced custom-root identity");
     Check([[[NSFileManager defaultManager] contentsOfDirectoryAtURL:selected includingPropertiesForKeys:nil options:0 error:NULL] count] == 0, @"rejected maintenance leaves replacement root empty");
     Check([Snapshots([moved URLByAppendingPathComponent:library isDirectory:YES]) count] == 4, @"rejected maintenance preserves snapshots in original root");
     NVBackupStoreCurrentDate = nil;

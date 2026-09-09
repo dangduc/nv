@@ -60,6 +60,13 @@ static void Failure(NSURL *directory, NSDictionary *metadata, NSInteger code, in
     Check(![NVBackupStore pruneSnapshotsInDirectory:directory metadata:metadata retention:tight error:NULL], @"error pointer is optional");
     Check(DescriptorCount() == descriptors, @"failed maintenance closes every descriptor");
 }
+static void DeletionFailure(NSURL *directory, NSDictionary *metadata, NSInteger code, int descriptors) {
+    NSError *error = nil;
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:directory metadata:metadata error:&error], @"deletion rejects fixture");
+    Check([[error domain] isEqual:NVBackupStoreErrorDomain] && [error code] == code, @"deletion supplies the expected error");
+    Check(![NVBackupStore deleteUnencryptedSnapshotsInDirectory:directory metadata:metadata error:NULL], @"deletion error pointer is optional");
+    Check(DescriptorCount() == descriptors, @"failed deletion closes every descriptor");
+}
 
 int main(int argc, const char **argv) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -86,21 +93,27 @@ int main(int argc, const char **argv) {
         NSMutableDictionary *bad = [[metadata mutableCopy] autorelease];
         [bad setObject:@"invalid" forKey:@"libraryIdentifier"];
         Failure(history, bad, EINVAL, baseline);
+        DeletionFailure(history, bad, EINVAL, baseline);
         bad = [[metadata mutableCopy] autorelease];
         [bad setObject:@"invalid" forKey:@"protectedSnapshotIdentifier"];
         Failure(history, bad, EINVAL, baseline);
         bad = [[metadata mutableCopy] autorelease];
         [bad removeObjectForKey:@"existingRootIdentity"];
         Failure(history, bad, EINVAL, baseline);
+        DeletionFailure(history, bad, EINVAL, baseline);
         bad = [[metadata mutableCopy] autorelease];
         [bad setObject:@"0:0" forKey:@"existingRootIdentity"];
         Failure(history, bad, ESTALE, baseline);
+        DeletionFailure(history, bad, ESTALE, baseline);
         Failure([selected URLByAppendingPathComponent:@"wrong-child"], metadata, EINVAL, baseline);
+        DeletionFailure([selected URLByAppendingPathComponent:@"wrong-child"], metadata, EINVAL, baseline);
         Failure([root URLByAppendingPathComponent:@"missing/default"], Metadata(library, NO), ENOENT, baseline);
+        DeletionFailure([root URLByAppendingPathComponent:@"missing/default"], Metadata(library, NO), ENOENT, baseline);
         Check(![[NSFileManager defaultManager] fileExistsAtPath:[[root URLByAppendingPathComponent:@"missing"] path]], @"default maintenance creates no ancestor");
         int lock = open([[[history URLByAppendingPathComponent:@".nvbackup-lock"] path] fileSystemRepresentation], O_RDWR | O_CLOEXEC);
         Check(lock >= 0 && flock(lock, LOCK_EX | LOCK_NB) == 0, @"hold real destination lock");
         Failure(history, metadata, EWOULDBLOCK, baseline + 1);
+        DeletionFailure(history, metadata, EWOULDBLOCK, baseline + 1);
         close(lock);
         NVBackupStoreFailurePoint = @"prune";
         Failure(history, metadata, EIO, baseline);
@@ -123,9 +136,11 @@ int main(int argc, const char **argv) {
     NSMutableDictionary *emptyMetadata = Selected(emptyRoot);
     NSURL *absentChild = [emptyRoot URLByAppendingPathComponent:library isDirectory:YES];
     Failure(absentChild, emptyMetadata, ENOENT, baseline);
+    DeletionFailure(absentChild, emptyMetadata, ENOENT, baseline);
     Check([[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[emptyRoot path] error:NULL] count] == 0, @"maintenance creates neither absent child nor lock");
     Check([[NSFileManager defaultManager] removeItemAtURL:emptyRoot error:NULL], @"delete empty selected fixture");
     Failure(absentChild, emptyMetadata, ENOENT, baseline);
+    DeletionFailure(absentChild, emptyMetadata, ENOENT, baseline);
     Check(![[NSFileManager defaultManager] fileExistsAtPath:[emptyRoot path]], @"maintenance does not recreate the selected root");
 
     // Ordinary misplaced-library fixture: copy library B's complete folder into
@@ -139,13 +154,15 @@ int main(int argc, const char **argv) {
     Check([[NSFileManager defaultManager] copyItemAtURL:source toURL:misfiled error:NULL], @"copy foreign library folder to the wrong child");
     Failure(misfiled, Selected(misfiledRoot), EINVAL, baseline);
     Check([List(misfiled) count] == 2, @"maintenance rejects the owner mismatch before deletion");
-    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:misfiled error:&error] && !error, @"path-only plaintext deletion accepts the destination owner");
+    DeletionFailure(misfiled, Selected(misfiledRoot), EINVAL, baseline);
     NSArray *remaining = List(misfiled);
-    Check([remaining count] == 1 && [[[remaining firstObject] objectForKey:@"encrypted"] boolValue], @"path-only deletion deletes the foreign plaintext fixture");
-    Check([List(source) count] == 2, @"source fixtures remain intact");
+    Check([remaining count] == 2, @"deletion preserves both foreign-library snapshots");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:source metadata:Metadata(otherLibrary, NO) error:&error] && !error,
+        @"matching library identity permits plaintext deletion");
+    remaining = List(source);
+    Check([remaining count] == 1 && [[[remaining firstObject] objectForKey:@"encrypted"] boolValue], @"authorized deletion preserves encrypted snapshots");
     Check(DescriptorCount() == baseline, @"owner rejection and plaintext deletion close descriptors");
-    printf("OBSERVED: misplaced library B folder under library A's child: maintenance rejects ownership; path-only plaintext deletion deletes B's plaintext snapshot.\n");
-    printf("PASS: %lu checks; 160 rejected maintenance calls; equal-date protection and sync retry; descriptor count %d -> %d\n", (unsigned long)checks, baseline, DescriptorCount());
+    printf("PASS: %lu checks; maintenance and deletion reject foreign, missing, and stale destinations; equal-date protection and sync retry; descriptor count %d -> %d\n", (unsigned long)checks, baseline, DescriptorCount());
     NVBackupStoreCurrentDate = nil;
     [pool drain];
     return 0;

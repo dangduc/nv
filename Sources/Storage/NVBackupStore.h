@@ -22,7 +22,8 @@ extern NSString * const NVBackupStoreErrorDomain;
 // snapshot available even after clock changes or equal-date publications.
 + (BOOL)pruneSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata
                        retention:(NSDictionary *)retention error:(NSError **)error;
-+ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)directory error:(NSError **)error;
+// Deletion requires the captured library/root identity and creates no directories.
++ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)directory metadata:(NSDictionary *)metadata error:(NSError **)error;
 @end
 
 #ifdef NVBACKUPSTORE_TESTING

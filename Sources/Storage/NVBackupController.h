@@ -12,6 +12,7 @@ extern NSString * const NVBackupStatusDidChangeNotification;
     NSOperationQueue *worker;
     NSMutableDictionary *librarySettings;
     NSDate *nextAttempt;
+    NSTimeInterval nextAttemptDelay;
     NSString *latestError;
     NSString *latestNotice;
     NSUInteger contextGeneration;

@@ -81,6 +81,10 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     return self;
 }
 - (void)changed { [[NSNotificationCenter defaultCenter] postNotificationName:NVBackupStatusDidChangeNotification object:self]; }
+- (void)scheduleNextAttemptAfterDelay:(NSTimeInterval)delay fromDate:(NSDate *)date {
+    nextAttemptDelay = delay;
+    [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:delay] retain];
+}
 - (void)saveSettings {
     if (!libraryIdentifier) return;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -143,7 +147,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     }
     NSDate *last = [librarySettings objectForKey:@"lastDate"];
     NSTimeInterval interval = [[librarySettings objectForKey:@"interval"] doubleValue];
-    nextAttempt = [(last ? [last dateByAddingTimeInterval:interval] : [NSDate date]) retain];
+    [self scheduleNextAttemptAfterDelay:(last ? interval : 0) fromDate:last ?: [NSDate date]];
     [self changed];
     [self performSelector:@selector(tick:) withObject:nil afterDelay:0.0];
 }
@@ -176,7 +180,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     }
     if ([values objectForKey:@"enabled"]) [librarySettings setObject:@([[values objectForKey:@"enabled"] boolValue]) forKey:@"enabled"];
     [self saveSettings];
-    [nextAttempt release]; nextAttempt = [[NSDate date] retain];
+    [self scheduleNextAttemptAfterDelay:0 fromDate:[NSDate date]];
     [self changed];
     return YES;
 }
@@ -227,33 +231,35 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
 - (void)checkForBackupAtDate:(NSDate *)date {
     if (![self hasLibrary] || busy || ![[librarySettings objectForKey:@"enabled"] boolValue]) return;
     NSTimeInterval interval = [[librarySettings objectForKey:@"interval"] doubleValue];
-    // A backward clock change must not postpone a backup by days or years.
-    if ([nextAttempt timeIntervalSinceDate:date] > interval) {
-        [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:interval] retain];
+    // Preserve deliberate failure delays. A backward clock change must not
+    // postpone either a regular check or its retry by days or years.
+    NSTimeInterval delay = nextAttemptDelay > 0 ? nextAttemptDelay : interval;
+    if ([nextAttempt timeIntervalSinceDate:date] > delay) {
+        [self scheduleNextAttemptAfterDelay:delay fromDate:date];
     }
     if (!nextAttempt || [nextAttempt compare:date] != NSOrderedDescending) [self beginBackupAtDate:date manual:NO];
     else [self changed];
 }
 - (void)beginBackupAtDate:(NSDate *)date manual:(BOOL)manual {
     if (![self hasLibrary] || busy) return;
-    [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:[[librarySettings objectForKey:@"interval"] doubleValue]] retain];
+    [self scheduleNextAttemptAfterDelay:[[librarySettings objectForKey:@"interval"] doubleValue] fromDate:date];
     NSError *error = nil;
     NSURL *destination = [self checkedDestinationWithError:&error];
-    if (!destination) { [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:300] retain]; [self setError:error]; return; }
+    if (!destination) { [self scheduleNextAttemptAfterDelay:300 fromDate:date]; [self setError:error]; return; }
     NSURL *existingRoot = nil;
     NSString *existingRootIdentity = nil;
     if ([librarySettings objectForKey:@"destinationBookmark"]) {
         existingRoot = [destination URLByDeletingLastPathComponent];
         struct stat rootInfo;
         if (stat([[existingRoot path] fileSystemRepresentation], &rootInfo) != 0 || !S_ISDIR(rootInfo.st_mode)) {
-            [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:300] retain];
+            [self scheduleNextAttemptAfterDelay:300 fromDate:date];
             [self setError:BackupError(@"The selected backup folder is unavailable. Connect its volume or choose another folder.")];
             return;
         }
         existingRootIdentity = [NSString stringWithFormat:@"%llu:%llu", (unsigned long long)rootInfo.st_dev, (unsigned long long)rootInfo.st_ino];
     }
     NSDictionary *snapshot = [library backupSnapshotWithError:&error];
-    if (!snapshot) { [nextAttempt release]; nextAttempt = [[date dateByAddingTimeInterval:300] retain]; [self setError:error]; return; }
+    if (!snapshot) { [self scheduleNextAttemptAfterDelay:300 fromDate:date]; [self setError:error]; return; }
     NSError *primaryWarning = [snapshot objectForKey:@"sourceWriteError"] ?: [snapshot objectForKey:@"journalWriteError"];
     [latestNotice release];
     latestNotice = [(primaryWarning ? [primaryWarning localizedDescription] : NSLocalizedString(@"Includes committed notes. Unfinished text composition and metadata edits are excluded.", nil)) copy];
@@ -317,11 +323,11 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
                 if ([[librarySettings objectForKey:@"storageBytes"] unsignedLongLongValue] > [[retention objectForKey:@"maxBytes"] unsignedLongLongValue]) [notices addObject:NSLocalizedString(@"The three retained snapshots exceed the storage target.", nil)];
                 [latestNotice release]; latestNotice = [[notices componentsJoinedByString:@"\n"] copy];
                 if (maintenanceError) {
-                    [nextAttempt release]; nextAttempt = [[NSDate dateWithTimeIntervalSinceNow:300] retain];
+                    [self scheduleNextAttemptAfterDelay:300 fromDate:[NSDate date]];
                 }
                 [self setError:maintenanceError];
             } else {
-                [nextAttempt release]; nextAttempt = [[NSDate dateWithTimeIntervalSinceNow:300] retain];
+                [self scheduleNextAttemptAfterDelay:300 fromDate:[NSDate date]];
                 [self setError:writeError];
             }
         }];
@@ -344,7 +350,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     retentionPending = YES;
     for (NSString *key in @[@"lastDate",@"lastGeneration",@"lastSnapshot",@"storageBytes"]) [librarySettings removeObjectForKey:key];
     [self saveSettings];
-    [nextAttempt release]; nextAttempt = [[NSDate date] retain];
+    [self scheduleNextAttemptAfterDelay:0 fromDate:[NSDate date]];
     [self setError:nil];
 }
 - (IBAction)showBackupsInFinder:(id)sender {
@@ -363,10 +369,22 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     NSError *error = nil;
     NSURL *destination = [self checkedDestinationWithError:&error];
     if (!destination) { [self setError:error]; return; }
+    NSMutableDictionary *metadata = [NSMutableDictionary dictionaryWithObject:libraryIdentifier forKey:@"libraryIdentifier"];
+    if ([librarySettings objectForKey:@"destinationBookmark"]) {
+        NSURL *existingRoot = [destination URLByDeletingLastPathComponent];
+        struct stat rootInfo;
+        if (stat([[existingRoot path] fileSystemRepresentation], &rootInfo) != 0 || !S_ISDIR(rootInfo.st_mode)) {
+            [self setError:BackupError(@"The selected backup folder is unavailable. Connect its volume or choose another folder.")];
+            return;
+        }
+        [metadata setObject:existingRoot forKey:@"existingRoot"];
+        [metadata setObject:[NSString stringWithFormat:@"%llu:%llu", (unsigned long long)rootInfo.st_dev, (unsigned long long)rootInfo.st_ino]
+                     forKey:@"existingRootIdentity"];
+    }
     busy = YES; [self changed];
     [worker addOperationWithBlock:^{ @autoreleasepool {
         NSError *deleteError = nil;
-        BOOL success = [NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination error:&deleteError];
+        BOOL success = [NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:metadata error:&deleteError];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             busy = NO;
             if (stopped || context != contextGeneration) { [self changed]; return; }
@@ -398,7 +416,8 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
             if (!data) { busy = NO; [self setError:readError]; return; }
             NSError *decodeError = nil;
             NSDictionary *restored = [NVBackupArchive restoredArchiveFromData:data error:&decodeError];
-            if (!restored || context != contextGeneration) {
+            if (stopped || context != contextGeneration) { busy = NO; [self changed]; return; }
+            if (!restored) {
                 busy = NO;
                 if ([decodeError code] != NSUserCancelledError) [self setError:decodeError];
                 else [self changed];

@@ -80,15 +80,27 @@ int main(int argc, const char *argv[]) { @autoreleasepool {
     Tick(controller, failureTime + 30);
     Check([worker pendingCount] == 0, @"first timer tick does not immediately retry");
     NSTimeInterval retryDeadline = [[controller valueForKey:@"nextAttempt"] timeIntervalSinceReferenceDate];
-    Tick(controller, failureTime + 89);
-    Check([worker pendingCount] == 0, @"second failure has not retried before adjusted deadline");
-    Tick(controller, failureTime + 90);
-    Check([worker pendingCount] == 1, @"BUG: unchanged cleanup retries at 90 seconds instead of 300");
+    Check(retryDeadline == failureTime + 300, @"minimum interval preserves the full five-minute deadline");
+    for (NSNumber *elapsed in @[@60, @90, @299]) {
+        Tick(controller, failureTime + [elapsed doubleValue]);
+        Check([worker pendingCount] == 0, @"short-interval maintenance does not retry before five minutes");
+    }
+    Tick(controller, failureTime + 300);
+    Check([worker pendingCount] == 1, @"unchanged cleanup retries after five minutes");
     Complete(worker);
-    Check([[controller statusText] containsString:@"Injected backup failure: prune"], @"early failed retry keeps its error");
+    Check([[controller statusText] containsString:@"Injected backup failure: prune"], @"failed retry keeps its error");
+    NSTimeInterval movedBack = clockTime - 86400;
+    Tick(controller, movedBack);
+    Check([[controller valueForKey:@"nextAttempt"] timeIntervalSinceReferenceDate] == movedBack + 300,
+        @"actual backward clock movement bounds the maintenance retry to five minutes");
+    Tick(controller, movedBack + 299);
+    Check([worker pendingCount] == 0, @"backward movement preserves the full retry delay");
+    NVBackupStoreFailurePoint = nil;
+    MeasureTick(controller, worker, movedBack + 300);
+    Check(![[controller statusText] containsString:@"Injected backup failure: prune"], @"maintenance recovers at the corrected retry deadline");
     printf("RETENTION_READS packages=32 archive_mib=1 policy_mib=%llu ordinary_checks=4 ordinary_total_mib=%llu daily_mib=%llu failed_prune_mib=%llu\n", policyReads/MiB, routineReads/MiB, dailyReads/MiB, failedReads/MiB);
     printf("RETRY_BOUND interval_900_retry_seconds=300 interval_60_retry_seconds=%.0f expected_failure_retry_seconds=300\n", retryDeadline-failureTime);
-    puts("PASS: production controller/store schedule and read assertions; minimum-interval assertion reproduces the retry defect");
+    puts("PASS: production controller/store schedule and read assertions; short intervals preserve failure delays and actual backward-clock correction");
     [controller stop]; [controller release]; [library release]; [worker release];
     [lastSnapshot release]; [lastDate release]; [ReviewArchiveData release];
 }}

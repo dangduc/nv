@@ -17,6 +17,7 @@ static BOOL failPublicationRetention, failMaintenance;
 static NSUInteger maintenanceCalls;
 static NSMutableArray *maintenanceMetadata, *maintenancePolicies;
 static NSMutableArray *publishedMetadata, *publishedDestinations, *publishedData;
+static NSMutableArray *deletionMetadata, *deletionDestinations;
 static NSMutableDictionary *expectedArchiveData;
 static NSMutableArray *verificationURLs;
 static id memoryDefaults, completionQueue;
@@ -141,7 +142,10 @@ static void ReplaceClassMethod(Class cls, SEL selector, IMP implementation) {
     if (!data || ![data isEqualToData:[expectedArchiveData objectForKey:[url path]]]) return nil;
     return data;
 }
-+ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)url error:(NSError **)error { return YES; }
++ (BOOL)deleteUnencryptedSnapshotsInDirectory:(NSURL *)url metadata:(NSDictionary *)metadata error:(NSError **)error {
+    [deletionMetadata addObject:metadata]; [deletionDestinations addObject:url];
+    return YES;
+}
 @end
 @implementation NVBackupArchive
 + (NSDictionary *)restoredArchiveFromData:(NSData *)data error:(NSError **)error { return nil; }
@@ -167,6 +171,91 @@ static void Complete(ManualQueue *worker) {
 static void Tick(NVBackupController *controller, NSTimeInterval timestamp) {
     clockTime = timestamp;
     [controller checkForBackupAtDate:[NSDate date]];
+}
+
+@interface FixtureDeleteAlert : NSObject
+- (void)setMessageText:(NSString *)text;
+- (void)setInformativeText:(NSString *)text;
+- (void)addButtonWithTitle:(NSString *)title;
+- (NSInteger)runModal;
+@end
+@implementation FixtureDeleteAlert
+- (void)setMessageText:(NSString *)text {}
+- (void)setInformativeText:(NSString *)text {}
+- (void)addButtonWithTitle:(NSString *)title {}
+- (NSInteger)runModal { return NSAlertSecondButtonReturn; }
+@end
+static id AllocateDeleteAlert(id self, SEL command) { return [FixtureDeleteAlert new]; }
+
+static void DeletionChecks(ManualQueue *worker) {
+    deletionMetadata = [NSMutableArray new]; deletionDestinations = [NSMutableArray new];
+    Method allocation = class_getClassMethod([NSAlert class], @selector(alloc));
+    IMP originalAllocation = method_getImplementation(allocation);
+    ReplaceClassMethod([NSAlert class], @selector(alloc), (IMP)AllocateDeleteAlert);
+    NVBackupController *controller = [[NVBackupController alloc] initWithApplicationController:nil];
+    [[controller valueForKey:@"timer"] invalidate]; [controller setValue:worker forKey:@"worker"];
+    FixtureLibrary *library = [[FixtureLibrary alloc] initWithIdentifier:@"deletion-original"];
+    FixtureLibrary *peer = [[FixtureLibrary alloc] initWithIdentifier:@"deletion-peer"];
+    Attach(controller, library);
+    [controller deleteUnencryptedBackups:nil]; Complete(worker);
+    Check([[[deletionMetadata lastObject] objectForKey:@"libraryIdentifier"] isEqual:@"deletion-original"] &&
+        ![[deletionMetadata lastObject] objectForKey:@"existingRoot"], @"Default deletion captures the active library identity");
+    NSURL *selected = [NSURL fileURLWithPath:[testRoot stringByAppendingPathComponent:@"deletion-selected"] isDirectory:YES];
+    Check([[NSFileManager defaultManager] createDirectoryAtURL:selected withIntermediateDirectories:YES attributes:nil error:NULL], @"Create selected deletion root");
+    NSData *bookmark = [selected bookmarkDataWithOptions:NSURLBookmarkCreationMinimalBookmark includingResourceValuesForKeys:nil relativeToURL:nil error:NULL];
+    Check(bookmark != nil, @"Create selected deletion bookmark");
+    NSMutableDictionary *settings = [controller valueForKey:@"librarySettings"];
+    [settings setObject:bookmark forKey:@"destinationBookmark"];
+    struct stat identity;
+    Check(stat([[selected path] fileSystemRepresentation], &identity) == 0, @"Read selected root identity");
+    NSString *capturedIdentity = [NSString stringWithFormat:@"%llu:%llu", (unsigned long long)identity.st_dev, (unsigned long long)identity.st_ino];
+    [controller deleteUnencryptedBackups:nil];
+    Check([worker pendingCount] == 1 && [controller isBusy], @"Deletion runs on the worker");
+    Attach(controller, peer); Complete(worker);
+    NSDictionary *captured = [deletionMetadata lastObject];
+    Check([[captured objectForKey:@"libraryIdentifier"] isEqual:@"deletion-original"] &&
+        [[captured objectForKey:@"existingRootIdentity"] isEqual:capturedIdentity], @"Queued deletion retains the original library and selected-root identity");
+    Check([[[[captured objectForKey:@"existingRoot"] URLByResolvingSymlinksInPath] path] isEqual:[[selected URLByResolvingSymlinksInPath] path]] &&
+        [[[deletionDestinations lastObject] lastPathComponent] isEqual:@"deletion-original"], @"Queued deletion retains its selected root and original destination");
+    Check([[controller libraryIdentifier] isEqual:@"deletion-peer"] && ![[controller settings] objectForKey:@"lastGeneration"],
+        @"Old deletion completion does not update the new library");
+    [controller stop]; [controller release]; [library release]; [peer release];
+    ReplaceClassMethod([NSAlert class], @selector(alloc), originalAllocation);
+}
+
+static void ShortIntervalRetryChecks(ManualQueue *worker) {
+    for (NSString *failure in @[@"capture", @"publication", @"destination"]) {
+        NVBackupController *controller = [[NVBackupController alloc] initWithApplicationController:nil];
+        [[controller valueForKey:@"timer"] invalidate]; [controller setValue:worker forKey:@"worker"];
+        FixtureLibrary *library = [[FixtureLibrary alloc] initWithIdentifier:[@"retry-" stringByAppendingString:failure]];
+        Attach(controller, library);
+        Check([controller setSettings:@{@"interval":@60} error:NULL], @"Accept the supported 60-second interval");
+        library->failCapture = [failure isEqual:@"capture"];
+        failPublication = [failure isEqual:@"publication"];
+        NSMutableDictionary *settings = [controller valueForKey:@"librarySettings"];
+        if ([failure isEqual:@"destination"]) [settings setObject:[NSData data] forKey:@"destinationBookmark"];
+        NSTimeInterval failedAt = clockTime;
+        Tick(controller, failedAt);
+        if ([worker pendingCount]) Complete(worker);
+        Check([[controller statusText] containsString:@"Error:"], @"Failure produces a status error");
+        for (NSNumber *elapsed in @[@30, @60, @90, @299]) {
+            Tick(controller, failedAt + [elapsed doubleValue]);
+            Check([worker pendingCount] == 0 && [[controller valueForKey:@"nextAttempt"] timeIntervalSinceReferenceDate] == failedAt + 300,
+                @"Short interval preserves the full five-minute failure deadline");
+        }
+        NSTimeInterval movedBack = failedAt - 86400;
+        Tick(controller, movedBack);
+        Check([[controller valueForKey:@"nextAttempt"] timeIntervalSinceReferenceDate] == movedBack + 300,
+            @"An actual backward clock change bounds the failure retry to five minutes");
+        Tick(controller, movedBack + 299); Check([worker pendingCount] == 0, @"Backward clock correction preserves the retry delay");
+        library->failCapture = NO; failPublication = NO; [settings removeObjectForKey:@"destinationBookmark"];
+        Tick(controller, movedBack + 300); Complete(worker);
+        Check(![[controller statusText] containsString:@"Error:"], @"Success clears the failure at its retry deadline");
+        Tick(controller, movedBack - 3600);
+        Check([[controller valueForKey:@"nextAttempt"] timeIntervalSinceReferenceDate] == movedBack - 3540,
+            @"A later ordinary check still corrects backward movement to the 60-second interval");
+        [controller stop]; [controller release]; [library release];
+    }
 }
 
 static void RetentionChecks(ManualQueue *worker) {
@@ -478,7 +567,9 @@ int main(int argc, const char *argv[]) {
             @"Unchanged maintenance carries the captured custom-root device and inode");
         [validation stop]; [validation release];
         RetentionChecks(worker);
-        NSLog(@"PASS: production scheduling, integrity verification, changes, pending edits, clocks, wake, retry, switch, stop, restart, disablement, manual backup, capture failure, moved/copied libraries, and corrupt persisted settings");
+        DeletionChecks(worker);
+        ShortIntervalRetryChecks(worker);
+        NSLog(@"PASS: production scheduling, integrity verification, changes, pending edits, clocks, wake, retry, switch, stop, restart, disablement, manual backup, capture failure, moved/copied libraries, corrupt persisted settings, deletion identity, and short-interval failure deadlines");
     }
     return 0;
 }
