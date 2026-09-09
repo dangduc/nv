@@ -296,15 +296,14 @@
     NSError *error = [session searchError];
     [createNoteButton setHidden:!canCreate && !error];
     [createNoteButton setAction:error ? @selector(retrySearch:) : @selector(createNoteFromSearch:)];
-    [searchStatusField setHidden:!fuzzy];
-    NSRect listFrame = [notesSubview bounds];
-    if (fuzzy) listFrame.size.height = MAX(0, listFrame.size.height - 24);
-    [notesScrollView setFrame:listFrame];
     NSString *status = @"";
     if (error) status = [error localizedDescription];
     else if ([session searchPending]) status = searchStatusDelayElapsed ? NSLocalizedString(@"Searching…", nil) : @"";
-    else if (fuzzy) status = [NSString stringWithFormat:NSLocalizedString(@"%lu results in %lu notes — title matches first", nil),
-        (unsigned long)[session resultCount], (unsigned long)[session distinctResultNoteCount]];
+    BOOL showStatus = fuzzy && [status length] > 0;
+    [searchStatusField setHidden:!showStatus];
+    NSRect listFrame = [notesSubview bounds];
+    if (showStatus) listFrame.size.height = MAX(0, listFrame.size.height - 24);
+    [notesScrollView setFrame:listFrame];
     [searchStatusField setStringValue:status ?: @""];
     [searchStatusField setToolTip:status];
     [field setToolTip:status];
