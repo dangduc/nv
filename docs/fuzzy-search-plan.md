@@ -1,6 +1,6 @@
 # Fuzzy search in nv
 
-Implementation design, updated September 9, 2026. The application now implements this search workflow; validation and review continue.
+Implementation design, updated September 9, 2026. The application implements this workflow. Three review rounds are complete; full desktop validation remains unavailable on the local host.
 The application baseline is `a9539cca76e260546310caa4918d018f802b064b`.
 The dependency is [`fzf-native` main at `4b9236e`](https://github.com/dangduc/fzf-native/tree/4b9236e8cd1e9f9f3aaf5f2ebf83f1fc5995d38d), downloaded for the prototype.
 The [fzfa audit](fzfa-async-search-audit.md) supplies the request, cancellation, and publication design.
@@ -352,7 +352,7 @@ Intel latency, complete UI publication, and desktop behavior still require runti
 One native matcher call remains uninterruptible. Cancellation measurements must include individual large notes.
 It must not truncate notes, alter the fuzzy group's native order, or label incomplete output as a complete search.
 
-The defaults proposed for review are Fuzzy for new sessions, Exact for legacy state, complete-note candidates, and nv's literal query syntax.
+The implemented defaults are Fuzzy for new sessions, Exact for legacy state, complete-note candidates, and nv's literal query syntax.
 Title matches will appear first, and a note can appear in both groups.
 The native-order requirement applies to the complete fuzzy group.
 The main unresolved engineering question is whether complete-note matching meets the Intel latency and cancellation targets without upstream matcher changes.

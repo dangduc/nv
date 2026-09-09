@@ -60,3 +60,5 @@ Queries remain asynchronous and results remain complete. Large individual native
 Intel performance and complete UI publication require separate measurements.
 
 The [source-highlight bound checks](HighlightBounds/FIX.md) cover cancellation, source compatibility, and the 2,048-range display limit.
+
+All [18 review reports](Review/README.md) include executable evidence and their validation limits. Findings and delegated fixes are recorded on PR #10.
