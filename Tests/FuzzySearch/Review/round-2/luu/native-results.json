@@ -1,0 +1,43 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-2/luu/run.py"
+  ],
+  "head": "deb3db3f6ea21e6158a1e449d73cac134410affb",
+  "toolchain": "Xcode 26.6\nBuild version 17F113",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "082fa72f1732f769aacea051b6e0380b60ca207386d23a59214ce12be0befbcf",
+    "Sources/Search/NVSearchQuery.h": "8cf1dbf4f86a92d552e99c0fce881cec9f520b64caddc4ca04d6b70d60d06d5d",
+    "Sources/Search/NVSearchService.h": "50b426db14165987c7a2f9fcde63ad356aff96497b2bdeff123942f1be5f571c",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Editor/LinkingEditor.m": "f874f22f21690c4631f1f6c7f82893697ba33a4b18fed82d37c3d56e386ab128"
+  },
+  "timed_service_sha256": "b6903cb12eef34d7f782c943b9dfe797d9a63320d9876cfaf557e0f5e679f3a7",
+  "fixture_sha256": "086be234326eb89b1e346423efd9f6f38faea08ea4fa89a56cd9f7be7899a42a",
+  "results": [
+    {
+      "mode": "dense",
+      "exit_code": 0,
+      "stdout": "case,trial,source_utf16,ranges,submit_main_ms,worker_to_apply_ms,apply_main_ms,clear_main_ms\ndense,0,8388608,2048,0.028,49.904,0.583,0.420\ndense,1,8388608,2048,0.444,40.956,0.906,0.475\ndense,2,8388608,2048,0.377,40.877,0.821,0.434\n",
+      "stderr": "PASS 17 checks\n"
+    },
+    {
+      "mode": "literal",
+      "exit_code": 0,
+      "stdout": "case,source_utf16,trial,baseline_peer_ms,presentation_ms,peer_queued_ms,delivered_ranges,native_positions_ms,unicode_map_ms\nlate_literal,8388614,0,0.619,36.963,37.555,1,0.000,0.000\nlate_literal,8388614,1,0.649,36.216,37.124,1,0.000,0.000\n",
+      "stderr": "PASS 20 checks\n"
+    },
+    {
+      "mode": "positions",
+      "exit_code": 0,
+      "stdout": "case,source_utf16,trial,baseline_peer_ms,presentation_ms,peer_queued_ms,delivered_ranges,native_positions_ms,unicode_map_ms\nlate_positions,1048582,0,0.103,190.202,190.287,1,3.514,186.655\nlate_positions,1048582,1,0.107,186.718,186.798,1,3.478,183.212\nlate_positions,4194310,0,0.321,744.012,744.373,1,14.054,729.933\nlate_positions,4194310,1,0.298,743.976,744.273,1,14.022,729.927\ncancel_control,source_utf16=4194310,total_peer_ms=20.594,cancel_to_peer_ms=0.316,native_positions_ms=14.115,unicode_map_ms=6.163\n",
+      "stderr": "PASS 41 checks\n"
+    }
+  ]
+}
