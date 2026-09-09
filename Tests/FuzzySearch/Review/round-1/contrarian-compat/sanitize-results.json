@@ -1,0 +1,312 @@
+{
+  "command": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "Tests/FuzzySearch/Review/round-1/contrarian-compat/run.py",
+    "--sanitize"
+  ],
+  "head": "68151012c999cb7efc7e6c32309600cac88eb9a6",
+  "exit_code": 0,
+  "compile_only": false,
+  "architecture": "arm64",
+  "stdout": "LEGACY EMPTY: stored_query=present-empty stored_mode=absent restored_mode=fuzzy\nTAB: handled=1 query=road restored_mode=exact rows=2\nPASS: 59 compatibility checks with production methods and real native search.\n",
+  "stderr": "",
+  "production_methods": [
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 12,
+      "signature": "- (NSString *)searchMode",
+      "sha256": "9b8c4db10b0b470fb44c676dfd40d93f1e2919dd28aea9b0192db2b648342128",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 13,
+      "signature": "- (NSString *)selectedSearchResultRowKey",
+      "sha256": "4942289e5847812c694235780c5e9589d2d9c37587e6cef10186259bc8ae1644",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 14,
+      "signature": "- (BOOL)searchFieldHasFocus",
+      "sha256": "1d74789ada0166ea933900bf442ef2f0ef7e05070d964eff31574a0ef72982f8",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 33,
+      "signature": "- (void)cancelSearchIntents",
+      "sha256": "e850c4625d59ccdd552d56d1c555d19846348617ebea51d39f1967513bd73f92",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 38,
+      "signature": "- (void)searchForString:",
+      "sha256": "a9dfcf46e3ed22888f02003ecbebcb0a08ab1d0171206093db2c94f0c356e81d",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 50,
+      "signature": "- (IBAction)selectSearchMode:",
+      "sha256": "1a7fdcb426fd485217e4c53f57a5b19e4bb2ae31601a21628db84483126eb83b",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 53,
+      "signature": "- (IBAction)retrySearch:",
+      "sha256": "59e6d037733f2b182b2f474a0205aad6b17fb72b69c4f37b8b10eecc7161f76c",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 58,
+      "signature": "- (void)showSearchProgress",
+      "sha256": "9f86171362f95784811c71504d20729237b57102b79b7f9a884b813cc18d2b8f",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 62,
+      "signature": "- (void)browserSessionSearchStateDidChange:",
+      "sha256": "c4b4da8a23132cf01f4023df4c4d29805d02581eeb47365735479ae485cfd463",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 80,
+      "signature": "- (void)browserSessionSearchDidComplete:",
+      "sha256": "97b0f9650327a0dca26fd1a5893c75c50fd7de34108b3d625ed77b659bce44a4",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 124,
+      "signature": "- (void)performSearchReturn",
+      "sha256": "a9df1dc1a01d02e4d8a67997babcfd60b99bd8d11f7a004b96554662d84aec60",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 29,
+      "signature": "- (void)cancelTransientSearchIntents",
+      "sha256": "e2e9d7dd4a9382cca880effa8f5ddb1957201fb3c74c7a6bf955a234ecc762f8",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1243,
+      "signature": "- (void)controlTextDidChange:",
+      "sha256": "a83771f0bfaa2644e3540e41213118f6933d3d5f6b83fbe8144973c185a75acf",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1531,
+      "signature": "- (void)controlTextDidEndEditing:",
+      "sha256": "cdb9f92e03772b083707f1aa82e0cf0d5a0ff27df27195e857f1b27b74f9b504",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1879,
+      "signature": "- (void)windowDidResignKey:",
+      "sha256": "3bffecdeb1598cf0c50e9a4ea86014d651751ed78d0007b78fdb5e0ff746a039",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1888,
+      "signature": "- (void)windowWillClose:",
+      "sha256": "9469da7a2a5f757e2c13c1b5a5016213bb6678ee32c7e4e4a76b4ccd8023ca86",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1016,
+      "signature": "- (void)cancelOperation:",
+      "sha256": "9dfa6d3e7680b358c0633591aa3769154d7c6af3efd3eca451eb0072dc18ff01",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1658,
+      "signature": "- (NSUInteger)revealNote:",
+      "sha256": "caa0f97749cfc0004d2d47b42730e80cdcf48387b873502f3183c2bb0d148ff8",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1722,
+      "signature": "- (void)notation:(NotationController*)notation revealNotes:",
+      "sha256": "b858e80a553805a7a16df4efea34b82a39920576091b6094d751e23421c26d7f",
+      "equals_c7e61cb": false
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1361,
+      "signature": "- (void)tableViewSelectionDidChange:",
+      "sha256": "3a2495841c5cd16e014ab7cd41be06bef359a89d2607ee2d309ce0cb9839307d",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1377,
+      "signature": "- (void)processChangedSelectionForTable:",
+      "sha256": "742ff251e050222e5bd5c90c7bc29fadcb9bd3ac171f1c3e75de440c404fdc35",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1624,
+      "signature": "- (void)restoreListStateUsingPreferences",
+      "sha256": "20a0758aa5b0c2cad58af8e71e1ec29f3d79e55e37bffd3c7e29db5172daf994",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1752,
+      "signature": "- (void)searchForString:(NSString*)string",
+      "sha256": "3dfef45b626e80f50f81c8cd3f48fa045ea0a818df25c4214a5db20dd16b278e",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1756,
+      "signature": "- (void)bookmarksController:",
+      "sha256": "fbfe0579c4d79749ca6d7e5ed02ad47b5d9ff2411d829139bfad41f6274a5095",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1039,
+      "signature": "- (BOOL)control:(NSControl *)control textView:",
+      "sha256": "ec709119686a42038efe1decd1bb6774c2d3fc1c9490ab557b6164b06706ccae",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1223,
+      "signature": "- (NSString*)fieldSearchString",
+      "sha256": "221dea6410229fef9914bc9a14e8dd820cc41888387c3f541bf1b7c7c9cc6d96",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1234,
+      "signature": "- (void)cacheTypedStringIfNecessary:",
+      "sha256": "1823a91a8152b578338563c54b92ed5367f92fb46047b54eb9ec9ccb50922f07",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 161,
+      "signature": "- (void)restoreBrowserWindowState:",
+      "sha256": "cfbc5f91af0999d7eefb7ba15bbb2b0b8a714c8bbafd8f4df72282ffad6d3b43",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 197,
+      "signature": "- (void)applyRestoredSearchNoteState:",
+      "sha256": "203d53e4d268e56ef81d66a711b47ee10fb6c8cf206141c185ea3f4c7e137021",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 44,
+      "signature": "- (void)attachLibrary:(NotationController *)library finishingOldLibrary:",
+      "sha256": "2f8c0598cc17f31bd9de2f5182ee33b7e64b44e48f0f35f7fb440e2ffa6c1d23",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_Importing.m",
+      "line": 55,
+      "signature": "- (BOOL)interpretNVURL:",
+      "sha256": "27e42a8e69c0bf62599341d15f31b2a98dd4a9cdd80abfebf8eb44feaa29d19d",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/BookmarksController.m",
+      "line": 26,
+      "signature": "static NSString *BMSearchStringKey",
+      "sha256": "5c957f0b945ef1838521f955a41858f6970f6af7c088eb88d42300020fdf5e4f",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/SavedSearchesController.m",
+      "line": 27,
+      "signature": "static NSString *SSSearchStringKey",
+      "sha256": "1e53d3158630098913fbadd7fc14bde486210709e0a057c45656e4b4d4df4cc1",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Utilities/NSString_NV.m",
+      "line": 496,
+      "signature": "- (CFUUIDBytes)uuidBytes",
+      "sha256": "e4fa03b085082ebf57875cded449fde0b91785cefa21a02042947b1cb7f44171",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Preferences/GlobalPrefs.m",
+      "line": 921,
+      "signature": "- (NSString*)lastSearchString",
+      "sha256": "13b9984b613061e7a9aa25538853cc44c610986227b0a6bb702fd3d575ad5ef4",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/UI/DualField.m",
+      "line": 54,
+      "signature": "- (BOOL)hasFollowedLinks",
+      "sha256": "0a8442b81185f9e0777751cfe1d2c01fce66934351f40fbf0f7f2ec90f14e13c",
+      "equals_c7e61cb": true
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 16,
+      "signature": "static NSDictionary *ValidatedBodyState",
+      "sha256": "faf62e9bc53287f0bea614534f37fd260866698351179fe524cbb375f055e859",
+      "equals_c7e61cb": true
+    }
+  ],
+  "sha256": {
+    "Sources/Browser/AppController.m": "6ae4e7b23431267fa000f35e1c1656232327cd8f4799fdf0b30767b79a93cb1e",
+    "Sources/Browser/AppController_Importing.m": "c140a44ff6cc54bf7c5e4ca569b9113690c9d9fac557e1a19199dd582afd6855",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Sources/Browser/AppController_Search.m": "3d02152c4fe6d803f7597265ba6c59d9381da72246fae8d7e4456281fcca0e69",
+    "Sources/Browser/BookmarksController.m": "566a1b33389d48f2982db068cbb0cec63f22390f39c6b5e9c786c4a065dd3623",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Browser/SavedSearchesController.m": "909a54d03674a99328d7c78fe8cb3e94e6e959b273b0330c06ec3143434cda73",
+    "Sources/Preferences/GlobalPrefs.m": "d6c71070d2911577ecbb647054dadfb6381ecbcc08bc5b8ba9aff9d0f4698bc7",
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchService.m": "55f2b0c0a19a68bca78c60fd52bb138a1c305cbb83509f47d573610739b28a98",
+    "Sources/UI/DualField.m": "6617a4b656f5d55587ac0ee374148efdbc906772c9f3e2ace1ab9a205dd6f9c8",
+    "Sources/Utilities/NSString_NV.m": "7de09fd0420a541178161874e0ceca396ee61135edb65f63b6f6d5f2cedcbcc5",
+    "Tests/FuzzySearch/Browser/browser-tests.m": "7a71a8fbeee84a8a1c49f47d58eef9c0b70647d15790fa5d899969ef29ec4792",
+    "Tests/FuzzySearch/Review/round-1/contrarian-compat/cases.m": "e686aff3e62a937fe28f13c426fd8a0e07b737a4ff5eda035c979c37fa1b2b98",
+    "Tests/FuzzySearch/Review/round-1/contrarian-compat/run.py": "e415598b7f9ec2fde7d6718168ed42f4fd31bf3636e770d0c7c43aec10a82ed7",
+    "Tests/FuzzySearch/Review/round-1/contrarian-compat/support.m": "eb6606b407b6437673fe5f5643ab407f393916b23ee978e836c4a78c5cc5b02a",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178"
+  },
+  "production_equal_c7e61cb": {
+    "Sources/Browser/AppController.m": false,
+    "Sources/Browser/AppController_Importing.m": true,
+    "Sources/Browser/AppController_MultipleWindows.m": true,
+    "Sources/Browser/AppController_Search.m": false,
+    "Sources/Browser/BookmarksController.m": true,
+    "Sources/Browser/NVBrowserSession.m": true,
+    "Sources/Browser/SavedSearchesController.m": true,
+    "Sources/Preferences/GlobalPrefs.m": true,
+    "Sources/Search/NVFZF.c": true,
+    "Sources/Search/NVSearchCorpus.m": true,
+    "Sources/Search/NVSearchQuery.m": false,
+    "Sources/Search/NVSearchService.m": false,
+    "Sources/UI/DualField.m": true,
+    "Sources/Utilities/NSString_NV.m": true
+  }
+}
