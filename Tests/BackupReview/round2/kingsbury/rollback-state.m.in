@@ -1,0 +1,309 @@
+#import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#define kUseCachesFolderForInterimNoteChanges 1
+#define kWriteJournalErr 42
+#define SingleDatabaseFormat 0
+
+static NSString *NotesDatabaseFileName = @"Notes & Settings";
+static NSString *NoteDateModifiedColumnString = @"modified";
+static NSString *fixtureDirectory;
+static NSURL *sourceDirectory;
+static NSUInteger checks, recoveryReads, journalWrites, checkpointWrites, restarts, replacementAttempts;
+static BOOL introduceCollision;
+static void Check(BOOL condition, NSString *message) {
+    checks++;
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+static NSError *NVCheckpointError(NSInteger code, NSString *message) {
+    return [NSError errorWithDomain:@"Review" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
+}
+static NSString *JournalPath(void) { return [fixtureDirectory stringByAppendingPathComponent:@"Interim Note-Changes"]; }
+static NSData *Bytes(NSString *string) { return [string dataUsingEncoding:NSUTF8StringEncoding]; }
+static NSData *CheckpointData(void) { return [NSData dataWithContentsOfURL:[sourceDirectory URLByAppendingPathComponent:NotesDatabaseFileName]]; }
+// PRODUCTION_CHECKPOINT_SYNC
+
+@interface FakePrefs : NSObject {
+    unsigned long long generation;
+    NSDate *captureDate;
+}
+- (NSData *)WALSessionKey;
+- (BOOL)preferencesChanged;
+- (NSInteger)notesStorageFormat;
+- (unsigned long long)backupCheckpointGeneration;
+- (NSDate *)backupCheckpointDate;
+- (void)setBackupCheckpointGeneration:(unsigned long long)value date:(NSDate *)date;
+- (void)setPreferencesAreStored;
+- (NSString *)backupLibraryIdentifier;
+- (BOOL)doesEncryption;
+@end
+@implementation FakePrefs
+- (NSData *)WALSessionKey { return [NSData data]; }
+- (BOOL)preferencesChanged { return NO; }
+- (NSInteger)notesStorageFormat { return SingleDatabaseFormat; }
+- (unsigned long long)backupCheckpointGeneration { return generation; }
+- (NSDate *)backupCheckpointDate { return captureDate; }
+- (void)setBackupCheckpointGeneration:(unsigned long long)value date:(NSDate *)date { generation = value; [captureDate release]; captureDate = [date retain]; }
+- (void)setPreferencesAreStored {}
+- (NSString *)backupLibraryIdentifier { return @"fixture-original-library"; }
+- (BOOL)doesEncryption { return NO; }
+- (void)dealloc { [captureDate release]; [super dealloc]; }
+@end
+
+// Journal fixture: real open(O_EXCL), write, fsync, and unlink. It deliberately
+// does not emulate the shipping encryption or record decoder.
+@interface WALStorageController : NSObject { int fd; }
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key;
+- (void)setDelegate:(id)delegate;
+- (void)writeNoteObjects:(NSArray *)notes;
+- (BOOL)writeData:(NSData *)data;
+- (BOOL)synchronize;
+- (BOOL)destroyLogFilePreservingWriterOnFailure;
+@end
+@implementation WALStorageController
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key {
+    if ((self = [super init])) {
+        NSString *file = [[NSString stringWithUTF8String:path] stringByAppendingPathComponent:@"Interim Note-Changes"];
+        fd = open([file fileSystemRepresentation], O_CREAT | O_EXCL | O_WRONLY | O_APPEND, 0600);
+        if (fd < 0) { [self release]; return nil; }
+    }
+    return self;
+}
+- (void)setDelegate:(id)delegate {}
+- (void)writeNoteObjects:(NSArray *)notes { [notes makeObjectsPerformSelector:@selector(writeUsingJournal:) withObject:self]; }
+- (BOOL)writeData:(NSData *)data { journalWrites++; return write(fd, [data bytes], [data length]) == (ssize_t)[data length]; }
+- (BOOL)synchronize { return fsync(fd) == 0; }
+- (BOOL)destroyLogFilePreservingWriterOnFailure { return unlink([JournalPath() fileSystemRepresentation]) == 0; }
+- (void)dealloc { if (fd >= 0) close(fd); [super dealloc]; }
+@end
+@interface WALRecoveryController : NSObject
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key;
+- (NSDictionary *)recoveredNotes;
+- (BOOL)destroyLogFile;
+@end
+@implementation WALRecoveryController
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key { return [super init]; }
+- (NSDictionary *)recoveredNotes { recoveryReads++; return @{}; }
+- (BOOL)destroyLogFile { return unlink([JournalPath() fileSystemRepresentation]) == 0; }
+@end
+
+@interface NoteObject : NSObject { @public NSString *body; }
+- (BOOL)hasPendingSourceFileWrite;
+- (BOOL)sourceConversionPending;
+- (BOOL)writeUsingJournal:(WALStorageController *)writer;
+- (void)writeUsingCurrentFileFormatIfNecessary;
+@end
+@implementation NoteObject
+- (id)init { if ((self = [super init])) body = [@"before restore" copy]; return self; }
+- (BOOL)hasPendingSourceFileWrite { return NO; }
+- (BOOL)sourceConversionPending { return NO; }
+- (BOOL)writeUsingJournal:(WALStorageController *)writer { return [writer writeData:Bytes(body)]; }
+- (void)writeUsingCurrentFileFormatIfNecessary { Check(NO, @"database test never writes individual source files"); }
+- (void)dealloc { [body release]; [super dealloc]; }
+@end
+@interface FrozenNotation : NSObject
++ (NSData *)frozenDataWithExistingNotes:(NSArray *)notes prefs:(FakePrefs *)prefs;
+@end
+@implementation FrozenNotation
++ (NSData *)frozenDataWithExistingNotes:(NSArray *)notes prefs:(FakePrefs *)prefs { return Bytes(((NoteObject *)[notes objectAtIndex:0])->body); }
+@end
+
+@interface NotationController : NSObject {
+@public
+    BOOL openingRestoredLibrary, backupRestorePrepared, capturingBackup, notesChanged, backupJournalSyncFailed;
+    FakePrefs *notationPrefs;
+    WALStorageController *walWriter;
+    NSData *backupCheckpointData;
+    NSError *backupCheckpointError;
+    NSMutableArray *allNotes;
+    NSMutableSet *unwrittenNotes;
+    NSTimer *changeWritingTimer;
+    OSStatus lastWriteError;
+    FSRef noteDatabaseRef, noteDirectoryRef;
+}
+- (NSString *)createCachesFolder;
+- (NSURL *)notesDirectoryURL;
+- (BOOL)initializeJournaling;
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError **)error;
+- (BOOL)prepareForBackupRestoreWithError:(NSError **)error;
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error;
+- (void)processRecoveredNotes:(NSDictionary *)notes;
+- (BOOL)flushAllNoteChanges;
+- (void)refilterNotes;
+- (NSInteger)currentNoteStorageFormat;
+- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format;
+- (void)synchronizeNoteChanges:(NSTimer *)timer;
+- (void)scheduleWriteForNote:(NoteObject *)note;
+- (void)scheduleUpdateListForAttribute:(NSString *)attribute;
+- (void)purgeOldPerDiskInfoFromNotes;
+- (void)stopFileNotifications;
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name destinationRef:(FSRef *)ref verifyWithSelector:(SEL)selector verificationDelegate:(id)delegate;
+- (id)initWithRestoredDirectoryRef:(FSRef *)ref unlockedPrefs:(id)prefs error:(OSStatus *)error;
+@end
+@implementation NotationController
+- (id)init {
+    if ((self = [super init])) {
+        notationPrefs = [FakePrefs new];
+        allNotes = [[NSMutableArray alloc] initWithObjects:[[[NoteObject alloc] init] autorelease], nil];
+        unwrittenNotes = [NSMutableSet new];
+        notesChanged = YES;
+    }
+    return self;
+}
+- (NSString *)createCachesFolder { return fixtureDirectory; }
+- (NSURL *)notesDirectoryURL { return sourceDirectory; }
+- (void)processRecoveredNotes:(NSDictionary *)notes { Check(NO, @"restore never recovers the competing journal"); }
+- (void)refilterNotes {}
+- (NSInteger)currentNoteStorageFormat { return [notationPrefs notesStorageFormat]; }
+- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format { restarts++; }
+- (void)scheduleUpdateListForAttribute:(NSString *)attribute {}
+- (void)purgeOldPerDiskInfoFromNotes {}
+- (void)stopFileNotifications {}
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name destinationRef:(FSRef *)ref verifyWithSelector:(SEL)selector verificationDelegate:(id)delegate {
+    checkpointWrites++;
+    return [data writeToURL:[sourceDirectory URLByAppendingPathComponent:name] atomically:YES] ? noErr : -1;
+}
+- (id)initWithRestoredDirectoryRef:(FSRef *)ref unlockedPrefs:(id)prefs error:(OSStatus *)error {
+    self = [self init];
+    replacementAttempts++;
+    if (introduceCollision) Check([Bytes(@"competing library journal") writeToFile:JournalPath() atomically:NO], @"create competing journal in prepared gap");
+    openingRestoredLibrary = YES;
+    if (![self initializeJournaling]) { *error = -1; [self release]; return nil; }
+    return self;
+}
+// PRODUCTION_INITIALIZATION
+// PRODUCTION_FLUSH
+// PRODUCTION_CAPTURE
+// PRODUCTION_PREPARE
+// PRODUCTION_RESUME
+// PRODUCTION_AUTOSAVE
+// PRODUCTION_SCHEDULE
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [changeWritingTimer invalidate]; [changeWritingTimer release];
+    [notationPrefs release]; [walWriter release]; [backupCheckpointData release]; [backupCheckpointError release];
+    [allNotes release]; [unwrittenNotes release]; [super dealloc];
+}
+@end
+
+// Browser and editing-session collaborators are deliberately inert. The exact
+// application method determines commit calls and restoration guard changes.
+@interface AppController : NSObject
+- (void)finishEditing;
+@end
+@implementation AppController
+- (void)finishEditing {}
+@end
+@interface NVNoteEditingSession : NSObject
+- (void)commitPendingTextChanges;
+@end
+@implementation NVNoteEditingSession
+- (void)commitPendingTextChanges {}
+@end
+@interface NVBackupStore : NSObject
++ (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)directory error:(NSError **)error;
+@end
+@implementation NVBackupStore
++ (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)directory error:(NSError **)error {
+    return [data writeToURL:[directory URLByAppendingPathComponent:@"fixture-restore-archive"] options:0 error:error];
+}
+@end
+@interface NVApplicationController : NSObject {
+@public
+    BOOL terminating, restoring;
+    NotationController *library;
+    NSMutableDictionary *editingSessions;
+}
+- (NSArray *)browserControllers;
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
+- (void)saveWindowStates;
+- (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error;
+@end
+@implementation NVApplicationController
+- (id)init { if ((self = [super init])) { library = [NotationController new]; editingSessions = [NSMutableDictionary new]; } return self; }
+- (NSArray *)browserControllers { return @[]; }
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish { Check(NO, @"failure test never switches library"); }
+- (void)saveWindowStates {}
+// PRODUCTION_RESTORE
+- (void)dealloc { [library release]; [editingSessions release]; [super dealloc]; }
+@end
+
+static void EditAndDrain(NotationController *library, NSString *text) {
+    NoteObject *note = [library->allNotes objectAtIndex:0];
+    [note->body release]; note->body = [text copy];
+    [library scheduleWriteForNote:note];
+    Check(library->notesChanged && [library->unwrittenNotes count] == 1 && library->changeWritingTimer != nil,
+          @"normal edit schedules an autosave even while restore remains prepared");
+    // Invoke the exact timer target without waiting 15 seconds.
+    [library synchronizeNoteChanges:library->changeWritingTimer];
+    [NSObject cancelPreviousPerformRequestsWithTarget:library];
+    Check([library->unwrittenNotes count] == 0 && library->changeWritingTimer == nil,
+          @"autosave drains its queue and timer");
+}
+int main(int argc, const char *argv[]) {
+    @autoreleasepool {
+        Check(argc == 3, @"temporary root and exit mode supplied");
+        fixtureDirectory = [NSString stringWithUTF8String:argv[1]];
+        sourceDirectory = [NSURL fileURLWithPath:[fixtureDirectory stringByAppendingPathComponent:@"original"]];
+        NSURL *target = [NSURL fileURLWithPath:[fixtureDirectory stringByAppendingPathComponent:@"replacement"]];
+        NSURL *retryTarget = [NSURL fileURLWithPath:[fixtureDirectory stringByAppendingPathComponent:@"replacement-retry"]];
+        for (NSURL *url in @[sourceDirectory,target,retryTarget])
+            Check([[NSFileManager defaultManager] createDirectoryAtURL:url withIntermediateDirectories:NO attributes:nil error:NULL], @"create disposable library directory");
+        NVApplicationController *app = [NVApplicationController new];
+        NotationController *original = app->library;
+        Check([original initializeJournaling] && [original flushAllNoteChanges], @"original starts with durable checkpoint and journal");
+        Check([CheckpointData() isEqual:Bytes(@"before restore")], @"initial fixture checkpoint contains committed text");
+        NSDictionary *archive = @{@"data":Bytes(@"restored text")};
+        introduceCollision = YES;
+        NSError *error = nil;
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error], @"replacement and rollback both refuse the competing journal");
+        Check(error.code == kWriteJournalErr && original == app->library && !app->restoring, @"application returns rollback error with original selected and restoration guard clear");
+        Check(original->backupRestorePrepared && original->walWriter == nil && recoveryReads == 0, @"original remains prepared without a journal and competing records stay unread");
+        NSUInteger writesBefore = checkpointWrites;
+        EditAndDrain(original, @"first edit after failed rollback");
+        Check(journalWrites == 0 && checkpointWrites == writesBefore && original->lastWriteError == noErr,
+              @"database autosave writes neither journal nor checkpoint and records no write error");
+        Check([CheckpointData() isEqual:Bytes(@"before restore")], @"only durable original record still predates later edit");
+        Check([original backupSnapshotWithError:&error] == nil && error.code == 4 && checkpointWrites == writesBefore,
+              @"backup capture refuses before the full-checkpoint path can save the later edit");
+        printf("FAILED_ROLLBACK: original_selected=1 restoring=0 prepared=1 writer=0 queue=0 journal_writes=0 checkpoint_writes_after_edit=0\n");
+
+        Check(unlink([JournalPath() fileSystemRepresentation]) == 0, @"competing writer releases its journal");
+        introduceCollision = NO;
+        Check(![app restoreBackupArchive:archive toDirectory:retryTarget error:&error] && error.code == 4,
+              @"normal restore retry still fails after contention ends");
+        Check(replacementAttempts == 1 && original->backupRestorePrepared && original->walWriter == nil,
+              @"restore retry never reaches replacement initialization or journal resume");
+        EditAndDrain(original, @"second edit after contention ends");
+        Check([original backupSnapshotWithError:&error] == nil && error.code == 4 && journalWrites == 0 && checkpointWrites == writesBefore,
+              @"later edit and backup retry remain non-durable after contention ends");
+        Check([CheckpointData() isEqual:Bytes(@"before restore")], @"simulated crash recovery has only pre-restore checkpoint bytes");
+        printf("CONTENTION_ENDED: restore_retry_error=4 replacement_attempts=1 prepared=1 writer=0 durable_text=before_restore\n");
+
+        if (strcmp(argv[2], "abrupt") == 0) {
+            printf("ABRUPT_EXIT: %lu assertions before exit without save or deallocation\n", (unsigned long)checks);
+            fflush(stdout);
+            _exit(73);
+        }
+
+        // A clean shutdown calls flushAllNoteChanges directly. Preserve this
+        // distinction: ordinary checkpoint writes can still save dirty memory.
+        Check([original flushAllNoteChanges] && [CheckpointData() isEqual:Bytes(@"second edit after contention ends")],
+              @"explicit full checkpoint saves dirty memory despite failed rollback");
+        Check(original->backupRestorePrepared && original->walWriter == nil,
+              @"successful checkpoint alone does not restore journaling or clear preparation");
+        Check([original resumeAfterBackupRestoreFailureWithError:&error] && !original->backupRestorePrepared && original->walWriter != nil && restarts == 1,
+              @"direct internal resume can recover once contention ends");
+        Check([original resumeAfterBackupRestoreFailureWithError:&error] && restarts == 1,
+              @"successful internal resume remains idempotent");
+        EditAndDrain(original, @"edit after internal recovery");
+        Check(journalWrites == 1 && [[NSData dataWithContentsOfFile:JournalPath()] isEqual:Bytes(@"edit after internal recovery")],
+              @"same autosave path reaches the journal after internal recovery");
+        printf("CONTROL: explicit_checkpoint_saved=1 internal_resume_succeeded=1 later_autosave_journal_writes=1\n");
+        [app release];
+        printf("PASS: %lu assertions; extracted production methods, fixture model/archive/UI, real journal and checkpoint filesystem writes\n", (unsigned long)checks);
+    }
+    return 0;
+}
