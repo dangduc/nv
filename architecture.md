@@ -264,7 +264,9 @@ An appearance change must not rewrite shared note content.
 
 The search field holds a query independently of the selected note's title.
 Title and tag controls commit through the editing session and retain the original target note during an edit.
-New Note creates a blank note. Creation from search uses the query as the title.
+New Note creates an empty body and clears the query.
+If the search field has focus and contains text, New Note copies that text into the title.
+Otherwise, it uses the default title. The explicit Create action also uses the query as the title.
 
 The View menu controls visibility for the notes list, title, tags, and body controls.
 These application preferences apply to all browser windows and persist across launches.
