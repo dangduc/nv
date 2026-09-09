@@ -1,0 +1,14 @@
+{
+  "head": "e4d3ac4cd3050b6c2b27cc9f074d666aba6625a1",
+  "source_sha256": {
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "21a8256caf98fa5a3a357619249624c6785042216f6d813e39a8ea760312b78f",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "14e02e1b44b24be3b83ecd1ac9ec164256b68c12d51e4d68e6496b84061901b6",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Application/NVApplicationController.m": "9bb74df2dda41c6c8a57c8b3851786f4b985f969cf68ba9eae1c975981b50c0a",
+    "Sources/Model/FastListDataSource.m": "dac7c831de3a4781738b4d6324d9570e1652ec05e0e280f75996eed2ddef9ac1"
+  }
+}

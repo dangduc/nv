@@ -1,0 +1,12 @@
+{
+  "head": "e4d3ac4cd3050b6c2b27cc9f074d666aba6625a1",
+  "source_sha256": {
+    "Sources/Search/NVSearchQuery.m": "21a8256caf98fa5a3a357619249624c6785042216f6d813e39a8ea760312b78f",
+    "Sources/Browser/AppController_Search.m": "59881c8f62cae9e743916b86ea8dd4ebeb3e20994c41034141bad5ff40de5b69",
+    "Sources/Editor/LinkingEditor.m": "ecc51c8a6c9cdd9fed4d29802918629aa90c32d2f57dee891e1fd3f769144d28"
+  },
+  "host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "architecture": "arm64 (explicit compiler target)",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.5.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin"
+}
