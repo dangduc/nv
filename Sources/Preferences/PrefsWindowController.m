@@ -69,6 +69,18 @@
     }
 }
 
+- (BOOL)windowShouldClose:(id)sender {
+    NSError *error = nil;
+    if (backupPreferencesViewController && ![backupPreferencesViewController prepareForWindowCloseWithError:&error]) {
+        if ([[backupPreferencesViewController view] window] != window) [self switchViews:[items objectForKey:@"Backups"]];
+        [toolbar setSelectedItemIdentifier:@"Backups"];
+        if (error) [NSApp presentError:error];
+        [backupPreferencesViewController focusFieldForError:error];
+        return NO;
+    }
+    return YES;
+}
+
 - (void)windowWillClose:(NSNotification *)aNotification {
 	[prefsController performSelector:@selector(synchronize) withObject:nil afterDelay:0.0];
 	
