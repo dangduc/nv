@@ -1,0 +1,19 @@
+2026-09-09 14:20:49.902 nvALT[51501:343171844] PASS: temporary library directory exists
+2026-09-09 14:20:49.903 nvALT[51501:343171844] PASS: temporary library opens
+2026-09-09 14:20:49.986 nvALT[51501:343171844] verified 0 notes in 0.000198007 s
+2026-09-09 14:20:50.227 nvALT[51501:343171844] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:20:50.350 nvALT[51501:343171844] PASS: native source insertion commits to the original note
+2026-09-09 14:20:50.353 nvALT[51501:343171844] PASS: native Rename opens the title field editor
+2026-09-09 14:20:50.409 nvALT[51501:343171844] PASS: native Tag opens the tags field editor
+2026-09-09 14:20:50.462 nvALT[51501:343171844] PASS: native metadata edits commit to the original note before creation
+2026-09-09 14:20:50.524 nvALT[51501:343171844] PASS: focused live Search and the edited original note coexist before Command-N
+2026-09-09 14:20:50.535 nvALT[51501:343171844] PASS: the application menu dispatches Command-N
+2026-09-09 14:20:50.586 nvALT[51501:343171844] PASS: Command-N creates one independent empty note with the live search title
+2026-09-09 14:20:50.586 nvALT[51501:343171844] PASS: creation leaves the old title, tags, saved source, and modification timestamp unchanged
+2026-09-09 14:20:50.586 nvALT[51501:343171844] PASS: creation preserves the old history and adds no new-note edit action
+2026-09-09 14:20:50.637 nvALT[51501:343171844] PASS: the first original-note Undo remains the tag edit
+2026-09-09 14:20:50.688 nvALT[51501:343171844] PASS: the second original-note Undo remains the rename and preserves saved source
+2026-09-09 14:20:50.789 nvALT[51501:343171844] PASS: metadata Undo and Redo stay with the original note while the new note remains selected
+2026-09-09 14:20:50.791 nvALT[51501:343171844] verified 2 notes in 0.000401974 s
+2026-09-09 14:20:50.791 nvALT[51501:343171844] PASS: the edited old note and empty new note checkpoint successfully
+2026-09-09 14:20:50.791 nvALT[51501:343171844] TORVALDS ROUND 2 PASSED (16 checks)
