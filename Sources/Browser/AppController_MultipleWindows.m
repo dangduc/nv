@@ -42,8 +42,10 @@ static NSDictionary *ValidatedBodyState(id value) {
     [self attachLibrary:library finishingOldLibrary:YES];
 }
 - (void)attachLibrary:(NotationController *)library finishingOldLibrary:(BOOL)finishOldLibrary {
+    [self cancelMultiTagEditing];
     [self setupViewsAfterAppAwakened];
     NSString *oldQuery = [[[self browserSession] searchString] copy];
+    NSString *oldMode = [[[self browserSession] searchMode] copy];
     NoteAttributeColumn *oldSort = [[[self browserSession] sortColumn] retain];
     BOOL oldReverse = [[self browserSession] reverseSorted];
     // Detach before deselection callbacks can finish editing the old note.
@@ -52,9 +54,14 @@ static NSDictionary *ValidatedBodyState(id value) {
     [notesTableView deselectAll:self];
     [self discardViewer];
     [[self browserSession] setDelegate:nil];
+    [self cancelSearchIntents];
+    [[self browserSession] invalidateSearch];
     [notationController release];
     notationController = (id)[[NVBrowserSession alloc] initWithLibrary:library];
     [[self browserSession] setDelegate:self];
+    [[self browserSession] setSearchService:[[NVApplicationController sharedController] searchService]];
+    [[self browserSession] setSearchMode:oldMode ?: @"fuzzy"];
+    [self setupSearchControls];
     [notesTableView setDataSource:[[self browserSession] notesListDataSource]];
     [notesTableView setLabelsListSource:[library labelsListDataSource]];
     [[self browserSession] setSortColumn:[notesTableView noteAttributeColumnForIdentifier:[prefsController sortedTableColumnKey]]];
@@ -79,6 +86,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     else [[SecureTextEntryManager sharedInstance] disableSecureTextEntry];
     [textView setAllowsUndo:NO];
     [oldQuery release];
+    [oldMode release];
     [oldSort release];
 }
 - (void)prepareAdditionalWindow {
@@ -105,6 +113,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     }
 }
 - (id)tablePreviewForNote:(NoteObject *)note { return [[self browserSession] previewForNote:note inTable:notesTableView]; }
+- (id)tablePreviewForRow:(NSInteger)row { return row < 0 ? nil : [[self browserSession] previewForRow:row inTable:notesTableView]; }
 - (void)unregisterBrowserObservers {
     [prefsController unregisterTarget:self];
     NSMutableArray *views = [NSMutableArray arrayWithObjects:[window contentView], nil];
@@ -127,6 +136,8 @@ static NSDictionary *ValidatedBodyState(id value) {
     [state setObject:@(viewingNote) forKey:@"viewingNote"];
     [state setObject:selectedViewerIdentifier forKey:@"viewerIdentifier"];
     [state setObject:[[self browserSession] searchString] ?: @"" forKey:@"search"];
+    [state setObject:[self searchMode] forKey:@"searchMode"];
+    if (selectedSearchRowKey) [state setObject:selectedSearchRowKey forKey:@"searchRowKey"];
     [state setObject:[[[self browserSession] sortColumn] identifier] ?: NoteTitleColumnString forKey:@"sort"];
     [state setObject:@([[self browserSession] reverseSorted]) forKey:@"reverse"];
     [state setObject:@([self notesListHeight]) forKey:@"divider"];
@@ -140,63 +151,86 @@ static NSDictionary *ValidatedBodyState(id value) {
         [state setObject:viewingNote && sourceScroll ? sourceScroll : NSStringFromPoint([[textScrollView contentView] bounds].origin) forKey:@"editorScroll"];
         if ([noteBodyStates objectForKey:key]) [state setObject:[noteBodyStates objectForKey:key] forKey:@"bodyState"];
     }
+    if (pendingSearchRestoration) {
+        NSMutableDictionary *pending = [[pendingSearchRestoration mutableCopy] autorelease];
+        [pending setObject:[state objectForKey:@"frame"] forKey:@"frame"];
+        return pending;
+    }
     return state;
 }
 - (void)restoreBrowserWindowState:(NSDictionary *)state {
+    [self cancelSearchIntents];
+    searchApplyingResult = YES;
     [self setViewingNote:NO];
     presentationStateGeneration++;
     [self discardViewer];
-    if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:[state objectForKey:@"frame"]];
+    if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:state[@"frame"]];
     browserHorizontalLayout = NO;
-    NSString *query = [state objectForKey:@"search"];
-    if (![query isKindOfClass:[NSString class]]) query = @"";
-    [typedString release];
-    typedString = [query copy];
-    typedStringIsCached = YES;
+    NSString *query = [state[@"search"] isKindOfClass:[NSString class]] ? state[@"search"] : @"";
+    [typedString release]; typedString = [query copy]; typedStringIsCached = YES;
     [field setStringValue:query];
-    [[self browserSession] filterNotesFromString:query];
-    NSString *sort = [state objectForKey:@"sort"];
-    if (![sort isKindOfClass:[NSString class]]) sort = NoteTitleColumnString;
-    NoteAttributeColumn *column = [notesTableView noteAttributeColumnForIdentifier:sort];
-    if (!column) column = [notesTableView noteAttributeColumnForIdentifier:NoteTitleColumnString];
-    [[self browserSession] setSortColumn:column reversed:[[state objectForKey:@"reverse"] boolValue]];
+    NSString *sort = [state[@"sort"] isKindOfClass:[NSString class]] ? state[@"sort"] : NoteTitleColumnString;
+    NoteAttributeColumn *column = [notesTableView noteAttributeColumnForIdentifier:sort] ?:
+        [notesTableView noteAttributeColumnForIdentifier:NoteTitleColumnString];
+    [[self browserSession] setSortColumn:column reversed:[state[@"reverse"] boolValue]];
     [notesTableView setSortDirection:[[self browserSession] reverseSorted] inTableColumn:column];
-    NSString *uuid = [state objectForKey:@"note"];
-    for (NoteObject *note in [[self sharedNotationController] allNotes]) {
-        if ([[NSString uuidStringWithBytes:*[note uniqueNoteIDBytes]] isEqual:uuid]) {
-            NSUInteger index = [[self browserSession] indexInFilteredListForNoteIdenticalTo:note];
-            if (index != NSNotFound) [notesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
-            break;
-        }
-    }
-    if (currentNote && [[state objectForKey:@"selection"] isKindOfClass:[NSString class]]) {
-        NSRange range = NSRangeFromString([state objectForKey:@"selection"]);
-        if (range.location <= [[textView string] length] && range.length <= [[textView string] length] - range.location) [textView setSelectedRange:range];
-    }
-    id divider = [state objectForKey:@"divider"];
-    // A legacy side-by-side divider is a width, not a usable list height.
-    if ([[state objectForKey:@"horizontalLayout"] boolValue]) [self setNotesListHeight:NSHeight([splitView bounds]) / 3.0];
+    [[self browserSession] setSearchMode:[state[@"searchMode"] isEqual:@"fuzzy"] ? @"fuzzy" : @"exact"];
+    [self setupSearchControls];
+    [[self browserSession] filterNotesFromString:query];
+    id divider = state[@"divider"];
+    if ([state[@"horizontalLayout"] boolValue]) [self setNotesListHeight:NSHeight([splitView bounds]) / 3.0];
     else if ([divider isKindOfClass:[NSNumber class]]) [self setNotesListHeight:[divider doubleValue]];
-    [notesTableView restoreColumnLayoutState:[state objectForKey:@"columns"]];
-    if ([[state objectForKey:@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString([state objectForKey:@"listScroll"])];
-    if (currentNote && [[state objectForKey:@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString([state objectForKey:@"editorScroll"])];
-    NSString *viewer = [state objectForKey:@"viewerIdentifier"];
-    if ([@[@"markdown", @"textile", @"html"] containsObject:viewer]) {
-        [selectedViewerIdentifier release]; selectedViewerIdentifier = [viewer copy];
-    }
-    if (currentNote) {
-        [noteBodyStates setObject:ValidatedBodyState([state objectForKey:@"bodyState"]) forKey:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]]];
-    }
-    id version = [state objectForKey:@"presentationVersion"], viewMode = [state objectForKey:@"viewingNote"];
-    [self setViewingNote:[version isKindOfClass:[NSNumber class]] && [version integerValue] == 1 &&
-        [viewMode isKindOfClass:[NSNumber class]] && [viewMode boolValue]];
-    [self updateBodyPresentation];
-    // AppKit finishes restoring the toolbar and window constraints on the next
-    // run-loop turn. Apply the saved divider after that final content resize.
+    [notesTableView restoreColumnLayoutState:state[@"columns"]];
+    searchApplyingResult = NO;
+    if ([[self browserSession] searchResultsAreCurrent]) {
+        searchApplyingResult = YES;
+        [self applyRestoredSearchNoteState:state];
+        searchApplyingResult = NO;
+    } else pendingSearchRestoration = [state copy];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restoreNotesListHeight) object:nil];
-    if (![[state objectForKey:@"horizontalLayout"] boolValue] && [divider isKindOfClass:[NSNumber class]]) {
+    if (![state[@"horizontalLayout"] boolValue] && [divider isKindOfClass:[NSNumber class]]) {
         pendingListHeight = [divider doubleValue];
         [self performSelector:@selector(restoreNotesListHeight) withObject:nil afterDelay:0];
     }
+    [self updateSearchAffordance];
+}
+- (void)applyRestoredSearchNoteState:(NSDictionary *)state {
+    NSString *uuid = state[@"note"];
+    NSUInteger row = NSNotFound;
+    for (NoteObject *note in [[self sharedNotationController] allNotes]) {
+        if ([[NSString uuidStringWithBytes:*[note uniqueNoteIDBytes]] isEqual:uuid]) {
+            NSString *key = state[@"searchRowKey"];
+            if ([key isKindOfClass:[NSString class]]) row = [[self browserSession] indexForRowKey:key];
+            if (row == NSNotFound || [[self browserSession] noteObjectAtFilteredIndex:row] != note)
+                row = [[self browserSession] indexInFilteredListForNoteIdenticalTo:note];
+            break;
+        }
+    }
+    if (row != NSNotFound) {
+        [notesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+        [self displayContentsForNoteAtIndex:row];
+    } else {
+        [notesTableView deselectAll:nil];
+        [self _setCurrentNote:nil];
+        [self setEmptyViewState:YES];
+    }
+    if (currentNote && [state[@"selection"] isKindOfClass:[NSString class]]) {
+        NSRange range = NSRangeFromString(state[@"selection"]);
+        NSUInteger length = [[textView string] length];
+        if (range.location <= length && range.length <= length - range.location) [textView setSelectedRange:range];
+    }
+    if ([state[@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString(state[@"listScroll"])];
+    if (currentNote && [state[@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString(state[@"editorScroll"])];
+    NSString *viewer = state[@"viewerIdentifier"];
+    if ([@[@"markdown", @"textile", @"html"] containsObject:viewer]) {
+        [selectedViewerIdentifier release]; selectedViewerIdentifier = [viewer copy];
+    }
+    if (currentNote) [noteBodyStates setObject:ValidatedBodyState(state[@"bodyState"])
+        forKey:[NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]]];
+    id version = state[@"presentationVersion"], mode = state[@"viewingNote"];
+    [self setViewingNote:[version isKindOfClass:[NSNumber class]] && [version integerValue] == 1 &&
+        [mode isKindOfClass:[NSNumber class]] && [mode boolValue]];
+    [self updateBodyPresentation];
+    [self refreshSearchHighlights];
 }
 @end

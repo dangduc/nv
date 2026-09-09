@@ -16,6 +16,7 @@ flowchart TD
     A["NVApplicationController"] --> L["NotationController: shared library"]
     A --> B
     A --> E["NVNoteEditingSession: cached per note UUID"]
+    A --> Q["NVSearchService: immutable library corpus"]
     L --> N["NoteObject: model and undo manager"]
     E --> N
     subgraph Window["Each browser window"]
@@ -25,6 +26,7 @@ flowchart TD
         P --> R["NVMarkupRenderer: asynchronous conversion"]
     end
     S -.-> L
+    S -.-> Q
     V -.->|shared text storage| E
 ```
 
@@ -35,6 +37,7 @@ Solid arrows show ownership or control. Dashed arrows show access to shared stat
 | [NVApplicationController](Sources/Application/NVApplicationController.m) | Owns the library, browser controllers, and editing-session cache. Routes application actions and library notifications. |
 | [AppController](Sources/Browser/AppController.m) | Owns one browser window, its views, selection, presentation state, and lazy viewer controller. The initial instance also handles legacy application services. |
 | [NVBrowserSession](Sources/Browser/NVBrowserSession.m) | Holds one window's query, matching notes, visible rows, sort order, and list-preview cache. |
+| [NVSearchService](Sources/Search/NVSearchService.m) | Owns immutable committed search snapshots, serial native work, request identities, and position requests for the library. |
 | [NotationController](Sources/Storage/NotationController.m) | Owns notes, labels, storage, and journal recovery. |
 | [NoteObject](Sources/Model/NoteObject.m) | Stores a note's UUID, title, body, tags, dates, file identity, and undo manager. |
 | [NVNoteEditingSession](Sources/Editor/NVNoteEditingSession.m) | Owns shared `NSTextStorage`, committed snapshots, deferred external content, and optional source analysis. Coordinates body and metadata edits. |
@@ -63,16 +66,46 @@ The session forwards remaining library methods through `performLibraryInvocation
 
 ## Search and window state
 
-Each browser session filters the shared notes into its own result set.
-Search terms match titles, bodies, or tags without case sensitivity. Every term must match somewhere in the note.
-The parser supports quoted phrases.
+Each browser owns its query and Fuzzy/Exact mode. New sessions use Fuzzy; mode-less saved state restores as Exact.
+Both modes retain nv's separators and quoted phrases. Punctuation does not enable native fzf operators.
+Exact uses the existing case-insensitive Cocoa substring filter over titles, tags, and bodies.
+It can reuse prior candidates when a query becomes more restrictive.
 
-Incremental search can reuse previous matches when a query becomes more restrictive.
-Library changes invalidate those candidates.
-Reveal refreshes a stale browser list before it searches for the requested note.
-If the query excludes that note, Reveal clears that browser's query without activating its window.
-During a library refresh, the selected note can remain visible even when an edit makes it stop matching.
-That retained row is excluded from the search candidate cache.
+Fuzzy results contain two groups. Literal title matches appear first in the configured column order.
+The complete native result follows in native order, including notes already shown in the title group.
+The engine searches one NFC-normalized candidate per note: title, tags, and complete committed source, separated by newlines.
+It ignores case and preserves accents. Candidate input order is stable UUID byte order.
+Column sorting affects only title matches while a Fuzzy query has terms.
+Empty and separator-only queries show one row per note in the configured column order.
+
+Result rows use `(match kind, UUID)` identity. Editing sessions, Undo, and storage still use note UUIDs.
+Selection and list scroll preserve occurrences; note commands resolve unique UUIDs before acting.
+An active inline edit retains its original note and library instead of reusing its old row index.
+The notes table continues to expose NoteObject projections to legacy drawing callbacks.
+Row metadata, excerpts, and native positions stay in the browser session.
+
+The coordinator copies committed title, tags, and source into immutable search snapshots.
+Model mutation hooks update these snapshots and invalidate browser requests synchronously.
+Workers never read live NoteObjects or shared text storage. Library replacement invalidates the old service.
+One serial worker schedules bounded candidate batches and publishes only complete results.
+Browser identity, request identity, and corpus revision reject obsolete callbacks.
+Repeated queries can reuse matching work; display changes do not rescore the corpus.
+Large individual native calls still require separate latency measurements.
+
+Pending or failed results cannot drive row actions or zero-result creation.
+Return while pending records an intent bound to the query, request, and search-field focus.
+Only a current completion can open a result or create a note after both groups report zero matches.
+Query changes, selection changes, composition, and focus changes cancel that intent.
+Reveal and restoration wait for current results before resolving row keys.
+If a completed query excludes the requested note, Reveal clears that browser's query.
+An edited open note can remain as one retained row after the matches, without increasing result counts.
+
+Visible fuzzy rows request native positions for excerpts. The primary selected row has an independent source-position channel.
+NFC positions map back to original UTF-16 composed-character ranges.
+Search highlights use only temporary background attributes on each editor's layout manager.
+Shared character edits clear stale highlights in every attached editor, including before composition commits.
+Snapshot highlights stay suppressed while live source differs from committed source.
+The [search design](docs/fuzzy-search-plan.md) and [test guide](Tests/FuzzySearch/README.md) describe the boundaries and validation limits.
 
 Selection, editor scroll, list scroll, divider height, and column layout belong to the browser.
 Application settings can supply defaults or update shared display choices.
@@ -305,7 +338,8 @@ Termination saves window state, commits editing sessions, and flushes local note
 
 [AppController_MultipleWindows.m](Sources/Browser/AppController_MultipleWindows.m) serializes browser state.
 `NVApplicationController` stores it under the `NVBrowserWindows` defaults key and restores up to 20 windows.
-Saved state includes the query, sort, selected note UUID, selection range, scroll positions, frame, columns, and divider height.
+Saved state includes query, mode, selected result row key, note UUID, sort, selection, scroll positions, frame, columns, and divider height.
+Bookmarks and followed links also preserve search mode and result occurrence. Legacy entries retain Exact behavior.
 Versioned presentation state adds Source/Preview mode, viewer identifier, and separate source and viewer scroll positions.
 Restoration checks selection bounds and converts old side-by-side layouts into a vertical stack.
 

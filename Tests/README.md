@@ -23,6 +23,12 @@ The suite exercises real nibs and Cocoa editors. It checks independent search, s
 
 The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. The source redesign has a [validation record](SourceViewerReview/VALIDATION.md). Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
 
+## Fuzzy search checks
+
+The [search test guide](FuzzySearch/README.md) covers native ordering, immutable corpus updates, duplicate result rows, persistence, and shared-source highlights.
+These headless checks run natively on either architecture. CI runs them on Intel.
+The separate copied-app probe requires an active desktop and working Intel runtime.
+
 ## Backup checks
 
 The backup filesystem, scheduling, and Preferences checks use disposable state:

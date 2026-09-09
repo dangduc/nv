@@ -13,7 +13,7 @@ Every window keeps the notes list above the editor. All windows share one notes 
 | Windows | One main notes window. | Multiple windows share one library. Each window has its own search, selection, sort order, and scroll position. |
 | Layout | Stacked or side-by-side panes. | The notes list always stays above the editor. Each window saves its divider height. |
 | Controls | Custom window controls and a combined search/title field. | A native toolbar contains Search or Create. Separate fields edit the title and tags. |
-| Search | The combined field also shows the selected title. | The search query stays visible after selection changes. An unmatched query offers an explicit Create action. |
+| Search | The combined field also shows the selected title. | Fuzzy searches complete note sources. Literal title matches appear first, followed by native fuzzy order. Exact remains available. |
 | Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. The editor also supports custom colors. |
 
 Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
@@ -23,6 +23,20 @@ Saved side-by-side layouts restore as stacked panes. The fork retains note links
 Each window can show a different note or search. Edits to the same note appear in all windows that show that note. Undo and Redo share the history for that note, including committed title and tag edits.
 
 The app restores open windows and their saved views after a restart. A library change applies to all windows.
+
+### Search
+
+Choose **Fuzzy** or **Exact** from the search-field menu. Each window keeps its own mode.
+Fuzzy matches characters in order, so `mtg` can match `meeting`. It searches titles, tags, and complete committed source text.
+Double quotes require a contiguous phrase. Spaces and colons separate terms; punctuation remains literal.
+
+Literal title matches appear first. The full fuzzy list follows in the order returned by `fzf-native`.
+A note can appear in both groups. Either row opens the same note; selecting both affects that note once in bulk actions.
+Column sorting changes the title group. The fuzzy group keeps its native order.
+
+Search runs in the background. Return waits for a complete result before opening a note or creating from an unmatched query.
+Exact retains the earlier substring search over titles, tags, and bodies.
+Older saved windows and bookmarks without a search mode restore as Exact.
 
 ![Two windows share a library with independent garden and travel searches](docs/screenshots/multiple-windows.png)
 
@@ -82,7 +96,7 @@ Successful `master` builds create a `build-<run number>` tag at the built commit
 A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
 Build tags do not change the app version or create GitHub Releases.
 
-CI checks the tag logic and builds the app. It also checks executable permissions for the app and MultiMarkdown in the archive.
+CI checks tag logic, native search behavior, and the app build. It also checks executable permissions in the archive.
 The desktop integration suites remain separate. [Tests/CI/README.md](Tests/CI/README.md) describes the CI checks and tag rules.
 
 ## Dependency changes

@@ -101,11 +101,13 @@ static void Check(BOOL condition, NSString *message) {
 @end
 @interface FakeBrowserSession : NSObject
 - (NSString *)searchString;
+- (NSString *)searchMode;
 - (id)sortColumn;
 - (BOOL)reverseSorted;
 @end
 @implementation FakeBrowserSession
 - (NSString *)searchString { return nil; }
+- (NSString *)searchMode { return @"exact"; }
 - (id)sortColumn { return nil; }
 - (BOOL)reverseSorted { return NO; }
 @end

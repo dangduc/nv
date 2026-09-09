@@ -21,10 +21,12 @@
 @class HeaderViewWithMenu;
 @class NoteAttributeColumn;
 @class GlobalPrefs;
+@class NVBrowserSession, NoteObject;
 
 typedef struct _ViewLocationContext {
 	BOOL pivotRowWasEdge;
 	id nonRetainedPivotObject;
+    char pivotRowKey[64]; // value storage survives replacement of the old result rows
 	float verticalDistanceToPivotRow;
 } ViewLocationContext;
 
@@ -61,6 +63,10 @@ typedef struct _ViewLocationContext {
 	NSInteger affinity;
 
 	NSUserDefaults *userDefaults;
+    NoteObject *inlineEditNote;
+    NVBrowserSession *inlineEditSession;
+    NSInteger inlineEditRow;
+    NSString *primarySelectionRowKey;
 }
 
 - (void)noteFirstVisibleRow;
@@ -71,6 +77,8 @@ typedef struct _ViewLocationContext {
 - (double)distanceFromRow:(NSUInteger)aRow forVisibleArea:(NSRect)visibleRect;
 - (void)scrollRowToVisible:(NSInteger)rowIndex withVerticalOffset:(float)offset;
 - (void)selectRowAndScroll:(NSInteger)row;
+- (NSInteger)primarySelectedRow;
+- (void)setPrimarySelectedRow:(NSInteger)row;
 
 - (float)tableFontHeight;
 
@@ -90,6 +98,8 @@ typedef struct _ViewLocationContext {
 - (void)updateHeaderViewForColumns;
 - (BOOL)eventIsTagEdit:(NSEvent*)event forColumn:(NSInteger)columnIndex row:(NSInteger)rowIndex;
 - (BOOL)lastEventActivatedTagEdit;
+- (NoteObject *)noteForInlineEditAtRow:(NSInteger)row inSession:(NVBrowserSession *)session;
+- (BOOL)hasInlineEditTarget;
 - (void)editRowAtColumnWithIdentifier:(id)identifier;
 - (BOOL)addPermanentTableColumn:(NSTableColumn*)column;
 - (IBAction)actionHideShowColumn:(id)sender;
@@ -121,4 +131,3 @@ typedef struct _ViewLocationContext {
 //10.3 only
 - (void)_sizeToFitIfNecessary;
 @end
-

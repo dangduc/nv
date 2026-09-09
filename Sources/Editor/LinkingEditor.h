@@ -71,6 +71,7 @@
 - (NSRange)selectedRangeWasAutomatic:(BOOL*)automatic;
 - (void)setAutomaticallySelectedRange:(NSRange)newRange;
 - (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges;
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;
 - (void)defaultStyle:(id)sender;

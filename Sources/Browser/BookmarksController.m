@@ -25,53 +25,53 @@
 
 static NSString *BMSearchStringKey = @"SearchString";
 static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
+static NSString *BMSearchModeKey = @"SearchMode";
+static NSString *BMResultRowKey = @"ResultRowKey";
 
 @implementation NoteBookmark
 
 - (id)initWithDictionary:(NSDictionary*)aDict {
-        if (aDict) {
-            NSString *uuidString = [aDict objectForKey:BMNoteUUIDStringKey];
-            if (uuidString) {
-                return (self=[self initWithNoteUUIDBytes:[uuidString uuidBytes] searchString:[aDict objectForKey:BMSearchStringKey]]);
-            } else {
-                NSLog(@"NoteBookmark init: supplied nil uuidString");
-            }
-        } else {
-            NSLog(@"NoteBookmark init: supplied nil dictionary; couldn't init");
-            
-        }
-    return nil;
+    if (![aDict isKindOfClass:[NSDictionary class]]) { [self release]; return nil; }
+    id uuidString = [aDict objectForKey:BMNoteUUIDStringKey];
+    if (![uuidString isKindOfClass:[NSString class]]) { [self release]; return nil; }
+    CFUUIDRef uuid = CFUUIDCreateFromString(kCFAllocatorDefault, (CFStringRef)uuidString);
+    if (!uuid) { [self release]; return nil; }
+    CFUUIDBytes bytes = CFUUIDGetUUIDBytes(uuid);
+    CFRelease(uuid);
+    return [self initWithNoteUUIDBytes:bytes searchString:[aDict objectForKey:BMSearchStringKey]
+                           searchMode:[aDict objectForKey:BMSearchModeKey] resultRowKey:[aDict objectForKey:BMResultRowKey]];
 }
 
 - (id)initWithNoteUUIDBytes:(CFUUIDBytes)bytes searchString:(NSString*)aString {
-	if (self=[super init]) {
-		uuidBytes = bytes;
-		searchString = [aString copy];
-        return self;
-	}
-	
-	return nil;
+    return [self initWithNoteUUIDBytes:bytes searchString:aString searchMode:@"exact" resultRowKey:nil];
+}
+
+- (id)initWithNoteUUIDBytes:(CFUUIDBytes)bytes searchString:(NSString*)aString searchMode:(NSString*)mode resultRowKey:(NSString*)rowKey {
+    if ((self = [super init])) {
+        uuidBytes = bytes;
+        searchString = [([aString isKindOfClass:[NSString class]] ? aString : @"") copy];
+        searchMode = [([mode isKindOfClass:[NSString class]] && [mode isEqualToString:@"fuzzy"] ? @"fuzzy" : @"exact") copy];
+        resultRowKey = [([rowKey isKindOfClass:[NSString class]] && [rowKey length] ? rowKey : nil) copy];
+    }
+    return self;
 }
 
 - (id)initWithNoteObject:(NoteObject*)aNote searchString:(NSString*)aString {
-	
-    if (aNote) {
-        
-        CFUUIDBytes *bytes = [aNote uniqueNoteIDBytes];
-        if (!bytes) {
-            NSLog(@"NoteBookmark init: no cfuuidbytes pointer from note %@", titleOfNote(aNote));
-        }else if(self=[self initWithNoteUUIDBytes:*bytes searchString:aString]){
-            noteObject = [aNote retain];
-            return self;
-        }
-    }
-    NSLog(@"NoteBookmark init: supplied nil note");
-    [self release];
-    return nil;
+    return [self initWithNoteObject:aNote searchString:aString searchMode:@"exact" resultRowKey:nil];
+}
+
+- (id)initWithNoteObject:(NoteObject*)aNote searchString:(NSString*)aString searchMode:(NSString*)mode resultRowKey:(NSString*)rowKey {
+    CFUUIDBytes *bytes = [aNote uniqueNoteIDBytes];
+    if (!bytes) { [self release]; return nil; }
+    if ((self = [self initWithNoteUUIDBytes:*bytes searchString:aString searchMode:mode resultRowKey:rowKey]))
+        noteObject = [aNote retain];
+    return self;
 }
 
 - (void)dealloc {
 	[searchString release];
+    [searchMode release];
+    [resultRowKey release];
 	[noteObject release];
 	
 	[super dealloc];
@@ -80,6 +80,9 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 - (NSString*)searchString {
 	return searchString;
 }
+
+- (NSString*)searchMode { return searchMode; }
+- (NSString*)resultRowKey { return resultRowKey; }
 
 - (void)validateNoteObject {
 	NoteObject *newNote = nil;
@@ -97,8 +100,11 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 	return noteObject;
 }
 - (NSDictionary*)dictionaryRep {
-	return [NSDictionary dictionaryWithObjectsAndKeys:searchString, BMSearchStringKey, 
-		[NSString uuidStringWithBytes:uuidBytes], BMNoteUUIDStringKey, nil];
+    NSMutableDictionary *value = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        searchString, BMSearchStringKey, searchMode, BMSearchModeKey,
+        [NSString uuidStringWithBytes:uuidBytes], BMNoteUUIDStringKey, nil];
+    if (resultRowKey) [value setObject:resultRowKey forKey:BMResultRowKey];
+    return value;
 }
 
 - (NSString *)description {
@@ -118,10 +124,15 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 }
 
 - (BOOL)isEqual:(id)anObject {
-    return noteObject == [anObject noteObject];
+    if (anObject == self) return YES;
+    if (![anObject isKindOfClass:[NoteBookmark class]]) return NO;
+    NoteBookmark *other = anObject;
+    return memcmp(&uuidBytes, &other->uuidBytes, sizeof uuidBytes) == 0 &&
+        [searchString isEqualToString:other->searchString] && [searchMode isEqualToString:other->searchMode] &&
+        (resultRowKey == other->resultRowKey || [resultRowKey isEqualToString:other->resultRowKey]);
 }
 - (NSUInteger)hash {
-    return (NSUInteger)noteObject;
+    return [[NSString uuidStringWithBytes:uuidBytes] hash] ^ [searchString hash] ^ [searchMode hash] ^ [resultRowKey hash];
 }
 
 @end
@@ -172,7 +183,7 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 			NSDictionary *dict = [array objectAtIndex:i];
 			NoteBookmark *bookmark = [[NoteBookmark alloc] initWithDictionary:dict];
 			[bookmark setDelegate:self];
-			[bookmarks addObject:bookmark];
+			if (bookmark) [bookmarks addObject:bookmark];
 			[bookmark release];
 		}
         return self;
@@ -207,16 +218,14 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 }
 
 - (void)removeBookmarkForNote:(NoteObject*)aNote {
-	unsigned int i;
-
-	for (i=0; i<[bookmarks count]; i++) {
-		if ([[bookmarks objectAtIndex:i] noteObject] == aNote) {
-			[bookmarks removeObjectAtIndex:i];
-			
-			[self updateBookmarksUI];
-			break;
-		}
-	}
+    BOOL changed = NO;
+    for (NSInteger i = (NSInteger)[bookmarks count] - 1; i >= 0; i--) {
+        if ([[bookmarks objectAtIndex:(NSUInteger)i] noteObject] == aNote) {
+            [bookmarks removeObjectAtIndex:(NSUInteger)i];
+            changed = YES;
+        }
+    }
+    if (changed) [self updateBookmarksUI];
 }
 
 
@@ -530,7 +539,8 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 	} else if ([bookmarks count] < 27) {
 		NSString *newString = [[appController fieldSearchString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];		
 		
-		NoteBookmark *bookmark = [[NoteBookmark alloc] initWithNoteObject:[appController selectedNoteObject] searchString:newString];
+		NoteBookmark *bookmark = [[NoteBookmark alloc] initWithNoteObject:[appController selectedNoteObject] searchString:newString
+            searchMode:[appController searchMode] resultRowKey:[appController selectedSearchResultRowKey]];
 		if (bookmark!=nil) {
 			NSUInteger existingIndex = [bookmarks indexOfObject:bookmark];
 			if (existingIndex != NSNotFound) {

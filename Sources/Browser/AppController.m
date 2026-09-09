@@ -448,7 +448,7 @@ terminateApp:
 
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	SEL selector = [menuItem action];
-	NSInteger numberSelected = [notesTableView numberOfSelectedRows];
+	NSInteger numberSelected = [[[self browserSession] notesAtIndexes:[notesTableView selectedRowIndexes]] count];
     if (selector == @selector(newNote:)) return [self sharedNotationController] != nil;
     if (selector == @selector(toggleTitleInTopSection:)) {
         [menuItem setTitle:[prefsController showTitleInTopSection] ? NSLocalizedString(@"Hide Title in Top Section", nil) : NSLocalizedString(@"Show Title in Top Section", nil)];
@@ -663,46 +663,41 @@ terminateApp:
 
 
 - (IBAction)deleteNote:(id)sender {
-	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
-	if ([indexes count] > 0) {
-		
-		if ([prefsController confirmNoteDeletion]) {
-//			[deleteObj retain];
-			NSString *warningSingleFormatString = NSLocalizedString(@"Delete the note titled quotemark%@quotemark?", @"alert title when asked to delete a note");
-			NSString *warningMultipleFormatString = NSLocalizedString(@"Delete %d notes?", @"alert title when asked to delete multiple notes");
-			NSString *warnString = currentNote ? [NSString stringWithFormat:warningSingleFormatString, titleOfNote(currentNote)] :
-			[NSString stringWithFormat:warningMultipleFormatString, [indexes count]];
-			
-            NSAlert *alert=[NSAlert new];
-            alert.messageText=warnString;
-            alert.informativeText=NSLocalizedString(@"Press Command-Z to undo this action later.", @"informational delete-this-note? text");
-            [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"name of delete button")];
-            [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"name of cancel button")];
-            [alert setShowsSuppressionButton:YES];
-            if (IsMavericksOrLater) {
-                [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
-                    if (returnCode == NSAlertFirstButtonReturn) {
-                        [notationController removeNotesAtIndexes:indexes];
-                    }
-                }];
-                [alert release];
-                    
-            }else{
-                [indexes retain];
-                [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(deleteAlertDidEnd:returnCode:contextInfo:) contextInfo:indexes];
-            }
-            
-		} else {
-            //just delete the notes outright
-            [notationController removeNotesAtIndexes:indexes];
-		}
-	}
+    NVBrowserSession *session = [self browserSession];
+    if (![session searchResultsAreCurrent]) return;
+    NSArray *notes = [session notesAtIndexes:[notesTableView selectedRowIndexes]];
+    if (![notes count]) return;
+    NotationController *targetLibrary = [self sharedNotationController];
+    NSMutableArray *uuids = [NSMutableArray arrayWithCapacity:[notes count]];
+    for (NoteObject *note in notes)
+        [uuids addObject:[NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)]];
+    void (^removeTargets)(void) = ^{
+        if (targetLibrary != [self sharedNotationController]) return;
+        NSMutableArray *targets = [NSMutableArray array];
+        for (NSData *uuid in uuids) {
+            CFUUIDBytes bytes; [uuid getBytes:&bytes length:sizeof(bytes)];
+            NoteObject *note = [targetLibrary noteForUUIDBytes:&bytes];
+            if (note) [targets addObject:note];
+        }
+        if ([targets count]) [targetLibrary removeNotes:targets];
+    };
+    if (![prefsController confirmNoteDeletion]) { removeTargets(); return; }
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert setMessageText:[notes count] == 1 ?
+        [NSString stringWithFormat:NSLocalizedString(@"Delete the note titled quotemark%@quotemark?", nil), titleOfNote(notes[0])] :
+        [NSString stringWithFormat:NSLocalizedString(@"Delete %lu notes?", nil), (unsigned long)[notes count]]];
+    [alert setInformativeText:NSLocalizedString(@"Press Command-Z to undo this action later.", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
+        if (response == NSAlertFirstButtonReturn) removeTargets();
+    }];
 }
 
 - (IBAction)copyNoteLink:(id)sender {
 	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
 	
-	if ([indexes count] == 1) {
+	if ([[notationController notesAtIndexes:indexes] count] == 1) {
 		[[[[[notationController notesAtIndexes:indexes] lastObject]
 		   uniqueNoteLink] absoluteString] copyItemToPasteboard:nil];
 	}
@@ -721,7 +716,7 @@ terminateApp:
 	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
 	NSString *path = nil;
 	
-	if ([indexes count] != 1 || !(path = [[notationController noteObjectAtFilteredIndex:[indexes lastIndex]] noteFilePath])) {
+	if ([[notationController notesAtIndexes:indexes] count] != 1 || !(path = [[[notationController notesAtIndexes:indexes] lastObject] noteFilePath])) {
 		NSBeep();
 		return;
 	}
@@ -759,22 +754,23 @@ terminateApp:
 
 - (IBAction)printNote:(id)sender {
 	NSIndexSet *indexes = [notesTableView selectedRowIndexes];
-    if (viewingNote && currentNote && [indexes count] == 1) { [self printPreview:sender]; return; }
+    if (viewingNote && currentNote && [[notationController notesAtIndexes:indexes] count] == 1) { [self printPreview:sender]; return; }
 	[MultiplePageView printNotes:[notationController notesAtIndexes:indexes] forWindow:window];
 }
 
 - (IBAction)tagNote:(id)sender {
-    if ([notesTableView numberOfSelectedRows] == 1) {
+    if (![[self browserSession] searchResultsAreCurrent]) return;
+    NSArray *notes = [notationController notesAtIndexes:[notesTableView selectedRowIndexes]];
+    if (![notes count]) return;
+    [self cancelMultiTagEditing];
+    if ([notes count] == 1) {
         if (![prefsController showTagsInTopSection]) [prefsController setShowTagsInTopSection:YES sender:nil];
         [noteTagsField selectText:sender];
         return;
     }
     
-	//if single note, add the tag column if necessary and then begin editing
-	
-	NSIndexSet *selIndexes = [notesTableView selectedRowIndexes];
-	
-	if ([selIndexes count] > 1) {
+	if ([notes count] > 1) {
+        [self captureMultiTagNotes:notes];
         
         NSRect linkingFrame=[textScrollView convertRect:[textScrollView frame] toView:nil];
         
@@ -786,12 +782,9 @@ terminateApp:
         NSPoint cPoint=NSMakePoint(NSMidX(linkingFrame), NSMaxY(linkingFrame));
         
         //Multiple Notes selected, use ElasticThreads' multitagging implementation
-        tagEditor = [[[TagEditingManager alloc] initWithDelegate:self commonTags:[self commonLabelsForNotesAtIndexes:selIndexes] atPoint:cPoint] retain];
+        tagEditor = [[TagEditingManager alloc] initWithDelegate:self commonTags:[self commonLabelsForNotes:notes] atPoint:cPoint];
+        if (![tagEditor isMultitagging]) [self cancelMultiTagEditing];
         
-		//Multiple Notes selected, use ElasticThreads' multitagging implementation
-	} else if ([selIndexes count] == 1) {
-        self.isEditing = YES;
-		[notesTableView editRowAtColumnWithIdentifier:NoteLabelsColumnString];
 	}
 }
 
@@ -1021,6 +1014,7 @@ terminateApp:
 }
 
 - (void)cancelOperation:(id)sender {
+    [self cancelSearchIntents];
 	//simulate a search for nothing
 	if ([window isKeyWindow]) {
 		if (IsLionOrLater&&([textView textFinderIsVisible])) {
@@ -1057,6 +1051,12 @@ terminateApp:
     }
 	if (control == (NSControl*)field) {
         if (command == @selector(insertNewline:)) { [self fieldAction:control]; return YES; }
+        if (![[self browserSession] searchResultsAreCurrent] &&
+            (command == @selector(moveDown:) || command == @selector(moveUp:) ||
+             command == @selector(moveDownAndModifySelection:) || command == @selector(moveUpAndModifySelection:) ||
+             command == @selector(moveToBeginningOfDocument:) || command == @selector(moveToEndOfDocument:) ||
+             command == @selector(moveToBeginningOfDocumentAndModifySelection:) || command == @selector(moveToEndOfDocumentAndModifySelection:) ||
+             command == @selector(insertTab:) || command == @selector(insertTabIgnoringFieldEditor:))) return YES;
 		
         self.isEditing=NO;
 		//backwards-searching is slow enough as it is, so why not just check this first?
@@ -1200,11 +1200,13 @@ terminateApp:
     editingSession = [[[NVApplicationController sharedController] editingSessionForNote:aNote] retain];
     NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;
     NSLayoutManager *layout = [[textView layoutManager] retain];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:[layout textStorage]];
     // replaceTextStorage: moves every layout manager from the old storage.
     // Detach only this window's layout manager when switching notes.
     [[layout textStorage] removeLayoutManager:layout];
     [previousSession sourceLayoutDidDetach];
     [storage addLayoutManager:layout];
+    if (editingSession) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchSourceStorageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:storage];
     [editingSession sourceLayoutDidAttach];
     [layout release];
     [textView setAllowsUndo:NO];
@@ -1244,11 +1246,28 @@ terminateApp:
         NSTextView *editor = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
         NSString *query = [editor string] ?: [field stringValue];
         // Input-method composition is local until committed.
-        if ([editor hasMarkedText]) { searchHasPendingComposition = YES; return; }
+        if ([editor hasMarkedText]) {
+            searchHasPendingComposition = YES;
+            [self cancelSearchIntents];
+            [[self browserSession] suspendSearchForComposition:YES];
+            return;
+        }
+        [self cancelSearchIntents];
+        [[self browserSession] suspendSearchForComposition:NO];
         searchHasPendingComposition = NO;
         [typedString release]; typedString = [query copy]; typedStringIsCached = YES;
         isFilteringFromTyping = YES;
+        searchSubmitting = YES;
         [notationController filterNotesFromString:query];
+        searchSubmitting = NO;
+        if ([[self searchMode] isEqual:@"fuzzy"] && [[self browserSession] hasSearchTerms]) {
+            searchAutocompletePending = YES;
+            searchIntentGeneration = [[self browserSession] searchGeneration];
+            isFilteringFromTyping = NO;
+            [self updateSearchAffordance];
+            if ([[self browserSession] searchResultsAreCurrent]) [self browserSessionSearchDidComplete:[self browserSession]];
+            return;
+        }
         NSUInteger preferred = [notationController preferredSelectedNoteIndex];
         if ([query length] && [prefsController autoCompleteSearches] && preferred != NSNotFound) {
             [notesTableView selectRowAndScroll:preferred];
@@ -1341,6 +1360,8 @@ terminateApp:
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
     if (reloadingNotesList) return;
+    if (![[self browserSession] searchResultsAreCurrent]) return;
+    if (!searchApplyingResult) [self cancelSearchIntents];
     if (IsLionOrLater) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TextFindContextShouldUpdate" object:self];
     }
@@ -1355,10 +1376,11 @@ terminateApp:
 
 - (void)processChangedSelectionForTable:(NSTableView*)table {
     if (reloadingNotesList) return;
-    if (table == notesTableView && [table numberOfSelectedRows] == 1 && [table selectedRow] >= 0) {
+    if (table == notesTableView && ![[self browserSession] searchResultsAreCurrent]) return;
+    if (table == notesTableView && [[[self browserSession] notesAtIndexes:[table selectedRowIndexes]] count] == 1 && [notesTableView primarySelectedRow] >= 0) {
         [self cacheTypedStringIfNecessary:[[self browserSession] searchString]];
         [field setSnapbackString:[[self browserSession] searchString]];
-        [self displayContentsForNoteAtIndex:(NSUInteger)[table selectedRow]];
+        [self displayContentsForNoteAtIndex:(NSUInteger)[notesTableView primarySelectedRow]];
     } else if (!isFilteringFromTyping) {
         [self _setCurrentNote:nil];
         [self setEmptyViewState:YES];
@@ -1397,7 +1419,11 @@ terminateApp:
 }
 
 - (BOOL)displayContentsForNoteAtIndex:(NSUInteger)noteIndex {
+    if (![[self browserSession] searchResultsAreCurrent]) return NO;
 	NoteObject *note = [notationController noteObjectAtFilteredIndex:noteIndex];
+    if (!note) return NO;
+    [notesTableView setPrimarySelectedRow:(NSInteger)noteIndex];
+    [selectedSearchRowKey release]; selectedSearchRowKey = [[[self browserSession] rowKeyAtIndex:noteIndex] copy];
 	if (note != currentNote) {
 		[self setEmptyViewState:NO];
 		
@@ -1431,7 +1457,7 @@ terminateApp:
 		//[textView setAutomaticallySelectedRange:NSMakeRange(0,0)];
 		
 		//highlight terms--delay this, too
-		if ((unsigned)noteIndex != [notationController preferredSelectedNoteIndex])
+		if ([[self searchMode] isEqual:@"exact"] && (unsigned)noteIndex != [notationController preferredSelectedNoteIndex])
 			firstFoundTermRange = [textView highlightTermsTemporarilyReturningFirstRange:typedString avoidHighlight:
 								   ![prefsController highlightSearchTerms]];
 		
@@ -1448,10 +1474,12 @@ terminateApp:
 		//[textView setFutureSelectionRange:noteSelectionRange highlightingWords:words];
 		
         [self updateRTL];
+        [self refreshSearchHighlights];
         
 		return YES;
 	}
 	
+	[self refreshSearchHighlights];
 	return NO;
 }
 
@@ -1459,7 +1487,9 @@ terminateApp:
 - (void)textDidChange:(NSNotification *)aNotification {
 	id textObject = [aNotification object];
     //[self resetModTimers];
-	if (textObject == textView) {
+    if (textObject == textView) {
+        searchHighlightGeneration++;
+        [textView removeHighlightedTerms];
 		[editingSession commitTextChanges];
 		[self postTextUpdate];
 		[self updateWordCount:(![prefsController showWordCount])];
@@ -1499,6 +1529,7 @@ terminateApp:
     if (control == noteTitleField || control == noteTagsField) [self beginNoteMetadataEditing:control];
 }
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
+    if ([notification object] == field) [self cancelSearchIntents];
     if ([notification object] == metadataControl) [self commitNoteMetadata];
     if ([notification object] == field && searchHasPendingComposition) {
         searchHasPendingComposition = NO;
@@ -1544,10 +1575,7 @@ terminateApp:
 
 
 - (IBAction)fieldAction:(id)sender {
-	
-	[self createNoteIfNecessary];
-	[self focusNoteBody];
-	
+    [self performSearchReturn];
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)sender {
@@ -1597,25 +1625,57 @@ terminateApp:
 	//to be invoked after loading a notationcontroller
 	
 	NSString *searchString = [prefsController lastSearchString];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LastSearchMode"])
+        [[self browserSession] setSearchMode:[prefsController lastSearchMode]];
 	if ([searchString length])
-		[self searchForString:searchString];
+		[self searchForString:searchString mode:[prefsController lastSearchMode]];
 	else
 		[notationController refilterNotes];
+    [self setupSearchControls];
     
 	CFUUIDBytes bytes = [prefsController UUIDBytesOfLastSelectedNote];
+    NoteObject *savedNote = [notationController noteForUUIDBytes:&bytes];
+    if (![[self browserSession] searchResultsAreCurrent] && savedNote) {
+        searchAutocompletePending = NO;
+        [pendingSearchReveal release];
+        NSMutableDictionary *intent = [NSMutableDictionary dictionaryWithObjectsAndKeys:savedNote, @"note",
+            @(NVDoNotChangeScrollPosition), @"options", @([prefsController scrollOffsetOfLastSelectedNote]), @"scrollOffset", nil];
+        if ([prefsController lastSearchResultRowKey]) [intent setObject:[prefsController lastSearchResultRowKey] forKey:@"rowKey"];
+        pendingSearchReveal = [intent copy];
+        return;
+    }
 	NSUInteger idx = [self revealNote:[notationController noteForUUIDBytes:&bytes] options:NVDoNotChangeScrollPosition];
+    NSString *savedKey = [prefsController lastSearchResultRowKey];
+    NSUInteger savedRow = savedKey ? [[self browserSession] indexForRowKey:savedKey] : NSNotFound;
+    if (savedRow != NSNotFound && [[self browserSession] noteObjectAtFilteredIndex:savedRow] == savedNote) {
+        idx = savedRow;
+        [notesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:idx] byExtendingSelection:NO];
+    }
 	//scroll using saved scrollbar position
 	[notesTableView scrollRowToVisible:NSNotFound == idx ? 0 : idx withVerticalOffset:[prefsController scrollOffsetOfLastSelectedNote]];
 }
 
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts {
 	if (note) {
+        if (![[[self sharedNotationController] allNotes] containsObject:note]) return NSNotFound;
+        if (![[self browserSession] searchResultsAreCurrent]) {
+            [pendingSearchReveal release];
+            pendingSearchReveal = [@{@"note":note, @"options":@(opts)} copy];
+            return NSNotFound;
+        }
 		NSUInteger selectedNoteIndex = [notationController indexInFilteredListForNoteIdenticalTo:note];
+        if ([notesTableView primarySelectedRow] >= 0 && [[self browserSession] noteObjectAtFilteredIndex:[notesTableView primarySelectedRow]] == note)
+            selectedNoteIndex = [notesTableView primarySelectedRow];
 		
 		if (selectedNoteIndex == NSNotFound) {
             // Library refreshes are deferred. A newly added note can be absent
             // from this browser's cached list even when its query matches.
-            [[self browserSession] refilterNotes];
+            if ([[self searchMode] isEqual:@"exact"]) [[self browserSession] refilterNotes];
+            if (![[self browserSession] searchResultsAreCurrent]) {
+                [pendingSearchReveal release];
+                pendingSearchReveal = [@{@"note":note, @"options":@(opts)} copy];
+                return NSNotFound;
+            }
 			selectedNoteIndex = [notationController indexInFilteredListForNoteIdenticalTo:note];
             if (selectedNoteIndex == NSNotFound && [[[self sharedNotationController] allNotes] containsObject:note]) {
                 // Reveal also serves background browsers; cancelOperation:
@@ -1660,7 +1720,10 @@ terminateApp:
 }
 
 - (void)notation:(NotationController*)notation revealNotes:(NSArray*)notes {
-	
+    if (![[self browserSession] searchResultsAreCurrent]) {
+        [pendingSearchReveal release]; pendingSearchReveal = [@{@"notes":[[notes copy] autorelease]} copy];
+        return;
+    }
 	NSIndexSet *indexes = [notation indexesOfNotes:notes];
 	if ([notes count] != [indexes count]) {
 		[self cancelOperation:nil];
@@ -1674,17 +1737,20 @@ terminateApp:
 }
 
 - (void)searchForString:(NSString*)string {
-    if (!string) return;
-    [self setDualFieldIsVisible:YES];
-    [field setStringValue:string];
-    [self controlTextDidChange:[NSNotification notificationWithName:NSControlTextDidChangeNotification object:field]];
-    [self selectSearchField];
+    [self searchForString:string mode:@"exact"];
 }
 
 - (void)bookmarksController:(BookmarksController*)controller restoreNoteBookmark:(NoteBookmark*)aBookmark inBackground:(BOOL)inBG {
 	if (aBookmark) {
-		[self searchForString:[aBookmark searchString]];
-		[self revealNote:[aBookmark noteObject] options:!inBG ? NVOrderFrontWindow : 0];
+        [self searchForString:[aBookmark searchString] mode:[aBookmark searchMode]];
+        searchAutocompletePending = NO;
+        NoteObject *note = [aBookmark noteObject];
+        if (note) {
+            NSMutableDictionary *intent = [NSMutableDictionary dictionaryWithObjectsAndKeys:note, @"note", @(!inBG ? NVOrderFrontWindow : 0), @"options", nil];
+            if ([aBookmark resultRowKey]) [intent setObject:[aBookmark resultRowKey] forKey:@"rowKey"];
+            [pendingSearchReveal release]; pendingSearchReveal = [intent copy];
+            if ([[self browserSession] searchResultsAreCurrent]) [self browserSessionSearchDidComplete:[self browserSession]];
+        }
 	}
 }
 
@@ -1730,6 +1796,8 @@ terminateApp:
                 
 				[savedSelectedNotes release];
 				savedSelectedNotes = [[someNotation notesAtIndexes:indexSet] retain];
+                [savedSelectedRowKeys release];
+                savedSelectedRowKeys = [[[self browserSession] rowKeysAtIndexes:indexSet] copy];
 			}
 			
 			listUpdateViewCtx = [notesTableView viewingLocation];
@@ -1748,11 +1816,16 @@ terminateApp:
 		
 		if (!isFilteringFromTyping) {
 			if (savedSelectedNotes) {
-				NSIndexSet *indexes = [someNotation indexesOfNotes:savedSelectedNotes];
+				NSIndexSet *indexes = savedSelectedRowKeys ? [[self browserSession] indexesForRowKeys:savedSelectedRowKeys] : [someNotation indexesOfNotes:savedSelectedNotes];
 				[savedSelectedNotes release];
 				savedSelectedNotes = nil;
+                [savedSelectedRowKeys release]; savedSelectedRowKeys = nil;
 				
 				[notesTableView selectRowIndexes:indexes byExtendingSelection:NO];
+
+                NSUInteger primary = [[self browserSession] indexForRowKey:selectedSearchRowKey];
+                if (primary != NSNotFound && [indexes containsIndex:primary])
+                    [notesTableView setPrimarySelectedRow:(NSInteger)primary];
 			}
 			
 			[notesTableView setViewingLocation:listUpdateViewCtx];
@@ -1799,6 +1872,9 @@ terminateApp:
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+    [self cancelMultiTagEditing];
+    [self cancelSearchIntents];
+    [[self browserSession] invalidateSearch];
     [self finishEditing];
     [self discardViewer];
     [notesTableView deselectAll:self];
@@ -1836,6 +1912,7 @@ terminateApp:
 - (void)dealloc {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self cancelMultiTagEditing];
     [window setDelegate:nil];
     [textView setDelegate:nil];
     [notesTableView setDelegate:nil];
@@ -1846,6 +1923,12 @@ terminateApp:
     [emptyEditorStorage release];
     [currentNote release];
     [savedSelectedNotes release];
+    [savedSelectedRowKeys release];
+    [selectedSearchRowKey release];
+    [pendingSearchReturnQuery release];
+    [pendingSearchRestoration release];
+    [pendingSearchReveal release];
+    [searchStatusField release];
     [typedString release];
     [noteSelections release];
     [noteBodyStates release];
@@ -1947,10 +2030,43 @@ terminateApp:
 
 #pragma mark multitagging
 
+- (void)captureMultiTagNotes:(NSArray *)notes {
+    [self cancelMultiTagEditing];
+    multiTagLibrary = [[self sharedNotationController] retain];
+    NSMutableArray *uuids = [NSMutableArray array];
+    NSMutableSet *seen = [NSMutableSet set];
+    for (NoteObject *note in notes) {
+        NSData *uuid = [NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)];
+        if (![seen containsObject:uuid]) { [uuids addObject:uuid]; [seen addObject:uuid]; }
+    }
+    multiTagNoteUUIDs = [uuids copy];
+}
+- (NSArray *)pendingMultiTagNotes {
+    if (!multiTagLibrary || multiTagLibrary != [self sharedNotationController]) return @[];
+    NSMutableArray *notes = [NSMutableArray array];
+    for (NSData *uuid in multiTagNoteUUIDs) {
+        CFUUIDBytes bytes; [uuid getBytes:&bytes length:sizeof(bytes)];
+        NoteObject *note = [multiTagLibrary noteForUUIDBytes:&bytes];
+        if (note) [notes addObject:note];
+    }
+    return notes;
+}
+- (void)cancelMultiTagEditing {
+    TagEditingManager *editor = tagEditor; tagEditor = nil;
+    [multiTagNoteUUIDs release]; multiTagNoteUUIDs = nil;
+    [multiTagLibrary release]; multiTagLibrary = nil;
+    [editor closeTP:self];
+    [editor release];
+}
+
 - (NSArray *)commonLabelsForNotesAtIndexes:(NSIndexSet *)selDexes{
+    return [self commonLabelsForNotes:[notationController notesAtIndexes:selDexes]];
+}
+- (NSArray *)commonLabelsForNotes:(NSArray *)notes {
+	if (![notes count]) return @[];
 	NSArray *retArray =[NSArray array];
     
-	NSEnumerator *noteEnum = [[[notationController notesAtIndexes:selDexes] objectEnumerator] retain];
+	NSEnumerator *noteEnum = [[notes objectEnumerator] retain];
 	NoteObject *aNote;
 	aNote = [noteEnum nextObject];
 	NSString *existTags = labelsOfNote(aNote);
@@ -1989,6 +2105,8 @@ terminateApp:
 }
 
 - (IBAction)multiTag:(id)sender {
+    NSArray *selNotes = [self pendingMultiTagNotes];
+    if (!tagEditor || ![selNotes count]) { [self cancelMultiTagEditing]; return; }
 	NSString *tagString = [tagEditor.tagFieldString stringByTrimmingCharactersInSet:[NSCharacterSet labelSeparatorCharacterSet]];
 	NSArray *newTags;
     if (tagString&&(tagString.length>0)) {
@@ -1999,10 +2117,6 @@ terminateApp:
     NSArray *commonLabs=tagEditor.commonTags;
     if (![newTags isEqualToArray:commonLabs]) {
         
-        NSArray *selNotes = [notationController notesAtIndexes:[notesTableView selectedRowIndexes]];
-        if (!selNotes||([selNotes count]==0)) {
-            return;
-        }
         tagString=nil;
         
         BOOL gotNewLabels=(newTags&&([newTags count]>0));
@@ -2052,16 +2166,15 @@ terminateApp:
             [finalTags removeAllObjects];
         }
         
-		[notesTableView scrollRowToVisible:[[notesTableView selectedRowIndexes] firstIndex]];
+        if ([[self browserSession] searchResultsAreCurrent] && [notesTableView primarySelectedRow] >= 0)
+            [notesTableView scrollRowToVisible:[notesTableView primarySelectedRow]];
         [finalTags release];
     }
-	[tagEditor closeTP:self];
+	[self cancelMultiTagEditing];
 }
 
 - (void)releaseTagEditor:(NSNotification *)note{
-    if (tagEditor) {
-        [tagEditor release];
-    }
+    if ([note object] == tagEditor) [self cancelMultiTagEditing];
 }
 
 #pragma mark Browser layout

@@ -11,6 +11,7 @@
 #import "NVBackupController.h"
 #import "NVBackupStore.h"
 #import "LinkingEditor.h"
+#import "NVSearchService.h"
 
 static NVApplicationController *NVSharedApplicationController;
 static NSString * const NVBrowserWindowsKey = @"NVBrowserWindows";
@@ -52,6 +53,23 @@ AppController *NVControllerForView(NSView *view) {
 - (NSArray *)browserControllers { return [[browsers copy] autorelease]; }
 - (NotationController *)library { return library; }
 - (NVBackupController *)backupController { return backupController; }
+- (NVSearchService *)searchService { return searchService; }
+- (NVSearchNoteSnapshot *)searchSnapshotForNote:(NoteObject *)note {
+    return [[[NVSearchNoteSnapshot alloc] initWithNoteUUID:[NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)]
+        title:note->titleString tags:note->labelString source:[[note contentString] string] revision:++searchSnapshotRevision] autorelease];
+}
+- (void)invalidateBrowserSearches {
+    for (AppController *browser in [self browserControllers]) [[browser browserSession] invalidateSearch];
+    [self scheduleBrowserRefresh];
+}
+- (void)searchableNoteDidChange:(NoteObject *)note {
+    if (!searchService || ![[library allNotes] containsObject:note]) return;
+    if ([searchService updateSnapshot:[self searchSnapshotForNote:note]]) [self invalidateBrowserSearches];
+}
+- (void)searchableNoteWasRemoved:(NoteObject *)note {
+    NSData *uuid = [NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)];
+    if ([searchService removeUUID:uuid]) [self invalidateBrowserSearches];
+}
 - (AppController *)activeBrowser {
     id controller = [[NSApp mainWindow] windowController];
     if ([browsers containsObject:controller]) return controller;
@@ -203,12 +221,18 @@ AppController *NVControllerForView(NSView *view) {
         else [session closeWithoutCommitting];
     }
     [editingSessions removeAllObjects];
+    [searchService invalidate];
+    [searchService release]; searchService = nil;
     [library setDelegate:nil];
     if (finish) [library closeAllResources];
     else [library finishPreparedBackupRestore];
     [library autorelease];
     library = [newLibrary retain];
     [library setDelegate:self];
+    searchService = [[NVSearchService alloc] init];
+    NSMutableArray *snapshots = [NSMutableArray arrayWithCapacity:[[library allNotes] count]];
+    for (NoteObject *note in [library allNotes]) [snapshots addObject:[self searchSnapshotForNote:note]];
+    [searchService synchronizeWithSnapshots:snapshots];
     [library setUndoManager:[[[NSUndoManager alloc] init] autorelease]];
     [library filterNotesFromString:@""];
     for (AppController *browser in [self browserControllers]) [browser attachLibrary:library finishingOldLibrary:finish];
@@ -435,6 +459,7 @@ AppController *NVControllerForView(NSView *view) {
     finishingTermination = YES;
     @try {
         [backupController stop];
+        [searchService invalidate];
         for (NVNoteEditingSession *session in [editingSessions allValues]) [session commitPendingTextChanges];
         [initialBrowser applicationWillTerminate:notification];
         for (NVNoteEditingSession *session in [editingSessions allValues]) [session close];

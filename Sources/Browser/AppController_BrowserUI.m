@@ -87,6 +87,17 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [createNoteButton setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewMaxYMargin];
     [createNoteButton setHidden:YES];
     [notesSubview addSubview:createNoteButton];
+    searchStatusField = [[NSTextField alloc] initWithFrame:NSMakeRect(8, NSHeight([notesSubview bounds]) - 22, NSWidth([notesSubview bounds]) - 16, 18)];
+    [searchStatusField setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+    [searchStatusField setEditable:NO];
+    [searchStatusField setSelectable:NO];
+    [searchStatusField setBezeled:NO];
+    [searchStatusField setDrawsBackground:NO];
+    [searchStatusField setFont:[NSFont systemFontOfSize:11]];
+    [searchStatusField setTextColor:[NSColor secondaryLabelColor]];
+    [[searchStatusField cell] setLineBreakMode:NSLineBreakByTruncatingTail];
+    [searchStatusField setHidden:YES];
+    [notesSubview addSubview:searchStatusField];
 
     const CGFloat headerHeight = 96;
     NSRect bounds = [splitSubview bounds];
@@ -286,9 +297,26 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     [self focusNoteBody];
 }
 - (void)updateSearchAffordance {
-    NSString *query = [[self browserSession] searchString] ?: @"";
-    BOOL canCreate = [query length] && [notesTableView numberOfRows] == 0;
-    [createNoteButton setHidden:!canCreate];
+    NVBrowserSession *session = [self browserSession];
+    NSString *query = [session searchString] ?: @"";
+    BOOL fuzzy = [[session searchMode] isEqual:@"fuzzy"] && [session hasSearchTerms];
+    BOOL canCreate = [session searchResultsAreCurrent] && [query length] && [session resultCount] == 0;
+    NSError *error = [session searchError];
+    [createNoteButton setHidden:!canCreate && !error];
+    [createNoteButton setAction:error ? @selector(retrySearch:) : @selector(createNoteFromSearch:)];
+    [searchStatusField setHidden:!fuzzy];
+    NSRect listFrame = [notesSubview bounds];
+    if (fuzzy) listFrame.size.height = MAX(0, listFrame.size.height - 24);
+    [notesScrollView setFrame:listFrame];
+    NSString *status = @"";
+    if (error) status = [error localizedDescription];
+    else if ([session searchPending]) status = searchStatusDelayElapsed ? NSLocalizedString(@"Searching…", nil) : @"";
+    else if (fuzzy) status = [NSString stringWithFormat:NSLocalizedString(@"%lu results in %lu notes — title matches first", nil),
+        (unsigned long)[session resultCount], (unsigned long)[session distinctResultNoteCount]];
+    [searchStatusField setStringValue:status ?: @""];
+    [searchStatusField setToolTip:status];
+    [field setToolTip:status];
+    if (error) [createNoteButton setTitle:NSLocalizedString(@"Retry Search", nil)];
     if (canCreate) {
         NSString *label = [NSString stringWithFormat:NSLocalizedString(@"Create “%@” — Return", nil), query];
         [createNoteButton setTitle:label];
@@ -296,6 +324,7 @@ static NSImage *BrowserSymbol(NSString *name, NSString *fallback, NSString *labe
     }
 }
 - (IBAction)newNote:(id)sender {
+    [self cancelSearchIntents];
     [self finishEditing];
     [self setViewingNote:NO];
     [notesTableView deselectAll:self];

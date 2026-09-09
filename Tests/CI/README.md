@@ -2,6 +2,8 @@
 
 The [macOS workflow](../../.github/workflows/macos.yml) builds an Intel Development app with Xcode 16.4 on `macos-15-intel`.
 CI disables code signing. It does not require repository secrets.
+Before the app build, CI runs the [native search suites](../FuzzySearch/README.md) on Intel.
+These checks cover native order, the search service, duplicate rows, persistence, and shared-source invalidation.
 
 The workflow runs for pull requests to `master`, pushes to `master`, and manual runs.
 The build job has read access to the repository. A separate tag job has write access after a successful build and artifact upload.
@@ -15,6 +17,7 @@ The ZIP file preserves app permissions.
 The archive check reads the ZIP file and checks these properties.
 Its tests reject archives with lost executable permissions for the app or MultiMarkdown.
 The archive must also contain four highlighting queries and `ThirdPartyNotices.txt` under `Contents/Resources/Syntax/`.
+It must contain the three search dependency notices under `Contents/Resources/SearchLicenses/`.
 These resources must be nonempty regular files. The checks reject missing, empty, or whitespace-only resources, directories, and symbolic links.
 
 ## Automatic tags

@@ -10,39 +10,55 @@
 #import "NoteObject.h"
 #import "GlobalPrefs.h"
 #import "AppController.h"
+#import "BookmarksController.h"
 #import "NSString_NV.h"
 #import "NSCollection_utils.h"
 
+// This dormant controller keeps its historical storage contract. These
+// selectors are not part of the current application's GlobalPrefs API.
+@interface GlobalPrefs (LegacySavedSearchStorage)
+- (BOOL)autosaveNotesForSavedSearches;
+- (void)setSavedSearchesFromSender:(id)sender;
+- (SavedSearch *)lastSavedSearch;
+- (void)setLastSavedSearch:(SavedSearch *)search sender:(id)sender;
+- (void)setAutosaveNotesForSavedSearches:(BOOL)value sender:(id)sender;
+@end
+
 static NSString *SSSearchStringKey = @"SearchString";
 static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
+static NSString *SSSearchModeKey = @"SearchMode";
+static NSString *SSResultRowKey = @"ResultRowKey";
 
 @implementation SavedSearch
 
 - (id)initWithDictionary:(NSDictionary*)aDict {
-	if (aDict && [self initWithSearchString:[aDict objectForKey:SSSearchStringKey]]) {
-
-		uuidBytes = [[aDict objectForKey:SSSelectedNoteUUIDStringKey] uuidBytes];
-	} else {
-		NSLog(@"SavedSearch: Supplied dictionary: %@; couldn't init", aDict);
-		return nil;
-	}
-	return self;
+    if (![aDict isKindOfClass:[NSDictionary class]]) { [self release]; return nil; }
+    if (!(self = [self initWithSearchString:[aDict objectForKey:SSSearchStringKey]
+                                searchMode:[aDict objectForKey:SSSearchModeKey]])) return nil;
+    id uuidString = [aDict objectForKey:SSSelectedNoteUUIDStringKey];
+    if ([uuidString isKindOfClass:[NSString class]]) uuidBytes = [uuidString uuidBytes];
+    id rowKey = [aDict objectForKey:SSResultRowKey];
+    if ([rowKey isKindOfClass:[NSString class]] && [rowKey length]) resultRowKey = [rowKey copy];
+    return self;
 }
 - (id)initWithSearchString:(NSString*)aString {
-	if ([super init] && aString) {
-		searchString = [aString copy];
-		needsMenuUpdate = NO;
-		
-		lowercaseSearchString = [[searchString lowercaseString] retain];
-		hashValue = [lowercaseSearchString hash];
-	} else {
-		return nil;
-	}
-	return self;
+    return [self initWithSearchString:aString searchMode:@"exact"];
+}
+- (id)initWithSearchString:(NSString*)aString searchMode:(NSString*)mode {
+    if (![aString isKindOfClass:[NSString class]]) { [self release]; return nil; }
+    if ((self = [super init])) {
+        searchString = [aString copy];
+        searchMode = [([mode isKindOfClass:[NSString class]] && [mode isEqualToString:@"fuzzy"] ? @"fuzzy" : @"exact") copy];
+        lowercaseSearchString = [[searchString lowercaseString] copy];
+        hashValue = [lowercaseSearchString hash] ^ [searchMode hash];
+    }
+    return self;
 }
 
 - (void)dealloc {
 	[searchString release];
+    [searchMode release];
+    [resultRowKey release];
 	[lowercaseSearchString release];
 	[selectedNote release];
 	
@@ -57,8 +73,15 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 }
 
 - (void)setSelectedNote:(NoteObject*)aNote {
+    [self setSelectedNote:aNote resultRowKey:nil];
+}
+- (void)setSelectedNote:(NoteObject*)aNote resultRowKey:(NSString*)rowKey {
+    NSString *copiedKey = [(aNote && [rowKey isKindOfClass:[NSString class]] && [rowKey length] ? rowKey : nil) copy];
+    [resultRowKey release];
+    resultRowKey = copiedKey;
+	[aNote retain];
 	[selectedNote release];
-	selectedNote = [aNote retain];
+	selectedNote = aNote;
 	needsMenuUpdate = YES;
 	
 	CFUUIDBytes zeroBytes = {0};
@@ -68,13 +91,18 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 - (NSString*)searchString {
 	return searchString;
 }
+- (NSString*)searchMode { return searchMode; }
+- (NSString*)resultRowKey { return resultRowKey; }
 - (NoteObject*)selectedNote {
 	if (!selectedNote) selectedNote = [[delegate noteWithUUIDBytes:uuidBytes] retain];
 	return selectedNote;
 }
 - (NSDictionary*)dictionaryRep {
-	return [NSDictionary dictionaryWithObjectsAndKeys:searchString, SSSearchStringKey, 
-		[NSString uuidStringWithBytes:uuidBytes], SSSelectedNoteUUIDStringKey, nil];
+    NSMutableDictionary *value = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        searchString, SSSearchStringKey, searchMode, SSSearchModeKey,
+        [NSString uuidStringWithBytes:uuidBytes], SSSelectedNoteUUIDStringKey, nil];
+    if (resultRowKey) [value setObject:resultRowKey forKey:SSResultRowKey];
+    return value;
 }
 
 - (NSString *)description {
@@ -95,9 +123,10 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 }
 
 - (BOOL)isEqual:(id)anObject {
-    return [lowercaseSearchString isEqualToString:[anObject lowercaseString]];
+    return [anObject isKindOfClass:[SavedSearch class]] &&
+        [lowercaseSearchString isEqualToString:[anObject lowercaseString]] && [searchMode isEqualToString:[anObject searchMode]];
 }
-- (unsigned)hash {
+- (NSUInteger)hash {
     return hashValue;
 }
 
@@ -145,7 +174,7 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 			NSDictionary *dict = [array objectAtIndex:i];
 			SavedSearch *search = [[SavedSearch alloc] initWithDictionary:dict];
 			[search setDelegate:self];
-			[searches addObject:search];
+			if (search) [searches addObject:search];
 			[search release];
 		}
 		
@@ -235,7 +264,7 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	}
 }
 
-- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
 	//need to fix this for better style detection
 	
 	SEL action = [menuItem action];
@@ -246,7 +275,8 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	} else if (action == @selector(restoreSearch:)) {
 		//typedString equals saved search string
 		SavedSearch *search = [menuItem representedObject];
-		[menuItem setState:[[self effectiveDelegateSearchString] isEqualToString:[search searchString]]];
+		[menuItem setState:[[self effectiveDelegateSearchString] isEqualToString:[search searchString]] &&
+            [[self effectiveDelegateSearchMode] isEqualToString:[search searchMode]]];
 		
 		if ([search needsMenuUpdate]) {
 			[menuItem setTitle:[search description]];
@@ -265,15 +295,23 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	if (search) {
 
 		//communicate with revealer here--tell it to search for this string
-		if ([revealTarget respondsToSelector:revealAction]) {
+		if ([revealTarget respondsToSelector:@selector(searchForString:mode:)] || [revealTarget respondsToSelector:revealAction]) {
 			isRestoringSearch = YES;
 			
-			[revealTarget performSelector:revealAction withObject:search];
+			if ([revealTarget respondsToSelector:@selector(bookmarksController:restoreNoteBookmark:inBackground:)]) {
+                NoteBookmark *bookmark = [[[NoteBookmark alloc] initWithDictionary:[search dictionaryRep]] autorelease];
+                [bookmark setDelegate:self];
+                [revealTarget bookmarksController:nil restoreNoteBookmark:bookmark inBackground:YES];
+            } else if ([revealTarget respondsToSelector:@selector(searchForString:mode:)]) {
+                [revealTarget searchForString:[search searchString] mode:[search searchMode]];
+            } else {
+                [revealTarget performSelector:revealAction withObject:search];
+            }
 			[self selectSearchInTableView:search];
 			
 			isRestoringSearch = NO;
 		} else {
-			NSLog(@"reveal target %@ doesn't respond to %s!", revealTarget, revealAction);
+			NSLog(@"reveal target %@ doesn't respond to %@!", revealTarget, NSStringFromSelector(revealAction));
 			return NO;
 		}
 		return YES;
@@ -288,8 +326,8 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 - (BOOL)addSearchString:(NSString*)string selectedNote:(NoteObject*)aNote {
 	BOOL added = NO;
 	if (string) {
-		SavedSearch *search = [[SavedSearch alloc] initWithSearchString:string];
-		[search setSelectedNote:aNote];
+		SavedSearch *search = [[SavedSearch alloc] initWithSearchString:string searchMode:[self effectiveDelegateSearchMode]];
+		[search setSelectedNote:aNote resultRowKey:[self effectiveDelegateResultRowKey]];
 		
 		if (![searchSet containsObject:search]) {
 			[search setDelegate:self];
@@ -297,7 +335,7 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 			added = YES;
 		} else {
 			//just set selected note on existing search
-			[[searchSet member:string] setSelectedNote:aNote];
+			[[searchSet member:search] setSelectedNote:aNote resultRowKey:[self effectiveDelegateResultRowKey]];
 		}
 		[self updateSearches];
 		[search release];
@@ -310,8 +348,8 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	SavedSearch *search = [self setNote:aNote forSearchString:aString];
 	if (!search && aString) {
 		//make a new search and set it in prefs
-		search = [[SavedSearch alloc] initWithSearchString:aString];
-		[search setSelectedNote:aNote];
+		search = [[SavedSearch alloc] initWithSearchString:aString searchMode:[self effectiveDelegateSearchMode]];
+		[search setSelectedNote:aNote resultRowKey:[self effectiveDelegateResultRowKey]];
 		[search autorelease];
 	}
 	[prefsController setLastSavedSearch:search sender:self];
@@ -331,7 +369,7 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	if (!isRestoringSearch) {
 		SavedSearch *search = [self savedSearchWithString:aString];
 		if (search) {			
-			[search setSelectedNote:aNote];
+			[search setSelectedNote:aNote resultRowKey:[self effectiveDelegateResultRowKey]];
 			
 			if ([window isVisible]) {
 				//show description for this saved search with the new note title
@@ -346,7 +384,8 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 - (SavedSearch*)savedSearchWithString:(NSString*)string {
 	if (![string length]) return nil;
 	
-	return [searchSet member:string];
+	SavedSearch *key = [[[SavedSearch alloc] initWithSearchString:string searchMode:[self effectiveDelegateSearchMode]] autorelease];
+    return [searchSet member:key];
 }
 
 - (SavedSearch*)savedSearchAtIndex:(int)searchIndex {
@@ -357,12 +396,19 @@ static NSString *SSSelectedNoteUUIDStringKey = @"NoteUUIDString";
 	return [[delegate fieldSearchString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+- (NSString*)effectiveDelegateSearchMode {
+    return [delegate respondsToSelector:@selector(searchMode)] ? [delegate searchMode] : @"exact";
+}
+- (NSString*)effectiveDelegateResultRowKey {
+    return [delegate respondsToSelector:@selector(selectedSearchResultRowKey)] ? [delegate selectedSearchResultRowKey] : nil;
+}
+
 - (BOOL)setSearchString:(NSString*)aString atIndex:(unsigned int)oldIndex {
 	
     if (oldIndex < [searches count]) {
 		
 		if ([aString length] > 0) {
-			SavedSearch *search = [[SavedSearch alloc] initWithSearchString:aString];
+			SavedSearch *search = [[SavedSearch alloc] initWithSearchString:aString searchMode:[[searches objectAtIndex:oldIndex] searchMode]];
 			
 			if (![search isEqual:[searches objectAtIndex:oldIndex]]) {
 				[search setDelegate:self];

@@ -1,0 +1,8 @@
+environment,arch,arm64
+environment,os,Version 26.5.2 (Build 25F84)
+cancel,cold_unicode,8388606,14.474
+cancel,cold_normalization_unicode,8388606,49.084
+query,prepare_long_unicode,"no literal match",0.028,113.876,0
+components,"no literal match",prepare_ms,93.232,title_ms,0.006,result_ms,0.007
+cancel,warm_unicode,8388606,36.716
+memory,peak_resident_bytes,91979776

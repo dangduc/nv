@@ -447,7 +447,7 @@ DefColAttrAccessor(dateCreatedStringOfNote, dateCreatedString)
 DefColAttrAccessor(dateModifiedStringOfNote, dateModifiedString)
 
 force_inline id tableTitleOfNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
-	id preview = [NVControllerForView(tv) tablePreviewForNote:note];
+	id preview = [NVControllerForView(tv) tablePreviewForRow:row];
     if (preview) return preview;
 	return titleOfNote(note);
 }

@@ -27,6 +27,8 @@ checks = [
     'restoration/run-canaries.py',
 ]
 paths = [repo / 'Tests' / check for check in [
+    'FuzzySearch/Core/run.py', 'FuzzySearch/run-service-tests.py', 'FuzzySearch/Browser/run.py',
+    'FuzzySearch/Persistence/run.py', 'FuzzySearch/Highlights/run.py', 'FuzzySearch/UI/run.py',
     'BackupStore/run.py', 'BackupStore/run-teardown.py',
     'BackupCoordinator/run.py', 'BackupPreferences/run.py', 'BackupArchive/native/run.py', 'BackupArchive/run.py',
 ]] + [repo / 'Tests/Regression' / check for check in checks]

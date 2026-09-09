@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check required executables and source-highlighting resources in the app archive."""
+"""Check required executables, syntax resources, and search notices in the app archive."""
 
 import stat
 import sys
@@ -34,6 +34,14 @@ def check_archive(path):
                 raise ValueError("Missing syntax resource: " + name) from error
             if not stat.S_ISREG(info.external_attr >> 16) or not archive.read(info).strip():
                 raise ValueError("Syntax resource must be a nonempty regular file: " + name)
+        for name in ("FZF-GPL-3.0.txt", "FZF-MIT.txt", "UTF8PROC.txt"):
+            resource = "Resources/SearchLicenses/" + name
+            try:
+                info = archive.getinfo(prefix + resource)
+            except KeyError as error:
+                raise ValueError("Missing search notice: " + resource) from error
+            if not stat.S_ISREG(info.external_attr >> 16) or not archive.read(info).strip():
+                raise ValueError("Search notice must be a nonempty regular file: " + resource)
 
 
 if __name__ == "__main__":

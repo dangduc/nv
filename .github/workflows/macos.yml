@@ -29,6 +29,16 @@ jobs:
       - name: Check automatic tagging
         run: python3 -m unittest discover -s Tests/CI -v
 
+      - name: Check native fuzzy search
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 Tests/FuzzySearch/Core/run.py --arch x86_64
+          python3 Tests/FuzzySearch/run-service-tests.py --arch x86_64
+          python3 Tests/FuzzySearch/Browser/run.py --arch x86_64
+          python3 Tests/FuzzySearch/Persistence/run.py --arch x86_64
+          python3 Tests/FuzzySearch/Highlights/run.py --arch x86_64
+
       - name: Build without signing
         shell: bash
         run: |

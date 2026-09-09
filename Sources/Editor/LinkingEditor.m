@@ -164,17 +164,12 @@ if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 	} else if ([selectorString isEqualToString:SEL_STR(setSearchTermHighlightColor:sender:)] || 
 			   [selectorString isEqualToString:SEL_STR(setShouldHighlightSearchTerms:sender:)]) {
 		
-		if (![prefsController highlightSearchTerms]) {
-			[self removeHighlightedTerms];
-		} else {
-			NSString *typedString = [(AppController *)NVControllerForView(self) typedString];
-			if (typedString)
-				[self highlightTermsTemporarilyReturningFirstRange:typedString avoidHighlight:NO];
-		}
+        [NVControllerForView(self) refreshSearchHighlights];
 	}
 }
 
 - (BOOL)becomeFirstResponder {
+    [NVControllerForView(self) cancelSearchIntents];
 	[notesTableView setShouldUseSecondaryHighlightColor:YES];
 
 	if ([[[self window] currentEvent] type] == NSKeyDown && [[[self window] currentEvent] firstCharacter] == '\t') {
@@ -472,6 +467,18 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 
 //use with rangesOfWordsInString:(NSString*)findString earliestRange:(NSRange*)aRange inRange:
+- (void)setSearchHighlightRanges:(NSArray *)ranges {
+    [self removeHighlightedTerms];
+    NSColor *color = [[prefsController searchTermHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
+    if (!color) return;
+    NSUInteger length = [[self string] length];
+    for (NSValue *value in ranges) {
+        NSRange range = [value rangeValue];
+        if (range.location <= length && range.length <= length - range.location && range.length)
+            [[self layoutManager] addTemporaryAttribute:NSBackgroundColorAttributeName value:color forCharacterRange:range];
+    }
+}
+
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges {
 	CFIndex rangeIndex;
 	long bodyLength = (long)[[self string] length];
