@@ -1,0 +1,26 @@
+2026-09-09 14:17:07.231 nvALT[50993:343167304] PASS: temporary library directory exists
+2026-09-09 14:17:07.232 nvALT[50993:343167304] PASS: temporary library opens
+2026-09-09 14:17:07.316 nvALT[50993:343167304] verified 0 notes in 0.000187993 s
+2026-09-09 14:17:07.553 nvALT[50993:343167304] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:07.709 nvALT[50993:343167304] PASS: the original matching note is selected while Search owns keyboard focus
+2026-09-09 14:17:07.710 nvALT[50993:343167304] PASS: live input differs from the submitted query used by the negative control
+2026-09-09 14:17:07.730 nvALT[50993:343167304] PASS: Command-N resolves through the real application menu
+2026-09-09 14:17:07.780 nvALT[50993:343167304] PASS: Command-N creates a distinct note even when the existing title matches
+2026-09-09 14:17:07.780 nvALT[50993:343167304] PASS: the title equals the literal expected UTF-8 input, including spaces and punctuation
+2026-09-09 14:17:07.781 nvALT[50993:343167304] PASS: creation starts empty and preserves the previously selected body
+2026-09-09 14:17:07.781 nvALT[50993:343167304] PASS: creation clears the field and submitted query
+2026-09-09 14:17:07.839 nvALT[50993:343167304] PASS: the duplicate-title case begins in focused Search
+2026-09-09 14:17:07.861 nvALT[50993:343167304] PASS: Command-N resolves through the real application menu
+2026-09-09 14:17:07.912 nvALT[50993:343167304] PASS: Command-N creates a distinct note even when the existing title matches
+2026-09-09 14:17:07.912 nvALT[50993:343167304] PASS: the title equals the literal expected UTF-8 input, including spaces and punctuation
+2026-09-09 14:17:07.912 nvALT[50993:343167304] PASS: creation starts empty and preserves the previously selected body
+2026-09-09 14:17:07.912 nvALT[50993:343167304] PASS: creation clears the field and submitted query
+2026-09-09 14:17:07.912 nvALT[50993:343167304] PASS: duplicate creation preserves the original title
+2026-09-09 14:17:07.971 nvALT[50993:343167304] PASS: the body owns focus while Search retains nonempty text
+2026-09-09 14:17:07.996 nvALT[50993:343167304] PASS: Command-N resolves through the real application menu
+2026-09-09 14:17:08.047 nvALT[50993:343167304] PASS: Command-N creates a distinct note even when the existing title matches
+2026-09-09 14:17:08.047 nvALT[50993:343167304] PASS: the title equals the literal expected UTF-8 input, including spaces and punctuation
+2026-09-09 14:17:08.047 nvALT[50993:343167304] PASS: creation starts empty and preserves the previously selected body
+2026-09-09 14:17:08.047 nvALT[50993:343167304] PASS: creation clears the field and submitted query
+2026-09-09 14:17:08.047 nvALT[50993:343167304] PASS: 23 contrarian assertions
+2026-09-09 14:17:08.170 nvALT[50993:343167304] verified 2 notes in 0.000375986 s

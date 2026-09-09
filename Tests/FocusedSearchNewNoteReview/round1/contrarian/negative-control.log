@@ -1,0 +1,9 @@
+2026-09-09 14:17:22.815 nvALT[51024:343167884] PASS: temporary library directory exists
+2026-09-09 14:17:22.816 nvALT[51024:343167884] PASS: temporary library opens
+2026-09-09 14:17:22.898 nvALT[51024:343167884] verified 0 notes in 0.000188947 s
+2026-09-09 14:17:23.136 nvALT[51024:343167884] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:23.203 nvALT[51024:343167884] PASS: the original matching note is selected while Search owns keyboard focus
+2026-09-09 14:17:23.204 nvALT[51024:343167884] PASS: live input differs from the submitted query used by the negative control
+2026-09-09 14:17:23.234 nvALT[51024:343167884] PASS: Command-N resolves through the real application menu
+2026-09-09 14:17:23.284 nvALT[51024:343167884] PASS: Command-N creates a distinct note even when the existing title matches
+2026-09-09 14:17:23.284 nvALT[51024:343167884] FAIL: the title equals the literal expected UTF-8 input, including spaces and punctuation
