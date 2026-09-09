@@ -1,0 +1,39 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-2/ousterhout/run-lifetime.py",
+    "--repair-control"
+  ],
+  "head": "2c9a11b4f4b7143daae73080dabec22ef9b75c24",
+  "results": [
+    {
+      "mode": "literal",
+      "exit_code": 0,
+      "stdout": "SESSION DEALLOC: main=1\nCANCELLED literal: released_before_worker=1\nLIFETIME CHECK PASSED: literal\n",
+      "stderr": ""
+    },
+    {
+      "mode": "search",
+      "exit_code": 0,
+      "stdout": "SESSION DEALLOC: main=1\nCANCELLED search: released_before_worker=1\nLIFETIME CHECK PASSED: search\n",
+      "stderr": ""
+    },
+    {
+      "mode": "positions",
+      "exit_code": -6,
+      "stdout": "CANCELLED positions: released_before_worker=0\nSESSION DEALLOC: main=0\n",
+      "stderr": "*** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Search ownership belongs to main'\n*** First throw call stack:\n(\n\t0   CoreFoundation                      0x000000018e1011c0 __exceptionPreprocess + 176\n\t1   libobjc.A.dylib                     0x000000018db8a91c objc_exception_throw + 88\n\t2   Foundation                          0x00000001902ed294 -[NSMutableDictionary(NSMutableDictionary) initWithContentsOfFile:] + 0\n\t3   lifetime-probe                      0x0000000100aec734 -[NVSearchService cancelRequestsForOwner:] + 436\n\t4   lifetime-probe                      0x0000000100aee6f4 -[NVBrowserSession dealloc] + 48\n\t5   lifetime-probe                      0x0000000100af25d0 -[TrackedBrowserSession dealloc] + 132\n\t6   lifetime-probe                      0x0000000100aedafc __destroy_helper_block_e8_32o40o48o56o64o72o + 28\n\t7   libsystem_blocks.dylib              0x000000018dca03fc _call_dispose_helpers_excp + 48\n\t8   libsystem_blocks.dylib              0x000000018dca01c0 _Block_release + 236\n\t9   libdispatch.dylib                   0x000000018de344b0 _dispatch_client_callout + 16\n\t10  libdispatch.dylib                   0x000000018de23030 _dispatch_lane_serial_drain + 740\n\t11  libdispatch.dylib                   0x000000018de23b2c _dispatch_lane_invoke + 392\n\t12  libdispatch.dylib                   0x000000018de2de34 _dispatch_root_queue_drain_deferred_wlh + 284\n\t13  libdispatch.dylib                   0x000000018de2d734 _dispatch_workloop_worker_thread + 720\n\t14  libsystem_pthread.dylib             0x000000018dfd1ec0 _pthread_wqthread + 292\n\t15  libsystem_pthread.dylib             0x000000018dfd0c10 start_wqthread + 8\n)\nlibc++abi: terminating due to uncaught exception of type NSException\n"
+    }
+  ],
+  "sha256": {
+    "Sources/Search/NVSearchService.m": "082fa72f1732f769aacea051b6e0380b60ca207386d23a59214ce12be0befbcf",
+    "Tests/FuzzySearch/Browser/browser-tests.m": "7a71a8fbeee84a8a1c49f47d58eef9c0b70647d15790fa5d899969ef29ec4792",
+    "Tests/FuzzySearch/Review/round-2/ousterhout/lifetime-body.m": "64e027b89187f9d4d2ecaced680f66b2b3f563fcbc082748af761fad82ead652",
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170"
+  }
+}

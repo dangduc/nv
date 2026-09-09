@@ -240,4 +240,3 @@ static void PrintState(NSString *name, StateController *controller) {
         (unsigned long)controller->creations, [[controller->notationController rowKeyAtIndex:[controller->notesTableView primarySelectedRow]] UTF8String] ?: "none",
         [controller->pendingSearchReturnQuery UTF8String] ?: "none");
 }
-
