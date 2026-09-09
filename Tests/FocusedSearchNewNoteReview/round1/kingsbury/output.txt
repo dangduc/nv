@@ -1,0 +1,51 @@
+2026-09-09 14:17:10.310 nvALT[51005:343167603] PASS: temporary library directory exists
+2026-09-09 14:17:10.311 nvALT[51005:343167603] PASS: temporary library opens
+2026-09-09 14:17:10.386 nvALT[51005:343167603] verified 0 notes in 0.000208974 s
+2026-09-09 14:17:10.630 nvALT[51005:343167603] PASS: schedule starts with an empty disposable library
+2026-09-09 14:17:10.760 nvALT[51005:343167603] PASS: two browsers share the same disposable library
+2026-09-09 14:17:10.764 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:10.830 nvALT[51005:343167603] PASS: real fuzzy result reaches the controlled delivery boundary
+2026-09-09 14:17:10.830 nvALT[51005:343167603] PASS: successful fuzzy work remains pending before browser publication
+2026-09-09 14:17:10.830 nvALT[51005:343167603] PASS: Return records an intent before Command-N
+2026-09-09 14:17:10.833 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:10.989 nvALT[51005:343167603] PASS: real fuzzy result reaches the controlled delivery boundary
+2026-09-09 14:17:10.989 nvALT[51005:343167603] PASS: successful fuzzy work remains pending before browser publication
+2026-09-09 14:17:10.989 nvALT[51005:343167603] PASS: Return records an intent before Command-N
+2026-09-09 14:17:10.991 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:10.999 nvALT[51005:343167603] PASS: key browser has live search input newer than its held query
+2026-09-09 14:17:11.014 nvALT[51005:343167603] PASS: native application menu dispatches Command-N
+2026-09-09 14:17:11.014 nvALT[51005:343167603] PASS: Command-N creates one note from this browser's captured live input
+2026-09-09 14:17:11.014 nvALT[51005:343167603] PASS: Command-N consumes the old Return intent and clears search synchronously
+2026-09-09 14:17:11.014 nvALT[51005:343167603] PASS: new source receives keyboard focus
+2026-09-09 14:17:11.014 nvALT[51005:343167603] PASS: peer creation preserves the other browser's query and ownership
+2026-09-09 14:17:11.020 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:11.036 nvALT[51005:343167603] PASS: key browser has live search input newer than its held query
+2026-09-09 14:17:11.142 nvALT[51005:343167603] PASS: native application menu dispatches Command-N
+2026-09-09 14:17:11.142 nvALT[51005:343167603] PASS: Command-N creates one note from this browser's captured live input
+2026-09-09 14:17:11.142 nvALT[51005:343167603] PASS: Command-N consumes the old Return intent and clears search synchronously
+2026-09-09 14:17:11.142 nvALT[51005:343167603] PASS: new source receives keyboard focus
+2026-09-09 14:17:11.142 nvALT[51005:343167603] PASS: the two creations have different objects and UUIDs
+2026-09-09 14:17:11.147 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:11.198 nvALT[51005:343167603] PASS: late pre-creation results cannot select another note or create a duplicate
+2026-09-09 14:17:11.198 nvALT[51005:343167603] PASS: late deliveries preserve both captured titles
+2026-09-09 14:17:11.198 nvALT[51005:343167603] PASS: late deliveries cannot restore either obsolete query or pending state
+2026-09-09 14:17:11.198 nvALT[51005:343167603] PASS: late deliveries preserve the active peer's source focus
+2026-09-09 14:17:11.199 nvALT[51005:343167603] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:17:11.249 nvALT[51005:343167603] PASS: late pre-creation results cannot select another note or create a duplicate
+2026-09-09 14:17:11.249 nvALT[51005:343167603] PASS: late deliveries preserve both captured titles
+2026-09-09 14:17:11.249 nvALT[51005:343167603] PASS: late deliveries cannot restore either obsolete query or pending state
+2026-09-09 14:17:11.249 nvALT[51005:343167603] PASS: late deliveries preserve the active peer's source focus
+2026-09-09 14:17:11.250 nvALT[51005:343167603] PASS: record exact created identities for second launch
+2026-09-09 14:17:11.251 nvALT[51005:343167603] verified 2 notes in 0.000411987 s
+2026-09-09 14:17:11.252 nvALT[51005:343167603] PASS: both notes checkpoint successfully before the second launch
+2026-09-09 14:17:11.252 nvALT[51005:343167603] KINGSBURY ROUND 1 PHASE 1 PASSED (38 checks)
+2026-09-09 14:17:11.586 nvALT[51013:343167694] PASS: temporary library directory exists
+2026-09-09 14:17:11.587 nvALT[51013:343167694] WALStorageController: open error for file /Users/duc/Library/Caches/org.nvalt.view-review.a17b22caf206432e8dca8aa8477feb05/Interim Note-Changes: File exists
+2026-09-09 14:17:11.587 nvALT[51013:343167694] recoverNextObject can't even read (entire) log record header: File exists
+2026-09-09 14:17:11.588 nvALT[51013:343167694] PASS: temporary library opens
+2026-09-09 14:17:11.911 nvALT[51013:343167694] PASS: second launch opens exactly the two checkpointed notes
+2026-09-09 14:17:11.911 nvALT[51013:343167694] PASS: reopened title retains its original note UUID
+2026-09-09 14:17:11.911 nvALT[51013:343167694] PASS: reopened new note remains empty source
+2026-09-09 14:17:11.911 nvALT[51013:343167694] PASS: reopened title retains its original note UUID
+2026-09-09 14:17:11.911 nvALT[51013:343167694] PASS: reopened new note remains empty source
+2026-09-09 14:17:11.911 nvALT[51013:343167694] KINGSBURY ROUND 1 PHASE 2 PASSED (7 checks)
