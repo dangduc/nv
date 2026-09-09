@@ -29,7 +29,7 @@ def main():
     setup += '\n}\n'
     source = {
         'setup.inc': setup,
-        'appearance-view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('static NSImage *BrowserSymbol')],
+        'appearance-view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('@implementation AppController (BrowserUI)')],
         'controller.inc': '\n'.join(method(browser, signature) for signature in [
             '- (CGFloat)notesListHeight', '- (void)setNotesListHeight:',
             '- (void)updateNotesListVisibility', '- (void)browserAppearanceChanged']) + '\n' + method(controller, '- (void)updateColorScheme'),

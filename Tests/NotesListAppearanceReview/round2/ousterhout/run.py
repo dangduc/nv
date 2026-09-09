@@ -25,7 +25,7 @@ def main():
     note = (ROOT / 'Sources/Model/NoteObject.m').read_text()
     sources = {
         'setup.inc': browser[browser.index('- (void)setupBrowserContent'):browser.index('    const CGFloat headerHeight')] + '\n}\n',
-        'appearance-view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('static NSImage *BrowserSymbol')],
+        'appearance-view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('@implementation AppController (BrowserUI)')],
         'controller.inc': method(browser, '- (void)browserAppearanceChanged') + '\n' + method(controller, '- (void)updateColorScheme'),
         'labels.inc': method(labels, '- (NSImage*)cachedLabelImageForWord:'),
         'note-drawing.inc': '\n'.join(method(note, signature) for signature in [

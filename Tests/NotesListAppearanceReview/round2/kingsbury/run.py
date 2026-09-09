@@ -25,7 +25,7 @@ def main():
     labels = (ROOT / 'Sources/Browser/LabelsListController.m').read_text()
     sources = {
         'setup.inc': browser[browser.index('- (void)setupBrowserContent'):browser.index('    const CGFloat headerHeight')] + '\n}\n',
-        'view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('static NSImage *BrowserSymbol')],
+        'view.inc': browser[browser.index('@interface NVBrowserContentView'):browser.index('@implementation AppController (BrowserUI)')],
         'controller.inc': method(browser, '- (void)browserAppearanceChanged') + '\n' + method(controller, '- (void)updateColorScheme'),
         'label.inc': method(labels, '- (NSImage*)cachedLabelImageForWord:'),
     }

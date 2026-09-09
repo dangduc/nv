@@ -8,26 +8,36 @@
         NSSplitView *split = [self valueForKey:@"splitView"];
         Check([split isKindOfClass:[NSSplitView class]] && ![split isVertical], @"browser uses a native horizontal divider");
         Check([field isKindOfClass:[NSSearchField class]] && [field isEditable], @"search is an editable native search control");
-        Check([[browserWindow toolbar] allowsUserCustomization], @"toolbar supports standard customization");
         NSToolbar *nativeToolbar = [browserWindow toolbar];
-        Check(![[self toolbarDefaultItemIdentifiers:nativeToolbar] containsObject:@"Sync"] &&
-              ![[self toolbarAllowedItemIdentifiers:nativeToolbar] containsObject:@"Sync"], @"toolbar defaults and customization omit Sync");
+        Check(![nativeToolbar allowsUserCustomization] && ![nativeToolbar autosavesConfiguration],
+              @"search-only toolbar does not restore customizable layouts");
+        Check([browserWindow titleVisibility] == NSWindowTitleHidden, @"note title is hidden in the title bar");
+        Check([[self toolbarDefaultItemIdentifiers:nativeToolbar] isEqual:@[@"Search"]] &&
+              [[self toolbarAllowedItemIdentifiers:nativeToolbar] isEqual:@[@"Search"]], @"search is the only toolbar item");
         NSDictionary *savedToolbarConfiguration = [[[nativeToolbar configurationDictionary] copy] autorelease];
         NSMutableDictionary *legacyToolbarConfiguration = [[savedToolbarConfiguration mutableCopy] autorelease];
-        [legacyToolbarConfiguration setObject:@[@"NewNote", @"Sync", @"Search"] forKey:@"TB Item Identifiers"];
+        [legacyToolbarConfiguration setObject:@[@"NewNote", @"Sync", @"Preview", @"More", @"Search"] forKey:@"TB Item Identifiers"];
         [nativeToolbar setConfigurationFromDictionary:legacyToolbarConfiguration];
         NSMutableArray *restoredIdentifiers = [NSMutableArray array];
         for (NSToolbarItem *item in [nativeToolbar items]) [restoredIdentifiers addObject:[item itemIdentifier]];
-        Check(![restoredIdentifiers containsObject:@"Sync"] && [restoredIdentifiers containsObject:@"NewNote"] &&
-              [restoredIdentifiers containsObject:@"Search"], @"restoring an old toolbar ignores Sync and preserves active commands");
+        Check([restoredIdentifiers isEqual:@[@"Search"]], @"restoring an old toolbar excludes action icons");
         [nativeToolbar setConfigurationFromDictionary:savedToolbarConfiguration];
         NSMenu *noteMenu = [[[NSApp mainMenu] itemWithTag:NOTES_MENU_ID] submenu];
         NSMenuItem *newNoteItem = [noteMenu itemAtIndex:[noteMenu indexOfItemWithTarget:app andAction:@selector(newNote:)]];
         Check([[newNoteItem keyEquivalent] isEqual:@"n"], @"Note menu exposes Command-N for New Note");
         if (@available(macOS 11.0, *)) {
             Check([browserWindow toolbarStyle] == NSWindowToolbarStyleUnifiedCompact, @"window uses the compact unified toolbar");
-            Check([dualFieldItem isKindOfClass:[NSSearchToolbarItem class]], @"search uses the native adaptive toolbar item");
         }
+        NSRect originalWindowFrame = [browserWindow frame];
+        for (NSNumber *width in @[@480, @780, @1200]) {
+            NSRect frame = originalWindowFrame;
+            frame.size.width = [width doubleValue];
+            [browserWindow setFrame:frame display:YES]; Pump();
+            NSRect searchFrame = [field convertRect:[field bounds] toView:nil];
+            Check(NSWidth(searchFrame) >= NSWidth(frame) - 130 && NSMaxX(searchFrame) >= NSWidth(frame) - 30,
+                @"search fills the title bar beside native window controls after resizing");
+        }
+        [browserWindow setFrame:originalWindowFrame display:YES]; Pump();
         [self searchForString:@"al"]; Pump();
         Check([[field stringValue] isEqual:@"al"] && [self selectedNoteObject] == alpha,
             @"search suggests a matching note without replacing the query");
