@@ -1,0 +1,9 @@
+CASE one-note-duplicates rows=2 header_selections=1 bulk_panels=0
+CASE delayed-tags captured_rows=4 unique_targets=2 writes=2 later_selection_untouched=1
+CASE removed-target writes=1 removed_note_untouched=1
+CASE same-library-same-uuid replacement_receives_tag=1 old_object_untouched=1
+CASE library-replacement reused_uuid=1 total_writes=0
+CASE panel-replacement old_notification_ignored=1 current_writes=2
+CASE panel-focus-loss captured_targets=0 late_writes=0
+CASE same-note-occurrence rows=2 editor_attachments=0 undo_and_redo_preserved=1 highlights=4
+ROUND 3 INTERACTION REVIEW PASSED (89 checks across 8 scenarios)
