@@ -42,6 +42,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     [displayedLibraryIdentifier release];
     [editingLibraryIdentifier release];
     [pendingFieldValues release];
+    [pendingFieldError release];
     [super dealloc];
 }
 
@@ -144,6 +145,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     BOOL sameLibrary = (displayedLibraryIdentifier == identifier || [displayedLibraryIdentifier isEqualToString:identifier]);
     if (!sameLibrary) {
         [pendingFieldValues removeAllObjects];
+        [pendingFieldError release]; pendingFieldError = nil;
         commitFieldsWhenIdle = NO;
         // End an old library's field edit before displaying the new settings. Its delegate rejects that stale edit.
         [[[self view] window] makeFirstResponder:nil];
@@ -152,7 +154,8 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     }
     if (commitFieldsWhenIdle && ![controller isBusy] && !committingFields) {
         commitFieldsWhenIdle = NO;
-        [self commitPendingFieldsIncludingActive:NO];
+        // A status notification must not show a validation dialog for a hidden pane.
+        [self savePendingFieldsIncludingActive:NO deferWhileBusy:NO error:NULL];
     }
     NSDictionary *settings = [controller settings];
     BOOL configurable = [controller hasLibrary] && ![controller isBusy];
@@ -192,6 +195,8 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
         : NSLocalizedString(@"Open a notes library to configure backups.", nil))];
     [destinationField setToolTip:path];
     NSString *status = [controller statusText] ?: NSLocalizedString(@"No notes library is open.", nil);
+    if (pendingFieldError) status = [status stringByAppendingFormat:@"\n%@ %@",
+        NSLocalizedString(@"Backup settings were not saved.", nil), [pendingFieldError localizedDescription]];
     if (![[statusField string] isEqualToString:status]) [statusField setString:status];
     [chooseButton setEnabled:configurable];
     [backupNowButton setEnabled:configurable];
@@ -259,24 +264,31 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
         if (key) {
             NSScanner *scanner = [NSScanner scannerWithString:[pendingFieldValues objectForKey:key] ?: [sender stringValue]];
             long long count;
-            if ([scanner scanLongLong:&count] && [scanner isAtEnd]) value = [NSNumber numberWithLongLong:count];
+            long long minimum = sender == recentField ? 3 : 0;
+            long long maximum = sender == recentField ? 10000 : (sender == dailyField ? 3650 : 520);
+            if ([scanner scanLongLong:&count] && [scanner isAtEnd] && count >= minimum && count <= maximum)
+                value = [NSNumber numberWithLongLong:count];
         }
     }
     if (!key) return NO;
     if (!value) {
         NSString *description = sender == storageField
             ? NSLocalizedString(@"Enter a storage target from 0.000977 to 1024 GiB (1 MiB to 1 TiB).", nil)
-            : NSLocalizedString(@"Enter a whole number of snapshots.", nil);
-        if (error) *error = [NSError errorWithDomain:@"NVBackupPreferencesError" code:1 userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
+            : (sender == recentField ? NSLocalizedString(@"Enter a whole number from 3 to 10000 for Recent snapshots.", nil)
+                : (sender == dailyField ? NSLocalizedString(@"Enter a whole number from 0 to 3650 for Daily snapshots.", nil)
+                    : NSLocalizedString(@"Enter a whole number from 0 to 520 for Weekly snapshots.", nil)));
+        if (error) *error = [NSError errorWithDomain:@"NVBackupPreferencesError" code:1
+            userInfo:@{NSLocalizedDescriptionKey:description, @"fieldKey":key}];
         return NO;
     }
     [settings setObject:value forKey:key];
     return YES;
 }
 
-- (BOOL)commitPendingFieldsIncludingActive:(BOOL)includeActive {
+- (BOOL)savePendingFieldsIncludingActive:(BOOL)includeActive deferWhileBusy:(BOOL)defer error:(NSError **)outError {
+    if (outError) *outError = nil;
     NVBackupController *controller = [self backupController];
-    if (![controller hasLibrary] || [controller isBusy] || committingFields) return NO;
+    if (![controller hasLibrary] || ([controller isBusy] && !defer) || committingFields) return NO;
     if (![pendingFieldValues count]) return YES;
     NSMutableDictionary *settings = [[[controller settings] mutableCopy] autorelease];
     NSError *error = nil;
@@ -293,15 +305,49 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     }
     if (success && ![committedKeys count]) return YES;
     committingFields = YES;
-    if (success) success = [controller setSettings:settings error:&error];
-    if (success) [pendingFieldValues removeObjectsForKeys:committedKeys];
+    if (success && [controller isBusy]) commitFieldsWhenIdle = YES;
+    else {
+        commitFieldsWhenIdle = NO;
+        if (success) success = [controller setSettings:settings error:&error];
+        if (success) [pendingFieldValues removeObjectsForKeys:committedKeys];
+    }
+    [pendingFieldError release]; pendingFieldError = [error retain];
     committingFields = NO;
-    if (error) [NSApp presentError:error];
+    if (outError) *outError = error;
     [self refreshControls];
     return success;
 }
 
-- (BOOL)commitPendingFields { return [self commitPendingFieldsIncludingActive:YES]; }
+- (BOOL)commitPendingFields {
+    NSError *error = nil;
+    BOOL success = [self savePendingFieldsIncludingActive:YES deferWhileBusy:NO error:&error];
+    if (error) [NSApp presentError:error];
+    return success;
+}
+
+- (BOOL)prepareForWindowCloseWithError:(NSError **)error {
+    if (error) *error = nil;
+    if (![self isViewLoaded] || ![[self backupController] hasLibrary]) return YES;
+    if (![self savePendingFieldsIncludingActive:YES deferWhileBusy:YES error:error]) return NO;
+    // Validation precedes ending the field editor. Invalid input stays available for correction.
+    committingFields = YES;
+    NSWindow *window = [[self view] window];
+    BOOL ended = !window || [window makeFirstResponder:nil];
+    committingFields = NO;
+    return ended;
+}
+
+- (void)focusFieldForError:(NSError *)error {
+    NSString *key = [[error userInfo] objectForKey:@"fieldKey"];
+    for (NSTextField *field in @[recentField, dailyField, weeklyField, storageField]) {
+        if ([[self keyForField:field] isEqualToString:key]) {
+            NSText *editor = [field currentEditor];
+            if (editor) [editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+            else [field selectText:nil];
+            break;
+        }
+    }
+}
 
 - (BOOL)prepareForAction {
     NSString *identifier = [[[[self backupController] libraryIdentifier] copy] autorelease];
