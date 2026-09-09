@@ -1,0 +1,267 @@
+#import <Cocoa/Cocoa.h>
+#import "NoteObject.h"
+#import "NotationPrefs.h"
+#import "FrozenNotation.h"
+#import "NVBackupArchive.h"
+extern NSString *NotesDatabaseFileName;
+@interface NoteObject (ReviewPrivateMetadata)
+- (NSString *)sourceMetadataUUID;
+@end
+
+static NSUInteger checks;
+static void Check(BOOL result, NSString *message) {
+    if (!result) { NSLog(@"FAIL: %@", message); exit(1); }
+    checks++;
+}
+static NSError *NVCheckpointError(NSInteger code, NSString *description) {
+    return [NSError errorWithDomain:@"NVBackupArchiveErrorDomain" code:code
+        userInfo:@{NSLocalizedDescriptionKey: description}];
+}
+
+// Only these two storage boundaries are fakes. The archive, encryption settings,
+// model encoding, model decoding, and offline restore code are production code.
+@interface ProbeJournal : NSObject { @public BOOL fail; NSUInteger calls; }
+- (BOOL)synchronize;
+@end
+@implementation ProbeJournal
+- (BOOL)synchronize { calls++; return !fail; }
+@end
+
+@interface CaptureProbe : NSObject {
+@public
+    NotationPrefs *notationPrefs;
+    NSMutableArray *allNotes;
+    BOOL notesChanged, capturingBackup, backupRestorePrepared, backupJournalSyncFailed;
+    NSError *backupCheckpointError;
+    NSData *backupCheckpointData;
+    NSTimer *changeWritingTimer;
+    ProbeJournal *walWriter;
+    OSStatus lastWriteError;
+    FSRef noteDatabaseRef;
+    NSURL *directory;
+    NSData *diskData;
+    OSStatus checkpointFailure, sourceFailure;
+    BOOL throwDuringSync;
+    NSUInteger checkpointAttempts, noteSyncCalls;
+}
+- (BOOL)flushAllNoteChanges;
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error;
+- (void)synchronizeNoteChanges:(NSTimer *)timer;
+- (void)purgeOldPerDiskInfoFromNotes;
+- (NSURL *)notesDirectoryURL;
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name
+    destinationRef:(FSRef *)reference verifyWithSelector:(SEL)selector verificationDelegate:(id)verifier;
+@end
+@implementation CaptureProbe
+- (id)init {
+    if ((self = [super init])) {
+        notationPrefs = [NotationPrefs new];
+        [notationPrefs prepareForOfflineBackupRestore];
+        allNotes = [NSMutableArray new];
+        walWriter = [ProbeJournal new];
+        directory = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:
+            [[NSUUID UUID] UUIDString]] isDirectory:YES] retain];
+        Check([[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:NO
+            attributes:@{NSFilePosixPermissions: @0700} error:NULL], @"create disposable checkpoint folder");
+    }
+    return self;
+}
+- (void)synchronizeNoteChanges:(NSTimer *)timer {
+    noteSyncCalls++;
+    if (throwDuringSync) [NSException raise:@"DisposableSyncFailure" format:@"fixture"];
+    lastWriteError = sourceFailure;
+}
+- (void)purgeOldPerDiskInfoFromNotes {}
+- (NSURL *)notesDirectoryURL { return directory; }
+- (OSStatus)storeDataAtomicallyInNotesDirectory:(NSData *)data withName:(NSString *)name
+    destinationRef:(FSRef *)reference verifyWithSelector:(SEL)selector verificationDelegate:(id)verifier {
+    checkpointAttempts++;
+    if (checkpointFailure) return checkpointFailure;
+    Check([data writeToURL:[directory URLByAppendingPathComponent:name] atomically:YES],
+        @"write disposable checkpoint bytes");
+    [diskData release]; diskData = [data copy];
+    return noErr;
+}
+// EXTRACTED_CAPTURE_METHODS
+- (void)dealloc {
+    [[NSFileManager defaultManager] removeItemAtURL:directory error:NULL];
+    [directory release]; [notationPrefs release]; [allNotes release]; [walWriter release];
+    [backupCheckpointData release]; [backupCheckpointError release]; [diskData release];
+    [super dealloc];
+}
+@end
+
+static NoteObject *Note(NSString *body, NSString *title, NSString *tags) {
+    return [[[NoteObject alloc] initWithNoteBody:[[[NSAttributedString alloc] initWithString:body] autorelease]
+        title:title delegate:nil format:PlainTextFormat labels:tags] autorelease];
+}
+static NSArray *Decode(NSData *data, NSData *password, NotationPrefs **decodedPrefs) {
+    FrozenNotation *archive = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NotationPrefs *prefs = [archive notationPrefs];
+    if ([prefs doesEncryption]) Check([prefs canLoadPassphraseData:password], @"independent archive password works");
+    OSStatus status = noErr;
+    NSArray *notes = [archive unpackedNotesWithPrefs:prefs returningError:&status];
+    Check(status == noErr && notes != nil, @"independent archive decode succeeds");
+    if (decodedPrefs) *decodedPrefs = prefs;
+    return notes;
+}
+static NSDictionary *Restore(NSData *data, NSData *password) {
+    NSError *error = nil;
+    NSDictionary *restored = [NVBackupArchive restoredArchiveFromData:data passphraseData:password error:&error];
+    Check(restored != nil && error == nil, @"offline restore accepts completed checkpoint");
+    return restored;
+}
+static void Preservation(NSArray *notes, NotationPrefs *prefs, NSArray *expected, BOOL detached) {
+    Check([notes count] == [expected count], @"archive note count stays exact");
+    for (NSUInteger i = 0; i < [expected count]; i++) {
+        NoteObject *before = expected[i], *after = notes[i];
+        Check([[[before contentString] string] isEqual:[[after contentString] string]], @"committed source survives");
+        Check([before->titleString isEqual:after->titleString] && [before->labelString isEqual:after->labelString],
+            @"title and tags survive");
+        Check(before->createdDate == after->createdDate && before->modifiedDate == after->modifiedDate,
+            @"authored dates survive exactly");
+        Check(!memcmp([before uniqueNoteIDBytes], [after uniqueNoteIDBytes], sizeof(CFUUIDBytes)), @"note UUID survives");
+        Check([[before valueForKey:@"sourceOriginalData"] isEqual:[after valueForKey:@"sourceOriginalData"]],
+            @"original source bytes survive independently of current body");
+        Check((uint32_t)before->fileEncoding == (uint32_t)after->fileEncoding &&
+            [[before valueForKey:@"sourceOriginalEncoding"] isEqual:[after valueForKey:@"sourceOriginalEncoding"]],
+            @"selected and baseline encodings survive");
+        Check([before sourceConversionPending] == [after sourceConversionPending], @"pending conversion survives");
+        if (detached) {
+            Check(after->currentFormatID == SingleDatabaseFormat && after->filename == nil &&
+                [after logSequenceNumber] == 0, @"restore detaches old files and journal sequence");
+            Check([after hasPendingSourceFileWrite] == [after sourceConversionPending], @"restore keeps pending conversion retry flag");
+        }
+    }
+    NoteObject *original = notes[0], *conflict = notes[1];
+    NSData *externalBytes = [expected[1] valueForKey:@"sourceOriginalData"];
+    Check([conflict isSourceConflictCopyOfNote:original data:externalBytes encoding:NSUTF8StringEncoding],
+        @"conflict origin remains associated with the restored original note");
+    Check([[[prefs sourceMetadataForNoteUUID:[original sourceMetadataUUID]] objectForKey:@"syntax"] isEqual:@"markdown"],
+        @"original syntax metadata follows note UUID");
+    Check([[[prefs sourceMetadataForNoteUUID:[conflict sourceMetadataUUID]] objectForKey:@"syntax"] isEqual:@"json"],
+        @"conflict syntax metadata remains separate");
+}
+
+static void Run(BOOL encrypted) {
+    CaptureProbe *capture = [CaptureProbe new];
+    NotationPrefs *prefs = capture->notationPrefs;
+    [prefs setNotesStorageFormat:PlainTextFormat];
+    NSData *password = [@"disposable review password" dataUsingEncoding:NSUTF8StringEncoding];
+    if (encrypted) { [prefs setPassphraseData:password inKeychain:NO]; [prefs setDoesEncryption:YES]; }
+    NoteObject *original = Note(@"pending local snow 雪\r\n", @"Original", @"alpha, β");
+    [original rememberSourceData:[@"old external baseline\r\n" dataUsingEncoding:NSMacOSRomanStringEncoding]
+        encoding:NSMacOSRomanStringEncoding];
+    [original setValue:@YES forKey:@"sourceConversionPending"];
+    [original setValue:@YES forKey:@"shouldWriteToFile"];
+    NoteObject *conflict = Note(@"external revision\r\n", @"Original (external changes)", @"conflict");
+    [conflict rememberSourceData:[@"external revision\r\n" dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
+    [conflict markAsSourceConflictCopyOfNote:original];
+    for (NoteObject *note in @[original, conflict]) {
+        note->createdDate = 1234567.25; note->modifiedDate = 2345678.5;
+        [note setValue:[note->titleString stringByAppendingPathExtension:@"txt"] forKey:@"filename"];
+        [note setValue:@42 forKey:@"logSequenceNumber"];
+        [capture->allNotes addObject:note];
+    }
+    [prefs setSourceMetadata:@{@"syntax": @"markdown"} forNoteUUID:[original sourceMetadataUUID]];
+    [prefs setSourceMetadata:@{@"syntax": @"json"} forNoteUUID:[conflict sourceMetadataUUID]];
+    NSError *error = nil;
+    NSDictionary *first = [capture backupSnapshotWithError:&error];
+    Check(first && !error, @"initial capture completes");
+    NSData *firstBytes = [[first[@"data"] copy] autorelease];
+    NSData *firstSessionSalt = [[[prefs valueForKey:@"dataSessionSalt"] copy] autorelease];
+    NSDate *firstDate = first[@"captureDate"];
+    unsigned long long firstGeneration = [first[@"generation"] unsignedLongLongValue];
+    Check([capture->diskData isEqual:firstBytes] && [capture->backupCheckpointData isEqual:firstBytes],
+        @"capture contains exactly the completed checkpoint bytes");
+    NSUInteger calls = capture->checkpointAttempts;
+    NSDictionary *clean = [capture backupSnapshotWithError:&error];
+    Check([clean[@"data"] isEqual:firstBytes] && [clean[@"generation"] isEqual:first[@"generation"]] &&
+        capture->checkpointAttempts == calls, @"clean capture reuses the previous immutable checkpoint");
+
+    [prefs setSourceMetadata:@{@"syntax": @"textile"} forNoteUUID:[original sourceMetadataUUID]];
+    OSStatus failures[] = {dskFulErr, permErr};
+    for (NSUInteger i = 0; i < 2; i++) {
+        capture->checkpointFailure = failures[i];
+        Check(![capture backupSnapshotWithError:&error] && [error code] == failures[i], @"checkpoint write failure returns its error");
+        Check([prefs backupCheckpointGeneration] == firstGeneration && [[prefs backupCheckpointDate] isEqual:firstDate],
+            @"repeated failure restores generation and capture date");
+        Check([prefs preferencesChanged] && [capture->diskData isEqual:firstBytes] && [capture->backupCheckpointData isEqual:firstBytes],
+            @"failed metadata checkpoint remains dirty and leaves both older byte copies unchanged");
+        if (encrypted) Check(![[prefs valueForKey:@"dataSessionSalt"] isEqual:firstSessionSalt],
+            @"failed encrypted checkpoint changes live session salt while older bytes retain their own settings");
+        NotationPrefs *oldPrefs = nil;
+        NSArray *oldNotes = Decode(firstBytes, password, &oldPrefs);
+        Preservation(oldNotes, oldPrefs, capture->allNotes, NO);
+    }
+    capture->checkpointFailure = noErr;
+    capture->throwDuringSync = YES;
+    Check(![capture backupSnapshotWithError:&error] && error && !capture->capturingBackup,
+        @"ordinary sync exception releases capture guard and reports failure");
+    Check([prefs backupCheckpointGeneration] == firstGeneration && [capture->backupCheckpointData isEqual:firstBytes],
+        @"sync exception leaves the old completed checkpoint intact");
+    capture->throwDuringSync = NO;
+    NSDictionary *retry = [capture backupSnapshotWithError:&error];
+    Check(retry && !error && [retry[@"generation"] unsignedLongLongValue] == firstGeneration + 1,
+        @"successful retry advances generation once after three failures");
+    NotationPrefs *retryPrefs = nil;
+    Decode(retry[@"data"], password, &retryPrefs);
+    Check([[[retryPrefs sourceMetadataForNoteUUID:[original sourceMetadataUUID]] objectForKey:@"syntax"] isEqual:@"textile"],
+        @"retry includes the metadata change excluded from old checkpoints");
+
+    // After failed encrypted serializations change live salt, old bytes must
+    // still recover with their own archived settings. Restore twice to catch
+    // state lost only during the second archive encoding.
+    NSDictionary *restored = Restore(firstBytes, password);
+    for (NSUInteger pass = 0; pass < 2; pass++) {
+        NotationPrefs *restoredPrefs = nil;
+        NSArray *restoredNotes = Decode(restored[@"data"], password, &restoredPrefs);
+        Preservation(restoredNotes, restoredPrefs, capture->allNotes, YES);
+        Check(![[restoredPrefs backupLibraryIdentifier] isEqual:[prefs backupLibraryIdentifier]],
+            @"restored copy owns a distinct backup identity");
+        Check([restoredPrefs notesStorageFormat] == SingleDatabaseFormat && [restoredPrefs doesEncryption] == encrypted,
+            @"restore changes storage mode and preserves encryption choice");
+        Check([restored[@"unlockedPrefs"] matchesBackupEncryptionSettings:restoredPrefs],
+            @"prepared password state matches independently decoded restored bytes");
+        restored = Restore(restored[@"data"], password);
+    }
+    Check([first[@"data"] isEqual:firstBytes], @"old returned snapshot bytes remain unchanged after every restore");
+
+    // A failed source write and a failed journal sync remain separate from a
+    // successful complete archive. Content is supplied through the real model.
+    [[(NSMutableAttributedString *)[original contentString] mutableString]
+        setString:@"committed source while primary is unavailable 雪"];
+    capture->notesChanged = YES;
+    capture->sourceFailure = permErr;
+    capture->walWriter->fail = YES;
+    NSDictionary *primaryFailed = [capture backupSnapshotWithError:&error];
+    Check(primaryFailed && !error && primaryFailed[@"sourceWriteError"] && primaryFailed[@"journalWriteError"],
+        @"source and journal failures annotate a completed full archive");
+    NSArray *preservedLatest = Decode(primaryFailed[@"data"], password, NULL);
+    Check([[[preservedLatest[0] contentString] string] isEqual:[[original contentString] string]],
+        @"archive contains committed model content despite primary write failures");
+    NSData *savedPrimaryFailureBytes = [[primaryFailed[@"data"] copy] autorelease];
+    capture->walWriter->fail = NO;
+    NSDictionary *syncRecovered = [capture backupSnapshotWithError:&error];
+    Check(syncRecovered && !syncRecovered[@"journalWriteError"] &&
+        [syncRecovered[@"generation"] isEqual:primaryFailed[@"generation"]],
+        @"journal recovery leaves the successful checkpoint generation unchanged");
+
+    // Deletions change the next snapshot while older backups keep their notes.
+    capture->sourceFailure = noErr;
+    [capture->allNotes removeAllObjects]; capture->notesChanged = YES;
+    NSDictionary *empty = [capture backupSnapshotWithError:&error];
+    Check(empty && !error && [empty[@"noteCount"] unsignedIntegerValue] == 0, @"deletion captures a valid empty checkpoint");
+    Check([Decode(empty[@"data"], password, NULL) count] == 0, @"empty checkpoint independently decodes with no resurrected notes");
+    Check([Decode(savedPrimaryFailureBytes, password, NULL) count] == 2, @"later deletions leave older checkpoint notes recoverable");
+    Check([Restore(savedPrimaryFailureBytes, password)[@"noteCount"] unsignedIntegerValue] == 2,
+        @"offline restore recovers both historical notes after current deletion");
+    NSLog(@"CAPTURE PRESERVATION CASE PASS: encrypted=%d", encrypted);
+    [capture release];
+}
+int main(void) { @autoreleasepool {
+    Run(NO); Run(YES);
+    NSLog(@"ROUND 2 CONTRARIAN DATA PASS: %lu checks; native archives plus extracted capture, no whole-app lifecycle",
+        (unsigned long)checks);
+    return 0;
+}}
