@@ -17,6 +17,10 @@ environment = dict(os.environ)
 if args.artifacts:
     args.artifacts.mkdir(parents=True, exist_ok=True)
     environment['NV_USER_SCHEMES_ARTIFACTS'] = str(args.artifacts.resolve())
-raise SystemExit(subprocess.run([sys.executable, str(repo / 'Tests/ViewControlsReview/run-probe.py'),
-    '--probe', str(here / 'checks.inc'), '--prefix', str(here / 'support.h'),
-    '--app', str(args.app), '--launches', '2'], env=environment).returncode)
+for probe, prefix, launches in [('checks.inc', 'support.h', '2'),
+                                ('dynamic-colors.inc', 'dynamic-colors.h', '1')]:
+    result = subprocess.run([sys.executable, str(repo / 'Tests/ViewControlsReview/run-probe.py'),
+        '--probe', str(here / probe), '--prefix', str(here / prefix),
+        '--app', str(args.app), '--launches', launches], env=environment)
+    if result.returncode:
+        raise SystemExit(result.returncode)
