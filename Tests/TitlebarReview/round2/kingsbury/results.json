@@ -1,0 +1,73 @@
+{
+  "head": "4cf0da05215d7da775d5c5c9191ba845702df28f",
+  "production_baseline": "6b8d67514f4fc5bc2e9fca22816a32f30f59fb1c",
+  "inputs_match_baseline": true,
+  "before_sha256": {
+    "Sources/Browser/AppController.h": "d222dcbaec7b680dbcbc46022b100c0e75c7d7b166110d87134be1e9e65acbb4",
+    "Sources/Browser/AppController.m": "46a9c9f6f0aee838d547dd7b0ef17fa80f97978e1e951ffa0dca91229dac67be",
+    "Sources/Browser/AppController_BrowserUI.m": "6a179cb93dfe10052bb894b077cb969a1a748862646adbe35cec4b4cdcf1a33a",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce"
+  },
+  "after_sha256": {
+    "Sources/Browser/AppController.h": "d222dcbaec7b680dbcbc46022b100c0e75c7d7b166110d87134be1e9e65acbb4",
+    "Sources/Browser/AppController.m": "46a9c9f6f0aee838d547dd7b0ef17fa80f97978e1e951ffa0dca91229dac67be",
+    "Sources/Browser/AppController_BrowserUI.m": "6a179cb93dfe10052bb894b077cb969a1a748862646adbe35cec4b4cdcf1a33a",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce"
+  },
+  "production_inputs_stable": true,
+  "binary_before_sha256": "5b672807c892a9e12b8b1ce8291f17853bb93780cd4caf80946885198e47d8ca",
+  "binary_after_sha256": "5b672807c892a9e12b8b1ce8291f17853bb93780cd4caf80946885198e47d8ca",
+  "fixture_sha256": {
+    "checks.inc": "80a1197fb1e1d4971110669b571e765131ffdfbc176c96dc66cc8d1a7a22cd6c",
+    "prefix.h": "2f6f2cd59fb592b936a55377a5ac10b21234b3cb7218d5794b8f960b310a88ad",
+    "run.py": "0dfa8d7a1f38091ea52db4e12280df8cad6928cdde0d1320cbc8cb191d296431"
+  },
+  "runs": [
+    {
+      "name": "history",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/duc/dev/nv/Tests/ViewControlsReview/run-probe.py",
+        "--probe",
+        "/Users/duc/dev/nv/Tests/TitlebarReview/round2/kingsbury/checks.inc",
+        "--prefix",
+        "/Users/duc/dev/nv/Tests/TitlebarReview/round2/kingsbury/prefix.h",
+        "--timeout",
+        "120"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "expected_outcome": true,
+      "pass_count": 107
+    },
+    {
+      "name": "retained-transient",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/duc/dev/nv/Tests/ViewControlsReview/run-probe.py",
+        "--probe",
+        "/Users/duc/dev/nv/Tests/TitlebarReview/round2/kingsbury/checks.inc",
+        "--prefix",
+        "/Users/duc/dev/nv/Tests/TitlebarReview/round2/kingsbury/prefix.h",
+        "--timeout",
+        "120"
+      ],
+      "environment_overrides": {
+        "NV_TITLEBAR_RETAIN_TRANSIENT": "1"
+      },
+      "exit_code": 1,
+      "expected_outcome": true,
+      "pass_count": 27
+    }
+  ]
+}
