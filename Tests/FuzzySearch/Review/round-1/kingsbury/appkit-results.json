@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-1/kingsbury/run-appkit.py"
+  ],
+  "exit_code": 0,
+  "stdout": "APPKIT_FOCUS accepted=1 key_before=1 focus_before=1 key_after=0 focus_after=1 same_editor=1 text_end_delta=0 resign_delta=1\n",
+  "stderr": "",
+  "production_method_sha256": "27027ff0e660cfe39003a5db341d3c65150eca1fdbe525d242aef99f0c548f0b",
+  "head": "9d468fcc2c87d13d74ccd646036c296d975cc8f1"
+}

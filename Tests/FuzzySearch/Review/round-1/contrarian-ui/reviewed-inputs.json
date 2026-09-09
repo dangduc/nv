@@ -1,0 +1,18 @@
+{
+  "Sources/UI/NotesTableView.m": {
+    "sha256": "62ef5a97145860581c2bb8798eb739175b0a6c901757ca9ee03625db090fb802",
+    "identical_to_c7e61cb": true
+  },
+  "Sources/Browser/NVBrowserSession.m": {
+    "sha256": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "identical_to_c7e61cb": true
+  },
+  "Sources/Browser/AppController.m": {
+    "sha256": "e09557a05315305f4fd42ecc189c932c094846ee0a9314c269bd9c86229c7e72",
+    "identical_to_c7e61cb": true
+  },
+  "Sources/Editor/TagEditingManager.m": {
+    "sha256": "9095011f7278dfc7932e6e5458ed12c99de7e0d8a0d8f4ce198a2c1d4d0df834",
+    "identical_to_c7e61cb": true
+  }
+}

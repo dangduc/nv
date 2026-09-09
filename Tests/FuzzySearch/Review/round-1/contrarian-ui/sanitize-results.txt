@@ -1,0 +1,10 @@
+2026-09-09 02:41:46.806 browser-tests[89367:342531342] Error received in message reply handler: Connection invalid
+2026-09-09 02:41:46.806 browser-tests[89367:342531350] Connection Invalid error for service com.apple.hiservices-xpcservice.
+start indexes=<NSIndexSet: 0xa639c151f8b68657>[number of indexes: 1 (in 1 ranges), indexes: (0)] native=0 primary=0 key=title:00000000000000000000000000000005 edited=-1
+shift-down indexes=<NSIndexSet: 0xa639c151f8b68647>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+shift-down twice indexes=<NSIndexSet: 0xa639c151f8b68667>[number of indexes: 3 (in 1 ranges), indexes: (0-2)] native=2 primary=2 key=fuzzy:00000000000000000000000000000005 edited=-1
+shift-up shrink indexes=<NSIndexSet: 0xa639c151f8b68647>[number of indexes: 2 (in 1 ranges), indexes: (0-1)] native=1 primary=1 key=title:00000000000000000000000000000006 edited=-1
+INLINE second edit title0=road title1=road zebra editor=road zebra
+INLINE tab title0=road tabbed edited=-1 captured=0 editor=(null)
+NATIVE PRIMARY EVIDENCE: selectedRow=3, occurrencePrimary=0
+FUZZY BROWSER TESTS PASSED (100 checks)

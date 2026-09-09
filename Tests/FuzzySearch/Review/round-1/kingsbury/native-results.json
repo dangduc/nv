@@ -1,0 +1,158 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-1/kingsbury/run.py"
+  ],
+  "head": "9d468fcc2c87d13d74ccd646036c296d975cc8f1",
+  "exit_code": 0,
+  "stdout": "key-loss-before-completion: query=key-loss-zero current=0 key=0 field_focus=1 creations=1 selected=exact:00000000000000000000000000000001 pending_return=key-loss-zero\nkey-loss-after-completion: query=key-loss-zero current=1 key=0 field_focus=0 creations=2 selected=none pending_return=none\nkey-loss-and-return: query=key-loss-return-zero current=1 key=1 field_focus=0 creations=3 selected=none pending_return=none\nbackground-plural-reveal: query=copper current=1 key=0 field_focus=1 creations=3 selected=fuzzy:00000000000000000000000000000002 pending_return=none\nSTATE REVIEW: 55 checks passed\n",
+  "stderr": "",
+  "production_methods": [
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 12,
+      "signature": "- (NSString *)searchMode",
+      "sha256": "9b8c4db10b0b470fb44c676dfd40d93f1e2919dd28aea9b0192db2b648342128"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 13,
+      "signature": "- (NSString *)selectedSearchResultRowKey",
+      "sha256": "4942289e5847812c694235780c5e9589d2d9c37587e6cef10186259bc8ae1644"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 14,
+      "signature": "- (BOOL)searchFieldHasFocus",
+      "sha256": "27027ff0e660cfe39003a5db341d3c65150eca1fdbe525d242aef99f0c548f0b"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 29,
+      "signature": "- (void)cancelSearchIntents",
+      "sha256": "8791f7c3c73fabb33f89f5a31bbdcb7aac6fc1c30b08753381921fbfe09b594d"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 35,
+      "signature": "- (void)searchForString:",
+      "sha256": "a9dfcf46e3ed22888f02003ecbebcb0a08ab1d0171206093db2c94f0c356e81d"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 47,
+      "signature": "- (IBAction)selectSearchMode:",
+      "sha256": "1a7fdcb426fd485217e4c53f57a5b19e4bb2ae31601a21628db84483126eb83b"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 50,
+      "signature": "- (IBAction)retrySearch:",
+      "sha256": "59e6d037733f2b182b2f474a0205aad6b17fb72b69c4f37b8b10eecc7161f76c"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 55,
+      "signature": "- (void)showSearchProgress",
+      "sha256": "9f86171362f95784811c71504d20729237b57102b79b7f9a884b813cc18d2b8f"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 59,
+      "signature": "- (void)browserSessionSearchStateDidChange:",
+      "sha256": "c4b4da8a23132cf01f4023df4c4d29805d02581eeb47365735479ae485cfd463"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 77,
+      "signature": "- (void)browserSessionSearchDidComplete:",
+      "sha256": "97b0f9650327a0dca26fd1a5893c75c50fd7de34108b3d625ed77b659bce44a4"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 121,
+      "signature": "- (void)performSearchReturn",
+      "sha256": "a9df1dc1a01d02e4d8a67997babcfd60b99bd8d11f7a004b96554662d84aec60"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1243,
+      "signature": "- (void)controlTextDidChange:",
+      "sha256": "a83771f0bfaa2644e3540e41213118f6933d3d5f6b83fbe8144973c185a75acf"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1531,
+      "signature": "- (void)controlTextDidEndEditing:",
+      "sha256": "af173d6290cc264947ef5410a2f4be4303dbddbf53b82a3f46e927e5be8f429b"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1866,
+      "signature": "- (void)windowDidResignKey:",
+      "sha256": "73fbe7c644fb73d7c6f419f1cf27573a535d4d8b721729e64eb38fe1d2b89b98"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1874,
+      "signature": "- (void)windowWillClose:",
+      "sha256": "9469da7a2a5f757e2c13c1b5a5016213bb6678ee32c7e4e4a76b4ccd8023ca86"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1016,
+      "signature": "- (void)cancelOperation:",
+      "sha256": "9dfa6d3e7680b358c0633591aa3769154d7c6af3efd3eca451eb0072dc18ff01"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1658,
+      "signature": "- (NSUInteger)revealNote:",
+      "sha256": "caa0f97749cfc0004d2d47b42730e80cdcf48387b873502f3183c2bb0d148ff8"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1722,
+      "signature": "- (void)notation:(NotationController*)notation revealNotes:",
+      "sha256": "f9e749e65be427bd1d563acfa914b5745662c78c9343088ec4d8019ca06bb023"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1361,
+      "signature": "- (void)tableViewSelectionDidChange:",
+      "sha256": "3a2495841c5cd16e014ab7cd41be06bef359a89d2607ee2d309ce0cb9839307d"
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 161,
+      "signature": "- (void)restoreBrowserWindowState:",
+      "sha256": "cfbc5f91af0999d7eefb7ba15bbb2b0b8a714c8bbafd8f4df72282ffad6d3b43"
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 197,
+      "signature": "- (void)applyRestoredSearchNoteState:",
+      "sha256": "203d53e4d268e56ef81d66a711b47ee10fb6c8cf206141c185ea3f4c7e137021"
+    },
+    {
+      "path": "Sources/Browser/AppController_MultipleWindows.m",
+      "line": 44,
+      "signature": "- (void)attachLibrary:(NotationController *)library finishingOldLibrary:",
+      "sha256": "2f8c0598cc17f31bd9de2f5182ee33b7e64b44e48f0f35f7fb440e2ffa6c1d23"
+    }
+  ],
+  "sha256": {
+    "Sources/Browser/AppController_Search.m": "436736455cdea022eeb40b9acc735fb31985d3d72d2e0b8a7c1da113ac7ea4c6",
+    "Sources/Browser/AppController.m": "e09557a05315305f4fd42ecc189c932c094846ee0a9314c269bd9c86229c7e72",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Tests/FuzzySearch/Browser/browser-tests.m": "7a71a8fbeee84a8a1c49f47d58eef9c0b70647d15790fa5d899969ef29ec4792",
+    "Tests/FuzzySearch/Review/round-1/kingsbury/probe-body.m": "1f8542ac03a1535fc6d0fa01ed7a13da40134d28c19a6cf427a0baa8eacb1832",
+    "Sources/Search/NVFZF.c": "dd774f2e7e90ab4ffe8b9cb27f3c17f399756bf08a0455dfe846f5ea99d362b4",
+    "ThirdParty/fzf-native/fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "ThirdParty/fzf-native/utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "Sources/Search/NVSearchQuery.m": "5187594b6b77b48554a3e5c6b5002735b0b106a93c233bed65ec29b91460d7ce",
+    "Sources/Search/NVSearchCorpus.m": "e06314a52e03eefb1e486caa62b08993cbe27c2048659a44ae43443025134df7",
+    "Sources/Search/NVSearchService.m": "55f2b0c0a19a68bca78c60fd52bb138a1c305cbb83509f47d573610739b28a98",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170"
+  }
+}
