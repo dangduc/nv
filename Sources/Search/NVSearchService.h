@@ -36,7 +36,9 @@ typedef void (^NVSearchPositionsCompletion)(NVSearchPositions *positions, NSErro
 
 /* Own one instance per active library. All public calls occur on main.
    Workers receive immutable values. Cancel an owner before its destruction.
-   Completion is always deferred to main and only delivered while current. */
+   Completion is always deferred to main and only delivered while current.
+   Cancellation releases callback captures synchronously on main, even when
+   immutable worker work remains queued. Completed captures also release on main. */
 @interface NVSearchService : NSObject {
     NVSearchCorpus *_corpus;
     dispatch_queue_t _worker;
