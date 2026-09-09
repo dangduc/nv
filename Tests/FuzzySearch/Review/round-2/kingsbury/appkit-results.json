@@ -1,0 +1,36 @@
+{
+  "command": [
+    "python3",
+    "Tests/FuzzySearch/Review/round-2/kingsbury/run-appkit.py"
+  ],
+  "exit_code": 0,
+  "stdout": "APPKIT_INITIAL active=1 key=1 field_focus=1 pending_return=1 autocomplete=1 reveal=1 restoration=1 resign_count=0 active_loss_count=0\nAPPKIT_RESIGNED active=1 key=0 field_focus=0 pending_return=0 autocomplete=0 reveal=1 restoration=1 resign_count=1 active_loss_count=0\nAPPKIT_REENTERED active=1 key=1 field_focus=1 pending_return=0 autocomplete=0 reveal=1 restoration=1 resign_count=1 active_loss_count=0\nAPPKIT_DEACTIVATED active=0 key=0 field_focus=0 pending_return=0 autocomplete=0 reveal=1 restoration=1 resign_count=2 active_loss_count=1\nAPPKIT_PRECONDITIONS started=1 accepted=1 peer_activated=1 reentered=1 activation_requested=1 deactivated=1\n",
+  "stderr": "",
+  "production_methods": [
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 14,
+      "signature": "- (BOOL)searchFieldHasFocus",
+      "sha256": "1d74789ada0166ea933900bf442ef2f0ef7e05070d964eff31574a0ef72982f8"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 29,
+      "signature": "- (void)cancelTransientSearchIntents",
+      "sha256": "e2e9d7dd4a9382cca880effa8f5ddb1957201fb3c74c7a6bf955a234ecc762f8"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1879,
+      "signature": "- (void)windowDidResignKey:",
+      "sha256": "3bffecdeb1598cf0c50e9a4ea86014d651751ed78d0007b78fdb5e0ff746a039"
+    }
+  ],
+  "sha256": {
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/AppController.m": "e587b1bb37ad64166b78db8e7109f4dbe60f911fab6a27146188c2655024c4a6",
+    "Tests/FuzzySearch/Review/round-2/kingsbury/appkit-focus.m": "5f5c7dc5d391c63a4c38eabe809b9fbc8047d87387bc72b07419b7beb612ef58",
+    "Tests/FuzzySearch/Review/round-2/kingsbury/run-appkit.py": "bf27d6b932fbe8a80e93d22ec373c2c405f1ad7eb0428021180dae266fcf715f"
+  },
+  "head": "a611cee399db63eb9edb0958358469c0eda30945"
+}
