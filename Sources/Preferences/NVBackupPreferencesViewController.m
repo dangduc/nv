@@ -30,6 +30,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
 
 - (id)init {
     if ((self = [super initWithNibName:nil bundle:nil])) {
+        pendingFieldValues = [[NSMutableDictionary alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backupStatusChanged:)
             name:NVBackupStatusDidChangeNotification object:nil];
     }
@@ -40,6 +41,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [displayedLibraryIdentifier release];
     [editingLibraryIdentifier release];
+    [pendingFieldValues release];
     [super dealloc];
 }
 
@@ -141,10 +143,16 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     NSString *identifier = [controller libraryIdentifier];
     BOOL sameLibrary = (displayedLibraryIdentifier == identifier || [displayedLibraryIdentifier isEqualToString:identifier]);
     if (!sameLibrary) {
+        [pendingFieldValues removeAllObjects];
+        commitFieldsWhenIdle = NO;
         // End an old library's field edit before displaying the new settings. Its delegate rejects that stale edit.
         [[[self view] window] makeFirstResponder:nil];
         [displayedLibraryIdentifier release];
         displayedLibraryIdentifier = [identifier copy];
+    }
+    if (commitFieldsWhenIdle && ![controller isBusy] && !committingFields) {
+        commitFieldsWhenIdle = NO;
+        [self commitPendingFieldsIncludingActive:NO];
     }
     NSDictionary *settings = [controller settings];
     BOOL configurable = [controller hasLibrary] && ![controller isBusy];
@@ -162,8 +170,11 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     for (NSUInteger index = 0; index < [fields count]; index++) {
         NSTextField *field = [fields objectAtIndex:index];
         if (![field currentEditor]) {
-            NSNumber *number = [settings objectForKey:[keys objectAtIndex:index]];
-            if (field == storageField && number) {
+            NSString *key = [keys objectAtIndex:index];
+            NSNumber *number = [settings objectForKey:key];
+            NSString *draft = [pendingFieldValues objectForKey:key];
+            if (draft) [field setStringValue:draft];
+            else if (field == storageField && number) {
                 NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
                 // Enough precision to preserve a byte count when the user only tabs through this field.
                 [formatter setMaximumFractionDigits:12];
@@ -171,7 +182,9 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
                 [field setStringValue:[formatter stringFromNumber:[NSNumber numberWithDouble:[number doubleValue] / 1073741824.0]]];
             } else [field setStringValue:number ? [number stringValue] : @""];
         }
-        [field setEnabled:configurable];
+        // Disabling an NSTextField discards its field editor without an end-edit callback.
+        // Keep numeric drafts editable while the worker finishes; commits can wait for idle.
+        [field setEnabled:[controller hasLibrary]];
     }
     NSString *path = [[controller destinationURL] path];
     [destinationField setStringValue:path ?: ([controller hasLibrary]
@@ -192,23 +205,35 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     editingLibraryIdentifier = [[[self backupController] libraryIdentifier] copy];
 }
 
-- (void)controlTextDidEndEditing:(NSNotification *)notification {
-    NSString *identifier = [[self backupController] libraryIdentifier];
-    if (editingLibraryIdentifier && [editingLibraryIdentifier isEqualToString:identifier]) [self settingsChanged:[notification object]];
-    [editingLibraryIdentifier release];
-    editingLibraryIdentifier = nil;
+- (NSString *)keyForField:(id)field {
+    if (field == recentField) return @"recent";
+    if (field == dailyField) return @"daily";
+    if (field == weeklyField) return @"weekly";
+    if (field == storageField) return @"maxBytes";
+    return nil;
 }
 
-- (void)settingsChanged:(id)sender {
-    NVBackupController *controller = [self backupController];
-    if (![controller hasLibrary] || [controller isBusy]) {
-        [self refreshControls];
-        return;
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSString *key = [self keyForField:[notification object]];
+    if (key && [editingLibraryIdentifier isEqualToString:[[self backupController] libraryIdentifier]])
+        [pendingFieldValues setObject:[[notification object] stringValue] forKey:key];
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    NSString *identifier = [[self backupController] libraryIdentifier];
+    BOOL shouldCommit = !committingFields && [editingLibraryIdentifier isEqualToString:identifier];
+    if (shouldCommit) [self controlTextDidChange:notification];
+    [editingLibraryIdentifier release];
+    editingLibraryIdentifier = nil;
+    if (shouldCommit) {
+        if ([[self backupController] isBusy]) commitFieldsWhenIdle = YES;
+        else [self commitPendingFields];
     }
-    NSMutableDictionary *settings = [[[controller settings] mutableCopy] autorelease];
+}
+
+- (BOOL)updateSettings:(NSMutableDictionary *)settings fromControl:(id)sender error:(NSError **)error {
     NSString *key = nil;
     NSNumber *value = nil;
-    NSError *error = nil;
     if (sender == enabledButton) {
         key = @"enabled";
         value = [NSNumber numberWithBool:[enabledButton state] == NSOnState];
@@ -219,7 +244,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
         key = @"maxBytes";
         NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        NSString *input = [[storageField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *input = [([pendingFieldValues objectForKey:key] ?: [storageField stringValue]) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSRange range = NSMakeRange(0, [input length]);
         NSNumber *number = nil;
         if ([formatter getObjectValue:&number forString:input range:&range error:NULL] && range.length == [input length] && [input length]) {
@@ -232,29 +257,79 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
         else if (sender == dailyField) key = @"daily";
         else if (sender == weeklyField) key = @"weekly";
         if (key) {
-            NSScanner *scanner = [NSScanner scannerWithString:[sender stringValue]];
+            NSScanner *scanner = [NSScanner scannerWithString:[pendingFieldValues objectForKey:key] ?: [sender stringValue]];
             long long count;
             if ([scanner scanLongLong:&count] && [scanner isAtEnd]) value = [NSNumber numberWithLongLong:count];
         }
     }
-    if (!key) return;
+    if (!key) return NO;
     if (!value) {
         NSString *description = sender == storageField
             ? NSLocalizedString(@"Enter a storage target from 0.000977 to 1024 GiB (1 MiB to 1 TiB).", nil)
             : NSLocalizedString(@"Enter a whole number of snapshots.", nil);
-        error = [NSError errorWithDomain:@"NVBackupPreferencesError" code:1 userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
-    } else {
-        [settings setObject:value forKey:key];
-        [controller setSettings:settings error:&error];
+        if (error) *error = [NSError errorWithDomain:@"NVBackupPreferencesError" code:1 userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
+        return NO;
     }
+    [settings setObject:value forKey:key];
+    return YES;
+}
+
+- (BOOL)commitPendingFieldsIncludingActive:(BOOL)includeActive {
+    NVBackupController *controller = [self backupController];
+    if (![controller hasLibrary] || [controller isBusy] || committingFields) return NO;
+    if (![pendingFieldValues count]) return YES;
+    NSMutableDictionary *settings = [[[controller settings] mutableCopy] autorelease];
+    NSError *error = nil;
+    BOOL success = YES;
+    NSMutableArray *committedKeys = [NSMutableArray array];
+    for (NSTextField *field in @[recentField, dailyField, weeklyField, storageField]) {
+        NSString *key = [self keyForField:field];
+        if (![pendingFieldValues objectForKey:key] || (!includeActive && [field currentEditor])) continue;
+        if (![self updateSettings:settings fromControl:field error:&error]) {
+            success = NO;
+            break;
+        }
+        [committedKeys addObject:key];
+    }
+    if (success && ![committedKeys count]) return YES;
+    committingFields = YES;
+    if (success) success = [controller setSettings:settings error:&error];
+    if (success) [pendingFieldValues removeObjectsForKeys:committedKeys];
+    committingFields = NO;
+    if (error) [NSApp presentError:error];
+    [self refreshControls];
+    return success;
+}
+
+- (BOOL)commitPendingFields { return [self commitPendingFieldsIncludingActive:YES]; }
+
+- (BOOL)prepareForAction {
+    NSString *identifier = [[[[self backupController] libraryIdentifier] copy] autorelease];
+    if (![self commitPendingFields]) return NO;
+    committingFields = YES;
+    NSWindow *window = [[self view] window];
+    BOOL ended = !window || [window makeFirstResponder:nil];
+    committingFields = NO;
+    return ended && [identifier isEqualToString:[[self backupController] libraryIdentifier]] && ![[self backupController] isBusy];
+}
+
+- (void)settingsChanged:(id)sender {
+    NVBackupController *controller = [self backupController];
+    if (![controller hasLibrary] || [controller isBusy]) {
+        [self refreshControls];
+        return;
+    }
+    NSMutableDictionary *settings = [[[controller settings] mutableCopy] autorelease];
+    NSError *error = nil;
+    if ([self updateSettings:settings fromControl:sender error:&error]) [controller setSettings:settings error:&error];
     if (error) [NSApp presentError:error];
     [self refreshControls];
 }
 
-- (void)backupNow:(id)sender { [[self backupController] backupNow:sender]; }
-- (void)chooseDestination:(id)sender { [[self backupController] chooseDestination:sender]; }
+- (void)backupNow:(id)sender { if ([self prepareForAction]) [[self backupController] backupNow:sender]; }
+- (void)chooseDestination:(id)sender { if ([self prepareForAction]) [[self backupController] chooseDestination:sender]; }
 - (void)showBackupsInFinder:(id)sender { [[self backupController] showBackupsInFinder:sender]; }
-- (void)restoreBackup:(id)sender { [[self backupController] restoreBackup:sender]; }
-- (void)deleteUnencryptedBackups:(id)sender { [[self backupController] deleteUnencryptedBackups:sender]; }
+- (void)restoreBackup:(id)sender { if ([self prepareForAction]) [[self backupController] restoreBackup:sender]; }
+- (void)deleteUnencryptedBackups:(id)sender { if ([self prepareForAction]) [[self backupController] deleteUnencryptedBackups:sender]; }
 
 @end

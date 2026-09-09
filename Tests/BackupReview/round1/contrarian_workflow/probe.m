@@ -77,7 +77,7 @@ static void Exercise(BOOL manual, BOOL expectFixed) {
 int main(int argc, const char *argv[]) {
     @autoreleasepool {
         [ProbeApplication sharedApplication];
-        BOOL expectFixed = argc == 2 && strcmp(argv[1], "--expect-fixed") == 0;
+        BOOL expectFixed = !(argc == 2 && strcmp(argv[1], "--expect-regression") == 0);
         Exercise(NO, expectFixed);
         Exercise(YES, expectFixed);
     }
