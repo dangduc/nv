@@ -403,8 +403,17 @@
             [self setBackgrndColor:[background colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
             [self updateColorScheme];
         };
-        if (@available(macOS 10.14, *)) [[window effectiveAppearance] performAsCurrentDrawingAppearance:update];
-        else update();
+        if (@available(macOS 11.0, *)) [[window effectiveAppearance] performAsCurrentDrawingAppearance:update];
+        else {
+            NSAppearance *previousAppearance = [[NSAppearance currentAppearance] retain];
+            @try {
+                [NSAppearance setCurrentAppearance:[window effectiveAppearance]];
+                update();
+            } @finally {
+                [NSAppearance setCurrentAppearance:previousAppearance];
+                [previousAppearance release];
+            }
+        }
     }
     [notesTableView setNeedsDisplay:YES];
 }

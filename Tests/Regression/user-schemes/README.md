@@ -8,6 +8,7 @@ python3 Tests/Regression/user-schemes/run.py --artifacts build/user-schemes-arti
 
 The runner copies the app and uses temporary notes and a unique preferences domain.
 It seeds the three existing color keys, then launches the copied app twice.
+It also compiles the production appearance method for macOS 10.13 and tests its older-system fallback.
 
 The checks cover:
 
@@ -24,3 +25,12 @@ The fixture sets each test window's Aqua or Dark Aqua appearance.
 This exercises AppKit appearance callbacks without changing the user's system setting.
 The drawing checks inspect real layout attributes. They do not compare screenshot pixels.
 The optional screenshots contain only disposable notes and Settings.
+
+The compatibility check forces the fallback on the current host using native AppKit appearance objects.
+It checks appearance restoration after success and exceptions, color ownership, and fixed schemes.
+This simulation does not replace testing on an older macOS installation.
+Run its negative controls separately:
+
+```sh
+python3 Tests/Regression/user-schemes/compatibility.py --negative-controls
+```
