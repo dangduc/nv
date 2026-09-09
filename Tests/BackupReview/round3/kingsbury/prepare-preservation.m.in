@@ -1,0 +1,254 @@
+#import <Cocoa/Cocoa.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#define SingleDatabaseFormat 0
+#define kWriteJournalErr 42
+
+static NSString *NotesDatabaseFileName = @"Notes & Settings";
+static NSString *scenario, *journalPath;
+static NSMutableArray *events;
+static NSUInteger checks, monitorStops, unlinkCalls;
+static int journalFD = -1;
+static BOOL injectFault;
+
+static void Check(BOOL result, NSString *message) {
+    checks++;
+    if (!result) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+static NSData *Bytes(NSString *text) { return [text dataUsingEncoding:NSUTF8StringEncoding]; }
+static NSError *NVCheckpointError(NSInteger code, NSString *description) {
+    return [NSError errorWithDomain:@"Review" code:code userInfo:@{NSLocalizedDescriptionKey:description}];
+}
+
+// Faults apply only to the production methods below. Other fixture I/O uses
+// ordinary POSIX calls. Each fault has one explicit operation and errno.
+static int ProbeSync(int descriptor) {
+    struct stat info;
+    Check(fstat(descriptor, &info) == 0, @"synchronization receives a live descriptor");
+    NSString *operation = descriptor == journalFD ? @"journal-sync" :
+        (S_ISDIR(info.st_mode) ? @"directory-sync" : @"checkpoint-sync");
+    [events addObject:operation];
+    if (injectFault && [scenario isEqual:operation]) { errno = EIO; return -1; }
+    return fsync(descriptor);
+}
+static ssize_t ProbeRead(int descriptor, void *buffer, size_t size, off_t offset) {
+    if (injectFault && [scenario isEqual:@"checkpoint-read"]) { errno = EIO; return -1; }
+    // Exercise the production loop with positive short reads, including its
+    // offset progression across multiple 64 KiB regions.
+    if ([scenario isEqual:@"short-reads"]) size = MIN(size, 997);
+    return pread(descriptor, buffer, size, offset);
+}
+static int ProbeUnlink(const char *path) {
+    unlinkCalls++;
+    [events addObject:@"journal-unlink"];
+    if (injectFault && [scenario isEqual:@"journal-unlink"]) { errno = EACCES; return -1; }
+    return unlink(path);
+}
+
+#define fsync ProbeSync
+#define pread ProbeRead
+// PRODUCTION_CHECKPOINT_SYNC
+#undef pread
+#undef fsync
+
+@interface Writer : NSObject { @public int logFD; }
+- (id)initWithPath:(NSString *)path data:(NSData *)data;
+- (BOOL)synchronize;
+- (BOOL)_attemptToWriteUnwrittenData;
+- (BOOL)destroyLogFilePreservingWriterOnFailure;
+- (void)appendData:(NSData *)data;
+@end
+@implementation Writer
+- (id)initWithPath:(NSString *)path data:(NSData *)data {
+    if ((self = [super init])) {
+        logFD = open([path fileSystemRepresentation], O_CREAT | O_EXCL | O_RDWR | O_APPEND, 0600);
+        Check(logFD >= 0, @"the fixture creates its journal exclusively");
+        journalFD = logFD;
+        [self appendData:data];
+    }
+    return self;
+}
+- (void)appendData:(NSData *)data {
+    Check(write(logFD, [data bytes], [data length]) == (ssize_t)[data length] && fsync(logFD) == 0,
+        @"the fixture appends and synchronizes bytes through its live journal descriptor");
+}
+- (BOOL)_attemptToWriteUnwrittenData { return YES; }
+#define fsync ProbeSync
+// PRODUCTION_JOURNAL_SYNC
+#undef fsync
+#define unlink ProbeUnlink
+// PRODUCTION_JOURNAL_DESTROY
+#undef unlink
+- (void)dealloc { if (logFD >= 0) close(logFD); [super dealloc]; }
+@end
+
+@interface NoteObject : NSObject { @public NSData *body; }
+- (BOOL)hasPendingSourceFileWrite;
+- (BOOL)sourceConversionPending;
+@end
+@implementation NoteObject
+- (BOOL)hasPendingSourceFileWrite { return NO; }
+- (BOOL)sourceConversionPending { return NO; }
+- (void)dealloc { [body release]; [super dealloc]; }
+@end
+
+@interface ODBEditor : NSObject
++ (id)sharedODBEditor;
+- (BOOL)hasEditingSessionsForClient:(id)client;
+@end
+@implementation ODBEditor
++ (id)sharedODBEditor { static id editor; if (!editor) editor = [self new]; return editor; }
+- (BOOL)hasEditingSessionsForClient:(id)client { return NO; }
+@end
+
+@interface NotationController : NSObject {
+@public
+    NSArray *allNotes;
+    BOOL capturingBackup, backupRestorePrepared;
+    NSInteger lastWriteError;
+    Writer *walWriter;
+    NSTimer *changeWritingTimer;
+    NSString *directory, *alternateDirectory;
+    NSUInteger snapshots;
+}
+- (id)initWithDirectory:(NSString *)path;
+- (BOOL)prepareForBackupRestoreWithError:(NSError **)error;
+- (NSInteger)currentNoteStorageFormat;
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error;
+- (NSURL *)notesDirectoryURL;
+- (void)scheduleWriteForNote:(NoteObject *)note;
+- (void)stopFileNotifications;
+- (void)timerFired:(NSTimer *)timer;
+@end
+@implementation NotationController
+- (id)initWithDirectory:(NSString *)path {
+    if ((self = [super init])) {
+        directory = [path copy];
+        Check([[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL],
+            @"the fixture creates its disposable checkpoint directory");
+        NSMutableData *payload = [NSMutableData dataWithLength:131103];
+        unsigned char *buffer = [payload mutableBytes];
+        for (NSUInteger index = 0; index < [payload length]; index++) buffer[index] = (unsigned char)(index * 73 + 19);
+        NoteObject *note = [[NoteObject new] autorelease];
+        note->body = [payload copy];
+        allNotes = [[NSArray alloc] initWithObjects:note, nil];
+        journalPath = [directory stringByAppendingPathComponent:@"Interim Note-Changes"];
+        walWriter = [[Writer alloc] initWithPath:journalPath data:note->body];
+        changeWritingTimer = [[NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES] retain];
+    }
+    return self;
+}
+- (void)timerFired:(NSTimer *)timer { Check(NO, @"the bounded fixture never reaches its timer deadline"); }
+- (NSInteger)currentNoteStorageFormat { return SingleDatabaseFormat; }
+- (NSURL *)notesDirectoryURL { return [NSURL fileURLWithPath:alternateDirectory ?: directory]; }
+- (void)scheduleWriteForNote:(NoteObject *)note { Check(NO, @"the database fixture never schedules a source-file retry"); }
+- (void)stopFileNotifications { monitorStops++; }
+- (NSDictionary *)backupSnapshotWithError:(NSError **)error {
+    snapshots++;
+    NSData *data = ((NoteObject *)[allNotes objectAtIndex:0])->body;
+    NSString *path = [directory stringByAppendingPathComponent:NotesDatabaseFileName];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+        Check(unlink([path fileSystemRepresentation]) == 0, @"the fixture removes its previous checkpoint before the next capture");
+    Check([data writeToFile:path options:NSDataWritingAtomic error:error], @"the fixture writes complete checkpoint bytes");
+    if (injectFault && [scenario isEqual:@"checkpoint-byte"]) {
+        int descriptor = open([path fileSystemRepresentation], O_WRONLY);
+        unsigned char wrong = ((const unsigned char *)[data bytes])[70000] ^ 0xff;
+        Check(descriptor >= 0 && pwrite(descriptor, &wrong, 1, 70000) == 1 && close(descriptor) == 0,
+            @"the fixture changes one byte beyond the first read buffer");
+    } else if (injectFault && [scenario isEqual:@"checkpoint-size"]) {
+        Check(truncate([path fileSystemRepresentation], [data length] - 1) == 0, @"the fixture truncates the checkpoint by one byte");
+    } else if (injectFault && [scenario isEqual:@"checkpoint-missing"]) {
+        Check(unlink([path fileSystemRepresentation]) == 0, @"the fixture removes the checkpoint");
+    } else if (injectFault && [scenario isEqual:@"checkpoint-symlink"]) {
+        NSString *target = [directory stringByAppendingPathComponent:@"checkpoint-target"];
+        Check(rename([path fileSystemRepresentation], [target fileSystemRepresentation]) == 0 &&
+            symlink([target fileSystemRepresentation], [path fileSystemRepresentation]) == 0,
+            @"the fixture replaces the checkpoint pathname with a symlink to identical bytes");
+    } else if (injectFault && [scenario isEqual:@"directory-symlink"]) {
+        alternateDirectory = [[directory stringByAppendingString:@"-link"] copy];
+        Check(symlink([directory fileSystemRepresentation], [alternateDirectory fileSystemRepresentation]) == 0,
+            @"the fixture exposes its checkpoint directory through a symlink");
+    }
+    return @{ @"data": data };
+}
+// PRODUCTION_PREPARE
+- (void)dealloc {
+    [changeWritingTimer invalidate]; [changeWritingTimer release];
+    [walWriter release]; [allNotes release]; [directory release]; [alternateDirectory release];
+    [super dealloc];
+}
+@end
+
+static void SuccessfulPreparation(NotationController *library, Writer *originalWriter, NSTimer *originalTimer) {
+    NSError *error = nil;
+    [events removeAllObjects];
+    Check([library prepareForBackupRestoreWithError:&error] && !error,
+        @"a valid checkpoint and journal permit restore preparation");
+    Check(library->backupRestorePrepared && !library->walWriter && originalWriter->logFD == -1,
+        @"successful preparation closes the journal descriptor and enters the prepared state");
+    Check(![originalTimer isValid] && !library->changeWritingTimer && monitorStops == 1,
+        @"successful preparation stops the timer and monitoring exactly once");
+    Check(![[NSFileManager defaultManager] fileExistsAtPath:journalPath], @"successful preparation removes the journal pathname");
+    Check([events isEqual:@[@"checkpoint-sync", @"directory-sync", @"journal-sync", @"journal-unlink"]],
+        @"the checkpoint file and directory synchronize before journal synchronization and removal");
+    Check([[NSData dataWithContentsOfFile:[library->directory stringByAppendingPathComponent:NotesDatabaseFileName]]
+        isEqual:((NoteObject *)[library->allNotes objectAtIndex:0])->body],
+        @"the final checkpoint contains every committed fixture byte");
+}
+
+int main(int argc, const char **argv) {
+    @autoreleasepool {
+        Check(argc == 3, @"the probe receives a disposable directory and a scenario");
+        scenario = [NSString stringWithUTF8String:argv[2]];
+        events = [NSMutableArray array];
+        NSString *path = [[NSString stringWithUTF8String:argv[1]] stringByResolvingSymlinksInPath];
+        NotationController *library = [[NotationController alloc] initWithDirectory:path];
+        Writer *originalWriter = [library->walWriter retain];
+        NSTimer *originalTimer = [library->changeWritingTimer retain];
+        NoteObject *note = [library->allNotes objectAtIndex:0];
+        BOOL successOnly = [scenario isEqual:@"success"] || [scenario isEqual:@"short-reads"] || [scenario isEqual:@"abrupt"];
+        injectFault = !successOnly;
+        if (!successOnly) {
+            NSData *initialBytes = [[note->body copy] autorelease];
+            NSError *error = nil;
+            NSInteger expectedError = [scenario hasPrefix:@"journal-"] ? kWriteJournalErr : 9;
+            Check(![library prepareForBackupRestoreWithError:&error] && [error code] == expectedError,
+                @"an unsynchronized or unusable checkpoint or journal refuses preparation");
+            Check(!library->backupRestorePrepared && library->walWriter == originalWriter &&
+                originalWriter->logFD == journalFD && fcntl(journalFD, F_GETFD) >= 0,
+                @"failed preparation preserves the original live journal descriptor");
+            Check(library->changeWritingTimer == originalTimer && [originalTimer isValid] && monitorStops == 0,
+                @"failed preparation retains the timer and monitoring");
+            Check([[NSData dataWithContentsOfFile:journalPath] isEqual:initialBytes],
+                @"failed preparation leaves the original journal bytes unchanged");
+            Check(unlinkCalls == ([scenario isEqual:@"journal-unlink"] ? 1 : 0),
+                @"all earlier failures avoid journal removal");
+            if ([scenario isEqual:@"journal-unlink"]) {
+                Check([events isEqual:@[@"checkpoint-sync", @"directory-sync", @"journal-sync", @"journal-unlink"]],
+                    @"unlink denial occurs after both checkpoints synchronize");
+            } else if ([scenario isEqual:@"journal-sync"]) {
+                Check([events isEqual:@[@"checkpoint-sync", @"directory-sync", @"journal-sync"]],
+                    @"journal synchronization failure prevents unlink");
+            }
+            injectFault = NO;
+            [library->alternateDirectory release]; library->alternateDirectory = nil;
+            NSData *laterEdit = Bytes(@"\nedit after preparation refusal\n");
+            [originalWriter appendData:laterEdit];
+            NSMutableData *laterBody = [[initialBytes mutableCopy] autorelease];
+            [laterBody appendData:laterEdit];
+            [note->body release]; note->body = [laterBody copy];
+            Check([[NSData dataWithContentsOfFile:journalPath] isEqual:note->body],
+                @"the unchanged writer preserves a later edit after refusal");
+            SuccessfulPreparation(library, originalWriter, originalTimer);
+            Check(library->snapshots == 2, @"the retry captures the later edit once before journal removal");
+        } else SuccessfulPreparation(library, originalWriter, originalTimer);
+        printf("PASS: %s: %lu assertions, %lu checkpoint captures, %lu unlink attempts\n",
+            [scenario UTF8String], (unsigned long)checks, (unsigned long)library->snapshots, (unsigned long)unlinkCalls);
+        fflush(stdout);
+        if ([scenario isEqual:@"abrupt"]) _exit(73);
+        [originalWriter release]; [originalTimer release]; [library release];
+    }
+    return 0;
+}

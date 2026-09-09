@@ -1,0 +1,278 @@
+#import <Cocoa/Cocoa.h>
+#include <stdint.h>
+#include <string.h>
+
+// All routing and guard methods are extracted without modification at run time.
+// The collaborators record side effects; no application, files, or notes open.
+static NSUInteger checks, calls, releasedTokens;
+static void Check(BOOL condition, NSString *message) {
+    checks++;
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+
+typedef struct { uint64_t words[12]; } ReviewWideValue;
+@class NVApplicationController, NVBrowserSession;
+@interface ReviewToken : NSObject @end
+@implementation ReviewToken
+- (void)dealloc { releasedTokens++; [super dealloc]; }
+@end
+
+@interface ReviewTarget : NSObject {
+@public
+    NVApplicationController *owner;
+    NVBrowserSession *session;
+    ReviewToken *token;
+    BOOL throwOnTerminate;
+    NSUInteger saves;
+}
+- (void)reviewVoid;
+- (BOOL)reviewBoolean;
+- (NSInteger)reviewInteger;
+- (id)reviewObject;
+- (const void *)reviewPointer;
+- (float)reviewFloat;
+- (double)reviewDouble;
+- (NSRange)reviewRange;
+- (NSRect)reviewRect;
+- (ReviewWideValue)reviewWide;
+- (BOOL)reviewSave;
+- (void)reviewThrow;
+- (void)reviewNested;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+@end
+@interface AppController : ReviewTarget @end
+@interface NotationController : ReviewTarget
+- (id)delegate;
+@end
+
+@interface NVNoteEditingSession : NSObject {
+@public NSUInteger commits, closes;
+}
+- (void)commitPendingTextChanges;
+- (void)close;
+@end
+@implementation NVNoteEditingSession
+- (void)commitPendingTextChanges { commits++; }
+- (void)close { closes++; }
+@end
+@interface NVBackupController : NSObject { @public NSUInteger stops; }
+- (void)stop;
+@end
+@implementation NVBackupController
+- (void)stop { stops++; }
+@end
+
+@interface NVApplicationController : NSObject {
+@public
+    BOOL backupRestoreInProgress, finishingTermination, terminating;
+    NotationController *library;
+    AppController *operationBrowser, *initialBrowser;
+    NVBackupController *backupController;
+    NSMutableDictionary *editingSessions;
+}
+- (BOOL)rejectInvocationDuringBackupRestore:(NSInvocation *)invocation;
+- (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser;
+- (NSArray *)browserControllers;
+- (id)forwardTargetForSelector:(SEL)selector;
+- (void)saveWindowStates;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+@end
+@interface NVBrowserSession : NSObject {
+    NotationController *library;
+    AppController *delegate;
+}
+- (id)initWithLibrary:(NotationController *)value browser:(AppController *)browser;
+@end
+
+static NSInvocation *Invocation(id target, SEL selector) {
+    NSMethodSignature *signature = [target methodSignatureForSelector:selector];
+    Check(signature != nil, @"The production session supplies its library method signature");
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setSelector:selector];
+    return invocation;
+}
+
+@implementation ReviewTarget
+- (id)init { if ((self = [super init])) token = [ReviewToken new]; return self; }
+- (void)dealloc { [token release]; [super dealloc]; }
+- (void)reviewVoid { calls++; }
+- (BOOL)reviewBoolean { calls++; return YES; }
+- (NSInteger)reviewInteger { calls++; return (NSInteger)0x1234567812345678ULL; }
+- (id)reviewObject { calls++; return token; }
+- (const void *)reviewPointer { calls++; return &calls; }
+- (float)reviewFloat { calls++; return 1.25f; }
+- (double)reviewDouble { calls++; return 7.875; }
+- (NSRange)reviewRange { calls++; return NSMakeRange(19, 23); }
+- (NSRect)reviewRect { calls++; return NSMakeRect(3, 5, 7, 11); }
+- (ReviewWideValue)reviewWide {
+    calls++;
+    ReviewWideValue value;
+    for (NSUInteger index = 0; index < 12; index++) value.words[index] = index + 101;
+    return value;
+}
+- (BOOL)reviewSave { saves++; return YES; }
+- (void)reviewThrow { [NSException raise:@"ReviewExpectedException" format:@"Expected fixture exception"]; }
+- (void)reviewNested {
+    AppController *outer = owner->operationBrowser;
+    AppController *inner = [[[AppController alloc] init] autorelease];
+    @try { [owner performLibraryInvocation:Invocation(self, @selector(reviewThrow)) fromBrowser:inner]; }
+    @catch (NSException *exception) { Check([[exception name] isEqual:@"ReviewExpectedException"], @"Expected nested exception"); }
+    Check(owner->operationBrowser == outer, @"Nested exceptional invocation restores the outer browser context");
+}
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    Check(owner->finishingTermination, @"The checkpoint bypass is active only inside termination");
+    Check([(ReviewTarget *)session reviewSave], @"Production browser-session forwarding allows the termination checkpoint");
+    if (throwOnTerminate) [self reviewThrow];
+}
+@end
+@implementation AppController @end
+@implementation NotationController
+- (id)delegate { return owner; }
+@end
+
+@implementation NVApplicationController
+- (NSArray *)browserControllers { return @[initialBrowser]; }
+- (id)forwardTargetForSelector:(SEL)selector { return initialBrowser; }
+- (void)saveWindowStates {}
+// PRODUCTION_GUARD
+// PRODUCTION_PERFORM
+// PRODUCTION_TERMINATE
+@end
+@implementation NVBrowserSession
+- (id)initWithLibrary:(NotationController *)value browser:(AppController *)browser {
+    if ((self = [super init])) { library = [value retain]; delegate = browser; }
+    return self;
+}
+- (void)dealloc { [library release]; [super dealloc]; }
+// PRODUCTION_FORWARD
+@end
+
+static void CheckBytes(NSInvocation *invocation, const void *expected, NSUInteger length, NSString *message) {
+    NSMutableData *actual = [NSMutableData dataWithLength:length];
+    [invocation getReturnValue:[actual mutableBytes]];
+    Check(!memcmp([actual bytes], expected, length), message);
+}
+
+static void InvocationChecks(NVApplicationController *application, NVBrowserSession *session) {
+    NSArray *selectors = @[@"reviewVoid", @"reviewBoolean", @"reviewInteger", @"reviewObject", @"reviewPointer",
+        @"reviewFloat", @"reviewDouble", @"reviewRange", @"reviewRect", @"reviewWide"];
+    for (NSString *name in selectors) {
+        SEL selector = NSSelectorFromString(name);
+        NSInvocation *invocation = [Invocation(session, selector) retain];
+        NSUInteger length = [[invocation methodSignature] methodReturnLength];
+        NSMutableData *expected = [NSMutableData dataWithLength:length];
+        application->backupRestoreInProgress = NO;
+        [application performLibraryInvocation:invocation fromBrowser:application->initialBrowser];
+        if (length) [invocation getReturnValue:[expected mutableBytes]];
+        for (NSUInteger iteration = 0; iteration < 16; iteration++) {
+            NSUInteger priorCalls = calls;
+            application->backupRestoreInProgress = YES;
+            // A caller can reuse an invocation with an old nonzero return value.
+            // Drain the guard's temporary NSMutableData before reading its return.
+            @autoreleasepool { [application performLibraryInvocation:invocation fromBrowser:application->initialBrowser]; }
+            Check(calls == priorCalls, @"The paused library never receives a rejected invocation");
+            if (length) {
+                NSMutableData *zero = [NSMutableData dataWithLength:length];
+                CheckBytes(invocation, [zero bytes], length, @"The full ABI return buffer is zero after the temporary pool drains");
+            }
+            application->backupRestoreInProgress = NO;
+            [application performLibraryInvocation:invocation fromBrowser:application->initialBrowser];
+            Check(calls == priorCalls + 1, @"The same invocation reaches the library once recovery ends");
+            if (length) CheckBytes(invocation, [expected bytes], length, @"Resumption returns the original method's complete value");
+        }
+        application->backupRestoreInProgress = YES;
+        NSUInteger before = calls;
+        [application forwardInvocation:invocation];
+        Check(calls == before, @"The application action-forwarding path also rejects paused calls");
+        if (length) {
+            NSMutableData *zero = [NSMutableData dataWithLength:length];
+            CheckBytes(invocation, [zero bytes], length, @"Application forwarding initializes the same ABI return buffer");
+        }
+        [invocation release];
+    }
+    // Send real Objective-C messages through the extracted NVBrowserSession
+    // forwarding methods to exercise return-register and aggregate calling ABIs.
+    ReviewTarget *proxy = (ReviewTarget *)session;
+    NSUInteger before = calls;
+    Check(![proxy reviewBoolean] && [proxy reviewInteger] == 0 && ![proxy reviewObject] && ![proxy reviewPointer],
+        @"Actual rejected messages return false, zero, nil, and null");
+    Check([proxy reviewFloat] == 0 && [proxy reviewDouble] == 0, @"Actual floating-point returns are zero");
+    Check(NSEqualRanges([proxy reviewRange], NSMakeRange(0, 0)) && NSEqualRects([proxy reviewRect], NSZeroRect),
+        @"Actual range and rectangle returns are zero");
+    ReviewWideValue wide = [proxy reviewWide], zero = {{0}};
+    Check(!memcmp(&wide, &zero, sizeof(wide)), @"Actual 96-byte aggregate return is zero");
+    [proxy reviewVoid];
+    Check(calls == before, @"No blocked proxy message reaches the library");
+    application->backupRestoreInProgress = NO;
+    Check([proxy reviewObject] == application->library->token && [proxy reviewDouble] == 7.875,
+        @"Object and floating-point values survive live session forwarding");
+    Check(NSEqualRanges([proxy reviewRange], NSMakeRange(19, 23)), @"An aggregate survives live session forwarding");
+    [proxy reviewNested];
+    Check(application->operationBrowser == nil, @"The outer invocation restores its previous nil browser context");
+}
+
+static void RetainedInvocationChecks(NVApplicationController *application, NVBrowserSession *session) {
+    NSUInteger before = releasedTokens;
+    @autoreleasepool {
+        NSInvocation *invocation = [Invocation(session, @selector(reviewObject)) retain];
+        [invocation retainArguments];
+        application->backupRestoreInProgress = NO;
+        [application performLibraryInvocation:invocation fromBrowser:application->initialBrowser];
+        [application->library->token release];
+        application->library->token = nil;
+        Check(releasedTokens == before, @"A retained invocation owns the successful object return");
+        application->backupRestoreInProgress = YES;
+        @autoreleasepool { [application performLibraryInvocation:invocation fromBrowser:application->initialBrowser]; }
+        id object = (id)(uintptr_t)1;
+        [invocation getReturnValue:&object];
+        Check(object == nil, @"Rejection replaces a retained prior object return with nil");
+        [invocation release];
+    }
+    Check(releasedTokens == before + 1, @"Replacing or releasing the invocation releases its prior return exactly once");
+}
+
+static void TerminationChecks(NVApplicationController *application) {
+    NVNoteEditingSession *editing = [application->editingSessions objectForKey:@"fixture"];
+    for (NSNumber *exception in @[@YES, @NO]) {
+        application->initialBrowser->throwOnTerminate = [exception boolValue];
+        application->backupRestoreInProgress = YES;
+        NSUInteger before = application->library->saves;
+        BOOL caught = NO;
+        @try { [application applicationWillTerminate:nil]; }
+        @catch (NSException *failure) { caught = YES; Check([[failure name] isEqual:@"ReviewExpectedException"], @"Expected termination exception"); }
+        Check(caught == [exception boolValue], @"Termination propagates only the injected exception");
+        Check(application->library->saves == before + 1, @"Termination invokes its checkpoint once");
+        Check(!application->finishingTermination && application->backupRestoreInProgress && application->terminating,
+            @"Both exceptional and normal unwind close the bypass and preserve recovery and termination state");
+        Check(![(ReviewTarget *)application->initialBrowser->session reviewSave], @"A later session call is rejected after termination returns");
+        Check(application->library->saves == before + 1, @"No later checkpoint reaches the library through a leaked bypass");
+    }
+    Check(editing->commits == 2 && editing->closes == 1 && application->backupController->stops == 2,
+        @"Exceptional termination stops before close; the next attempt repeats commit and completes close");
+}
+
+int main(void) {
+    @autoreleasepool {
+        NVApplicationController *application = [NVApplicationController new];
+        application->library = [NotationController new];
+        application->initialBrowser = [AppController new];
+        application->backupController = [NVBackupController new];
+        application->editingSessions = [NSMutableDictionary new];
+        [application->editingSessions setObject:[[[NVNoteEditingSession alloc] init] autorelease] forKey:@"fixture"];
+        NVBrowserSession *session = [[NVBrowserSession alloc] initWithLibrary:application->library browser:application->initialBrowser];
+        application->library->owner = application;
+        application->initialBrowser->owner = application;
+        application->initialBrowser->session = session;
+        InvocationChecks(application, session);
+        RetainedInvocationChecks(application, session);
+        TerminationChecks(application);
+        [session release];
+        [application->library release];
+        [application->initialBrowser release];
+        [application->backupController release];
+        [application->editingSessions release];
+        [application release];
+        printf("PASS: %lu invocation, object-lifetime, browser-context, and termination assertions\n", (unsigned long)checks);
+    }
+    return 0;
+}

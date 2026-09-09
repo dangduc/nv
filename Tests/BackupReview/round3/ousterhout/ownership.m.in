@@ -1,0 +1,251 @@
+#import <Cocoa/Cocoa.h>
+
+// This file supplies recording collaborators. Methods marked PRODUCTION below
+// are copied from the current application coordinator on each run.
+static NSUInteger checks, browserFinishes, sessionCommits, sessionCloses, preparedCloses;
+static NSUInteger ordinaryLibraryCloses, preparedLibraryCloses, preferenceCalls, bookmarkCalls;
+static NSUInteger routedCalls, checkpointCalls, colorCalls, terminationCalls;
+static BOOL throwDuringTermination;
+static NSMutableArray *events;
+static void Check(BOOL success, NSString *message) {
+    checks++;
+    if (!success) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+
+@class NVApplicationController, AppController;
+static NVApplicationController *owner;
+
+@interface NVNoteEditingSession : NSObject
+- (void)close;
+- (void)closeWithoutCommitting;
+- (void)commitPendingTextChanges;
+@end
+@implementation NVNoteEditingSession
+- (void)close { sessionCloses++; [self commitPendingTextChanges]; }
+- (void)closeWithoutCommitting { preparedCloses++; }
+- (void)commitPendingTextChanges { sessionCommits++; }
+@end
+
+@interface NotationController : NSObject { @public id delegate; NSString *name; }
+- (id)initWithName:(NSString *)value;
+- (void)setDelegate:(id)value;
+- (void)setUndoManager:(id)value;
+- (void)filterNotesFromString:(NSString *)query;
+- (void)closeAllResources;
+- (void)finishPreparedBackupRestore;
+- (id)notationPrefs;
+- (NSUInteger)fixtureCommand;
+- (BOOL)flushAllNoteChanges;
+- (void)nestedCall;
+- (void)throwingCall;
+@end
+
+@interface AppController : NSObject { @public NotationController *attached; NSString *name; BOOL lastFinish; }
+- (id)initWithName:(NSString *)value;
+- (void)finishEditing;
+- (void)attachLibrary:(NotationController *)library finishingOldLibrary:(BOOL)finish;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+- (NSUInteger)fixtureCommand;
+- (void)setSystemColorScheme:(id)sender;
+@end
+
+@interface NVBackupController : NSObject { @public NotationController *currentLibrary; NSUInteger stops; }
+- (id)initWithApplicationController:(id)application;
+- (void)setLibrary:(NotationController *)library;
+- (void)stop;
+@end
+@implementation NVBackupController
+- (id)initWithApplicationController:(id)application { return [super init]; }
+- (void)setLibrary:(NotationController *)library { currentLibrary = library; [events addObject:@"backup-attach"]; }
+- (void)stop { stops++; }
+@end
+
+@interface FixtureBookmarks : NSObject
+- (void)setDataSource:(id)library;
+@end
+@implementation FixtureBookmarks
+- (void)setDataSource:(id)library { bookmarkCalls++; [events addObject:@"bookmarks"]; }
+@end
+@interface GlobalPrefs : NSObject
++ (id)defaultPrefs;
+- (void)setNotationPrefs:(id)prefs sender:(id)sender;
+- (FixtureBookmarks *)bookmarksController;
+@end
+
+@interface NVApplicationController : NSObject {
+@public
+    AppController *initialBrowser, *lastActiveBrowser, *operationBrowser;
+    NSMutableArray *browsers;
+    NotationController *library;
+    NSMutableDictionary *editingSessions;
+    NVBackupController *backupController;
+    BOOL terminating, finishingTermination, restoring, backupRestoreInProgress;
+}
+- (NSArray *)browserControllers;
+- (AppController *)activeBrowser;
+- (void)setLibrary:(NotationController *)newLibrary;
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
+- (void)performLibraryInvocation:(NSInvocation *)invocation fromBrowser:(AppController *)browser;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+- (void)saveWindowStates;
+- (id)forwardTargetForSelector:(SEL)selector;
+- (BOOL)rejectInvocationDuringBackupRestore:(NSInvocation *)invocation;
+@end
+
+static NSInvocation *Invocation(id target, SEL selector) {
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:selector]];
+    [invocation setSelector:selector];
+    return invocation;
+}
+static NSUInteger InvokeCommand(NVApplicationController *app, BOOL libraryCall, AppController *browser) {
+    NSInvocation *invocation = Invocation(libraryCall ? (id)app->library : (id)browser, @selector(fixtureCommand));
+    NSUInteger value = 99;
+    [invocation setReturnValue:&value];
+    if (libraryCall) [app performLibraryInvocation:invocation fromBrowser:browser];
+    else [app forwardInvocation:invocation];
+    [invocation getReturnValue:&value];
+    return value;
+}
+
+@implementation NotationController
+- (id)initWithName:(NSString *)value { if ((self = [super init])) name = [value copy]; return self; }
+- (void)setDelegate:(id)value { delegate = value; [events addObject:value ? @"new-delegate" : @"old-delegate-detached"]; }
+- (void)setUndoManager:(id)value { [events addObject:@"new-undo"]; }
+- (void)filterNotesFromString:(NSString *)query { [events addObject:@"new-filter"]; }
+- (void)closeAllResources { ordinaryLibraryCloses++; Check(delegate == nil, @"old delegate is detached before ordinary closure"); }
+- (void)finishPreparedBackupRestore { preparedLibraryCloses++; Check(delegate == nil, @"old delegate is detached before prepared closure"); }
+- (id)notationPrefs { return self; }
+- (NSUInteger)fixtureCommand { routedCalls++; return 42; }
+- (BOOL)flushAllNoteChanges { checkpointCalls++; return YES; }
+- (void)nestedCall {
+    AppController *outer = owner->operationBrowser;
+    Check(outer == [owner->browsers objectAtIndex:0], @"outer call owns the originating browser");
+    NSInvocation *inner = Invocation(self, @selector(throwingCall));
+    @try {
+        [owner performLibraryInvocation:inner fromBrowser:[owner->browsers objectAtIndex:1]];
+        Check(NO, @"nested collaborator must throw");
+    } @catch (NSException *exception) {
+        Check([[exception name] isEqual:@"FixtureException"], @"the nested exception propagates unchanged");
+    }
+    Check(owner->operationBrowser == outer, @"nested failure restores outer browser ownership");
+}
+- (void)throwingCall {
+    Check(owner->operationBrowser == [owner->browsers objectAtIndex:1], @"nested invocation owns its distinct browser");
+    [NSException raise:@"FixtureException" format:@"bounded fixture"];
+}
+- (void)dealloc { [name release]; [super dealloc]; }
+@end
+
+@implementation AppController
+- (id)initWithName:(NSString *)value { if ((self = [super init])) name = [value copy]; return self; }
+- (void)finishEditing { browserFinishes++; }
+- (void)attachLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish {
+    attached = newLibrary; lastFinish = finish; [events addObject:name];
+    Check(newLibrary == owner->library && newLibrary->delegate == owner, @"browser attachment observes the coordinator's selected library and delegate");
+    Check([owner->editingSessions count] == 0, @"old editing sessions are cleared before browser attachment");
+}
+- (NSUInteger)fixtureCommand { routedCalls++; return self == owner->lastActiveBrowser ? 81 : 17; }
+- (void)setSystemColorScheme:(id)sender { colorCalls++; }
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    terminationCalls++;
+    Check(owner->terminating && owner->finishingTermination, @"termination owns its temporary checkpoint permission");
+    NSInvocation *checkpoint = Invocation(owner->library, @selector(flushAllNoteChanges));
+    [owner performLibraryInvocation:checkpoint fromBrowser:self];
+    BOOL saved = NO; [checkpoint getReturnValue:&saved];
+    Check(saved, @"paused recovery permits its termination checkpoint");
+    Check(InvokeCommand(owner, NO, owner->lastActiveBrowser) == 0, @"termination permission does not enable forwarded editor commands");
+    if (throwDuringTermination) [NSException raise:@"FixtureTermination" format:@"bounded fixture"];
+}
+- (void)dealloc { [name release]; [super dealloc]; }
+@end
+
+@implementation GlobalPrefs
++ (id)defaultPrefs { static GlobalPrefs *prefs; if (!prefs) prefs = [self new]; return prefs; }
+- (FixtureBookmarks *)bookmarksController { static FixtureBookmarks *bookmarks; if (!bookmarks) bookmarks = [FixtureBookmarks new]; return bookmarks; }
+- (void)setNotationPrefs:(id)prefs sender:(id)sender {
+    preferenceCalls++; [events addObject:@"preferences"];
+    Check(owner->backupRestoreInProgress && owner->restoring, @"preference callbacks remain inside the restore guard");
+    for (AppController *browser in owner->browsers)
+        Check(browser->attached == prefs && !browser->lastFinish, @"every visible browser is attached before restored preference callbacks");
+    Check(owner->initialBrowser->attached == prefs && !owner->initialBrowser->lastFinish, @"closed initial browser is attached before restored preference callbacks");
+    Check(InvokeCommand(owner, YES, owner->lastActiveBrowser) == 0, @"nested preference callback cannot mutate the replacement library through command forwarding");
+}
+@end
+
+@implementation NVApplicationController
+- (id)init {
+    if ((self = [super init])) {
+        initialBrowser = [[AppController alloc] initWithName:@"initial-attach"];
+        browsers = [[NSMutableArray alloc] initWithObjects:
+            [[[AppController alloc] initWithName:@"first-attach"] autorelease],
+            [[[AppController alloc] initWithName:@"second-attach"] autorelease], nil];
+        lastActiveBrowser = [browsers objectAtIndex:1];
+        library = [[NotationController alloc] initWithName:@"original"];
+        editingSessions = [NSMutableDictionary new];
+    }
+    return self;
+}
+- (NSArray *)browserControllers { return [[browsers copy] autorelease]; }
+- (AppController *)activeBrowser { return lastActiveBrowser; }
+- (void)saveWindowStates { [events addObject:@"save-window-state"]; }
+// PRODUCTION_ATTACH
+// PRODUCTION_INVOKE
+// PRODUCTION_TERMINATE
+// PRODUCTION_FORWARD
+- (void)dealloc {
+    [initialBrowser release]; [browsers release]; [library release];
+    [editingSessions release]; [backupController release]; [super dealloc];
+}
+@end
+
+static void SeedSessions(void) {
+    [owner->editingSessions setObject:[[[NVNoteEditingSession alloc] init] autorelease] forKey:@"one"];
+    [owner->editingSessions setObject:[[[NVNoteEditingSession alloc] init] autorelease] forKey:@"two"];
+}
+int main(void) {
+    @autoreleasepool {
+        events = [NSMutableArray new]; owner = [NVApplicationController new]; SeedSessions();
+        NotationController *ordinary = [[[NotationController alloc] initWithName:@"ordinary"] autorelease];
+        [owner setLibrary:ordinary];
+        Check(owner->library == ordinary && owner->backupController->currentLibrary == ordinary, @"ordinary switch updates the shared library and backup owner");
+        Check(browserFinishes == 2 && sessionCloses == 2 && sessionCommits == 2 && preparedCloses == 0, @"ordinary switching finishes browsers and commits all cached sessions");
+        Check(ordinaryLibraryCloses == 1 && preparedLibraryCloses == 0 && preferenceCalls == 0, @"ordinary switching uses the normal resource close contract");
+        Check(owner->initialBrowser->attached == ordinary && owner->initialBrowser->lastFinish, @"closed initial browser follows ordinary replacement");
+
+        [events removeAllObjects]; SeedSessions();
+        NotationController *restored = [[[NotationController alloc] initWithName:@"restored"] autorelease];
+        owner->restoring = owner->backupRestoreInProgress = YES;
+        [owner setLibrary:restored];
+        Check(owner->library == ordinary && [events count] == 0 && [owner->editingSessions count] == 2, @"public library replacement cannot cross an active restore transition");
+        [owner setLibrary:restored finishingOldLibrary:NO];
+        Check(owner->library == restored && owner->backupController->currentLibrary == restored, @"prepared switch attaches the one shared replacement library to backup ownership");
+        Check(browserFinishes == 2 && sessionCloses == 2 && sessionCommits == 2 && preparedCloses == 2, @"prepared replacement performs no second browser or session commit");
+        Check(preparedLibraryCloses == 1 && ordinaryLibraryCloses == 1 && preferenceCalls == 1 && bookmarkCalls == 2, @"prepared replacement selects the prepared close and preference contracts exactly once");
+        Check([events isEqual:@[@"old-delegate-detached", @"new-delegate", @"new-undo", @"new-filter", @"first-attach", @"second-attach", @"initial-attach", @"preferences", @"bookmarks", @"backup-attach"]], @"replacement attachment completes before preference and backup callbacks");
+        Check(InvokeCommand(owner, NO, owner->lastActiveBrowser) == 0 && routedCalls == 0, @"editor commands remain blocked after attachment until the restore owner releases its guard");
+        owner->restoring = owner->backupRestoreInProgress = NO;
+        Check(InvokeCommand(owner, NO, owner->lastActiveBrowser) == 81, @"ordinary forwarded action routes to the active browser after recovery");
+        Check(InvokeCommand(owner, YES, owner->lastActiveBrowser) == 42, @"ordinary browser invocation reaches the replacement library after recovery");
+        NSInvocation *color = Invocation(owner->lastActiveBrowser, @selector(setSystemColorScheme:));
+        id sender = owner; [color setArgument:&sender atIndex:2]; [owner forwardInvocation:color];
+        Check(colorCalls == 2, @"ordinary global display action still reaches each visible browser");
+
+        owner->operationBrowser = owner->initialBrowser;
+        [owner performLibraryInvocation:Invocation(restored, @selector(nestedCall)) fromBrowser:[owner->browsers objectAtIndex:0]];
+        Check(owner->operationBrowser == owner->initialBrowser, @"outer invocation restores the preexisting origin after a nested exception");
+        owner->backupRestoreInProgress = YES;
+        Check(InvokeCommand(owner, YES, owner->lastActiveBrowser) == 0 && owner->operationBrowser == owner->initialBrowser, @"rejected invocation leaves the previous operation owner intact");
+        SeedSessions(); throwDuringTermination = YES;
+        @try { [owner applicationWillTerminate:nil]; Check(NO, @"fixture termination must throw"); }
+        @catch (NSException *exception) { Check([[exception name] isEqual:@"FixtureTermination"], @"termination exception propagates after cleanup"); }
+        Check(owner->terminating && !owner->finishingTermination && owner->backupRestoreInProgress, @"exception closes checkpoint permission while preserving the recovery boundary");
+        Check(owner->operationBrowser == owner->initialBrowser && checkpointCalls == 1, @"termination checkpoint restores its operation owner");
+        Check(InvokeCommand(owner, YES, owner->lastActiveBrowser) == 0, @"failed termination does not enable later library commands");
+        throwDuringTermination = NO; [owner applicationWillTerminate:nil];
+        Check(terminationCalls == 2 && checkpointCalls == 2 && !owner->finishingTermination && owner->backupController->stops == 2, @"a later termination attempt reopens permission only for its own callback");
+        Check(sessionCloses == 4 && sessionCommits == 8, @"successful termination still commits and closes cached editing sessions");
+        printf("PASS: %lu ownership assertions; extracted application methods with recording browser, library, session, preference and backup collaborators\n", (unsigned long)checks);
+        [owner release]; [events release];
+    }
+    return 0;
+}
