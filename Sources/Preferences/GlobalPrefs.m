@@ -64,6 +64,9 @@ static NSString *HighlightSearchTermsKey = @"HighlightSearchTerms";
 static NSString *SearchTermHighlightColorKey = @"SearchTermHighlightColor";
 static NSString *ForegroundTextColorKey = @"ForegroundTextColor";
 static NSString *BackgroundTextColorKey = @"BackgroundTextColor";
+static NSString *DarkSearchTermHighlightColorKey = @"DarkSearchTermHighlightColor";
+static NSString *DarkForegroundTextColorKey = @"DarkForegroundTextColor";
+static NSString *DarkBackgroundTextColorKey = @"DarkBackgroundTextColor";
 static NSString *UseSoftTabsKey = @"UseSoftTabs";
 static NSString *NumberOfSpacesInTabKey = @"NumberOfSpacesInTab";
 static NSString *MakeURLsClickableKey = @"MakeURLsClickable";
@@ -176,6 +179,9 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			
 			[NSArchiver archivedDataWithRootObject:
 			 [NSColor colorWithCalibratedRed:0.945 green:0.702 blue:0.702 alpha:1.0f]], SearchTermHighlightColorKey,
+			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:0.90 alpha:1.0]], DarkForegroundTextColorKey,
+			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:0.10 alpha:1.0]], DarkBackgroundTextColorKey,
+			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedRed:0.38 green:0.28 blue:0.10 alpha:1.0]], DarkSearchTermHighlightColorKey,
 			
 			[NSNumber numberWithFloat:[NSFont smallSystemFontSize]], TableFontSizeKey, 
 			[NSArray arrayWithObjects:NoteTitleColumnString, NoteDateModifiedColumnString, nil], NoteAttributesVisibleKey,
@@ -501,10 +507,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 
 - (void)setSearchTermHighlightColor:(NSColor*)color sender:(id)sender {
 	if (color) {
-		
-		[searchTermHighlightAttributes release];
-		searchTermHighlightAttributes = nil;
-		
 		[defaults setObject:[NSArchiver archivedDataWithRootObject:color] forKey:SearchTermHighlightColorKey];
 		
 		SEND_CALLBACKS();
@@ -528,13 +530,28 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 
 - (NSDictionary*)searchTermHighlightAttributes {
-	NSColor *highlightColor = nil;
-	
-	if (!searchTermHighlightAttributes && (highlightColor = [self searchTermHighlightColorRaw:NO])) {
-		searchTermHighlightAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:highlightColor, NSBackgroundColorAttributeName, nil] retain];
-	}
-	return searchTermHighlightAttributes;
-	
+    return [self searchTermHighlightAttributesForDarkAppearance:NO backgroundColor:[self backgroundTextColor]];
+}
+
+- (void)setDarkSearchTermHighlightColor:(NSColor*)color sender:(id)sender {
+    if (color) {
+        [defaults setObject:[NSArchiver archivedDataWithRootObject:color] forKey:DarkSearchTermHighlightColorKey];
+        SEND_CALLBACKS();
+    }
+}
+
+- (NSColor*)darkSearchTermHighlightColor {
+    NSData *data = [defaults dataForKey:DarkSearchTermHighlightColorKey];
+    return data ? [NSUnarchiver unarchiveObjectWithData:data] : nil;
+}
+
+- (NSDictionary*)searchTermHighlightAttributesForDarkAppearance:(BOOL)dark backgroundColor:(NSColor*)background {
+    NSColor *color = dark ? [self darkSearchTermHighlightColor] : [self searchTermHighlightColorRaw:YES];
+    if (!color) return nil;
+    // Temporary backgrounds use an opaque blend against this editor's actual background.
+    NSColor *opaque = [[color colorUsingColorSpaceName:NSCalibratedRGBColorSpace] colorWithAlphaComponent:1.0];
+    NSColor *highlight = [opaque blendedColorWithFraction:1.0 - [color alphaComponent] ofColor:background];
+    return highlight ? [NSDictionary dictionaryWithObject:highlight forKey:NSBackgroundColorAttributeName] : nil;
 }
 
 - (void)setUseFinderTags:(id)sender {
@@ -732,12 +749,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 - (void)setBackgroundTextColor:(NSColor*)aColor sender:(id)sender {
 	
 	if (aColor) {
-		//highlight color is based on blended-alpha version of background color
-		//(because nslayoutmanager temporary attributes don't seem to like alpha components)
-		//so it's necessary to invalidate the effective cache of that computed highlight color
-		[searchTermHighlightAttributes release];
-		searchTermHighlightAttributes = nil;
-
 		[defaults setObject:[NSArchiver archivedDataWithRootObject:aColor] forKey:BackgroundTextColorKey];
 	
 		SEND_CALLBACKS();
@@ -751,6 +762,30 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	if (theData) return (NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
 
 	return nil;	
+}
+
+- (void)setDarkForegroundTextColor:(NSColor*)color sender:(id)sender {
+    if (color) {
+        [defaults setObject:[NSArchiver archivedDataWithRootObject:color] forKey:DarkForegroundTextColorKey];
+        SEND_CALLBACKS();
+    }
+}
+
+- (NSColor*)darkForegroundTextColor {
+    NSData *data = [defaults dataForKey:DarkForegroundTextColorKey];
+    return data ? [NSUnarchiver unarchiveObjectWithData:data] : nil;
+}
+
+- (void)setDarkBackgroundTextColor:(NSColor*)color sender:(id)sender {
+    if (color) {
+        [defaults setObject:[NSArchiver archivedDataWithRootObject:color] forKey:DarkBackgroundTextColorKey];
+        SEND_CALLBACKS();
+    }
+}
+
+- (NSColor*)darkBackgroundTextColor {
+    NSData *data = [defaults dataForKey:DarkBackgroundTextColorKey];
+    return data ? [NSUnarchiver unarchiveObjectWithData:data] : nil;
 }
 
 - (BOOL)tableColumnsShowPreview {

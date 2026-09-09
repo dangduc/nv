@@ -259,6 +259,10 @@ Automatic macOS window tabbing is disabled.
 The notes list inherits the window appearance and uses system colors for backgrounds, text, and selection.
 Cached previews retain dynamic text colors. Cached tag images use the resolved drawing color as part of their key.
 The editor can follow system appearance or use configured colors.
+User Scheme keeps separate light and dark palettes for foreground, background, and search highlights.
+Each browser selects its palette from its effective macOS appearance. The User Scheme menu selection remains the same.
+The original color preference keys store the light palette; separate dark keys preserve both sets independently.
+Search highlights blend against each browser's background and remain local to its layout manager.
 [LinkingEditor](Sources/Editor/LinkingEditor.m) applies display colors and search highlights through each editor's layout manager.
 An appearance change must not rewrite shared note content.
 

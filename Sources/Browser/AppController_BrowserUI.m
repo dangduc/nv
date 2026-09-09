@@ -394,15 +394,26 @@
 }
 - (void)browserAppearanceChanged {
     if (!awakenedViews) return;
-    if (userScheme == 3) {
+    if (userScheme == 2 || userScheme == 3) {
         void (^update)(void) = ^{
-            [self setForegrndColor:[[NSColor textColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
-            [self setBackgrndColor:[[NSColor textBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
+            BOOL dark = [self usesDarkUserColorScheme];
+            NSColor *foreground = userScheme == 2 ? (dark ? [prefsController darkForegroundTextColor] : [prefsController foregroundTextColor]) : [NSColor textColor];
+            NSColor *background = userScheme == 2 ? (dark ? [prefsController darkBackgroundTextColor] : [prefsController backgroundTextColor]) : [NSColor textBackgroundColor];
+            [self setForegrndColor:[foreground colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
+            [self setBackgrndColor:[background colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
             [self updateColorScheme];
         };
         if (@available(macOS 10.14, *)) [[window effectiveAppearance] performAsCurrentDrawingAppearance:update];
         else update();
     }
     [notesTableView setNeedsDisplay:YES];
+}
+- (BOOL)usesDarkUserColorScheme {
+    if (userScheme != 2) return NO;
+    if (@available(macOS 10.14, *)) {
+        NSAppearance *appearance = [window effectiveAppearance] ?: [NSApp effectiveAppearance];
+        return [[appearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]] isEqual:NSAppearanceNameDarkAqua];
+    }
+    return NO;
 }
 @end

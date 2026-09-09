@@ -321,4 +321,5 @@ void outletObjectAwoke(id sender);
 - (IBAction)applyNoteMetadata:(id)sender;
 - (IBAction)setSystemColorScheme:(id)sender;
 - (void)browserAppearanceChanged;
+- (BOOL)usesDarkUserColorScheme;
 @end

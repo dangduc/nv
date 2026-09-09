@@ -94,6 +94,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     [window makeFirstResponder:field];
     // Visual preferences are global; changing libraries remains application-owned.
     for (NSString *selector in @[@"setForegroundTextColor:sender:", @"setBackgroundTextColor:sender:",
+        @"setDarkForegroundTextColor:sender:", @"setDarkBackgroundTextColor:sender:",
         @"setTableFontSize:sender:", @"setTableColumnsShowPreview:sender:", @"addTableColumn:sender:", @"removeTableColumn:sender:"]) {
         [prefsController registerForSettingChange:NSSelectorFromString(selector) withTarget:self];
     }

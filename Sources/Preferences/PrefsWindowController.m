@@ -26,6 +26,55 @@
 
 #define SYSTEM_LIST_FONT_SIZE 12.0f
 
+@interface PrefsWindowController ()
+- (void)configureUserSchemeControls;
+- (void)refreshUserSchemeControls;
+@end
+
+static NSTextField *NVLabelBesideColorWell(NSColorWell *well) {
+    for (NSView *view in [[well superview] subviews]) {
+        if ([view isKindOfClass:[NSTextField class]] &&
+            NSMaxX([view frame]) <= NSMinX([well frame]) &&
+            fabs(NSMidY([view frame]) - NSMidY([well frame])) < 8.0) return (NSTextField *)view;
+    }
+    return nil;
+}
+
+static NSTextField *NVSchemeLabel(NSString *title, NSRect frame) {
+    NSTextField *label = [[[NSTextField alloc] initWithFrame:frame] autorelease];
+    [label setEditable:NO];
+    [label setSelectable:NO];
+    [label setBordered:NO];
+    [label setDrawsBackground:NO];
+    [label setFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]];
+    [label setTextColor:[NSColor labelColor]];
+    [label setStringValue:title];
+    return label;
+}
+
+static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NSArray *labels, NSArray *wells) {
+    NSBox *group = [[[NSBox alloc] initWithFrame:frame] autorelease];
+    [group setTitle:title];
+    [group setTitleFont:[NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]]];
+    [group setContentViewMargins:NSMakeSize(12.0, 8.0)];
+    [pane addSubview:group];
+    NSView *content = [group contentView];
+    CGFloat wellX = NSWidth([content bounds]) - 60.0;
+    for (NSUInteger index = 0; index < [wells count]; index++) {
+        NSColorWell *well = [wells objectAtIndex:index];
+        NSTextField *label = [labels objectAtIndex:index];
+        CGFloat rowY = NSHeight([content bounds]) - 26.0 - 30.0 * index;
+        // The arrays retain the nib controls while they move into the group.
+        [content addSubview:label];
+        [label setAutoresizingMask:NSViewNotSizable];
+        [label setAlignment:NSRightTextAlignment];
+        [label setFrame:NSMakeRect(0.0, rowY + 3.0, wellX - 8.0, 20.0)];
+        [content addSubview:well];
+        [well setAutoresizingMask:NSViewNotSizable];
+        [well setFrame:NSMakeRect(wellX, rowY, 52.0, 24.0)];
+    }
+}
+
 @implementation PrefsWindowController
 
 - (id)init {
@@ -37,7 +86,12 @@
 		[prefsController registerWithTarget:self forChangesInSettings:
 		 @selector(resolveNoteBodyFontFromNotationPrefsFromSender:), 
 //		 @selector(setCheckSpellingAsYouType:sender:), 
-		 @selector(setConfirmNoteDeletion:sender:), nil];
+		 @selector(setConfirmNoteDeletion:sender:),
+         @selector(setForegroundTextColor:sender:), @selector(setBackgroundTextColor:sender:),
+         @selector(setSearchTermHighlightColor:sender:),
+         @selector(setDarkForegroundTextColor:sender:), @selector(setDarkBackgroundTextColor:sender:),
+         @selector(setDarkSearchTermHighlightColor:sender:),
+         @selector(setShouldHighlightSearchTerms:sender:), nil];
     }
     return self;
 }
@@ -59,6 +113,7 @@
 		}
 	}
 	[checkSpellingButton setState:[prefsController checkSpellingAsYouType]];
+    [self refreshUserSchemeControls];
     [backupPreferencesViewController refreshControls];
 	if (![window isVisible])
 		[window center];
@@ -162,7 +217,7 @@
     }
     [centerStyle setMaximumLineHeight:lh];
 	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font ? font : [NSFont systemFontOfSize:12.0],
-		NSFontAttributeName, [NSColor blackColor], NSForegroundColorAttributeName, centerStyle, NSParagraphStyleAttributeName, nil];
+		NSFontAttributeName, [NSColor labelColor], NSForegroundColorAttributeName, centerStyle, NSParagraphStyleAttributeName, nil];
 
 	NSString *fontNameAndSize = font ? [NSString stringWithFormat:@"%@ %g", [font fontName], [font pointSize]] : @"Unknown";
 	NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:fontNameAndSize attributes:attributes];
@@ -186,6 +241,15 @@
 }
 - (IBAction)changedSearchHighlightColorWell:(id)sender {
 	[prefsController setSearchTermHighlightColor:[searchHighlightColorWell color] sender:self];
+}
+- (IBAction)changedDarkBackgroundTextColorWell:(id)sender {
+    [prefsController setDarkBackgroundTextColor:[darkBackgroundColorWell color] sender:self];
+}
+- (IBAction)changedDarkForegroundTextColorWell:(id)sender {
+    [prefsController setDarkForegroundTextColor:[darkForegroundColorWell color] sender:self];
+}
+- (IBAction)changedDarkSearchHighlightColorWell:(id)sender {
+    [prefsController setDarkSearchTermHighlightColor:[darkSearchHighlightColorWell color] sender:self];
 }
 - (IBAction)changedHighlightSearchTerms:(id)sender {
 	[prefsController setShouldHighlightSearchTerms:[highlightSearchTermsButton state] sender:self];
@@ -279,6 +343,7 @@
 	} else if ([selectorString isEqualToString:SEL_STR(setConfirmNoteDeletion:sender:)]) {
 		[confirmDeletionButton setState:[prefsController confirmNoteDeletion]];
 	}
+    [self refreshUserSchemeControls];
 }
 
 - (NSMenu*)directorySelectionMenu {
@@ -419,6 +484,98 @@
     [item release];
 }
 
+- (void)configureUserSchemeControls {
+    if (darkForegroundColorWell) return;
+
+    // Reuse the localized nib controls. All preference panes use the same two groups.
+    NSArray *originalViews = [[fontsColorsView subviews] copy];
+    NSTextField *foregroundLabel = NVLabelBesideColorWell(foregroundColorWell);
+    NSTextField *backgroundLabel = NVLabelBesideColorWell(backgroundColorWell);
+    NSString *foregroundTitle = foregroundLabel ? [foregroundLabel stringValue] : NSLocalizedString(@"Foreground Text:", nil);
+    NSString *backgroundTitle = backgroundLabel ? [backgroundLabel stringValue] : NSLocalizedString(@"Background:", nil);
+    NSString *searchTitle = [[[highlightSearchTermsButton title] copy] autorelease];
+    [highlightSearchTermsButton setTitle:NSLocalizedString(@"Highlight Search Terms", nil)];
+    if (!foregroundLabel) foregroundLabel = NVSchemeLabel(foregroundTitle, NSZeroRect);
+    if (!backgroundLabel) backgroundLabel = NVSchemeLabel(backgroundTitle, NSZeroRect);
+
+    CGFloat lowerControlsTop = NSMaxY([showGridButton frame]);
+    NSTextField *appearanceLabel = nil;
+    for (NSView *view in originalViews) {
+        if ([view isKindOfClass:[NSTextField class]] &&
+            NSMinY([view frame]) >= lowerControlsTop &&
+            NSMaxY([view frame]) <= NSMinY([backgroundColorWell frame])) {
+            appearanceLabel = (NSTextField *)view;
+            break;
+        }
+    }
+    if (!appearanceLabel) {
+        appearanceLabel = NVSchemeLabel(@"", NSZeroRect);
+        [fontsColorsView addSubview:appearanceLabel];
+    }
+
+    CGFloat groupHeight = 132.0;
+    CGFloat darkGroupY = lowerControlsTop + 40.0;
+    CGFloat lightGroupY = darkGroupY + groupHeight + 12.0;
+    CGFloat checkboxY = lightGroupY + groupHeight + 12.0;
+    CGFloat fontOffset = checkboxY + 32.0 - NSMinY([bodyTextFontField frame]);
+    CGFloat oldSearchTop = NSMaxY([searchHighlightColorWell frame]);
+    NSSize paneSize = [fontsColorsView frame].size;
+    paneSize.height += fontOffset;
+    [fontsColorsView setAutoresizesSubviews:NO];
+    [fontsColorsView setFrameSize:paneSize];
+    for (NSView *view in originalViews) {
+        if (NSMinY([view frame]) > oldSearchTop) {
+            NSRect frame = [view frame];
+            frame.origin.y += fontOffset;
+            [view setFrame:frame];
+        }
+    }
+    [fontsColorsView setAutoresizesSubviews:YES];
+    [highlightSearchTermsButton setFrame:NSMakeRect(24.0, checkboxY, paneSize.width - 48.0, 18.0)];
+
+    [appearanceLabel setStringValue:NSLocalizedString(@"User Scheme follows the macOS appearance.\nEdit its light and dark colors independently.", nil)];
+    [appearanceLabel setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
+    [appearanceLabel setTextColor:[NSColor secondaryLabelColor]];
+    [[appearanceLabel cell] setWraps:YES];
+    [[appearanceLabel cell] setScrollable:NO];
+    [appearanceLabel setFrame:NSMakeRect(24.0, lowerControlsTop + 6.0, paneSize.width - 48.0, 28.0)];
+
+    darkSearchHighlightColorWell = [[[NSColorWell alloc] initWithFrame:NSZeroRect] autorelease];
+    darkForegroundColorWell = [[[NSColorWell alloc] initWithFrame:NSZeroRect] autorelease];
+    darkBackgroundColorWell = [[[NSColorWell alloc] initWithFrame:NSZeroRect] autorelease];
+    NSArray *lightWells = [NSArray arrayWithObjects:searchHighlightColorWell, foregroundColorWell, backgroundColorWell, nil];
+    NSArray *darkWells = [NSArray arrayWithObjects:darkSearchHighlightColorWell, darkForegroundColorWell, darkBackgroundColorWell, nil];
+    NSArray *lightLabels = [NSArray arrayWithObjects:NVSchemeLabel(searchTitle, NSZeroRect), foregroundLabel, backgroundLabel, nil];
+    NSArray *darkLabels = [NSArray arrayWithObjects:NVSchemeLabel(searchTitle, NSZeroRect),
+                          NVSchemeLabel(foregroundTitle, NSZeroRect), NVSchemeLabel(backgroundTitle, NSZeroRect), nil];
+    for (NSColorWell *well in darkWells) [well setTarget:self];
+    [darkSearchHighlightColorWell setAction:@selector(changedDarkSearchHighlightColorWell:)];
+    [darkForegroundColorWell setAction:@selector(changedDarkForegroundTextColorWell:)];
+    [darkBackgroundColorWell setAction:@selector(changedDarkBackgroundTextColorWell:)];
+
+    [searchHighlightColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Light Search Highlight", nil)];
+    [foregroundColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Light Foreground Text", nil)];
+    [backgroundColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Light Background", nil)];
+    [darkSearchHighlightColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Dark Search Highlight", nil)];
+    [darkForegroundColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Dark Foreground Text", nil)];
+    [darkBackgroundColorWell setAccessibilityLabel:NSLocalizedString(@"User Scheme Dark Background", nil)];
+    NVAddUserSchemeGroup(fontsColorsView, NSLocalizedString(@"User Scheme — Light", nil),
+                         NSMakeRect(20.0, lightGroupY, paneSize.width - 40.0, groupHeight), lightLabels, lightWells);
+    NVAddUserSchemeGroup(fontsColorsView, NSLocalizedString(@"User Scheme — Dark", nil),
+                         NSMakeRect(20.0, darkGroupY, paneSize.width - 40.0, groupHeight), darkLabels, darkWells);
+    [originalViews release];
+}
+
+- (void)refreshUserSchemeControls {
+    [searchHighlightColorWell setColor:[prefsController searchTermHighlightColorRaw:YES]];
+    [foregroundColorWell setColor:[prefsController foregroundTextColor]];
+    [backgroundColorWell setColor:[prefsController backgroundTextColor]];
+    [darkSearchHighlightColorWell setColor:[prefsController darkSearchTermHighlightColor]];
+    [darkForegroundColorWell setColor:[prefsController darkForegroundTextColor]];
+    [darkBackgroundColorWell setColor:[prefsController darkBackgroundTextColor]];
+    [highlightSearchTermsButton setState:[prefsController highlightSearchTerms]];
+}
+
 - (void)awakeFromNib {
 	
 	[window setDelegate:self];
@@ -453,10 +610,8 @@
     [rtlButton setState:[prefsController rtl]];
     [self previewNoteBodyFont];
 	[appShortcutField setStringValue:[[prefsController appActivationKeyCombo] description]];
-	[searchHighlightColorWell setColor:[prefsController searchTermHighlightColorRaw:YES]];
-	[highlightSearchTermsButton setState:[prefsController highlightSearchTerms]];
-	[foregroundColorWell setColor:[prefsController foregroundTextColor]];
-	[backgroundColorWell setColor:[prefsController backgroundTextColor]];
+    [self configureUserSchemeControls];
+    [self refreshUserSchemeControls];
     [maxWidthSlider setDoubleValue:[[NSUserDefaults standardUserDefaults] doubleForKey:@"NoteBodyMaxWidth"]];
 	//for elasticthreads' hide dock icon option, check if OS compatible
 	if (IsSnowLeopardOrLater) {
