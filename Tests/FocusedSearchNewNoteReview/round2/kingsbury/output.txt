@@ -1,0 +1,53 @@
+2026-09-09 14:24:53.751 nvALT[52027:343177482] PASS: temporary library directory exists
+2026-09-09 14:24:53.752 nvALT[52027:343177482] PASS: temporary library opens
+2026-09-09 14:24:53.829 nvALT[52027:343177482] verified 0 notes in 0.000203967 s
+2026-09-09 14:24:54.073 nvALT[52027:343177482] verified 0 notes in 0.000219941 s
+2026-09-09 14:24:54.074 nvALT[52027:343177482] PASS: first launch uses an empty separate-file library
+2026-09-09 14:24:54.075 nvALT[52027:343177482] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:24:54.092 nvALT[52027:343177482] PASS: focused live input differs from the submitted query in file storage
+2026-09-09 14:24:54.115 nvALT[52027:343177482] PASS: native Command-N dispatch succeeds in file storage
+2026-09-09 14:24:54.115 nvALT[52027:343177482] PASS: Command-N adds exactly one note in file storage
+2026-09-09 14:24:54.115 nvALT[52027:343177482] PASS: title preserves raw input bytes before filename conversion
+2026-09-09 14:24:54.115 nvALT[52027:343177482] PASS: new file-backed note starts with an empty focused source editor
+2026-09-09 14:24:54.286 nvALT[52027:343177482] PASS: native source typing commits to the created note
+2026-09-09 14:24:54.288 nvALT[52027:343177482] verified 1 notes in 0.000364065 s
+2026-09-09 14:24:54.289 nvALT[52027:343177482] PASS: created source checkpoints to its backing file
+2026-09-09 14:24:54.289 nvALT[52027:343177482] PASS: filename conversion keeps the backing file directly inside the disposable notes directory
+2026-09-09 14:24:54.289 nvALT[52027:343177482] PASS: backing file contains this note's exact source bytes
+2026-09-09 14:24:54.290 nvALT[52027:343177482] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:24:54.298 nvALT[52027:343177482] PASS: focused live input differs from the submitted query in file storage
+2026-09-09 14:24:54.313 nvALT[52027:343177482] PASS: native Command-N dispatch succeeds in file storage
+2026-09-09 14:24:54.313 nvALT[52027:343177482] PASS: Command-N adds exactly one note in file storage
+2026-09-09 14:24:54.313 nvALT[52027:343177482] PASS: title preserves raw input bytes before filename conversion
+2026-09-09 14:24:54.313 nvALT[52027:343177482] PASS: new file-backed note starts with an empty focused source editor
+2026-09-09 14:24:54.365 nvALT[52027:343177482] PASS: native source typing commits to the created note
+2026-09-09 14:24:54.367 nvALT[52027:343177482] verified 2 notes in 0.000311971 s
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: created source checkpoints to its backing file
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: filename conversion keeps the backing file directly inside the disposable notes directory
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: backing file contains this note's exact source bytes
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: duplicate raw titles produce distinct note objects and UUIDs
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: duplicate raw titles produce distinct backing filenames
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: creating the second same-title note does not overwrite the first file
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: creating the second same-title note preserves the first model title and source
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: record both file identities and raw values before reopening
+2026-09-09 14:24:54.368 nvALT[52027:343177482] PASS: both duplicate-title notes checkpoint before reopening
+2026-09-09 14:24:54.368 nvALT[52027:343177482] KINGSBURY ROUND 2 PHASE 1 PASSED (29 checks)
+2026-09-09 14:24:54.685 nvALT[52034:343177711] PASS: temporary library directory exists
+2026-09-09 14:24:54.687 nvALT[52034:343177711] saw new disk UUID: DiskUUIDEntry(2026-09-09 21:24:54 +0000, 1DA8A537-A99B-4B5F-B068-D8800B3D0890) (other disks are: (
+))
+2026-09-09 14:24:54.688 nvALT[52034:343177711] PASS: temporary library opens
+2026-09-09 14:24:54.791 nvALT[52034:343177711] verified 2 notes in 0.000306964 s
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: second launch retains separate text-file storage
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: second launch retains both duplicate-title notes
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: reopened file-backed note keeps its original UUID
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: reopened note preserves the raw title without using its sanitized filename
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: reopened duplicate-title note retains its own source
+2026-09-09 14:24:55.010 nvALT[52034:343177711] PASS: reopened note retains its distinct backing filename
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened backing file retains the exact source bytes
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened file-backed note keeps its original UUID
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened note preserves the raw title without using its sanitized filename
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened duplicate-title note retains its own source
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened note retains its distinct backing filename
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: reopened backing file retains the exact source bytes
+2026-09-09 14:24:55.011 nvALT[52034:343177711] PASS: both reopened note identities still refer to different files
+2026-09-09 14:24:55.011 nvALT[52034:343177711] KINGSBURY ROUND 2 PHASE 2 PASSED (15 checks)
