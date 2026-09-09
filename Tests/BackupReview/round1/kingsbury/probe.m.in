@@ -1,0 +1,133 @@
+#import <Foundation/Foundation.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#define kUseCachesFolderForInterimNoteChanges 1
+#define kWriteJournalErr 42
+
+static NSUInteger reads, destroys, processed, checks;
+static NSString *fixtureDirectory;
+static NSError *NVCheckpointError(NSInteger code, NSString *message) {
+    return [NSError errorWithDomain:@"Review" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
+}
+static void Check(BOOL condition, NSString *message) {
+    checks++;
+    if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
+}
+static NSString *JournalPath(void) { return [fixtureDirectory stringByAppendingPathComponent:@"Interim Note-Changes"]; }
+
+@interface FakePrefs : NSObject
+- (NSData *)WALSessionKey;
+@end
+@implementation FakePrefs
+- (NSData *)WALSessionKey { return [NSData data]; }
+@end
+
+// These filesystem stubs implement only the open/exclusive-create/read/unlink
+// contract used by the extracted caller. Journal crypto and note decoding are
+// deliberately outside this probe; the fixture contains plain plist data.
+@interface WALStorageController : NSObject { int fd; }
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key;
+- (void)setDelegate:(id)delegate;
+- (void)writeNoteObjects:(NSArray *)objects;
+@end
+@implementation WALStorageController
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key {
+    if ((self = [super init])) {
+        NSString *file = [[NSString stringWithUTF8String:path] stringByAppendingPathComponent:@"Interim Note-Changes"];
+        fd = open([file fileSystemRepresentation], O_CREAT | O_EXCL | O_WRONLY | O_APPEND, 0600);
+        if (fd < 0) { [self release]; return nil; }
+    }
+    return self;
+}
+- (void)setDelegate:(id)delegate {}
+- (void)writeNoteObjects:(NSArray *)objects {}
+- (void)dealloc { if (fd >= 0) close(fd); [super dealloc]; }
+@end
+@interface WALRecoveryController : NSObject
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key;
+- (NSDictionary *)recoveredNotes;
+- (BOOL)destroyLogFile;
+@end
+@implementation WALRecoveryController
+- (id)initWithParentFSRep:(const char *)path encryptionKey:(NSData *)key { return [super init]; }
+- (NSDictionary *)recoveredNotes { reads++; return [NSDictionary dictionaryWithContentsOfFile:JournalPath()]; }
+- (BOOL)destroyLogFile { destroys++; return unlink([JournalPath() fileSystemRepresentation]) == 0; }
+@end
+
+@interface NotationController : NSObject {
+@public
+    BOOL openingRestoredLibrary, backupRestorePrepared;
+    FakePrefs *notationPrefs;
+    WALStorageController *walWriter;
+}
+- (NSString *)createCachesFolder;
+- (BOOL)initializeJournaling;
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError **)error;
+- (void)processRecoveredNotes:(NSDictionary *)notes;
+- (BOOL)flushAllNoteChanges;
+- (void)refilterNotes;
+- (NSInteger)currentNoteStorageFormat;
+- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format;
+@end
+@implementation NotationController
+- (id)init { if ((self = [super init])) notationPrefs = [FakePrefs new]; return self; }
+- (NSString *)createCachesFolder { return fixtureDirectory; }
+- (void)processRecoveredNotes:(NSDictionary *)notes { processed += [notes count]; }
+- (BOOL)flushAllNoteChanges { return YES; }
+- (void)refilterNotes {}
+- (NSInteger)currentNoteStorageFormat { return 0; }
+- (void)databaseSettingsChangedFromOldFormat:(NSInteger)format {}
+// INITIALIZATION
+// RESUME
+- (void)dealloc { [notationPrefs release]; [walWriter release]; [super dealloc]; }
+@end
+
+int main(int argc, const char **argv) {
+    @autoreleasepool {
+        Check(argc == 3, @"arguments supplied");
+        fixtureDirectory = [NSString stringWithUTF8String:argv[1]];
+        BOOL guarded = strcmp(argv[2], "guarded") == 0;
+        unlink([JournalPath() fileSystemRepresentation]);
+        Check([@{@"foreign-note":@"notes belonging to a competing library"} writeToFile:JournalPath() atomically:NO], @"write disposable competing WAL fixture");
+        int competitorFD = open([JournalPath() fileSystemRepresentation], O_WRONLY | O_APPEND);
+        Check(competitorFD >= 0, @"competing writer retains an open journal descriptor");
+        NSData *original = [NSData dataWithContentsOfFile:JournalPath()];
+
+        NotationController *replacement = [NotationController new];
+        replacement->openingRestoredLibrary = YES;
+        Check(![replacement initializeJournaling], @"replacement refuses an existing journal");
+        Check(reads == 0 && destroys == 0 && processed == 0, @"replacement does not recover or delete competing state");
+        [replacement release];
+
+        NotationController *originalLibrary = [NotationController new];
+        originalLibrary->backupRestorePrepared = YES;
+        NSError *error = nil;
+        BOOL resumed = [originalLibrary resumeAfterBackupRestoreFailureWithError:&error];
+        struct stat stillOpen;
+        Check(fstat(competitorFD, &stillOpen) == 0, @"inspect competing writer identity");
+        if (guarded) {
+            Check(!resumed && error != nil && originalLibrary->backupRestorePrepared, @"guarded rollback reports inability to resume");
+            Check(reads == 0 && destroys == 0 && processed == 0, @"guarded rollback neither imports nor deletes competing state");
+            Check(stillOpen.st_nlink == 1 && [[NSData dataWithContentsOfFile:JournalPath()] isEqual:original], @"guarded rollback preserves the named competing journal");
+            printf("GUARDED: refused collision, recovery calls=0, deleted journals=0, competing descriptor links=1\n");
+        } else {
+            Check(resumed && error == nil && !originalLibrary->backupRestorePrepared, @"baseline reports successful rollback");
+            Check(reads == 1 && destroys == 1 && processed == 1, @"baseline processes foreign fixture then deletes its journal");
+            Check(stillOpen.st_nlink == 0 && [[NSData dataWithContentsOfFile:JournalPath()] length] == 0, @"baseline unlinks competing writer and replaces pathname with empty journal");
+            printf("BASELINE ISSUE: reported success, foreign-note processing calls=1, deleted journals=1, competing descriptor links=0\n");
+        }
+        [originalLibrary release];
+        close(competitorFD);
+        unlink([JournalPath() fileSystemRepresentation]);
+
+        // The candidate does not disable rollback when the path is still free.
+        originalLibrary = [NotationController new];
+        originalLibrary->backupRestorePrepared = YES;
+        Check([originalLibrary resumeAfterBackupRestoreFailureWithError:&error] && !originalLibrary->backupRestorePrepared, @"uncontended rollback still creates a new writer");
+        [originalLibrary release];
+        unlink([JournalPath() fileSystemRepresentation]);
+        printf("PASS: %lu assertions (%s), extracted production methods; WAL crypto/decoder/UI are stubs\n", (unsigned long)checks, argv[2]);
+    }
+    return 0;
+}

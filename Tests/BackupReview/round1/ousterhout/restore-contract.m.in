@@ -1,0 +1,134 @@
+#import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
+
+static NSMutableArray *events;
+static BOOL rejectPreparation, rejectInitialization, rejectResume, composing;
+static BOOL oldPrepared;
+static NSUInteger checks;
+static NSURL *sourceDirectory;
+static void Check(BOOL success, NSString *message) {
+    checks++;
+    if (!success) { NSLog(@"FAIL: %@ (%@)", message, events); exit(1); }
+}
+static NSError *Error(NSString *message) { return [NSError errorWithDomain:@"Review" code:1 userInfo:@{NSLocalizedDescriptionKey:message}]; }
+@interface NotationController : NSObject
+- (NSURL *)notesDirectoryURL;
+- (BOOL)prepareForBackupRestoreWithError:(NSError **)error;
+- (id)initWithRestoredDirectoryRef:(FSRef *)ref unlockedPrefs:(id)prefs error:(OSStatus *)error;
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError **)error;
+@end
+@implementation NotationController
+- (NSURL *)notesDirectoryURL { return sourceDirectory; }
+- (BOOL)prepareForBackupRestoreWithError:(NSError **)error {
+    [events addObject:@"prepare-old"];
+    if (rejectPreparation) { if (error) *error = Error(@"preparation failure"); return NO; }
+    oldPrepared = YES; return YES;
+}
+- (id)initWithRestoredDirectoryRef:(FSRef *)ref unlockedPrefs:(id)prefs error:(OSStatus *)error {
+    [events addObject:@"init-new"];
+    Check(oldPrepared, @"new journal opens after old library preparation");
+    if (rejectInitialization) { *error = -1; [self release]; return nil; }
+    return [super init];
+}
+- (BOOL)resumeAfterBackupRestoreFailureWithError:(NSError **)error {
+    [events addObject:@"resume-old"];
+    if (rejectResume) { if (error) *error = Error(@"resume failure"); return NO; }
+    oldPrepared = NO; return YES;
+}
+@end
+@interface FakeTextView : NSObject
+- (BOOL)hasMarkedText;
+@end
+@implementation FakeTextView
+- (BOOL)hasMarkedText { return composing; }
+@end
+@interface AppController : NSObject { FakeTextView *textView; }
+- (void)finishEditing;
+@end
+@implementation AppController
+- (id)init { if ((self = [super init])) textView = [FakeTextView new]; return self; }
+- (void)finishEditing { Check(!oldPrepared, @"browser commits must precede old checkpoint closure"); [events addObject:@"browser-finish"]; }
+- (void)dealloc { [textView release]; [super dealloc]; }
+@end
+@interface NVNoteEditingSession : NSObject
+- (void)commitPendingTextChanges;
+@end
+@implementation NVNoteEditingSession
+- (void)commitPendingTextChanges { Check(!oldPrepared, @"session commits must precede old checkpoint closure"); [events addObject:@"session-commit"]; }
+@end
+@interface NVBackupStore : NSObject
++ (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)url error:(NSError **)error;
+@end
+@implementation NVBackupStore
++ (BOOL)writeRestoreArchiveData:(NSData *)data toEmptyDirectory:(NSURL *)url error:(NSError **)error {
+    [events addObject:@"archive-write"];
+    return YES; // Storage mechanics are exercised by the separate production store suite.
+}
+@end
+@interface NVApplicationController : NSObject {
+@public
+    BOOL terminating, restoring;
+    NotationController *library;
+    NSMutableDictionary *editingSessions;
+    NSArray *browsers;
+}
+- (NSArray *)browserControllers;
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish;
+- (void)saveWindowStates;
+- (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error;
+@end
+@implementation NVApplicationController
+- (id)init {
+    if ((self = [super init])) {
+        library = [NotationController new];
+        browsers = [[NSArray alloc] initWithObjects:[[[AppController alloc] init] autorelease], nil];
+        editingSessions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[[NVNoteEditingSession alloc] init] autorelease], @"note", nil];
+    }
+    return self;
+}
+- (NSArray *)browserControllers { return browsers; }
+- (void)setLibrary:(NotationController *)newLibrary finishingOldLibrary:(BOOL)finish {
+    Check(oldPrepared && !finish, @"prepared replacement requests no-commit teardown");
+    [events addObject:finish ? @"switch:YES" : @"switch:NO"];
+    [library release]; library = [newLibrary retain];
+}
+- (void)saveWindowStates { Check(!restoring, @"saved replacement state is permitted after restore guard clears"); [events addObject:@"save-windows"]; }
+// PRODUCTION_RESTORE_METHOD
+- (void)dealloc { [library release]; [browsers release]; [editingSessions release]; [super dealloc]; }
+@end
+
+static void Reset(void) {
+    [events removeAllObjects];
+    oldPrepared = rejectPreparation = rejectInitialization = rejectResume = composing = NO;
+}
+int main(int argc, const char *argv[]) {
+    @autoreleasepool {
+        Check(argc == 2, @"temporary target supplied");
+        events = [NSMutableArray new];
+        sourceDirectory = [[NSURL fileURLWithPath:@"/a-distinct-original-library"] retain];
+        NSURL *target = [NSURL fileURLWithPath:[NSString stringWithUTF8String:argv[1]]];
+        NSDictionary *archive = @{@"data":[@"verified bytes" dataUsingEncoding:NSUTF8StringEncoding]};
+        NSError *error = nil;
+        NVApplicationController *app = [NVApplicationController new];
+        Reset(); composing = YES;
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && [events count] == 0, @"composition rejects restore before storage writes");
+        Reset();
+        Check(![app restoreBackupArchive:archive toDirectory:[sourceDirectory URLByAppendingPathComponent:@"nested"] error:&error] && [events count] == 0, @"nested original-library destination rejected before storage writes");
+        Reset(); rejectPreparation = YES; id original = app->library;
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && app->library == original && !oldPrepared,
+              @"failed preparation retains original selection and never opens replacement");
+        Check([events isEqual:@[@"archive-write",@"browser-finish",@"session-commit",@"prepare-old"]], @"preparation failure follows expected boundary ordering");
+        Reset(); rejectInitialization = YES;
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && app->library == original && !oldPrepared && !app->restoring,
+              @"failed initialization resumes original library and clears restoration guard");
+        Check([[events lastObject] isEqual:@"resume-old"], @"failed replacement invokes original journal resume");
+        Reset(); rejectInitialization = rejectResume = YES;
+        Check(![app restoreBackupArchive:archive toDirectory:target error:&error] && [[error localizedDescription] isEqual:@"resume failure"], @"resume failure is returned instead of replacement-open error");
+        Reset();
+        Check([app restoreBackupArchive:archive toDirectory:target error:&error] && app->library != original && !app->restoring, @"successful replacement changes selected library and clears guard");
+        Check([events isEqual:@[@"archive-write",@"browser-finish",@"session-commit",@"prepare-old",@"init-new",@"switch:NO",@"save-windows"]], @"successful replacement follows expected boundary ordering");
+        printf("PASS: %lu extracted application restore-contract checks\n", (unsigned long)checks);
+        [app release];
+    }
+    return 0;
+}
