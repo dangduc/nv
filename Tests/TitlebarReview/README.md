@@ -25,6 +25,25 @@ The [screenshot](../../docs/screenshots/titlebar-search.png) shows the actual De
 
 ## Review rounds
 
-Two rounds use the requested Ousterhout, Luu, Torvalds, Kingsbury, and contrarian perspectives.
-Each review includes executable evidence and states its validation limits.
-Review reports and PR comment links will appear here as the rounds finish.
+[PR #10](https://github.com/dangduc/nv/pull/10) contains the implementation and review evidence.
+The reviewers use the requested perspectives. Each report records its executable checks and limits.
+
+| Round | Perspective | Report | PR comment |
+| --- | --- | --- | --- |
+| 1 | Ousterhout | [120 checks](round1/ousterhout/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606618618) |
+| 1 | Luu | [21 geometry checks](round1/luu/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606623626) |
+| 1 | Torvalds | [54 checks and availability control](round1/torvalds/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606629410) |
+| 1 | Kingsbury | [354 checks across two launches](round1/kingsbury/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606686129) |
+| 1 | Contrarian | [38 checks](round1/contrarian/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606691698) |
+| 2 | Ousterhout | [168 checks and native teardown](round2/ousterhout/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606822352) |
+| 2 | Luu | [746 checks in Source and Preview](round2/luu/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606824848) |
+| 2 | Torvalds | [196 compatibility and recovery checks](round2/torvalds/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606883276) |
+| 2 | Kingsbury | [107 checks across four asynchronous histories](round2/kingsbury/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606887906) |
+| 2 | Contrarian | [48 checks across three windows](round2/contrarian/findings.md) | [Comment](https://github.com/dangduc/nv/pull/10#issuecomment-5606827350) |
+
+The [round-one response](round1/response.md) records the disposition of each review.
+No first-round review requested a production correction.
+The delegated runner correction removed its dependency on a private build-log filename.
+The [round-two response](round2/response.md) records native lifecycle, geometry, restoration, asynchronous state, and accessibility results.
+Both rounds are complete. All ten review comments link to executable evidence.
+No actionable production finding remains from either round.
