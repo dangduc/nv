@@ -1,0 +1,12 @@
+2026-09-09 16:34:32.979 nvALT[69261:343324385] PASS: temporary library directory exists
+2026-09-09 16:34:32.980 nvALT[69261:343324385] PASS: temporary library opens
+2026-09-09 16:34:33.049 nvALT[69261:343324385] verified 0 notes in 0.00020802 s
+2026-09-09 16:34:33.306 nvALT[69261:343324385] Native available color lists: (
+    Apple,
+    System,
+    Emacs,
+    Crayons,
+    "Web Safe Colors"
+)
+2026-09-09 16:34:33.307 nvALT[69261:343324385] MATCH: native list=System key=selectedTextBackgroundColor color=Catalog color: System selectedTextBackgroundColor
+2026-09-09 16:34:33.310 nvALT[69261:343324385] System list: NSColorList 0x600002b78870 name:System device:(null) file:/System/Library/Colors/System.clr loaded:1

@@ -14,7 +14,7 @@ The maintained suite sets each window's appearance and uses Plain Text. This ind
 Two native browser windows share each of three notes: Markdown, HTML, and JSON. Neither window has its own appearance override.
 The probe sets the application's native appearance six times per grammar. It does not call `browserAppearanceChanged` itself.
 
-All **148 assertions passed**, including the runner's three setup checks. The evidence establishes:
+All **148 assertions passed**, including the runner's two setup checks. The evidence establishes:
 
 - Both windows inherit each light or dark application appearance and select the matching User Scheme background.
 - Ordinary glyph attributes use the selected foreground. Existing syntax captures remain current and use different light and dark drawing colors.
