@@ -22,3 +22,24 @@ The earlier disposable Intel probes remain in an uninterruptible state before ap
 They were still present during this change's validation.
 No additional Intel application probes were launched.
 The focused fixture does not establish full browser lifecycle, keyboard-focus, or live system-notification behavior.
+
+## Review validation
+
+Both review rounds completed with no actionable introduced finding.
+All ten native review runners passed together with desktop access.
+The command was `python3 Tests/NotesListAppearanceReview/run.py`.
+The combined log is `build/notes-list-final-review-regressions.log`.
+
+The round-one aggregate exposed a Retina scale assumption in one review fixture.
+The delegated correction compares tag and mask images at matching native backing dimensions.
+It preserves the original alpha tolerance and still rejects the obsolete compositing operation.
+This correction changed only review evidence.
+
+Round two adds native active selection, field-editor focus, hidden-window callbacks, controller recreation, and production tag-consumer drawing at 1×/2×.
+Each [review report](README.md) states which production methods and fixture collaborators it uses.
+The active-selection fixture records a light inline-editor observation that also occurs with the base source.
+It does not establish an introduced defect or the full production inline-edit behavior.
+
+Production remains unchanged from `2e3f75e794b668024cf54597110f13ccf2aff97a`.
+The successful local Intel build therefore covers the production source in both review rounds.
+The shipping Intel application and complete desktop suites remain blocked by the startup stall described above.
