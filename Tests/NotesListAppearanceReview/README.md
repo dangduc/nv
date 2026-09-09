@@ -15,11 +15,11 @@ Round 2 baseline: `755bc8b849547e6714ffaa22fbb339ad65008393`. Production is unch
 | 1 | Torvalds: correctness and maintenance | [No actionable finding](round1/torvalds/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5595809408) |
 | 1 | Kingsbury: state transitions | [No actionable finding](round1/kingsbury/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5595810162) |
 | 1 | Contrarian: user workflow and test assumptions | [No actionable finding](round1/contrarian/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5595810759) |
-| 2 | Ousterhout: design and ownership | [No actionable finding](round2/ousterhout/REPORT.md) | Pending |
-| 2 | Luu: performance and measurement | [No actionable finding](round2/luu/REPORT.md) | Pending |
-| 2 | Torvalds: correctness and maintenance | [No actionable finding](round2/torvalds/REPORT.md) | Pending |
-| 2 | Kingsbury: state transitions | [No actionable finding](round2/kingsbury/REPORT.md) | Pending |
-| 2 | Contrarian: user workflow and test assumptions | [No actionable finding](round2/contrarian/REPORT.md) | Pending |
+| 2 | Ousterhout: design and ownership | [No actionable finding](round2/ousterhout/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5596005997) |
+| 2 | Luu: performance and measurement | [No actionable finding](round2/luu/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5596006428) |
+| 2 | Torvalds: correctness and maintenance | [No actionable finding](round2/torvalds/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5596006886) |
+| 2 | Kingsbury: state transitions | [No actionable finding](round2/kingsbury/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5596007648) |
+| 2 | Contrarian: user workflow and test assumptions | [No actionable finding](round2/contrarian/REPORT.md) | [Comment](https://github.com/fastducduc/nv/pull/9#issuecomment-5596008237) |
 
 [Validation](VALIDATION.md) records the build, rendering checks, and desktop runtime limit.
 Full browser integration remains unverified on this host because the earlier Intel probes stalled before application startup.
@@ -32,6 +32,7 @@ The correction changed only review evidence.
 The [PR response](https://github.com/fastducduc/nv/pull/9#issuecomment-5595830021) records that result.
 
 Round 2 also found no actionable introduced issue. All ten native review runners passed together with desktop access.
+[Delegated round-two triage](round2/RESPONSE.md) found no remaining production or documentation correction.
 
 Run all ten review probes serially from an active desktop session.
 The native focus and application-appearance fixtures require desktop access.
