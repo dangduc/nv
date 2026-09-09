@@ -1,0 +1,38 @@
+2026-09-09 16:39:04.915 nvALT[71787:343341872] PASS: temporary library directory exists
+2026-09-09 16:39:04.916 nvALT[71787:343341872] PASS: temporary library opens
+2026-09-09 16:39:05.000 nvALT[71787:343341872] verified 0 notes in 0.00019598 s
+2026-09-09 16:39:05.235 nvALT[71787:343341872] PASS: the native dynamic-color oracle is available
+2026-09-09 16:39:05.236 nvALT[71787:343341872] PASS: the named highlight is selectable from an available native Color Panel list
+2026-09-09 16:39:05.237 nvALT[71787:343341872] PASS: native named foreground and background survive archive-backed preference setters
+2026-09-09 16:39:05.511 nvALT[71787:343341872] PASS: a real peer browser exists
+2026-09-09 16:39:06.431 nvALT[71787:343341872] PASS: the native color panel changes the active dark highlight well
+2026-09-09 16:39:06.482 nvALT[71787:343341872] PASS: the native color panel stores the selected System catalog color in the new dark slot
+2026-09-09 16:39:06.502 nvALT[71787:343341872] ORACLE: foreground light=NSCalibratedRGBColorSpace 0 0 0 1 dark=NSCalibratedRGBColorSpace 1 1 1 1 highlight light=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 dark=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1
+2026-09-09 16:39:06.502 nvALT[71787:343341872] PASS: the chosen native foreground and highlight actually differ by appearance
+2026-09-09 16:39:06.662 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:06.663 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameAqua window=NSAppearanceNameAqua expected-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:06.663 nvALT[71787:343341872] PASS: the asynchronous Exact highlight resolves the named color under the inherited appearance
+2026-09-09 16:39:06.663 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:06.663 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameAqua window=NSAppearanceNameAqua expected-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:06.663 nvALT[71787:343341872] PASS: the asynchronous Exact highlight resolves the named color under the inherited appearance
+2026-09-09 16:39:06.933 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:09.935 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameDarkAqua window=NSAppearanceNameDarkAqua expected-highlight=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:09.935 nvALT[71787:343341872] MISMATCH: the asynchronous Exact highlight used the wrong native appearance
+2026-09-09 16:39:09.935 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:12.944 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameDarkAqua window=NSAppearanceNameDarkAqua expected-highlight=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:12.944 nvALT[71787:343341872] MISMATCH: the asynchronous Exact highlight used the wrong native appearance
+2026-09-09 16:39:13.135 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:13.135 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameAqua window=NSAppearanceNameAqua expected-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:13.135 nvALT[71787:343341872] PASS: the asynchronous Exact highlight resolves the named color under the inherited appearance
+2026-09-09 16:39:13.135 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:13.135 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameAqua window=NSAppearanceNameAqua expected-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:13.135 nvALT[71787:343341872] PASS: the asynchronous Exact highlight resolves the named color under the inherited appearance
+2026-09-09 16:39:13.336 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:16.386 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameDarkAqua window=NSAppearanceNameDarkAqua expected-highlight=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:16.387 nvALT[71787:343341872] MISMATCH: the asynchronous Exact highlight used the wrong native appearance
+2026-09-09 16:39:16.387 nvALT[71787:343341872] PASS: both native named palette channels resolve under the inherited appearance
+2026-09-09 16:39:19.391 nvALT[71787:343341872] OBSERVATION: app=NSAppearanceNameDarkAqua window=NSAppearanceNameDarkAqua expected-highlight=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1 actual-highlight=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1
+2026-09-09 16:39:19.391 nvALT[71787:343341872] MISMATCH: the asynchronous Exact highlight used the wrong native appearance
+2026-09-09 16:39:19.392 nvALT[71787:343341872] PASS: native named-color transitions preserve shared source attributes
+2026-09-09 16:39:19.392 nvALT[71787:343341872] DYNAMIC HIGHLIGHT RESULT: 4 appearance mismatches
+2026-09-09 16:39:19.392 nvALT[71787:343341872] FAIL: every asynchronous named highlight resolves under its browser's current appearance

@@ -1,0 +1,7 @@
+2026-09-09 16:39:58.906 nvALT[72281:343345459] PASS: temporary library directory exists
+2026-09-09 16:39:58.907 nvALT[72281:343345459] PASS: temporary library opens
+2026-09-09 16:39:58.973 nvALT[72281:343345459] verified 0 notes in 0.000192046 s
+2026-09-09 16:39:59.289 nvALT[72281:343345459] LEGACY OBSERVATION: retained light accessor=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 unscoped raw=NSCalibratedRGBColorSpace 0.646331 0.802616 0.999209 1 dark oracle=NSCalibratedRGBColorSpace 0.192056 0.310345 0.470728 1
+2026-09-09 16:39:59.289 nvALT[72281:343345459] PASS: the unchanged legacy light accessor uses the current unscoped appearance
+2026-09-09 16:39:59.289 nvALT[72281:343345459] PASS: the historical light helper also lacks per-application dark resolution on this host
+2026-09-09 16:39:59.289 nvALT[72281:343345459] LEGACY HELPER OBSERVATION PASSED (4 checks)

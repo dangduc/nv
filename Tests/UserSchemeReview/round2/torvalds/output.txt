@@ -1,0 +1,60 @@
+PASS: unchanged production helper compiles with availability errors enabled for macOS 10.13
+2026-09-09 16:41:00.679 nvALT[72883:343349877] PASS: temporary library directory exists
+2026-09-09 16:41:00.679 nvALT[72883:343349877] PASS: temporary library opens
+2026-09-09 16:41:00.749 nvALT[72883:343349877] verified 0 notes in 0.000221014 s
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the caller has a different appearance from the editor
+2026-09-09 16:41:01.126 nvALT[72883:343349877] EDITOR CONTRACT PATH: compiled production modern
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: a nil preference result remains nil after exactly one resolver call
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: nil results restore the caller appearance
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the caller-retained dictionary survives the helper callback and autorelease pool
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the retained dictionary contains its original value
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the caller release destroys the result exactly once without a retained helper owner
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: an owned result restores the caller appearance
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.126 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: a resolver exception propagates after exactly one call
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: resolver exceptions restore the caller appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: direct range publication calls the helper once and installs the expected opaque blend
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: direct range publication restores the caller appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: legacy range publication calls the helper once and installs the same opaque blend
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: legacy range publication restores the caller appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: a nil direct-publication result clears old direct and legacy decorations
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: all helper outcomes preserve the complete source attributes
+2026-09-09 16:41:01.127 nvALT[72883:343349877] EDITOR CONTRACT PATH: forced production fallback
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: a nil preference result remains nil after exactly one resolver call
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: nil results restore the caller appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the caller-retained dictionary survives the helper callback and autorelease pool
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the retained dictionary contains its original value
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the caller release destroys the result exactly once without a retained helper owner
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: an owned result restores the caller appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.127 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: a resolver exception propagates after exactly one call
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: resolver exceptions restore the caller appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: direct range publication calls the helper once and installs the expected opaque blend
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: direct range publication restores the caller appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: legacy range publication calls the helper once and installs the same opaque blend
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: legacy range publication restores the caller appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the editor resolves preferences inside its own appearance
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: the helper supplies its owning browser palette and resolved background
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: a nil direct-publication result clears old direct and legacy decorations
+2026-09-09 16:41:01.128 nvALT[72883:343349877] PASS: all helper outcomes preserve the complete source attributes
+2026-09-09 16:41:01.128 nvALT[72883:343349877] TORVALDS ROUND 2 PASSED (55 checks)
