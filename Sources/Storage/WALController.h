@@ -48,6 +48,9 @@ typedef union {
 - (void)setDelegate:(id)aDelegate;
 - (BOOL)logFileStillExists;
 - (BOOL)destroyLogFile;
+// For a committed library switch: failure keeps the open writer usable.
+- (BOOL)destroyLogFilePreservingWriterOnFailure;
+- (BOOL)synchronizeParentDirectory;
 
 @end
 

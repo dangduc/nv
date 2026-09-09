@@ -80,6 +80,32 @@
     return (sb.st_nlink > 0);
 }
 
+- (BOOL)synchronizeParentDirectory {
+    char currentPath[4096];
+    if (fcntl(logFD, F_GETPATH, currentPath) < 0) return NO;
+    char *separator = strrchr(currentPath, '/');
+    if (!separator) return NO;
+    *separator = '\0';
+    int directoryFD = open(currentPath, O_RDONLY | O_DIRECTORY);
+    if (directoryFD < 0) return NO;
+    BOOL success = fsync(directoryFD) == 0;
+    close(directoryFD);
+    return success;
+}
+
+- (BOOL)destroyLogFilePreservingWriterOnFailure {
+    char currentPath[4096];
+    struct stat opened, named;
+    if (fcntl(logFD, F_GETPATH, currentPath) < 0 || fstat(logFD, &opened) < 0 ||
+        lstat(currentPath, &named) < 0 || opened.st_dev != named.st_dev || opened.st_ino != named.st_ino)
+        return NO;
+    // Unlink first so a permission failure cannot strand the active library with a closed descriptor.
+    if (unlink(currentPath) < 0) return NO;
+    close(logFD);
+    logFD = -1;
+    return YES;
+}
+
 - (BOOL)destroyLogFile {
 
 	journalFile = (char*)realloc(journalFile, 4096 * sizeof(char));
@@ -138,6 +164,7 @@
             
             NSLog(@"WALStorageController: open error for file %s: %s", journalFile, strerror(errno));
             
+            [self release];
             return nil;
         }
         if (fcntl(logFD, F_NOCACHE, 1) < 0) {
@@ -156,6 +183,9 @@
         
 		if (deflateInit2(&compressionStream, 5, Z_DEFLATED, MAX_WBITS, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY) != Z_OK) {
 			NSLog(@"deflateInit2 returned error: %s", compressionStream.msg);
+            [self destroyLogFilePreservingWriterOnFailure];
+            if (logFD >= 0) { close(logFD); logFD = -1; }
+            [self release];
 			return nil;
 		}
 		

@@ -23,6 +23,25 @@ The suite exercises real nibs and Cocoa editors. It checks independent search, s
 
 The regression runner checks editor and preview ownership, incremental search, undo during composition, peer selections, bounded snapshot diffs, cached fonts, column settings, and query restoration. Ownership and restoration tests include mutations that must fail. See each `Tests/Regression/` directory for scope and commands. The source redesign has a [validation record](SourceViewerReview/VALIDATION.md). Historical defect reproducers are documented in `Tests/ReviewEvidence/README.md`.
 
+## Backup checks
+
+The backup filesystem, scheduling, and Preferences checks use disposable state:
+
+```sh
+python3 Tests/BackupStore/run.py
+python3 Tests/BackupStore/run-teardown.py
+python3 Tests/BackupCoordinator/run.py
+python3 Tests/BackupPreferences/run.py
+python3 Tests/BackupArchive/native/run.py
+```
+
+After a Development build, `python3 Tests/BackupArchive/run.py` checks the actual library archive and restore paths in a copied app.
+It requires the desktop session and Intel application runtime described above.
+The filesystem suite injects interrupted writes and checks retention, corruption, ownership, and recovery into an empty folder.
+The coordinator suite uses the production controller with a fake clock and controlled worker completions.
+The native archive suite uses the production model and archive code with UI stubs and a test crypto provider.
+It does not replace the copied-app checks of the shipping Intel/OpenSSL runtime or window and journal lifecycle.
+
 ## Native dependency replacements
 
 Run `python3 Tests/Regression/native-dependencies/run.py` after a Development build.

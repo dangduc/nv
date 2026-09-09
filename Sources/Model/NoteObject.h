@@ -198,10 +198,14 @@ NSInteger compareFileSize(id *a, id *b);
 - (NSURL*)uniqueNoteLink;
 - (NSString*)noteFilePath;
 - (void)invalidateFSRef;
+// Preserve source/metadata, but detach the archived record from its former directory and journal.
+- (void)prepareForBackupRestore;
+- (void)detachFromClosedLibrary;
 
 - (BOOL)writeUsingJournal:(WALStorageController*)wal;
 
 - (BOOL)writeUsingCurrentFileFormatIfNecessary;
+- (BOOL)hasPendingSourceFileWrite;
 - (BOOL)writeUsingCurrentFileFormatIfNonExistingOrChanged;
 - (BOOL)writeUsingCurrentFileFormat;
 - (void)makeNoteDirtyUpdateTime:(BOOL)updateTime updateFile:(BOOL)updateFile;

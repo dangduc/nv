@@ -1184,8 +1184,11 @@ terminateApp:
 }
 
 - (void)_setCurrentNote:(NoteObject *)aNote {
+    [self _setCurrentNote:aNote finishingEditing:YES];
+}
+- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {
     if (currentNote == aNote) return;
-    [self finishEditing];
+    if (finishOldEditing) [self finishEditing];
     [self captureBodyPresentation];
     if (currentNote) {
         NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];

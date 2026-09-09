@@ -1255,12 +1255,34 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 	return nil;
 }
 
+- (void)detachFromClosedLibrary { delegate = nil; }
+
+- (void)prepareForBackupRestore {
+    NSAssert(!delegate, @"Restore notes must not belong to an open library");
+    [self invalidateFSRef];
+    [filename release];
+    filename = nil;
+    nodeID = logicalSize = logSequenceNumber = 0;
+    memset(&fileModifiedDate, 0, sizeof(fileModifiedDate));
+    free(perDiskInfoGroups);
+    perDiskInfoGroups = calloc(1, sizeof(PerDiskInfo));
+    perDiskInfoGroups[0].diskIDIndex = -1;
+    perDiskInfoGroupCount = 1;
+    attrsModifiedDate = &perDiskInfoGroups[0].attrTime;
+    currentFormatID = SingleDatabaseFormat;
+    // Pending conversion and original bytes remain archived even in database storage.
+    shouldWriteToFile = sourceConversionPending;
+    selectedRange = NSMakeRange(NSNotFound, 0);
+}
+
 - (void)invalidateFSRef {
 	//bzero(&noteFileRef, sizeof(FSRef));
 	if (noteFileRef)
 		free(noteFileRef);
 	noteFileRef = NULL;
 }
+
+- (BOOL)hasPendingSourceFileWrite { return shouldWriteToFile; }
 
 - (BOOL)writeUsingCurrentFileFormatIfNecessary {
 	//if note had been updated via makeNoteDirty and needed file to be rewritten

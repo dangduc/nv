@@ -35,6 +35,10 @@ extern NSString *NotationPrefsDidChangeNotification;
 	
 	// Local source metadata is part of the library archive.
 	NSMutableDictionary *sourceMetadataByNoteUUID;
+	NSString *backupLibraryIdentifier;
+	unsigned long long backupCheckpointGeneration;
+	NSDate *backupCheckpointDate;
+	BOOL offlineBackupRestore;
 	
 	unsigned int hashIterationCount, keyLengthInBits;
 	
@@ -65,6 +69,15 @@ extern NSString *NotationPrefsDidChangeNotification;
 + (NSMutableArray*)defaultTypeStringsForFormat:(int)formatID;
 + (NSMutableArray*)defaultPathExtensionsForFormat:(int)formatID;
 - (BOOL)preferencesChanged;
+- (NSString*)backupLibraryIdentifier;
+- (unsigned long long)backupCheckpointGeneration;
+- (NSDate*)backupCheckpointDate;
+- (void)setBackupCheckpointGeneration:(unsigned long long)generation date:(NSDate*)date;
+- (void)renewBackupLibraryIdentifier;
+// Use only on independently decoded preferences, before password retrieval.
+- (void)prepareForOfflineBackupRestore;
+- (void)finishOfflineBackupRestore;
+- (BOOL)matchesBackupEncryptionSettings:(NotationPrefs*)other;
 - (NSDictionary*)sourceMetadataForNoteUUID:(NSString*)noteUUID;
 - (void)setSourceMetadata:(NSDictionary*)metadata forNoteUUID:(NSString*)noteUUID;
 - (void)setForegroundTextColor:(NSColor*)aColor;

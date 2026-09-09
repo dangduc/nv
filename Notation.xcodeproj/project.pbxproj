@@ -223,6 +223,10 @@
 		2082BFB8705059010EE94B8B /* NVTreeSitterMarkdownInlineScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 3490BDA62F6391C280555488 /* NVTreeSitterMarkdownInlineScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		0A7977E579800AE879D56249 /* NVTreeSitterMarkdownScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A40727C2CD353C12C4A9E0 /* NVTreeSitterMarkdownScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		AD05B53839DA7B68BA6128DA /* NVTreeSitterRuntime.c in Sources */ = {isa = PBXBuildFile; fileRef = 00D5D7DE54454769330BA721 /* NVTreeSitterRuntime.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
+		912E8EB4B508643B0E5EBADB /* NVBackupArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DD194BC85609CE40DC59B0 /* NVBackupArchive.m */; };
+		978B58221822A08C6988F194 /* NVBackupStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BD5CA0377AD2610B697CB /* NVBackupStore.m */; };
+		474E234BCB32E83F38242B26 /* NVBackupController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9E526B507CA964174B3BA3 /* NVBackupController.m */; };
+		96B62E786B670EF6BE4DEF0B /* NVBackupPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6ABDA8D0E09C7336E6C7E /* NVBackupPreferencesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -830,6 +834,14 @@
 		3490BDA62F6391C280555488 /* NVTreeSitterMarkdownInlineScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterMarkdownInlineScanner.c; sourceTree = "<group>"; };
 		55A40727C2CD353C12C4A9E0 /* NVTreeSitterMarkdownScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterMarkdownScanner.c; sourceTree = "<group>"; };
 		00D5D7DE54454769330BA721 /* NVTreeSitterRuntime.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterRuntime.c; sourceTree = "<group>"; };
+		540ECEC16FB101F789B2ACE8 /* NVBackupArchive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBackupArchive.h; sourceTree = "<group>"; };
+		C4DD194BC85609CE40DC59B0 /* NVBackupArchive.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupArchive.m; sourceTree = "<group>"; };
+		D03A1E835157784F2955816E /* NVBackupStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBackupStore.h; sourceTree = "<group>"; };
+		005BD5CA0377AD2610B697CB /* NVBackupStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupStore.m; sourceTree = "<group>"; };
+		1C31B7C5119BB937913F0170 /* NVBackupController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBackupController.h; sourceTree = "<group>"; };
+		EB9E526B507CA964174B3BA3 /* NVBackupController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupController.m; sourceTree = "<group>"; };
+		FDC45DA435A0F4A7158286A6 /* NVBackupPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBackupPreferencesViewController.h; sourceTree = "<group>"; };
+		6DC6ABDA8D0E09C7336E6C7E /* NVBackupPreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupPreferencesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1311,6 +1323,12 @@
 		BBD55CCFC3F9514311872541 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				EB9E526B507CA964174B3BA3 /* NVBackupController.m */,
+				1C31B7C5119BB937913F0170 /* NVBackupController.h */,
+				005BD5CA0377AD2610B697CB /* NVBackupStore.m */,
+				D03A1E835157784F2955816E /* NVBackupStore.h */,
+				C4DD194BC85609CE40DC59B0 /* NVBackupArchive.m */,
+				540ECEC16FB101F789B2ACE8 /* NVBackupArchive.h */,
 				212DCF5F0A6DEECB00F74E46 /* DeletionManager.h */,
 				212DCF600A6DEECB00F74E46 /* DeletionManager.m */,
 				215309F212E4E92300AF2739 /* DiskUUIDEntry.h */,
@@ -1371,6 +1389,8 @@
 		DBF633D0496211EC98D5A7E3 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				6DC6ABDA8D0E09C7336E6C7E /* NVBackupPreferencesViewController.m */,
+				FDC45DA435A0F4A7158286A6 /* NVBackupPreferencesViewController.h */,
 				21D60126098FDB46007440DF /* GlobalPrefs.h */,
 				21D60127098FDB46007440DF /* GlobalPrefs.m */,
 				21544FBF0B06332600C0D1D5 /* KeyDerivationManager.h */,
@@ -1932,6 +1952,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96B62E786B670EF6BE4DEF0B /* NVBackupPreferencesViewController.m in Sources */,
+				474E234BCB32E83F38242B26 /* NVBackupController.m in Sources */,
+				978B58221822A08C6988F194 /* NVBackupStore.m in Sources */,
+				912E8EB4B508643B0E5EBADB /* NVBackupArchive.m in Sources */,
 				EC236212744ECE63069CBC5E /* NVTreeSitterHTML.c in Sources */,
 				F59A90A203CF76F5F187A2D3 /* NVTreeSitterHTMLScanner.c in Sources */,
 				0607E914658CC0A9666D07CD /* NVTreeSitterJSON.c in Sources */,

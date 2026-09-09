@@ -31,4 +31,6 @@ extern NSString * const NVNoteEditorDidChangeNotification;
 - (void)commitPendingTextChanges;
 - (void)reloadFromNote;
 - (void)close;
+// Used after the library's final checkpoint, when committing again is unsafe.
+- (void)closeWithoutCommitting;
 @end
