@@ -1,0 +1,62 @@
+2026-09-09 14:13:30.333 nvALT[50301:343162104] PASS: temporary library directory exists
+2026-09-09 14:13:30.334 nvALT[50301:343162104] PASS: temporary library opens
+2026-09-09 14:13:30.416 nvALT[50301:343162104] verified 0 notes in 0.000192046 s
+2026-09-09 14:13:30.653 nvALT[50301:343162104] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:13:30.670 nvALT[50301:343162104] PASS: decomposed accents: native insertion retains input
+2026-09-09 14:13:30.670 nvALT[50301:343162104] PASS: decomposed accents: native search editor owns focus
+2026-09-09 14:13:30.690 nvALT[50301:343162104] PASS: decomposed accents: menu handles Command-N
+2026-09-09 14:13:30.690 nvALT[50301:343162104] OBSERVATION: decomposed accents synchronous Command-N duration 20.150 ms
+2026-09-09 14:13:30.747 nvALT[50301:343162104] PASS: decomposed accents: exactly one note is selected and created
+2026-09-09 14:13:30.747 nvALT[50301:343162104] PASS: decomposed accents: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:30.747 nvALT[50301:343162104] PASS: decomposed accents: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:30.757 nvALT[50301:343162104] PASS: decomposed accents: subsequent search publishes normally
+2026-09-09 14:13:30.825 nvALT[50301:343162104] PASS: joined emoji: native insertion retains input
+2026-09-09 14:13:30.825 nvALT[50301:343162104] PASS: joined emoji: native search editor owns focus
+2026-09-09 14:13:30.846 nvALT[50301:343162104] PASS: joined emoji: menu handles Command-N
+2026-09-09 14:13:30.846 nvALT[50301:343162104] OBSERVATION: joined emoji synchronous Command-N duration 20.396 ms
+2026-09-09 14:13:30.896 nvALT[50301:343162104] PASS: joined emoji: exactly one note is selected and created
+2026-09-09 14:13:30.896 nvALT[50301:343162104] PASS: joined emoji: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:30.896 nvALT[50301:343162104] PASS: joined emoji: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:30.902 nvALT[50301:343162104] PASS: joined emoji: subsequent search publishes normally
+2026-09-09 14:13:30.969 nvALT[50301:343162104] PASS: bidirectional text: native insertion retains input
+2026-09-09 14:13:30.969 nvALT[50301:343162104] PASS: bidirectional text: native search editor owns focus
+2026-09-09 14:13:30.983 nvALT[50301:343162104] PASS: bidirectional text: menu handles Command-N
+2026-09-09 14:13:30.983 nvALT[50301:343162104] OBSERVATION: bidirectional text synchronous Command-N duration 14.254 ms
+2026-09-09 14:13:31.033 nvALT[50301:343162104] PASS: bidirectional text: exactly one note is selected and created
+2026-09-09 14:13:31.033 nvALT[50301:343162104] PASS: bidirectional text: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:31.033 nvALT[50301:343162104] PASS: bidirectional text: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:31.039 nvALT[50301:343162104] PASS: bidirectional text: subsequent search publishes normally
+2026-09-09 14:13:31.096 nvALT[50301:343162104] PASS: surrounding spaces: native insertion retains input
+2026-09-09 14:13:31.096 nvALT[50301:343162104] PASS: surrounding spaces: native search editor owns focus
+2026-09-09 14:13:31.102 nvALT[50301:343162104] PASS: surrounding spaces: menu handles Command-N
+2026-09-09 14:13:31.102 nvALT[50301:343162104] OBSERVATION: surrounding spaces synchronous Command-N duration 5.872 ms
+2026-09-09 14:13:31.153 nvALT[50301:343162104] PASS: surrounding spaces: exactly one note is selected and created
+2026-09-09 14:13:31.153 nvALT[50301:343162104] PASS: surrounding spaces: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:31.153 nvALT[50301:343162104] PASS: surrounding spaces: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:31.159 nvALT[50301:343162104] PASS: surrounding spaces: subsequent search publishes normally
+2026-09-09 14:13:31.217 nvALT[50301:343162104] PASS: whitespace-only title: native insertion retains input
+2026-09-09 14:13:31.217 nvALT[50301:343162104] PASS: whitespace-only title: native search editor owns focus
+2026-09-09 14:13:31.227 nvALT[50301:343162104] PASS: whitespace-only title: menu handles Command-N
+2026-09-09 14:13:31.227 nvALT[50301:343162104] OBSERVATION: whitespace-only title synchronous Command-N duration 9.925 ms
+2026-09-09 14:13:31.277 nvALT[50301:343162104] PASS: whitespace-only title: exactly one note is selected and created
+2026-09-09 14:13:31.277 nvALT[50301:343162104] PASS: whitespace-only title: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:31.277 nvALT[50301:343162104] PASS: whitespace-only title: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:31.283 nvALT[50301:343162104] PASS: whitespace-only title: subsequent search publishes normally
+2026-09-09 14:13:31.387 nvALT[50301:343162104] PASS: large title: native insertion retains input
+2026-09-09 14:13:31.388 nvALT[50301:343162104] PASS: large title: native search editor owns focus
+2026-09-09 14:13:31.414 nvALT[50301:343162104] PASS: large title: menu handles Command-N
+2026-09-09 14:13:31.414 nvALT[50301:343162104] OBSERVATION: large title synchronous Command-N duration 26.906 ms
+2026-09-09 14:13:31.477 nvALT[50301:343162104] PASS: large title: exactly one note is selected and created
+2026-09-09 14:13:31.477 nvALT[50301:343162104] PASS: large title: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:31.477 nvALT[50301:343162104] PASS: large title: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:31.486 nvALT[50301:343162104] PASS: large title: subsequent search publishes normally
+2026-09-09 14:13:31.711 nvALT[50301:343162104] PASS: partial composition retains its unmarked prefix and suffix
+2026-09-09 14:13:31.711 nvALT[50301:343162104] PASS: partial composition: native search editor owns focus
+2026-09-09 14:13:31.718 nvALT[50301:343162104] PASS: partial composition: menu handles Command-N
+2026-09-09 14:13:31.718 nvALT[50301:343162104] OBSERVATION: partial composition synchronous Command-N duration 6.991 ms
+2026-09-09 14:13:31.769 nvALT[50301:343162104] PASS: partial composition: exactly one note is selected and created
+2026-09-09 14:13:31.769 nvALT[50301:343162104] PASS: partial composition: full title preserves the field editor UTF-8 bytes
+2026-09-09 14:13:31.769 nvALT[50301:343162104] PASS: partial composition: consuming the mutable editor cannot erase the copied title
+2026-09-09 14:13:31.777 nvALT[50301:343162104] PASS: partial composition: subsequent search publishes normally
+2026-09-09 14:13:31.828 nvALT[50301:343162104] PASS: all supplementary notes are removed from the disposable library
+2026-09-09 14:13:31.828 nvALT[50301:343162104] DAN LUU-INSPIRED ROUND 1 PASSED (53 checks)

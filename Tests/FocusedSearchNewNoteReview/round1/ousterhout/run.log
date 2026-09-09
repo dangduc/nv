@@ -1,0 +1,23 @@
+2026-09-09 14:14:09.395 nvALT[50338:343162704] PASS: temporary library directory exists
+2026-09-09 14:14:09.396 nvALT[50338:343162704] PASS: temporary library opens
+2026-09-09 14:14:09.481 nvALT[50338:343162704] verified 0 notes in 0.000226974 s
+2026-09-09 14:14:09.716 nvALT[50338:343162704] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:14:09.858 nvALT[50338:343162704] PASS: explicit creation preserves an existing selected note and its title
+2026-09-09 14:14:09.870 nvALT[50338:343162704] PASS: a unique exact query supplies an empty creation context
+2026-09-09 14:14:09.873 nvALT[50338:343162704] PASS: explicit title wins over the unrelated field and is owned by the note
+2026-09-09 14:14:09.873 nvALT[50338:343162704] PASS: explicit creation leaves the original note unchanged
+2026-09-09 14:14:09.880 nvALT[50338:343162704] PASS: a unique exact query supplies an empty creation context
+2026-09-09 14:14:09.883 nvALT[50338:343162704] PASS: legacy creation still takes the query as its title
+2026-09-09 14:14:09.883 nvALT[50338:343162704] PASS: legacy body-driven creation keeps source already in the editor
+2026-09-09 14:14:09.883 nvALT[50338:343162704] PASS: legacy creation also returns an existing current note without duplicating it
+2026-09-09 14:14:09.889 nvALT[50338:343162704] PASS: a unique exact query supplies an empty creation context
+2026-09-09 14:14:09.892 nvALT[50338:343162704] PASS: nil or empty explicit title uses the fallback, independently of the query
+2026-09-09 14:14:09.898 nvALT[50338:343162704] PASS: a unique exact query supplies an empty creation context
+2026-09-09 14:14:09.901 nvALT[50338:343162704] PASS: nil or empty explicit title uses the fallback, independently of the query
+2026-09-09 14:14:09.906 nvALT[50338:343162704] PASS: a unique exact query supplies an empty creation context
+2026-09-09 14:14:09.907 nvALT[50338:343162704] PASS: the focused live title differs from the browser session query
+2026-09-09 14:14:09.910 nvALT[50338:343162704] PASS: New Note retains the captured live string across a synchronous field mutation during finishEditing
+2026-09-09 14:14:09.910 nvALT[50338:343162704] PASS: the captured title is separate from the cleared query and new empty body
+2026-09-09 14:14:10.318 nvALT[50338:343162704] PASS: deferred callbacks preserve the one created note
+2026-09-09 14:14:10.318 nvALT[50338:343162704] PASS: 20 Ousterhout boundary checks
+2026-09-09 14:14:10.450 nvALT[50338:343162704] verified 6 notes in 0.000456095 s

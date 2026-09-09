@@ -1,0 +1,14 @@
+2026-09-09 14:13:01.417 nvALT[50235:343161217] PASS: temporary library directory exists
+2026-09-09 14:13:01.418 nvALT[50235:343161217] PASS: temporary library opens
+2026-09-09 14:13:01.490 nvALT[50235:343161217] verified 0 notes in 0.000203967 s
+2026-09-09 14:13:01.738 nvALT[50235:343161217] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:13:01.753 nvALT[50235:343161217] PASS: legacy creation starts without a selected note
+2026-09-09 14:13:01.763 nvALT[50235:343161217] PASS: legacy wrapper still creates from the field value
+2026-09-09 14:13:01.763 nvALT[50235:343161217] PASS: both creation entry points reuse an existing note without renaming or duplicating it
+2026-09-09 14:13:01.782 nvALT[50235:343161217] PASS: nil-title helper starts without a selected note
+2026-09-09 14:13:01.785 nvALT[50235:343161217] PASS: nil title preserves the localized unnamed-note fallback
+2026-09-09 14:13:01.793 nvALT[50235:343161217] PASS: snapshot test owns the live search field editor
+2026-09-09 14:13:01.797 nvALT[50235:343161217] PASS: copied title survives deliberate mutation of the original field editor
+2026-09-09 14:13:01.861 nvALT[50235:343161217] PASS: the created note owns its title after the search field is reused
+2026-09-09 14:13:01.861 nvALT[50235:343161217] Torvalds-inspired review: 11 checks passed
+2026-09-09 14:13:01.989 nvALT[50235:343161217] verified 0 notes in 0.000198007 s
