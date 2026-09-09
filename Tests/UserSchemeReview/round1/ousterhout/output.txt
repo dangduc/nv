@@ -1,0 +1,213 @@
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:122:40: warning: 'performAsCurrentDrawingAppearance:' is only available on macOS 11.0 or newer [-Wunguarded-availability-new]
+  122 |     else [[window effectiveAppearance] performAsCurrentDrawingAppearance:^{
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  123 |         foreground = [[NSColor textColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  124 |         background = [[NSColor textBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  125 |     }];
+      |     ~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:36:1: note: 'performAsCurrentDrawingAppearance:' has been marked as being introduced in macOS 11.0 here, but the deployment target is macOS 10.13.0
+   36 | - (void)performAsCurrentDrawingAppearance:(void (NS_NOESCAPE ^)(void))block API_AVAILABLE(macos(11.0));
+      | ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:122:40: note: enclose 'performAsCurrentDrawingAppearance:' in an @available check to silence this warning
+  122 |     else [[window effectiveAppearance] performAsCurrentDrawingAppearance:^{
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  123 |         foreground = [[NSColor textColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  124 |         background = [[NSColor textBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  125 |     }];
+      |     ~~ 
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:162:52: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+      |                                                    ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:162:52: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+      |                                                    ^~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:163:15: warning: 'NSAppearanceNameDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:64:38: note: 'NSAppearanceNameDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   64 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:163:15: note: enclose 'NSAppearanceNameDarkAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:164:15: warning: 'NSAppearanceNameAccessibilityHighContrastAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:76:38: note: 'NSAppearanceNameAccessibilityHighContrastAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   76 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityHighContrastAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:164:15: note: enclose 'NSAppearanceNameAccessibilityHighContrastAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:164:62: warning: 'NSAppearanceNameAccessibilityHighContrastDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+      |                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:77:38: note: 'NSAppearanceNameAccessibilityHighContrastDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   77 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityHighContrastDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:164:62: note: enclose 'NSAppearanceNameAccessibilityHighContrastDarkAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+      |                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:165:15: warning: 'NSAppearanceNameAccessibilityHighContrastDarkAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  165 |             @[NSAppearanceNameAccessibilityHighContrastDarkAqua, NSAppearanceNameAccessibilityHighContrastAqua]];
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:77:38: note: 'NSAppearanceNameAccessibilityHighContrastDarkAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   77 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityHighContrastDarkAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:165:15: note: enclose 'NSAppearanceNameAccessibilityHighContrastDarkAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+  165 |             @[NSAppearanceNameAccessibilityHighContrastDarkAqua, NSAppearanceNameAccessibilityHighContrastAqua]];
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:165:66: warning: 'NSAppearanceNameAccessibilityHighContrastAqua' is only available on macOS 10.14 or newer [-Wunguarded-availability-new]
+  165 |             @[NSAppearanceNameAccessibilityHighContrastDarkAqua, NSAppearanceNameAccessibilityHighContrastAqua]];
+      |                                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSAppearance.h:76:38: note: 'NSAppearanceNameAccessibilityHighContrastAqua' has been marked as being introduced in macOS 10.14 here, but the deployment target is macOS 10.13.0
+   76 | APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityHighContrastAqua API_AVAILABLE(macos(10.14));
+      |                                      ^
+/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-view-review-hho3be9i/Review.m:165:66: note: enclose 'NSAppearanceNameAccessibilityHighContrastAqua' in an @available check to silence this warning
+  162 |         NSArray *pairs = @[@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua],
+  163 |             @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua],
+  164 |             @[NSAppearanceNameAccessibilityHighContrastAqua, NSAppearanceNameAccessibilityHighContrastDarkAqua],
+  165 |             @[NSAppearanceNameAccessibilityHighContrastDarkAqua, NSAppearanceNameAccessibilityHighContrastAqua]];
+      |                                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+7 warnings generated.
+2026-09-09 16:19:15.547 nvALT[62121:343279979] PASS: temporary library directory exists
+2026-09-09 16:19:15.548 nvALT[62121:343279979] PASS: temporary library opens
+2026-09-09 16:19:15.624 nvALT[62121:343279979] verified 0 notes in 0.000203013 s
+2026-09-09 16:19:16.066 nvALT[62121:343279979] PASS: the independent fixture creates a second real browser
+2026-09-09 16:19:16.118 nvALT[62121:343279979] PASS: opposite-appearance browsers use one shared source storage
+2026-09-09 16:19:16.119 nvALT[62121:343279979] PASS: the application dispatches the existing shared Color Scheme command
+2026-09-09 16:19:16.273 nvALT[62121:343279979] MATRIX: scheme=0 appearance=NSAppearanceNameAqua / NSAppearanceNameDarkAqua
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.273 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.428 nvALT[62121:343279979] MATRIX: scheme=0 appearance=NSAppearanceNameDarkAqua / NSAppearanceNameAqua
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.428 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.584 nvALT[62121:343279979] MATRIX: scheme=0 appearance=NSAppearanceNameAccessibilityAqua / NSAppearanceNameAccessibilityDarkAqua
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.584 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.740 nvALT[62121:343279979] MATRIX: scheme=0 appearance=NSAppearanceNameAccessibilityDarkAqua / NSAppearanceNameAccessibilityAqua
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.740 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.741 nvALT[62121:343279979] PASS: the application dispatches the existing shared Color Scheme command
+2026-09-09 16:19:16.903 nvALT[62121:343279979] MATRIX: scheme=1 appearance=NSAppearanceNameAqua / NSAppearanceNameDarkAqua
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:16.904 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.256 nvALT[62121:343279979] MATRIX: scheme=1 appearance=NSAppearanceNameDarkAqua / NSAppearanceNameAqua
+2026-09-09 16:19:17.256 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.256 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.257 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.257 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.257 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.257 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.412 nvALT[62121:343279979] MATRIX: scheme=1 appearance=NSAppearanceNameAccessibilityAqua / NSAppearanceNameAccessibilityDarkAqua
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.412 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.567 nvALT[62121:343279979] MATRIX: scheme=1 appearance=NSAppearanceNameAccessibilityDarkAqua / NSAppearanceNameAccessibilityAqua
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.567 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.569 nvALT[62121:343279979] PASS: the application dispatches the existing shared Color Scheme command
+2026-09-09 16:19:17.726 nvALT[62121:343279979] MATRIX: scheme=2 appearance=NSAppearanceNameAqua / NSAppearanceNameDarkAqua
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.726 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.883 nvALT[62121:343279979] MATRIX: scheme=2 appearance=NSAppearanceNameDarkAqua / NSAppearanceNameAqua
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:17.883 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.041 nvALT[62121:343279979] MATRIX: scheme=2 appearance=NSAppearanceNameAccessibilityAqua / NSAppearanceNameAccessibilityDarkAqua
+2026-09-09 16:19:18.041 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.041 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.042 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.042 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.042 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.042 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.200 nvALT[62121:343279979] MATRIX: scheme=2 appearance=NSAppearanceNameAccessibilityDarkAqua / NSAppearanceNameAccessibilityAqua
+2026-09-09 16:19:18.200 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.200 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.201 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.201 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.201 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.201 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.203 nvALT[62121:343279979] PASS: the application dispatches the existing shared Color Scheme command
+2026-09-09 16:19:18.361 nvALT[62121:343279979] MATRIX: scheme=3 appearance=NSAppearanceNameAqua / NSAppearanceNameDarkAqua
+2026-09-09 16:19:18.361 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.361 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.361 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.361 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.361 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.362 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.522 nvALT[62121:343279979] MATRIX: scheme=3 appearance=NSAppearanceNameDarkAqua / NSAppearanceNameAqua
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.522 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.681 nvALT[62121:343279979] MATRIX: scheme=3 appearance=NSAppearanceNameAccessibilityAqua / NSAppearanceNameAccessibilityDarkAqua
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.681 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.839 nvALT[62121:343279979] MATRIX: scheme=3 appearance=NSAppearanceNameAccessibilityDarkAqua / NSAppearanceNameAccessibilityAqua
+2026-09-09 16:19:18.839 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.839 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: appearance selects the dark custom palette only inside User Scheme
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: the resolved browser and editor colors obey the selected scheme contract
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: temporary search backgrounds blend the selected raw color over this browser's actual background
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: all scheme and appearance transitions preserve shared source attributes
+2026-09-09 16:19:18.840 nvALT[62121:343279979] PASS: palette resolution leaves the raw preference values unchanged
+2026-09-09 16:19:18.841 nvALT[62121:343279979] PASS: a preference change produces fresh decorations without mutating returned dictionaries
+2026-09-09 16:19:18.841 nvALT[62121:343279979] PASS: the legacy highlight accessors keep their light-palette contract after a dark edit
+2026-09-09 16:19:18.841 nvALT[62121:343279979] OUSTERHOUT ROUND 1 PASSED (108 checks)

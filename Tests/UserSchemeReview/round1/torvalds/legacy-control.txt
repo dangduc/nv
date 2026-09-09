@@ -1,0 +1,6 @@
+2026-09-09 16:21:31.636 nvALT[62665:343284217] PASS: temporary library directory exists
+2026-09-09 16:21:31.637 nvALT[62665:343284217] PASS: temporary library opens
+2026-09-09 16:21:31.700 nvALT[62665:343284217] verified 0 notes in 0.00020802 s
+2026-09-09 16:21:31.956 nvALT[62665:343284217] PASS: the real browser has an effective appearance
+2026-09-09 16:21:31.957 nvALT[62665:343284217] PASS: selecting User Scheme succeeds without the macOS 11 drawing-appearance selector
+2026-09-09 16:21:31.957 nvALT[62665:343284217] TORVALDS AVAILABILITY CONTROL PASSED (4 checks)

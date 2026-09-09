@@ -1,0 +1,6 @@
+2026-09-09 16:21:20.553 nvALT[62637:343283873] PASS: temporary library directory exists
+2026-09-09 16:21:20.553 nvALT[62637:343283873] PASS: temporary library opens
+2026-09-09 16:21:20.642 nvALT[62637:343283873] verified 0 notes in 0.000216007 s
+2026-09-09 16:21:20.880 nvALT[62637:343283873] PASS: the real browser has an effective appearance
+2026-09-09 16:21:20.882 nvALT[62637:343283873] Unavailable-selector observation (PR path): -[NSCompositeAppearance performAsCurrentDrawingAppearance:]: unrecognized selector sent to instance 0x6000024243f0
+2026-09-09 16:21:20.882 nvALT[62637:343283873] FAIL: selecting User Scheme succeeds without the macOS 11 drawing-appearance selector
