@@ -227,6 +227,14 @@
 		978B58221822A08C6988F194 /* NVBackupStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 005BD5CA0377AD2610B697CB /* NVBackupStore.m */; };
 		474E234BCB32E83F38242B26 /* NVBackupController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9E526B507CA964174B3BA3 /* NVBackupController.m */; };
 		96B62E786B670EF6BE4DEF0B /* NVBackupPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6ABDA8D0E09C7336E6C7E /* NVBackupPreferencesViewController.m */; };
+		F59CAF2EDCBF6D9FA29137BD /* NVFZF.c in Sources */ = {isa = PBXBuildFile; fileRef = A469ED85F7B270BECCA7E2C1 /* NVFZF.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
+		D5B1560B5A0A6277FB32BAAC /* NVSearchCorpus.m in Sources */ = {isa = PBXBuildFile; fileRef = B46326149FA59BA1516C39B2 /* NVSearchCorpus.m */; };
+		DA2B2B16A6D3BB6C1EDC54E1 /* NVSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 86318B2FDB17EBCC4F45BC5F /* NVSearchQuery.m */; };
+		4D99123514EBC90B2A287A79 /* NVSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = B9700497F433EC962B0A961A /* NVSearchService.m */; };
+		37DC0F3A0F7A064FC2AB900D /* AppController_Search.m in Sources */ = {isa = PBXBuildFile; fileRef = BE75784B6A511AF5193BDB09 /* AppController_Search.m */; };
+		BD109811989EEE3F3DA146C3 /* fzf.c in Sources */ = {isa = PBXBuildFile; fileRef = 75155DE78FC3BEDC660B250E /* fzf.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
+		84315EA16115E2893A5C94D7 /* utf8proc.c in Sources */ = {isa = PBXBuildFile; fileRef = C12DBBCCFCAA6C037BF047F9 /* utf8proc.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
+		E8952D246642677D1AE78F9C /* SearchLicenses in Resources */ = {isa = PBXBuildFile; fileRef = 52C49B93E33D3BBAA40DC328 /* SearchLicenses */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -842,6 +850,35 @@
 		EB9E526B507CA964174B3BA3 /* NVBackupController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupController.m; sourceTree = "<group>"; };
 		FDC45DA435A0F4A7158286A6 /* NVBackupPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBackupPreferencesViewController.h; sourceTree = "<group>"; };
 		6DC6ABDA8D0E09C7336E6C7E /* NVBackupPreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBackupPreferencesViewController.m; sourceTree = "<group>"; };
+		A469ED85F7B270BECCA7E2C1 /* NVFZF.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "NVFZF.c"; sourceTree = "<group>"; };
+		9F1FCB9C39456753FD7E3871 /* NVFZF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NVFZF.h"; sourceTree = "<group>"; };
+		BADF32C035ADC50F090A2F70 /* NVSearchCorpus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NVSearchCorpus.h"; sourceTree = "<group>"; };
+		B46326149FA59BA1516C39B2 /* NVSearchCorpus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NVSearchCorpus.m"; sourceTree = "<group>"; };
+		107EF9563346D8B983ED15EC /* NVSearchQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NVSearchQuery.h"; sourceTree = "<group>"; };
+		86318B2FDB17EBCC4F45BC5F /* NVSearchQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NVSearchQuery.m"; sourceTree = "<group>"; };
+		26844BC63ADE75A064D1A19A /* NVSearchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NVSearchService.h"; sourceTree = "<group>"; };
+		B9700497F433EC962B0A961A /* NVSearchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NVSearchService.m"; sourceTree = "<group>"; };
+		FA346B5BC4EDDDDC0A3EAB4A /* NativePattern.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativePattern.inc"; sourceTree = "<group>"; };
+		19D3E72FAA61F789158D5BD5 /* NativeRanking.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativeRanking.inc"; sourceTree = "<group>"; };
+		D981F0A552CA85340B6467F3 /* ORIGIN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "ORIGIN.md"; sourceTree = "<group>"; };
+		BE75784B6A511AF5193BDB09 /* AppController_Search.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppController_Search.m"; sourceTree = "<group>"; };
+		6144FA8D07434B5828E8C8D2 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE"; sourceTree = "<group>"; };
+		E0488089D3689736AB0D09D6 /* LICENSE-MIT */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-MIT"; sourceTree = "<group>"; };
+		40B00E0B2750BD15C6FBAE83 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README.md"; sourceTree = "<group>"; };
+		A7950BF3BB169E8058B0335C /* fzf-normalize.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fzf-normalize.inc"; sourceTree = "<group>"; };
+		2260369029A0D5D9389CDCAC /* fzf-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fzf-private.h"; sourceTree = "<group>"; };
+		731C8F03B3066FAB36B4A8AF /* fzf-score-input.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fzf-score-input.inc"; sourceTree = "<group>"; };
+		A7F28AF8CD87071C0D232CEC /* fzf-simd-prefilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fzf-simd-prefilter.h"; sourceTree = "<group>"; };
+		75155DE78FC3BEDC660B250E /* fzf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "fzf.c"; sourceTree = "<group>"; };
+		6AF88441E7C86605FF2DA265 /* fzf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fzf.h"; sourceTree = "<group>"; };
+		7C500F0D2F7F0F75D387C710 /* upstream.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "upstream.json"; sourceTree = "<group>"; };
+		C578DE8B47A58B1DED372597 /* utf8_char_index.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "utf8_char_index.h"; sourceTree = "<group>"; };
+		7ACE76457F1D6977FEBDAEF6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "utf8proc-2.10.0/LICENSE.md"; sourceTree = "<group>"; };
+		C12DBBCCFCAA6C037BF047F9 /* utf8proc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "utf8proc-2.10.0/utf8proc.c"; sourceTree = "<group>"; };
+		191FC75B7EEC8C59860C45D3 /* utf8proc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "utf8proc-2.10.0/utf8proc.h"; sourceTree = "<group>"; };
+		0BC7883BB037C6A432EEC3C5 /* utf8proc_data.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "utf8proc-2.10.0/utf8proc_data.c"; sourceTree = "<group>"; };
+		52C49B93E33D3BBAA40DC328 /* SearchLicenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "SearchLicenses"; sourceTree = "<group>"; };
+		A14892586C9D2FE481362405 /* SavedSearchesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedSearchesController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1039,6 +1076,7 @@
 		2D26513C7855DD85D5E163C1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CF0C60C0FF9141DB39A63DDB /* Search */,
 				B326331431B54E2FF2638FA7 /* Application */,
 				A16DEF99BF102EC92557A994 /* Browser */,
 				FEFAF705DF9D41D3517CDAC9 /* Editor */,
@@ -1206,6 +1244,7 @@
 		A16DEF99BF102EC92557A994 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
+				BE75784B6A511AF5193BDB09 /* AppController_Search.m */,
 				2114C11409575BD400614E74 /* AppController.h */,
 				2114C11509575BD400614E74 /* AppController.m */,
 				B40C00000000000000000002 /* AppController_BrowserUI.m */,
@@ -1220,6 +1259,7 @@
 				21A6E6FC0974204F008436A9 /* LabelsListController.m */,
 				42687BEEE57B81B142B0EFAB /* NVBrowserSession.h */,
 				E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */,
+				A14892586C9D2FE481362405 /* SavedSearchesController.h */,
 				E482C93984C34EF58055EF9C /* SavedSearchesController.m */,
 			);
 			path = Browser;
@@ -1310,6 +1350,7 @@
 		BAE7910A3637C0314CA066B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				52C49B93E33D3BBAA40DC328 /* SearchLicenses */,
 				5AAB8E66A99646B17BE7BBDB /* Syntax */,
 				5B609FD15BA9E7409690F8E4 /* Help */,
 				188FA73E721A45436BC21EB3 /* Images */,
@@ -1350,6 +1391,7 @@
 		C342B414A94BF937EBB431DC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				BFD455A36DA07F4DCF01C4E1 /* fzf-native */,
 				5C9738F6B6F219D221F51568 /* TreeSitter */,
 				B2B98D241041156EE4F8C00D /* Crypto */,
 				0FC0EA020AFA83B960F5801B /* MultiMarkdown */,
@@ -1770,6 +1812,46 @@
 			path = TreeSitter;
 			sourceTree = "<group>";
 		};
+		CF0C60C0FF9141DB39A63DDB /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A469ED85F7B270BECCA7E2C1 /* NVFZF.c */,
+				9F1FCB9C39456753FD7E3871 /* NVFZF.h */,
+				BADF32C035ADC50F090A2F70 /* NVSearchCorpus.h */,
+				B46326149FA59BA1516C39B2 /* NVSearchCorpus.m */,
+				107EF9563346D8B983ED15EC /* NVSearchQuery.h */,
+				86318B2FDB17EBCC4F45BC5F /* NVSearchQuery.m */,
+				26844BC63ADE75A064D1A19A /* NVSearchService.h */,
+				B9700497F433EC962B0A961A /* NVSearchService.m */,
+				FA346B5BC4EDDDDC0A3EAB4A /* NativePattern.inc */,
+				19D3E72FAA61F789158D5BD5 /* NativeRanking.inc */,
+				D981F0A552CA85340B6467F3 /* ORIGIN.md */,
+			);
+			path = "Search";
+			sourceTree = "<group>";
+		};
+		BFD455A36DA07F4DCF01C4E1 /* fzf-native */ = {
+			isa = PBXGroup;
+			children = (
+				6144FA8D07434B5828E8C8D2 /* LICENSE */,
+				E0488089D3689736AB0D09D6 /* LICENSE-MIT */,
+				40B00E0B2750BD15C6FBAE83 /* README.md */,
+				A7950BF3BB169E8058B0335C /* fzf-normalize.inc */,
+				2260369029A0D5D9389CDCAC /* fzf-private.h */,
+				731C8F03B3066FAB36B4A8AF /* fzf-score-input.inc */,
+				A7F28AF8CD87071C0D232CEC /* fzf-simd-prefilter.h */,
+				75155DE78FC3BEDC660B250E /* fzf.c */,
+				6AF88441E7C86605FF2DA265 /* fzf.h */,
+				7C500F0D2F7F0F75D387C710 /* upstream.json */,
+				C578DE8B47A58B1DED372597 /* utf8_char_index.h */,
+				7ACE76457F1D6977FEBDAEF6 /* LICENSE.md */,
+				C12DBBCCFCAA6C037BF047F9 /* utf8proc.c */,
+				191FC75B7EEC8C59860C45D3 /* utf8proc.h */,
+				0BC7883BB037C6A432EEC3C5 /* utf8proc_data.c */,
+			);
+			path = "fzf-native";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1839,6 +1921,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8952D246642677D1AE78F9C /* SearchLicenses in Resources */,
 				C332354D97ECCC7E6B1EFF0D /* Syntax in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				5C625D3A19DCAB8E00BF0492 /* ServicesMenu.strings in Resources */,
@@ -1952,6 +2035,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F59CAF2EDCBF6D9FA29137BD /* NVFZF.c in Sources */,
+				D5B1560B5A0A6277FB32BAAC /* NVSearchCorpus.m in Sources */,
+				DA2B2B16A6D3BB6C1EDC54E1 /* NVSearchQuery.m in Sources */,
+				4D99123514EBC90B2A287A79 /* NVSearchService.m in Sources */,
+				37DC0F3A0F7A064FC2AB900D /* AppController_Search.m in Sources */,
+				BD109811989EEE3F3DA146C3 /* fzf.c in Sources */,
+				84315EA16115E2893A5C94D7 /* utf8proc.c in Sources */,
 				96B62E786B670EF6BE4DEF0B /* NVBackupPreferencesViewController.m in Sources */,
 				474E234BCB32E83F38242B26 /* NVBackupController.m in Sources */,
 				978B58221822A08C6988F194 /* NVBackupStore.m in Sources */,
@@ -2481,6 +2571,7 @@
 					"$(PROJECT_DIR)/Config",
 					"$(PROJECT_DIR)/Sources/**",
 					"$(PROJECT_DIR)/ThirdParty/Crypto",
+					"$(PROJECT_DIR)/ThirdParty/fzf-native",
 					"$(PROJECT_DIR)/ThirdParty/TreeSitter/runtime/include",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/ThirdParty/ODBEditor",
@@ -2573,6 +2664,7 @@
 					"$(PROJECT_DIR)/Config",
 					"$(PROJECT_DIR)/Sources/**",
 					"$(PROJECT_DIR)/ThirdParty/Crypto",
+					"$(PROJECT_DIR)/ThirdParty/fzf-native",
 					"$(PROJECT_DIR)/ThirdParty/TreeSitter/runtime/include",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/ThirdParty/ODBEditor",

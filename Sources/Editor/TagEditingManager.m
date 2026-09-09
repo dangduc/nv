@@ -35,6 +35,8 @@
 }
 
 - (void)dealloc{
+    [tagPanel setDelegate:nil];
+    [tagField setDelegate:nil];
     [tagFieldString release];
     [commonTags release];
 	[tagPanel release];
@@ -83,7 +85,7 @@
     }
     isHappening = NO;
     self.commonTags=[NSArray array];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"TagEditorShouldRelease" object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"TagEditorShouldRelease" object:self];
 }
 
 - (void)setTF:(NSString *)inString{

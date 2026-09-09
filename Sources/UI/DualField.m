@@ -48,6 +48,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [followedLinks release];
     [snapbackString release];
+    [snapbackSearchMode release];
     [super dealloc];
 }
 - (BOOL)hasFollowedLinks { return [followedLinks count] != 0; }
@@ -57,16 +58,18 @@
     NoteBookmark *bookmark = [[followedLinks lastObject] retain];
     if (!bookmark) return nil;
     [followedLinks removeLastObject];
-    [NVControllerForView(self) searchForString:[bookmark searchString]];
-    [NVControllerForView(self) revealNote:[bookmark noteObject] options:0];
+    [NVControllerForView(self) bookmarksController:nil restoreNoteBookmark:bookmark inBackground:YES];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearFollowedLinks) object:nil];
     return [bookmark autorelease];
 }
 - (void)setSnapbackString:(NSString *)string {
     if (snapbackString != string) { [snapbackString release]; snapbackString = [string copy]; }
+    [snapbackSearchMode release];
+    snapbackSearchMode = [[NVControllerForView(self) searchMode] copy];
     [self performSelector:@selector(clearFollowedLinks) withObject:nil afterDelay:0];
 }
 - (NSString *)snapbackString { return snapbackString; }
+- (NSString *)snapbackSearchMode { return snapbackSearchMode ?: @"exact"; }
 - (void)snapback:(id)sender {
     if ([self hasFollowedLinks]) [self popLastFollowedLink];
     else [notesTable deselectAll:sender];

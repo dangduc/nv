@@ -18,9 +18,10 @@ static void Check(BOOL condition, const char *message) {
 @end
 @implementation NoteObject
 - (id)initWithNoteBody:(NSAttributedString *)body title:(NSString *)title delegate:(id)owner format:(NSInteger)format labels:(NSString *)labels {
-    if ((self = [super init])) { contentString = [body mutableCopy]; titleString = [title copy]; labelString = [labels copy]; }
+    if ((self = [super init])) { contentString = [body mutableCopy]; titleString = [title copy]; labelString = [labels copy]; CFUUIDRef uuid = CFUUIDCreate(NULL); uniqueNoteIDBytes = CFUUIDGetUUIDBytes(uuid); CFRelease(uuid); }
     return self;
 }
+- (CFUUIDBytes *)uniqueNoteIDBytes { return &uniqueNoteIDBytes; }
 - (NSMutableAttributedString *)contentString { ContentsReads++; return contentString; }
 - (void)setContentString:(NSAttributedString *)contents { [contentString setAttributedString:contents]; }
 - (void)dealloc { [contentString release]; [titleString release]; [labelString release]; [super dealloc]; }

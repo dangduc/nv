@@ -178,6 +178,8 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (double)scrollOffsetOfLastSelectedNote;
 - (CFUUIDBytes)UUIDBytesOfLastSelectedNote;
 - (NSString*)lastSearchString;
+- (NSString*)lastSearchMode;
+- (NSString*)lastSearchResultRowKey;
 - (void)setLastSearchString:(NSString*)string selectedNote:(id<LogNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender;
 
 - (void)saveCurrentBookmarksFromSender:(id)sender;
@@ -215,5 +217,4 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 @interface NSObject (GlobalPrefsDelegate)
 	- (void)settingChangedForSelectorString:(NSString*)selectorString;
 @end
-
 

@@ -20,6 +20,7 @@
     IBOutlet NSTableView *notesTable;
     NSMutableArray *followedLinks;
     NSString *snapbackString;
+    NSString *snapbackSearchMode;
 }
 - (BOOL)hasFollowedLinks;
 - (void)clearFollowedLinks;
@@ -27,5 +28,6 @@
 - (NoteBookmark *)popLastFollowedLink;
 - (void)setSnapbackString:(NSString *)string;
 - (NSString *)snapbackString;
+- (NSString *)snapbackSearchMode;
 - (void)snapback:(id)sender;
 @end

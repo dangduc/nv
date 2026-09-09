@@ -1,0 +1,36 @@
+environment,arch,arm64
+environment,os,Version 26.5.2 (Build 25F84)
+corpus,notes,10000,bytes,52826668,capture_ms,32.425,synchronize_ms,4.085
+query,cold,mtg,0.038,613.931,10000
+components,mtg,prepare_ms,55.776,title_ms,1.952,result_ms,1.794
+query,warm,road,0.022,709.666,12000
+components,road,prepare_ms,0.161,title_ms,2.073,result_ms,1.783
+query,warm,copper,0.020,1061.222,10000
+components,copper,prepare_ms,0.152,title_ms,2.209,result_ms,1.735
+query,warm,budget,0.021,1036.327,10000
+components,budget,prepare_ms,0.162,title_ms,1.963,result_ms,1.682
+query,warm,deploy,0.014,1019.157,10000
+components,deploy,prepare_ms,0.173,title_ms,1.782,result_ms,1.736
+query,warm,finance,0.020,801.967,6666
+components,finance,prepare_ms,0.171,title_ms,1.878,result_ms,1.802
+query,warm,planning,0.020,1345.700,10000
+components,planning,prepare_ms,0.155,title_ms,1.958,result_ms,1.724
+query,warm,source,0.018,1020.911,10000
+components,source,prepare_ms,0.157,title_ms,1.859,result_ms,1.715
+query,warm,weekly,0.018,1010.340,10000
+components,weekly,prepare_ms,0.167,title_ms,1.788,result_ms,1.716
+query,warm,archive,0.016,1110.207,9333
+components,archive,prepare_ms,0.147,title_ms,2.038,result_ms,1.692
+query,warm,lantern,0.019,1187.734,10000
+components,lantern,prepare_ms,0.166,title_ms,1.785,result_ms,1.701
+query,warm,mtg,0.017,536.084,10000
+components,mtg,prepare_ms,0.168,title_ms,1.794,result_ms,1.709
+query,warm,review,0.017,995.646,10000
+components,review,prepare_ms,0.168,title_ms,1.980,result_ms,1.734
+summary,warm_p50_ms,1020.911,warm_p95_ms,1345.700
+cancel,cold_unicode,1048575,9.695
+cancel,cold_normalization_unicode,1048575,5.640
+query,prepare_long_unicode,"no literal match",0.009,14.688,0
+components,"no literal match",prepare_ms,11.973,title_ms,0.002,result_ms,0.005
+cancel,warm_unicode,1048575,3.318
+memory,peak_resident_bytes,318439424

@@ -23,6 +23,8 @@
 
 @interface NoteBookmark : NSObject {
 	NSString *searchString;
+	NSString *searchMode;
+	NSString *resultRowKey;
 	CFUUIDBytes uuidBytes;
 	NoteObject *noteObject;
 
@@ -32,8 +34,12 @@
 - (id)initWithDictionary:(NSDictionary*)aDict;
 - (id)initWithNoteObject:(NoteObject*)aNote searchString:(NSString*)aString;
 - (id)initWithNoteUUIDBytes:(CFUUIDBytes)bytes searchString:(NSString*)aString;
+- (id)initWithNoteObject:(NoteObject*)aNote searchString:(NSString*)aString searchMode:(NSString*)mode resultRowKey:(NSString*)rowKey;
+- (id)initWithNoteUUIDBytes:(CFUUIDBytes)bytes searchString:(NSString*)aString searchMode:(NSString*)mode resultRowKey:(NSString*)rowKey;
 
 - (NSString*)searchString;
+- (NSString*)searchMode;
+- (NSString*)resultRowKey;
 - (NoteObject*)noteObject;
 - (void)validateNoteObject;
 - (NSDictionary*)dictionaryRep;
@@ -134,4 +140,3 @@
 - (NoteObject*)noteForUUIDBytes:(CFUUIDBytes*)bytes;
 
 @end
-

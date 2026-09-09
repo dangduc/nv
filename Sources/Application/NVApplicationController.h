@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-@class AppController, NotationController, NoteObject, NVNoteEditingSession, NVBackupController;
+@class AppController, NotationController, NoteObject, NVNoteEditingSession, NVBackupController, NVSearchService;
 
 @interface NVApplicationController : NSObject <NSApplicationDelegate> {
     AppController *initialBrowser;
@@ -9,6 +9,8 @@
     NotationController *library;
     NSMutableDictionary *editingSessions;
     NVBackupController *backupController;
+    NVSearchService *searchService;
+    NSUInteger searchSnapshotRevision;
     BOOL terminating;
     BOOL finishingTermination;
     BOOL restoring;
@@ -21,6 +23,9 @@
 - (NSArray *)browserControllers;
 - (NotationController *)library;
 - (NVBackupController *)backupController;
+- (NVSearchService *)searchService;
+- (void)searchableNoteDidChange:(NoteObject *)note;
+- (void)searchableNoteWasRemoved:(NoteObject *)note;
 - (BOOL)restoreBackupArchive:(NSDictionary *)archive toDirectory:(NSURL *)directory error:(NSError **)error;
 - (void)setLibrary:(NotationController *)newLibrary;
 - (void)browserBecameActive:(AppController *)browser;

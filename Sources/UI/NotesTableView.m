@@ -44,6 +44,67 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 
 @implementation NotesTableView
 - (BOOL)browserHorizontalLayout { return NO; }
+- (BOOL)searchRowsAreAvailable {
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    return !session || [session searchResultsAreCurrent];
+}
+- (void)clearInlineEditTarget {
+    [inlineEditNote release]; inlineEditNote = nil;
+    [inlineEditSession release]; inlineEditSession = nil;
+    inlineEditRow = -1;
+}
+- (NoteObject *)noteForInlineEditAtRow:(NSInteger)row inSession:(NVBrowserSession *)session {
+    if (!inlineEditNote || inlineEditSession != session || row != inlineEditRow) return nil;
+    return [[[session library] allNotes] indexOfObjectIdenticalTo:inlineEditNote] != NSNotFound ? inlineEditNote : nil;
+}
+- (BOOL)hasInlineEditTarget { return inlineEditNote != nil; }
+- (NSInteger)primarySelectedRow {
+    NSIndexSet *selected = [self selectedRowIndexes];
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    NSUInteger row = [session indexForRowKey:primarySelectionRowKey];
+    if (row != NSNotFound && [selected containsIndex:row]) return (NSInteger)row;
+    NSInteger native = [super selectedRow];
+    return native >= 0 && [selected containsIndex:(NSUInteger)native] ? native : ([selected count] ? (NSInteger)[selected firstIndex] : -1);
+}
+- (void)setPrimarySelectedRow:(NSInteger)row {
+    if (row < 0 || ![[self selectedRowIndexes] containsIndex:(NSUInteger)row]) return;
+    NSString *key = [[NVControllerForView(self) browserSession] rowKeyAtIndex:(NSUInteger)row];
+    [primarySelectionRowKey autorelease]; primarySelectionRowKey = [key copy];
+}
+- (void)preparePrimarySelectionForRow:(NSInteger)row {
+    if (row < 0) return;
+    NSString *key = [[NVControllerForView(self) browserSession] rowKeyAtIndex:(NSUInteger)row];
+    if (key) { [primarySelectionRowKey release]; primarySelectionRowKey = [key copy]; }
+}
+- (void)notifyPrimaryChangeFromKey:(NSString *)oldKey selectedIndexes:(NSIndexSet *)oldIndexes {
+    if ([oldIndexes isEqualToIndexSet:[self selectedRowIndexes]] && ![oldKey isEqualToString:primarySelectionRowKey] &&
+        (oldKey || primarySelectionRowKey) && [[self delegate] respondsToSelector:@selector(tableViewSelectionDidChange:)])
+        [[self delegate] tableViewSelectionDidChange:[NSNotification notificationWithName:NSTableViewSelectionDidChangeNotification object:self]];
+}
+- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend {
+    if (![self searchRowsAreAvailable]) return;
+    NSString *oldPrimary = [[primarySelectionRowKey copy] autorelease];
+    NSIndexSet *oldIndexes = [[[self selectedRowIndexes] copy] autorelease];
+    NSMutableIndexSet *next = extend ? [[[self selectedRowIndexes] mutableCopy] autorelease] : [NSMutableIndexSet indexSet];
+    [next addIndexes:indexes];
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    NSUInteger primary = [session indexForRowKey:primarySelectionRowKey];
+    if (extend && [indexes count] == 1) primary = [indexes firstIndex];
+    if (primary == NSNotFound || ![next containsIndex:primary]) primary = [next firstIndex];
+    NSString *key = primary != NSNotFound ? [session rowKeyAtIndex:primary] : nil;
+    [primarySelectionRowKey autorelease]; primarySelectionRowKey = [key copy];
+    [super selectRowIndexes:indexes byExtendingSelection:extend];
+    [self notifyPrimaryChangeFromKey:oldPrimary selectedIndexes:oldIndexes];
+}
+- (NSCell *)preparedCellAtColumn:(NSInteger)column row:(NSInteger)row {
+    NSCell *cell = [super preparedCellAtColumn:column row:row];
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    NSString *context = row >= 0 ? [session accessibilityDescriptionForRow:(NSUInteger)row] : nil;
+    [cell setAccessibilityHelp:[context length] ? context : nil];
+    [cell setAccessibilityEnabled:[self searchRowsAreAvailable]];
+    [cell setEnabled:[self searchRowsAreAvailable]];
+    return cell;
+}
 - (NSString *)browserSortKey { return [[[NVControllerForView(self) browserSession] sortColumn] identifier] ?: [globalPrefs sortedTableColumnKey]; }
 - (BOOL)browserReverseSorted { NVBrowserSession *session = [NVControllerForView(self) browserSession]; return session ? [session reverseSorted] : [globalPrefs tableIsReverseSorted]; }
 
@@ -128,6 +189,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (void)dealloc {
+    [self clearInlineEditTarget];
+    [primarySelectionRowKey release]; primarySelectionRowKey = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setDataSource:nil];
@@ -428,9 +491,9 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (ViewLocationContext)viewingLocation {
-	ViewLocationContext ctx;
+	ViewLocationContext ctx = {0};
 	
-	NSUInteger pivotRow = [[self selectedRowIndexes] firstIndex];
+	NSUInteger pivotRow = (NSUInteger)[self primarySelectedRow];
 	
 	NSUInteger nRows = (NSUInteger)[self numberOfRows];
 	
@@ -450,7 +513,9 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	ctx.nonRetainedPivotObject = nil;
 	ctx.verticalDistanceToPivotRow = 0;
 	
-	if (pivotRow < nRows) {
+    if (pivotRow < nRows) {
+        NSString *key = [[NVControllerForView(self) browserSession] rowKeyAtIndex:pivotRow];
+        if (key) strlcpy(ctx.pivotRowKey, [key UTF8String], sizeof(ctx.pivotRowKey));
 		if ((ctx.nonRetainedPivotObject = [(FastListDataSource*)[self dataSource] immutableObjects][pivotRow])) {
 			ctx.verticalDistanceToPivotRow = [self distanceFromRow:pivotRow forVisibleArea:visibleRect];
 		}
@@ -461,7 +526,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 - (void)setViewingLocation:(ViewLocationContext)ctx {
 	if (ctx.nonRetainedPivotObject) {
 		
-		NSInteger pivotIndex = [(FastListDataSource*)[self dataSource] indexOfObjectIdenticalTo:ctx.nonRetainedPivotObject];
+        NSInteger pivotIndex = ctx.pivotRowKey[0] ? [[NVControllerForView(self) browserSession] indexForRowKey:[NSString stringWithUTF8String:ctx.pivotRowKey]] : NSNotFound;
+        if (pivotIndex == NSNotFound) pivotIndex = [(FastListDataSource*)[self dataSource] indexOfObjectIdenticalTo:ctx.nonRetainedPivotObject];
 		if (pivotIndex != NSNotFound) {
 			//figure out how to determine top/bottom condition:
 			//if pivotRow was 0 or nRows-1, and pivotIndex is not either, then scroll maximally in the nearest direction?
@@ -491,7 +557,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 
 - (void)editRowAtColumnWithIdentifier:(id)identifier {
 	NSInteger colIndex = -1;
-	NSInteger selected = [self selectedRow];
+	NSInteger selected = [self primarySelectedRow];
 	
 	if (selected < 0) {
 		NSBeep();
@@ -630,6 +696,11 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 
 - (NSMenu *)menuForColumnSorting {
 	NSMenu *theMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    if ([[session searchMode] isEqualToString:@"fuzzy"] && [session hasSearchTerms]) {
+        NSMenuItem *scope = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Sort title matches", nil) action:NULL keyEquivalent:@""] autorelease];
+        [scope setEnabled:NO]; [theMenu addItem:scope];
+    }
     
     NSEnumerator *theEnumerator = [allColumns objectEnumerator];
     NSTableColumn *theColumn = nil;
@@ -755,15 +826,20 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     return YES;
 }
 
-- (NSMenu *)menuForEvent:(NSEvent *)theEvent {    
+- (NSMenu *)menuForEvent:(NSEvent *)theEvent {
+    if (![self searchRowsAreAvailable]) return nil;
+    NSString *oldPrimary = [[primarySelectionRowKey copy] autorelease];
+    NSIndexSet *oldIndexes = [[[self selectedRowIndexes] copy] autorelease];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
     NSPoint mousePoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSInteger row = [self rowAtPoint:mousePoint];
 	
     if (row >= 0) {
+		[self preparePrimarySelectionForRow:row];
 		[self selectRowIndexes:[NSIndexSet indexSetWithIndex:row]
 		  byExtendingSelection:[[self selectedRowIndexes] containsIndex:(NSUInteger)row] && [[self selectedRowIndexes] count] > 1];
 	}
+    [self notifyPrimaryChangeFromKey:oldPrimary selectedIndexes:oldIndexes];
 	
 	if (![self numberOfSelectedRows])
 		return nil;
@@ -779,6 +855,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 }
 
 - (NSMenu *)defaultNoteCommandsMenuWithTarget:(id)target {
+    if (![self searchRowsAreAvailable]) return nil;
 	NSMenu *theMenu = [[[NSMenu alloc] initWithTitle:@"Contextual Note Commands Menu"] autorelease];
 	NSMenu *notesMenu = [[[NSApp mainMenu] itemWithTag:NOTES_MENU_ID] submenu];
 	
@@ -853,6 +930,10 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 //}
 
 - (void)mouseDown:(NSEvent*)event {
+    if (![self searchRowsAreAvailable]) return;
+    NSString *oldPrimary = [[primarySelectionRowKey copy] autorelease];
+    NSIndexSet *oldIndexes = [[[self selectedRowIndexes] copy] autorelease];
+    [self preparePrimarySelectionForRow:[self rowAtPoint:[self convertPoint:[event locationInWindow] fromView:nil]]];
     
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
     if ([event clickCount]==1) {
@@ -900,6 +981,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 			[pboard setPropertyList:paths forType:NSFilenamesPboardType];			
 			
 			[NSApp preventWindowOrdering]; 
+            [self notifyPrimaryChangeFromKey:oldPrimary selectedIndexes:oldIndexes];
 			[self dragImage:image at:dragPoint offset:NSZeroSize event:event pasteboard:pboard source:self slideBack:YES]; 
 			return;
 		} else {
@@ -908,6 +990,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
     }
 	
 	[super mouseDown:event];
+    [self notifyPrimaryChangeFromKey:oldPrimary selectedIndexes:oldIndexes];
 }
 
 #define DOWNCHAR(x) ((x) == NSDownArrowFunctionKey || (x) == NSDownTextMovement)
@@ -918,10 +1001,11 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 //    [NVControllerForView(self) resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	unichar keyChar = [theEvent firstCharacter];
+    if (![self searchRowsAreAvailable] && (keyChar < 0x20 || keyChar >= 0xF700 || keyChar == NSDeleteCharacter)) return;
 
     if (keyChar == NSNewlineCharacter || keyChar == NSCarriageReturnCharacter || keyChar == NSEnterCharacter) {
-		NSInteger sel = [self selectedRow];
-		if (sel < (unsigned)[self numberOfRows] && [self numberOfSelectedRows] == 1) {
+		NSInteger sel = [self primarySelectedRow];
+		if (sel >= 0 && sel < [self numberOfRows] && [[(FastListDataSource *)[self dataSource] objectsAtFilteredIndexes:[self selectedRowIndexes]] count] == 1) {
 			NSInteger colIndex = [self columnWithIdentifier:NoteTitleColumnString];
 			if (colIndex > -1) {
 				[self editColumn:colIndex row:sel withEvent:theEvent select:YES];
@@ -982,7 +1066,16 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	}
 	
 	if (DOWNCHAR(keyChar) || UPCHAR(keyChar)) {
+		if (!(modifiers & NSShiftKeyMask)) {
+            NSInteger current = [self primarySelectedRow];
+            NSInteger next = current < 0 ? (UPCHAR(keyChar) ? [self numberOfRows] - 1 : 0) : current + (UPCHAR(keyChar) ? -1 : 1);
+            [self selectRowAndScroll:MAX(0, MIN([self numberOfRows] - 1, next))];
+            return;
+        }
 		[super keyDown:theEvent];
+        NSString *oldPrimary = [[primarySelectionRowKey copy] autorelease];
+        [self setPrimarySelectedRow:[super selectedRow]];
+        [self notifyPrimaryChangeFromKey:oldPrimary selectedIndexes:[self selectedRowIndexes]];
 		return;
 	}
 	
@@ -1055,7 +1148,8 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)_incrementNoteSelectionByTag:(NSInteger)tag {
-	NSInteger rowNumber = [self selectedRow];
+    if (![self searchRowsAreAvailable]) return;
+	NSInteger rowNumber = [self primarySelectedRow];
 	NSInteger totalNotes = [self numberOfRows];
 	
 	if (rowNumber == -1) {
@@ -1074,6 +1168,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)deselectAll:(id)sender {
+	[primarySelectionRowKey release]; primarySelectionRowKey = nil;
 	
 	[super deselectAll:sender];
 	
@@ -1081,6 +1176,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)selectRowAndScroll:(NSInteger)row {
+    if (![self searchRowsAreAvailable]) return;
 	
 	if (row > -1 && row < [self numberOfRows]) {
 		[self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
@@ -1218,6 +1314,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)editColumn:(NSInteger)columnIndex row:(NSInteger)rowIndex withEvent:(NSEvent *)event select:(BOOL)flag {
+    if (![self searchRowsAreAvailable]) return;
     
     [(AppController *)[self delegate] setIsEditing:YES];
 	BOOL isTitleCol = [self columnWithIdentifier:NoteTitleColumnString] == columnIndex;
@@ -1235,8 +1332,15 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 	if (tagsInTitleColumn && !ColumnIsSet(NoteLabelsColumn, [globalPrefs tableColumnsBitmap])) {
 		[self addPermanentTableColumn:[self noteAttributeColumnForIdentifier:NoteLabelsColumnString]];
 	}
+
+    [self clearInlineEditTarget];
+    NVBrowserSession *session = [NVControllerForView(self) browserSession];
+    inlineEditNote = [[session noteObjectAtFilteredIndex:(NSUInteger)rowIndex] retain];
+    inlineEditSession = [session retain];
+    inlineEditRow = rowIndex;
 	
 	[super editColumn:tagsInTitleColumn ? 0 : columnIndex row:rowIndex withEvent:event select:flag];
+    if (![self currentEditor]) [self clearInlineEditTarget];
 	
 	//become/resignFirstResponder can't handle the field-editor case for row-highlighting style, so do it here:
 	[self updateTitleDereferencorState];
@@ -1268,6 +1372,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	[super textDidEndEditing:aNotification];
+    [self clearInlineEditTarget];
 	[self updateTitleDereferencorState];
 }
 
@@ -1275,6 +1380,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 - (BOOL)abortEditing {
     [(AppController *)[self delegate] setIsEditing:NO];
 	BOOL result = [super abortEditing];
+    [self clearInlineEditTarget];
 	[self updateTitleDereferencorState];
 	return result;
 }

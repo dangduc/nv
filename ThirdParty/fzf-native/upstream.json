@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/dangduc/fzf-native",
+  "branch": "main",
+  "revision": "4b9236e8cd1e9f9f3aaf5f2ebf83f1fc5995d38d",
+  "files": {
+    "fzf.c": "0bc9cfb69cf5d69d06bc0c5263785d0b87bfd01148950ca911b119d0f24deeb1",
+    "fzf.h": "6d58153ed07c2d54ab64ff2e2b290838e45a3903e3ef9903dceeb261b6ef7df7",
+    "fzf-private.h": "ab447dddb1f74f3d32758855b3b7bf592f8af80b1c103cae8580b64ff11d578f",
+    "fzf-simd-prefilter.h": "2e61fd4266048f5348cd5a125e48a18132ab19b34d985a38951164ddeda625b8",
+    "fzf-normalize.inc": "ed3fb2f8ea30fdf7c1d4548320a3233757885ed4a23bb45fafb827c3a0de91e4",
+    "fzf-score-input.inc": "e131916a22c4049ea031c66150faa879a9e930b2e605901c855b4849c5b73433",
+    "utf8_char_index.h": "efc2e7a9acd68f2a4b48d954aee4d0acdc8ec005d03173ba77a8024f68f6d339",
+    "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "LICENSE-MIT": "7dfaa2bcbb885e82c3b32ecc4e47ff59825b1ad2bbe0b032f16ede685e795af4",
+    "utf8proc-2.10.0/utf8proc.c": "8b6e8e0e100aadffe280597e02c0890f9ad566c329f344b28f25eded48338178",
+    "utf8proc-2.10.0/utf8proc.h": "d947b38124a9f218631b537dd7a367f6a2a6a992c72caa46b3f3e7c81e6138ee",
+    "utf8proc-2.10.0/utf8proc_data.c": "65ed6822f5df8ab2d20137493d06bef6db4f5bee3fd65c3b2683954a0e517756",
+    "utf8proc-2.10.0/LICENSE.md": "3b510150d34f248a221bb88e1d811238d6c6c18b51231822c42974c39bb07256"
+  },
+  "upstreamFiles": {
+    "utf8proc-2.10.0/utf8proc.c": "1f36d14e69e4a5f0658635496f5a9b1f76c418dc36841d2c39d61ab61a258c5d"
+  },
+  "localChanges": {
+    "utf8proc-2.10.0/utf8proc.c": "Guard NULL destination pointers before additions during size-only decomposition and recursive sequence expansion; normalization output is unchanged."
+  }
+}

@@ -1,0 +1,4 @@
+# Preserve pinned upstream formatting and keep generated Unicode tables out of default reviews.
+ThirdParty/fzf-native/** linguist-vendored -whitespace
+Sources/Search/NativePattern.inc linguist-vendored -whitespace
+Sources/Search/NativeRanking.inc linguist-vendored -whitespace

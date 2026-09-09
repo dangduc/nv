@@ -59,6 +59,8 @@
     NSStatusItem *statusItem;
 	IBOutlet NSMenu *statBarMenu;
 	TagEditingManager *tagEditor;
+    NotationController *multiTagLibrary;
+    NSArray *multiTagNoteUUIDs;
 	NSColor *backgrndColor;
 	NSColor *foregrndColor;
 	NSInteger userScheme;
@@ -81,6 +83,12 @@
     NSTextField *metadataControl;
     NSString *metadataOriginalValue;
     BOOL committingMetadata, searchHasPendingComposition;
+    NSTextField *searchStatusField;
+    NSString *selectedSearchRowKey, *pendingSearchReturnQuery;
+    NSArray *savedSelectedRowKeys;
+    NSDictionary *pendingSearchRestoration, *pendingSearchReveal;
+    NSUInteger searchIntentGeneration, searchHighlightGeneration;
+    BOOL searchAutocompletePending, searchApplyingResult, searchSubmitting, searchStatusDelayElapsed;
     CGFloat pendingListHeight;
     IBOutlet ETScrollView *notesScrollView;
     IBOutlet ETNoteScrollView *textScrollView;
@@ -147,6 +155,7 @@ void outletObjectAwoke(id sender);
 - (IBAction)fieldAction:(id)sender;
 - (NoteObject*)createNoteIfNecessary;
 - (void)searchForString:(NSString*)string;
+- (void)selectSearchField;
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts;
 - (BOOL)displayContentsForNoteAtIndex:(NSUInteger)noteIndex;
 - (void)processChangedSelectionForTable:(NSTableView*)table;
@@ -179,6 +188,10 @@ void outletObjectAwoke(id sender);
 //- (void)focusOnCtrlFld:(id)sender;
 - (NSMenu *)statBarMenu;
 - (NSArray *)commonLabelsForNotesAtIndexes:(NSIndexSet *)selDexes;
+- (NSArray *)commonLabelsForNotes:(NSArray *)notes;
+- (void)captureMultiTagNotes:(NSArray *)notes;
+- (NSArray *)pendingMultiTagNotes;
+- (void)cancelMultiTagEditing;
 - (IBAction)multiTag:(id)sender;
 - (void)releaseTagEditor:(NSNotification *)note;
 - (void)setDualFieldInToolbar;
@@ -262,9 +275,27 @@ void outletObjectAwoke(id sender);
 - (void)refreshEditorForNote:(NoteObject *)note;
 - (NSDictionary *)browserWindowState;
 - (void)restoreBrowserWindowState:(NSDictionary *)state;
+- (void)applyRestoredSearchNoteState:(NSDictionary *)state;
 - (NSString *)browserIdentifier;
 - (id)tablePreviewForNote:(NoteObject *)note;
+- (id)tablePreviewForRow:(NSInteger)row;
 - (void)unregisterBrowserObservers;
+@end
+
+@interface AppController (Search)
+- (void)setupSearchControls;
+- (NSString *)searchMode;
+- (NSString *)selectedSearchResultRowKey;
+- (void)searchForString:(NSString *)string mode:(NSString *)mode;
+- (void)cancelSearchIntents;
+- (BOOL)searchFieldHasFocus;
+- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session;
+- (void)browserSessionSearchDidComplete:(NVBrowserSession *)session;
+- (void)refreshSearchHighlights;
+- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
+- (void)performSearchReturn;
+- (IBAction)selectSearchMode:(id)sender;
+- (IBAction)retrySearch:(id)sender;
 @end
 
 @interface AppController (BrowserUI)

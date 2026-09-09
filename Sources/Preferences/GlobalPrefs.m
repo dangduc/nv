@@ -73,6 +73,8 @@ static NSString *HorizontalLayoutKey = @"HorizontalLayout";
 static NSString *BookmarksKey = @"Bookmarks";
 static NSString *LastScrollOffsetKey = @"LastScrollOffset";
 static NSString *LastSearchStringKey = @"LastSearchString";
+static NSString *LastSearchModeKey = @"LastSearchMode";
+static NSString *LastSearchResultRowKey = @"LastSearchResultRowKey";
 static NSString *LastSelectedNoteUUIDBytesKey = @"LastSelectedNoteUUIDBytes";
 static NSString *LastSelectedPreferencesPaneKey = @"LastSelectedPrefsPane";
 //elasticthreads prefs
@@ -890,32 +892,52 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 
 - (void)setLastSearchString:(NSString*)string selectedNote:(id<LogNote>)aNote scrollOffsetForTableView:(NotesTableView*)tv sender:(id)sender {
 	
-	NSMutableString *stringMinusBreak = [[string mutableCopy] autorelease];
-	[stringMinusBreak replaceOccurrencesOfString:@"\n" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [stringMinusBreak length])];
-	
-	[defaults setObject:stringMinusBreak forKey:LastSearchStringKey];
+	[defaults setObject:string ?: @"" forKey:LastSearchStringKey];
+    NSString *mode = [sender respondsToSelector:@selector(searchMode)] ? [sender searchMode] : @"exact";
+    [defaults setObject:[mode isEqualToString:@"fuzzy"] ? @"fuzzy" : @"exact" forKey:LastSearchModeKey];
 	
 	CFUUIDBytes *bytes = [aNote uniqueNoteIDBytes];
 	NSString *uuidString = nil;
 	if (bytes) uuidString = [NSString uuidStringWithBytes:*bytes];
 
-	[defaults setObject:uuidString forKey:LastSelectedNoteUUIDBytesKey];
+	if (uuidString) [defaults setObject:uuidString forKey:LastSelectedNoteUUIDBytesKey];
+    else [defaults removeObjectForKey:LastSelectedNoteUUIDBytesKey];
+
+    NSString *rowKey = aNote && [sender respondsToSelector:@selector(selectedSearchResultRowKey)] ?
+        [sender selectedSearchResultRowKey] : nil;
+    if ([rowKey isKindOfClass:[NSString class]] && [rowKey length])
+        [defaults setObject:rowKey forKey:LastSearchResultRowKey];
+    else [defaults removeObjectForKey:LastSearchResultRowKey];
 	
-	double offset = [tv distanceFromRow:[(FastListDataSource*)[tv dataSource] indexOfObjectIdenticalTo:aNote] forVisibleArea:[tv visibleRect]];
+    NSInteger selectedRow = [tv selectedRow];
+    NSUInteger row = !aNote ? NSNotFound : selectedRow >= 0 ? (NSUInteger)selectedRow :
+        [(FastListDataSource*)[tv dataSource] indexOfObjectIdenticalTo:aNote];
+	double offset = row != NSNotFound ? [tv distanceFromRow:row forVisibleArea:[tv visibleRect]] : 0.0;
 	[defaults setDouble:offset forKey:LastScrollOffsetKey];
 	
 	SEND_CALLBACKS();
 }
 
 - (NSString*)lastSearchString {
-	return [defaults objectForKey:LastSearchStringKey];
+	id value = [defaults objectForKey:LastSearchStringKey];
+    return [value isKindOfClass:[NSString class]] ? value : nil;
+}
+
+- (NSString*)lastSearchMode {
+    id value = [defaults objectForKey:LastSearchModeKey];
+    return [value isKindOfClass:[NSString class]] && [value isEqualToString:@"fuzzy"] ? @"fuzzy" : @"exact";
+}
+
+- (NSString*)lastSearchResultRowKey {
+    id value = [defaults objectForKey:LastSearchResultRowKey];
+    return [value isKindOfClass:[NSString class]] && [value length] ? value : nil;
 }
 
 - (CFUUIDBytes)UUIDBytesOfLastSelectedNote {
 	CFUUIDBytes bytes = {0};
 	
 	NSString *uuidString = [defaults objectForKey:LastSelectedNoteUUIDBytesKey];
-	if (uuidString) bytes = [uuidString uuidBytes];
+	if ([uuidString isKindOfClass:[NSString class]]) bytes = [uuidString uuidBytes];
 
 	return bytes;
 }

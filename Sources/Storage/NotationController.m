@@ -1126,6 +1126,9 @@ bail:
 }
 
 - (void)note:(NoteObject*)note attributeChanged:(NSString*)attribute {
+    if (([attribute isEqualToString:NoteTitleColumnString] || [attribute isEqualToString:NoteLabelsColumnString] ||
+         [attribute isEqualToString:NotePreviewString]) && [delegate respondsToSelector:@selector(searchableNoteDidChange:)])
+        [delegate performSelector:@selector(searchableNoteDidChange:) withObject:note];
     // Tags are also shown in editor headers, even when the Tags column is hidden.
     if ([attribute isEqualToString:NoteLabelsColumnString] && [delegate respondsToSelector:@selector(noteMetadataUpdated:)])
         [delegate performSelector:@selector(noteMetadataUpdated:) withObject:note];
@@ -1261,6 +1264,8 @@ bail:
     [aNoteObject setDelegate:self];	
 	
     [allNotes addObject:aNoteObject];
+    if ([delegate respondsToSelector:@selector(searchableNoteDidChange:)])
+        [delegate performSelector:@selector(searchableNoteDidChange:) withObject:aNoteObject];
     
     notesChanged = YES;
 }
@@ -1293,6 +1298,7 @@ bail:
 }
 
 - (void)removeNote:(NoteObject*)aNoteObject {
+    if (!aNoteObject || [allNotes indexOfObjectIdenticalTo:aNoteObject] == NSNotFound) return;
     //reset linking labels and their notes
     
 	[aNoteObject retain];
@@ -1301,6 +1307,8 @@ bail:
 	[aNoteObject abortEditingInExternalEditor];
 	
     [allNotes removeObjectIdenticalTo:aNoteObject];
+    if ([delegate respondsToSelector:@selector(searchableNoteWasRemoved:)])
+        [delegate performSelector:@selector(searchableNoteWasRemoved:) withObject:aNoteObject];
 	[[EncodingsManager sharedManager] cancelUTF8ConversionForNote:aNoteObject];
 	
 	updateForVerifiedDeletedNote(deletionManager, aNoteObject);

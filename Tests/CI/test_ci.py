@@ -112,7 +112,8 @@ class ArchiveTests(unittest.TestCase):
     syntax_resources = ("json.scm", "html.scm", "markdown.scm", "markdown-inline.scm", "ThirdPartyNotices.txt")
 
     def make_archive(self, path, executable=True, markdown_executable=True,
-                     missing_syntax=None, invalid_syntax=None, syntax_body="fixture", syntax_mode=None):
+                     missing_syntax=None, invalid_syntax=None, syntax_body="fixture", syntax_mode=None,
+                     missing_notice=None, notice_body="fixture", notice_mode=None):
         with zipfile.ZipFile(path, "w") as archive:
             def add(name, body, mode):
                 info = zipfile.ZipInfo("nvALT.app/Contents/" + name)
@@ -128,6 +129,21 @@ class ArchiveTests(unittest.TestCase):
                     body = syntax_body if name == invalid_syntax else "fixture"
                     mode = syntax_mode if name == invalid_syntax and syntax_mode is not None else stat.S_IFREG | 0o644
                     add("Resources/Syntax/" + name, body, mode)
+            for name in ("FZF-GPL-3.0.txt", "FZF-MIT.txt", "UTF8PROC.txt"):
+                if name != missing_notice:
+                    add("Resources/SearchLicenses/" + name, notice_body, notice_mode or (stat.S_IFREG | 0o644))
+
+    def test_search_notices_are_required_nonempty_regular_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            for name in ("FZF-GPL-3.0.txt", "FZF-MIT.txt", "UTF8PROC.txt"):
+                self.make_archive(path, missing_notice=name)
+                with self.assertRaisesRegex(ValueError, "Missing search notice"):
+                    packaging.check_archive(path)
+            for kwargs in ({"notice_body": " \n"}, {"notice_mode": stat.S_IFLNK | 0o777}, {"notice_mode": stat.S_IFDIR | 0o755}):
+                self.make_archive(path, **kwargs)
+                with self.assertRaisesRegex(ValueError, "Search notice must be a nonempty regular file"):
+                    packaging.check_archive(path)
 
     def test_archive_preserves_required_executables_and_syntax_resources(self):
         with tempfile.TemporaryDirectory() as directory:
