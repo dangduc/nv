@@ -7,6 +7,8 @@
     NSTextView *statusField;
     NSString *displayedLibraryIdentifier;
     NSString *editingLibraryIdentifier;
+    NSMutableDictionary *pendingFieldValues;
+    BOOL commitFieldsWhenIdle, committingFields;
 }
 - (void)refreshControls;
 @end
