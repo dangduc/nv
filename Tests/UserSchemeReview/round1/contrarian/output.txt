@@ -1,0 +1,286 @@
+2026-09-09 16:25:50.797 nvALT[64939:343296558] PASS: temporary library directory exists
+2026-09-09 16:25:50.797 nvALT[64939:343296558] PASS: temporary library opens
+2026-09-09 16:25:50.882 nvALT[64939:343296558] verified 0 notes in 0.000249028 s
+2026-09-09 16:25:51.116 nvALT[64939:343296558] LOCALE en
+2026-09-09 16:25:51.350 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:25:52.212 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:25:52.212 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:25:52.213 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:52.213 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:52.214 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:52.281 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:52.490 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:52.491 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:52.491 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:52.491 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:52.544 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:52.752 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:52.752 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:52.752 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:52.753 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:52.806 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:53.013 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:53.014 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:53.014 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:53.014 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:53.068 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:53.274 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:53.275 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:53.275 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:53.275 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:53.327 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:53.532 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:53.532 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:53.532 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:53.532 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:53.584 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:53.790 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:53.791 nvALT[64939:343296558] LABEL Search Highlight: natural=108.0 frame=288.0
+2026-09-09 16:25:53.791 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.791 nvALT[64939:343296558] LABEL Foreground Text: natural=106.8 frame=288.0
+2026-09-09 16:25:53.792 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.792 nvALT[64939:343296558] LABEL Background: natural=80.3 frame=288.0
+2026-09-09 16:25:53.792 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.792 nvALT[64939:343296558] LABEL Search Highlight: natural=108.0 frame=288.0
+2026-09-09 16:25:53.792 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.792 nvALT[64939:343296558] LABEL Foreground Text: natural=106.8 frame=288.0
+2026-09-09 16:25:53.793 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.793 nvALT[64939:343296558] LABEL Background: natural=80.3 frame=288.0
+2026-09-09 16:25:53.793 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:53.956 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:25:53.968 nvALT[64939:343296558] LOCALE de
+2026-09-09 16:25:54.019 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:25:54.574 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:25:54.575 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:25:54.575 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:54.575 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:54.575 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:54.635 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:54.842 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:54.843 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:54.843 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:54.843 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:54.896 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:55.105 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:55.105 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:55.105 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:55.105 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:55.158 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:55.365 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:55.366 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:55.366 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:55.366 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:55.420 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:55.628 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:55.629 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:55.629 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:55.629 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:55.683 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:55.890 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:55.890 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:55.890 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:55.890 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:55.944 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:56.149 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Suche hervorheben: natural=126.0 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Text im Vordergrund: natural=130.6 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Hintergrund: natural=80.2 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Suche hervorheben: natural=126.0 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Text im Vordergrund: natural=130.6 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.150 nvALT[64939:343296558] LABEL Hintergrund: natural=80.2 frame=348.0
+2026-09-09 16:25:56.150 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:56.278 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:25:56.286 nvALT[64939:343296558] LOCALE fr
+2026-09-09 16:25:56.325 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:25:56.862 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:25:56.862 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:25:56.862 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:56.862 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:56.863 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:56.924 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:57.132 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:57.133 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:57.133 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:57.133 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:57.186 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:57.394 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:57.394 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:57.395 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:57.395 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:57.449 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:57.655 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:57.655 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:57.655 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:57.655 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:57.707 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:57.912 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:57.913 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:57.913 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:57.913 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:57.965 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:58.173 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:58.173 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:58.174 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:58.174 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:58.226 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:58.433 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Couleur de contraste : natural=138.6 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Couleur du texte : natural=111.5 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Arrière-plan : natural=84.2 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Couleur de contraste : natural=138.6 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Couleur du texte : natural=111.5 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.434 nvALT[64939:343296558] LABEL Arrière-plan : natural=84.2 frame=288.0
+2026-09-09 16:25:58.434 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:25:58.567 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:25:58.580 nvALT[64939:343296558] LOCALE it
+2026-09-09 16:25:58.626 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:25:59.173 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:25:59.173 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:25:59.173 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:59.173 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:59.173 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:59.226 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:59.432 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:59.432 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:59.432 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:59.432 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:59.483 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:59.688 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:59.688 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:59.688 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:59.688 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:59.739 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:25:59.944 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:25:59.944 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:25:59.944 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:25:59.944 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:25:59.996 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:00.202 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:00.202 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:00.202 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:00.202 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:00.253 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:00.457 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:00.457 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:00.457 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:00.457 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:00.509 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Evidenziazione ricerca: natural=143.1 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Testo in primo piano: natural=130.1 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Sfondo: natural=51.0 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Evidenziazione ricerca: natural=143.1 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Testo in primo piano: natural=130.1 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.714 nvALT[64939:343296558] LABEL Sfondo: natural=51.0 frame=354.0
+2026-09-09 16:26:00.714 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:00.842 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:26:00.852 nvALT[64939:343296558] LOCALE pt-PT
+2026-09-09 16:26:00.896 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:26:01.437 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:26:01.437 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:26:01.437 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:01.437 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:01.437 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:01.490 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:01.695 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:01.695 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:01.695 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:01.695 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:01.746 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:01.950 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:01.951 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:01.951 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:01.951 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:02.003 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:02.209 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:02.209 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:02.209 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:02.209 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:02.262 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:02.469 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:02.470 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:02.470 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:02.470 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:02.523 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:02.731 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:02.731 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:02.731 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:02.732 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:02.785 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:02.991 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:02.992 nvALT[64939:343296558] LABEL Destacar Busca: natural=102.7 frame=288.0
+2026-09-09 16:26:02.992 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:02.993 nvALT[64939:343296558] LABEL Texto: natural=40.7 frame=288.0
+2026-09-09 16:26:02.993 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:02.993 nvALT[64939:343296558] LABEL Fundo: natural=45.7 frame=288.0
+2026-09-09 16:26:02.993 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:02.993 nvALT[64939:343296558] LABEL Destacar Busca: natural=102.7 frame=288.0
+2026-09-09 16:26:02.993 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:02.993 nvALT[64939:343296558] LABEL Texto: natural=40.7 frame=288.0
+2026-09-09 16:26:02.993 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:02.993 nvALT[64939:343296558] LABEL Fundo: natural=45.7 frame=288.0
+2026-09-09 16:26:02.994 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:03.133 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:26:03.146 nvALT[64939:343296558] LOCALE zh
+2026-09-09 16:26:03.192 nvALT[64939:343296558] PASS: the requested localized compiled Preferences nib loads into the real controller
+2026-09-09 16:26:03.729 nvALT[64939:343296558] PASS: Fonts & Colors is attached to the visible Settings window
+2026-09-09 16:26:03.730 nvALT[64939:343296558] PASS: the localized pane has exactly two nonoverlapping scheme groups
+2026-09-09 16:26:03.730 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:03.730 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:03.730 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:03.790 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:03.997 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:03.997 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:03.997 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:03.997 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:04.049 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:04.256 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:04.256 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:04.256 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:04.256 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:04.309 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:04.514 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:04.515 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:04.515 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:04.516 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:04.570 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:04.777 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:04.777 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:04.777 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:04.778 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:04.831 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:05.039 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:05.039 nvALT[64939:343296558] PASS: each actual color well fits within its group and the visible pane
+2026-09-09 16:26:05.039 nvALT[64939:343296558] PASS: each nib or generated well routes its action to this Settings controller
+2026-09-09 16:26:05.039 nvALT[64939:343296558] PASS: the intended channel starts with a different color
+2026-09-09 16:26:05.091 nvALT[64939:343296558] PASS: exclusive native activation selects the intended color well
+2026-09-09 16:26:05.298 nvALT[64939:343296558] PASS: the native shared color panel changes only the active palette channel
+2026-09-09 16:26:05.299 nvALT[64939:343296558] LABEL 搜索高亮: natural=59.4 frame=288.0
+2026-09-09 16:26:05.299 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.299 nvALT[64939:343296558] LABEL 正文: natural=33.1 frame=288.0
+2026-09-09 16:26:05.300 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.300 nvALT[64939:343296558] LABEL 背景: natural=33.1 frame=288.0
+2026-09-09 16:26:05.300 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.300 nvALT[64939:343296558] LABEL 搜索高亮: natural=59.4 frame=288.0
+2026-09-09 16:26:05.300 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.300 nvALT[64939:343296558] LABEL 正文: natural=33.6 frame=288.0
+2026-09-09 16:26:05.301 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.301 nvALT[64939:343296558] LABEL 背景: natural=33.6 frame=288.0
+2026-09-09 16:26:05.302 nvALT[64939:343296558] PASS: the localized group label fits without clipping
+2026-09-09 16:26:05.441 nvALT[64939:343296558] PASS: reopening Settings reuses its existing groups
+2026-09-09 16:26:05.463 nvALT[64939:343296558] CONTRARIAN LOCALES AND COLOR PANEL PASSED (242 checks)

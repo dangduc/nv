@@ -1,0 +1,86 @@
+2026-09-09 16:29:00.919 nvALT[66501:343306400] PASS: temporary library directory exists
+2026-09-09 16:29:00.919 nvALT[66501:343306400] PASS: temporary library opens
+2026-09-09 16:29:01.010 nvALT[66501:343306400] verified 0 notes in 0.000197053 s
+2026-09-09 16:29:01.446 nvALT[66501:343306400] PASS: two independent browsers use one disposable library
+2026-09-09 16:29:01.448 nvALT[66501:343306400] SCHEDULE: exact palette inversion and reversed final deliveries
+2026-09-09 16:29:01.655 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:01.871 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:01.889 nvALT[66501:343306400] PASS: the real search completes before source-row selection
+2026-09-09 16:29:01.889 nvALT[66501:343306400] PASS: the fixture selects the requested Exact or native Fuzzy result row
+2026-09-09 16:29:01.889 nvALT[66501:343306400] PASS: the selected result belongs to the shared fixture note
+2026-09-09 16:29:01.939 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:01.950 nvALT[66501:343306400] PASS: the real search completes before source-row selection
+2026-09-09 16:29:01.950 nvALT[66501:343306400] PASS: the fixture selects the requested Exact or native Fuzzy result row
+2026-09-09 16:29:01.950 nvALT[66501:343306400] PASS: the selected result belongs to the shared fixture note
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.001 nvALT[66501:343306400] PASS: opposite palettes are rendered through separate layout managers on shared source storage
+2026-09-09 16:29:02.052 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:02.146 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:02.456 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:02.676 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:02.727 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:02.778 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:02.779 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.779 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.779 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.779 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.780 nvALT[66501:343306400] PASS: obsolete reversed and duplicate results do not cross either browser's highlight-generation fence
+2026-09-09 16:29:02.780 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.780 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.780 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:02.780 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:02.780 nvALT[66501:343306400] SCHEDULE: fuzzy palette inversion and reversed final deliveries
+2026-09-09 16:29:03.008 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:03.242 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:03.306 nvALT[66501:343306400] PASS: the real search completes before source-row selection
+2026-09-09 16:29:03.306 nvALT[66501:343306400] PASS: the fixture selects the requested Exact or native Fuzzy result row
+2026-09-09 16:29:03.306 nvALT[66501:343306400] PASS: the selected result belongs to the shared fixture note
+2026-09-09 16:29:03.357 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:03.416 nvALT[66501:343306400] PASS: the real search completes before source-row selection
+2026-09-09 16:29:03.416 nvALT[66501:343306400] PASS: the fixture selects the requested Exact or native Fuzzy result row
+2026-09-09 16:29:03.416 nvALT[66501:343306400] PASS: the selected result belongs to the shared fixture note
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:03.467 nvALT[66501:343306400] PASS: opposite palettes are rendered through separate layout managers on shared source storage
+2026-09-09 16:29:03.518 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:03.570 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:03.797 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:04.030 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:04.081 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.132 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: obsolete reversed and duplicate results do not cross either browser's highlight-generation fence
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.134 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.135 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.135 nvALT[66501:343306400] SCHEDULE: change two dark preferences while Fuzzy delivery is held
+2026-09-09 16:29:04.186 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.244 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.245 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.245 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.245 nvALT[66501:343306400] PASS: a result captured before consecutive background and highlight edits cannot publish afterward
+2026-09-09 16:29:04.245 nvALT[66501:343306400] SCHEDULE: close a browser, create its replacement, then deliver the old result
+2026-09-09 16:29:04.297 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.392 nvALT[66501:343306400] PASS: closing the peer unregisters it from application ownership
+2026-09-09 16:29:04.521 nvALT[66501:343306400] PASS: a newly opened browser gets independent ownership and the existing library
+2026-09-09 16:29:04.734 nvALT[66501:343306400] PASS: AppKit propagates the requested effective appearance without a manual browser callback
+2026-09-09 16:29:04.800 nvALT[66501:343306400] PASS: the real search completes before source-row selection
+2026-09-09 16:29:04.800 nvALT[66501:343306400] PASS: the fixture selects the requested Exact or native Fuzzy result row
+2026-09-09 16:29:04.800 nvALT[66501:343306400] PASS: the selected result belongs to the shared fixture note
+2026-09-09 16:29:04.851 nvALT[66501:343306400] PASS: the actual worker completes nonempty source ranges at the controlled publication boundary
+2026-09-09 16:29:04.851 nvALT[66501:343306400] PASS: the owning editor retains its source and expected background
+2026-09-09 16:29:04.851 nvALT[66501:343306400] PASS: published search highlight uses the current owning palette and an independent alpha-composite oracle
+2026-09-09 16:29:04.851 nvALT[66501:343306400] PASS: late closed-window callbacks publish to neither the detached editor nor its replacement
+2026-09-09 16:29:04.851 nvALT[66501:343306400] PASS: all schedules preserve the single note's attributed source
+2026-09-09 16:29:04.851 nvALT[66501:343306400] KINGSBURY USER SCHEME ROUND 1 PASSED (80 checks)
