@@ -1,0 +1,18 @@
+{
+  "head": "68151012c999cb7efc7e6c32309600cac88eb9a6",
+  "sha256": {
+    "AGENTS.md": "f7a1843c2ee3cfdd751abff160b4f7805cace0d89f4d0b2db18cd25dab762513",
+    "architecture.md": "cf3a8a466c5dc38be8f082bdf19d89f7a44cc5a3fc8eadc9d5c54661d2c696a3",
+    "docs/fuzzy-search-plan.md": "fc46860bf341bf7afac69db6c9684423104261f22bb1680db6851c4325eecd8b",
+    "Sources/Browser/AppController.m": "6ae4e7b23431267fa000f35e1c1656232327cd8f4799fdf0b30767b79a93cb1e",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/AppController_MultipleWindows.m": "9aebd2d5c24e99706a208dd35889c4ad1bcbb65c0e32739728ba7a94ec3b3145",
+    "Sources/Browser/AppController_Importing.m": "c140a44ff6cc54bf7c5e4ca569b9113690c9d9fac557e1a19199dd582afd6855",
+    "Sources/Browser/BookmarksController.m": "566a1b33389d48f2982db068cbb0cec63f22390f39c6b5e9c786c4a065dd3623",
+    "Sources/Browser/SavedSearchesController.m": "909a54d03674a99328d7c78fe8cb3e94e6e959b273b0330c06ec3143434cda73",
+    "Sources/Preferences/GlobalPrefs.m": "d6c71070d2911577ecbb647054dadfb6381ecbcc08bc5b8ba9aff9d0f4698bc7",
+    "Sources/UI/DualField.m": "6617a4b656f5d55587ac0ee374148efdbc906772c9f3e2ace1ab9a205dd6f9c8",
+    "Sources/UI/NotesTableView.m": "775a9d9fbfa17ea7c7e0a4d27bb46c1cac2aac69032be712336f5df172d8992c",
+    "Resources/Localization/en.lproj/MainMenu.xib": "ca548ab2f9e75d27872aad3059cbeb6ccffc7b96ebed224e5be39f89dbfa4ec3"
+  }
+}
