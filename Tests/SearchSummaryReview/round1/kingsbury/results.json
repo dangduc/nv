@@ -1,0 +1,67 @@
+{
+  "head": "c5484b19ede60040e11fed8dd596ca3df672691b",
+  "baseline": "72c668cc5329ce6e48850377b35ec7d6d5b27d5b",
+  "inputs_match_baseline": true,
+  "before_sha256": {
+    "Sources/Browser/AppController.h": "d222dcbaec7b680dbcbc46022b100c0e75c7d7b166110d87134be1e9e65acbb4",
+    "Sources/Browser/AppController.m": "46a9c9f6f0aee838d547dd7b0ef17fa80f97978e1e951ffa0dca91229dac67be",
+    "Sources/Browser/AppController_BrowserUI.m": "45b01fcb17f0df40c58689424053b9d221917f302571ab21ecb7afb40dc9e104",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8"
+  },
+  "after_sha256": {
+    "Sources/Browser/AppController.h": "d222dcbaec7b680dbcbc46022b100c0e75c7d7b166110d87134be1e9e65acbb4",
+    "Sources/Browser/AppController.m": "46a9c9f6f0aee838d547dd7b0ef17fa80f97978e1e951ffa0dca91229dac67be",
+    "Sources/Browser/AppController_BrowserUI.m": "45b01fcb17f0df40c58689424053b9d221917f302571ab21ecb7afb40dc9e104",
+    "Sources/Browser/AppController_Search.m": "c9140868ba8ff918e47f420bf7a33efed22232ec4bdcf77be075fbbad92f6a68",
+    "Sources/Browser/NVBrowserSession.m": "2ec178fde253541204b26e36c3bfce018aacb17fe0469ceecd17bfa9ce91e170",
+    "Sources/Search/NVSearchService.m": "ab2cb80e9365e47ae6c82dd086022c12089aeb8da385e95e6084909f8d1a52b8"
+  },
+  "production_inputs_stable": true,
+  "binary_before_sha256": "efc6fce32c2647e78909efe32d699737a58b3987cdc8b0ddb5fde753d67fdb99",
+  "binary_after_sha256": "efc6fce32c2647e78909efe32d699737a58b3987cdc8b0ddb5fde753d67fdb99",
+  "fixture_sha256": {
+    "checks.inc": "024e80275fad6c8bd1d038a0bd9b4b0bb852ae52579064f40e9b2785fda7b4a3",
+    "prefix.h": "ee1a2d4b8da75e35b1cea2062455fbaa42d868daffdec355679f0cf09193f794",
+    "run.py": "15b04c7d2b1f1788d5c91c674fccb74f3516a3fa82032e435fc7ace42a250150"
+  },
+  "runs": [
+    {
+      "name": "history",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/duc/dev/nv/Tests/ViewControlsReview/run-probe.py",
+        "--probe",
+        "/Users/duc/dev/nv/Tests/SearchSummaryReview/round1/kingsbury/checks.inc",
+        "--prefix",
+        "/Users/duc/dev/nv/Tests/SearchSummaryReview/round1/kingsbury/prefix.h",
+        "--timeout",
+        "90"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "expected_outcome": true,
+      "pass_count": 101
+    },
+    {
+      "name": "old-summary",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/duc/dev/nv/Tests/ViewControlsReview/run-probe.py",
+        "--probe",
+        "/Users/duc/dev/nv/Tests/SearchSummaryReview/round1/kingsbury/checks.inc",
+        "--prefix",
+        "/Users/duc/dev/nv/Tests/SearchSummaryReview/round1/kingsbury/prefix.h",
+        "--timeout",
+        "90"
+      ],
+      "environment_overrides": {
+        "NV_SUMMARY_REINTRODUCE_COMPLETE": "1"
+      },
+      "exit_code": 1,
+      "expected_outcome": true,
+      "pass_count": 31
+    }
+  ]
+}
