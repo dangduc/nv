@@ -7,6 +7,10 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[4]
 sys.path.insert(0, str(ROOT / 'Tests'))
 from compiler_support import include_flags
+if '--expect-fixed' in sys.argv:
+    subprocess.run([sys.executable, str(ROOT / 'Tests/FuzzySearch/Lifecycle/run.py'),
+                    *[arg for arg in sys.argv[1:] if arg != '--expect-fixed']], check=True)
+    raise SystemExit(0)
 p = argparse.ArgumentParser()
 p.add_argument('--sanitize', action='store_true')
 p.add_argument('--repair-control', action='store_true')

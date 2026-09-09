@@ -89,6 +89,8 @@ Model mutation hooks update these snapshots and invalidate browser requests sync
 Workers never read live NoteObjects or shared text storage. Library replacement invalidates the old service.
 One serial worker schedules bounded candidate batches and publishes only complete results.
 Browser identity, request identity, and corpus revision reject obsolete callbacks.
+Cancellation detaches registry entries before releasing callback captures on main. Successful completion also releases captures on main.
+Worker blocks use nonretaining owner keys, so queued work cannot move browser teardown to the worker.
 Repeated queries can reuse matching work; display changes do not rescore the corpus.
 Large individual native calls still require separate latency measurements.
 
