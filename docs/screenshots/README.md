@@ -49,6 +49,23 @@ The [capture probe](capture-source.inc) uses the same disposable sample notes as
 Inspect the image before publication.
 Update the captured revision and executable hash above.
 
+## User Scheme settings
+
+`user-scheme-settings-light.png` and `user-scheme-settings-dark.png` show the separate light and dark palettes in Fonts & Colors.
+The capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113).
+The Intel Development executable has SHA-256 `8060f1cb71a119e94bce789df38494c100719eaf744a4fb72df9684f7f7858f1`.
+The capture uses a temporary library and preferences domain, with custom colors from the regression fixture.
+WindowServer captures the native Settings window in each appearance without pixel changes.
+
+To refresh these images after a Development build:
+
+```sh
+python3 Tests/Regression/user-schemes/run.py --artifacts build/user-schemes-artifacts
+```
+
+The final run passed 199 checks across two launches, including eight screenshot checks.
+Inspect `settings-light.png` and `settings-dark.png` in that output directory before replacing the documentation images.
+
 ## Historical images
 
 Earlier images remain available for the review records that link to them.

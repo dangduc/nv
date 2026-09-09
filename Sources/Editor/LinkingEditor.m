@@ -91,6 +91,7 @@ CGFloat _perceptualDarkness(NSColor*a);
 	 @selector(setNoteBodyFont:sender:),
 	 @selector(setMakeURLsClickable:sender:),
 	 @selector(setSearchTermHighlightColor:sender:),
+	 @selector(setDarkSearchTermHighlightColor:sender:),
 	 @selector(setShouldHighlightSearchTerms:sender:), nil];
 	
     self.managesTextWidth=[prefsController managesTextWidthInWindow];
@@ -163,6 +164,7 @@ if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 		//[self setTypingAttributes:[prefsController noteBodyAttributes]];
 		
 	} else if ([selectorString isEqualToString:SEL_STR(setSearchTermHighlightColor:sender:)] || 
+               [selectorString isEqualToString:SEL_STR(setDarkSearchTermHighlightColor:sender:)] ||
 			   [selectorString isEqualToString:SEL_STR(setShouldHighlightSearchTerms:sender:)]) {
 		
         [NVControllerForView(self) refreshSearchHighlights];
@@ -468,9 +470,15 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 
 //use with rangesOfWordsInString:(NSString*)findString earliestRange:(NSRange*)aRange inRange:
+- (NSDictionary *)currentSearchHighlightAttributes {
+    AppController *browser = NVControllerForView(self);
+    return [prefsController searchTermHighlightAttributesForDarkAppearance:[browser usesDarkUserColorScheme]
+        backgroundColor:[browser backgrndColor] ?: [self backgroundColor]];
+}
+
 - (void)setSearchHighlightRanges:(NSArray *)ranges {
     [self removeHighlightedTerms];
-    NSColor *color = [[prefsController searchTermHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
+    NSColor *color = [[self currentSearchHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
     if (!color) return;
     NSUInteger length = [[self string] length];
     NSUInteger displayed = 0;
@@ -485,7 +493,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges {
 	CFIndex rangeIndex;
 	long bodyLength = (long)[[self string] length];
-	NSDictionary *highlightDict = [prefsController searchTermHighlightAttributes];
+	NSDictionary *highlightDict = [self currentSearchHighlightAttributes];
 	
 	for (rangeIndex = 0; rangeIndex < MIN(CFArrayGetCount(ranges), NVSearchMaximumDisplayedRanges); rangeIndex++) {
 		CFRange *range = (CFRange *)CFArrayGetValueAtIndex(ranges, rangeIndex);

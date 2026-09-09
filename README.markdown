@@ -67,6 +67,9 @@ Source, preview, and syntax commands work with hidden header rows.
 The notes list follows system light and dark appearance, with optional alternating rows.
 The editor can follow the system appearance or use custom colors and fonts.
 Choose **View > Color Schemes > Follow System Appearance** for system editor colors.
+**User Scheme** uses separate custom light and dark colors and switches with the macOS appearance.
+**Preferences > Fonts & Colors** contains both groups, each with search highlight, foreground text, and background colors.
+Existing custom colors become the light group.
 
 ![Dark appearance with a native search field and notes list](docs/screenshots/readme-dark.png)
 

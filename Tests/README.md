@@ -85,7 +85,10 @@ python3 Tests/Regression/native-list/run-native.py
 python3 Tests/Regression/native-ui/run.py
 python3 Tests/Regression/native-controls/run.py
 python3 Tests/Regression/native-rendering/run.py
+python3 Tests/Regression/user-schemes/run.py
 ```
+
+The [User Scheme checks](Regression/user-schemes/README.md) cover separate light/dark colors, appearance changes, six preference controls, and persistence.
 
 For full-screen transitions and light/dark snapshots, use an unlocked desktop session:
 

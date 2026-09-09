@@ -56,7 +56,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 	
 	BookmarksController *bookmarksController;
 	NotationPrefs *notationPrefs;
-	NSDictionary *noteBodyAttributes, *searchTermHighlightAttributes;
+	NSDictionary *noteBodyAttributes;
 	NSMutableParagraphStyle *noteBodyParagraphStyle;
 	NSFont *noteBodyFont;
 	BOOL autoCompleteSearches;
@@ -109,6 +109,11 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (NSColor*)foregroundTextColor;
 - (void)setBackgroundTextColor:(NSColor*)aColor sender:(id)sender;
 - (NSColor*)backgroundTextColor;
+// The legacy color preferences remain the light User Scheme.
+- (void)setDarkForegroundTextColor:(NSColor*)color sender:(id)sender;
+- (NSColor*)darkForegroundTextColor;
+- (void)setDarkBackgroundTextColor:(NSColor*)color sender:(id)sender;
+- (NSColor*)darkBackgroundTextColor;
 
 - (void)setTabIndenting:(BOOL)value sender:(id)sender;
 - (BOOL)tabKeyIndents;
@@ -153,6 +158,9 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)setSearchTermHighlightColor:(NSColor*)color sender:(id)sender;
 - (NSDictionary*)searchTermHighlightAttributes;
 - (NSColor*)searchTermHighlightColorRaw:(BOOL)isRaw;
+- (void)setDarkSearchTermHighlightColor:(NSColor*)color sender:(id)sender;
+- (NSColor*)darkSearchTermHighlightColor;
+- (NSDictionary*)searchTermHighlightAttributesForDarkAppearance:(BOOL)dark backgroundColor:(NSColor*)background;
 
 - (void)setSoftTabs:(BOOL)value sender:(id)sender;
 - (BOOL)softTabs;
@@ -217,4 +225,3 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 @interface NSObject (GlobalPrefsDelegate)
 	- (void)settingChangedForSelectorString:(NSString*)selectorString;
 @end
-

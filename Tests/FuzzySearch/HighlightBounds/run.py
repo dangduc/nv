@@ -22,7 +22,10 @@ def methods(path, names):
 
 refresh = methods('Sources/Browser/AppController_Search.m', ['- (void)refreshSearchHighlights'])
 (OUT/'storage.inc').write_text(methods('Sources/Browser/AppController_Search.m', ['- (void)searchSourceStorageWillProcessEditing:']))
-editor = methods('Sources/Editor/LinkingEditor.m', ['- (void)removeHighlightedTerms', '- (void)setSearchHighlightRanges:', '- (NSRange)highlightTermsTemporarilyReturningFirstRange:'])
+# This fixture checks range discovery and installation. Native rendering tests
+# cover the browser appearance that supplies the highlight color.
+editor = '- (NSDictionary *)currentSearchHighlightAttributes { return [prefsController searchTermHighlightAttributes]; }\n'
+editor += methods('Sources/Editor/LinkingEditor.m', ['- (void)removeHighlightedTerms', '- (void)setSearchHighlightRanges:', '- (NSRange)highlightTermsTemporarilyReturningFirstRange:'])
 query = (ROOT / 'Sources/Search/NVSearchQuery.m').read_text()
 flags = ['-O1' if a.sanitize else '-O2', '-g', '-fblocks', '-fno-objc-arc', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-unused-variable', '-DUTF8PROC_STATIC', '-I'+str(OUT), '-I'+str(ROOT/'Sources/Search'), '-I'+str(ROOT/'ThirdParty/fzf-native')]
 if a.arch: flags += ['-arch',a.arch,'-mmacosx-version-min=10.13' if a.arch=='x86_64' else '-mmacosx-version-min=11.0']

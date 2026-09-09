@@ -404,6 +404,8 @@ void outletObjectAwoke(id sender) {
 	 @selector(setNoteBodyFont:sender:),  //when to tell notationcontroller to restyle its notes
 	 @selector(setForegroundTextColor:sender:),  //ditto
 	 @selector(setBackgroundTextColor:sender:),  //ditto
+	 @selector(setDarkForegroundTextColor:sender:),
+	 @selector(setDarkBackgroundTextColor:sender:),
 	 @selector(setTableFontSize:sender:),  //when to tell notationcontroller to regenerate the (now potentially too-short) note-body previews
 	 @selector(addTableColumn:sender:),  //ditto
 	 @selector(removeTableColumn:sender:),  //ditto
@@ -866,20 +868,11 @@ terminateApp:
 		
 		[notationController restyleAllNotes];
         [[NVApplicationController sharedController] reloadCachedEditingSessionsFromLibrary];
-	} else if ([selectorString isEqualToString:SEL_STR(setForegroundTextColor:sender:)]) {
-		if (userScheme!=2) {
-			[self setUserColorScheme:self];
-		}else {
-			[self setForegrndColor:[prefsController foregroundTextColor]];
-			[self updateColorScheme];
-		}
-	} else if ([selectorString isEqualToString:SEL_STR(setBackgroundTextColor:sender:)]) {
-		if (userScheme!=2) {
-			[self setUserColorScheme:self];
-		}else {
-			[self setBackgrndColor:[prefsController backgroundTextColor]];
-			[self updateColorScheme];
-		}
+	} else if ([selectorString isEqualToString:SEL_STR(setForegroundTextColor:sender:)] ||
+               [selectorString isEqualToString:SEL_STR(setBackgroundTextColor:sender:)] ||
+               [selectorString isEqualToString:SEL_STR(setDarkForegroundTextColor:sender:)] ||
+               [selectorString isEqualToString:SEL_STR(setDarkBackgroundTextColor:sender:)]) {
+        [self setUserColorScheme:self];
 		
 	} else if ([selectorString isEqualToString:SEL_STR(setTableFontSize:sender:)] || [selectorString isEqualToString:SEL_STR(setTableColumnsShowPreview:sender:)]) {
 		
@@ -2257,8 +2250,6 @@ terminateApp:
     - (IBAction)setUserColorScheme:(id)sender{
         userScheme=2;
         [[NSUserDefaults standardUserDefaults] setInteger:userScheme forKey:@"ColorScheme"];
-        [self setForegrndColor:[prefsController foregroundTextColor]];
-        [self setBackgrndColor:[prefsController backgroundTextColor]];
         NSMenu *mainM = [NSApp mainMenu];
         NSMenu *viewM = [[mainM itemWithTitle:@"View"] submenu];
         mainM = [[viewM itemWithTitle:@"Color Schemes"] submenu];
@@ -2270,7 +2261,7 @@ terminateApp:
         [[viewM  itemAtIndex:0] setState:0];
         [[viewM  itemAtIndex:1] setState:0];
         [[viewM  itemAtIndex:2] setState:1];
-        [self updateColorScheme];
+        [self browserAppearanceChanged];
     }
     
 - (void)updateColorScheme{
@@ -2279,6 +2270,7 @@ terminateApp:
     [notesTableView setBackgroundColor:[NSColor textBackgroundColor]];
     [textView setBackgroundColor:backgrndColor];
     [textView updateTextColors];
+    if (currentNote) [self refreshSearchHighlights];
     [splitView setNeedsDisplay:YES];
     
 }
@@ -2308,13 +2300,7 @@ terminateApp:
             }else if (userScheme==1) {
                 theColor = [NSColor colorWithCalibratedRed:0.874f green:0.874f blue:0.874f alpha:1.0f];
             }else if (userScheme==2) {
-                NSData *theData = [[NSUserDefaults standardUserDefaults] dataForKey:@"BackgroundTextColor"];
-                if (theData){
-                    theColor = (NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
-                }else {
-                    theColor = [prefsController backgroundTextColor];
-                }
-                
+                theColor = [self usesDarkUserColorScheme] ? [prefsController darkBackgroundTextColor] : [prefsController backgroundTextColor];
             }else{
                 theColor =  [NSColor whiteColor];
             }
@@ -2338,13 +2324,7 @@ terminateApp:
             }else if (userScheme==1) {
                 theColor = [NSColor colorWithCalibratedRed:0.142f green:0.142f blue:0.142f alpha:1.0f];
             }else if (userScheme==2) {
-                
-                NSData *theData = [[NSUserDefaults standardUserDefaults] dataForKey:@"ForegroundTextColor"];
-                if (theData){
-                    theColor = (NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
-                }else {
-                    theColor = [prefsController foregroundTextColor];
-                }
+                theColor = [self usesDarkUserColorScheme] ? [prefsController darkForegroundTextColor] : [prefsController foregroundTextColor];
             }
             [self setForegrndColor:theColor];
             return theColor;
