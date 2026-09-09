@@ -60,7 +60,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		loadStatusString = NSLocalizedString(@"Loading Notes...",nil);
 		loadStatusAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
 								 [NSFont fontWithName:@"Helvetica" size:STATUS_STRING_FONT_SIZE], NSFontAttributeName,
-								 [NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:0.5f], NSForegroundColorAttributeName, nil] retain];
+								 [NSColor secondaryLabelColor], NSForegroundColorAttributeName, nil] retain];
 		loadStatusStringWidth = [loadStatusString sizeWithAttributes:loadStatusAttributes].width;
 		
 		affinity = 0;

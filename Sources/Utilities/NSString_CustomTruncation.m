@@ -100,7 +100,7 @@ static NSMutableParagraphStyle *LineBreakingStyle() {
 
 static NSDictionary *GrayTextAttributes() {
 	static NSDictionary *grayTextAttributes = nil;
-	if (!grayTextAttributes) grayTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:[NSColor grayColor], NSForegroundColorAttributeName, nil] retain];
+	if (!grayTextAttributes) grayTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:[NSColor secondaryLabelColor], NSForegroundColorAttributeName, nil] retain];
 	return grayTextAttributes;
 }
 
@@ -166,11 +166,11 @@ static size_t EstimatedCharCountForWidth(float upToWidth) {
 	
 	NSMutableAttributedString *attributedStringPreview = [[NSMutableAttributedString alloc] initWithString:unattributedPreview];
 	
-	//title is black (no added colors) and truncated with LineTruncAttributesForTitle()
-	//body is gray and truncated with a variable tail indent, depending on intruding tags
+	//The cell supplies the title color. The body uses the secondary label color.
+	//The body tail indent depends on intruding tags.
 	
 	NSDictionary *bodyTruncDict = [NSDictionary dictionaryWithObjectsAndKeys:[[LineBreakingStyle() mutableCopy] autorelease], 
-								   NSParagraphStyleAttributeName, [NSColor grayColor], NSForegroundColorAttributeName, nil];
+								   NSParagraphStyleAttributeName, [NSColor secondaryLabelColor], NSForegroundColorAttributeName, nil];
 	//set word-wrapping to let -[NSCell setTruncatesLastVisibleLine:] work
 	[[bodyTruncDict objectForKey:NSParagraphStyleAttributeName] setLineBreakMode:NSLineBreakByWordWrapping];
 	

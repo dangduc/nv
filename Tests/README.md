@@ -69,11 +69,12 @@ Set `NV_UI_ARTIFACTS` to an output directory when running `source-workflow/run.p
 
 The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Control checks exercise menu dispatch, keyboard focus, and tag completion. Rendering checks compare URL and ordinary-text pixels across two windows. Every browser keeps the notes list above the editor. Old side-by-side layouts restore as a vertical stack.
 
-The row checks require pale backgrounds and dark title glyphs in both appearances. See `Tests/Regression/native-list/README.md` for their pixel thresholds and negative control.
+The row checks require light backgrounds with dark titles in Aqua, and dark backgrounds with light titles in Dark Aqua. See `Tests/Regression/native-list/README.md` for the pixel thresholds and appearance checks.
 
 Run the focused checks after a Development build:
 
 ```sh
+python3 Tests/Regression/native-list/run-native.py
 python3 Tests/Regression/native-ui/run.py
 python3 Tests/Regression/native-controls/run.py
 python3 Tests/Regression/native-rendering/run.py

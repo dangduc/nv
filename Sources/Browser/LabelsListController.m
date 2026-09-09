@@ -115,7 +115,11 @@
 - (NSImage*)cachedLabelImageForWord:(NSString*)aWord highlighted:(BOOL)isHighlighted {
 	if (!labelImages) labelImages = [[NSMutableDictionary alloc] init];
 	
-	NSString *imgKey = [[aWord lowercaseString] stringByAppendingFormat:@", %d", isHighlighted];
+	// These raster images are shared across windows. Resolve the drawing color
+	// before caching so each appearance and accent color gets its own image.
+	NSColor *fillColor = [(isHighlighted ? [NSColor alternateSelectedControlTextColor] : [NSColor secondaryLabelColor])
+		colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	NSArray *imgKey = @[[aWord lowercaseString], @(isHighlighted), fillColor];
 	NSImage *img = [labelImages objectForKey:imgKey];
 	if (!img) {
 		//generate the image and add it to labelImages under imgKey
@@ -136,10 +140,11 @@
 		CGContextClipToRect(context, NSRectToCGRect(wordRect));
 
 		NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundRectInRect:wordRect radius:2.0f];
-		[(isHighlighted ? [NSColor whiteColor] : [NSColor colorWithCalibratedWhite:0.55 alpha:1.0]) setFill];
+		[fillColor setFill];
 		[backgroundPath fill];
 		
-		[[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOut];
+		// Cut out the glyphs even when the system fill color is translucent.
+		[[NSGraphicsContext currentContext] setCompositingOperation:NSCompositingOperationDestinationOut];
 		[aWord drawWithRect:(NSRect){{2.0, 3.0}, wordRect.size} options:NSStringDrawingUsesFontLeading attributes:attrs];
 		
 		CGContextEndTransparencyLayer(context);
