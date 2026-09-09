@@ -9,7 +9,7 @@ A fresh installation uses Fuzzy search and a monospace body font.
 The title, tags, and Source/Preview header rows start hidden.
 Existing font and visibility preferences remain unchanged.
 
-![Editable note source with the optional header rows hidden](docs/screenshots/readme-source.png)
+![Full nvALT window with editable note source, hidden header rows, and its shadow against a neutral background](docs/screenshots/readme-source.png)
 
 ## What changes in this fork
 
