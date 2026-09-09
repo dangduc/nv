@@ -1,0 +1,47 @@
+2026-09-09 14:20:10.362 nvALT[51370:343170527] PASS: temporary library directory exists
+2026-09-09 14:20:10.363 nvALT[51370:343170527] PASS: temporary library opens
+2026-09-09 14:20:10.436 nvALT[51370:343170527] verified 0 notes in 0.000221968 s
+2026-09-09 14:20:10.694 nvALT[51370:343170527] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:20:10.713 nvALT[51370:343170527] PASS: hidden title: native select-all and Delete leave empty focused Search
+2026-09-09 14:20:10.713 nvALT[51370:343170527] PASS: hidden title: native deletion publishes the empty search
+2026-09-09 14:20:10.733 nvALT[51370:343170527] PASS: hidden title after deletion: menu handles Command-N
+2026-09-09 14:20:10.733 nvALT[51370:343170527] PASS: hidden title after deletion: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:10.734 nvALT[51370:343170527] PASS: hidden title after deletion: the configured title or source editor has focus
+2026-09-09 14:20:10.951 nvALT[51370:343170527] PASS: hidden title repeat one: menu handles Command-N
+2026-09-09 14:20:10.951 nvALT[51370:343170527] PASS: hidden title repeat one: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:10.951 nvALT[51370:343170527] PASS: hidden title repeat one: the configured title or source editor has focus
+2026-09-09 14:20:11.006 nvALT[51370:343170527] PASS: hidden title repeat two: menu handles Command-N
+2026-09-09 14:20:11.006 nvALT[51370:343170527] PASS: hidden title repeat two: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.006 nvALT[51370:343170527] PASS: hidden title repeat two: the configured title or source editor has focus
+2026-09-09 14:20:11.101 nvALT[51370:343170527] PASS: hidden title populated Search: menu handles Command-N
+2026-09-09 14:20:11.101 nvALT[51370:343170527] PASS: hidden title populated Search: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.101 nvALT[51370:343170527] PASS: hidden title populated Search: the configured title or source editor has focus
+2026-09-09 14:20:11.106 nvALT[51370:343170527] PASS: hidden title: pending source edit owns focus before the next command
+2026-09-09 14:20:11.164 nvALT[51370:343170527] PASS: hidden title after edit: menu handles Command-N
+2026-09-09 14:20:11.164 nvALT[51370:343170527] PASS: hidden title after edit: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.164 nvALT[51370:343170527] PASS: hidden title after edit: the configured title or source editor has focus
+2026-09-09 14:20:11.215 nvALT[51370:343170527] PASS: hidden title: the next command preserves the preceding title and source edit
+2026-09-09 14:20:11.215 nvALT[51370:343170527] PASS: hidden title: the new source stays empty and Search stays cleared
+2026-09-09 14:20:11.224 nvALT[51370:343170527] PASS: visible title: native select-all and Delete leave empty focused Search
+2026-09-09 14:20:11.224 nvALT[51370:343170527] PASS: visible title: native deletion publishes the empty search
+2026-09-09 14:20:11.273 nvALT[51370:343170527] PASS: visible title after deletion: menu handles Command-N
+2026-09-09 14:20:11.273 nvALT[51370:343170527] PASS: visible title after deletion: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.273 nvALT[51370:343170527] PASS: visible title after deletion: the configured title or source editor has focus
+2026-09-09 14:20:11.344 nvALT[51370:343170527] PASS: visible title repeat one: menu handles Command-N
+2026-09-09 14:20:11.344 nvALT[51370:343170527] PASS: visible title repeat one: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.344 nvALT[51370:343170527] PASS: visible title repeat one: the configured title or source editor has focus
+2026-09-09 14:20:11.403 nvALT[51370:343170527] PASS: visible title repeat two: menu handles Command-N
+2026-09-09 14:20:11.403 nvALT[51370:343170527] PASS: visible title repeat two: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.403 nvALT[51370:343170527] PASS: visible title repeat two: the configured title or source editor has focus
+2026-09-09 14:20:11.507 nvALT[51370:343170527] PASS: visible title populated Search: menu handles Command-N
+2026-09-09 14:20:11.508 nvALT[51370:343170527] PASS: visible title populated Search: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.508 nvALT[51370:343170527] PASS: visible title populated Search: the configured title or source editor has focus
+2026-09-09 14:20:11.508 nvALT[51370:343170527] PASS: visible title: pending title edit owns focus before the next command
+2026-09-09 14:20:11.568 nvALT[51370:343170527] PASS: visible title after edit: menu handles Command-N
+2026-09-09 14:20:11.568 nvALT[51370:343170527] PASS: visible title after edit: one distinct note has the expected title before another run-loop turn
+2026-09-09 14:20:11.568 nvALT[51370:343170527] PASS: visible title after edit: the configured title or source editor has focus
+2026-09-09 14:20:11.645 nvALT[51370:343170527] PASS: visible title: the next command commits the preceding title without copying it to the new note
+2026-09-09 14:20:11.645 nvALT[51370:343170527] PASS: visible title: the new source stays empty and Search stays cleared
+2026-09-09 14:20:11.942 nvALT[51370:343170527] PASS: ten commands created ten distinct notes after delayed callbacks
+2026-09-09 14:20:11.943 nvALT[51370:343170527] PASS: the disposable library has no remaining notes
+2026-09-09 14:20:11.943 nvALT[51370:343170527] DAN LUU-INSPIRED ROUND 2 PASSED (45 checks)

@@ -1,0 +1,30 @@
+2026-09-09 14:20:15.503 nvALT[51400:343170962] PASS: temporary library directory exists
+2026-09-09 14:20:15.504 nvALT[51400:343170962] PASS: temporary library opens
+2026-09-09 14:20:15.598 nvALT[51400:343170962] verified 0 notes in 0.000185966 s
+2026-09-09 14:20:15.827 nvALT[51400:343170962] PASS: native activation makes the intended browser key and active before commands
+2026-09-09 14:20:15.899 nvALT[51400:343170962] PASS: a pending title edit owns focus while the old search and model title remain
+2026-09-09 14:20:15.919 nvALT[51400:343170962] PASS: the native menu dispatches Command-N across the transition
+2026-09-09 14:20:15.919 nvALT[51400:343170962] PASS: the focused control determines the title of exactly one new note
+2026-09-09 14:20:15.919 nvALT[51400:343170962] PASS: New Note leaves Preview and opens empty editable source
+2026-09-09 14:20:15.919 nvALT[51400:343170962] PASS: New Note follows the current header preference for editing focus
+2026-09-09 14:20:15.919 nvALT[51400:343170962] PASS: Command-N commits the pending title to its original note
+2026-09-09 14:20:15.980 nvALT[51400:343170962] PASS: a pending tag edit is distinct from focused search input
+2026-09-09 14:20:16.036 nvALT[51400:343170962] PASS: the native menu dispatches Command-N across the transition
+2026-09-09 14:20:16.036 nvALT[51400:343170962] PASS: the focused control determines the title of exactly one new note
+2026-09-09 14:20:16.036 nvALT[51400:343170962] PASS: New Note leaves Preview and opens empty editable source
+2026-09-09 14:20:16.036 nvALT[51400:343170962] PASS: New Note follows the current header preference for editing focus
+2026-09-09 14:20:16.036 nvALT[51400:343170962] PASS: Command-N commits the old note's tags without copying them into the new note
+2026-09-09 14:20:16.153 nvALT[51400:343170962] PASS: Preview starts with nonempty Search and the requested focus owner
+2026-09-09 14:20:16.215 nvALT[51400:343170962] PASS: the native menu dispatches Command-N across the transition
+2026-09-09 14:20:16.215 nvALT[51400:343170962] PASS: the focused control determines the title of exactly one new note
+2026-09-09 14:20:16.215 nvALT[51400:343170962] PASS: New Note leaves Preview and opens empty editable source
+2026-09-09 14:20:16.215 nvALT[51400:343170962] PASS: New Note follows the current header preference for editing focus
+2026-09-09 14:20:16.215 nvALT[51400:343170962] PASS: leaving Preview preserves the old note's title, tags, and source
+2026-09-09 14:20:16.314 nvALT[51400:343170962] PASS: Preview starts with nonempty Search and the requested focus owner
+2026-09-09 14:20:16.358 nvALT[51400:343170962] PASS: the native menu dispatches Command-N across the transition
+2026-09-09 14:20:16.358 nvALT[51400:343170962] PASS: the focused control determines the title of exactly one new note
+2026-09-09 14:20:16.358 nvALT[51400:343170962] PASS: New Note leaves Preview and opens empty editable source
+2026-09-09 14:20:16.358 nvALT[51400:343170962] PASS: New Note follows the current header preference for editing focus
+2026-09-09 14:20:16.358 nvALT[51400:343170962] PASS: leaving Preview preserves the old note's title, tags, and source
+2026-09-09 14:20:16.409 nvALT[51400:343170962] PASS: 27 round 2 Ousterhout transition checks
+2026-09-09 14:20:16.530 nvALT[51400:343170962] verified 1 notes in 0.000384927 s
