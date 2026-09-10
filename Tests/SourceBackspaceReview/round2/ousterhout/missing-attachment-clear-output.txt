@@ -1,0 +1,4 @@
+checks=26 failures=3
+FAIL actual switch cancels old deferred state before attaching new storage
+FAIL actual nil selection retires session and pending callback
+FAIL detached note cannot schedule empty-editor cleanup

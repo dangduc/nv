@@ -1,0 +1,47 @@
+{
+  "head": "feef9bd95ceb4f3b05d2a5cb00622c1b269ea4d9",
+  "production_commit": "c2209e2",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "variants": {
+    "production": {
+      "exit_code": 0,
+      "generated_probe_sha256": "1f870a9321f9a3535459b3d3a87f7483b028197c1bccb13576646a6a96ac5dc2"
+    },
+    "zero-delay-retry": {
+      "exit_code": 1,
+      "generated_probe_sha256": "20a9a02f0e6872c48dbc6c5a66e42597c2369d9cfb4259199e9e0a75740ab569"
+    },
+    "missing-cancellation": {
+      "exit_code": 1,
+      "generated_probe_sha256": "97aa39084ae6be44445346f28577128e150f3a1b5bb627ad48d98870512e6221"
+    }
+  },
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 through Rosetta",
+  "production_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:",
+    "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {"
+  ],
+  "bounds": [
+    "Native AppKit storage and layout managers; NSObject editor/controller adapters; no GUI.",
+    "Assertions use counts, requested callback delays, and attribute state, not a latency threshold.",
+    "Both modes are registered as common modes; real app event routing is not exercised.",
+    "Deliberate long editing batches test reentrancy, not its frequency in user workflows.",
+    "Reported macOS 13.7.8 environment is not available on this host."
+  ]
+}

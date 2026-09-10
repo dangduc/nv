@@ -1,0 +1,3 @@
+mode=kCFRunLoopDefaultMode peers=1 publish=before-retry open_ms=300.474 callbacks_scheduled=25375 delayed_retries=0 zero_delay_retries=25374 heartbeat_ticks=362 final_removals=1 post_edit_observation_ms=61.502
+checks=26 failures=1
+FAIL every open-batch retry requests at least ten milliseconds

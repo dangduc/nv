@@ -1,0 +1,75 @@
+{
+  "head_before": "feef9bd95ceb4f3b05d2a5cb00622c1b269ea4d9",
+  "head_after": "feef9bd95ceb4f3b05d2a5cb00622c1b269ea4d9",
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_unchanged": true,
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "extracted_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+    "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {"
+  ],
+  "variants": {
+    "candidate-native-sanitize": {
+      "exit_code": 0,
+      "generated_sha256": "2d7b1c436ef183f5c0adc84fbf2331af4e13db65d0cde19b46340f3b242f2a81",
+      "flags": [
+        "-arch",
+        "arm64",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "last_line": "checks=43 failures=0 deaths=6"
+    },
+    "candidate-intel": {
+      "exit_code": 0,
+      "generated_sha256": "2d7b1c436ef183f5c0adc84fbf2331af4e13db65d0cde19b46340f3b242f2a81",
+      "flags": [
+        "-arch",
+        "x86_64"
+      ],
+      "last_line": "checks=43 failures=0 deaths=6"
+    },
+    "control-mask-equality": {
+      "exit_code": 1,
+      "generated_sha256": "dc67bb3d8bbfd20f06f0ade4cbda2e26dc83ffbe1aef9cce77bfdbdb4f31e309",
+      "flags": [
+        "-arch",
+        "arm64",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "last_line": "checks=43 failures=4 deaths=6"
+    },
+    "control-attribute-invalidation": {
+      "exit_code": 1,
+      "generated_sha256": "c31ae5f3b1d4e747abdd3a23404ec3b8513d5acd3c6ee1abc911f97aa8355df3",
+      "flags": [
+        "-arch",
+        "arm64",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer"
+      ],
+      "last_line": "checks=43 failures=7 deaths=6"
+    }
+  },
+  "limitations": [
+    "NSObject adapter supplies editor ownership; storage, layout, notifications and run loop are AppKit.",
+    "No browser, text view, window drawing or input method is exercised.",
+    "ASan leak detection is disabled; ownership checks observe deterministic destruction.",
+    "This host is macOS 26.5.2; macOS 13.7.8 is untested."
+  ]
+}

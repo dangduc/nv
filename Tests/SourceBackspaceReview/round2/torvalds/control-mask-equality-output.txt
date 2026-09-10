@@ -1,0 +1,9 @@
+attribute-only mode=0 willMask=1 didMask=1 writesDelta=0
+attribute-only mode=1 willMask=1 didMask=1 writesDelta=1
+attribute-only mode=2 willMask=1 didMask=1 writesDelta=1
+mixed-batch willMask=3 didMask=3 generation=1 writesDelta=5
+checks=43 failures=4 deaths=6
+FAIL: direct mixed-batch clear and publication defer all layout writes
+FAIL: nested-loop retry retains invalidation through mixed edits
+FAIL: direct clears defer throughout will and did character notifications
+FAIL: coalesced cleanup makes one safe write after mixed batch

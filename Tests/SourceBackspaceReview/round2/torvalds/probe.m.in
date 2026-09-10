@@ -1,0 +1,213 @@
+#import <Cocoa/Cocoa.h>
+static NSUInteger checks, failures, deaths;
+static const NSUInteger NVSearchMaximumDisplayedRanges=2048;
+static void Check(BOOL ok, const char *name) {
+    checks++;
+    if (!ok) { failures++; fprintf(stderr,"FAIL: %s\n",name); }
+}
+static void Pump(void) {
+    NSDate *until=[NSDate dateWithTimeIntervalSinceNow:0.04];
+    while ([until timeIntervalSinceNow]>0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
+}
+@interface AuditedLayout : NSLayoutManager {
+@public NSUInteger writes, unsafeWrites;
+}
+@end
+@implementation AuditedLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        writes++;
+        if ([[self textStorage] editedMask]&NSTextStorageEditedCharacters) unsafeWrites++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+- (void)addTemporaryAttribute:(NSString *)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        writes++;
+        if ([[self textStorage] editedMask]&NSTextStorageEditedCharacters) unsafeWrites++;
+    }
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
+@end
+@interface Subject : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    AuditedLayout *layout;
+@public BOOL noColor;
+}
+- (NSTextStorage *)textStorage;
+- (AuditedLayout *)layoutManager;
+- (NSString *)string;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (BOOL)invalidated;
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+@end
+@implementation Subject
+- (id)init {
+    if ((self=[super init])) {
+        storage=[[NSTextStorage alloc] initWithString:@"abcdefghij"];
+        layout=[[AuditedLayout alloc] init];
+        [storage addLayoutManager:layout];
+    }
+    return self;
+}
+- (NSTextStorage *)textStorage { return storage; }
+- (AuditedLayout *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (BOOL)invalidated { return searchHighlightsInvalidated; }
+- (NSDictionary *)currentSearchHighlightAttributes {
+    return noColor ? @{} : @{NSBackgroundColorAttributeName:[NSColor yellowColor]};
+}
+/* EDITOR_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    [storage removeLayoutManager:layout];
+    [layout release]; [storage release]; deaths++;
+    [super dealloc];
+}
+@end
+@interface Observe : NSObject {
+    Subject *textView;
+    NSUInteger searchHighlightGeneration;
+@public NSUInteger willCount, didCount, willMask, didMask, writesSeenInWill, writesSeenInDid;
+    BOOL clearInWill, clearInDid, injectAttribute;
+}
+- (id)initWithEditor:(Subject *)editor;
+- (NSUInteger)generation;
+- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
+@end
+@implementation Observe
+- (id)initWithEditor:(Subject *)editor {
+    if ((self=[super init])) {
+        textView=[editor retain];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(will:)
+            name:NSTextStorageWillProcessEditingNotification object:[editor textStorage]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(did:)
+            name:NSTextStorageDidProcessEditingNotification object:[editor textStorage]];
+    }
+    return self;
+}
+- (NSUInteger)generation { return searchHighlightGeneration; }
+/* OBSERVER_METHOD */
+- (void)will:(NSNotification *)note {
+    willCount++; willMask=[[textView textStorage] editedMask];
+    [self searchSourceStorageWillProcessEditing:note];
+    if (injectAttribute) {
+        injectAttribute=NO;
+        [[textView textStorage] addAttribute:@"review-attribute" value:@"fixed-in-will" range:NSMakeRange(0,1)];
+    }
+    if (clearInWill) [textView removeHighlightedTerms];
+    writesSeenInWill=[textView layoutManager]->writes;
+}
+- (void)did:(NSNotification *)note {
+    (void)note;
+    didCount++; didMask=[[textView textStorage] editedMask];
+    if (clearInDid) [textView removeHighlightedTerms];
+    writesSeenInDid=[textView layoutManager]->writes;
+}
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [textView release]; [super dealloc];
+}
+@end
+static void Install(Subject *e) {
+    [e setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0,[[e string] length])]]];
+}
+static BOOL HasBackground(Subject *e) {
+    return [[e layoutManager] temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL]!=nil;
+}
+static void AttributeOnly(void) {
+    for (NSUInteger mode=0;mode<3;mode++) {
+        Subject *e=[[Subject alloc] init]; Observe *o=[[Observe alloc] initWithEditor:e];
+        Install(e); NSUInteger writes=[e layoutManager]->writes;
+        o->clearInWill=mode==1; o->clearInDid=mode==2;
+        [[e textStorage] addAttribute:@"review-attribute" value:@"attribute-only" range:NSMakeRange(0,3)];
+        Check(o->willCount==1 && o->didCount==1,"attribute edit delivers one will/did pair");
+        Check(o->willMask==NSTextStorageEditedAttributes && o->didMask==NSTextStorageEditedAttributes,"pure attributes do not claim character changes");
+        Check([o generation]==0,"attribute-only notifications preserve accepted source generation");
+        Check(![e invalidated],"attribute-only direct clears need no deferred callback");
+        Pump();
+        Check([e layoutManager]->writes==writes+(mode?1:0),"attribute-only notification does not cause extra layout writes");
+        Check(HasBackground(e)==(mode==0),"direct clear works in either attribute-only notification");
+        Check([e layoutManager]->unsafeWrites==0,"attribute-only operations do not mutate during character editing");
+        printf("attribute-only mode=%lu willMask=%lu didMask=%lu writesDelta=%lu\n",(unsigned long)mode,(unsigned long)o->willMask,(unsigned long)o->didMask,(unsigned long)([e layoutManager]->writes-writes));
+        [o release]; [e release];
+    }
+}
+static void MixedBatch(void) {
+    Subject *e=[[Subject alloc] init]; Observe *o=[[Observe alloc] initWithEditor:e];
+    NSTextStorage *s=[e textStorage]; AuditedLayout *l=[e layoutManager]; Install(e);
+    [s beginEditing];
+    [s addAttribute:@"review-attribute" value:@"first" range:NSMakeRange(0,1)];
+    [e removeHighlightedTerms];
+    Check(![e invalidated],"direct attribute-only batch clear is synchronous");
+    Install(e); NSUInteger baseline=l->writes;
+    [s beginEditing]; [s replaceCharactersInRange:NSMakeRange(9,1) withString:@""];
+    Check(([s editedMask]&(NSTextStorageEditedCharacters|NSTextStorageEditedAttributes))==3,"mixed open batch has both edit flags");
+    [e removeHighlightedTerms]; Install(e);
+    Pump();
+    Check(l->writes==baseline && l->unsafeWrites==0,"direct mixed-batch clear and publication defer all layout writes");
+    Check([e invalidated],"nested-loop retry retains invalidation through mixed edits");
+    [s endEditing];
+    Check(o->willCount==0 && o->didCount==0,"inner endEditing cannot publish storage notifications");
+    o->clearInWill=YES; o->clearInDid=YES; o->injectAttribute=YES;
+    [s endEditing];
+    Check(o->willCount==1 && o->didCount==1,"outer mixed batch delivers one will/did pair");
+    Check((o->willMask&3)==3 && (o->didMask&3)==3,"mixed edit flags survive both notification phases");
+    Check([o generation]==1,"mixed notification invalidates source generation exactly once");
+    Check(o->writesSeenInWill==baseline && o->writesSeenInDid==baseline,"direct clears defer throughout will and did character notifications");
+    Check([s editedMask]==0,"TextKit resets mask after endEditing returns");
+    Pump();
+    Check(l->writes==baseline+1 && l->unsafeWrites==0,"coalesced cleanup makes one safe write after mixed batch");
+    Check(!HasBackground(e) && ![e invalidated],"mixed edit cleanup clears background and invalidation");
+    Check([[[s string] description] isEqual:@"abcdefghi"],"mixed cleanup preserves shortened source");
+    Check([[s attribute:@"review-attribute" atIndex:0 effectiveRange:NULL] isEqual:@"fixed-in-will"],"cleanup preserves attributes fixed during will notification");
+    printf("mixed-batch willMask=%lu didMask=%lu generation=%lu writesDelta=%lu\n",(unsigned long)o->willMask,(unsigned long)o->didMask,(unsigned long)[o generation],(unsigned long)(l->writes-baseline));
+    [o release]; [e release];
+}
+static void CharacterThenAttributes(void) {
+    Subject *e=[[Subject alloc] init]; Observe *o=[[Observe alloc] initWithEditor:e];
+    Install(e);
+    [[e textStorage] replaceCharactersInRange:NSMakeRange(9,1) withString:@""];
+    Check([e invalidated] && [o generation]==1,"character edit invalidates before its caller returns");
+    [[e textStorage] addAttribute:@"review-attribute" value:@"second notification" range:NSMakeRange(0,1)];
+    Check([e invalidated] && [o generation]==1,"following attribute-only edit neither repeats nor resets invalidation");
+    NSUInteger before=[e layoutManager]->writes;
+    Pump();
+    Check([e layoutManager]->writes==before+1 && !HasBackground(e),"character-then-attribute sequence still runs one cleanup");
+    NSTextStorage *foreign=[[[NSTextStorage alloc] initWithString:@"foreign"] autorelease];
+    [foreign beginEditing]; [foreign replaceCharactersInRange:NSMakeRange(0,1) withString:@""];
+    NSUInteger priorGeneration=[o generation];
+    BOOL priorInvalidated=[e invalidated];
+    [o searchSourceStorageWillProcessEditing:[NSNotification notificationWithName:NSTextStorageWillProcessEditingNotification object:foreign]];
+    Check([o generation]==priorGeneration && [e invalidated]==priorInvalidated,"foreign storage notification cannot change editor state");
+    [foreign endEditing];
+    [o release]; [e release];
+}
+static void MissingColorAndTeardown(void) {
+    NSUInteger beforeDeaths=deaths;
+    Subject *e=[[Subject alloc] init]; Install(e); [e invalidateSearchHighlights];
+    e->noColor=YES;
+    [e setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0,2)]]];
+    Check(![e invalidated] && !HasBackground(e),"missing highlight color still clears pending state and old background");
+    NSUInteger writes=[e layoutManager]->writes; Pump();
+    Check([e layoutManager]->writes==writes,"missing-color early return cancels older delayed cleanup");
+    e->noColor=NO; Install(e);
+    [e invalidateSearchHighlights];
+    [e removeHighlightedTerms];
+    [e release];
+    Check(deaths==beforeDeaths+1,"explicit cleanup releases pending-selector ownership before teardown");
+    Pump();
+    Check(deaths==beforeDeaths+1,"cancelled callback cannot run against released receiver");
+}
+int main(void) {
+    @autoreleasepool {
+        @try { AttributeOnly(); MixedBatch(); CharacterThenAttributes(); MissingColorAndTeardown(); }
+        @catch(NSException *error) { failures++; fprintf(stderr,"EXCEPTION %s: %s\n",[[error name] UTF8String],[[error reason] UTF8String]); }
+        printf("checks=%lu failures=%lu deaths=%lu\n",(unsigned long)checks,(unsigned long)failures,(unsigned long)deaths);
+    }
+    return failures?1:0;
+}
