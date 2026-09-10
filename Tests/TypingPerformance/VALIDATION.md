@@ -27,3 +27,29 @@ The executable SHA-256 values identify the tested binaries:
 
 - Master: `6a9bc7b304e40072de11e2a976c7d18c89dc41188d3be82bb9deaad3a31c43a7`.
 - Initial change: `1d4ca5d7db470f261a7abf458952b526f7c3c8e548fdf33a86fa06e80f3485b0`.
+
+## Regression baseline
+
+The required multiwindow suite and every entry in `Tests/run-regression-tests.py` ran after the initial build.
+The aggregate runner stops at its first failure, so each remaining suite also ran separately.
+Every failing suite was compared with the unmodified master build.
+
+These failures also occur on master at `8dde5e8`:
+
+| Suite | First failing behavior |
+| --- | --- |
+| Multiple windows and restoration canaries | Library replacement crashes after primary checks and restored-window checks pass. |
+| Fuzzy search UI | The disposable browser does not become the active browser. |
+| Backup archive | The coordinator does not open the validated archive as a separate library. |
+| Source workflow | The fixture calls the removed `bold:` selector. |
+| Native dependencies | The fixture expects HTML paste to be excluded. |
+| Native UI | A menu fixture constructs an array containing a missing item. |
+| Native controls | The fixture expects five syntax types and omits Org. |
+| Native rendering | The expected cross-boundary search highlight is absent. |
+| Ownership | The fixture requires the removed `lastImportedFindString` ivar. |
+| Preview lifetime | The fixture calls the removed `beforeString` selector. |
+
+These failures prevent a clean broad-suite result. They are not reported as passes.
+The new teardown fixture also needed updates for source-analysis ownership.
+Its five checks and four negative controls pass after that update.
+The Exact-search Reveal failure occurred only in the candidate and became a round-one revision request.

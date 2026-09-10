@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-static NSUInteger commits, finishes, closes, detaches, checks;
+static NSUInteger commits, finishes, closes, analysisCloses, detaches, checks;
 static void Check(BOOL condition, NSString *message) {
     checks++;
     if (!condition) { fprintf(stderr, "FAIL: %s\n", [message UTF8String]); exit(1); }
@@ -28,6 +28,12 @@ static void Check(BOOL condition, NSString *message) {
 @implementation FakeHighlighter
 - (void)close { closes++; }
 @end
+@interface FakeSourceAnalysis : NSObject { BOOL closed; }
+- (void)close;
+@end
+@implementation FakeSourceAnalysis
+- (void)close { if (!closed) { closed = YES; analysisCloses++; } }
+@end
 @interface FakeStorage : NSObject
 - (void)removeLayoutManager:(id)manager;
 - (void)addLayoutManager:(id)manager;
@@ -48,17 +54,20 @@ static void Check(BOOL condition, NSString *message) {
 - (id)layoutManager;
 - (NSRange)selectedRange;
 - (void)setAllowsUndo:(BOOL)value;
+- (void)removeHighlightedTerms;
 @end
 @implementation FakeTextView
 - (id)init { if ((self = [super init])) layout = [FakeLayout new]; return self; }
 - (id)layoutManager { return layout; }
 - (NSRange)selectedRange { return NSMakeRange(0, 0); }
 - (void)setAllowsUndo:(BOOL)value {}
+- (void)removeHighlightedTerms {}
 - (void)dealloc { [layout release]; [super dealloc]; }
 @end
 
 @interface NVNoteEditingSession : NSObject {
     NoteObject *note; FakeHighlighter *sourceHighlighter; NSObject *metadataUndoTarget;
+    FakeSourceAnalysis *sourceAnalysis; BOOL closed;
 }
 - (void)commitPendingTextChanges;
 - (void)close;
@@ -69,7 +78,7 @@ static void Check(BOOL condition, NSString *message) {
 @end
 @implementation NVNoteEditingSession
 - (id)init {
-    if ((self = [super init])) { note = [NoteObject new]; sourceHighlighter = [FakeHighlighter new]; metadataUndoTarget = [NSObject new]; }
+    if ((self = [super init])) { note = [NoteObject new]; sourceAnalysis = [FakeSourceAnalysis new]; sourceHighlighter = [FakeHighlighter new]; metadataUndoTarget = [NSObject new]; }
     return self;
 }
 - (void)commitPendingTextChanges { commits++; }
@@ -77,7 +86,7 @@ static void Check(BOOL condition, NSString *message) {
 - (void)sourceLayoutDidAttach {}
 - (NSTextStorage *)textStorage { return nil; }
 // SESSION_METHODS
-- (void)dealloc { [sourceHighlighter release]; [note release]; [metadataUndoTarget release]; [super dealloc]; }
+- (void)dealloc { [sourceAnalysis release]; [sourceHighlighter release]; [note release]; [metadataUndoTarget release]; [super dealloc]; }
 @end
 @interface NVApplicationController : NSObject
 + (id)sharedController;
@@ -119,6 +128,7 @@ static void Check(BOOL condition, NSString *message) {
 - (void)seedEditor;
 - (void)finishEditing;
 - (void)captureBodyPresentation;
+- (void)cancelMultiTagEditing;
 - (void)updateNoteHeader;
 - (void)updateBodyPresentation;
 - (void)discardViewer;
@@ -146,6 +156,7 @@ static void Check(BOOL condition, NSString *message) {
 - (void)seedEditor { currentNote = [NoteObject new]; editingSession = [NVNoteEditingSession new]; }
 - (void)finishEditing { finishes++; [editingSession commitPendingTextChanges]; }
 - (void)captureBodyPresentation {}
+- (void)cancelMultiTagEditing {}
 - (void)updateNoteHeader {}
 - (void)updateBodyPresentation {}
 - (void)discardViewer {}
@@ -164,6 +175,7 @@ int main(void) {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NVNoteEditingSession *session = [NVNoteEditingSession new];
     [session closeWithoutCommitting];
+    Check(analysisCloses == 1, @"prepared session teardown cancels pending source analysis");
     Check(commits == 0 && closes == 1, @"prepared session teardown closes the highlighter without committing");
     [session release];
     session = [NVNoteEditingSession new];

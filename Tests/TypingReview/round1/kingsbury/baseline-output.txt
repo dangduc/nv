@@ -1,0 +1,5 @@
+PASS: BASELINE: Exact Reveal refilters and selects the matching new note synchronously
+PASS: deferred Exact projection becomes current with the requested note present
+PASS: BASELINE: requested note stays selected after deferred publication
+PASS: matching Exact query is preserved in both versions
+PASS: browser interleavings (4 checks)

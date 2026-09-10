@@ -1,0 +1,4 @@
+PASS: 60 assertions; 6 sessions; 40,000 coalesced edit requests; 1 queued teardown; reentrant demand
+LIMIT: this probe does not bound the runtime of an already-running link detector or word counter.
+PASS: negative control publish-canceled triggers: FAIL: only the latest requested generation publishes
+PASS: negative control run-canceled-links triggers: FAIL: canceled queued snapshots skip link analysis; one in-flight job remains indivisible
