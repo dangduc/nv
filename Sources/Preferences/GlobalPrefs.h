@@ -57,6 +57,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 	BookmarksController *bookmarksController;
 	NotationPrefs *notationPrefs;
 	NSDictionary *noteBodyAttributes;
+	NSMutableParagraphStyle *noteBodyParagraphStyle;
 	NSFont *noteBodyFont;
 	BOOL autoCompleteSearches;
 	
@@ -101,6 +102,8 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)_setNoteBodyFont:(NSFont*)aFont;
 - (NSFont*)noteBodyFont;
 - (NSDictionary*)noteBodyAttributes;
+- (NSParagraphStyle*)noteBodyParagraphStyle;
+- (BOOL)_bodyFontIsMonospace;
 
 - (void)setForegroundTextColor:(NSColor*)aColor sender:(id)sender;
 - (NSColor*)foregroundTextColor;
@@ -111,6 +114,15 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (NSColor*)darkForegroundTextColor;
 - (void)setDarkBackgroundTextColor:(NSColor*)color sender:(id)sender;
 - (NSColor*)darkBackgroundTextColor;
+
+- (void)setTabIndenting:(BOOL)value sender:(id)sender;
+- (BOOL)tabKeyIndents;
+
+//- (void)setUseTextReplacement:(BOOL)value sender:(id)sender;
+//- (BOOL)useTextReplacement;
+
+- (void)setCheckSpellingAsYouType:(BOOL)value sender:(id)sender;
+- (BOOL)checkSpellingAsYouType;
 
 - (void)setConfirmNoteDeletion:(BOOL)value sender:(id)sender;
 - (BOOL)confirmNoteDeletion;
@@ -123,8 +135,20 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (PTHotKey*)appActivationHotKey;
 - (BOOL)registerAppActivationKeystrokeWithTarget:(id)target selector:(SEL)selector;
 
+- (void)setPastePreservesStyle:(BOOL)value sender:(id)sender;
+- (BOOL)pastePreservesStyle;
+
 - (void)setAutoFormatsDoneTag:(BOOL)value sender:(id)sender;
 - (BOOL)autoFormatsDoneTag;
+
+- (BOOL)autoIndentsNewLines;
+- (void)setAutoIndentsNewLines:(BOOL)value sender:(id)sender;
+
+- (BOOL)autoFormatsListBullets;
+- (void)setAutoFormatsListBullets:(BOOL)value sender:(id)sender;
+
+- (void)setLinksAutoSuggested:(BOOL)value sender:(id)sender;
+- (BOOL)linksAutoSuggested;
 
 - (void)setMakeURLsClickable:(BOOL)value sender:(id)sender;
 - (BOOL)URLsAreClickable;
@@ -138,9 +162,14 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (NSColor*)darkSearchTermHighlightColor;
 - (NSDictionary*)searchTermHighlightAttributesForDarkAppearance:(BOOL)dark backgroundColor:(NSColor*)background;
 
+- (void)setSoftTabs:(BOOL)value sender:(id)sender;
+- (BOOL)softTabs;
+
 - (void)setUseFinderTags:(id)sender;
 //- (void)setUseFinderTags:(BOOL)value sender:(id)sender;
 - (BOOL)useFinderTags;
+
+- (NSInteger)numberOfSpacesInTab;
 
 - (float)tableFontSize;
 - (void)setTableFontSize:(float)fontSize sender:(id)sender;
@@ -175,6 +204,8 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 
 - (void)synchronize;
 
+- (void)setRTL:(BOOL)value sender:(id)sender;
+- (BOOL)rtl;
 - (BOOL)showWordCount;
 - (void)setShowWordCount:(BOOL)value;
 - (void)setUseETScrollbarsOnLion:(BOOL)value sender:(id)sender;
@@ -183,6 +214,8 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (BOOL)showGrid;
 - (void)setAlternatingRows:(BOOL)value sender:(id)sender;
 - (BOOL)alternatingRows;
+- (void)setUseAutoPairing:(BOOL)value;
+- (BOOL)useAutoPairing;
 - (void)setMaxNoteBodyWidth:(CGFloat)maxWidth sender:(id)sender;
 - (void)setManagesTextWidthInWindow:(BOOL)manageIt sender:(id)sender;
 - (BOOL)managesTextWidthInWindow;

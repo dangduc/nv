@@ -26,13 +26,18 @@
     IBOutlet NSButton *useETScrollbarsOnLionButton;
     IBOutlet NSPopUpButton *folderLocationsMenuButton;
     IBOutlet NSTextField *bodyTextFontField;
+    IBOutlet NSMatrix *tabKeyRadioMatrix;
     IBOutlet NSPopUpButton *tableTextMenuButton;
     IBOutlet NSPopUpButton *externalEditorMenuButton;
     IBOutlet NSTextField *tableTextSizeField;
     IBOutlet NSTextField *appShortcutField;
 	IBOutlet NSButton *completeNoteTitlesButton;
+	IBOutlet NSButton *checkSpellingButton;
 	IBOutlet NSButton *confirmDeletionButton;
 	IBOutlet NSButton *quitWhenClosingButton;
+	IBOutlet NSButton *styledTextButton;
+	IBOutlet NSButton *autoSuggestLinksButton;
+	IBOutlet NSButton *softTabsButton;
 	IBOutlet NSButton *makeURLsClickable;
 	IBOutlet NSButton *highlightSearchTermsButton;
 	IBOutlet NSColorWell *searchHighlightColorWell, *foregroundColorWell, *backgroundColorWell;
@@ -51,6 +56,8 @@
 	
 	IBOutlet NSWindow *window;
 	IBOutlet NSView *editingView, *generalView, *fontsColorsView, *databaseView, *notationPrefsView;
+	IBOutlet NSButton *rtlButton;
+	IBOutlet NSButton *autoPairButton;
     
 	GlobalPrefs *prefsController;
     NVBackupPreferencesViewController *backupPreferencesViewController;
@@ -66,17 +73,24 @@
 - (IBAction)changedDarkForegroundTextColorWell:(id)sender;
 - (IBAction)changedDarkSearchHighlightColorWell:(id)sender;
 - (IBAction)changedMakeURLsClickable:(id)sender;
+- (IBAction)changedStyledTextBehavior:(id)sender;
+- (IBAction)changedAutoSuggestLinks:(id)sender;
 - (IBAction)setAppShortcut:(id)sender;
 - (IBAction)changeBodyFont:(id)sender;
+- (IBAction)changedRTL:(id)sender;
 - (void)previewNoteBodyFont;
 - (IBAction)changedNoteDeletion:(id)sender;
 - (IBAction)changedNotesFolderLocation:(id)sender;
 - (IBAction)changedQuitBehavior:(id)sender;
+- (IBAction)changedSpellChecking:(id)sender;
+- (IBAction)changedTabBehavior:(id)sender;
 - (IBAction)changedTableText:(id)sender;
 - (IBAction)changedExternalEditorsMenu:(id)sender;
 - (IBAction)changedTitleCompletion:(id)sender;
+- (IBAction)changedSoftTabs:(id)sender;
 - (IBAction)changedShowGrid:(id)sender;
 - (IBAction)changedAltRows:(id)sender;
+- (IBAction)changedAutoPairing:(id)sender;
 - (IBAction)toggleStatusItem:(id)sender;
 - (void)_selectDefaultExternalEditor;
 

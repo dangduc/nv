@@ -55,7 +55,15 @@ Tab		Move insertion point between text areas\
 \f1 \uc0\u8617 
 \f0 		Open any URL under the insertion point\
 
+\f1 \uc0\u8984 
+\f0  
+\f1 \uc0\u8592 
+\f0 		Move to title-editing when at start of the note-body\
 
+\f1 \uc0\u8984 
+\f0  
+\f1 \uc0\u8594 
+\f0 		Move to the note-body when at the end of a title\
 
 \f1 \uc0\u8984 
 \f0  
@@ -68,8 +76,27 @@ Tab		Move insertion point between text areas\
 \f1 \uc0\u8984 
 \f0  E		Export the selected note(s) to other formats\
 \
+Text formatting shortcuts:\
+\
 
-\f0 Source editing:\
+\f1 \uc0\u8984 
+\f0  [		(left square bracket) Outdent one or more lines\
 
-\f0 The note body is plain source text. Editing uses standard macOS text commands and settings.\
+\f1 \uc0\u8984 
+\f0  ]		(right square bracket) Indent one or more lines\
+
+\f1 \uc0\u8997 
+\f0  Tab	Indent\
+
+\f1 \uc0\u8984 
+\f0  T		Make text plain; remove styles\
+
+\f1 \uc0\u8984 
+\f0  B		Embolden\
+
+\f1 \uc0\u8984 
+\f0  I		Italicize\
+
+\f1 \uc0\u8984 
+\f0  Y		Strikethrough\
 }

@@ -85,6 +85,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [[NSColorPanel sharedColorPanel] setShowsAlpha:NO];
 		[prefsController registerWithTarget:self forChangesInSettings:
 		 @selector(resolveNoteBodyFontFromNotationPrefsFromSender:), 
+//		 @selector(setCheckSpellingAsYouType:sender:), 
 		 @selector(setConfirmNoteDeletion:sender:),
          @selector(setForegroundTextColor:sender:), @selector(setBackgroundTextColor:sender:),
          @selector(setSearchTermHighlightColor:sender:),
@@ -111,6 +112,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 			return;
 		}
 	}
+	[checkSpellingButton setState:[prefsController checkSpellingAsYouType]];
     [self refreshUserSchemeControls];
     [backupPreferencesViewController refreshControls];
 	if (![window isVisible])
@@ -252,6 +254,13 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 - (IBAction)changedHighlightSearchTerms:(id)sender {
 	[prefsController setShouldHighlightSearchTerms:[highlightSearchTermsButton state] sender:self];
 }
+- (IBAction)changedStyledTextBehavior:(id)sender {
+    [prefsController setPastePreservesStyle:[styledTextButton state] sender:self];
+}
+- (IBAction)changedAutoSuggestLinks:(id)sender {
+    [prefsController setLinksAutoSuggested:[autoSuggestLinksButton state] sender:self];
+}
+
 - (IBAction)changedMakeURLsClickable:(id)sender {
 	[prefsController setMakeURLsClickable:[makeURLsClickable state] sender:self];
 }
@@ -266,6 +275,18 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 
 - (IBAction)changedQuitBehavior:(id)sender {
     [prefsController setQuitWhenClosingWindow:[quitWhenClosingButton state] sender:self];
+}
+
+- (IBAction)changedSpellChecking:(id)sender {
+    [prefsController setCheckSpellingAsYouType:[checkSpellingButton state] sender:self];
+}
+
+
+- (IBAction)changedTabBehavior:(id)sender {
+    if (sender != self)
+	[self performSelector:@selector(changedTabBehavior:) withObject:self afterDelay:0.0];
+    else
+	[prefsController setTabIndenting:[[tabKeyRadioMatrix cellAtRow:0 column:0] state] sender:self];
 }
 
 - (IBAction)changedExternalEditorsMenu:(id)sender {
@@ -310,9 +331,15 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [prefsController setAutoCompleteSearches:[completeNoteTitlesButton state] sender:self];
 }
 
+- (IBAction)changedSoftTabs:(id)sender {
+	[prefsController setSoftTabs:[softTabsButton state] sender:self];
+}
+
 - (void)settingChangedForSelectorString:(NSString*)selectorString {
     if ([selectorString isEqualToString:SEL_STR(resolveNoteBodyFontFromNotationPrefsFromSender:)]) {
 		[self previewNoteBodyFont];
+//	} else if ([selectorString isEqualToString:SEL_STR(setCheckSpellingAsYouType:sender:)]) {
+//		[checkSpellingButton setState:[prefsController checkSpellingAsYouType]];
 	} else if ([selectorString isEqualToString:SEL_STR(setConfirmNoteDeletion:sender:)]) {
 		[confirmDeletionButton setState:[prefsController confirmNoteDeletion]];
 	}
@@ -373,6 +400,11 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 
 	if ([folderLocationsMenuButton numberOfItems] > 0)
 		[folderLocationsMenuButton selectItemAtIndex:0];
+}
+
+- (IBAction)changedRTL:(id)sender {
+	[prefsController setRTL:[rtlButton state] sender:self];
+	[[NSApp delegate] updateRTL];
 }
 
 - (BOOL)getNewNotesRefFromOpenPanel:(FSRef*)notesDirectoryRef returnedPath:(NSString**)path {
@@ -551,6 +583,9 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedTableText:)
 												 name:NSControlTextDidEndEditingNotification object:tableTextSizeField];
     
+    [tabKeyRadioMatrix setState:[prefsController tabKeyIndents] atRow:0 column:0];
+    [tabKeyRadioMatrix setState:![prefsController tabKeyIndents] atRow:1 column:0];
+    
     float fontSize = [prefsController tableFontSize];
     int fontButtonIndex = 3;
     if (fontSize == [NSFont smallSystemFontSize]) fontButtonIndex = 0;
@@ -565,9 +600,14 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
                            name:ExternalEditorsChangedNotification object:nil];
     
     [completeNoteTitlesButton setState:[prefsController autoCompleteSearches]];
+//    [checkSpellingButton setState:[prefsController checkSpellingAsYouType]];
     [confirmDeletionButton setState:[prefsController confirmNoteDeletion]];
     [quitWhenClosingButton setState:[prefsController quitWhenClosingWindow]];
+    [styledTextButton setState:[prefsController pastePreservesStyle]];
+    [autoSuggestLinksButton setState:[prefsController linksAutoSuggested]];
+	[softTabsButton setState:[prefsController softTabs]];
 	[makeURLsClickable setState:[prefsController URLsAreClickable]];
+    [rtlButton setState:[prefsController rtl]];
     [self previewNoteBodyFont];
 	[appShortcutField setStringValue:[[prefsController appActivationKeyCombo] description]];
     [self configureUserSchemeControls];
@@ -593,6 +633,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 	
     [altRowsButton setState:[prefsController alternatingRows]];
     [showGridButton setState:[prefsController showGrid]];
+    [autoPairButton setState:[prefsController useAutoPairing]];
     items = [[NSMutableDictionary alloc] init];
     
     [self addToolbarItemWithName:@"General"];
@@ -754,6 +795,11 @@ NSRect ScaleRectWithFactor(NSRect rect, float factor) {
 - (IBAction)changedAltRows:(id)sender {
 	[prefsController setAlternatingRows:[altRowsButton state] sender:self];
     [[NSApp delegate] refreshNotesList];
+}
+
+- (IBAction)changedAutoPairing:(id)sender{
+	[prefsController setUseAutoPairing:[autoPairButton state]];
+    //  [[NSApp delegate] refreshNotesList];
 }
 
 - (IBAction)changedShowGrid:(id)sender {

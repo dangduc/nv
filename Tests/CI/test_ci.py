@@ -23,9 +23,6 @@ tagging = load_script("tag-build")
 packaging = load_script("check-app-archive")
 
 
-REPOSITORY = Path(__file__).resolve().parents[2]
-
-
 def http_error(code):
     return HTTPError("https://api.github.com/test", code, "test response", {}, io.BytesIO())
 
@@ -196,23 +193,6 @@ class ArchiveTests(unittest.TestCase):
                         self.make_archive(path, invalid_syntax=name, syntax_mode=mode)
                         with self.assertRaisesRegex(ValueError, "nonempty regular file: Resources/Syntax/" + name):
                             packaging.check_archive(path)
-
-
-class ProjectMetadataTests(unittest.TestCase):
-    def test_removed_editor_artifacts_are_absent_from_build_metadata(self):
-        project = (REPOSITORY / "Notation.xcodeproj/project.pbxproj").read_text()
-        self.assertNotIn("IBeamInverted.png", project)
-
-        removed_methods = (
-            "-[LinkingEditor isContinuousSpellCheckingEnabled]",
-            "-[LinkingEditor readablePasteboardTypes]",
-            "-[LinkingEditor acceptableDragTypes]",
-        )
-        for filename in ("Notation.freqorder", "Notation.launchorder"):
-            order = (REPOSITORY / "Config" / filename).read_text()
-            for method in removed_methods:
-                with self.subTest(order_file=filename, method=method):
-                    self.assertNotIn(method, order)
 
 
 if __name__ == "__main__":

@@ -9,8 +9,11 @@
             <connections>
                 <outlet property="altRowsButton" destination="465" id="471"/>
                 <outlet property="appShortcutField" destination="288" id="291"/>
+                <outlet property="autoPairButton" destination="481" id="487"/>
+                <outlet property="autoSuggestLinksButton" destination="283" id="299"/>
                 <outlet property="backgroundColorWell" destination="358" id="379"/>
                 <outlet property="bodyTextFontField" destination="368" id="380"/>
+                <outlet property="checkSpellingButton" destination="276" id="293"/>
                 <outlet property="completeNoteTitlesButton" destination="175" id="265"/>
                 <outlet property="confirmDeletionButton" destination="172" id="266"/>
                 <outlet property="databaseView" destination="250" id="259"/>
@@ -25,8 +28,12 @@
                 <outlet property="maxWidthSlider" destination="417" id="437"/>
                 <outlet property="notationPrefsView" destination="257" id="258"/>
                 <outlet property="quitWhenClosingButton" destination="174" id="267"/>
+                <outlet property="rtlButton" destination="455" id="463"/>
                 <outlet property="searchHighlightColorWell" destination="375" id="384"/>
                 <outlet property="showGridButton" destination="464" id="470"/>
+                <outlet property="softTabsButton" destination="307" id="309"/>
+                <outlet property="styledTextButton" destination="278" id="300"/>
+                <outlet property="tabKeyRadioMatrix" destination="271" id="294"/>
                 <outlet property="tableTextMenuButton" destination="158" id="249"/>
                 <outlet property="tableTextSizeField" destination="178" id="246"/>
                 <outlet property="togDockButton" destination="389" id="398"/>
@@ -240,11 +247,11 @@
             <point key="canvasLocation" x="138.5" y="611"/>
         </customView>
         <customView id="268" userLabel="editing view">
-            <rect key="frame" x="0.0" y="0.0" width="464" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="464" height="457"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button id="311">
-                    <rect key="frame" x="156" y="82" width="183" height="18"/>
+                    <rect key="frame" x="156" y="239" width="183" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="URLs cliquables" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="350">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -254,8 +261,30 @@
                         <action selector="changedMakeURLsClickable:" target="-2" id="313"/>
                     </connections>
                 </button>
+                <button id="307">
+                    <rect key="frame" x="156" y="273" width="157" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Soft tabs (espaces)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="349">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedSoftTabs:" target="-2" id="310"/>
+                    </connections>
+                </button>
+                <button id="283">
+                    <rect key="frame" x="156" y="219" width="291" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Suggérer le titre comme lien vers une note" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="348">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedAutoSuggestLinks:" target="-2" id="302"/>
+                    </connections>
+                </button>
                 <textField verticalHuggingPriority="750" id="282">
-                    <rect key="frame" x="95" y="83" width="58" height="17"/>
+                    <rect key="frame" x="95" y="240" width="58" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Liens :" id="347">
                         <font key="font" metaFont="system"/>
@@ -263,8 +292,92 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField verticalHuggingPriority="750" id="280">
+                    <rect key="frame" x="45" y="391" width="108" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Orthographe :" id="346">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="279">
+                    <rect key="frame" x="5" y="412" width="148" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Texte mis en forme :" id="345">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="278">
+                    <rect key="frame" x="156" y="419" width="289" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Copier les styles de bases des autres apps" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="344">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedStyledTextBehavior:" target="-2" id="301"/>
+                    </connections>
+                </button>
+                <button id="276">
+                    <rect key="frame" x="156" y="394" width="176" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Vérifier lors de la frappe" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="342">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedSpellChecking:" target="-2" id="296"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="275">
+                    <rect key="frame" x="174" y="302" width="272" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Option-Tab indente toujours, tandis que Maj-Tab déplace toujours le focus en arrière." id="341">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="274">
+                    <rect key="frame" x="69" y="354" width="84" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Tabulation :" id="340">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="271">
+                    <rect key="frame" x="156" y="338" width="241" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="241" height="18"/>
+                    <size key="intercellSpacing" width="4" height="2"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="351">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="Indente la ligne" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="272">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="Déplace le focus au champ suivant" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="273">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                    <connections>
+                        <action selector="changedTabBehavior:" target="-2" id="297"/>
+                    </connections>
+                </matrix>
                 <textField verticalHuggingPriority="750" id="402">
-                    <rect key="frame" x="17" y="43" width="134" height="17"/>
+                    <rect key="frame" x="17" y="22" width="134" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="External Text Editor:" id="403">
                         <font key="font" metaFont="system"/>
@@ -279,8 +392,28 @@
                         </binding>
                     </connections>
                 </textField>
+                <textField verticalHuggingPriority="750" id="454">
+                    <rect key="frame" x="76" y="55" width="77" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Direction:" id="457">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="455">
+                    <rect key="frame" x="156" y="54" width="146" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Right-To-Left (RTL)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="456">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedRTL:" target="-2" id="458"/>
+                    </connections>
+                </button>
                 <popUpButton verticalHuggingPriority="750" id="472">
-                    <rect key="frame" x="153" y="36" width="194" height="26"/>
+                    <rect key="frame" x="153" y="16" width="194" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="477" id="473">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -297,6 +430,35 @@
                         <action selector="changedExternalEditorsMenu:" target="-2" id="478"/>
                     </connections>
                 </popUpButton>
+                <textField verticalHuggingPriority="750" id="480">
+                    <rect key="frame" x="76" y="86" width="77" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Auto-pair:" id="485">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="481">
+                    <rect key="frame" x="156" y="85" width="22" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="484">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changedAutoPairing:" target="-2" id="486"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="482">
+                    <rect key="frame" x="174" y="80" width="226" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Match opening characters, like a left bracket, with closing characters." id="483">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
         </customView>
         <customView id="352" userLabel="fonts colors view">

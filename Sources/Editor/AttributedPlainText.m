@@ -23,6 +23,7 @@
 
 
 NSString *NVHiddenDoneTagAttributeName = @"NVDoneTag";
+NSString *NVHiddenBulletIndentAttributeName = @"NVBulletIndentTag";
 
 static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange);
 

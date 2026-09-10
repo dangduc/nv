@@ -52,7 +52,15 @@ Tab			D\'e9place le curseur entre les zones de texte\
 \f1 \uc0\u8617
 \f0 			Ouvrir toute URL sous le point d'insertion\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8592
+\f0 			Passer en \'e9dition du titre quand est au d\'e9but du corps de la note\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8594
+\f0 			Passer dans le corps de la note quand est à la fin d'un titre\
 
 
 \f1 \uc0\u8984
@@ -66,8 +74,31 @@ Tab			D\'e9place le curseur entre les zones de texte\
 \f1 \uc0\u8984
 \f0  E			Exporter la/les note(s) s\'e9lectionn\'e9e(s) dans d'autres formats\
 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0 Modification du texte source :\
+\i \cf0 Raccourcis pour la mise en forme du texte :
+\i0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0 Le corps de la note est du texte source brut. La modification utilise les commandes et r\'e9glages de texte standard de macOS.\
+\f1 \cf0 \uc0\u8984
+\f0  [			(left square bracket) D\'e9cale vers la droite une ou plusieurs lignes\
+
+\f1 \uc0\u8984
+\f0  ]			(right square bracket) D\'e9cale vers la gauche une ou plusieurs lignes\
+
+\f1 \uc0\u8997
+\f0  Tab		Indenter la ligne\
+
+\f1 \uc0\u8984
+\f0  T			Convertir en texte brut (supprime les styles)\
+
+\f1 \uc0\u8984
+\f0  B			Mettre en gras\
+
+\f1 \uc0\u8984
+\f0  I			Mettre en italiques\
+
+\f1 \uc0\u8984
+\f0  Y			Barrer
 }

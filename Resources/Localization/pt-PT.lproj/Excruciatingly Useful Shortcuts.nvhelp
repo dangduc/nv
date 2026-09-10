@@ -51,7 +51,15 @@ Tab		Move cursor entre \'e1reas de texto\
 \f1 \uc0\u8617
 \f0 		Abre qualquer URL sob o cursor\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8592
+\f0 		Move para edi\'e7\'e3o de t\'edtulo quando no \'ednicio da nota\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8594
+\f0 		Move para corpo de nota quando no fim do t\'edtulo\
 
 \f1 \uc0\u8984
 \f0
@@ -64,8 +72,27 @@ Tab		Move cursor entre \'e1reas de texto\
 \f1 \uc0\u8984
 \f0  E		Exportar nota(s) selecionada(s) para outros formatos\
 \
+Atalhos para formata\'e7\'e3o de texto:\
+\
 
-\f0 Edi\'e7\'e3o do texto de origem:\
+\f1 \uc0\u8984
+\f0  [		(colchete esquerdo) Diminui recuo de linha(s) \
 
-\f0 O corpo da nota \'e9 texto de origem simples. A edi\'e7\'e3o usa os comandos e as defini\'e7\'f5es de texto normais do macOS.\
+\f1 \uc0\u8984
+\f0  ]		(colchete direito) Aumenta recuo de linha(s)\
+
+\f1 \uc0\u8997
+\f0  Tab	Recuo\
+
+\f1 \uc0\u8984
+\f0  T		Transforma em texto simples, sem formata\'e7\'e3o\
+
+\f1 \uc0\u8984
+\f0  B		Negrito\
+
+\f1 \uc0\u8984
+\f0  I		It\'e1lico\
+
+\f1 \uc0\u8984
+\f0  Y		Tachado\
 }

@@ -57,7 +57,15 @@ Tab		Porta il cursore in un\'92area di testo diversa\
 \f1 \uc0\u8617
 \f0 		Apre la URL su cui si trova il cursore di inserimento\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8592
+\f0 		Porta il cursore nel campo del titolo quando si trova all\'92inizio del corpo della nota\
 
+\f1 \uc0\u8984
+\f0
+\f1 \uc0\u8594
+\f0 		Porta il cursore nel corpo della nota quando si trova alla fine del titolo\
 
 \f1 \uc0\u8984
 \f0
@@ -70,8 +78,27 @@ Tab		Porta il cursore in un\'92area di testo diversa\
 \f1 \uc0\u8984
 \f0  E		Esporta la nota o le note selezionate in altri formati\
 \
+Combinazioni di tasti per la formattazione del testo:\
+\
 
-\f0 Modifica del testo sorgente:\
+\f1 \uc0\u8984
+\f0  [		(parentesi quadra aperta) Riduce il rientro di una o pi\'f9 righe\
 
-\f0 Il corpo della nota \'e8 testo sorgente semplice. La modifica usa i comandi e le impostazioni di testo standard di macOS.\
+\f1 \uc0\u8984
+\f0  ]		(parentesi quadra chiusa) Aumenta il rientro di una o pi\'f9 righe\
+
+\f1 \uc0\u8997
+\f0  Tab	Rientro\
+
+\f1 \uc0\u8984
+\f0  T		Rimuove gli stili dal testo (trasformandolo in testo piano)\
+
+\f1 \uc0\u8984
+\f0  B		Neretto\
+
+\f1 \uc0\u8984
+\f0  I		Corsivo\
+
+\f1 \uc0\u8984
+\f0  Y		Barrato\
 }

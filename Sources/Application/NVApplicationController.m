@@ -86,7 +86,7 @@ AppController *NVControllerForView(NSView *view) {
 - (void)retargetMenu:(NSMenu *)menu {
     if ([(id)[menu delegate] isKindOfClass:[NSView class]]) [menu setDelegate:(id)self];
     for (NSMenuItem *item in [menu itemArray]) {
-        if ([item action] == @selector(switchViewLayout:)) {
+        if ([item action] == @selector(switchViewLayout:) || [item action] == @selector(toggleLayoutOrientation:)) {
             [menu removeItem:item];
             continue;
         }
@@ -493,6 +493,7 @@ AppController *NVControllerForView(NSView *view) {
     [[self activeBrowser] handleGetURLEvent:event withReplyEvent:reply];
 }
 - (void)refreshNotesList { for (AppController *browser in [self browserControllers]) [browser refreshNotesList]; }
+- (void)updateRTL { for (AppController *browser in [self browserControllers]) [browser updateRTL]; }
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visible {
     if (backupRestoreInProgress) return NO;
     if (![browsers count]) [self newWindow:self];

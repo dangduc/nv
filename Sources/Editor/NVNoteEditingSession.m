@@ -148,21 +148,7 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
 - (NSTextStorage *)textStorage { return textStorage; }
 - (uint64_t)sourceGeneration { return sourceGeneration; }
 - (void)sourceCharactersChanged:(NSNotification *)notification {
-    if (!([textStorage editedMask] & NSTextStorageEditedCharacters)) return;
-    sourceGeneration++;
-
-    // Character storage is shared by every source layout. Maintain links here
-    // so edits from any attached editor, Undo, or another storage client have
-    // the same attributes. Rebuilding complete lines also removes a link when
-    // an edit makes a formerly valid URL or note link incomplete.
-    NSUInteger length = [textStorage length];
-    NSRange editedRange = [textStorage editedRange];
-    if (editedRange.location > length) return;
-    editedRange.length = MIN(editedRange.length, length - editedRange.location);
-    NSRange lineRange = [[textStorage string] lineRangeForRange:editedRange];
-    if (!lineRange.length) return;
-    [textStorage removeAttribute:NSLinkAttributeName range:lineRange];
-    [textStorage addLinkAttributesForRange:lineRange syntaxIdentifier:[note sourceSyntaxIdentifier]];
+    if ([textStorage editedMask] & NSTextStorageEditedCharacters) sourceGeneration++;
 }
 - (void)sourceSyntaxChanged:(NSNotification *)notification {
     NSRange range = NSMakeRange(0, [textStorage length]);

@@ -220,6 +220,7 @@ void outletObjectAwoke(id sender);
 - (void)popWordCount:(BOOL)showIt;
 - (IBAction)previewNoteWithMarked:(id)sender;
 - (BOOL)setNoteIfNecessary;
+- (void)updateRTL;
 - (void)refreshNotesList;
 - (void)focusControlField:(id)sender activate:(BOOL)shouldActivate;
 - (void)updateModifier:(NSTimer*)theTimer;

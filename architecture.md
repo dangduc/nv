@@ -136,24 +136,15 @@ Windows therefore share live text while keeping separate selections and display 
 A body edit follows this path:
 
 1. `LinkingEditor` changes the shared text storage.
-2. `NVNoteEditingSession` observes the processed character edit, advances the source generation, and rebuilds links on the affected complete lines.
-3. `AppController` asks the editing session to commit the change.
-4. The session registers Undo and writes the content to `NoteObject`.
-5. The note schedules persistence and sends `NVNoteContentsDidChangeNotification`.
-6. The session sends `NVNoteEditorDidChangeNotification`. The coordinator refreshes affected editors and browser lists.
+2. `AppController` asks the editing session to commit the change.
+3. The session registers Undo and writes the content to `NoteObject`.
+4. The note schedules persistence and sends `NVNoteContentsDidChangeNotification`.
+5. The session sends `NVNoteEditorDidChangeNotification`. The coordinator refreshes affected editors and browser lists.
 
 The session's write guard prevents its own model notification from reloading the content recursively.
 Committed snapshots compare source characters. Links, font preferences, and highlighting do not add source Undo entries.
 The note's undo manager also records title and tag changes.
 Body editors disable Cocoa's automatic Undo registration to avoid a second history.
-
-`LinkingEditor` inherits ordinary editing commands from `NSTextView`, including
-Return, Tab, Backspace, paste, completion, and word selection. Its subclass code
-only integrates source text with note sessions and adds display behavior such as
-syntax colors, search highlights, and layout. Link attributes belong to the shared
-editing session so every attached layout observes the same result. Cocoa owns
-editor-local text features such as spelling and writing direction; nvALT does not
-persist global editing-behavior overrides.
 
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.

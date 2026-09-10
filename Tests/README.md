@@ -62,10 +62,6 @@ The [source backspace checks](SourceBackspace/README.md) exercise deletion in a 
 They cover cached search backgrounds, Undo, shared editors, composition, and pending cleanup during note switches.
 Run `python3 Tests/SourceBackspace/run.py` after a Development build.
 
-The [native source editing checks](SourceEditing/README.md) compare ordinary
-source commands with `NSTextView` and verify that legacy editing preferences no
-longer affect the editor.
-
 The aggregate regression command also runs the following suites:
 
 | Suite | Coverage |

@@ -19,8 +19,7 @@ The probe never replaces editing, highlight cleanup, or drawing behavior.
 Its startup hooks isolate application paths and suppress external-editor initialization.
 
 Checks cover Plain Text, Org, Markdown, JSON, and HTML source modes.
-They cover native ordinary deletion, indentation, newline, composed Unicode,
-selected text, and the empty result.
+They cover ordinary deletion, indentation, newline, composed Unicode, selected text, and the empty result.
 Additional checks cover Undo, Redo, shared layouts, uncommitted composition, syntax colors, note switching, and pending cleanup during closure.
 Native bitmap rendering runs before and after deletion and during composition.
 A retained drawing dictionary checks immediate background suppression separately from later attribute removal.
