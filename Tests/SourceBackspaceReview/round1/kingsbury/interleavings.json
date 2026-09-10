@@ -1,0 +1,16 @@
+{
+  "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f",
+  "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+  "exit": 0,
+  "output": "PASS: 13 native interleaving checks\n",
+  "negative_controls": {
+    "uncancelled-cleanup": {
+      "exit": 1,
+      "failure": "FAIL: old note callback does not erase new note highlight"
+    },
+    "missing-generation": {
+      "exit": 1,
+      "failure": "FAIL: both owners fence callbacks synchronously"
+    }
+  }
+}

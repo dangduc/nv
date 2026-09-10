@@ -1,0 +1,32 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "head": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+  },
+  "unchanged": true,
+  "extracted_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:"
+  ],
+  "generated_probe_sha256": "2d22b536bdefef8299264c793894f4d8b78998413ee593aa1a40bce2424b6554",
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 through Rosetta",
+  "exit_code": 0,
+  "limitations": [
+    "Adapter uses NSObject rather than LinkingEditor and does not create a browser or window.",
+    "Rendering check invokes the exact delegate method with screen=NO; syntax and IME branches are outside this probe.",
+    "This host is macOS 26; the reported macOS 13 crash is not rerun here."
+  ]
+}

@@ -1,0 +1,3 @@
+mode=kCFRunLoopDefaultMode open_edit_ms=51.117 schedules=5 final_removals=1
+mode=NSEventTrackingRunLoopMode open_edit_ms=52.987 schedules=5 final_removals=1
+RETRY FIX PASSED: 20 checks

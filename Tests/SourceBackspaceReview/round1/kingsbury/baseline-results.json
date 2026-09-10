@@ -1,0 +1,24 @@
+{
+  "app": "/Users/duc/dev/nv/build/OrgPreviewWorktree/build/DerivedData/Build/Products/Development/nvALT.app",
+  "baseline_cleanup_suppressed": true,
+  "phases": {
+    "main": {
+      "exit": 0,
+      "checks": 35,
+      "last_lines": [
+        "2026-09-09 21:23:29.391 nvALT[78994:344561402] verified 1 notes in 0.00038898 s",
+        "2026-09-09 21:23:29.392 nvALT[78994:344561402] PASS: shared library flushes successfully",
+        "2026-09-09 21:23:29.392 nvALT[78994:344561402] MULTIWINDOW TESTS PASSED (35 checks)"
+      ]
+    },
+    "relaunch": {
+      "exit": -11,
+      "checks": 11,
+      "last_lines": [
+        "2026-09-09 21:23:30.210 nvALT[79001:344561678] PASS: relaunch restores each browser search field",
+        "2026-09-09 21:23:30.263 nvALT[79001:344561678] PASS: snapback returns each restored field to its own query",
+        "2026-09-09 21:23:30.320 nvALT[79001:344561678] PASS: replacement library opens"
+      ]
+    }
+  }
+}
