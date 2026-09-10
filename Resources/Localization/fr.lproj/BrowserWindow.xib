@@ -111,7 +111,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304" />
                 <autoresizingMask key="autoresizingMask" />
                 <subviews>
-                    <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1261" customClass="LinkingEditor">
+                    <textView smartInsertDelete="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1261" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304" />
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" />
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog" />

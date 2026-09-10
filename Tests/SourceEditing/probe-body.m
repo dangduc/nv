@@ -25,6 +25,14 @@
                   [NSString stringWithFormat:@"%@ uses the native NSTextView implementation", selectorName]);
         }
 
+        SEL bodyCompletionSelector = @selector(textView:completions:forPartialWordRange:indexOfSelectedItem:);
+        id sourceDelegate = [editor delegate];
+        Check(sourceDelegate == browser, @"source editor delegates to its browser controller");
+        Check(![sourceDelegate respondsToSelector:bodyCompletionSelector],
+              @"source editor delegate does not provide note-title completions");
+        Check([browser respondsToSelector:@selector(control:textView:completions:forPartialWordRange:indexOfSelectedItem:)],
+              @"tag-field completion delegate remains available");
+
         __block NSUInteger fixtureNumber = 0;
         void (^Prepare)(NSString *) = ^(NSString *source) {
             NoteObject *note = MakeNote(library, [NSString stringWithFormat:@"Native source editing %lu", (unsigned long)fixtureNumber++], source);
@@ -40,6 +48,10 @@
             [reference setSelectedRange:selection];
             return reference;
         };
+
+        NSTextView *initialReference = Reference(@"", NSMakeRange(0, 0));
+        Check([editor smartInsertDeleteEnabled] == [initialReference smartInsertDeleteEnabled],
+              @"decoded source editor starts with native smart insert/delete behavior");
 
         Prepare(@"    alpha");
         [editor setSelectedRange:NSMakeRange(9, 0)];

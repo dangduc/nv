@@ -27,8 +27,8 @@ def occurrences(token, paths):
     return matches
 
 
-subprocess.run(["git", "diff", "--check", "dangduc/master...HEAD"], cwd=repo, check=True)
-print("PASS: branch diff has no whitespace errors")
+subprocess.run(["git", "diff", "--check"], cwd=repo, check=True)
+print("PASS: working-tree diff has no whitespace errors")
 
 project = (repo / "Notation.xcodeproj/project.pbxproj").read_text()
 check("LinkingEditor_Indentation" not in project,
@@ -95,11 +95,7 @@ else:
     print("PASS: legacy tab/list/pair helper declarations and definitions are removed")
 
 orphan_nib = repo / "Resources/Localization/fr.lproj/Preferences_small.nib/designable.nib"
-tracked = subprocess.run(
-    ["git", "ls-files", "--error-unmatch", str(orphan_nib.relative_to(repo))],
-    cwd=repo, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-).returncode == 0
-if tracked:
+if orphan_nib.exists():
     nib_text = orphan_nib.read_text(errors="ignore")
     stale = [fragment for fragment in
              ("Soft tabs", "checkSpellingButton", "autoSuggestLinksButton")
@@ -110,7 +106,7 @@ if tracked:
         print("FINDING: tracked orphan Preferences_small nib retains removed controls: "
               + ", ".join(stale))
 else:
-    print("PASS: obsolete Preferences_small nib is not tracked")
+    print("PASS: obsolete Preferences_small nib is removed from the working tree")
 
 subprocess.run(
     [sys.executable, str(repo / "Tests/SourceEditing/run.py"), "--compile-only"],

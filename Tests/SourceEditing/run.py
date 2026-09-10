@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import uuid
+import xml.etree.ElementTree as ET
 
 repo = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(repo / "Tests"))
@@ -19,6 +20,31 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--app", type=Path, default=repo / "build/DerivedData/Build/Products/Development/nvALT.app")
 parser.add_argument("--compile-only", action="store_true")
 args = parser.parse_args()
+
+locales = ("en", "de", "fr", "it", "pt-PT", "zh")
+localization = repo / "Resources" / "Localization"
+for locale in locales:
+    root = localization / f"{locale}.lproj"
+    for xib_name in ("MainMenu.xib", "BrowserWindow.xib"):
+        document = ET.fromstring((root / xib_name).read_text())
+        editors = [node for node in document.iter("textView")
+                   if node.attrib.get("customClass") == "LinkingEditor"]
+        assert len(editors) == 1, (locale, xib_name, len(editors))
+        assert editors[0].attrib.get("smartInsertDelete") == "YES", (locale, xib_name)
+        if xib_name == "MainMenu.xib":
+            format_menus = [menu for menu in document.iter("menu")
+                            if any(action.attrib.get("selector") == "fixFileEncoding:"
+                                   for action in menu.iter("action"))]
+            assert format_menus, locale
+            for menu in format_menus:
+                items = menu.find("items")
+                assert items is not None and len(items), (locale, menu.attrib.get("title"))
+                assert items[0].attrib.get("isSeparatorItem") != "YES", (locale, menu.attrib.get("title"))
+
+    help_text = (root / "Excruciatingly Useful Shortcuts.nvhelp").read_text()
+    for removed_token in (r"\u8592", r"\u8594", r"\u8997", "  [", "  ]"):
+        assert removed_token not in help_text, (locale, removed_token)
+    assert "macOS" in help_text, locale
 
 with tempfile.TemporaryDirectory(prefix="nvalt-source-editing-") as temporary:
     root = Path(temporary)

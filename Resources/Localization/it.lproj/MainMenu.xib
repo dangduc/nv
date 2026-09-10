@@ -668,13 +668,6 @@ CA
                 <menuItem title="Formato" id="1185">
                     <menu key="submenu" title="Formato" id="1186">
                         <items>
-
-                            <menuItem isSeparatorItem="YES" id="1188">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1192">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Correggi codifica testo…" tag="102" id="1195">
                                 <connections>
                                     <action selector="fixFileEncoding:" target="213" id="1197"/>
@@ -784,7 +777,7 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1017" userLabel="Linking Editor" customClass="LinkingEditor">
+                    <textView smartInsertDelete="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1017" userLabel="Linking Editor" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

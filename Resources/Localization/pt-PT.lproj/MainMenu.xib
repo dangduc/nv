@@ -656,13 +656,6 @@ CA
                 <menuItem title="Formatar" id="1181">
                     <menu key="submenu" title="Formatar" id="1182">
                         <items>
-
-                            <menuItem isSeparatorItem="YES" id="1184">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1188">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Corrigir Codificação de Texto…" tag="102" id="1191">
                                 <connections>
                                     <action selector="fixFileEncoding:" target="213" id="1194"/>
@@ -768,7 +761,7 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1218" customClass="LinkingEditor">
+                    <textView smartInsertDelete="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1218" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

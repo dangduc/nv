@@ -1548,12 +1548,6 @@ terminateApp:
 	return menu;
 }
 
-- (NSArray *)textView:(NSTextView *)aTextView completions:(NSArray *)words
-  forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)anIndex {
-	NSArray *noteTitles = [notationController noteTitlesPrefixedByString:[[aTextView string] substringWithRange:charRange] indexOfSelectedItem:anIndex];
-	return noteTitles;
-}
-
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)aTextView completions:(NSArray *)words
   forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)anIndex {
     if (control == noteTagsField) {

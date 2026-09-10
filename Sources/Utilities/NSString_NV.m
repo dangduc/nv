@@ -325,91 +325,6 @@ static int dayFromAbsoluteTime(CFAbsoluteTime absTime) {
 	return title;
 }
 
-//the following three methods + function come courtesy of Mike Ferris' TextExtras
-+ (NSString *)tabbifiedStringWithNumberOfSpaces:(NSInteger)origNumSpaces tabWidth:(NSInteger)tabWidth usesTabs:(BOOL)usesTabs {
-	static NSMutableString *sharedString = nil;
-	static NSInteger numTabs = 0;
-    static NSInteger numSpaces = 0;
-	
-    NSInteger diffInTabs;
-    NSInteger diffInSpaces;
-	
-    // TabWidth of 0 means don't use tabs!
-    if (!usesTabs || (tabWidth == 0)) {
-        diffInTabs = 0 - numTabs;
-        diffInSpaces = origNumSpaces - numSpaces;
-    } else {
-        diffInTabs = (origNumSpaces / tabWidth) - numTabs;
-        diffInSpaces = (origNumSpaces % tabWidth) - numSpaces;
-    }
-    
-    if (!sharedString) {
-        sharedString = [[NSMutableString alloc] init];
-    }
-    
-    if (diffInTabs < 0) {
-        [sharedString deleteCharactersInRange:NSMakeRange(0, -diffInTabs)];
-    } else {
-        NSInteger numToInsert = diffInTabs;
-        while (numToInsert > 0) {
-            [sharedString replaceCharactersInRange:NSMakeRange(0, 0) withString:@"\t"];
-            numToInsert--;
-        }
-    }
-    numTabs += diffInTabs;
-	
-    if (diffInSpaces < 0) {
-        [sharedString deleteCharactersInRange:NSMakeRange(numTabs, -diffInSpaces)];
-    } else {
-        NSInteger numToInsert = diffInSpaces;
-        while (numToInsert > 0) {
-            [sharedString replaceCharactersInRange:NSMakeRange(numTabs, 0) withString:@" "];
-            numToInsert--;
-        }
-    }
-    numSpaces += diffInSpaces;
-	
-	
-    return sharedString;
-}
-
-- (NSInteger)numberOfLeadingSpacesFromRange:(NSRange*)range tabWidth:(NSInteger)tabWidth {
-    // Returns number of spaces, accounting for expanding tabs.
-    NSRange searchRange = (range ? *range : NSMakeRange(0, [self length]));
-    unichar buff[100];
-    unsigned i = 0;
-    NSInteger spaceCount = 0;
-    BOOL done = NO;
-    NSInteger tabW = tabWidth;
-    NSUInteger endOfWhiteSpaceIndex = NSNotFound;
-	
-    if (!range || range->length == 0) {
-        return 0;
-    }
-    
-    while ((searchRange.length > 0) && !done) {
-        [self getCharacters:buff range:NSMakeRange(searchRange.location, ((searchRange.length > 100) ? 100 : searchRange.length))];
-        for (i=0; i < ((searchRange.length > 100) ? 100 : searchRange.length); i++) {
-            if (buff[i] == (unichar)' ') {
-                spaceCount++;
-            } else if (buff[i] == (unichar)'\t') {
-                // MF:!!! Perhaps this should account for the case of 2 spaces follwed by a tab really being visually equivalent to 8 spaces (for 8 space tabs) and not 10 spaces.
-                spaceCount += tabW;
-            } else {
-                done = YES;
-                endOfWhiteSpaceIndex = searchRange.location + i;
-                break;
-            }
-        }
-        searchRange.location += ((searchRange.length > 100) ? 100 : searchRange.length);
-        searchRange.length -= ((searchRange.length > 100) ? 100 : searchRange.length);
-    }
-    if (range && (endOfWhiteSpaceIndex != NSNotFound)) {
-        range->length = endOfWhiteSpaceIndex - range->location;
-    }
-    return spaceCount;
-}
-
 BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
     // This function redundantly takes both the character and the string and index.  This is because often we only have to look at that one character and usually we already have it when this is called (usually from a source cheaper than characterAtIndex: too.)
     // Returns yes if the unichar given is a hard line break, that is it will always cause a new line fragment to begin.
@@ -543,109 +458,9 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
     return data;
 }
 
-- (NSString *)firstNumberFromStringWithinRange:(NSRange)subRange isInRange:(NSRange *)foundRange{
-    if (NSMaxRange(subRange)<=self.length) {
-        NSString *thisString=[self substringWithRange:subRange];
-        NSRange txtRange=[thisString rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]];
-        if ((txtRange.location!=NSNotFound)&&([thisString rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location==txtRange.location)) {
-            NSPredicate *pred=[NSPredicate predicateWithFormat:@"SELF.length > 0"];
-            NSArray *comp=[thisString componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet]invertedSet]];
-            comp=[comp filteredArrayUsingPredicate:pred];
-            NSString *numString=(NSString *)[comp objectAtIndex:0];
-            NSRange numRange=[thisString rangeOfString:numString];
-            if(NSMaxRange(numRange)<NSMaxRange(subRange)){
-                if ([[thisString substringWithRange:NSMakeRange(NSMaxRange(numRange), 1)] isEqualToString:@"."]) {
-                    //            numRange.location+=subRange.location;
-                    *foundRange=numRange;
-                    return numString;
-                }
-            }
-        }
-        
-    }
-    *foundRange=NSMakeRange(NSNotFound, 0);
-    return @"";
-}
-
-- (NSInteger)isPairedCharacterWithMatchString:(NSString **)matchString{
-    if (self.length==1) {
-        unichar ch=[self characterAtIndex:0];
-        NSInteger chNum=(NSInteger)ch;
-        if (chNum==34){
-             *matchString=@"\"";
-            return 1;
-        }
-        static NSCharacterSet *leftSidePairCharacterSet;
-        if(!leftSidePairCharacterSet){
-            leftSidePairCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@"([{"] retain];
-        }
-        static NSCharacterSet *rightSidePairCharacterSet;
-        if(!rightSidePairCharacterSet){
-            rightSidePairCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@")]}"] retain];
-        }
-        
-        if ([leftSidePairCharacterSet characterIsMember:ch]){
-            if (chNum==91){//[@"[" isEqualToString:self]) {
-                *matchString=@"]";
-    //            return @"]";
-            }else if (chNum==40){//([@"(" isEqualToString:self]) {
-                *matchString=@")";
-    //            return @")";
-            }else if (chNum==123){//([@"{" isEqualToString:self]) {
-                *matchString=@"}";
-    //            return @"}";
-            }
-            return 2;
-        }else if ([rightSidePairCharacterSet characterIsMember:ch]) {
-             if (chNum==93){//if ([@"]" isEqualToString:self]) {
-                *matchString=@"[";
-            }else  if (chNum==41){//if ([@")" isEqualToString:self]) {
-                *matchString=@"(";
-            }else if (chNum==125){// if ([@"}" isEqualToString:self]) {
-                *matchString=@"{";
-            }
-            return 0;
-        }        
-    }
-    return -1;
-//    return @"";
-}
-
 @end
 
-
 @implementation NSMutableString (NV)
-
-- (void)replaceTabsWithSpacesOfWidth:(NSInteger)tabWidth {
-	NSAssert(tabWidth < 50 && tabWidth > 0, @"that's a ridiculous tab width");
-	
-	@try {
-		NSRange tabRange, nextRange = NSMakeRange(0, [self length]);
-		while ((tabRange = [self rangeOfString:@"\t" options:NSLiteralSearch range:nextRange]).location != NSNotFound) {
-			
-			NSInteger numberOfSpacesPerTab = tabWidth;
-			NSUInteger locationOnLine = tabRange.location - [self lineRangeForRange:tabRange].location;
-			if (numberOfSpacesPerTab != 0) {
-				NSUInteger numberOfSpacesLess = locationOnLine % numberOfSpacesPerTab;
-				numberOfSpacesPerTab = numberOfSpacesPerTab - numberOfSpacesLess;
-			}
-			//NSLog(@"loc on line: %d, numberOfSpacesPerTab: %d", locationOnLine, numberOfSpacesPerTab);
-			
-			NSMutableString *spacesString = [[NSMutableString alloc] initWithCapacity:numberOfSpacesPerTab];
-			while (numberOfSpacesPerTab-- > 0) {
-				[spacesString appendString:@" "];
-			}
-			
-			[self replaceCharactersInRange:tabRange withString:spacesString];
-			[spacesString release];
-			
-			NSUInteger rangeLoc = MIN((tabRange.location + numberOfSpacesPerTab), [self length]);
-			nextRange = NSMakeRange(rangeLoc, [self length] - rangeLoc);
-		}
-	} @catch (NSException *e) {
-		NSLog(@"%@ got an exception: %@", NSStringFromSelector(_cmd), [e reason]);
-	}
-}
 
 + (NSMutableString*)newShortLivedStringFromFile:(NSString*)filename {
 	NSStringEncoding anEncoding = NSMacOSRomanStringEncoding; //won't use this, doesn't matter
@@ -759,20 +574,7 @@ BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex) {
 	return charSet;
 }
 
-+ (NSCharacterSet*)listBulletsCharacterSet {
-	static NSCharacterSet *charSet = nil;
-	if (!charSet) {
-		charSet = [[NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"-+*!%C%C%C", 0x2022, 0x2014, 0x2013]] retain];
-	}
-	
-	return charSet;
-	
-}
-
-
 @end
-
-
 
 @implementation NSEvent (NV)
 

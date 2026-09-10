@@ -102,7 +102,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304" />
                 <autoresizingMask key="autoresizingMask" />
                 <subviews>
-                    <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" allowsUndo="YES" spellingCorrection="YES" id="1017" userLabel="Linking Editor" customClass="LinkingEditor">
+                    <textView smartInsertDelete="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" allowsUndo="YES" spellingCorrection="YES" id="1017" userLabel="Linking Editor" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304" />
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" />
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite" />
