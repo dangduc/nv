@@ -21,6 +21,7 @@
 				<string>multimarkdown</string>
 				<string>textile</string>
 				<string>json</string>
+				<string>org</string>
 				<string>csv</string>
 				<string>tsv</string>
 				<string>taskpaper</string>
@@ -39,6 +40,7 @@
 			<array>
 				<string>public.plain-text</string>
 				<string>public.json</string>
+				<string>net.notational.org-source</string>
 			</array>
 		</dict>
 		<dict>
@@ -50,6 +52,26 @@
 			<string>Notational Velocity BLOR</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>net.notational.org-source</string>
+			<key>UTTypeDescription</key>
+			<string>Org source</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>org</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

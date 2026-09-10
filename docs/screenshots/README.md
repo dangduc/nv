@@ -102,3 +102,16 @@ Inspect `editable-source.png` and `readonly-preview.png` in that output director
 4. Capture two windows with different searches.
 5. Replace the PNG files in this directory.
 6. Update the revision and environment in this file.
+
+## Org source
+
+`org-source.png` shows Org source support on September 9, 2026.
+The Intel Development app ran through Rosetta on macOS 26.5.2 with Xcode 26.6.
+The Org integration suite captured a disposable library after the native window drew its content.
+The title and source controls are visible to identify the selected syntax. The image has no pixel changes.
+
+To refresh this image after a Development build:
+
+```sh
+NV_UI_ARTIFACTS="$PWD/build/org-integration-artifacts" python3 Tests/OrgSource/Integration/run.py
+```

@@ -152,6 +152,17 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 				pathExtensions[i] = [[NotationPrefs defaultPathExtensionsForFormat:i] retain];
 			chosenExtIndices[i] = [decoder decodeIntForKey:[VAR_STR(chosenExtIndices) stringByAppendingFormat:@".%d",i]];
 		}
+		if (![decoder decodeBoolForKey:@"orgSourceExtensionAdded"]) {
+			// Append once so existing libraries recognize Org without changing
+			// extension order or the selected output format. Later removals persist.
+			if (![self pathExtensionAllowed:@"org" forFormat:PlainTextFormat]) {
+				NSMutableArray *extensions = [pathExtensions[PlainTextFormat] mutableCopy];
+				[extensions addObject:@"org"];
+				[pathExtensions[PlainTextFormat] release];
+				pathExtensions[PlainTextFormat] = extensions;
+			}
+			preferencesChanged = YES;
+		}
 		
 		// Older libraries stored remote account settings. Omit them from the next snapshot.
 		if ([decoder containsValueForKey:@"syncServiceAccounts"]) preferencesChanged = YES;
@@ -185,6 +196,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 	[coder encodeInt32:EPOC_ITERATION forKey:VAR_STR(epochIteration)];
 	
 	[coder encodeInteger:notesStorageFormat forKey:VAR_STR(notesStorageFormat)];
+	[coder encodeBool:YES forKey:@"orgSourceExtensionAdded"];
 	[coder encodeBool:doesEncryption forKey:VAR_STR(doesEncryption)];
 	[coder encodeBool:storesPasswordInKeychain forKey:VAR_STR(storesPasswordInKeychain)];
 	[coder encodeInt:hashIterationCount forKey:VAR_STR(hashIterationCount)];
@@ -249,7 +261,7 @@ static BOOL NVUnsupportedSourceExtension(NSString *extension) {
 }
 
 + (NSMutableArray*)defaultPathExtensionsForFormat:(int)formatID {
-	if (formatID == PlainTextFormat) return [NSMutableArray arrayWithObjects:@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv", nil];
+	if (formatID == PlainTextFormat) return [NSMutableArray arrayWithObjects:@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv", @"org", nil];
 	return [NSMutableArray array];
 }
 

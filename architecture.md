@@ -333,8 +333,17 @@ These provisional colors remain visible until the latest result replaces them. T
 Syntax changes, analysis fallback, and closure clear provisional colors. A layout cannot use colors from another note's storage.
 Capture replacement waits until TextKit finishes its edit processing and updates its layout caches.
 
-The initial pinned Tree-sitter runtime supports Markdown block and inline syntax, HTML, and JSON.
+The pinned Tree-sitter runtime supports Markdown block and inline syntax, HTML, JSON, and Org.
 Plain Text and Textile use plain source display. Language injections and structural editing are not implemented.
+Org uses a pinned parser and an authored query without predicates.
+A bounded pass interprets default TODO/DONE keywords, emphasis, and comments that the grammar does not identify.
+This pass runs within the existing parser worker and shares its cancellation and time limits.
+The link decorator receives the note's syntax on attachment, content replacement, edits, and syntax changes.
+Org single-line bracket links support explicit HTTP and HTTPS targets.
+Other bracket targets remain inert, and Org disables nv's wiki-link completion.
+Syntax changes replace link attributes in shared text storage without changing source characters or Undo.
+Import and file-library recognition accept `.org` source. A one-time preference migration appends the extension without changing the selected output index.
+Later extension removals remain saved.
 Incremental parsing reuses compatible trees. Queries cover the current tree within a work budget.
 Display application has a separate limit of 4,096 capture writes across all attached layouts per revision.
 Results above that limit use plain display. The operation count does not bound glyph layout or painting time.
