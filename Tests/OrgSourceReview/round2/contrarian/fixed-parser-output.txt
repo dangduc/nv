@@ -1,0 +1,335 @@
+[
+  {
+    "source" : "Draft token then ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "code control",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token then ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "unclosed verbatim before code",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft ~token then =literal=.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "=literal=",
+    "fixture" : "unclosed code before verbatim",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "=literal="
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token then ~Café 👩🏽‍💻 日本語~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~Café 👩🏽‍💻 日本語~",
+    "fixture" : "unclosed verbatim before unicode code",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~Café 👩🏽‍💻 日本語~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token\nthen ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "unclosed verbatim one newline",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token\n\nthen ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "unclosed verbatim blank line",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token ~code~ text=.\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "~code~",
+    "fixture" : "closed verbatim suppresses inner code",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "=token ~code~ text="
+      }
+    ]
+  },
+  {
+    "source" : "Draft ~token =literal= text~.\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "=literal=",
+    "fixture" : "closed code suppresses inner verbatim",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~token =literal= text~"
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token ~code~ text=.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "=token ~code~ text=",
+    "fixture" : "closed verbatim remains one span",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "=token ~code~ text="
+      }
+    ]
+  },
+  {
+    "source" : "Draft =token= then ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "adjacent literal types",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "=token="
+      },
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Review *Café 👩🏽‍💻 日本語* today.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "*Café 👩🏽‍💻 日本語*",
+    "fixture" : "unicode emphasis",
+    "kind" : "text.strong",
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*Café 👩🏽‍💻 日本語*"
+      }
+    ]
+  },
+  {
+    "source" : "Review *first\r\nsecond* today.\r\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "*first\r\nsecond*",
+    "fixture" : "CRLF single newline",
+    "kind" : "text.strong",
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*first\r\nsecond*"
+      }
+    ]
+  },
+  {
+    "source" : "Review *first\nsecond* today.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "*first\nsecond*",
+    "fixture" : "LF single newline control",
+    "kind" : "text.strong",
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*first\nsecond*"
+      }
+    ]
+  },
+  {
+    "source" : "Review ~first\r\nsecond~ today.\r\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~first\r\nsecond~",
+    "fixture" : "CRLF multiline literal",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~first\r\nsecond~"
+      }
+    ]
+  },
+  {
+    "source" : "Review ~first\nsecond~ today.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~first\nsecond~",
+    "fixture" : "LF multiline literal control",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~first\nsecond~"
+      }
+    ]
+  },
+  {
+    "source" : "Review *first\r\nsecond\r\nthird* today.\r\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "*first\r\nsecond\r\nthird*",
+    "fixture" : "CRLF two newlines",
+    "kind" : "text.strong",
+    "captures" : [
+
+    ]
+  },
+  {
+    "source" : "Read (*word*), then \/other\/.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "*word*",
+    "fixture" : "punctuation boundaries",
+    "kind" : "text.strong",
+    "captures" : [
+      {
+        "kind" : "text.emphasis",
+        "text" : "\/other\/"
+      },
+      {
+        "kind" : "text.strong",
+        "text" : "*word*"
+      }
+    ]
+  },
+  {
+    "source" : "Read *word*\\\\\nthen continue.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "*word*",
+    "fixture" : "Org explicit line break",
+    "kind" : "text.strong",
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*word*"
+      }
+    ]
+  },
+  {
+    "source" : "Read ~code~\\\\\nthen continue.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "Org explicit line break code",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  },
+  {
+    "source" : "Read prefix*word* and continue.\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "*word*",
+    "fixture" : "word interior",
+    "kind" : "text.strong",
+    "captures" : [
+
+    ]
+  },
+  {
+    "source" : "#+BEGIN_SRC text\nDraft =token ~code~.\n#+END_SRC\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "~code~",
+    "fixture" : "markup in source block",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "Draft =token ~code~.\n"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "SRC"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "SRC"
+      }
+    ]
+  },
+  {
+    "source" : "# Draft =token ~code~.\n",
+    "expected" : false,
+    "actual" : false,
+    "snippet" : "~code~",
+    "fixture" : "real comment",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "comment",
+        "text" : "# Draft =token ~code~."
+      }
+    ]
+  },
+  {
+    "source" : "#draft =token then ~code~.\n",
+    "expected" : true,
+    "actual" : true,
+    "snippet" : "~code~",
+    "fixture" : "hashtag prose",
+    "kind" : "text.literal",
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "~code~"
+      }
+    ]
+  }
+]
+Fixtures=23 semantic_mismatches=0 mechanical_checks=377
