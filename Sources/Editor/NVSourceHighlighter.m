@@ -26,6 +26,8 @@ BOOL NVSourceCapturesAreCurrent(NSLayoutManager *layout) {
 }
 
 extern const TSLanguage *tree_sitter_org(void);
+extern void nv_org_scanner_begin_parse(void);
+extern bool nv_org_scanner_did_fail(void);
 extern const TSLanguage *tree_sitter_json(void);
 extern const TSLanguage *tree_sitter_html(void);
 extern const TSLanguage *tree_sitter_markdown(void);
@@ -309,10 +311,13 @@ static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captur
     }
     TSInput input = {.payload = bytes, .read = NVRead, .encoding = TSInputEncodingUTF16LE};
     TSParseOptions options = {.payload = &budget, .progress_callback = NVParseProgress};
+    BOOL isOrg = [syntax isEqualToString:@"org"];
+    if (isOrg) nv_org_scanner_begin_parse();
     TSTree *tree = ts_parser_parse_with_options(state->parser, state->tree, input, options);
+    BOOL scannerFailed = isOrg && nv_org_scanner_did_fail();
     ts_tree_delete(state->tree); state->tree = tree;
     [state->source release]; state->source = [source copy];
-    if (!tree || NVStop(&budget)) { NVClearParser(state); return nil; }
+    if (!tree || scannerFailed || NVStop(&budget)) { NVClearParser(state); return nil; }
     NSMutableArray *captures = [NSMutableArray array];
     if (!NVCaptureTree(tree, state->query, captures, [source length], &budget)) { NVClearParser(state); return nil; }
     if ([syntax isEqualToString:@"org"] && !NVOrgCaptures(tree, source, captures, &budget)) { NVClearParser(state); return nil; }

@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <limits.h>
 #include <stdio.h>
 #include <tree_sitter/parser.h>
 #include <wctype.h>
@@ -73,47 +74,35 @@ typedef struct {
     stack *bullet_stack;
     stack *section_stack;
     bool in_dollar_math;
+    bool failed;
 } Scanner;
+
+// nvALT local patch: failures must survive scanner restoration during a parse,
+// but must not affect other editing-session workers.
+static _Thread_local bool nv_org_parse_failed;
+void nv_org_scanner_begin_parse(void) { nv_org_parse_failed = false; }
+bool nv_org_scanner_did_fail(void) { return nv_org_parse_failed; }
+
+static void fail(Scanner *scanner) {
+    scanner->failed = true;
+    nv_org_parse_failed = true;
+}
 
 static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
 static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
-static unsigned serialize(Scanner *scanner, char *buffer) {
-    size_t i = 0;
-
-    size_t indent_count = scanner->indent_length_stack->len - 1;
-    if (indent_count > UINT8_MAX)
-        indent_count = UINT8_MAX;
-    buffer[i++] = indent_count;
-
-    int iter = 1;
-    for (; iter < scanner->indent_length_stack->len &&
-           i < TREE_SITTER_SERIALIZATION_BUFFER_SIZE;
-         ++iter) {
-        buffer[i++] = scanner->indent_length_stack->data[iter];
-    }
-
-    iter = 1;
-    for (; iter < scanner->bullet_stack->len &&
-           i < TREE_SITTER_SERIALIZATION_BUFFER_SIZE;
-         ++iter) {
-        buffer[i++] = scanner->bullet_stack->data[iter];
-    }
-
-    iter = 1;
-    for (; iter < scanner->section_stack->len &&
-           i < TREE_SITTER_SERIALIZATION_BUFFER_SIZE;
-         ++iter) {
-        buffer[i++] = scanner->section_stack->data[iter];
-    }
-
-    buffer[i++] = scanner->in_dollar_math;
-
-    return i;
+// Version, flags, and three little-endian uint16 counts form the header.
+// Every payload value occupies two bytes. Base stack entries are implicit.
+enum { NV_ORG_STATE_VERSION = 1, NV_ORG_STATE_HEADER = 8, NV_ORG_INVALID_STATE = 255 };
+static uint16_t read_u16(const char *buffer) {
+    return (uint16_t)((uint8_t)buffer[0] | ((uint16_t)(uint8_t)buffer[1] << 8));
 }
-
-static void deserialize(Scanner *scanner, const char *buffer, unsigned length) {
+static void write_u16(char *buffer, uint16_t value) {
+    buffer[0] = (char)(value & 255);
+    buffer[1] = (char)(value >> 8);
+}
+static void reset(Scanner *scanner) {
     VEC_CLEAR(scanner->section_stack);
     VEC_PUSH(scanner->section_stack, 0);
     VEC_CLEAR(scanner->indent_length_stack);
@@ -121,24 +110,88 @@ static void deserialize(Scanner *scanner, const char *buffer, unsigned length) {
     VEC_CLEAR(scanner->bullet_stack);
     VEC_PUSH(scanner->bullet_stack, NOTABULLET);
     scanner->in_dollar_math = false;
-
-    if (length == 0)
+    scanner->failed = false;
+}
+static bool valid_stack(stack *values, int16_t base, int16_t minimum, int16_t maximum) {
+    if (!values || !values->len || values->len > values->cap || !values->data ||
+        values->data[0] != base || values->len - 1 > UINT16_MAX) return false;
+    for (uint32_t i = 1; i < values->len; i++) {
+        if (values->data[i] < minimum || values->data[i] > maximum) return false;
+    }
+    return true;
+}
+static unsigned serialize(Scanner *scanner, char *buffer) {
+    stack *indent = scanner->indent_length_stack, *bullets = scanner->bullet_stack,
+          *sections = scanner->section_stack;
+    if (scanner->failed || nv_org_parse_failed ||
+        !valid_stack(indent, -1, 0, INT16_MAX) ||
+        !valid_stack(bullets, NOTABULLET, DASH, NUMPAREN) ||
+        !valid_stack(sections, 0, 1, INT16_MAX) || indent->len != bullets->len) {
+        fail(scanner);
+        buffer[0] = (char)NV_ORG_INVALID_STATE;
+        return 1;
+    }
+    uint16_t counts[] = {(uint16_t)(indent->len - 1), (uint16_t)(bullets->len - 1),
+                         (uint16_t)(sections->len - 1)};
+    size_t required = NV_ORG_STATE_HEADER + 2 * ((size_t)counts[0] + counts[1] + counts[2]);
+    // Check the complete representation before the first normal-format write.
+    if (required > TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
+        fail(scanner);
+        buffer[0] = (char)NV_ORG_INVALID_STATE;
+        return 1;
+    }
+    buffer[0] = NV_ORG_STATE_VERSION;
+    buffer[1] = scanner->in_dollar_math ? 1 : 0;
+    for (unsigned i = 0; i < 3; i++) write_u16(buffer + 2 + 2 * i, counts[i]);
+    stack *stacks[] = {indent, bullets, sections};
+    size_t offset = NV_ORG_STATE_HEADER;
+    for (unsigned group = 0; group < 3; group++) {
+        for (uint32_t i = 1; i < stacks[group]->len; i++, offset += 2)
+            write_u16(buffer + offset, (uint16_t)stacks[group]->data[i]);
+    }
+    return (unsigned)required;
+}
+static void deserialize(Scanner *scanner, const char *buffer, unsigned length) {
+    if (length == 0) { reset(scanner); return; }
+    if (!buffer || length < NV_ORG_STATE_HEADER || length > TREE_SITTER_SERIALIZATION_BUFFER_SIZE ||
+        (uint8_t)buffer[0] != NV_ORG_STATE_VERSION || (uint8_t)buffer[1] > 1) {
+        fail(scanner);
         return;
+    }
+    uint16_t counts[] = {read_u16(buffer + 2), read_u16(buffer + 4), read_u16(buffer + 6)};
+    size_t required = NV_ORG_STATE_HEADER + 2 * ((size_t)counts[0] + counts[1] + counts[2]);
+    if (counts[0] != counts[1] || required != length) { fail(scanner); return; }
+    // Validate every value before changing any stack. A rejected payload never
+    // leaves a partially restored state that subsequent callbacks can accept.
+    size_t offset = NV_ORG_STATE_HEADER;
+    for (unsigned group = 0; group < 3; group++) {
+        for (uint32_t i = 0; i < counts[group]; i++, offset += 2) {
+            uint16_t value = read_u16(buffer + offset);
+            if (value > INT16_MAX || (group == 1 && (value < DASH || value > NUMPAREN)) ||
+                (group == 2 && !value)) { fail(scanner); return; }
+        }
+    }
+    reset(scanner);
+    stack *stacks[] = {scanner->indent_length_stack, scanner->bullet_stack, scanner->section_stack};
+    offset = NV_ORG_STATE_HEADER;
+    for (unsigned group = 0; group < 3; group++) {
+        for (uint32_t i = 0; i < counts[group]; i++, offset += 2)
+            VEC_PUSH(stacks[group], (int16_t)read_u16(buffer + offset));
+    }
+    scanner->in_dollar_math = buffer[1] != 0;
+}
 
-    size_t i = 0;
-
-    size_t indent_count = (uint8_t)buffer[i++];
-
-    for (; i <= indent_count; i++)
-        VEC_PUSH(scanner->indent_length_stack, buffer[i]);
-    for (; i <= 2 * indent_count; i++)
-        VEC_PUSH(scanner->bullet_stack, buffer[i]);
-    for (; i < length - 1; i++)
-        VEC_PUSH(scanner->section_stack, buffer[i]);
-    scanner->in_dollar_math = buffer[i];
+static bool add_indent(Scanner *scanner, int16_t *indent, int16_t amount) {
+    if (*indent > INT16_MAX - amount) { fail(scanner); return false; }
+    *indent += amount;
+    return true;
 }
 
 static bool dedent(Scanner *scanner, TSLexer *lexer) {
+    if (scanner->indent_length_stack->len <= 1 || scanner->bullet_stack->len <= 1) {
+        fail(scanner);
+        return false;
+    }
     VEC_POP(scanner->indent_length_stack);
     VEC_POP(scanner->bullet_stack);
     lexer->result_symbol = LISTEND;
@@ -198,6 +251,7 @@ static Bullet getbullet(TSLexer *lexer) {
 }
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
+    if (scanner->failed || nv_org_parse_failed) return false;
     // Error recovery
     if (valid_symbols[ERROR_SENTINEL]) {
         return false;
@@ -208,9 +262,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     lexer->mark_end(lexer);
     for (;;) {
         if (lexer->lookahead == ' ') {
-            indent_length++;
+            if (!add_indent(scanner, &indent_length, 1)) return false;
         } else if (lexer->lookahead == '\t') {
-            indent_length += 8;
+            if (!add_indent(scanner, &indent_length, 8)) return false;
         } else if (lexer->lookahead == '\0') {
             if (valid_symbols[LISTEND]) {
                 lexer->result_symbol = LISTEND;
@@ -237,9 +291,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[LISTEND] || valid_symbols[LISTITEMEND]) {
         for (;;) {
             if (lexer->lookahead == ' ') {
-                indent_length++;
+                if (!add_indent(scanner, &indent_length, 1)) return false;
             } else if (lexer->lookahead == '\t') {
-                indent_length += 8;
+                if (!add_indent(scanner, &indent_length, 8)) return false;
             } else if (lexer->lookahead == '\0') {
                 return dedent(scanner, lexer);
             } else if (lexer->lookahead == '\n') {
@@ -269,6 +323,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
         int16_t stars = 1;
         skip(lexer);
         while (lexer->lookahead == '*') {
+            if (stars == INT16_MAX) { fail(scanner); return false; }
             stars++;
             skip(lexer);
         }
@@ -279,6 +334,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
 
         if (valid_symbols[SECTIONEND] && iswspace(lexer->lookahead) &&
             stars > 0 && stars <= VEC_BACK(scanner->section_stack)) {
+            if (scanner->section_stack->len <= 1) { fail(scanner); return false; }
             VEC_POP(scanner->section_stack);
             lexer->result_symbol = SECTIONEND;
             return true;

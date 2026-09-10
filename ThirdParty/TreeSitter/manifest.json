@@ -39,7 +39,10 @@
       "license": "MIT",
       "vendored_directories": [
         "org"
-      ]
+      ],
+      "local_patches": {
+        "org/src/scanner.c": "Versioned fixed-width serialization, complete capacity and decode validation, bounded counters, and a thread-local failure flag. See org/LOCAL_PATCHES.md."
+      }
     }
   ],
   "compiled_runtime": "runtime/src/lib.c",
@@ -56,11 +59,11 @@
   ],
   "excluded": "WASM stdlib, bindings, generators, node types, grammar JSON, injection queries, upstream tests, build systems, package manifests. lib.c includes wasm_store.c for native no-op stubs; WASM execution is not enabled.",
   "query_policy": "Pinned highlighting queries contain no predicates. The Org query is authored for nvALT. Adapter explicitly rejects query predicates or directives. Org task words and emphasis use a bounded explicit pass. No language injections.",
-  "vendored_bytes": 8772223,
+  "vendored_bytes": 8778123,
   "files": {
     "README.md": {
-      "bytes": 2357,
-      "sha256": "33859ae939758ec8bf61ac86d425e3762d684e5acef2dd73cf0badacac27303d"
+      "bytes": 2651,
+      "sha256": "7927bc984c22187dc8d764fea455412028c582fe63fee53e3087ba93d93673b6"
     },
     "html/LICENSE": {
       "bytes": 1080,
@@ -162,13 +165,17 @@
       "bytes": 1076,
       "sha256": "e086f5e5a02e781622b170fa899692306bbcbae92504a7671ec969366d8b7738"
     },
+    "org/LOCAL_PATCHES.md": {
+      "bytes": 1841,
+      "sha256": "8483deb9cecb09da510350f3fe79e52ce0b5904ffb47433bc23aa8bf1e3a20a1"
+    },
     "org/src/parser.c": {
       "bytes": 3431045,
       "sha256": "c6027e7d2f27dd136f03a9a9ccaace4a18b63aa27237f29d5944f84ea9927add"
     },
     "org/src/scanner.c": {
-      "bytes": 13970,
-      "sha256": "7bdc8970c2e8f549d1ae86c5ccca3a52a1fa2d23197537fc663e8468b35b8214"
+      "bytes": 17735,
+      "sha256": "36d762d800c3df7cd526b5a663f58d0ddc8ba082df65c48c63b9e161e2307e29"
     },
     "org/src/tree_sitter/alloc.h": {
       "bytes": 958,
