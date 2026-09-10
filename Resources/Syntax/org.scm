@@ -3,7 +3,6 @@
 (tag) @attribute
 (directive name: (expr) @keyword)
 (property name: (expr) @attribute (value) @string)
-(comment) @comment
 (bullet) @punctuation.special
 (checkbox) @constant
 (timestamp) @string.special

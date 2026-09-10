@@ -59,11 +59,11 @@
   ],
   "excluded": "WASM stdlib, bindings, generators, node types, grammar JSON, injection queries, upstream tests, build systems, package manifests. lib.c includes wasm_store.c for native no-op stubs; WASM execution is not enabled.",
   "query_policy": "Pinned highlighting queries contain no predicates. The Org query is authored for nvALT. Adapter explicitly rejects query predicates or directives. Org task words and emphasis use a bounded explicit pass. No language injections.",
-  "vendored_bytes": 8778123,
+  "vendored_bytes": 8778230,
   "files": {
     "README.md": {
-      "bytes": 2651,
-      "sha256": "7927bc984c22187dc8d764fea455412028c582fe63fee53e3087ba93d93673b6"
+      "bytes": 2758,
+      "sha256": "f09cc895fe35474b1948bd1f2a0ff683afb846c57d758b4be82380ca7b6c2d18"
     },
     "html/LICENSE": {
       "bytes": 1080,
@@ -384,8 +384,8 @@
       "sha256": "2eb06e766ccd672d49599d14f398f07f4f5f7f2208262993d3cd9207c1078e2f"
     },
     "Resources/Syntax/org.scm": {
-      "bytes": 671,
-      "sha256": "34aa4f0ecd3beef90defc63b6567d68cda3acfc37c22d3dd7928759991ab33f4"
+      "bytes": 652,
+      "sha256": "cd5c8ba6e80374d0fb1a31c6e171f202ed3ad121447372fd4a34e2a63e059bd9"
     }
   }
 }

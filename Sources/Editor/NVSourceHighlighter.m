@@ -168,7 +168,7 @@ static BOOL NVOrgClosingBoundary(const unichar *text, NSUInteger index, NSUInteg
 }
 static BOOL NVOrgProtectedNode(const char *type) {
     return !strcmp(type, "block") || !strcmp(type, "dynamic_block") || !strcmp(type, "drawer") ||
-        !strcmp(type, "property_drawer") || !strcmp(type, "comment") || !strcmp(type, "directive") ||
+        !strcmp(type, "property_drawer") || !strcmp(type, "directive") ||
         !strcmp(type, "link") || !strcmp(type, "link_desc") || !strcmp(type, "inline_code_block") ||
         !strcmp(type, "inline_math_block") || !strcmp(type, "display_math_block") ||
         !strcmp(type, "latex_env") || !strcmp(type, "citation") || !strcmp(type, "timestamp") || !strcmp(type, "priority");
@@ -195,7 +195,8 @@ static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captur
         const char *type = ts_node_type(node);
         BOOL protected = NVOrgProtectedNode(type);
         if (protected) memset(eligible + range.location, 0, range.length);
-        else if (!strcmp(type, "paragraph") || !strcmp(type, "item") || !strcmp(type, "cell") || !strcmp(type, "description")) {
+        else if (!strcmp(type, "paragraph") || !strcmp(type, "item") || !strcmp(type, "cell") ||
+                 !strcmp(type, "description") || !strcmp(type, "comment")) {
             memset(eligible + range.location, 1, range.length);
             if (!strcmp(type, "item") && range.length >= 4 &&
                 (range.length == 4 || NVOrgWhitespace(text[range.location + 4]))) {
@@ -214,8 +215,9 @@ static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captur
     ts_tree_cursor_delete(&cursor);
     if (budget->stopped) return NO;
 
-    // A comment directly after a directive can be parsed as paragraph text.
-    // Recognize its line prefix without treating block contents as comments.
+    // The grammar can group hashtag prose into a comment node, or parse a
+    // comment after a directive as paragraph text. Classify each line by Org's
+    // actual prefix so neighboring lines cannot change its meaning.
     for (NSUInteger line = 0; line < length;) {
         if (NVStop(budget)) return NO;
         NSUInteger end = line;

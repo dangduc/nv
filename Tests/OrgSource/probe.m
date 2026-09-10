@@ -47,6 +47,26 @@ int main(int argc, const char **argv) { @autoreleasepool {
     for (NSString *invalid in @[@"*word*", @"* space*", @"*space *", @"*escaped*", @"*two\nlines\ninvalid*", @"*ignored*"]) Check(!Has(edgeCaptures, edges, @"text.strong", invalid), @"invalid boundaries and protected block text stay plain");
     Check(Has(edgeCaptures, edges, @"text.strong", @"*Café 😀 日本語*"), @"Unicode emphasis retains UTF-16 extent");
     Check(Has(edgeCaptures, edges, @"text.emphasis", @"/single line/"), @"valid emphasis after rejected spans still works");
+    NSArray *hashtagFixtures = @[@"#travel *book tickets*\n", @"  #travel *book tickets*\n",
+        @"# A comment\n#travel *book tickets*\n", @"A trip.\n\n#travel *book tickets*\n",
+        @"#+TITLE: Trip\n#travel *book tickets*\n", @"#travel *book tickets*\n# A comment\n",
+        @"# First comment\n#travel *book tickets*\n# Last comment\n"];
+    for (NSString *fixture in hashtagFixtures) {
+        NSArray *result = Parse(parser, fixture);
+        Check(Has(result, fixture, @"text.strong", @"*book tickets*"), @"hashtag prose keeps emphasis regardless of neighboring lines");
+        NSRange hashtag = [fixture rangeOfString:@"#travel"];
+        for (NSDictionary *capture in result) {
+            if ([capture[@"kind"] isEqual:@"comment"])
+                Check(!NSIntersectionRange(hashtag, [capture[@"range"] rangeValue]).length, @"comment captures cannot include hashtag prose");
+        }
+    }
+    for (NSString *fixture in @[@"# travel *book tickets*\n", @"#+TITLE: Trip\n# travel *book tickets*\n",
+                                @"  # travel *book tickets*\n#travel *visible*\n", @"#\n#travel *visible*\n"]) {
+        NSArray *result = Parse(parser, fixture);
+        Check(!Has(result, fixture, @"text.strong", @"*book tickets*"), @"real Org comment lines suppress emphasis");
+        NSString *comment = [fixture containsString:@"# travel"] ? @"# travel *book tickets*" : @"#";
+        Check(Has(result, fixture, @"comment", comment), @"whitespace or end of line identifies a comment prefix");
+    }
     NSArray *edits = @[[source stringByReplacingOccurrencesOfString:@"TODO" withString:@"DONE"], [source stringByReplacingOccurrencesOfString:@"*bold*" withString:@"*Café 😀 日本語*"], [source stringByReplacingOccurrencesOfString:@"=literal *plain*=" withString:@"literal *plain*"], [source stringByReplacingOccurrencesOfString:@"#+END_SRC" withString:@""], [source stringByAppendingString:@"\n* TODO new heading"], [source stringByReplacingOccurrencesOfString:@"- [ ] Task" withString:@"  - [X] Task"], source];
     for (NSString *edit in edits) {
         NSArray *incremental = Parse(parser, edit);

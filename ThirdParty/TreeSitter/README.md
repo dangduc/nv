@@ -32,6 +32,7 @@ The adapter adds a bounded pass for default TODO/DONE words and ordinary emphasi
 This pass operates on parser-selected prose and shares the parser timeout, cancellation token, and capture limit.
 Block contents, comments, drawers, directives, links, and inline source blocks do not receive supplemental emphasis.
 Literal spans suppress emphasis markers inside their contents.
+The adapter checks comment prefixes per line because grammar comment nodes can also contain hashtag prose.
 Custom TODO sequences, code-language injections, and Emacs configuration are not supported.
 
 Each component retains its MIT license. The runtime also retains the Unicode license notices.
