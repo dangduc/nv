@@ -1,0 +1,21 @@
+PASS semantic: unchanged
+PASS semantic: same range, changed target
+PASS semantic: one new run overlaps two old runs
+PASS semantic: shifted
+PASS semantic: merge adjacent runs
+PASS semantic: split a run
+PASS semantic: insert between preserved runs
+PASS semantic: remove between preserved runs
+PASS semantic: empty to links
+PASS semantic: links to empty
+PASS semantic: empty to empty
+case,links,utf16,record_hash,unique_record_hashes,extract_ms,first_publish_ms,unchanged_publish_ms,legacy_changed_line_ms
+wiki,100,2529,2,1,0.747,0.198,0.061,0.876
+wiki,500,12529,2,1,3.538,0.944,0.311,0.033
+wiki,1000,25029,2,1,6.982,1.796,0.644,0.045
+wiki,2000,50029,2,1,14.252,3.727,1.259,0.069
+wiki,4000,100029,2,1,28.239,7.536,5.901,0.126
+web,500,22029,2,1,12.062,1.003,0.302,0.039
+web,1000,44029,2,1,24.588,1.952,0.594,0.039
+web,2000,88029,2,1,51.703,4.352,3.703,0.067
+PASS: production link-publication semantics and scaling probes

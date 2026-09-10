@@ -1,0 +1,8 @@
+{
+  "head": "2ec3f4831c2a42380981f613b7405bdbc34dd844",
+  "command": "python3 Tests/TypingReview/fixes/reveal/run.py",
+  "controller_sha256": "ba0d762fad49ac17f566a6e4869a83a46b428cc5b9cdb2dcbe3b1cedd39006ed",
+  "search_controller_sha256": "8f7306d0b97c0b2130cd7ae3c40047ad2502ea22486f25b2be4fc027f8833f23",
+  "native_exit": 0,
+  "passed": true
+}

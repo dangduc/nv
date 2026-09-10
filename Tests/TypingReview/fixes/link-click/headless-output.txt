@@ -1,0 +1,16 @@
+PASS: stale URL places caret: clickable=0 command=0
+PASS: stale note link places caret: clickable=0 command=0
+PASS: stale URL places caret: clickable=0 command=1
+PASS: stale note link places caret: clickable=0 command=1
+PASS: stale URL places caret: clickable=1 command=0
+PASS: stale note link places caret: clickable=1 command=0
+PASS: stale URL places caret: clickable=1 command=1
+PASS: stale note link places caret: clickable=1 command=1
+PASS: stale targets never activate or select obsolete whole-link ranges
+PASS: out-of-bounds stale index clamps to source end
+PASS: empty source clamps stale selection to zero
+PASS: current URL with clicking disabled retains ordinary caret behavior
+PASS: current targets retain native and note navigation
+PASS: 13 headless production-callback checks
+PASS: negative control rejects old early return
+PASS: negative control rejects unguarded stale target

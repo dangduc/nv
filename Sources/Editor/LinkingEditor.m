@@ -451,7 +451,11 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (void)clickedOnLink:(id)aLink atIndex:(NSUInteger)charIndex {
-	if (!NVSourceLinksAreCurrent([self textStorage])) return;
+	if (!NVSourceLinksAreCurrent([self textStorage])) {
+		// Treat obsolete link attributes as ordinary source text until analysis finishes.
+		[self setSelectedRange:NSMakeRange(MIN(charIndex, [[self string] length]), 0)];
+		return;
+	}
 	NSEvent *currentEvent = [[self window] currentEvent];
 //    NSLog(@"clicked:%@",[currentEvent description]);
 	

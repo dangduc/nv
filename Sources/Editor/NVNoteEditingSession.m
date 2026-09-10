@@ -218,11 +218,34 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
             usingBlock:^(id value, NSRange range, BOOL *stop) {
                 if (value) [oldLinks addObject:@{@"range": [NSValue valueWithRange:range], @"url": value}];
             }];
-        NSSet *oldSet = [NSSet setWithArray:oldLinks], *newSet = [NSSet setWithArray:links];
+        // Both enumerations produce non-overlapping runs in source order.
+        // Merge them directly: equal-sized NSDictionary records share a hash,
+        // so comparing these records through NSSet becomes quadratic.
+        NSMutableArray *removals = [NSMutableArray array], *additions = [NSMutableArray array];
+        NSUInteger oldIndex = 0, newIndex = 0;
+        while (oldIndex < [oldLinks count] && newIndex < [links count]) {
+            NSDictionary *oldLink = [oldLinks objectAtIndex:oldIndex];
+            NSDictionary *newLink = [links objectAtIndex:newIndex];
+            NSRange oldRange = [oldLink[@"range"] rangeValue], newRange = [newLink[@"range"] rangeValue];
+            if (oldRange.location < newRange.location) {
+                [removals addObject:oldLink]; oldIndex++;
+            } else if (newRange.location < oldRange.location) {
+                [additions addObject:newLink]; newIndex++;
+            } else {
+                if (!NSEqualRanges(oldRange, newRange) || ![oldLink[@"url"] isEqual:newLink[@"url"]]) {
+                    [removals addObject:oldLink];
+                    [additions addObject:newLink];
+                }
+                oldIndex++; newIndex++;
+            }
+        }
+        while (oldIndex < [oldLinks count]) [removals addObject:[oldLinks objectAtIndex:oldIndex++]];
+        while (newIndex < [links count]) [additions addObject:[links objectAtIndex:newIndex++]];
+        // Finish removals first so an overlapping old run cannot erase a new one.
         [textStorage beginEditing];
-        for (NSDictionary *link in oldLinks) if (![newSet containsObject:link])
+        for (NSDictionary *link in removals)
             [textStorage removeAttribute:NSLinkAttributeName range:[link[@"range"] rangeValue]];
-        for (NSDictionary *link in links) if (![oldSet containsObject:link]) {
+        for (NSDictionary *link in additions) {
             NSRange range = [link[@"range"] rangeValue];
             if (range.location <= [textStorage length] && range.length <= [textStorage length] - range.location)
                 [textStorage addAttribute:NSLinkAttributeName value:link[@"url"] range:range];

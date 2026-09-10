@@ -53,3 +53,25 @@ These failures prevent a clean broad-suite result. They are not reported as pass
 The new teardown fixture also needed updates for source-analysis ownership.
 Its five checks and four negative controls pass after that update.
 The Exact-search Reveal failure occurred only in the candidate and became a round-one revision request.
+
+## After round-one fixes
+
+The Intel Development build passes with all three round-one fixes.
+The native caret-click suite passes 26 checks. Editing history passes all 52 checks.
+The source-analysis and typing-refresh suites still pass 63 and 35 checks.
+Headless fix probes pass 11 link-publication cases, 36 Reveal checks, and 13 caret checks with two negative controls.
+The old Reveal implementation fails the new control as expected.
+
+The production benchmark again preserves all 1,080 edits, insertion offsets, and model commits.
+[Reviewed samples](measurements/reviewed.json) record the three trials per case.
+
+| Case | Master main CPU | Reviewed main CPU | CPU reduction | Master mean dispatch | Reviewed mean dispatch |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Short note, count hidden | 2000.1 ms | 1046.2 ms | 47.7% | 2.698 ms | 3.471 ms |
+| 100 KB note, count visible | 2715.0 ms | 411.8 ms | 84.8% | 25.978 ms | 6.712 ms |
+| 100 KB single line | 3741.0 ms | 614.7 ms | 83.6% | 40.217 ms | 6.763 ms |
+
+Executable SHA-256: `d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80`.
+These measurements have the same host and interpretation limits as the initial comparison.
+The link-heavy probe separately reduces 4,000-link publication from 2,848 ms to 5.9 ms, excluding layout and drawing.
+See `Tests/TypingReview/fixes/link-publication/README.md` for its cases and raw output.

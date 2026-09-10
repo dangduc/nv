@@ -1638,6 +1638,13 @@ terminateApp:
     // whether it can select immediately or must wait for current results.
     [self cancelSearchIntents];
 	if (note) {
+        NVBrowserSession *session = [self browserSession];
+        // Reveal can arrive between model invalidation and the delayed list
+        // refresh. Exact and empty-query lists can refresh synchronously;
+        // libraryDidChange also respects composition and active inline edits.
+        if (![session searchResultsAreCurrent] &&
+            (![[session searchMode] isEqual:@"fuzzy"] || ![session hasSearchTerms]))
+            [session libraryDidChange];
         if (![[self browserSession] searchResultsAreCurrent]) {
             [pendingSearchReveal release];
             pendingSearchReveal = [@{@"note":note, @"options":@(opts)} copy];
