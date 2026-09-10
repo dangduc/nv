@@ -31,10 +31,8 @@
 	GlobalPrefs *prefsController;
 	BOOL didRenderFully;
 	
-	BOOL didChangeIntoAutomaticRange;
 	NSRange lastAutomaticallySelectedRange;
 	NSRange changedRange;
-	BOOL isAutocompleting, wasDeleting;
 	
 	BOOL backgroundIsDark, mouseInside;
     BOOL searchHighlightsInvalidated;
@@ -48,21 +46,9 @@
 	IMP defaultIBeamCursorIMP, whiteIBeamCursorIMP;
     
     BOOL managesTextWidth;
-	NSString *beforeString;
-	NSString *afterString;
-    NSString *activeParagraph;
-    NSString *activeParagraphPastCursor;
-    NSString *activeParagraphBeforeCursor;
-//    BOOL clipboardHasLink;
 }
 
-@property (readonly) NSString *activeParagraphBeforeCursor;
-@property (readonly) NSString *activeParagraphPastCursor;
-@property (readonly) NSString *beforeString;
-@property (readonly) NSString *afterString;
-@property (readonly) NSString *activeParagraph;
 @property (readwrite) BOOL managesTextWidth;
-//@property (readonly) BOOL clipboardHasLink;
 
 
 - (NSColor*)_insertionPointColorForForegroundColor:(NSColor*)fgColor backgroundColor:(NSColor*)bgColor;
@@ -76,62 +62,33 @@
 - (void)setSearchHighlightRanges:(NSArray *)ranges;
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges;
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;
-- (void)defaultStyle:(id)sender;
-- (void)strikethroughNV:(id)sender;
-- (void)bold:(id)sender;
-- (void)italic:(id)sender;
 - (NSString *)sourceSyntaxIdentifier;
-- (BOOL)usesMarkdownSource;
-- (BOOL)usesMarkupSource;
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex;
 
-- (BOOL)jumpToRenaming;
 - (void)indicateRange:(NSValue*)rangeValue;
 
 - (void)fixTypingAttributesForSubstitutedFonts;
 - (void)fixCursorForBackgroundUpdatingMouseInside:(BOOL)checkMouseLoc;
 
-- (BOOL)_selectionAbutsBulletIndentRange;
-- (BOOL)_rangeIsAutoIdentedBullet:(NSRange)aRange;
-
-- (void)setupFontMenu;
-
 - (BOOL)didRenderFully;
 
 #pragma mark - nvALT additions
 - (void)setMouseInside:(BOOL)inside;
-- (BOOL)changeMarkdownAttribute:(NSString *)syntaxBit;
-//- (BOOL)isAlreadyNearMarkdownLink;
 - (BOOL)mouseIsHere;
 - (void)resetInset;
 - (void)updateInsetAndForceLayout:(BOOL)force;
 - (void)updateInsetForFrame:(NSRect)frameRect andForceLayout:(BOOL)force;
 - (BOOL)setInsetForFrame:(NSRect)frameRect alwaysSet:(BOOL)always;
-- (BOOL)deleteEmptyPairsBetweenRange:(NSRange)charRange inLineRange:(NSRange)lineRange;
-- (void)selectRangeAndRegisterUndo:(NSRange)selRange;
-- (BOOL)cursorAtRange:(NSRange)charRange isBetweenEmptyPairsInLineRange:(NSRange)actRange;
-- (NSRange)rangeOfActiveParagraph;
-- (NSString *)activeParagraphTrimWS:(BOOL)shouldTrim;
-- (NSUInteger)cursorIsInsidePair:(NSString *)closingCharacter;
-- (BOOL)pairIsOnOwnParagraph:(NSString *)closingCharacter;
-- (BOOL)cursorIsImmediatelyPastPair:(NSString *)closingCharacter;
 - (IBAction)performFindPanelAction:(id)sender;
 - (void)updateTextColors;
-- (IBAction)insertLink:(id)sender;
 - (void)prepareTextFinder;
 - (void)prepareTextFinderPreLion;
 - (BOOL)textFinderIsVisible;
-- (IBAction)pasteMarkdownLink:(id)sender;
-- (void)insertStringAtStartOfSelectedParagraphs:(NSString *)insertString;
-- (void)removeStringAtStartOfSelectedParagraphs:(NSString *)removeString;
-- (BOOL)clipboardHasLink;
-- (BOOL)updateNumberedListFromRange:(NSRange)currentRange startingNum:(NSInteger)listNum;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 - (void)textFinderShouldResetContext:(NSNotification *)aNotification;
 - (void)textFinderShouldUpdateContext:(NSNotification *)aNotification;
 - (void)textFinderShouldNoteChanges:(NSNotification *)aNotification;
 - (void)hideTextFinderIfNecessary:(NSNotification *)aNotification;
-- (IBAction)toggleLayoutOrientation:(id)sender;
 #endif
 //
 - (void)undo:(id)sender;

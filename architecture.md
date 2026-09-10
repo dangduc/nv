@@ -146,6 +146,13 @@ Committed snapshots compare source characters. Links, font preferences, and high
 The note's undo manager also records title and tag changes.
 Body editors disable Cocoa's automatic Undo registration to avoid a second history.
 
+`LinkingEditor` inherits ordinary editing commands from `NSTextView`, including
+Return, Tab, Backspace, paste, completion, and word selection. Its subclass code
+only integrates source text with note sessions and adds display behavior such as
+links, syntax colors, search highlights, and layout. Cocoa owns editor-local text
+features such as spelling and writing direction; nvALT does not persist global
+editing-behavior overrides.
+
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.
 After composition ends, it compares local and external changes against the committed snapshot.

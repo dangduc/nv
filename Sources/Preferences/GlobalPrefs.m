@@ -51,15 +51,8 @@ static NSString *ShowBodyControlsInTopSectionKey = @"ShowBodyControlsInTopSectio
 static NSString *ShowNotesListKey = @"ShowNotesList";
 static NSString *NoteBodyFontKey = @"NoteBodyFont";
 static NSString *ConfirmNoteDeletionKey = @"ConfirmNoteDeletion";
-static NSString *CheckSpellingInNoteBodyKey = @"CheckSpellingInNoteBody";
-static NSString *TextReplacementInNoteBodyKey = @"TextReplacementInNoteBody";
 static NSString *QuitWhenClosingMainWindowKey = @"QuitWhenClosingMainWindow";
-static NSString *TabKeyIndentsKey = @"TabKeyIndents";
-static NSString *PastePreservesStyleKey = @"PastePreservesStyle";
 static NSString *AutoFormatsDoneTagKey = @"AutoFormatsDoneTag";
-static NSString *AutoFormatsListBulletsKey = @"AutoFormatsListBullets";
-static NSString *AutoSuggestLinksKey = @"AutoSuggestLinks";
-static NSString *AutoIndentsNewLinesKey = @"AutoIndentsNewLines";
 static NSString *HighlightSearchTermsKey = @"HighlightSearchTerms";
 static NSString *SearchTermHighlightColorKey = @"SearchTermHighlightColor";
 static NSString *ForegroundTextColorKey = @"ForegroundTextColor";
@@ -67,7 +60,6 @@ static NSString *BackgroundTextColorKey = @"BackgroundTextColor";
 static NSString *DarkSearchTermHighlightColorKey = @"DarkSearchTermHighlightColor";
 static NSString *DarkForegroundTextColorKey = @"DarkForegroundTextColor";
 static NSString *DarkBackgroundTextColorKey = @"DarkBackgroundTextColor";
-static NSString *UseSoftTabsKey = @"UseSoftTabs";
 static NSString *NumberOfSpacesInTabKey = @"NumberOfSpacesInTab";
 static NSString *MakeURLsClickableKey = @"MakeURLsClickable";
 static NSString *AppActivationKeyCodeKey = @"AppActivationKeyCode";
@@ -88,13 +80,9 @@ static NSString	*NoteBodyMaxWidth = @"NoteBodyMaxWidth";
 static NSString	*ColorScheme = @"ColorScheme";
 static NSString *ShowGridKey = @"ShowGrid";
 static NSString *AlternatingRowsKey = @"AlternatingRows";
-static NSString *RTLKey = @"rtl";
 static NSString *ShowWordCount = @"ShowWordCount";
-static NSString *UseAutoPairing = @"UseAutoPairing";
 static NSString *UseETScrollbarsOnLion = @"UseETScrollbarsOnLion";
-static NSString *UsesMarkdownCompletions = @"UsesMarkdownCompletions";
 static NSString *UseFinderTagsKey = @"UseFinderTags";
-static NSString *UseSmartInsertDeleteKey = @"UseSmartInsertDelete";
 //static NSString *PasteClipboardOnNewNoteKey = @"PasteClipboardOnNewNote";
 
 //these 4 strings manually localized
@@ -133,18 +121,9 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 
 		[defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithBool:NO], UseFinderTagsKey,
-			[NSNumber numberWithBool:YES], AutoSuggestLinksKey,
 			[NSNumber numberWithBool:YES], AutoFormatsDoneTagKey, 
-			[NSNumber numberWithBool:YES], AutoIndentsNewLinesKey, 
-			[NSNumber numberWithBool:YES], AutoFormatsListBulletsKey,
-			[NSNumber numberWithBool:NO], UseSoftTabsKey,
 			[NSNumber numberWithInteger:4], NumberOfSpacesInTabKey,
-			[NSNumber numberWithBool:YES], PastePreservesStyleKey,
-			[NSNumber numberWithBool:YES], TabKeyIndentsKey,
 			[NSNumber numberWithBool:YES], ConfirmNoteDeletionKey,
-			[NSNumber numberWithBool:YES], CheckSpellingInNoteBodyKey, 
-            [NSNumber numberWithBool:NO], TextReplacementInNoteBodyKey,
-            [NSNumber numberWithBool:NO], UseSmartInsertDeleteKey,
 			[NSNumber numberWithBool:YES], AutoCompleteSearchesKey,
 			[NSNumber numberWithBool:YES], QuitWhenClosingMainWindowKey, 
 			[NSNumber numberWithBool:NO], TriedToImportBlorKey,
@@ -163,13 +142,10 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithFloat:660.0], NoteBodyMaxWidth,
 			[NSNumber numberWithInt:3], ColorScheme,
             [NSNumber numberWithBool:YES],ShowDockIcon,
-			[NSNumber numberWithBool:NO], RTLKey,
             [NSNumber numberWithBool:YES], ShowWordCount,
             [NSNumber numberWithBool:NO], ShowGridKey,
             [NSNumber numberWithBool:YES], AlternatingRowsKey,
-            [NSNumber numberWithBool:NO], UseAutoPairing,
             [NSNumber numberWithBool:NO], UseETScrollbarsOnLion,
-            [NSNumber numberWithBool:NO], UsesMarkdownCompletions,
 
 			[NSArchiver archivedDataWithRootObject:
 			 [NSFont userFixedPitchFontOfSize:12.0f]], NoteBodyFontKey,
@@ -298,35 +274,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	SEND_CALLBACKS();
 }
 
-- (void)setTabIndenting:(BOOL)value sender:(id)sender {
-    [defaults setBool:value forKey:TabKeyIndentsKey];
-    
-    SEND_CALLBACKS();
-}
-- (BOOL)tabKeyIndents {
-    return [defaults boolForKey:TabKeyIndentsKey];
-}
-
-//- (void)setUseTextReplacement:(BOOL)value sender:(id)sender {
-//    [defaults setBool:value forKey:TextReplacementInNoteBodyKey];
-//    
-//    SEND_CALLBACKS();
-//}
-//
-//- (BOOL)useTextReplacement {
-//    return [defaults boolForKey:TextReplacementInNoteBodyKey];
-//}
-
-- (void)setCheckSpellingAsYouType:(BOOL)value sender:(id)sender {
-    [defaults setBool:value forKey:CheckSpellingInNoteBodyKey];
-    
-//    SEND_CALLBACKS();
-}
-
-- (BOOL)checkSpellingAsYouType {
-    return [defaults boolForKey:CheckSpellingInNoteBodyKey];
-}
-
 - (void)setConfirmNoteDeletion:(BOOL)value sender:(id)sender {
     [defaults setBool:value forKey:ConfirmNoteDeletionKey];
     
@@ -388,17 +335,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	return [[PTHotKeyCenter sharedCenter] registerHotKey:hotKey];
 }
 
-- (void)setPastePreservesStyle:(BOOL)value sender:(id)sender {
-    [defaults setBool:value forKey:PastePreservesStyleKey];
-    
-	SEND_CALLBACKS();
-}
-
-- (BOOL)pastePreservesStyle {
-    
-    return [defaults boolForKey:PastePreservesStyleKey];
-}
-
 - (void)setAutoFormatsDoneTag:(BOOL)value sender:(id)sender {
     [defaults setBool:value forKey:AutoFormatsDoneTagKey];
 	
@@ -407,33 +343,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 - (BOOL)autoFormatsDoneTag {
 	return [defaults boolForKey:AutoFormatsDoneTagKey];
 }
-- (BOOL)autoFormatsListBullets {
-	return [defaults boolForKey:AutoFormatsListBulletsKey];
-}
-- (void)setAutoFormatsListBullets:(BOOL)value sender:(id)sender {
-	[defaults setBool:value forKey:AutoFormatsListBulletsKey];
-	
-	SEND_CALLBACKS();
-}
-
-- (BOOL)autoIndentsNewLines {
-	return [defaults boolForKey:AutoIndentsNewLinesKey];
-}
-- (void)setAutoIndentsNewLines:(BOOL)value sender:(id)sender {
-	[defaults setBool:value forKey:AutoIndentsNewLinesKey];
-	
-	SEND_CALLBACKS();
-}
-
-- (void)setLinksAutoSuggested:(BOOL)value sender:(id)sender {
-    [defaults setBool:value forKey:AutoSuggestLinksKey];
-	
-	SEND_CALLBACKS();
-}
-- (BOOL)linksAutoSuggested {
-    return [defaults boolForKey:AutoSuggestLinksKey];
-}
-
 - (void)setMakeURLsClickable:(BOOL)value sender:(id)sender {
 	[defaults setBool:value forKey:MakeURLsClickableKey];
 	
@@ -441,15 +350,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 - (BOOL)URLsAreClickable {
 	return [defaults boolForKey:MakeURLsClickableKey];
-}
-
-- (void)setRTL:(BOOL)value sender:(id)sender {
-	[defaults setBool:value forKey:RTLKey];
-	
-	SEND_CALLBACKS();
-}
-- (BOOL)rtl {
-	return [defaults boolForKey:RTLKey];
 }
 
 - (BOOL)showWordCount{
@@ -486,14 +386,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 - (BOOL)alternatingRows {
 	return [defaults boolForKey:AlternatingRowsKey];
-}
-
-- (void)setUseAutoPairing:(BOOL)value{
-    [defaults setBool:value forKey:UseAutoPairing];
-}
-
-- (BOOL)useAutoPairing{
-	return [defaults boolForKey:UseAutoPairing];
 }
 
 - (void)setShouldHighlightSearchTerms:(BOOL)shouldHighlight sender:(id)sender {
@@ -569,16 +461,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
         return NO;
     }
 	return [defaults boolForKey:UseFinderTagsKey];
-}
-
-- (void)setSoftTabs:(BOOL)value sender:(id)sender {
-	[defaults setBool:value forKey:UseSoftTabsKey];
-	
-	SEND_CALLBACKS();
-}
-
-- (BOOL)softTabs {
-	return [defaults boolForKey:UseSoftTabsKey];
 }
 
 - (NSInteger)numberOfSpacesInTab {
@@ -679,8 +561,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 			if (pStyle)
 				[attrs setObject:pStyle forKey:NSParagraphStyleAttributeName];
 		}
-	   /*NSTextWritingDirectionEmbedding*/
-		//[NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil], @"NSWritingDirection", //for auto-LTR-RTL text
 		noteBodyAttributes = attrs;
 	}else {
 		//NSLog(@"notebody att4");
@@ -721,7 +601,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
         for (NSTextTab *textTabToBeRemoved in [noteBodyParagraphStyle tabStops]) {
             [noteBodyParagraphStyle removeTabStop:textTabToBeRemoved];
         }
-		//[paragraphStyle setHeadIndent:sizeOfTab]; //for soft-indents, this would probably have to be applied contextually, and heaven help us for soft tabs
 
 		[noteBodyParagraphStyle setDefaultTabInterval:sizeOfTab];
 	}

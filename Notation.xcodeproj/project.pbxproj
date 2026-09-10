@@ -61,7 +61,6 @@
 		219588D20961D7F200972B8C /* LinkingEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 219588D10961D7F200972B8C /* LinkingEditor.m */; };
 		219739FB0AFE42A10046683E /* PassphraseRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 219739FA0AFE42A10046683E /* PassphraseRetriever.m */; };
 		21973FF10B0060C80046683E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21973FBC0B0060C80046683E /* Security.framework */; };
-		219FD3160B2CC655004E132B /* LinkingEditor_Indentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 219FD3150B2CC655004E132B /* LinkingEditor_Indentation.m */; };
 		219FD63E0B309B69004E132B /* BlorPasswordRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 219FD63D0B309B69004E132B /* BlorPasswordRetriever.m */; };
 		21A2F95E09DF3FDC001AF0B5 /* NotationPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A2F95D09DF3FDC001AF0B5 /* NotationPrefs.m */; };
 		21A2FA1709DF6174001AF0B5 /* NotationPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A2FA1609DF6174001AF0B5 /* NotationPrefsViewController.m */; };
@@ -366,8 +365,6 @@
 		219739F90AFE42A10046683E /* PassphraseRetriever.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PassphraseRetriever.h; sourceTree = "<group>"; };
 		219739FA0AFE42A10046683E /* PassphraseRetriever.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PassphraseRetriever.m; sourceTree = "<group>"; };
 		21973FBC0B0060C80046683E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		219FD3140B2CC655004E132B /* LinkingEditor_Indentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkingEditor_Indentation.h; sourceTree = "<group>"; };
-		219FD3150B2CC655004E132B /* LinkingEditor_Indentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkingEditor_Indentation.m; sourceTree = "<group>"; };
 		219FD63C0B309B69004E132B /* BlorPasswordRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorPasswordRetriever.h; sourceTree = "<group>"; };
 		219FD63D0B309B69004E132B /* BlorPasswordRetriever.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BlorPasswordRetriever.m; sourceTree = "<group>"; };
 		21A2F95C09DF3FDC001AF0B5 /* NotationPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotationPrefs.h; sourceTree = "<group>"; };
@@ -1577,8 +1574,6 @@
 				2155DF43097C992800163A10 /* AttributedPlainText.m */,
 				219588D00961D7F200972B8C /* LinkingEditor.h */,
 				219588D10961D7F200972B8C /* LinkingEditor.m */,
-				219FD3140B2CC655004E132B /* LinkingEditor_Indentation.h */,
-				219FD3150B2CC655004E132B /* LinkingEditor_Indentation.m */,
 				213621EF0B92414F008C0830 /* MultiTextFinder.h */,
 				213621F00B92414F008C0830 /* MultiTextFinder.m */,
 				5CE6624913185202002039D0 /* NSTextFinder.h */,
@@ -2130,7 +2125,6 @@
 				215453F00B067A5100C0D1D5 /* KeyDerivationDelaySlider.m in Sources */,
 				212089B10B0C24F500A15A69 /* AlienNoteImporter.m in Sources */,
 				212089D80B0C2CA500A15A69 /* StickiesDocument.m in Sources */,
-				219FD3160B2CC655004E132B /* LinkingEditor_Indentation.m in Sources */,
 				219FD63E0B309B69004E132B /* BlorPasswordRetriever.m in Sources */,
 				211344450B354E000081B064 /* idea_ossl.c in Sources */,
 				211345AB0B35D8540081B064 /* broken_md5.c in Sources */,

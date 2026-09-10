@@ -223,9 +223,6 @@
 		[textView setNextKeyView:field];
 		[window setAutorecalculatesKeyViewLoop:NO];
 		
-        [self updateRTL];
-        
-		
 		[self setEmptyViewState:YES];
 		ModFlagger = 0;
         popped = 0;
@@ -260,7 +257,6 @@ void outletObjectAwoke(id sender) {
 	[[prefsController bookmarksController] restoreWindowFromSave];
 	[[prefsController bookmarksController] updateBookmarksUI];
     [self updateNoteMenus];
-    [textView setupFontMenu];
     [prefsController registerAppActivationKeystrokeWithTarget:self selector:@selector(toggleNVActivation:)];
     [notationController updateLabelConnectionsAfterDecoding];
     [notationController checkIfNotationIsTrashed];
@@ -1468,7 +1464,6 @@ terminateApp:
 		//NSString *words = noteIndex != [notationController preferredSelectedNoteIndex] ? typedString : nil;
 		//[textView setFutureSelectionRange:noteSelectionRange highlightingWords:words];
 		
-        [self updateRTL];
         [self refreshSearchHighlights];
         
 		return YES;
@@ -2433,15 +2428,6 @@ terminateApp:
         return nil; // AppKit supplies and configures the native field editor.
     }
 
-    - (void)updateRTL
-    {
-        if ([prefsController rtl]) {
-            [textView setBaseWritingDirection:NSWritingDirectionRightToLeft range:NSMakeRange(0, [[textView string] length])];
-        } else {
-            [textView setBaseWritingDirection:NSWritingDirectionLeftToRight range:NSMakeRange(0, [[textView string] length])];
-        }
-    }
-    
     - (void)refreshNotesList
     {
         [notesTableView setNeedsDisplay:YES];
