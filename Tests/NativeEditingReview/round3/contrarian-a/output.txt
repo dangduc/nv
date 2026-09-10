@@ -1,0 +1,7 @@
+PASS: fresh NSTextView uses the font panel by default
+PASS: reference is a plain-text NSTextView
+PASS: reference disables the font panel like LinkingEditor
+PASS: NSTextView changeColor does not apply color to selected plain text
+PASS: native color action leaves plain source attributes unchanged
+PASS: NSTextView changeColor leaves plain insertion attributes unchanged
+checks=6

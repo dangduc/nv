@@ -1,0 +1,21 @@
+2026-09-10 01:09:53.136 nvALT[9823:344855625] PASS: temporary library directory exists
+2026-09-10 01:09:53.137 nvALT[9823:344855625] PASS: temporary library opens
+2026-09-10 01:09:53.303 nvALT[9823:344855625] verified 0 notes in 0.000181913 s
+2026-09-10 01:09:53.859 nvALT[9823:344855625] PASS: second browser source editor is active first responder
+2026-09-10 01:09:53.859 nvALT[9823:344855625] PASS: main menu exposes the Find command
+2026-09-10 01:09:53.859 nvALT[9823:344855625] PASS: legacy nib Find target is replaced by the application router
+2026-09-10 01:09:53.859 nvALT[9823:344855625] PASS: Find router resolves the active second browser
+2026-09-10 01:09:53.859 nvALT[9823:344855625] PASS: ordinary native Text actions resolve through the active responder chain
+2026-09-10 01:09:53.911 nvALT[9823:344855625] PASS: both source find bars begin hidden
+2026-09-10 01:09:54.015 nvALT[9823:344855625] PASS: Find invoked from the second window leaves the first editor untouched
+2026-09-10 01:09:54.015 nvALT[9823:344855625] PASS: Find opens the active second editor's find bar
+2026-09-10 01:09:54.015 nvALT[9823:344855625] PASS: Find moves focus only within the active second window
+2026-09-10 01:09:54.168 nvALT[9823:344855625] PASS: IME marked-text insertion matches NSTextView
+2026-09-10 01:09:54.168 nvALT[9823:344855625] PASS: marked text remains uncommitted in the note model
+2026-09-10 01:09:54.224 nvALT[9823:344855625] PASS: IME commit matches NSTextView and clears marked state
+2026-09-10 01:09:54.224 nvALT[9823:344855625] PASS: committed input reaches the note model
+2026-09-10 01:09:54.224 nvALT[9823:344855625] PASS: source editor exposes the native accessibility role
+2026-09-10 01:09:54.224 nvALT[9823:344855625] PASS: source editor exposes the native accessibility text value
+2026-09-10 01:09:54.224 nvALT[9823:344855625] PASS: source editor exposes the native accessibility selection
+2026-09-10 01:09:54.224 nvALT[9823:344855625] CONTRARIAN B ROUND 3 EVIDENCE PASSED (18 checks)
+2026-09-10 01:09:54.225 nvALT[9823:344855625] verified 2 notes in 0.000396013 s
