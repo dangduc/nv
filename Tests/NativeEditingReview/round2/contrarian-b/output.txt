@@ -1,0 +1,39 @@
+2026-09-10 00:40:37.324 nvALT[3611:344804354] PASS: temporary library directory exists
+2026-09-10 00:40:37.325 nvALT[3611:344804354] PASS: temporary library opens
+2026-09-10 00:40:37.505 nvALT[3611:344804354] verified 0 notes in 0.000189066 s
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: Smart Copy/Paste matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: continuous spelling matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: grammar checking matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: spelling correction matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: Smart Quotes match a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: Smart Dashes match a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: text replacement matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: automatic link detection matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: automatic data detection matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: enabled text checking types match a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: base writing direction matches a plain NSTextView
+2026-09-10 00:40:37.723 nvALT[3611:344804354] PASS: source text is not diverted through a value binding
+2026-09-10 00:40:37.835 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:37.894 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for a
+b
+2026-09-10 00:40:38.008 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.061 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for a👨‍👩‍👧‍👦b
+2026-09-10 00:40:38.166 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.218 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for aéb
+2026-09-10 00:40:38.324 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.377 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for a🇻🇳b
+2026-09-10 00:40:38.481 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.533 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for a1️⃣b
+2026-09-10 00:40:38.764 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.818 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for אבג abc
+2026-09-10 00:40:38.923 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:38.975 nvALT[3611:344804354] PASS: Backspace and selection match NSTextView for a b
+2026-09-10 00:40:39.080 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:39.132 nvALT[3611:344804354] PASS: multiple-selection replacement matches NSTextView
+2026-09-10 00:40:39.236 nvALT[3611:344804354] PASS: source editor is the editable first responder
+2026-09-10 00:40:39.236 nvALT[3611:344804354] PASS: ordinary first-responder menu validation matches NSTextView
+2026-09-10 00:40:39.238 nvALT[3611:344804354] PASS: plain NSTextView dispatches modifier changes through its native handler
+2026-09-10 00:40:39.289 nvALT[3611:344804354] PASS: source editor bypasses NSTextView's modifier-key handler
+2026-09-10 00:40:39.289 nvALT[3611:344804354] PASS: source modifier key triggers the legacy word-count timer path
+2026-09-10 00:40:39.289 nvALT[3611:344804354] CONTRARIAN B ROUND 2 EVIDENCE PASSED (35 checks)
+2026-09-10 00:40:39.291 nvALT[3611:344804354] verified 9 notes in 0.000507951 s
