@@ -1,0 +1,4 @@
+mode=kCFRunLoopDefaultMode peers=1 publish=before-retry open_ms=302.279 callbacks_scheduled=31 delayed_retries=30 zero_delay_retries=0 heartbeat_ticks=363 final_removals=2 post_edit_observation_ms=61.588
+checks=26 failures=2
+FAIL queued cleanup cannot remove fresh publication
+FAIL fresh ranges survive default and tracking turns

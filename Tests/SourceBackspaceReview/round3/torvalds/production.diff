@@ -1,0 +1,103 @@
+diff --git a/Sources/Browser/AppController.m b/Sources/Browser/AppController.m
+index a5a2197..64291ca 100755
+--- a/Sources/Browser/AppController.m
++++ b/Sources/Browser/AppController.m
+@@ -1194,6 +1194,8 @@ - (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEdit
+     NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;
+     NSLayoutManager *layout = [[textView layoutManager] retain];
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:[layout textStorage]];
++    // Cancel the old note's deferred cleanup before this editor changes storage.
++    [textView removeHighlightedTerms];
+     // replaceTextStorage: moves every layout manager from the old storage.
+     // Detach only this window's layout manager when switching notes.
+     [[layout textStorage] removeLayoutManager:layout];
+diff --git a/Sources/Browser/AppController_Search.m b/Sources/Browser/AppController_Search.m
+index 9129756..c1f5f66 100644
+--- a/Sources/Browser/AppController_Search.m
++++ b/Sources/Browser/AppController_Search.m
+@@ -153,7 +153,7 @@ - (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {
+     if (storage != [textView textStorage] || !([storage editedMask] & NSTextStorageEditedCharacters)) return;
+     // Every attached editor observes shared characters, including uncommitted composition.
+     ++searchHighlightGeneration;
+-    [textView removeHighlightedTerms];
++    [textView invalidateSearchHighlights];
+ }
+ - (void)refreshSearchHighlights {
+     NSUInteger generation = ++searchHighlightGeneration;
+diff --git a/Sources/Editor/LinkingEditor.h b/Sources/Editor/LinkingEditor.h
+index 8dfe39e..3a71a5c 100755
+--- a/Sources/Editor/LinkingEditor.h
++++ b/Sources/Editor/LinkingEditor.h
+@@ -37,6 +37,7 @@
+ 	BOOL isAutocompleting, wasDeleting;
+ 	
+ 	BOOL backgroundIsDark, mouseInside;
++    BOOL searchHighlightsInvalidated;
+ 	
+ 	//ludicrous ivars used to hack NSTextFinder. just write your own, damnit!
+ 	NSRange selectedRangeDuringFind;
+@@ -71,6 +72,7 @@
+ - (NSRange)selectedRangeWasAutomatic:(BOOL*)automatic;
+ - (void)setAutomaticallySelectedRange:(NSRange)newRange;
+ - (void)removeHighlightedTerms;
++- (void)invalidateSearchHighlights;
+ - (void)setSearchHighlightRanges:(NSArray *)ranges;
+ - (void)highlightRangesTemporarily:(CFArrayRef)ranges;
+ - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;
+diff --git a/Sources/Editor/LinkingEditor.m b/Sources/Editor/LinkingEditor.m
+index 6a684ff..2a309e4 100755
+--- a/Sources/Editor/LinkingEditor.m
++++ b/Sources/Editor/LinkingEditor.m
+@@ -415,6 +415,11 @@ - (NSColor *)sourceColorForCapture:(NSString *)capture {
+ }
+ - (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes
+             forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range {
++    if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {
++        NSMutableDictionary *display = [[attributes mutableCopy] autorelease];
++        [display removeObjectForKey:NSBackgroundColorAttributeName];
++        attributes = display;
++    }
+     if (!screen || index >= [[manager textStorage] length]) return attributes;
+     // Base appearance < syntax < links. Search backgrounds and native selection
+     // remain independent; the input method owns marked-text appearance.
+@@ -464,8 +469,23 @@ - (void)italic:(id)sender {
+     if ([self usesMarkupSource]) [self changeMarkdownAttribute:[self usesMarkdownSource] ? @"*" : @"_"];
+ }
+ 
++- (void)invalidateSearchHighlights {
++    if (searchHighlightsInvalidated) return;
++    searchHighlightsInvalidated = YES;
++    // TextKit has not adjusted its glyph ranges during storage notifications.
++    // Suppress stale backgrounds now and remove them after edit processing.
++    [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];
++}
+ - (void)removeHighlightedTerms {
+-	[[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
++    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
++    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {
++        searchHighlightsInvalidated = YES;
++        // A nested run loop can run before endEditing. Avoid retrying at zero delay.
++        [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];
++        return;
++    }
++    searchHighlightsInvalidated = NO;
++    [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
+ }
+ 
+ 
+@@ -494,6 +514,7 @@ - (NSDictionary *)currentSearchHighlightAttributes {
+ 
+ - (void)setSearchHighlightRanges:(NSArray *)ranges {
+     [self removeHighlightedTerms];
++    if (searchHighlightsInvalidated) return;
+     NSColor *color = [[self currentSearchHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
+     if (!color) return;
+     NSUInteger length = [[self string] length];
+@@ -1494,6 +1515,7 @@ - (void)showGeneratedPasswords:(id)sender {
+ 
+ - (void)dealloc {
+     NSLog(@"dealloc linkinged");
++    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+     [self unbind:@"automaticQuoteSubstitutionEnabled"];
+     [self unbind:@"automaticDashSubstitutionEnabled"];
+     [self unbind:@"automaticTextReplacementEnabled"];

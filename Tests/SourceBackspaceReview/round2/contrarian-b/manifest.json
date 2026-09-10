@@ -1,0 +1,54 @@
+{
+  "tested_head_start": "5db853c252edf2cb8c81fc10e88f722006f3edb3",
+  "head_end": "5db853c252edf2cb8c81fc10e88f722006f3edb3",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "extracted_editor_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:"
+  ],
+  "extracted_observer": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+  "results": {
+    "candidate": {
+      "exit_code": 0,
+      "generated_sha256": "ebfd8c01567584ea648e0498382190064695cce2d8aca79cb52424d934ea94b2"
+    },
+    "source-background-removal": {
+      "exit_code": 1,
+      "generated_sha256": "65f442f943df06268802c8d8e86e169f3bc1a8a1b675d8e72e85e9ead4a2b453"
+    },
+    "cross-layout-cleanup": {
+      "exit_code": 1,
+      "generated_sha256": "4f711977b7f7e993a3f9dfc1faae2a329d5d2a265c486ece5b078fc3d43e9ef4"
+    },
+    "missing-display-suppression": {
+      "exit_code": 1,
+      "generated_sha256": "5409a07e1d3844f4745f06be26585c97f94a48a5721e2efc0bd853077aec528b"
+    },
+    "premature-no-color-return": {
+      "exit_code": 1,
+      "generated_sha256": "a8e7a3b6e96fb1a1e028574759472d61ae0880725c55b9ceb9decef7f9374e85"
+    }
+  },
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "Intel through Rosetta",
+  "limits": [
+    "Four real NSTextViews are windowless; there are no drawn pixels or UI activation.",
+    "Composition uses NSTextView setMarkedText directly; no input method or candidate window runs.",
+    "Adapter supplies capture validity, preferred colors, and source colors.",
+    "macOS 13.7.8 is unavailable."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "head": "5db853c252edf2cb8c81fc10e88f722006f3edb3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "source_hashes_start": {
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74"
+  },
+  "source_hashes_end": {
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74"
+  },
+  "production_unchanged": true,
+  "results": {
+    "positive": {
+      "exit": 0,
+      "stdout": "PASS: 57 checks; 12 exhaustive schedules; nested shared editing; async stage and selection gates\n",
+      "stderr": ""
+    },
+    "missing-edit-fence": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: old completion agrees with revision/request oracle\n"
+    },
+    "missing-refresh-fence": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: old completion agrees with revision/request oracle\n"
+    },
+    "missing-selection-fence": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: row-key change rejects a late callback before refresh\n"
+    },
+    "missing-current-results-fence": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: pending result snapshot rejects callback\n"
+    },
+    "unsafe-dirty-cleanup": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: both pending clears survive an open nested edit\n"
+    },
+    "unsafe-dirty-publication": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: even a current callback cannot install ranges during an open edit\n"
+    }
+  }
+}

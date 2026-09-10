@@ -1,0 +1,37 @@
+{
+  "production_commit": "c2209e2e6ca1194c3a3ffe361e826860e4e830d8",
+  "platform": "macOS 26.5.2 (25F84), Xcode 26.6 (17F113)",
+  "build": "unsigned Intel Development: passed",
+  "cases": [
+    {
+      "binary_sha256": "72571e5cff760a6d1464e7b29223fad093bcac99935e057ebf3b26a1525012a4",
+      "mode": "production-regression",
+      "native_exit": 0,
+      "checks": 310,
+      "original_range_exception": false,
+      "passed": true,
+      "evidence_directory": "build/SourceBackspace"
+    },
+    {
+      "binary_sha256": "5e96601075f2e99779818f9d4a9e8ff296884d03d3896ba81c8fb7adde13c5d7",
+      "mode": "original-crash-negative-control",
+      "native_exit": 1,
+      "checks": 7,
+      "original_range_exception": true,
+      "passed": true,
+      "evidence_directory": "build/SourceBackspaceNegativeControl"
+    }
+  ],
+  "runner_correction_commit": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "after_runner_correction": {
+    "source_backspace_checks": 310,
+    "highlight_bounds_checks": 134,
+    "expected_mutation_failures": 11,
+    "runner_unit_tests": 16,
+    "logs": [
+      "build/backspace-final-native.log",
+      "build/backspace-final-bounds.log",
+      "Tests/SourceBackspaceReview/fixes/oracles/output.txt"
+    ]
+  }
+}

@@ -1,0 +1,317 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger checks = 0;
+static NSUInteger failures = 0;
+static NSUInteger deallocations = 0;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL IsLionOrLater = NO;
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return NO; }
+static id NVControllerForView(id view) { return nil; }
+
+static void Check(BOOL condition, NSString *label) {
+    checks++;
+    if (!condition) {
+        failures++;
+        fprintf(stderr, "FAIL %s\n", [label UTF8String]);
+    }
+}
+
+static void Pump(void) {
+    NSDate *until = [NSDate dateWithTimeIntervalSinceNow:0.03];
+    while ([until timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
+}
+
+@interface ReviewLayout : NSLayoutManager
+@property(nonatomic) NSUInteger backgroundRemovals;
+@property(nonatomic) NSUInteger removalDuringCharacterEdit;
+@end
+@implementation ReviewLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        self.backgroundRemovals++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters)
+            self.removalDuringCharacterEdit++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+@end
+
+@interface ReviewEditor : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    ReviewLayout *layout;
+}
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (NSTextStorage *)textStorage;
+- (ReviewLayout *)layoutManager;
+- (NSString *)string;
+- (BOOL)invalidated;
+- (NSRange)selectedRange;
+- (void)setAllowsUndo:(BOOL)allows;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (NSColor *)foregrndColor;
+- (NSRange)markedRange;
+@end
+
+@implementation ReviewEditor
+- (instancetype)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@""];
+        layout = [[ReviewLayout alloc] init];
+        [storage addLayoutManager:layout];
+
+    }
+    return self;
+}
+- (NSTextStorage *)textStorage { return [layout textStorage]; }
+- (ReviewLayout *)layoutManager { return layout; }
+- (NSString *)string { return [[self textStorage] string]; }
+- (NSRange)selectedRange { return NSMakeRange(0,0); }
+- (void)setAllowsUndo:(BOOL)allows {}
+- (BOOL)invalidated { return searchHighlightsInvalidated; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName: [NSColor yellowColor]}; }
+- (NSDictionary *)preferredLinkAttributes { return @{}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return nil; }
+- (NSColor *)foregrndColor { return nil; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+/* PRODUCTION_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[layout textStorage] removeLayoutManager:layout];
+    [layout release];
+    [storage release];
+    deallocations++;
+    [super dealloc];
+}
+@end
+
+static BOOL HasBackground(ReviewEditor *editor, NSUInteger index) {
+    return [[editor layoutManager] temporaryAttribute:NSBackgroundColorAttributeName
+        atCharacterIndex:index effectiveRange:NULL] != nil;
+}
+
+
+// The controller methods below are extracted verbatim. These collaborators
+// expose only their ownership and callback contracts; no browser is opened.
+@interface NoteObject : NSObject { CFUUIDBytes identity; }
+@property(nonatomic, copy) NSString *source;
+- (CFUUIDBytes *)uniqueNoteIDBytes;
+@end
+@implementation NoteObject
+- (CFUUIDBytes *)uniqueNoteIDBytes { return &identity; }
+- (void)dealloc { [_source release]; [super dealloc]; }
+@end
+@interface NSString (ReviewUUID)
++ (NSString *)uuidStringWithBytes:(CFUUIDBytes)bytes;
+@end
+@implementation NSString (ReviewUUID)
++ (NSString *)uuidStringWithBytes:(CFUUIDBytes)bytes { return @"review-note"; }
+@end
+@interface NVNoteEditingSession : NSObject
+@property(nonatomic, retain) NSTextStorage *textStorage;
+@property(nonatomic) NSUInteger attaches;
+@property(nonatomic) NSUInteger detaches;
+@property(nonatomic) NSUInteger commits;
+- (void)sourceLayoutDidAttach;
+- (void)sourceLayoutDidDetach;
+- (void)commitTextChanges;
+@end
+@implementation NVNoteEditingSession
+- (void)sourceLayoutDidAttach { self.attaches++; }
+- (void)sourceLayoutDidDetach { self.detaches++; }
+- (void)commitTextChanges { self.commits++; }
+- (void)dealloc { [_textStorage release]; [super dealloc]; }
+@end
+@interface NVApplicationController : NSObject
++ (instancetype)sharedController;
+- (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note;
+@end
+@implementation NVApplicationController
++ (instancetype)sharedController { static id instance; if (!instance) instance = [self new]; return instance; }
+- (NVNoteEditingSession *)editingSessionForNote:(NoteObject *)note {
+    if (!note) return nil;
+    NVNoteEditingSession *session = [[[NVNoteEditingSession alloc] init] autorelease];
+    session.textStorage = [[[NSTextStorage alloc] initWithString:note.source] autorelease];
+    return session;
+}
+@end
+@interface Preferences : NSObject
+- (BOOL)showWordCount;
+@end
+@implementation Preferences
+- (BOOL)showWordCount { return NO; }
+@end
+@interface ReviewController : NSObject {
+    ReviewEditor *textView;
+    NoteObject *currentNote;
+    NVNoteEditingSession *editingSession;
+    NSMutableDictionary *noteSelections;
+    NSTextStorage *emptyEditorStorage;
+    NSUInteger searchHighlightGeneration;
+    BOOL viewingNote;
+    Preferences *prefsController;
+}
+@property(nonatomic) NSUInteger finishes;
+@property(nonatomic) NSUInteger creates;
+@property(nonatomic) NSUInteger posts;
+@property(nonatomic) NSUInteger headers;
+- (void)_setCurrentNote:(NoteObject *)note finishingEditing:(BOOL)finish;
+- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
+- (void)textDidChange:(NSNotification *)notification;
+- (void)textDidBeginEditing:(NSNotification *)notification;
+- (void)finishEditing;
+- (void)captureBodyPresentation;
+- (void)updateNoteHeader;
+- (void)updateBodyPresentation;
+- (void)discardViewer;
+- (void)updateViewerSnapshot;
+- (void)createNoteIfNecessary;
+- (void)postTextUpdate;
+- (void)updateWordCount:(BOOL)value;
+- (ReviewEditor *)editor;
+- (NVNoteEditingSession *)session;
+- (NSUInteger)generation;
+@end
+@implementation ReviewController
+- (instancetype)init {
+    if ((self = [super init])) {
+        textView = [ReviewEditor new];
+        emptyEditorStorage = [[textView textStorage] retain];
+        noteSelections = [NSMutableDictionary new];
+        prefsController = [Preferences new];
+    }
+    return self;
+}
+- (ReviewEditor *)editor { return textView; }
+- (NVNoteEditingSession *)session { return editingSession; }
+- (NSUInteger)generation { return searchHighlightGeneration; }
+- (void)finishEditing { self.finishes++; }
+- (void)captureBodyPresentation {}
+- (void)updateNoteHeader { self.headers++; }
+- (void)updateBodyPresentation {}
+- (void)discardViewer {}
+- (void)updateViewerSnapshot {}
+- (void)createNoteIfNecessary { self.creates++; }
+- (void)postTextUpdate { self.posts++; }
+- (void)updateWordCount:(BOOL)value {}
+/* CONTROLLER_METHODS */
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [currentNote release]; [editingSession release]; [noteSelections release];
+    [emptyEditorStorage release]; [prefsController release]; [textView release];
+    [super dealloc];
+}
+@end
+
+static void Install(ReviewEditor *editor) {
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0,3)]]];
+}
+static NoteObject *Note(NSString *source) {
+    NoteObject *note = [[[NoteObject alloc] init] autorelease]; note.source=source; return note;
+}
+static void Run(void) {
+    ReviewController *controller = [ReviewController new];
+    ReviewEditor *editor = [controller editor];
+    ReviewLayout *layout = [editor layoutManager];
+    NoteObject *a = Note(@"alpha first note");
+    NoteObject *b = Note(@"bravo second note");
+    [controller _setCurrentNote:a finishingEditing:YES];
+    Check(controller.finishes == 1 && controller.headers == 1, @"actual attachment executes one finish and one header update");
+    Check([controller session].attaches == 1 && [editor textStorage] == [controller session].textStorage, @"actual attachment connects session storage and layout");
+    Install(editor);
+
+    // Use the production begin-editing entrypoint rather than direct cleanup.
+    NSUInteger removed = layout.backgroundRemovals;
+    [controller textDidBeginEditing:[NSNotification notificationWithName:NSTextDidBeginEditingNotification object:[[[NSObject alloc] init] autorelease]]];
+    Check(HasBackground(editor,0) && layout.backgroundRemovals == removed && controller.creates == 0, @"foreign begin-editing notification has no editor effect");
+    [controller textDidBeginEditing:[NSNotification notificationWithName:NSTextDidBeginEditingNotification object:editor]];
+    Check(!HasBackground(editor,0) && ![editor invalidated] && controller.creates == 1, @"actual begin-editing callback clears before create-note callback");
+
+    // Attribute-only transactions do not advance source generations. Public
+    // removal remains synchronous for these transactions.
+    Install(editor);
+    NSTextStorage *old = [[editor textStorage] retain];
+    NSUInteger generation = [controller generation];
+    [old beginEditing];
+    [old addAttribute:NSUnderlineStyleAttributeName value:@1 range:NSMakeRange(0,1)];
+    [editor removeHighlightedTerms];
+    Check(![editor invalidated] && !HasBackground(editor,0), @"attribute-only transaction accepts synchronous public clear");
+    [old endEditing];
+    Check([controller generation] == generation, @"actual source observer ignores attribute-only notifications");
+
+    // Both public editing callbacks may arrive inside a character transaction.
+    // Their downstream collaborators run, while layout removal remains deferred.
+    Install(editor); removed = layout.backgroundRemovals;
+    [old beginEditing];
+    [old replaceCharactersInRange:NSMakeRange(0,1) withString:@"A"];
+    [controller textDidBeginEditing:[NSNotification notificationWithName:NSTextDidBeginEditingNotification object:editor]];
+    [controller textDidChange:[NSNotification notificationWithName:NSTextDidChangeNotification object:editor]];
+    Check([editor invalidated] && layout.backgroundRemovals == removed, @"actual begin and change callbacks defer all layout removal during character editing");
+    Check(controller.creates == 2 && controller.posts == 1 && [controller session].commits == 1, @"deferral preserves create, commit, and post-update callbacks");
+    Check([controller generation] == generation + 1, @"actual textDidChange advances source generation immediately");
+    Pump();
+    Check(layout.backgroundRemovals == removed, @"callback retry leaves open character transaction untouched");
+    [old endEditing];
+    Check([controller generation] == generation + 2, @"actual storage observer separately fences completed character processing");
+    Pump();
+    Check(![editor invalidated] && !HasBackground(editor,0), @"both callback paths converge to cleared state after edit completion");
+    Check(layout.removalDuringCharacterEdit == 0, @"controller path never invokes native removal with character-edit mask");
+
+    // A same-note selection is a real early return. Its pending work must remain
+    // owned by the current attachment and then finish exactly once.
+    Install(editor); [editor invalidateSearchHighlights];
+    NSUInteger finishCount = controller.finishes, headerCount = controller.headers;
+    removed = layout.backgroundRemovals;
+    [controller _setCurrentNote:a finishingEditing:YES];
+    Check(controller.finishes == finishCount && controller.headers == headerCount && [editor invalidated], @"same-note attachment preserves pending cleanup without presentation callbacks");
+    Pump();
+    Check(layout.backgroundRemovals == removed + 1 && !HasBackground(editor,0), @"same-note pending callback performs one eventual clear");
+
+    // Exercise the actual note-switch implementation: cancellation and observer
+    // transfer are now production code, not hand-written adapter ordering.
+    Install(editor); [editor invalidateSearchHighlights];
+    NVNoteEditingSession *oldSession = [[controller session] retain];
+    [controller _setCurrentNote:b finishingEditing:NO];
+    Check(controller.finishes == finishCount, @"finishingEditing:NO skips the finish callback");
+    Check(oldSession.detaches == 1 && [controller session].attaches == 1, @"actual switch reports one detach and one attach");
+    Check(![editor invalidated], @"actual switch cancels old deferred state before attaching new storage");
+    Install(editor); removed = layout.backgroundRemovals; generation = [controller generation];
+    [old replaceCharactersInRange:NSMakeRange(0,1) withString:@"a"];
+    Check([controller generation] == generation && ![editor invalidated], @"actual switch unregisters observer from old storage");
+    Pump();
+    Check(layout.backgroundRemovals == removed && HasBackground(editor,0), @"old note cleanup cannot touch newly installed note background");
+    [[editor textStorage] replaceCharactersInRange:NSMakeRange(0,1) withString:@"B"];
+    Check([controller generation] == generation + 1 && [editor invalidated], @"actual switch observes new source notifications");
+    Pump();
+    Check(!HasBackground(editor,0) && ![editor invalidated], @"new attachment independently clears its stale background");
+
+    // Detaching to the empty editor also retires the observer and delayed work.
+    [editor invalidateSearchHighlights];
+    NSTextStorage *second = [[editor textStorage] retain];
+    [controller _setCurrentNote:nil finishingEditing:YES];
+    Check([controller session] == nil && ![editor invalidated], @"actual nil selection retires session and pending callback");
+    generation = [controller generation]; removed = layout.backgroundRemovals;
+    [second replaceCharactersInRange:NSMakeRange(0,1) withString:@"b"];
+    Pump();
+    Check([controller generation] == generation && layout.backgroundRemovals == removed, @"detached note cannot schedule empty-editor cleanup");
+    [controller textDidChange:[NSNotification notificationWithName:NSTextDidChangeNotification object:second]];
+    Check([controller generation] == generation && controller.posts == 1, @"foreign change notification is inert after detachment");
+    Check([[old string] isEqual:@"alpha first note"] && [[second string] isEqual:@"bravo second note"], @"cleanup and switching preserve source after explicit fixture edits");
+    [second release]; [oldSession release]; [old release]; [controller release];
+    Pump();
+}
+int main(void) {
+    @autoreleasepool {
+        @try { Run(); }
+        @catch (NSException *exception) { failures++; fprintf(stderr,"EXCEPTION %s: %s\n",[[exception name] UTF8String],[[exception reason] UTF8String]); }
+        printf("checks=%lu failures=%lu\n",(unsigned long)checks,(unsigned long)failures);
+    }
+    return failures ? 1 : 0;
+}

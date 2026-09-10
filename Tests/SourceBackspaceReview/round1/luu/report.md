@@ -1,0 +1,15 @@
+Round 1 of 3 — Dan Luu-inspired review of costs and measurements. This is an analytical perspective, not an endorsement by Dan Luu.
+
+**P2: Avoid a zero-delay retry loop while character editing remains open.** `Sources/Editor/LinkingEditor.m:482–484` calls `invalidateSearchHighlights`, which immediately schedules another common-mode selector at line 477. If an editing batch spans a nested run-loop turn, every retry finds the same pending edit and schedules its successor. The native probe held `NSTextStorage` editing open for 50 ms and counted 3,396 schedules in default mode and 4,523 in event-tracking mode. There was no eligible layout removal before `endEditing`. A separate 1 ms timer fired 50 times in each mode, so this demonstrates main-thread CPU churn, not complete timer starvation. After editing ended, cleanup ran once and cleared the pending state.
+
+Keep the first cleanup deferred, but use bounded delayed retries or rearm from an editing-completion event if it still cannot run. Preserve cancellation when fresh results arrive and when storage changes. Retain the pending-display suppression throughout the wait. Add an operation-count regression for an open editing batch; avoid a machine-dependent timing threshold.
+
+The other measured paths passed:
+
+- In both 16 KiB and 1 MiB notes containing 2,048 background ranges, 1,000 invalidations coalesced into one selector and one layout removal. The prior production cleanup performed 1,000 removals for the same safe, between-edit request burst. Measured request durations were 510/516 ms for the prior cleanup versus 0.112/0.046 ms for new invalidations. These figures are descriptive only: they exclude the new deferred removal and do not estimate end-to-end typing latency.
+- A real shared-storage burst of 1,000 backspaces required one callback per attached editor: 1, 4, and 16 callbacks for 1, 4, and 16 editors. No removal ran inside character editing. This bounds cleanup scaling to the peer count for this workload.
+- The new delegate branch made zero extra mutable copies with no pending invalidation, zero with no background attribute, and exactly 2,048 copies for 2,048 pending background draws. After cleanup it returned to zero extra copies. Existing foreground attributes survived all 8,192 draw calls.
+
+Run `python3 Tests/SourceBackspaceReview/round1/luu/run.py`. The harness extracts the three changed production methods and the cleanup method from base `54ce3b8`, then compiles an Intel executable against AppKit. It uses real `NSTextStorage`, `NSLayoutManager`, timers, and the run loop. An `NSObject` adapter provides editor ownership; no app, window, or personal notes are opened. Drawing checks use `screen=NO` to isolate the added copy branch. The open-edit workload is deliberately reentrant; its frequency in ordinary user interactions was not established. macOS 13 was not tested.
+
+Result: **8,216 checks passed**, with one measured P2 finding. See `output.txt`, `compile.txt`, and `manifest.json`. SHA-256 hashes for all four production files were identical before and after the probe. No production files were changed by this review.

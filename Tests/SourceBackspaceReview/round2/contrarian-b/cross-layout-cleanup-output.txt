@@ -1,0 +1,15 @@
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+checks=48 failures=10 native_views=4 appearance_pairs=2
+FAIL invalidated search background stays stored but is suppressed by exact delegate
+2026-09-09 21:47:27.762 cross-layout-cleanup[82285:344586226] Error received in message reply handler: Connection invalid
+2026-09-09 21:47:27.762 cross-layout-cleanup[82285:344586230] Connection Invalid error for service com.apple.hiservices-xpcservice.
+FAIL one editor cleanup preserves peer temporary background
+FAIL empty result cancels pending cleanup and preserves peer results
+FAIL missing search color clears local results without altering peer results
+FAIL valid result after no-color state restores independent search backgrounds
+FAIL invalidated search background stays stored but is suppressed by exact delegate
+FAIL one editor cleanup preserves peer temporary background
+FAIL empty result cancels pending cleanup and preserves peer results
+FAIL missing search color clears local results without altering peer results
+FAIL valid result after no-color state restores independent search backgrounds

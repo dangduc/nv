@@ -1,0 +1,67 @@
+{
+  "tested_head_start": "feef9bd95ceb4f3b05d2a5cb00622c1b269ea4d9",
+  "head_end": "feef9bd95ceb4f3b05d2a5cb00622c1b269ea4d9",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "extracted_editor_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:"
+  ],
+  "extracted_controller_methods": [
+    [
+      "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {",
+      "Sources/Browser/AppController.m"
+    ],
+    [
+      "- (void)textDidChange:(NSNotification *)aNotification {",
+      "Sources/Browser/AppController.m"
+    ],
+    [
+      "- (void)textDidBeginEditing:(NSNotification *)aNotification {",
+      "Sources/Browser/AppController.m"
+    ],
+    [
+      "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+      "Sources/Browser/AppController_Search.m"
+    ]
+  ],
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 via Rosetta",
+  "results": {
+    "candidate": {
+      "exit_code": 0,
+      "generated_sha256": "4f8c23cb64f3bc9a608a25c75167c82bb71602136d35a53012e1b7ef1c1fab54"
+    },
+    "missing-attachment-clear": {
+      "exit_code": 1,
+      "generated_sha256": "dae53f4dcc2cc03d9889dfe3ab24a44d38c0047bb119bc4fd3e65626d5673289"
+    },
+    "missing-new-observer-registration": {
+      "exit_code": 1,
+      "generated_sha256": "9ff527c9e0960374193ea7576ae89a59824d3469c64e1dca925733405b8d966d"
+    },
+    "missing-edit-guard": {
+      "exit_code": 1,
+      "generated_sha256": "b231f7cbab6af593068eac5e2abd03605b8b1f995bed9f10066f697bf319fc5b"
+    }
+  },
+  "limits": [
+    "No browser, window, application launch, or pixel drawing.",
+    "Controller collaborators record callbacks and expose storage; their implementations are not tested.",
+    "finishEditing is a counter stub; this probe does not operate an input method.",
+    "The user macOS 13.7.8 environment is unavailable."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "crash": "nvALT-2026-09-09-211621.ips",
+  "exception": {
+    "codes": "0x0000000000000001, 0x0000000000000000",
+    "rawCodes": [
+      1,
+      0
+    ],
+    "type": "EXC_BAD_ACCESS",
+    "signal": "SIGSEGV",
+    "subtype": "KERN_INVALID_ADDRESS at 0x0000000000000000"
+  },
+  "frames": [
+    {},
+    {
+      "symbol": "-[AppController notationListMightChange:]",
+      "sourceFile": "AppController.m",
+      "sourceLine": 1820
+    },
+    {
+      "symbol": "-[NVBrowserSession refreshKeepingCurrentNote:]",
+      "sourceFile": "NVBrowserSession.m",
+      "sourceLine": 456
+    },
+    {
+      "symbol": "-[AppController(MultipleWindows) attachLibrary:finishingOldLibrary:]",
+      "sourceFile": "AppController_MultipleWindows.m",
+      "sourceLine": 62
+    },
+    {
+      "symbol": "-[NVApplicationController setLibrary:finishingOldLibrary:]",
+      "sourceFile": "NVApplicationController.m",
+      "sourceLine": 238
+    },
+    {
+      "symbol": "-[AppController(NVWindowTests) nv_runTests]"
+    },
+    {
+      "symbol": "__NSFireDelayedPerform"
+    },
+    {
+      "symbol": "__CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__"
+    }
+  ]
+}

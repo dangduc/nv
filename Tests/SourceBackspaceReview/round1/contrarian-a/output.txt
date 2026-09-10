@@ -1,0 +1,46 @@
+production
+PASS: native character deletion completed
+PASS: character observer never mutates native temporary attributes
+PASS: old async generation is invalidated before a run-loop turn
+PASS: native TextKit retains transformed old search background before cleanup
+PASS: pending cleanup cannot display the old search background
+PASS: pending cleanup retains syntax foreground rendering
+PASS: draw suppression does not mutate layout attributes
+PASS: cleanup eventually clears physical background and logical state
+PASS: new result is installed before the old callback runs
+PASS: queued old cleanup cannot erase a newly published result
+PASS: successful publication cancels old cleanup work
+PASS: explicit clear respects the native character-edit transaction
+PASS: nested run-loop callbacks also respect the open edit
+PASS: retry completes once the actual edit transaction ends
+PASS: old note callback does not mutate the replacement storage
+PASS: replacement storage begins without old logical invalidation
+Completed 16 checks.
+
+no_suppression
+PASS: native character deletion completed
+PASS: character observer never mutates native temporary attributes
+PASS: native TextKit retains transformed old search background before cleanup
+FAIL: pending cleanup cannot display the old search background
+
+no_cancel
+PASS: new result is installed before the old callback runs
+FAIL: queued old cleanup cannot erase a newly published result
+
+no_edit_guard
+FAIL: explicit clear respects the native character-edit transaction
+
+no_generation
+PASS: native character deletion completed
+PASS: character observer never mutates native temporary attributes
+FAIL: old async generation is invalidated before a run-loop turn
+
+no_switch_clear
+FAIL: old note callback does not mutate the replacement storage
+
+original_uncached_layout
+PASS: original deletion succeeds with no cached view glyph rectangle
+PASS: original observer clears native backgrounds inside character processing
+PASS: original observer also advances the async generation
+PASS: original immediate clear physically removes the old background
+Completed 4 checks.

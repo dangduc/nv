@@ -1,0 +1,3 @@
+checks=26 failures=2
+FAIL actual begin and change callbacks defer all layout removal during character editing
+FAIL callback retry leaves open character transaction untouched

@@ -1,0 +1,193 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger checks, failures, dictionaryCopies;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return NO; }
+static id NVControllerForView(id view) { return nil; }
+static void Check(BOOL value, const char *label) {
+    checks++; if (!value) { failures++; fprintf(stderr, "FAIL %s\n", label); }
+}
+static double Now(void) { return [NSDate timeIntervalSinceReferenceDate]; }
+static void Pump(NSString *mode, double duration) {
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:duration];
+    while ([end timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:mode beforeDate:end];
+}
+@interface CountedAttributes : NSDictionary { NSDictionary *backing; }
+- (id)initWithBackground:(BOOL)background;
+@end
+@implementation CountedAttributes
+- (id)initWithBackground:(BOOL)background {
+    self = [super init];
+    if (self) backing = [(background ? @{NSBackgroundColorAttributeName: [NSColor yellowColor],
+             NSForegroundColorAttributeName: [NSColor blueColor]} : @{NSForegroundColorAttributeName: [NSColor blueColor]}) retain];
+    return self;
+}
+- (NSUInteger)count { return [backing count]; }
+- (NSEnumerator *)keyEnumerator { return [backing keyEnumerator]; }
+- (id)objectForKey:(id)key { return [backing objectForKey:key]; }
+- (id)mutableCopyWithZone:(NSZone *)zone { dictionaryCopies++; return [backing mutableCopyWithZone:zone]; }
+- (void)dealloc { [backing release]; [super dealloc]; }
+@end
+@interface CountedLayout : NSLayoutManager
+@property NSUInteger removals;
+@property NSUInteger unsafeRemovals;
+@end
+@implementation CountedLayout
+- (void)removeTemporaryAttribute:(NSString *)attribute forCharacterRange:(NSRange)range {
+    if ([attribute isEqual:NSBackgroundColorAttributeName]) {
+        self.removals++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) self.unsafeRemovals++;
+    }
+    [super removeTemporaryAttribute:attribute forCharacterRange:range];
+}
+@end
+@interface ProbeEditor : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    CountedLayout *layout;
+}
+@property NSUInteger schedules;
+@property NSUInteger heartbeat;
+- (id)initWithStorage:(NSTextStorage *)value;
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)legacyRemoveHighlightedTerms;
+- (BOOL)pending;
+- (NSTextStorage *)textStorage;
+- (CountedLayout *)layoutManager;
+- (NSString *)string;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (NSColor *)foregrndColor;
+- (NSRange)markedRange;
+@end
+@implementation ProbeEditor
+- (id)initWithStorage:(NSTextStorage *)value {
+    if ((self = [super init])) {
+        storage = [value retain]; layout = [[CountedLayout alloc] init];
+        [storage addLayoutManager:layout];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(edited:)
+            name:NSTextStorageWillProcessEditingNotification object:storage];
+    }
+    return self;
+}
+- (void)edited:(NSNotification *)note {
+    if ([storage editedMask] & NSTextStorageEditedCharacters) [self invalidateSearchHighlights];
+}
+- (void)performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes {
+    if (selector == @selector(removeHighlightedTerms)) self.schedules++;
+    [super performSelector:selector withObject:object afterDelay:delay inModes:modes];
+}
+- (void)tick:(NSTimer *)timer { self.heartbeat++; }
+- (BOOL)pending { return searchHighlightsInvalidated; }
+- (NSTextStorage *)textStorage { return storage; }
+- (CountedLayout *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (NSDictionary *)preferredLinkAttributes { return @{}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return nil; }
+- (NSColor *)foregrndColor { return nil; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+/* PRODUCTION_METHODS */
+/* LEGACY_METHOD */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [storage removeLayoutManager:layout]; [layout release]; [storage release]; [super dealloc];
+}
+@end
+
+static NSTextStorage *Storage(NSUInteger size) {
+    return [[[NSTextStorage alloc] initWithString:[@"x" stringByPaddingToLength:size withString:@"x" startingAtIndex:0]] autorelease];
+}
+static void Dense(ProbeEditor *editor) {
+    NSUInteger length = [[editor textStorage] length], stride = length / 2048;
+    for (NSUInteger i = 0; i < 2048; i++)
+        [[editor layoutManager] addTemporaryAttribute:NSBackgroundColorAttributeName value:[NSColor yellowColor]
+            forCharacterRange:NSMakeRange(i * stride, stride / 2)];
+}
+static void Workload(NSUInteger size) {
+    ProbeEditor *editor = [[ProbeEditor alloc] initWithStorage:Storage(size)];
+    Dense(editor);
+    double start = Now();
+    for (NSUInteger i = 0; i < 1000; i++) [editor legacyRemoveHighlightedTerms];
+    double old = Now() - start;
+    Check([editor layoutManager].removals == 1000, "legacy burst performs 1000 layout removals");
+    [editor layoutManager].removals = 0;
+    Dense(editor); start = Now();
+    for (NSUInteger i = 0; i < 1000; i++) [editor invalidateSearchHighlights];
+    double current = Now() - start;
+    Check(editor.schedules == 1, "new burst schedules once");
+    Check([editor layoutManager].removals == 0, "new burst never touches layout synchronously");
+    Pump(NSDefaultRunLoopMode, .005);
+    Check([editor layoutManager].removals == 1 && ![editor pending], "new burst eventually removes once");
+    printf("dense bytes=%lu ranges=2048 requests=1000 legacy_removals=1000 new_removals=%lu schedules=%lu legacy_ms=%.3f invalidate_ms=%.3f\n",
+        size, [editor layoutManager].removals, editor.schedules, old * 1000, current * 1000);
+    [editor release];
+}
+static void Peers(NSUInteger count) {
+    NSTextStorage *storage = Storage(16384);
+    NSMutableArray *peers = [NSMutableArray array];
+    for (NSUInteger i = 0; i < count; i++) [peers addObject:[[[ProbeEditor alloc] initWithStorage:storage] autorelease]];
+    for (NSUInteger i = 0; i < 1000; i++) [storage replaceCharactersInRange:NSMakeRange([storage length] - 1, 1) withString:@""];
+    NSUInteger schedules = 0, removals = 0, unsafe = 0;
+    Pump(NSDefaultRunLoopMode, .005);
+    for (ProbeEditor *editor in peers) {
+        schedules += editor.schedules; removals += [editor layoutManager].removals; unsafe += [editor layoutManager].unsafeRemovals;
+    }
+    Check(schedules == count && removals == count, "shared-storage burst requires one callback per attached editor");
+    Check(unsafe == 0, "shared-storage callbacks all run after edits");
+    printf("peers=%lu deletions=1000 schedules=%lu removals=%lu unsafe=%lu\n", count, schedules, removals, unsafe);
+}
+static void Copies(void) {
+    ProbeEditor *editor = [[ProbeEditor alloc] initWithStorage:Storage(16384)];
+    CountedAttributes *with = [[CountedAttributes alloc] initWithBackground:YES];
+    CountedAttributes *without = [[CountedAttributes alloc] initWithBackground:NO];
+    for (NSUInteger stage = 0; stage < 4; stage++) {
+        if (stage == 1) [editor invalidateSearchHighlights];
+        if (stage == 3) Pump(NSDefaultRunLoopMode, .005);
+        dictionaryCopies = 0;
+        NSDictionary *attributes = stage == 2 ? without : with;
+        for (NSUInteger i = 0; i < 2048; i++) {
+            NSRange range = NSMakeRange(i, 1);
+            NSDictionary *result = [editor layoutManager:[editor layoutManager] shouldUseTemporaryAttributes:attributes
+                forDrawingToScreen:NO atCharacterIndex:i effectiveRange:&range];
+            Check([result objectForKey:NSForegroundColorAttributeName] != nil, "new copy branch preserves foreground");
+        }
+        Check(dictionaryCopies == (stage == 1 ? 2048 : 0), "extra dictionary copy requires pending cleanup and background");
+        printf("drawing_stage=%lu pending=%d background=%d calls=2048 extra_mutable_copies=%lu\n",
+               stage, [editor pending], stage != 2, dictionaryCopies);
+    }
+    [with release]; [without release]; [editor release];
+}
+static void Nested(NSString *mode) {
+    ProbeEditor *editor = [[ProbeEditor alloc] initWithStorage:Storage(1024)];
+    NSTextStorage *storage = [editor textStorage];
+    [storage beginEditing];
+    [storage replaceCharactersInRange:NSMakeRange(1023, 1) withString:@""];
+    [editor removeHighlightedTerms];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:.001 target:editor selector:@selector(tick:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    double start = Now(); Pump(mode, .05); double elapsed = Now() - start;
+    [timer invalidate];
+    NSUInteger nestedSchedules = editor.schedules;
+    Check([editor pending], "open batch remains pending");
+    Check([editor layoutManager].removals == 0, "nested run loop does not remove unstable attributes");
+    [storage endEditing]; Pump(mode, .005);
+    Check(![editor pending] && [editor layoutManager].removals == 1, "nested batch eventually drains exactly once");
+    printf("nested_mode=%s open_edit_ms=%.3f schedules=%lu heartbeat_ticks=%lu removals_before_end=0 final_removals=%lu\n",
+           [mode UTF8String], elapsed * 1000, nestedSchedules, editor.heartbeat, [editor layoutManager].removals);
+    [editor release];
+}
+int main(void) {
+    @autoreleasepool {
+        @try {
+            CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), (CFStringRef)NSEventTrackingRunLoopMode);
+            Workload(16384); Workload(1048576);
+            Peers(1); Peers(4); Peers(16);
+            Copies(); Nested(NSDefaultRunLoopMode); Nested(NSEventTrackingRunLoopMode);
+        } @catch (NSException *e) { failures++; fprintf(stderr, "EXCEPTION %s %s\n", [[e name] UTF8String], [[e reason] UTF8String]); }
+        printf("checks=%lu failures=%lu\n", checks, failures);
+    }
+    return failures ? 1 : 0;
+}

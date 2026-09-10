@@ -58,6 +58,10 @@ Clipboard writes use a private test pasteboard.
 
 ## Source and viewer checks
 
+The [source backspace checks](SourceBackspace/README.md) exercise deletion in a copied app with disposable notes.
+They cover cached search backgrounds, Undo, shared editors, composition, and pending cleanup during note switches.
+Run `python3 Tests/SourceBackspace/run.py` after a Development build.
+
 The aggregate regression command also runs the following suites:
 
 | Suite | Coverage |

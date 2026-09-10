@@ -1,0 +1,121 @@
+PASS: All drawing logic after the new suppression branch is unchanged from the base
+PASS: The added mutable copy has one site, conditional on pending invalidation and an input background
+PASS: The existing valid screen-drawing path retains its one dictionary-construction site
+PASS: The pending flag prevents repeat invalidation from scheduling another callback
+PASS: Initial invalidation contains one zero-delay callback site in common modes
+PASS: Every clear cancels the old request before the retry decision
+PASS: The character-edit guard contains one 10 ms retry site
+PASS: A stable clear retains one native removal operation over the current source length
+PASS: Attribute-only storage notifications return before generation advance and callback scheduling
+PASS: Character notifications advance the generation before deferred cleanup
+PASS: The ordinary text-change callback also clears highlights and can cancel the pending request
+PASS: Fresh publication clears old state before its range loop and stops if clearing remains deferred
+PASS: The range-publication cap is unchanged from the base
+PASS: The source defines a 2048-range display limit
+PASS: Async refresh contains an initial clear and a later guarded publication
+PASS: The range service places bounded literal discovery on its worker queue
+PASS: The four production source hashes remain unchanged
+{
+  "scope": "Static source operations and conditional bounds only. No runtime workload, AppKit call, timing, or GUI.",
+  "checks": 17,
+  "source_checks": [
+    "All drawing logic after the new suppression branch is unchanged from the base",
+    "The added mutable copy has one site, conditional on pending invalidation and an input background",
+    "The existing valid screen-drawing path retains its one dictionary-construction site",
+    "The pending flag prevents repeat invalidation from scheduling another callback",
+    "Initial invalidation contains one zero-delay callback site in common modes",
+    "Every clear cancels the old request before the retry decision",
+    "The character-edit guard contains one 10 ms retry site",
+    "A stable clear retains one native removal operation over the current source length",
+    "Attribute-only storage notifications return before generation advance and callback scheduling",
+    "Character notifications advance the generation before deferred cleanup",
+    "The ordinary text-change callback also clears highlights and can cancel the pending request",
+    "Fresh publication clears old state before its range loop and stops if clearing remains deferred",
+    "The range-publication cap is unchanged from the base",
+    "The source defines a 2048-range display limit",
+    "Async refresh contains an initial clear and a later guarded publication",
+    "The range service places bounded literal discovery on its worker queue",
+    "The four production source hashes remain unchanged"
+  ],
+  "ordinary_call_sites": [
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1198,
+      "enclosing_signature": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {",
+      "source": "[textView removeHighlightedTerms];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1487,
+      "enclosing_signature": "- (void)textDidChange:(NSNotification *)aNotification {",
+      "source": "[textView removeHighlightedTerms];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1501,
+      "enclosing_signature": "- (void)textDidBeginEditing:(NSNotification *)aNotification {",
+      "source": "[textView removeHighlightedTerms];"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 66,
+      "enclosing_signature": "- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {",
+      "source": "[textView removeHighlightedTerms];"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 156,
+      "enclosing_signature": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+      "source": "[textView invalidateSearchHighlights];"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 160,
+      "enclosing_signature": "- (void)refreshSearchHighlights {",
+      "source": "[textView removeHighlightedTerms];"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 178,
+      "enclosing_signature": "- (void)refreshSearchHighlights {",
+      "source": "if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 516,
+      "enclosing_signature": "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+      "source": "[self removeHighlightedTerms];"
+    }
+  ],
+  "drawing": {
+    "new_mutable_copy_sites": 1,
+    "added_copies_per_stable_draw_call": 0,
+    "added_copies_per_pending_draw_call_with_background": 1,
+    "existing_screen_result_dictionary_sites_before": 1,
+    "existing_screen_result_dictionary_sites_after": 1
+  },
+  "scheduling": {
+    "initial_delay_seconds": 0,
+    "guard_retry_delay_seconds": 0.01,
+    "initial_callback_sites": 1,
+    "guard_retry_sites": 1,
+    "stable_clear_scheduling_sites": 0,
+    "conditional_pending_request_bound_by_editors": [
+      {
+        "editors": 1,
+        "pending_requests_at_most": 1
+      },
+      {
+        "editors": 4,
+        "pending_requests_at_most": 4
+      },
+      {
+        "editors": 16,
+        "pending_requests_at_most": 16
+      }
+    ],
+    "bound_assumptions": "Main-thread calls, normal NSObject cancellation semantics, and one invalidation flag per editor. This is not a measured callback count."
+  },
+  "display_range_limit": 2048,
+  "whole_source_clear_operation_sites": 1
+}

@@ -1,0 +1,13 @@
+mode=kCFRunLoopDefaultMode peers=1 publish=before-retry open_ms=302.548 callbacks_scheduled=31 delayed_retries=30 zero_delay_retries=0 heartbeat_ticks=362 final_removals=1 post_edit_observation_ms=62.033
+mode=kCFRunLoopDefaultMode peers=1 publish=after-retry open_ms=302.517 callbacks_scheduled=31 delayed_retries=30 zero_delay_retries=0 heartbeat_ticks=372 final_removals=2 post_edit_observation_ms=91.960
+mode=kCFRunLoopDefaultMode peers=4 publish=before-retry open_ms=303.547 callbacks_scheduled=124 delayed_retries=120 zero_delay_retries=0 heartbeat_ticks=358 final_removals=4 post_edit_observation_ms=62.040
+mode=kCFRunLoopDefaultMode peers=4 publish=after-retry open_ms=304.106 callbacks_scheduled=124 delayed_retries=120 zero_delay_retries=0 heartbeat_ticks=372 final_removals=8 post_edit_observation_ms=91.464
+mode=kCFRunLoopDefaultMode peers=16 publish=before-retry open_ms=311.157 callbacks_scheduled=496 delayed_retries=480 zero_delay_retries=0 heartbeat_ticks=359 final_removals=16 post_edit_observation_ms=62.353
+mode=kCFRunLoopDefaultMode peers=16 publish=after-retry open_ms=311.508 callbacks_scheduled=496 delayed_retries=480 zero_delay_retries=0 heartbeat_ticks=371 final_removals=32 post_edit_observation_ms=91.390
+mode=NSEventTrackingRunLoopMode peers=1 publish=before-retry open_ms=302.416 callbacks_scheduled=30 delayed_retries=29 zero_delay_retries=0 heartbeat_ticks=330 final_removals=1 post_edit_observation_ms=61.271
+mode=NSEventTrackingRunLoopMode peers=1 publish=after-retry open_ms=303.538 callbacks_scheduled=31 delayed_retries=30 zero_delay_retries=0 heartbeat_ticks=381 final_removals=2 post_edit_observation_ms=91.636
+mode=NSEventTrackingRunLoopMode peers=4 publish=before-retry open_ms=303.750 callbacks_scheduled=124 delayed_retries=120 zero_delay_retries=0 heartbeat_ticks=354 final_removals=4 post_edit_observation_ms=61.519
+mode=NSEventTrackingRunLoopMode peers=4 publish=after-retry open_ms=305.632 callbacks_scheduled=124 delayed_retries=120 zero_delay_retries=0 heartbeat_ticks=376 final_removals=8 post_edit_observation_ms=92.042
+mode=NSEventTrackingRunLoopMode peers=16 publish=before-retry open_ms=305.670 callbacks_scheduled=496 delayed_retries=480 zero_delay_retries=0 heartbeat_ticks=346 final_removals=16 post_edit_observation_ms=63.348
+mode=NSEventTrackingRunLoopMode peers=16 publish=after-retry open_ms=310.350 callbacks_scheduled=496 delayed_retries=480 zero_delay_retries=0 heartbeat_ticks=379 final_removals=32 post_edit_observation_ms=92.780
+checks=1794 failures=0

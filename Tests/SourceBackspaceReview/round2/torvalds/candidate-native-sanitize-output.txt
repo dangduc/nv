@@ -1,0 +1,5 @@
+attribute-only mode=0 willMask=1 didMask=1 writesDelta=0
+attribute-only mode=1 willMask=1 didMask=1 writesDelta=1
+attribute-only mode=2 willMask=1 didMask=1 writesDelta=1
+mixed-batch willMask=3 didMask=3 generation=1 writesDelta=1
+checks=43 failures=0 deaths=6

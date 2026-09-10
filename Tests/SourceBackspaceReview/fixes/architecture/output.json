@@ -1,0 +1,16 @@
+{
+  "scope": "Static source/documentation consistency. No runtime validation.",
+  "checks": {
+    "cleanup cancels the old selector before checking character edits": true,
+    "character-edit branch reschedules and returns before removal": true,
+    "character-edit branch retains immediate display suppression": true,
+    "note switch requests cleanup before detaching the layout": true,
+    "documentation states selector cancellation": true,
+    "documentation states guarded deferral and suppression": true,
+    "documentation limits immediate removal to the other branch": true,
+    "documentation removes the unconditional guarantee": true,
+    "four production files remain unchanged": true
+  },
+  "passed": 9,
+  "total": 9
+}

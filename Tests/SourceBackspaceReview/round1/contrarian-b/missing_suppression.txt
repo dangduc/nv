@@ -1,0 +1,13 @@
+matrices=7680 checks=39819 failures=1922
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression
+FAIL current delegate differs from base only by stale background suppression

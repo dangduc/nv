@@ -1,0 +1,21 @@
+test_assertion_must_be_exact_stderr_line (test_runners.HighlightBoundsRunnerTests) ... ok
+test_every_named_mutation_accepts_its_exact_assertion (test_runners.HighlightBoundsRunnerTests) ... ok
+test_every_named_mutation_rejects_unrelated_failure (test_runners.HighlightBoundsRunnerTests) ... ok
+test_expected_assertion_does_not_hide_wrong_exit (test_runners.HighlightBoundsRunnerTests) ... ok
+test_positive_failure_is_not_accepted (test_runners.HighlightBoundsRunnerTests) ... ok
+test_positive_success (test_runners.HighlightBoundsRunnerTests) ... ok
+test_unknown_mutation_has_no_implicit_success_path (test_runners.HighlightBoundsRunnerTests) ... ok
+test_explicit_negative_mode_sets_its_own_switch (test_runners.SourceRunnerTests) ... ok
+test_full_marker_without_successful_exit_is_rejected (test_runners.SourceRunnerTests) ... ok
+test_full_suite_success (test_runners.SourceRunnerTests) ... ok
+test_missing_or_incomplete_marker_is_rejected (test_runners.SourceRunnerTests) ... ok
+test_negative_mode_rejects_success_or_wrong_failure (test_runners.SourceRunnerTests) ... ok
+test_normal_run_removes_every_inherited_repro_value (test_runners.SourceRunnerTests) ... ok
+test_partial_suite_marker_is_rejected (test_runners.SourceRunnerTests) ... ok
+test_timeout_is_failure_without_success_report (test_runners.SourceRunnerTests) ... ok
+test_timestamped_full_completion_is_accepted (test_runners.SourceRunnerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.211s
+
+OK

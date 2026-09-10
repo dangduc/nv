@@ -1,0 +1,190 @@
+#import <Cocoa/Cocoa.h>
+#include <stdio.h>
+static NSUInteger checks;
+static NSString *NVSourceCaptureAttributeName = @"review.capture";
+static const NSUInteger NVSearchMaximumDisplayedRanges = 4096;
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return YES; }
+@interface ColorSource : NSObject
+- (NSColor *)foregrndColor;
+@end
+@implementation ColorSource
+- (NSColor *)foregrndColor { return [NSColor blackColor]; }
+@end
+static ColorSource *NVControllerForView(id view) { return nil; }
+static void Check(BOOL value, const char *name) {
+    if (!value) { fprintf(stderr, "FAIL: %s\n", name); exit(1); }
+    ++checks;
+    printf("PASS: %s\n", name);
+}
+static void Drain(void) {
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:.04];
+    while ([end timeIntervalSinceNow] > 0)
+        [[NSRunLoop mainRunLoop] runMode:NSDefaultRunLoopMode beforeDate:end];
+}
+@interface CountLayout : NSLayoutManager {
+@public NSUInteger writesDuringEdit, removals, additions;
+}
+@end
+@implementation CountLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        ++removals;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) ++writesDuringEdit;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+- (void)addTemporaryAttribute:(NSString *)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        ++additions;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) ++writesDuringEdit;
+    }
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
+@end
+@interface Editor : NSObject {
+@public NSTextStorage *storage; CountLayout *layout;
+    BOOL searchHighlightsInvalidated, backgroundIsDark;
+}
+- (NSString *)string;
+- (NSTextStorage *)textStorage;
+- (NSLayoutManager *)layoutManager;
+- (NSRange)markedRange;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range;
+@end
+@implementation Editor
+- (id)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@"alpha beta gamma\nlast line"];
+        layout = [[CountLayout alloc] init];
+        [storage addLayoutManager:layout];
+    }
+    return self;
+}
+- (NSString *)string { return [storage string]; }
+- (NSTextStorage *)textStorage { return storage; }
+- (NSLayoutManager *)layoutManager { return layout; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+- (NSDictionary *)preferredLinkAttributes { return @{NSForegroundColorAttributeName:[NSColor blueColor]}; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName:[NSColor yellowColor]}; }
+/* EDITOR_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [storage removeLayoutManager:layout];
+    [layout release]; [storage release]; [super dealloc];
+}
+@end
+@interface Controller : NSObject {
+@public Editor *textView; NSUInteger searchHighlightGeneration;
+}
+- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
+@end
+@implementation Controller
+/* OBSERVER_METHOD */
+@end
+static Editor *MakeEditor(Controller **controller) {
+    Editor *editor = [[[Editor alloc] init] autorelease];
+    *controller = [[[Controller alloc] init] autorelease];
+    (*controller)->textView = editor;
+    [[NSNotificationCenter defaultCenter] addObserver:*controller
+        selector:@selector(searchSourceStorageWillProcessEditing:)
+        name:NSTextStorageWillProcessEditingNotification object:editor->storage];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 5)]]];
+    [editor->layout addTemporaryAttribute:NVSourceCaptureAttributeName value:@"number" forCharacterRange:NSMakeRange(0, 5)];
+    return editor;
+}
+static id Background(Editor *editor) {
+    return [editor->layout temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL];
+}
+static void Finish(Controller *controller) {
+    [[NSNotificationCenter defaultCenter] removeObserver:controller];
+    [controller->textView removeHighlightedTerms];
+    Drain();
+}
+static void Suppression(BOOL assertGeneration) {
+    Controller *controller; Editor *editor = MakeEditor(&controller);
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    Check([[editor string] length] == 25, "native character deletion completed");
+    Check(editor->layout->writesDuringEdit == 0, "character observer never mutates native temporary attributes");
+    if (assertGeneration) Check(controller->searchHighlightGeneration == 1, "old async generation is invalidated before a run-loop turn");
+    Check(Background(editor) != nil, "native TextKit retains transformed old search background before cleanup");
+    NSRange range = NSMakeRange(0, 5);
+    NSDictionary *input = [editor->layout temporaryAttributesAtCharacterIndex:0 effectiveRange:NULL];
+    NSDictionary *draw = [editor layoutManager:editor->layout shouldUseTemporaryAttributes:input forDrawingToScreen:YES atCharacterIndex:0 effectiveRange:&range];
+    Check([draw objectForKey:NSBackgroundColorAttributeName] == nil, "pending cleanup cannot display the old search background");
+    Check([draw objectForKey:NSForegroundColorAttributeName] != nil, "pending cleanup retains syntax foreground rendering");
+    Check([input objectForKey:NSBackgroundColorAttributeName] != nil, "draw suppression does not mutate layout attributes");
+    Drain();
+    Check(Background(editor) == nil && !editor->searchHighlightsInvalidated, "cleanup eventually clears physical background and logical state");
+    Finish(controller);
+}
+static void Cancellation(void) {
+    Controller *controller; Editor *editor = MakeEditor(&controller);
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 1)]]];
+    Check(Background(editor) != nil, "new result is installed before the old callback runs");
+    NSUInteger removed = editor->layout->removals;
+    Drain();
+    Check(Background(editor) != nil, "queued old cleanup cannot erase a newly published result");
+    Check(editor->layout->removals == removed, "successful publication cancels old cleanup work");
+    Finish(controller);
+}
+static void Guard(void) {
+    Controller *controller; Editor *editor = MakeEditor(&controller);
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    // An explicit clear can also arrive through refresh during a nested edit.
+    [editor removeHighlightedTerms];
+    Check(editor->layout->writesDuringEdit == 0, "explicit clear respects the native character-edit transaction");
+    Drain();
+    Check(editor->layout->writesDuringEdit == 0, "nested run-loop callbacks also respect the open edit");
+    [editor->storage endEditing];
+    Drain();
+    Check(Background(editor) == nil, "retry completes once the actual edit transaction ends");
+    Finish(controller);
+}
+static void Switch(BOOL clearBeforeDetach) {
+    Controller *controller; Editor *editor = MakeEditor(&controller);
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    // Use the exact detach/attach ordering from _setCurrentNote; this fixture
+    // intentionally has no browser session, note persistence, or window.
+    if (clearBeforeDetach) [editor removeHighlightedTerms];
+    NSTextStorage *old = editor->storage;
+    [old removeLayoutManager:editor->layout];
+    editor->storage = [[NSTextStorage alloc] initWithString:@"new note"];
+    [editor->storage addLayoutManager:editor->layout];
+    [old release];
+    NSUInteger removed = editor->layout->removals;
+    Drain();
+    Check(editor->layout->removals == removed, "old note callback does not mutate the replacement storage");
+    Check(!editor->searchHighlightsInvalidated, "replacement storage begins without old logical invalidation");
+    Finish(controller);
+}
+static void OriginalUncached(void) {
+    Controller *controller; Editor *editor = MakeEditor(&controller);
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    Check([[editor string] length] == 25, "original deletion succeeds with no cached view glyph rectangle");
+    Check(editor->layout->writesDuringEdit == 1, "original observer clears native backgrounds inside character processing");
+    Check(controller->searchHighlightGeneration == 1, "original observer also advances the async generation");
+    Check(Background(editor) == nil, "original immediate clear physically removes the old background");
+    Finish(controller);
+}
+int main(int argc, const char **argv) {
+    setvbuf(stdout, NULL, _IOLBF, 0);
+    @autoreleasepool {
+        NSString *scenario = argc > 1 ? [NSString stringWithUTF8String:argv[1]] : @"production";
+        if ([scenario isEqual:@"production"]) { Suppression(YES); Cancellation(); Guard(); Switch(YES); }
+        else if ([scenario isEqual:@"suppression"]) Suppression(NO);
+        else if ([scenario isEqual:@"generation"]) Suppression(YES);
+        else if ([scenario isEqual:@"cancel"]) Cancellation();
+        else if ([scenario isEqual:@"guard"]) Guard();
+        else if ([scenario isEqual:@"switch"]) Switch(NO);
+        else if ([scenario isEqual:@"causal"]) OriginalUncached();
+        printf("Completed %lu checks.\n", (unsigned long)checks);
+    }
+    return 0;
+}

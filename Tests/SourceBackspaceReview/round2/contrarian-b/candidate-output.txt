@@ -1,0 +1,5 @@
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+checks=48 failures=0 native_views=4 appearance_pairs=2
+2026-09-09 21:47:25.156 candidate[82275:344586147] Error received in message reply handler: Connection invalid
+2026-09-09 21:47:25.156 candidate[82275:344586167] Connection Invalid error for service com.apple.hiservices-xpcservice.

@@ -1194,6 +1194,8 @@ terminateApp:
     NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;
     NSLayoutManager *layout = [[textView layoutManager] retain];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:[layout textStorage]];
+    // Cancel the old note's deferred cleanup before this editor changes storage.
+    [textView removeHighlightedTerms];
     // replaceTextStorage: moves every layout manager from the old storage.
     // Detach only this window's layout manager when switching notes.
     [[layout textStorage] removeLayoutManager:layout];

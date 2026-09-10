@@ -1,0 +1,12 @@
+dense bytes=16384 ranges=2048 requests=1000 legacy_removals=1000 new_removals=1 schedules=1 legacy_ms=510.377 invalidate_ms=0.112
+dense bytes=1048576 ranges=2048 requests=1000 legacy_removals=1000 new_removals=1 schedules=1 legacy_ms=515.911 invalidate_ms=0.046
+peers=1 deletions=1000 schedules=1 removals=1 unsafe=0
+peers=4 deletions=1000 schedules=4 removals=4 unsafe=0
+peers=16 deletions=1000 schedules=16 removals=16 unsafe=0
+drawing_stage=0 pending=0 background=1 calls=2048 extra_mutable_copies=0
+drawing_stage=1 pending=1 background=1 calls=2048 extra_mutable_copies=2048
+drawing_stage=2 pending=1 background=0 calls=2048 extra_mutable_copies=0
+drawing_stage=3 pending=0 background=1 calls=2048 extra_mutable_copies=0
+nested_mode=kCFRunLoopDefaultMode open_edit_ms=50.019 schedules=3396 heartbeat_ticks=50 removals_before_end=0 final_removals=1
+nested_mode=NSEventTrackingRunLoopMode open_edit_ms=50.021 schedules=4523 heartbeat_ticks=50 removals_before_end=0 final_removals=1
+checks=8216 failures=0

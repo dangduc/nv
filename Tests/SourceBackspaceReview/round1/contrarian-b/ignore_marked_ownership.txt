@@ -1,0 +1,13 @@
+matrices=7680 checks=39819 failures=3200
+FAIL current delegate differs from base only by stale background suppression
+FAIL link and marked effective ranges remain unchanged
+FAIL marked text owns foreground despite syntax and links
+FAIL current delegate differs from base only by stale background suppression
+FAIL link and marked effective ranges remain unchanged
+FAIL marked text owns foreground despite syntax and links
+FAIL current delegate differs from base only by stale background suppression
+FAIL link and marked effective ranges remain unchanged
+FAIL marked text owns foreground despite syntax and links
+FAIL current delegate differs from base only by stale background suppression
+FAIL link and marked effective ranges remain unchanged
+FAIL marked text owns foreground despite syntax and links

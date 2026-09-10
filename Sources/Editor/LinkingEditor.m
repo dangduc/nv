@@ -415,6 +415,11 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 - (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes
             forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range {
+    if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {
+        NSMutableDictionary *display = [[attributes mutableCopy] autorelease];
+        [display removeObjectForKey:NSBackgroundColorAttributeName];
+        attributes = display;
+    }
     if (!screen || index >= [[manager textStorage] length]) return attributes;
     // Base appearance < syntax < links. Search backgrounds and native selection
     // remain independent; the input method owns marked-text appearance.
@@ -464,8 +469,23 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     if ([self usesMarkupSource]) [self changeMarkdownAttribute:[self usesMarkdownSource] ? @"*" : @"_"];
 }
 
+- (void)invalidateSearchHighlights {
+    if (searchHighlightsInvalidated) return;
+    searchHighlightsInvalidated = YES;
+    // TextKit has not adjusted its glyph ranges during storage notifications.
+    // Suppress stale backgrounds now and remove them after edit processing.
+    [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];
+}
 - (void)removeHighlightedTerms {
-	[[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {
+        searchHighlightsInvalidated = YES;
+        // A nested run loop can run before endEditing. Avoid retrying at zero delay.
+        [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];
+        return;
+    }
+    searchHighlightsInvalidated = NO;
+    [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
 }
 
 
@@ -494,6 +514,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 - (void)setSearchHighlightRanges:(NSArray *)ranges {
     [self removeHighlightedTerms];
+    if (searchHighlightsInvalidated) return;
     NSColor *color = [[self currentSearchHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
     if (!color) return;
     NSUInteger length = [[self string] length];
@@ -1494,6 +1515,7 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 
 - (void)dealloc {
     NSLog(@"dealloc linkinged");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
     [self unbind:@"automaticQuoteSubstitutionEnabled"];
     [self unbind:@"automaticDashSubstitutionEnabled"];
     [self unbind:@"automaticTextReplacementEnabled"];

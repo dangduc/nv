@@ -1,0 +1,13 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "system": "macOS 26.5.2; native ARM64 sanitizer probe and Intel Rosetta GUI baseline",
+  "production_hash_records": [
+    "source-hashes-start.txt",
+    "source-hashes-end.txt"
+  ],
+  "production_stable_during_native_probe": true,
+  "baseline_binary_sha256": "5e96601075f2e99779818f9d4a9e8ff296884d03d3896ba81c8fb7adde13c5d7",
+  "candidate_crash_evidence": "build/backspace-windows.log (root run), candidate-crash.json",
+  "baseline_comparison": "baseline-results.json, baseline-crash.json",
+  "scope": "No production edit, commit, post, or real user library access. Baseline test only suppresses early search-highlight cleanup while preserving the generation increment."
+}

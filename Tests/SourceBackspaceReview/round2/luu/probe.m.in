@@ -1,0 +1,221 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger checks, failures;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return NO; }
+static id NVControllerForView(id view) { return nil; }
+static void Check(BOOL condition, const char *message) {
+    checks++; if (!condition) { failures++; fprintf(stderr, "FAIL %s\n", message); }
+}
+static double Now(void) { return [NSDate timeIntervalSinceReferenceDate]; }
+static void Pump(NSString *mode, double duration) {
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:duration];
+    while ([end timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:mode beforeDate:end];
+}
+@interface CountedLayout : NSLayoutManager
+@property NSUInteger removals;
+@property NSUInteger additions;
+@property NSUInteger unsafeRemovals;
+@end
+@implementation CountedLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        self.removals++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) self.unsafeRemovals++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+- (void)addTemporaryAttribute:(NSString *)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) self.additions++;
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
+@end
+@class ProbeEditor;
+@interface ProbeController : NSObject {
+    ProbeEditor *textView;
+    NSUInteger searchHighlightGeneration;
+}
+- (id)initWithEditor:(ProbeEditor *)editor;
+- (NSUInteger)generation;
+@end
+@interface ProbeEditor : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    CountedLayout *layout;
+    ProbeController *controller;
+}
+@property NSUInteger schedules;
+@property NSUInteger retrySchedules;
+@property NSUInteger zeroRetrySchedules;
+@property NSUInteger invalidModeSchedules;
+@property NSUInteger heartbeats;
+- (id)initWithStorage:(NSTextStorage *)value;
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (BOOL)pending;
+- (NSUInteger)generation;
+- (NSTextStorage *)textStorage;
+- (CountedLayout *)layoutManager;
+- (NSString *)string;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (NSColor *)foregrndColor;
+- (NSRange)markedRange;
+@end
+@implementation ProbeController
+- (id)initWithEditor:(ProbeEditor *)editor {
+    if ((self = [super init])) {
+        textView = editor;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchSourceStorageWillProcessEditing:)
+            name:NSTextStorageWillProcessEditingNotification object:[editor textStorage]];
+    }
+    return self;
+}
+- (NSUInteger)generation { return searchHighlightGeneration; }
+/* OBSERVER_METHOD */
+- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; [super dealloc]; }
+@end
+@implementation ProbeEditor
+- (id)initWithStorage:(NSTextStorage *)value {
+    if ((self = [super init])) {
+        storage = [value retain]; layout = [[CountedLayout alloc] init];
+        [storage addLayoutManager:layout]; controller = [[ProbeController alloc] initWithEditor:self];
+    }
+    return self;
+}
+- (void)performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes {
+    if (selector == @selector(removeHighlightedTerms)) {
+        self.schedules++;
+        if (delay > 0) self.retrySchedules++;
+        // Initial invalidation is intentionally zero-delay. All subsequent scheduling
+        // during an open batch must use the corrected retry delay.
+        if (self.schedules > 1 && ([storage editedMask] & NSTextStorageEditedCharacters) && delay < .01)
+            self.zeroRetrySchedules++;
+        if (![modes isEqual:@[NSRunLoopCommonModes]]) self.invalidModeSchedules++;
+    }
+    [super performSelector:selector withObject:object afterDelay:delay inModes:modes];
+}
+- (BOOL)pending { return searchHighlightsInvalidated; }
+- (NSUInteger)generation { return [controller generation]; }
+- (NSTextStorage *)textStorage { return storage; }
+- (CountedLayout *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName: [NSColor yellowColor]}; }
+- (NSDictionary *)preferredLinkAttributes { return @{}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return nil; }
+- (NSColor *)foregrndColor { return nil; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+- (void)tick:(NSTimer *)timer { self.heartbeats++; }
+/* EDITOR_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self]; [controller release];
+    [storage removeLayoutManager:layout]; [layout release]; [storage release]; [super dealloc];
+}
+@end
+
+static BOOL HasBackground(ProbeEditor *editor, NSUInteger index) {
+    return [[editor layoutManager] temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:index effectiveRange:NULL] != nil;
+}
+static NSArray *FreshRanges(void) {
+    return @[[NSValue valueWithRange:NSMakeRange(0, 4)], [NSValue valueWithRange:NSMakeRange(8, 3)]];
+}
+static void PendingDraw(ProbeEditor *editor) {
+    NSDictionary *input = @{NSBackgroundColorAttributeName: [NSColor yellowColor], NSForegroundColorAttributeName: [NSColor blueColor]};
+    NSRange range = NSMakeRange(0, 4);
+    NSDictionary *result = [editor layoutManager:[editor layoutManager] shouldUseTemporaryAttributes:input
+        forDrawingToScreen:NO atCharacterIndex:0 effectiveRange:&range];
+    Check([result objectForKey:NSBackgroundColorAttributeName] == nil, "pending retries suppress stale background");
+    Check([result objectForKey:NSForegroundColorAttributeName] == [input objectForKey:NSForegroundColorAttributeName], "pending retries preserve foreground");
+    Check([input objectForKey:NSBackgroundColorAttributeName] != nil, "suppression does not mutate stored input");
+}
+static void NestedPeers(NSUInteger count, NSString *mode, BOOL publishBeforeRetry) {
+    @autoreleasepool {
+        NSString *otherMode = [mode isEqual:NSDefaultRunLoopMode] ? NSEventTrackingRunLoopMode : NSDefaultRunLoopMode;
+        NSTextStorage *storage = [[[NSTextStorage alloc] initWithString:[@"x" stringByPaddingToLength:65536 withString:@"x" startingAtIndex:0]] autorelease];
+        NSMutableArray *peers = [NSMutableArray array];
+        for (NSUInteger i = 0; i < count; i++) {
+            ProbeEditor *editor = [[[ProbeEditor alloc] initWithStorage:storage] autorelease];
+            [editor setSearchHighlightRanges:FreshRanges()];
+            [editor layoutManager].removals = 0;
+            [editor layoutManager].additions = 0;
+            [peers addObject:editor];
+        }
+        ProbeEditor *first = [peers objectAtIndex:0];
+        NSTimer *heartbeat = [NSTimer timerWithTimeInterval:.001 target:first selector:@selector(tick:) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:heartbeat forMode:NSRunLoopCommonModes];
+        [storage beginEditing]; [storage beginEditing];
+        [storage replaceCharactersInRange:NSMakeRange(65535, 1) withString:@""];
+        for (ProbeEditor *editor in peers) [editor invalidateSearchHighlights];
+        double started = Now();
+        for (NSUInteger phase = 0; phase < 3; phase++) {
+            Pump(phase == 1 ? otherMode : mode, .1);
+            NSUInteger schedulesBefore = 0, schedulesAfter = 0;
+            for (ProbeEditor *editor in peers) schedulesBefore += editor.schedules;
+            for (NSUInteger burst = 0; burst < 10000; burst++)
+                for (ProbeEditor *editor in peers) [editor invalidateSearchHighlights];
+            for (ProbeEditor *editor in peers) schedulesAfter += editor.schedules;
+            Check(schedulesAfter == schedulesBefore, "10,000 invalidations per peer add no queued retries");
+            for (ProbeEditor *editor in peers) {
+                Check([editor pending] && [editor layoutManager].removals == 0, "prolonged editing does not remove attributes");
+                PendingDraw(editor);
+            }
+            if (phase == 0) [storage endEditing];
+        }
+        double held = Now() - started;
+        NSUInteger totalSchedules = 0, delayed = 0, zeros = 0, modes = 0;
+        for (ProbeEditor *editor in peers) {
+            totalSchedules += editor.schedules; delayed += editor.retrySchedules;
+            zeros += editor.zeroRetrySchedules; modes += editor.invalidModeSchedules;
+            Check(editor.schedules > 1, "prolonged batch executed retry scheduling");
+        }
+        Check(zeros == 0, "every open-batch retry requests at least ten milliseconds");
+        Check(modes == 0, "every callback uses common modes");
+        [storage endEditing];
+        for (ProbeEditor *editor in peers) Check([editor generation] == 1, "outer endEditing notifies each attached editor once");
+        double ended = Now();
+        if (!publishBeforeRetry) Pump(otherMode, .03);
+        NSUInteger schedulesAtPublication = 0;
+        for (ProbeEditor *editor in peers) {
+            if (!publishBeforeRetry) Check(![editor pending] && [editor layoutManager].removals == 1, "queued retry clears once after outer endEditing");
+            [editor setSearchHighlightRanges:FreshRanges()];
+            schedulesAtPublication += editor.schedules;
+            Check(![editor pending], "fresh publication clears pending state");
+            Check(HasBackground(editor, 0) && HasBackground(editor, 8), "fresh publication installs both new ranges");
+        }
+        Pump(mode, .03); Pump(otherMode, .03);
+        NSUInteger finalRemovals = 0, finalSchedules = 0;
+        for (ProbeEditor *editor in peers) {
+            finalRemovals += [editor layoutManager].removals; finalSchedules += editor.schedules;
+            Check([editor layoutManager].removals == (publishBeforeRetry ? 1 : 2), "queued cleanup cannot remove fresh publication");
+            Check(HasBackground(editor, 0) && HasBackground(editor, 8), "fresh ranges survive default and tracking turns");
+            Check([editor layoutManager].additions == 2, "fresh publication performs two additions per editor");
+            Check([editor layoutManager].unsafeRemovals == 0, "no temporary background removal during unstable edit");
+        }
+        Check(finalSchedules == schedulesAtPublication, "publication leaves no retry chain running");
+        [heartbeat invalidate];
+        printf("mode=%s peers=%lu publish=%s open_ms=%.3f callbacks_scheduled=%lu delayed_retries=%lu zero_delay_retries=%lu heartbeat_ticks=%lu final_removals=%lu post_edit_observation_ms=%.3f\n",
+            [mode UTF8String], count, publishBeforeRetry ? "before-retry" : "after-retry", held * 1000,
+            totalSchedules, delayed, zeros, first.heartbeats, finalRemovals, (Now() - ended) * 1000);
+    }
+}
+int main(int argc, char **argv) {
+    @autoreleasepool {
+        @try {
+            CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), (CFStringRef)NSEventTrackingRunLoopMode);
+            if (argc > 1) NestedPeers(1, NSDefaultRunLoopMode, YES);
+            else for (NSString *mode in @[NSDefaultRunLoopMode, NSEventTrackingRunLoopMode])
+                for (NSNumber *peers in @[@1, @4, @16]) {
+                    NestedPeers([peers unsignedIntegerValue], mode, YES);
+                    NestedPeers([peers unsignedIntegerValue], mode, NO);
+                }
+        } @catch (NSException *exception) {
+            failures++; fprintf(stderr, "EXCEPTION %s %s\n", [[exception name] UTF8String], [[exception reason] UTF8String]);
+        }
+        printf("checks=%lu failures=%lu\n", checks, failures);
+    }
+    return failures ? 1 : 0;
+}

@@ -1,0 +1,158 @@
+#import <Cocoa/Cocoa.h>
+#include <math.h>
+
+static NSUInteger checks;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return NO; }
+static id NVControllerForView(id view) { return nil; }
+static void Check(BOOL value, const char *label) {
+    if (!value) { fprintf(stderr, "FAIL: %s\n", label); exit(1); }
+    checks++;
+}
+static double Now(void) { return (double)clock_gettime_nsec_np(CLOCK_UPTIME_RAW) / 1e9; }
+static void Pump(NSString *mode, NSTimeInterval seconds) {
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:seconds];
+    while ([end timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:mode beforeDate:end];
+}
+@interface Layout : NSLayoutManager { @public NSUInteger removals, unsafeRemovals; }
+@end
+@implementation Layout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        removals++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) unsafeRemovals++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+@end
+@interface Editor : NSObject {
+@public
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    Layout *layout;
+    NSUInteger schedules, callbacks, zeroDelayRetries;
+}
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (NSTextStorage *)textStorage;
+- (NSLayoutManager *)layoutManager;
+- (NSString *)string;
+- (NSRange)markedRange;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (NSColor *)foregrndColor;
+@end
+@implementation Editor
+- (id)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@"alpha beta gamma\nlast line"];
+        layout = [[Layout alloc] init];
+        [storage addLayoutManager:layout];
+    }
+    return self;
+}
+- (NSTextStorage *)textStorage { return storage; }
+- (NSLayoutManager *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+- (NSDictionary *)preferredLinkAttributes { return @{}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return nil; }
+- (NSColor *)foregrndColor { return nil; }
+- (void)performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes {
+    if (selector == @selector(removeHighlightedTerms)) {
+        schedules++;
+        if (([storage editedMask] & NSTextStorageEditedCharacters) && delay < .01) zeroDelayRetries++;
+    }
+    [super performSelector:selector withObject:object afterDelay:delay inModes:modes];
+}
+/* PRODUCTION_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [storage removeLayoutManager:layout];
+    [storage release]; [layout release]; [super dealloc];
+}
+@end
+@interface CountedEditor : Editor @end
+@implementation CountedEditor
+- (void)removeHighlightedTerms { callbacks++; [super removeHighlightedTerms]; }
+@end
+static BOOL HasBackground(Editor *editor) {
+    return [editor->layout temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil;
+}
+static void Install(Editor *editor) {
+    [editor->layout addTemporaryAttribute:NSBackgroundColorAttributeName value:[NSColor yellowColor]
+                       forCharacterRange:NSMakeRange(0, [editor->storage length])];
+    [editor->layout addTemporaryAttribute:NSForegroundColorAttributeName value:[NSColor blueColor]
+                       forCharacterRange:NSMakeRange(0, [editor->storage length])];
+}
+static void Nested(NSString *mode) {
+    CountedEditor *editor = [[CountedEditor alloc] init];
+    Install(editor);
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange(25, 1) withString:@""];
+    [editor removeHighlightedTerms];
+    Check(editor->zeroDelayRetries == 0, "character-edit retries have at least 10 ms delay");
+    double start = Now();
+    Pump(mode, .05);
+    double elapsed = Now() - start;
+    NSUInteger schedules = editor->schedules;
+    Check(editor->zeroDelayRetries == 0, "nested callbacks retain the minimum retry delay");
+    Check(schedules <= (NSUInteger)ceil(elapsed / .005) + 2,
+          "open-batch callback count stays within elapsed retry budget");
+    Check(editor->searchHighlightsInvalidated && editor->layout->removals == 0,
+          "nested callbacks keep suppression without native layout removal");
+    NSRange range = NSMakeRange(0, 1);
+    NSDictionary *display = [editor layoutManager:editor->layout
+                    shouldUseTemporaryAttributes:@{NSBackgroundColorAttributeName:[NSColor yellowColor],
+                                                   NSForegroundColorAttributeName:[NSColor blueColor]}
+                    forDrawingToScreen:NO atCharacterIndex:0 effectiveRange:&range];
+    Check(![display objectForKey:NSBackgroundColorAttributeName], "delayed retry suppresses stale background drawing");
+    Check([display objectForKey:NSForegroundColorAttributeName] != nil, "delayed retry preserves syntax foreground");
+    [editor->storage endEditing];
+    Pump(mode, .03);
+    Check(!editor->searchHighlightsInvalidated && editor->layout->removals == 1,
+          "completed editing clears exactly once");
+    Check(editor->layout->unsafeRemovals == 0 && !HasBackground(editor),
+          "cleanup never removes layout attributes during character processing");
+    printf("mode=%s open_edit_ms=%.3f schedules=%lu final_removals=%lu\n",
+           [mode UTF8String], elapsed * 1000, schedules, editor->layout->removals);
+
+    Install(editor);
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange(24, 1) withString:@""];
+    [editor removeHighlightedTerms];
+    [editor->storage endEditing];
+    [editor removeHighlightedTerms];
+    Install(editor);
+    NSUInteger callbacks = editor->callbacks;
+    Pump(mode, .03);
+    Check(editor->callbacks == callbacks && HasBackground(editor),
+          "explicit safe cleanup cancels old retry before fresh range publication");
+
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange(23, 1) withString:@""];
+    [editor removeHighlightedTerms];
+    [editor->storage endEditing];
+    [editor removeHighlightedTerms];
+    NSTextStorage *old = editor->storage;
+    [old removeLayoutManager:editor->layout];
+    editor->storage = [[NSTextStorage alloc] initWithString:@"replacement note"];
+    [editor->storage addLayoutManager:editor->layout];
+    [old release];
+    Install(editor);
+    callbacks = editor->callbacks;
+    Pump(mode, .03);
+    Check(editor->callbacks == callbacks && HasBackground(editor),
+          "note attachment keeps fresh storage attributes after cancellation");
+    [editor release];
+}
+int main(void) {
+    @autoreleasepool {
+        CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), (CFStringRef)NSEventTrackingRunLoopMode);
+        Nested(NSDefaultRunLoopMode);
+        Nested(NSEventTrackingRunLoopMode);
+        printf("RETRY FIX PASSED: %lu checks\n", checks);
+    }
+    return 0;
+}

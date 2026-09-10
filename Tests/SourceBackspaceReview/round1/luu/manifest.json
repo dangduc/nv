@@ -1,0 +1,32 @@
+{
+  "base": "54ce3b8",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+  },
+  "unchanged": true,
+  "generated_probe_sha256": "97b7a20e75019d256d7b7a2e7f753dcbfd56f2c5a53f0c9880ce095b8180ac2e",
+  "exit_code": 0,
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 through Rosetta",
+  "production_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:"
+  ],
+  "bounds": [
+    "Native AppKit storage/layout; NSObject adapter for editor ownership, no window or browser.",
+    "Counts are assertions; elapsed durations are descriptive and have no pass/fail threshold.",
+    "Safe legacy comparison sends invalidations between edits; it does not repeat the known crash.",
+    "Drawing probe calls exact delegate with screen=NO to isolate new dictionary-copy branch.",
+    "Nested-edit probe deliberately pumps a run loop across beginEditing/endEditing; user path frequency is unknown."
+  ]
+}

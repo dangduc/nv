@@ -1,0 +1,1 @@
+FAIL: pending result snapshot rejects callback

@@ -1,0 +1,71 @@
+STATIC REVIEW ONLY
+HEAD: bfaebae755501f834f0eef8fc6dd395c7a2340ff
+Production: c2209e2e6ca1194c3a3ffe361e826860e4e830d8
+Changed methods: 7
+  - (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range
+  - (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing
+  - (void)dealloc
+  - (void)invalidateSearchHighlights
+  - (void)removeHighlightedTerms
+  - (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification
+  - (void)setSearchHighlightRanges:(NSArray *)ranges
+Changed line counts: {"+": {"code": 18, "declaration": 3, "structural": 3, "comment-only": 4, "blank": 0}, "-": {"code": 2, "declaration": 0, "structural": 0, "comment-only": 0, "blank": 0}}
+
+ALL ADDED AND REMOVED LINES
++ Sources/Browser/AppController.m:1197 [comment-only]     // Cancel the old note's deferred cleanup before this editor changes storage.
++ Sources/Browser/AppController.m:1198 [code]     [textView removeHighlightedTerms];
+- Sources/Browser/AppController_Search.m:156 [code]     [textView removeHighlightedTerms];
++ Sources/Browser/AppController_Search.m:156 [code]     [textView invalidateSearchHighlights];
++ Sources/Editor/LinkingEditor.h:40 [declaration]     BOOL searchHighlightsInvalidated;
++ Sources/Editor/LinkingEditor.h:75 [declaration] - (void)invalidateSearchHighlights;
++ Sources/Editor/LinkingEditor.m:418 [code]     if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {
++ Sources/Editor/LinkingEditor.m:419 [code]         NSMutableDictionary *display = [[attributes mutableCopy] autorelease];
++ Sources/Editor/LinkingEditor.m:420 [code]         [display removeObjectForKey:NSBackgroundColorAttributeName];
++ Sources/Editor/LinkingEditor.m:421 [code]         attributes = display;
++ Sources/Editor/LinkingEditor.m:422 [structural]     }
++ Sources/Editor/LinkingEditor.m:472 [declaration] - (void)invalidateSearchHighlights {
++ Sources/Editor/LinkingEditor.m:473 [code]     if (searchHighlightsInvalidated) return;
++ Sources/Editor/LinkingEditor.m:474 [code]     searchHighlightsInvalidated = YES;
++ Sources/Editor/LinkingEditor.m:475 [comment-only]     // TextKit has not adjusted its glyph ranges during storage notifications.
++ Sources/Editor/LinkingEditor.m:476 [comment-only]     // Suppress stale backgrounds now and remove them after edit processing.
++ Sources/Editor/LinkingEditor.m:477 [code]     [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];
++ Sources/Editor/LinkingEditor.m:478 [structural] }
+- Sources/Editor/LinkingEditor.m:468 [code] 	[[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
++ Sources/Editor/LinkingEditor.m:480 [code]     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
++ Sources/Editor/LinkingEditor.m:481 [code]     if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {
++ Sources/Editor/LinkingEditor.m:482 [code]         searchHighlightsInvalidated = YES;
++ Sources/Editor/LinkingEditor.m:483 [comment-only]         // A nested run loop can run before endEditing. Avoid retrying at zero delay.
++ Sources/Editor/LinkingEditor.m:484 [code]         [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];
++ Sources/Editor/LinkingEditor.m:485 [code]         return;
++ Sources/Editor/LinkingEditor.m:486 [structural]     }
++ Sources/Editor/LinkingEditor.m:487 [code]     searchHighlightsInvalidated = NO;
++ Sources/Editor/LinkingEditor.m:488 [code]     [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
++ Sources/Editor/LinkingEditor.m:517 [code]     if (searchHighlightsInvalidated) return;
++ Sources/Editor/LinkingEditor.m:1518 [code]     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+
+SOURCE COMPARISON CHECKS
+PASS: New no-argument invalidation selector has one declaration and one definition.
+PASS: Cleanup selector retains one declaration and one definition.
+PASS: Pending state has one editor instance-variable declaration.
+PASS: Storage observer changes only the cleanup call; storage identity, character mask, and generation fence remain unchanged.
+PASS: Range setter retains its exact old body after removal of the new pending-state guard.
+PASS: Range setter retains subtraction-based bounds checks and rejects zero-length ranges.
+PASS: Range setter retains the independent displayed-range cap.
+PASS: Cleanup retains the same background removal over the current string length.
+PASS: Character-edit guard precedes pending-state reset and temporary-attribute removal.
+PASS: Dirty-storage branch schedules a 10 ms common-mode retry and returns before layout mutation.
+PASS: Initial invalidation coalesces pending work before scheduling cleanup.
+PASS: Initial invalidation contains no layout-manager or temporary-attribute operation.
+PASS: Drawing delegate retains its exact previous body after removal of the new background-only prefix.
+PASS: Added drawing prefix removes only the background key from a mutable copy.
+PASS: - (void)highlightRangesTemporarily: remains byte-identical to the base.
+PASS: - (NSRange)highlightTermsTemporarilyReturningFirstRange: remains byte-identical to the base.
+PASS: - (NSColor *)sourceColorForCapture: remains byte-identical to the base.
+PASS: - (NSDictionary *)currentSearchHighlightAttributes remains byte-identical to the base.
+PASS: Asynchronous highlight refresh remains byte-identical to the base.
+PASS: Note attachment changes only by clearing the old editor before detaching its layout manager.
+PASS: Editor deallocation cancels the same cleanup selector that invalidation schedules.
+PASS: Only two old executable lines are replaced: the observer call and the reindented cleanup operation.
+PASS: All four production hashes remain unchanged during this source-only review.
+STATIC CHECKS PASSED: 23
+No runtime result is claimed.

@@ -1,0 +1,69 @@
+{
+  "head_before_commit": "1a35e2b2d7b931eae4c2a338e49b7b227ff8d979",
+  "tests": 16,
+  "result": "passed",
+  "test_command": "python3 -B -m unittest discover -s Tests/SourceBackspaceReview/fixes/oracles -v",
+  "scope": "Maintained Python runner control flow with mocked compiler/application child processes. No native probe execution or GUI launch.",
+  "source_sha256": {
+    "Tests/SourceBackspace/run.py": "8212e9471003839f2da6b4fa53a74104a84e8576743c93d598f373bb19c80850",
+    "Tests/FuzzySearch/HighlightBounds/run.py": "17b5fd93127e857c2c35d242cab2fa87bbfbead1e96c4bc96ddbccd172377007",
+    "Tests/SourceBackspaceReview/fixes/oracles/test_runners.py": "3400a8791073c5ce8a7e4609d5a9c6cd1efb32f04d0c57c90f7347f48b01863f"
+  },
+  "assertion_labels_verified_against_existing_native_logs": {
+    "missing_generation": {
+      "expected_stderr_line": "FAIL: stale query generation cannot install highlights",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/missing_generation.log",
+      "recorded_log_sha256": "08c8c3a442ad692fc2d4f8bfbd7c3a05dd158bdc6bdf7e10081c52a4fb0fd1c2"
+    },
+    "missing_row_context": {
+      "expected_stderr_line": "FAIL: changed duplicate occurrence rejects old row highlights",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/missing_row_context.log",
+      "recorded_log_sha256": "8c4bb6eeb594c6ab4313a14beb9b688b5f70325b1d2658e9b69d7547376a87bb"
+    },
+    "uncancelled_discovery": {
+      "expected_stderr_line": "FAIL: literal discovery obeys cancellation before full scan",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/uncancelled_discovery.log",
+      "recorded_log_sha256": "46853470a5a6837534c0ce2d40d7513fc2c4dd1c6b6bafdd38baa10e4e8df4dd"
+    },
+    "unbounded_discovery": {
+      "expected_stderr_line": "FAIL: literal discovery stops at occurrence cap before allocation grows",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/unbounded_discovery.log",
+      "recorded_log_sha256": "c8150ec5e368221ba2853655b8b9ffe41a00e729331d53f320ca94959dac7eaa"
+    },
+    "uncapped_editor": {
+      "expected_stderr_line": "FAIL: editor independently caps oversized native range input",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/uncapped_editor.log",
+      "recorded_log_sha256": "16a9a616d41d9f65bffdfcad104c9c3a7fe01d0698bc0c5d435592915a69fc59"
+    },
+    "uncoalesced_invalidation": {
+      "expected_stderr_line": "FAIL: repeated invalidations coalesce one delayed selector",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/uncoalesced_invalidation.log",
+      "recorded_log_sha256": "7abbd26b16aabdd352a6f27abbc4b606dee1b9f6de79ce2f57286b8746326e57"
+    },
+    "uncancelled_clear": {
+      "expected_stderr_line": "FAIL: explicit cleanup cancels the queued selector",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/uncancelled_clear.log",
+      "recorded_log_sha256": "d4312055d97415b85a0a2b020ae6316cbbaf69b6caa793a5d6421f98de95e515"
+    },
+    "unsafe_character_edit_clear": {
+      "expected_stderr_line": "FAIL: cleanup and range publication defer all layout mutation during character processing",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/unsafe_character_edit_clear.log",
+      "recorded_log_sha256": "a9b1f1aae2a38f8945296bdebd693d72719db64782652129a709fb59165b18d8"
+    },
+    "zero_delay_edit_retry": {
+      "expected_stderr_line": "FAIL: open character batch retries with a positive minimum delay",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/zero_delay_edit_retry.log",
+      "recorded_log_sha256": "cb3f9a7300ce8fadc89dd2d2a35591db26b4261b502d53f80b3bb9164d7da76d"
+    },
+    "unsafe_character_edit_publication": {
+      "expected_stderr_line": "FAIL: cleanup and range publication defer all layout mutation during character processing",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/unsafe_character_edit_publication.log",
+      "recorded_log_sha256": "a9b1f1aae2a38f8945296bdebd693d72719db64782652129a709fb59165b18d8"
+    },
+    "missing_source_validation": {
+      "expected_stderr_line": "FAIL: canonical equivalents with different UTF16 reject snapshot offsets",
+      "recorded_log": "build/FuzzySearchHighlightBounds/native/missing_source_validation.log",
+      "recorded_log_sha256": "d1934cd244089de86a4167e0f23c163a7cabbcb886405e5f13889889344cc55a"
+    }
+  }
+}

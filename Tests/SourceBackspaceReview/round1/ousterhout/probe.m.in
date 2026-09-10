@@ -1,0 +1,196 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger checks = 0;
+static NSUInteger failures = 0;
+static NSUInteger deallocations = 0;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return NO; }
+static id NVControllerForView(id view) { return nil; }
+
+static void Check(BOOL condition, NSString *label) {
+    checks++;
+    if (!condition) {
+        failures++;
+        fprintf(stderr, "FAIL %s\n", [label UTF8String]);
+    }
+}
+
+static void Pump(void) {
+    NSDate *until = [NSDate dateWithTimeIntervalSinceNow:0.03];
+    while ([until timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
+}
+
+@interface ReviewLayout : NSLayoutManager
+@property(nonatomic) NSUInteger backgroundRemovals;
+@property(nonatomic) NSUInteger removalDuringCharacterEdit;
+@end
+@implementation ReviewLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        self.backgroundRemovals++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters)
+            self.removalDuringCharacterEdit++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+@end
+
+@interface ReviewEditor : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    ReviewLayout *layout;
+}
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (NSTextStorage *)textStorage;
+- (ReviewLayout *)layoutManager;
+- (NSString *)string;
+- (BOOL)invalidated;
+- (void)attach:(NSTextStorage *)other;
+- (void)willProcess:(NSNotification *)notification;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (NSColor *)foregrndColor;
+- (NSRange)markedRange;
+@end
+
+@implementation ReviewEditor
+- (instancetype)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@"alpha beta gamma"];
+        layout = [[ReviewLayout alloc] init];
+        [storage addLayoutManager:layout];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willProcess:)
+            name:NSTextStorageWillProcessEditingNotification object:storage];
+    }
+    return self;
+}
+- (void)willProcess:(NSNotification *)notification {
+    if ([notification object] == storage && ([storage editedMask] & NSTextStorageEditedCharacters))
+        [self invalidateSearchHighlights];
+}
+- (NSTextStorage *)textStorage { return storage; }
+- (ReviewLayout *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (BOOL)invalidated { return searchHighlightsInvalidated; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName: [NSColor yellowColor]}; }
+- (NSDictionary *)preferredLinkAttributes { return @{}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return nil; }
+- (NSColor *)foregrndColor { return nil; }
+- (NSRange)markedRange { return NSMakeRange(NSNotFound, 0); }
+- (void)attach:(NSTextStorage *)other {
+    // Match the production cleanup/remove/add storage sequence.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:storage];
+    [self removeHighlightedTerms];
+    [storage removeLayoutManager:layout];
+    [storage release];
+    storage = [other retain];
+    [storage addLayoutManager:layout];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willProcess:)
+        name:NSTextStorageWillProcessEditingNotification object:storage];
+}
+/* PRODUCTION_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [storage removeLayoutManager:layout];
+    [layout release];
+    [storage release];
+    deallocations++;
+    [super dealloc];
+}
+@end
+
+static BOOL HasBackground(ReviewEditor *editor, NSUInteger index) {
+    return [[editor layoutManager] temporaryAttribute:NSBackgroundColorAttributeName
+        atCharacterIndex:index effectiveRange:NULL] != nil;
+}
+
+static void Run(void) {
+    ReviewEditor *editor = [[ReviewEditor alloc] init];
+    ReviewLayout *layout = [editor layoutManager];
+    NSTextStorage *storage = [editor textStorage];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(6, 4)]]];
+    [layout addTemporaryAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] forCharacterRange:NSMakeRange(0, 5)];
+    Check(HasBackground(editor, 6), @"fixture background installed");
+
+    NSUInteger removes = layout.backgroundRemovals;
+    [storage replaceCharactersInRange:NSMakeRange([storage length] - 1, 1) withString:@""];
+    Check([editor invalidated], @"character notification suppresses immediately");
+    Check(layout.backgroundRemovals == removes, @"no synchronous layout removal during character notification");
+    NSRange range = NSMakeRange(6, 4);
+    NSDictionary *display = [editor layoutManager:layout shouldUseTemporaryAttributes:
+        @{NSBackgroundColorAttributeName: [NSColor yellowColor], NSForegroundColorAttributeName: [NSColor blueColor]}
+        forDrawingToScreen:NO atCharacterIndex:6 effectiveRange:&range];
+    Check(display[NSBackgroundColorAttributeName] == nil, @"delegate suppresses stale background before cleanup");
+    Check(display[NSForegroundColorAttributeName] != nil, @"delegate preserves other temporary attributes");
+    Pump();
+    Check(![editor invalidated], @"cleanup ends invalid state");
+    Check(!HasBackground(editor, 6), @"cleanup removes stale background");
+    Check([layout temporaryAttribute:NSForegroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil,
+        @"cleanup preserves foreground temporary attribute");
+    Check(layout.removalDuringCharacterEdit == 0, @"cleanup never touched layout within character edit");
+
+    // A current result may arrive before the queued cleanup; it must win.
+    [editor invalidateSearchHighlights];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 5)]]];
+    Check(![editor invalidated] && HasBackground(editor, 0), @"fresh highlight cancels pending cleanup");
+    removes = layout.backgroundRemovals;
+    Pump();
+    Check(HasBackground(editor, 0), @"queued cleanup cannot erase current result");
+    Check(layout.backgroundRemovals == removes, @"cancelled callback does not execute");
+
+    // Nested storage editing intentionally stays open over a run-loop turn.
+    [storage beginEditing];
+    [storage beginEditing];
+    [storage replaceCharactersInRange:NSMakeRange([storage length] - 1, 1) withString:@""];
+    removes = layout.backgroundRemovals;
+    [editor removeHighlightedTerms];
+    Check([editor invalidated], @"explicit clear in nested edit defers");
+    Pump();
+    Check([editor invalidated], @"deferred clear remains suppressed while nested editing is open");
+    Check(layout.backgroundRemovals == removes, @"nested run-loop callback avoids unsafe layout removal");
+    [storage endEditing];
+    Pump();
+    Check([editor invalidated], @"inner endEditing does not release outer edit boundary");
+    [storage endEditing];
+    Pump();
+    Check(![editor invalidated] && !HasBackground(editor, 0), @"outer endEditing permits eventual cleanup");
+    Check(layout.removalDuringCharacterEdit == 0, @"nested path preserves layout safety");
+
+    // Normal note switching retires old callbacks before using the layout again.
+    [editor invalidateSearchHighlights];
+    NSTextStorage *other = [[NSTextStorage alloc] initWithString:@"new note contents"];
+    [editor attach:other];
+    [other release];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(4, 4)]]];
+    removes = layout.backgroundRemovals;
+    Pump();
+    Check(HasBackground(editor, 4), @"new attachment retains its own highlight");
+    Check(layout.backgroundRemovals == removes, @"old attachment callback is cancelled");
+    Check(![editor invalidated], @"new attachment is displayable");
+
+    [editor release];
+    Check(deallocations == 1, @"editor releases normally without pending callback");
+    editor = [[ReviewEditor alloc] init];
+    [editor invalidateSearchHighlights];
+    [editor release];
+    Pump();
+    Check(deallocations == 2, @"pending callback retains editor only until cleanup finishes");
+}
+
+int main(void) {
+    @autoreleasepool {
+        @try { Run(); }
+        @catch (NSException *exception) {
+            failures++;
+            fprintf(stderr, "EXCEPTION %s: %s\n", [[exception name] UTF8String], [[exception reason] UTF8String]);
+        }
+        printf("checks=%lu failures=%lu deallocations=%lu\n", (unsigned long)checks, (unsigned long)failures, (unsigned long)deallocations);
+    }
+    return failures ? 1 : 0;
+}

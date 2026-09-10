@@ -1,0 +1,28 @@
+{
+  "production_file": "Sources/Editor/LinkingEditor.m",
+  "sha256_before": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+  "sha256_after": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+  "production_methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:"
+  ],
+  "results": {
+    "positive": {
+      "exit_code": 0,
+      "probe_sha256": "3a995f5f224aee78bebd15e32b9accfcaf9d669aac718caee19fe9494630a464"
+    },
+    "zero-delay-negative-control": {
+      "exit_code": 1,
+      "probe_sha256": "0a20c61c976e136706057f7f8e4708326fc6c172fce32f5f11e87d2744f93136"
+    }
+  },
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 through Rosetta",
+  "limits": [
+    "Real AppKit storage, layout manager, and run loop with an NSObject editor adapter.",
+    "No browser, GUI app, personal notes, or macOS 13 session.",
+    "Minimum scheduling delay is checked directly without a latency threshold.",
+    "Native operation count uses elapsed time divided by 5 ms plus two callbacks, twice the allowed retry rate."
+  ]
+}
