@@ -1,0 +1,23 @@
+mode=render trial=0 input_bytes=7963 snapshot_ms=0.018 submit_ms=0.175 callback_ms=54.037 worker_finished_ms=55.444 timer_ticks=16 largest_timer_gap_ms=5.791 parent_max_rss_bytes=4812800 output_utf8_bytes=13147 error=0
+mode=render trial=1 input_bytes=7963 snapshot_ms=0.003 submit_ms=0.008 callback_ms=51.305 worker_finished_ms=52.503 timer_ticks=16 largest_timer_gap_ms=5.727 parent_max_rss_bytes=5058560 output_utf8_bytes=13147 error=0
+mode=render trial=2 input_bytes=7963 snapshot_ms=0.003 submit_ms=0.008 callback_ms=51.921 worker_finished_ms=53.387 timer_ticks=16 largest_timer_gap_ms=5.395 parent_max_rss_bytes=5300224 output_utf8_bytes=13147 error=0
+PASS: 19 focused renderer checks
+
+mode=render trial=0 input_bytes=95303 snapshot_ms=0.020 submit_ms=0.186 callback_ms=72.448 worker_finished_ms=74.690 timer_ticks=20 largest_timer_gap_ms=6.015 parent_max_rss_bytes=8925184 output_utf8_bytes=147083 error=0
+mode=render trial=1 input_bytes=95303 snapshot_ms=0.014 submit_ms=0.010 callback_ms=70.543 worker_finished_ms=72.765 timer_ticks=20 largest_timer_gap_ms=5.622 parent_max_rss_bytes=9531392 output_utf8_bytes=147083 error=0
+mode=render trial=2 input_bytes=95303 snapshot_ms=0.013 submit_ms=0.007 callback_ms=69.509 worker_finished_ms=71.732 timer_ticks=20 largest_timer_gap_ms=5.755 parent_max_rss_bytes=9625600 output_utf8_bytes=147083 error=0
+PASS: 19 focused renderer checks
+
+mode=render trial=0 input_bytes=1019271 snapshot_ms=0.493 submit_ms=0.173 callback_ms=285.965 worker_finished_ms=299.127 timer_ticks=64 largest_timer_gap_ms=13.986 parent_max_rss_bytes=52375552 output_utf8_bytes=1562427 error=0
+mode=render trial=1 input_bytes=1019271 snapshot_ms=0.099 submit_ms=0.009 callback_ms=327.804 worker_finished_ms=340.877 timer_ticks=69 largest_timer_gap_ms=10.617 parent_max_rss_bytes=58724352 output_utf8_bytes=1562427 error=0
+mode=render trial=2 input_bytes=1019271 snapshot_ms=0.100 submit_ms=0.013 callback_ms=285.318 worker_finished_ms=296.899 timer_ticks=64 largest_timer_gap_ms=11.104 parent_max_rss_bytes=59252736 output_utf8_bytes=1562427 error=0
+PASS: 19 focused renderer checks
+
+mode=cancel trial=0 input_bytes=1019271 snapshot_ms=0.467 submit_ms=0.177 callback_ms=4.814 worker_finished_ms=38.639 timer_ticks=13 largest_timer_gap_ms=6.234 parent_max_rss_bytes=12701696 output_utf8_bytes=0 error=5 cancel_callback_ms=0.324 cancel_cleanup_ms=34.149 child_pid=3397
+PASS: 8 focused renderer checks
+
+mode=timeout trial=0 input_bytes=1019271 snapshot_ms=0.558 submit_ms=0.179 callback_ms=84.195 worker_finished_ms=84.212 timer_ticks=22 largest_timer_gap_ms=5.981 parent_max_rss_bytes=12742656 output_utf8_bytes=0 error=4
+PASS: 5 focused renderer checks
+
+mode=input-limit trial=0 input_bytes=16777217 snapshot_ms=15.816 submit_ms=0.345 callback_ms=23.210 worker_finished_ms=24.444 timer_ticks=8 largest_timer_gap_ms=6.061 parent_max_rss_bytes=93224960 output_utf8_bytes=0 error=6
+PASS: 5 focused renderer checks

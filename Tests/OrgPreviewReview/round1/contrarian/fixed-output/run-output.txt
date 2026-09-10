@@ -1,0 +1,27 @@
+PASS helper: task labels and all checkbox states remain visible
+PASS helper: Unicode remains visible
+PASS helper: literal spans do not interpret embedded markers
+PASS helper: example lines preserve literal contents and remove Org comma escapes
+PASS helper: unfinished source block keeps its contents visible
+PASS helper: unfinished link stays literal
+PASS helper: web link target and description remain exact
+PASS helper: By custom ID resolves within this document
+PASS helper: By heading resolves within this document
+PASS helper: By exact heading resolves within this document
+PASS helper: nested lists keep every item visible
+PASS helper: nested and outer ordered lists remain separate structures
+PASS renderer: task labels and all checkbox states remain visible
+PASS renderer: Unicode remains visible
+PASS renderer: literal spans do not interpret embedded markers
+PASS renderer: example lines preserve literal contents and remove Org comma escapes
+PASS renderer: unfinished source block keeps its contents visible
+PASS renderer: unfinished link stays literal
+PASS renderer: web link target and description remain exact
+PASS renderer: By custom ID resolves within this document
+PASS renderer: By heading resolves within this document
+PASS renderer: By exact heading resolves within this document
+PASS renderer: nested lists keep every item visible
+PASS renderer: nested and outer ordered lists remain separate structures
+24/24 expected-output checks passed; 0 failed
+PASS: 40 native renderer/source-preservation checks
+

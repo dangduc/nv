@@ -1,0 +1,416 @@
+{
+  "checks": [
+    {
+      "backend": "helper",
+      "check": "task labels and all checkbox states remain visible",
+      "passed": true,
+      "detail": "TODO Work [1/3] :team:[ ] Pending[-] Partial[X] CompleteDONE ReviewCafé 日本語 👩‍💻."
+    },
+    {
+      "backend": "helper",
+      "check": "Unicode remains visible",
+      "passed": true,
+      "detail": "TODO Work [1/3] :team:[ ] Pending[-] Partial[X] CompleteDONE ReviewCafé 日本語 👩‍💻."
+    },
+    {
+      "backend": "helper",
+      "check": "literal spans do not interpret embedded markers",
+      "passed": true,
+      "detail": "Notesliteral *stars* and literal /slashes/.* keep stars\n#+END_SRC\nordinary <xml> & text\n"
+    },
+    {
+      "backend": "helper",
+      "check": "example lines preserve literal contents and remove Org comma escapes",
+      "passed": true,
+      "detail": "Notesliteral *stars* and literal /slashes/.* keep stars\n#+END_SRC\nordinary <xml> & text\n"
+    },
+    {
+      "backend": "helper",
+      "check": "unfinished source block keeps its contents visible",
+      "passed": true,
+      "detail": "TODO DraftBefore.\n#+BEGIN_SRC json\n{\"new\": \"text\"}"
+    },
+    {
+      "backend": "helper",
+      "check": "unfinished link stays literal",
+      "passed": true,
+      "detail": "Before [[https://example.com][A label] after note text."
+    },
+    {
+      "backend": "helper",
+      "check": "web link target and description remain exact",
+      "passed": true,
+      "detail": [
+        {
+          "href": "https://example.com/notes?a=1&b=2",
+          "text": "Read the notes"
+        }
+      ]
+    },
+    {
+      "backend": "helper",
+      "check": "By custom ID resolves within this document",
+      "passed": true,
+      "detail": {
+        "link": {
+          "href": "#release-plan",
+          "text": "By custom ID"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "helper",
+      "check": "By heading resolves within this document",
+      "passed": false,
+      "detail": {
+        "link": {
+          "href": "*Release plan",
+          "text": "By heading"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "helper",
+      "check": "By exact heading resolves within this document",
+      "passed": false,
+      "detail": {
+        "link": {
+          "href": "Release plan",
+          "text": "By exact heading"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "helper",
+      "check": "nested lists keep every item visible",
+      "passed": true,
+      "detail": "ParentFirst childSecond childPeerOrdered peerFinal peer"
+    },
+    {
+      "backend": "helper",
+      "check": "nested and outer ordered lists remain separate structures",
+      "passed": true,
+      "detail": [
+        [
+          "main",
+          {}
+        ],
+        [
+          "section",
+          {}
+        ],
+        [
+          "ul",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "ol",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "ol",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ]
+      ]
+    },
+    {
+      "backend": "renderer",
+      "check": "task labels and all checkbox states remain visible",
+      "passed": true,
+      "detail": "tasks.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}\nTODO Work [1/3] :team:\n\n\n[ ] Pending\n[-] Partial\n[X] Complete\n\nDONE Review\nCafé 日本語 👩‍💻."
+    },
+    {
+      "backend": "renderer",
+      "check": "Unicode remains visible",
+      "passed": true,
+      "detail": "tasks.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}\nTODO Work [1/3] :team:\n\n\n[ ] Pending\n[-] Partial\n[X] Complete\n\nDONE Review\nCafé 日本語 👩‍💻."
+    },
+    {
+      "backend": "renderer",
+      "check": "literal spans do not interpret embedded markers",
+      "passed": true,
+      "detail": "literal.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Notes\nliteral *stars* and literal /slashes/.\n* keep stars\n#+END_SRC\nordinary <xml> & text\n"
+    },
+    {
+      "backend": "renderer",
+      "check": "example lines preserve literal contents and remove Org comma escapes",
+      "passed": true,
+      "detail": "literal.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Notes\nliteral *stars* and literal /slashes/.\n* keep stars\n#+END_SRC\nordinary <xml> & text\n"
+    },
+    {
+      "backend": "renderer",
+      "check": "unfinished source block keeps its contents visible",
+      "passed": true,
+      "detail": "partial-block.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}\nTODO Draft\nBefore.\n#+BEGIN_SRC json\n{\"new\": \"text\"}"
+    },
+    {
+      "backend": "renderer",
+      "check": "unfinished link stays literal",
+      "passed": true,
+      "detail": "partial-link.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Before [[https://example.com][A label] after note text."
+    },
+    {
+      "backend": "renderer",
+      "check": "web link target and description remain exact",
+      "passed": true,
+      "detail": [
+        {
+          "href": "https://example.com/notes?a=1&b=2",
+          "text": "Read the notes"
+        }
+      ]
+    },
+    {
+      "backend": "renderer",
+      "check": "By custom ID resolves within this document",
+      "passed": true,
+      "detail": {
+        "link": {
+          "href": "#release-plan",
+          "text": "By custom ID"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "renderer",
+      "check": "By heading resolves within this document",
+      "passed": false,
+      "detail": {
+        "link": {
+          "href": "*Release%20plan",
+          "text": "By heading"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "renderer",
+      "check": "By exact heading resolves within this document",
+      "passed": false,
+      "detail": {
+        "link": {
+          "href": "Release%20plan",
+          "text": "By exact heading"
+        },
+        "document_ids": [
+          "release-plan"
+        ]
+      }
+    },
+    {
+      "backend": "renderer",
+      "check": "nested lists keep every item visible",
+      "passed": true,
+      "detail": "nested-lists.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}\n\nParent\n\nFirst child\nSecond child\n\n\nPeer\n\n\nOrdered peer\nFinal peer\n"
+    },
+    {
+      "backend": "renderer",
+      "check": "nested and outer ordered lists remain separate structures",
+      "passed": true,
+      "detail": [
+        [
+          "html",
+          {}
+        ],
+        [
+          "head",
+          {}
+        ],
+        [
+          "meta",
+          {
+            "charset": "utf-8"
+          }
+        ],
+        [
+          "meta",
+          {
+            "name": "viewport",
+            "content": "width=device-width,initial-scale=1"
+          }
+        ],
+        [
+          "meta",
+          {
+            "http-equiv": "Content-Security-Policy",
+            "content": "default-src 'none'; script-src 'none'; style-src 'unsafe-inline' nvalt-asset:; img-src data: nvalt-asset:; font-src nvalt-asset:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+          }
+        ],
+        [
+          "title",
+          {}
+        ],
+        [
+          "style",
+          {}
+        ],
+        [
+          "body",
+          {}
+        ],
+        [
+          "main",
+          {}
+        ],
+        [
+          "section",
+          {}
+        ],
+        [
+          "ul",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "ol",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "ol",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ],
+        [
+          "li",
+          {}
+        ],
+        [
+          "p",
+          {}
+        ]
+      ]
+    }
+  ],
+  "scope_observations": [
+    {
+      "backend": "helper",
+      "fixture": "numbering",
+      "HTML": "<main><section><ol><li><p>[@20] First task</p></li><li><p>Second task</p></li><li><p>[@30] Third task</p></li><li><p>Fourth task</p></li></ol></section></main>"
+    },
+    {
+      "backend": "helper",
+      "fixture": "descriptions",
+      "HTML": "<main><section><ul><li><p>Term :: A definition</p></li><li><p>Other :: More detail</p></li></ul></section></main>"
+    },
+    {
+      "backend": "helper",
+      "fixture": "styled-link",
+      "HTML": "<main><section><p><a href=\"https://example.com\">*Important* and /emphasized/</a></p></section></main>"
+    },
+    {
+      "backend": "renderer",
+      "fixture": "numbering",
+      "HTML": "<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'none'; style-src 'unsafe-inline' nvalt-asset:; img-src data: nvalt-asset:; font-src nvalt-asset:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\"><title>numbering.org</title><style>:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}</style></head><body><main><section><ol>\n<li><p>[@20] First task</p></li>\n<li><p>Second task</p></li>\n<li><p>[@30] Third task</p></li>\n<li><p>Fourth task</p></li>\n</ol></section></main></body></html>"
+    },
+    {
+      "backend": "renderer",
+      "fixture": "descriptions",
+      "HTML": "<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'none'; style-src 'unsafe-inline' nvalt-asset:; img-src data: nvalt-asset:; font-src nvalt-asset:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\"><title>descriptions.org</title><style>:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}</style></head><body><main><section><ul>\n<li><p>Term :: A definition</p></li>\n<li><p>Other :: More detail</p></li>\n</ul></section></main></body></html>"
+    },
+    {
+      "backend": "renderer",
+      "fixture": "styled-link",
+      "HTML": "<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; script-src 'none'; style-src 'unsafe-inline' nvalt-asset:; img-src data: nvalt-asset:; font-src nvalt-asset:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\"><title>styled-link.org</title><style>:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}</style></head><body><main><section><p><a href=\"https://example.com\">*Important* and /emphasized/</a></p></section></main></body></html>"
+    }
+  ]
+}

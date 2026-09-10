@@ -1,0 +1,18 @@
+{
+  "scope": "Fixed direct Cargo build from a clean copied source tree, with no inherited DYLD_LIBRARY_PATH. The script supplies the runtime path internally.",
+  "files": [
+    {
+      "path": "ThirdParty/OrgPreview/nv-org-preview",
+      "bytes": 366408,
+      "sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+      "uuid_offset": 1792
+    },
+    {
+      "path": "build/OrgDirectCargoFix/build/nv-org-preview-direct",
+      "bytes": 366408,
+      "sha256": "ac635cb0bad16d1a2f0eff5c4d365099e864c1e7bb02126746194f8259ecbb91",
+      "uuid_offset": 1792
+    }
+  ],
+  "match_except_macho_uuid": true
+}

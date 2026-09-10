@@ -1,0 +1,11 @@
+mode=render input_bytes=379143 submit_ms=0.203 callback_ms=312.240 completion_ms=316.921 parent_max_rss_bytes=26210304
+PASS: 6 actual renderer and cancellation checks
+
+mode=render input_bytes=416311 submit_ms=0.185 callback_ms=156.544 completion_ms=161.060 parent_max_rss_bytes=28565504
+PASS: 6 actual renderer and cancellation checks
+
+mode=render input_bytes=468250 submit_ms=0.198 callback_ms=167.234 completion_ms=172.227 parent_max_rss_bytes=28958720
+PASS: 6 actual renderer and cancellation checks
+
+mode=replace input_bytes=416311 submit_ms=0.187 callback_ms=3.265 completion_ms=52.269 parent_max_rss_bytes=6496256 cancel_callback_ms=0.376 replacement_and_cleanup_ms=49.380
+PASS: 12 actual renderer and cancellation checks

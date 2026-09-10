@@ -163,7 +163,7 @@ AppController *NVControllerForView(NSView *view) {
             // Only the main Preview menu contains Show Source. The status menu
             // keeps its compact toggle without duplicate format submenus.
             if (hasPreview && !hasViewerMenu && [candidate indexOfItemWithTarget:self andAction:@selector(toggleSourceView:)] >= 0) {
-                for (NSArray *spec in @[@[@"Preview Format", @"selectPreviewMode:", @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"]]],
+                for (NSArray *spec in @[@[@"Preview Format", @"selectPreviewMode:", @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"Org", @"org"]]],
                                           @[@"Source Syntax", @"selectSourceSyntax:", @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"], @[@"Org", @"org"]]]]) {
                     NSMenuItem *parent = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(spec[0], nil) action:NULL keyEquivalent:@""] autorelease];
                     [parent setTag:24001];

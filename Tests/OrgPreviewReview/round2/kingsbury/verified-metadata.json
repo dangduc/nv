@@ -1,0 +1,20 @@
+{
+  "head_before_build": "415cf6920bd5c74bc3911829431f3dcff7c4acb2",
+  "input_sha256": {
+    "Sources/Preview/NVNoteContentSnapshot.m": "548075739a1afa2a5711a7d4cd5ab32ed2095b4c71d33c1d16d2655dca890cad",
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/PreviewController.m": "e786f468b82d7ae45c59adb3aed5123bcaa6dc3b757145ead9b219e90b79436a",
+    "ThirdParty/OrgPreview/nv-org-preview": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+    "ThirdParty/OrgPreview/src/main.rs": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
+    "ThirdParty/OrgPreview/manifest.json": "0d3c33612f55519a4b1d723c617721b0e988e785d8621330d7246accdc74efbf"
+  },
+  "inputs_unchanged_during_run": true,
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_code": 0,
+  "gate_sha256": {
+    "run.py": "ea570876a9c813b953a57bf6c45d1b56a9e71df127b0943ce8aab00d94e6c625",
+    "probe.m": "0a3fb527ccbbc3f6eb0a948620c865005fc7b5c54ad2d3da559468de4bb9bcc8"
+  },
+  "gate_unchanged_during_run": true
+}

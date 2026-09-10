@@ -1,0 +1,56 @@
+{
+  "revision": "415cf6920bd5c74bc3911829431f3dcff7c4acb2",
+  "rebuilt_sha256": "a2591ee6ec0e7e9c85448bb5ff01d35deb2ced06311cc190c88aa466bde8c534",
+  "bundled_sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+  "build_script_sha256": "5b106f6b0211f1c0cbc86fa87c2c10a9187612d764cb8610c800bc4458927c47",
+  "adapter_sha256": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
+  "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "rejection_cases": [
+    {
+      "case": "strip-warning",
+      "failure": "Rust could not strip the Org helper. The bundled artifact was not updated.",
+      "diagnostics": "warning: stripping debug info with `rust-objcopy` failed: review test\n\n"
+    },
+    {
+      "case": "native-symbols",
+      "failure": "The Org helper still contains symbols. Remove build/OrgPreviewRebuild and rebuild.",
+      "diagnostics": ""
+    },
+    {
+      "case": "cargo-error",
+      "failure": "9",
+      "diagnostics": "review compiler failure\n\n"
+    }
+  ],
+  "heading_fixtures": [
+    {
+      "name": "unicode-lf",
+      "input_bytes": 214,
+      "output_sha256": "0f5bfea9615d552d0c88a5345c0718b6d4ffc1b59f4e411ab05a92163e16e1fc"
+    },
+    {
+      "name": "unicode-crlf",
+      "input_bytes": 224,
+      "output_sha256": "9ffd164742ee28d0c0d2018212c24c7283542c1acd9a81ff7a2007a6978ea6fa"
+    },
+    {
+      "name": "unicode-no-final-newline",
+      "input_bytes": 213,
+      "output_sha256": "0f5bfea9615d552d0c88a5345c0718b6d4ffc1b59f4e411ab05a92163e16e1fc"
+    },
+    {
+      "name": "reserved-duplicate-ids",
+      "input_bytes": 200,
+      "output_sha256": "09d2475d1350e5f656fe95a3ab4960ba20c5fb663d3bbe96f2605e4556c0a4b9"
+    },
+    {
+      "name": "deep-heading",
+      "input_bytes": 47,
+      "output_sha256": "6096ad5ec11be16759767f09c8cad2b2cc7af888ff81b3426740a0c38d800e62"
+    }
+  ],
+  "checks": 68,
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "sdk": "26.5"
+}

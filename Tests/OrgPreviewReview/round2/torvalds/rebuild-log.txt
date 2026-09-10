@@ -1,0 +1,787 @@
+   Compiling jetscii v0.5.3
+   Compiling memchr v2.8.3
+   Compiling minimal-lexical v0.2.1
+   Compiling bytecount v0.6.9
+   Compiling indextree v4.9.1
+   Compiling lazy_static v1.5.0
+   Compiling nom v7.1.3
+   Compiling orgize v0.9.0 (/Users/duc/dev/nv/build/OrgPreviewWorktree/build/OrgPreviewReview/round2/torvalds/fixed-snapshot-kiy4khoi/ThirdParty/OrgPreview/orgize)
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/block.rs:237:25
+    |
+237 |     pub fn parse(input: &str) -> Option<(&str, RawBlock)> {
+    |                         ^^^^             ^^^^  ^^^^^^^^ the same lifetime is hidden here
+    |                         |                |
+    |                         |                the same lifetime is elided here
+    |                         the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+237 |     pub fn parse(input: &str) -> Option<(&str, RawBlock<'_>)> {
+    |                                                        ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/block.rs:327:26
+    |
+327 | fn parse_internal(input: &str) -> IResult<&str, RawBlock, ()> {
+    |                          ^^^^             ^^^^  ^^^^^^^^ the same lifetime is hidden here
+    |                          |                |
+    |                          |                the same lifetime is elided here
+    |                          the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+327 | fn parse_internal(input: &str) -> IResult<&str, RawBlock<'_>, ()> {
+    |                                                         ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/clock.rs:51:32
+   |
+51 |     pub(crate) fn parse(input: &str) -> Option<(&str, Clock)> {
+   |                                ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+51 |     pub(crate) fn parse(input: &str) -> Option<(&str, Clock<'_>)> {
+   |                                                            ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/clock.rs:111:18
+    |
+111 |     pub fn value(&self) -> Timestamp {
+    |                  ^^^^^     ^^^^^^^^^ the same lifetime is hidden here
+    |                  |
+    |                  the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+111 |     pub fn value(&self) -> Timestamp<'_> {
+    |                                     ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/clock.rs:139:26
+    |
+139 | fn parse_internal(input: &str) -> IResult<&str, Clock, ()> {
+    |                          ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+    |                          |                |
+    |                          |                the same lifetime is elided here
+    |                          the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+139 | fn parse_internal(input: &str) -> IResult<&str, Clock<'_>, ()> {
+    |                                                      ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/comment.rs:21:32
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Comment)> {
+   |                                ^^^^             ^^^^  ^^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Comment<'_>)> {
+   |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/comment.rs:33:26
+   |
+33 | fn parse_internal(input: &str) -> IResult<&str, Comment, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+33 | fn parse_internal(input: &str) -> IResult<&str, Comment<'_>, ()> {
+   |                                                        ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/cookie.rs:22:32
+   |
+22 |     pub(crate) fn parse(input: &str) -> Option<(&str, Cookie)> {
+   |                                ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+22 |     pub(crate) fn parse(input: &str) -> Option<(&str, Cookie<'_>)> {
+   |                                                             ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/cookie.rs:34:26
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, Cookie, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, Cookie<'_>, ()> {
+   |                                                       ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/drawer.rs:28:32
+   |
+28 |     pub(crate) fn parse(input: &str) -> Option<(&str, (Drawer, &str))> {
+   |                                ^^^^             ^^^^   ^^^^^^  ^^^^ the same lifetime is elided here
+   |                                |                |      |
+   |                                |                |      the same lifetime is hidden here
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+28 |     pub(crate) fn parse(input: &str) -> Option<(&str, (Drawer<'_>, &str))> {
+   |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/drawer.rs:42:28
+   |
+42 | pub fn parse_drawer(input: &str) -> IResult<&str, (Drawer, &str), ()> {
+   |                            ^^^^             ^^^^   ^^^^^^  ^^^^ the same lifetime is elided here
+   |                            |                |      |
+   |                            |                |      the same lifetime is hidden here
+   |                            |                the same lifetime is elided here
+   |                            the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+42 | pub fn parse_drawer(input: &str) -> IResult<&str, (Drawer<'_>, &str), ()> {
+   |                                                          ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/drawer.rs:54:42
+   |
+54 | pub fn parse_drawer_without_blank(input: &str) -> IResult<&str, (Drawer, &str), ()> {
+   |                                          ^^^^             ^^^^   ^^^^^^  ^^^^ the same lifetime is elided here
+   |                                          |                |      |
+   |                                          |                |      the same lifetime is hidden here
+   |                                          |                the same lifetime is elided here
+   |                                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+54 | pub fn parse_drawer_without_blank(input: &str) -> IResult<&str, (Drawer<'_>, &str), ()> {
+   |                                                                        ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/dyn_block.rs:30:32
+   |
+30 |     pub(crate) fn parse(input: &str) -> Option<(&str, (DynBlock, &str))> {
+   |                                ^^^^             ^^^^   ^^^^^^^^  ^^^^ the same lifetime is elided here
+   |                                |                |      |
+   |                                |                |      the same lifetime is hidden here
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+30 |     pub(crate) fn parse(input: &str) -> Option<(&str, (DynBlock<'_>, &str))> {
+   |                                                                ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/dyn_block.rs:45:26
+   |
+45 | fn parse_internal(input: &str) -> IResult<&str, (DynBlock, &str), ()> {
+   |                          ^^^^             ^^^^   ^^^^^^^^  ^^^^ the same lifetime is elided here
+   |                          |                |      |
+   |                          |                |      the same lifetime is hidden here
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+45 | fn parse_internal(input: &str) -> IResult<&str, (DynBlock<'_>, &str), ()> {
+   |                                                          ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/emphasis.rs:14:24
+   |
+14 |     pub fn parse(text: &str, marker: u8) -> Option<(&str, Emphasis)> {
+   |                        ^^^^                         ^^^^  ^^^^^^^^ the same lifetime is hidden here
+   |                        |                            |
+   |                        |                            the same lifetime is elided here
+   |                        the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+14 |     pub fn parse(text: &str, marker: u8) -> Option<(&str, Emphasis<'_>)> {
+   |                                                                   ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fixed_width.rs:22:32
+   |
+22 |     pub(crate) fn parse(input: &str) -> Option<(&str, FixedWidth)> {
+   |                                ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+22 |     pub(crate) fn parse(input: &str) -> Option<(&str, FixedWidth<'_>)> {
+   |                                                                 ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fixed_width.rs:34:26
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, FixedWidth, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, FixedWidth<'_>, ()> {
+   |                                                           ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fn_def.rs:24:32
+   |
+24 |     pub(crate) fn parse(input: &str) -> Option<(&str, (FnDef, &str))> {
+   |                                ^^^^             ^^^^   ^^^^^  ^^^^ the same lifetime is elided here
+   |                                |                |      |
+   |                                |                |      the same lifetime is hidden here
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+24 |     pub(crate) fn parse(input: &str) -> Option<(&str, (FnDef<'_>, &str))> {
+   |                                                             ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fn_def.rs:36:26
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, (FnDef, &str), ()> {
+   |                          ^^^^             ^^^^   ^^^^^  ^^^^ the same lifetime is elided here
+   |                          |                |      |
+   |                          |                |      the same lifetime is hidden here
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, (FnDef<'_>, &str), ()> {
+   |                                                       ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fn_ref.rs:24:32
+   |
+24 |     pub(crate) fn parse(input: &str) -> Option<(&str, FnRef)> {
+   |                                ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+24 |     pub(crate) fn parse(input: &str) -> Option<(&str, FnRef<'_>)> {
+   |                                                            ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/fn_ref.rs:37:26
+   |
+37 | fn parse_internal(input: &str) -> IResult<&str, FnRef, ()> {
+   |                          ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+37 | fn parse_internal(input: &str) -> IResult<&str, FnRef<'_>, ()> {
+   |                                                      ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/inline_call.rs:28:32
+   |
+28 |     pub(crate) fn parse(input: &str) -> Option<(&str, InlineCall)> {
+   |                                ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+28 |     pub(crate) fn parse(input: &str) -> Option<(&str, InlineCall<'_>)> {
+   |                                                                 ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/inline_call.rs:43:26
+   |
+43 | fn parse_internal(input: &str) -> IResult<&str, InlineCall, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+43 | fn parse_internal(input: &str) -> IResult<&str, InlineCall<'_>, ()> {
+   |                                                           ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/inline_src.rs:25:32
+   |
+25 |     pub(crate) fn parse(input: &str) -> Option<(&str, InlineSrc)> {
+   |                                ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+25 |     pub(crate) fn parse(input: &str) -> Option<(&str, InlineSrc<'_>)> {
+   |                                                                ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/inline_src.rs:39:26
+   |
+39 | fn parse_internal(input: &str) -> IResult<&str, InlineSrc, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+39 | fn parse_internal(input: &str) -> IResult<&str, InlineSrc<'_>, ()> {
+   |                                                          ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/keyword.rs:72:25
+   |
+72 |     pub fn parse(input: &str) -> Option<(&str, RawKeyword)> {
+   |                         ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+   |                         |                |
+   |                         |                the same lifetime is elided here
+   |                         the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+72 |     pub fn parse(input: &str) -> Option<(&str, RawKeyword<'_>)> {
+   |                                                          ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/keyword.rs:102:26
+    |
+102 | fn parse_internal(input: &str) -> IResult<&str, RawKeyword, ()> {
+    |                          ^^^^             ^^^^  ^^^^^^^^^^ the same lifetime is hidden here
+    |                          |                |
+    |                          |                the same lifetime is elided here
+    |                          the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+102 | fn parse_internal(input: &str) -> IResult<&str, RawKeyword<'_>, ()> {
+    |                                                           ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/link.rs:23:32
+   |
+23 |     pub(crate) fn parse(input: &str) -> Option<(&str, Link)> {
+   |                                ^^^^             ^^^^  ^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+23 |     pub(crate) fn parse(input: &str) -> Option<(&str, Link<'_>)> {
+   |                                                           ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/link.rs:36:26
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, Link, ()> {
+   |                          ^^^^             ^^^^  ^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, Link<'_>, ()> {
+   |                                                     ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/list.rs:46:32
+   |
+46 |     pub(crate) fn parse(input: &str) -> Option<(&str, (ListItem, &str))> {
+   |                                ^^^^             ^^^^   ^^^^^^^^  ^^^^ the same lifetime is elided here
+   |                                |                |      |
+   |                                |                |      the same lifetime is hidden here
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+46 |     pub(crate) fn parse(input: &str) -> Option<(&str, (ListItem<'_>, &str))> {
+   |                                                                ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/list.rs:59:21
+   |
+59 | fn list_item(input: &str) -> IResult<&str, (ListItem, &str), ()> {
+   |                     ^^^^             ^^^^   ^^^^^^^^  ^^^^ the same lifetime is elided here
+   |                     |                |      |
+   |                     |                |      the same lifetime is hidden here
+   |                     |                the same lifetime is elided here
+   |                     the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+59 | fn list_item(input: &str) -> IResult<&str, (ListItem<'_>, &str), ()> {
+   |                                                     ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/macros.rs:23:32
+   |
+23 |     pub(crate) fn parse(input: &str) -> Option<(&str, Macros)> {
+   |                                ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+23 |     pub(crate) fn parse(input: &str) -> Option<(&str, Macros<'_>)> {
+   |                                                             ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/macros.rs:36:26
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, Macros, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+36 | fn parse_internal(input: &str) -> IResult<&str, Macros<'_>, ()> {
+   |                                                       ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/planning.rs:23:31
+   |
+23 |     pub(crate) fn parse(text: &str) -> Option<(&str, Planning)> {
+   |                               ^^^^             ^^^^  ^^^^^^^^ the same lifetime is hidden here
+   |                               |                |
+   |                               |                the same lifetime is elided here
+   |                               the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+23 |     pub(crate) fn parse(text: &str) -> Option<(&str, Planning<'_>)> {
+   |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/snippet.rs:21:32
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Snippet)> {
+   |                                ^^^^             ^^^^  ^^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Snippet<'_>)> {
+   |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/snippet.rs:34:26
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, Snippet, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+34 | fn parse_internal(input: &str) -> IResult<&str, Snippet<'_>, ()> {
+   |                                                        ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/table.rs:37:34
+   |
+37 |     pub fn parse_table_el(input: &str) -> Option<(&str, Table)> {
+   |                                  ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+   |                                  |                |
+   |                                  |                the same lifetime is elided here
+   |                                  the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+37 |     pub fn parse_table_el(input: &str) -> Option<(&str, Table<'_>)> {
+   |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/table.rs:41:39
+   |
+41 |     fn parse_table_el_internal(input: &str) -> IResult<&str, Table, ()> {
+   |                                       ^^^^             ^^^^  ^^^^^ the same lifetime is hidden here
+   |                                       |                |
+   |                                       |                the same lifetime is elided here
+   |                                       the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+41 |     fn parse_table_el_internal(input: &str) -> IResult<&str, Table<'_>, ()> {
+   |                                                                   ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/target.rs:21:32
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Target)> {
+   |                                ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                                |                |
+   |                                |                the same lifetime is elided here
+   |                                the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+21 |     pub(crate) fn parse(input: &str) -> Option<(&str, Target<'_>)> {
+   |                                                             ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/target.rs:33:26
+   |
+33 | fn parse_internal(input: &str) -> IResult<&str, Target, ()> {
+   |                          ^^^^             ^^^^  ^^^^^^ the same lifetime is hidden here
+   |                          |                |
+   |                          |                the same lifetime is elided here
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+33 | fn parse_internal(input: &str) -> IResult<&str, Target<'_>, ()> {
+   |                                                       ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:140:39
+    |
+140 |     pub(crate) fn parse_active(input: &str) -> Option<(&str, Timestamp)> {
+    |                                       ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                                       |                |
+    |                                       |                the same lifetime is elided here
+    |                                       the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+140 |     pub(crate) fn parse_active(input: &str) -> Option<(&str, Timestamp<'_>)> {
+    |                                                                       ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:144:41
+    |
+144 |     pub(crate) fn parse_inactive(input: &str) -> Option<(&str, Timestamp)> {
+    |                                         ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                                         |                |
+    |                                         |                the same lifetime is elided here
+    |                                         the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+144 |     pub(crate) fn parse_inactive(input: &str) -> Option<(&str, Timestamp<'_>)> {
+    |                                                                         ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:148:38
+    |
+148 |     pub(crate) fn parse_diary(input: &str) -> Option<(&str, Timestamp)> {
+    |                                      ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                                      |                |
+    |                                      |                the same lifetime is elided here
+    |                                      the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+148 |     pub(crate) fn parse_diary(input: &str) -> Option<(&str, Timestamp<'_>)> {
+    |                                                                      ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:201:28
+    |
+201 | pub fn parse_active(input: &str) -> IResult<&str, Timestamp, ()> {
+    |                            ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                            |                |
+    |                            |                the same lifetime is elided here
+    |                            the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+201 | pub fn parse_active(input: &str) -> IResult<&str, Timestamp<'_>, ()> {
+    |                                                            ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:254:30
+    |
+254 | pub fn parse_inactive(input: &str) -> IResult<&str, Timestamp, ()> {
+    |                              ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                              |                |
+    |                              |                the same lifetime is elided here
+    |                              the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+254 | pub fn parse_inactive(input: &str) -> IResult<&str, Timestamp<'_>, ()> {
+    |                                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:307:27
+    |
+307 | pub fn parse_diary(input: &str) -> IResult<&str, Timestamp, ()> {
+    |                           ^^^^             ^^^^  ^^^^^^^^^ the same lifetime is hidden here
+    |                           |                |
+    |                           |                the same lifetime is elided here
+    |                           the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+307 | pub fn parse_diary(input: &str) -> IResult<&str, Timestamp<'_>, ()> {
+    |                                                           ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/elements/timestamp.rs:329:26
+    |
+329 | fn parse_datetime(input: &str) -> IResult<&str, Datetime, ()> {
+    |                          ^^^^             ^^^^  ^^^^^^^^ the same lifetime is hidden here
+    |                          |                |
+    |                          |                the same lifetime is elided here
+    |                          the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+329 | fn parse_datetime(input: &str) -> IResult<&str, Datetime<'_>, ()> {
+    |                                                         ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/title.rs:68:19
+   |
+68 |     pub fn closed(&self) -> Option<&Timestamp> {
+   |                   ^^^^^            ^^^^^^^^^^
+   |                   |                ||
+   |                   |                |the same lifetime is hidden here
+   |                   |                the same lifetime is elided here
+   |                   the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+68 |     pub fn closed(&self) -> Option<&Timestamp<'_>> {
+   |                                              ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/title.rs:73:22
+   |
+73 |     pub fn scheduled(&self) -> Option<&Timestamp> {
+   |                      ^^^^^            ^^^^^^^^^^
+   |                      |                ||
+   |                      |                |the same lifetime is hidden here
+   |                      |                the same lifetime is elided here
+   |                      the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+73 |     pub fn scheduled(&self) -> Option<&Timestamp<'_>> {
+   |                                                 ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> orgize/src/elements/title.rs:78:21
+   |
+78 |     pub fn deadline(&self) -> Option<&Timestamp> {
+   |                     ^^^^^            ^^^^^^^^^^
+   |                     |                ||
+   |                     |                |the same lifetime is hidden here
+   |                     |                the same lifetime is elided here
+   |                     the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+   |
+78 |     pub fn deadline(&self) -> Option<&Timestamp<'_>> {
+   |                                                ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> orgize/src/parsers.rs:367:19
+    |
+367 |     fn new(bytes: &[u8]) -> InlinePositions {
+    |                   ^^^^^     ^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |                   |
+    |                   the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+367 |     fn new(bytes: &[u8]) -> InlinePositions<'_> {
+    |                                            ++++
+
+warning: `orgize` (lib) generated 51 warnings (run `cargo fix --lib -p orgize` to apply 51 suggestions)
+   Compiling nv-org-preview v0.1.0 (/Users/duc/dev/nv/build/OrgPreviewWorktree/build/OrgPreviewReview/round2/torvalds/fixed-snapshot-kiy4khoi/ThirdParty/OrgPreview)
+    Finished `release` profile [optimized] target(s) in 4.71s

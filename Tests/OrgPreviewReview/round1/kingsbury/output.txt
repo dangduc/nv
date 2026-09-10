@@ -1,0 +1,84 @@
+2026-09-09 19:06:17.407 OrgStateTests[3803:343565950] CASE: obsolete Org completion follows a newer HTML note
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: Org request and its actual output retain immutable source before caller mutation
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.584 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.713 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.713 OrgStateTests[3803:343565950] PASS: provider exposes the current immutable snapshot and viewer identity
+2026-09-09 19:06:17.713 OrgStateTests[3803:343565950] PASS: provider retains HTML for the current request
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: native WK document displays the current request
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: late successful Org completion cannot replace the newer HTML result
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] PASS: obsolete Org content never enters the current HTML DOM
+2026-09-09 19:06:17.759 OrgStateTests[3803:343565950] CASE: two Org generations complete in reverse delivery order
+2026-09-09 19:06:17.789 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.791 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.791 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.791 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.839 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.839 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.839 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.839 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.839 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.842 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.842 OrgStateTests[3803:343565950] PASS: provider exposes the current immutable snapshot and viewer identity
+2026-09-09 19:06:17.842 OrgStateTests[3803:343565950] PASS: provider retains HTML for the current request
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] PASS: native WK document displays the current request
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] PASS: late Org generation cannot roll the same note back
+2026-09-09 19:06:17.843 OrgStateTests[3803:343565950] CASE: obsolete failure follows successful Org recovery
+2026-09-09 19:06:17.844 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.844 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.844 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.891 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.891 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.891 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.891 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.891 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: provider exposes the current immutable snapshot and viewer identity
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: provider retains HTML for the current request
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: native WK document displays the current request
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: obsolete failure cannot hide or invalidate a later Org document
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] CASE: pending export survives provider closure and a late Org result
+2026-09-09 19:06:17.895 OrgStateTests[3803:343565950] PASS: export begins with the displayed Org result and its title
+2026-09-09 19:06:17.944 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:17.944 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:17.944 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:17.944 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:17.944 OrgStateTests[3803:343565950] PASS: close clears presentation and navigation while the completed result is held
+2026-09-09 19:06:18.000 OrgStateTests[3803:343565950] PASS: real renderer completion reaches the gate on the main thread
+2026-09-09 19:06:18.000 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:18.000 OrgStateTests[3803:343565950] PASS: gate holds the expected real renderer outcome
+2026-09-09 19:06:18.000 OrgStateTests[3803:343565950] PASS: real result retains its exact request snapshot and viewer
+2026-09-09 19:06:18.000 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:18.050 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:18.050 OrgStateTests[3803:343565950] PASS: provider exposes the current immutable snapshot and viewer identity
+2026-09-09 19:06:18.050 OrgStateTests[3803:343565950] PASS: provider retains HTML for the current request
+2026-09-09 19:06:18.051 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: native WK document displays the current request
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: export response after closure writes exactly the originally displayed Org bytes
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: gate delivers one actual completed result exactly once
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:18.052 OrgStateTests[3803:343565950] PASS: late completion releases the closed provider without changing its replacement
+2026-09-09 19:06:18.053 OrgStateTests[3803:343565950] PASS: native read-only DOM evaluation succeeds
+2026-09-09 19:06:18.053 OrgStateTests[3803:343565950] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:06:18.053 OrgStateTests[3803:343565950] PASS: replacement WK document remains current after old-provider completion
+2026-09-09 19:06:18.053 OrgStateTests[3803:343565950] PASS: all eight submitted requests participate in the asserted schedules
+2026-09-09 19:06:18.055 OrgStateTests[3803:343565950] PASS: 79 Org asynchronous publication and export checks

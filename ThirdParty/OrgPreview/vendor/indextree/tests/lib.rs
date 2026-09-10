@@ -1,0 +1,1658 @@
+use indextree::{Arena, NodeError};
+#[cfg(feature = "par_iter")]
+use rayon::prelude::*;
+
+#[test]
+fn leaves_iterator() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let a = root.append_value("a", &mut arena);
+    let b = a.append_value("b", &mut arena);
+    let c = root.append_value("c", &mut arena);
+    let d = c.append_value("d", &mut arena);
+    let e = c.append_value("e", &mut arena);
+
+    let leaves: Vec<_> = root.leaves(&arena).collect();
+    assert_eq!(leaves, vec![b, d, e]);
+}
+
+#[test]
+fn leaves_single_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let leaves: Vec<_> = root.leaves(&arena).collect();
+    assert_eq!(leaves, vec![root]);
+}
+
+#[test]
+fn breadth_first_traversal() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    let a = root.append_value(2, &mut arena);
+    let b = root.append_value(3, &mut arena);
+    a.append_value(4, &mut arena);
+    a.append_value(5, &mut arena);
+    b.append_value(6, &mut arena);
+
+    let bfs: Vec<i32> = root
+        .breadth_first(&arena)
+        .map(|id| *arena[id].get())
+        .collect();
+    assert_eq!(bfs, vec![1, 2, 3, 4, 5, 6]);
+}
+
+#[test]
+fn breadth_first_single_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(42);
+    let bfs: Vec<_> = root.breadth_first(&arena).collect();
+    assert_eq!(bfs, vec![root]);
+}
+
+#[test]
+fn descendant_count() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let a = root.append_value("a", &mut arena);
+    a.append_value("b", &mut arena);
+    root.append_value("c", &mut arena);
+
+    assert_eq!(root.descendant_count(&arena), 4);
+    assert_eq!(a.descendant_count(&arena), 2);
+}
+
+#[test]
+fn arena_map() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    let child = root.append_value(2, &mut arena);
+
+    let mapped: Arena<String> = arena.map(|x| x.to_string());
+    assert_eq!(mapped.get_data(root), Some(&"1".to_string()));
+    assert_eq!(mapped.get_data(child), Some(&"2".to_string()));
+    assert_eq!(mapped[child].parent(), Some(root));
+}
+
+#[test]
+fn arena_map_with_removed() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    let child = root.append_value(2, &mut arena);
+    child.remove(&mut arena);
+
+    let mapped: Arena<String> = arena.map(|x| x.to_string());
+    assert_eq!(mapped.get_data(root), Some(&"1".to_string()));
+    assert!(child.is_removed(&mapped));
+}
+
+#[test]
+fn subtree_eq_same_arena() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    let a = root.append_value(2, &mut arena);
+    let b = root.append_value(3, &mut arena);
+    a.append_value(4, &mut arena);
+    b.append_value(4, &mut arena);
+
+    // a and b have different data (2 vs 3)
+    assert!(!a.subtree_eq(b, &arena, &arena));
+}
+
+#[test]
+fn subtree_eq_different_arenas() {
+    let mut a1 = Arena::new();
+    let r1 = a1.new_node(1);
+    r1.append_value(2, &mut a1);
+    r1.append_value(3, &mut a1);
+
+    let mut a2 = Arena::new();
+    let r2 = a2.new_node(1);
+    r2.append_value(2, &mut a2);
+    r2.append_value(3, &mut a2);
+
+    assert!(r1.subtree_eq(r2, &a1, &a2));
+}
+
+#[test]
+fn subtree_eq_different_structure() {
+    let mut a1 = Arena::new();
+    let r1 = a1.new_node(1);
+    r1.append_value(2, &mut a1);
+
+    let mut a2 = Arena::new();
+    let r2 = a2.new_node(1);
+    let c = r2.append_value(2, &mut a2);
+    c.append_value(3, &mut a2);
+
+    assert!(!r1.subtree_eq(r2, &a1, &a2));
+}
+
+#[test]
+fn get_data_shorthand() {
+    let mut arena = Arena::new();
+    let id = arena.new_node(42);
+    assert_eq!(arena.get_data(id), Some(&42));
+    *arena.get_data_mut(id).unwrap() = 99;
+    assert_eq!(arena.get_data(id), Some(&99));
+    id.remove(&mut arena);
+    assert_eq!(arena.get_data(id), None);
+    assert_eq!(arena.get_data_mut(id), None);
+}
+
+#[test]
+fn checked_remove_on_stale_id() {
+    let mut arena = Arena::new();
+    let original = arena.new_node("original");
+    original.remove(&mut arena);
+    let _reused = arena.new_node("reused");
+
+    assert!(matches!(
+        original.checked_remove(&mut arena),
+        Err(NodeError::Removed)
+    ));
+}
+
+#[test]
+fn checked_detach() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    assert!(child.checked_detach(&mut arena).is_ok());
+    assert!(child.parent(&arena).is_none());
+}
+
+#[test]
+fn checked_reparent() {
+    let mut arena = Arena::new();
+    let a = arena.new_node("a");
+    let b = a.append_value("b", &mut arena);
+    let c = arena.new_node("c");
+    assert!(b.checked_reparent(c, &mut arena).is_ok());
+    assert_eq!(b.parent(&arena), Some(c));
+}
+
+#[test]
+fn arena_validate() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    root.append_value(2, &mut arena);
+    root.append_value(3, &mut arena);
+    assert!(arena.validate());
+}
+
+#[test]
+fn stale_id_checked_append_detects_reuse() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let original = arena.new_node("original");
+    root.append(original, &mut arena);
+    original.remove(&mut arena);
+    let _reused = arena.new_node("reused");
+
+    // original is a stale ID pointing to a reused slot
+    let fresh = arena.new_node("fresh");
+    assert!(matches!(
+        original.checked_append(fresh, &mut arena),
+        Err(NodeError::Removed)
+    ));
+}
+
+#[test]
+fn success_create() {
+    let mut new_counter = 0;
+    let arena = &mut Arena::new();
+    macro_rules! new {
+        () => {{
+            new_counter += 1;
+            arena.new_node(new_counter)
+        }};
+    }
+
+    let a = new!(); // 1
+    assert!(a.checked_append(new!(), arena).is_ok()); // 2
+    assert!(a.checked_append(new!(), arena).is_ok()); // 3
+    assert!(a.checked_prepend(new!(), arena).is_ok()); // 4
+    let b = new!(); // 5
+    assert!(b.checked_append(a, arena).is_ok());
+    assert!(a.checked_insert_before(new!(), arena).is_ok()); // 6
+    assert!(a.checked_insert_before(new!(), arena).is_ok()); // 7
+    assert!(a.checked_insert_after(new!(), arena).is_ok()); // 8
+    assert!(a.checked_insert_after(new!(), arena).is_ok()); // 9
+    let c = new!(); // 10
+    assert!(b.checked_append(c, arena).is_ok());
+
+    arena[c].previous_sibling().unwrap().detach(arena);
+
+    assert_eq!(
+        b.descendants(arena)
+            .map(|node| *arena[node].get())
+            .collect::<Vec<_>>(),
+        [5, 6, 7, 1, 4, 2, 3, 9, 10]
+    );
+}
+
+#[test]
+// Issue #30.
+fn first_prepend() {
+    let arena = &mut Arena::new();
+    let a = arena.new_node(1);
+    let b = arena.new_node(2);
+    assert!(a.checked_prepend(b, arena).is_ok());
+}
+
+#[test]
+fn success_detach() {
+    let arena = &mut Arena::new();
+    let a = arena.new_node(1);
+    let b = arena.new_node(1);
+    assert!(a.checked_append(b, arena).is_ok());
+    assert_eq!(b.ancestors(arena).count(), 2);
+    b.detach(arena);
+    assert_eq!(b.ancestors(arena).count(), 1);
+}
+
+#[test]
+fn get() {
+    let arena = &mut Arena::new();
+    let id = arena.new_node(1);
+    assert_eq!(*arena.get(id).unwrap().get(), 1);
+}
+
+#[test]
+fn get_mut() {
+    let arena = &mut Arena::new();
+    let id = arena.new_node(1);
+    assert_eq!(*arena.get_mut(id).unwrap().get(), 1);
+}
+
+#[test]
+fn iter() {
+    let arena = &mut Arena::new();
+    let a = arena.new_node(1);
+    let b = arena.new_node(2);
+    let c = arena.new_node(3);
+    let d = arena.new_node(4);
+    assert!(a.checked_append(b, arena).is_ok());
+    assert!(b.checked_append(c, arena).is_ok());
+    assert!(a.checked_append(d, arena).is_ok());
+
+    let node_refs = arena.iter().collect::<Vec<_>>();
+    assert_eq!(node_refs, vec![&arena[a], &arena[b], &arena[c], &arena[d]]);
+}
+
+#[test]
+fn iter_mut() {
+    let arena: &mut Arena<i64> = &mut Arena::new();
+    let a = arena.new_node(1);
+    let b = arena.new_node(2);
+    let c = arena.new_node(3);
+    let d = arena.new_node(4);
+    assert!(a.checked_append(b, arena).is_ok());
+    assert!(b.checked_append(c, arena).is_ok());
+    assert!(a.checked_append(d, arena).is_ok());
+
+    for node in arena.iter_mut() {
+        let data = node.get_mut();
+        *data = data.wrapping_add(4);
+    }
+
+    let node_refs = arena.iter().map(|i| *i.get()).collect::<Vec<_>>();
+    assert_eq!(node_refs, vec![5, 6, 7, 8]);
+}
+
+#[cfg(feature = "par_iter")]
+#[test]
+fn par_iter() {
+    let arena = &mut Arena::new();
+    let a = arena.new_node(1);
+    let b = arena.new_node(2);
+    let c = arena.new_node(3);
+    let d = arena.new_node(4);
+    assert!(a.checked_append(b, arena).is_ok());
+    assert!(b.checked_append(c, arena).is_ok());
+    assert!(a.checked_append(d, arena).is_ok());
+
+    let node_refs = arena.par_iter().collect::<Vec<_>>();
+    assert_eq!(node_refs, vec![&arena[a], &arena[b], &arena[c], &arena[d]]);
+}
+
+#[test]
+fn remove() {
+    let arena = &mut Arena::new();
+    let n0 = arena.new_node(0);
+    let n1 = arena.new_node(1);
+    let n2 = arena.new_node(2);
+    let n3 = arena.new_node(3);
+    let n4 = arena.new_node(4);
+    let n5 = arena.new_node(5);
+    let n6 = arena.new_node(6);
+    assert!(n0.checked_append(n1, arena).is_ok());
+    assert!(n0.checked_append(n2, arena).is_ok());
+    assert!(n0.checked_append(n3, arena).is_ok());
+    assert!(n2.checked_append(n4, arena).is_ok());
+    assert!(n2.checked_append(n5, arena).is_ok());
+    assert!(n2.checked_append(n5, arena).is_ok());
+    assert!(n2.checked_append(n6, arena).is_ok());
+    n2.remove(arena);
+
+    let node_refs = arena
+        .iter()
+        .filter_map(|x| {
+            if !x.is_removed() {
+                Some(*x.get())
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(node_refs, vec![0, 1, 3, 4, 5, 6]);
+    assert_eq!(n2.children(arena).count(), 0);
+    assert_eq!(n2.descendants(arena).count(), 1);
+    assert_eq!(n2.preceding_siblings(arena).count(), 1);
+    assert_eq!(n2.following_siblings(arena).count(), 1);
+
+    n3.remove(arena);
+
+    let node_refs = arena
+        .iter()
+        .filter_map(|x| {
+            if !x.is_removed() {
+                Some(*x.get())
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(node_refs, vec![0, 1, 4, 5, 6]);
+    assert_eq!(n3.children(arena).count(), 0);
+    assert_eq!(n3.descendants(arena).count(), 1);
+    assert_eq!(n3.preceding_siblings(arena).count(), 1);
+    assert_eq!(n3.following_siblings(arena).count(), 1);
+}
+
+#[test]
+fn is_removed() {
+    let arena = &mut Arena::new();
+    let n0 = arena.new_node(0);
+    n0.remove(arena);
+    assert!(n0.is_removed(arena));
+}
+
+#[test]
+fn insert_removed_node() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n2 = arena.new_node("2");
+    n2.remove(&mut arena);
+
+    assert!(n1.checked_append(n2, &mut arena).is_err());
+    assert!(n2.checked_append(n1, &mut arena).is_err());
+    assert!(n1.checked_prepend(n2, &mut arena).is_err());
+    assert!(n2.checked_prepend(n1, &mut arena).is_err());
+    assert!(n1.checked_insert_after(n2, &mut arena).is_err());
+    assert!(n2.checked_insert_after(n1, &mut arena).is_err());
+    assert!(n1.checked_insert_before(n2, &mut arena).is_err());
+    assert!(n2.checked_insert_before(n1, &mut arena).is_err());
+}
+
+#[test]
+fn retrieve_node_id() {
+    let mut arena = Arena::new();
+    let n1_id = arena.new_node("1");
+    let n2_id = arena.new_node("2");
+    let n3_id = arena.new_node("3");
+    let n1 = arena.get(n1_id).unwrap();
+    let n2 = arena.get(n2_id).unwrap();
+    let n3 = arena.get(n3_id).unwrap();
+    let retrieved_n1_id = arena.get_node_id(n1).unwrap();
+    let retrieved_n2_id = arena.get_node_id(n2).unwrap();
+    let retrieved_n3_id = arena.get_node_id(n3).unwrap();
+    assert_eq!(retrieved_n1_id, n1_id);
+    assert_eq!(retrieved_n2_id, n2_id);
+    assert_eq!(retrieved_n3_id, n3_id);
+}
+
+#[test]
+// Issue #78.
+fn append_ancestor() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = arena.new_node("child");
+    root.append(child, &mut arena);
+    let grandchild = arena.new_node("grandchild");
+    child.append(grandchild, &mut arena);
+    // root
+    // `-- child
+    //     `-- grandchild
+    assert!(matches!(
+        grandchild.checked_append(root, &mut arena),
+        Err(NodeError::AppendAncestor)
+    ));
+    assert!(matches!(
+        grandchild.checked_append(child, &mut arena),
+        Err(NodeError::AppendAncestor)
+    ));
+}
+
+#[test]
+// Issue #78.
+fn prepend_ancestor() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = arena.new_node("child");
+    root.append(child, &mut arena);
+    let grandchild = arena.new_node("grandchild");
+    child.append(grandchild, &mut arena);
+    // root
+    // `-- child
+    //     `-- grandchild
+    assert!(matches!(
+        grandchild.checked_prepend(root, &mut arena),
+        Err(NodeError::PrependAncestor)
+    ));
+    assert!(matches!(
+        grandchild.checked_prepend(child, &mut arena),
+        Err(NodeError::PrependAncestor)
+    ));
+}
+
+#[test]
+fn reserve() {
+    let mut arena = Arena::new();
+    arena.new_node(1);
+    arena.reserve(5);
+    assert!(arena.capacity() >= 5);
+}
+
+#[test]
+fn inaccessible_node() {
+    let mut arena = Arena::new();
+    let n1_id = arena.new_node("1");
+    let n2_id = arena.new_node("2");
+    arena.clear();
+    assert!(arena.get(n1_id).is_none());
+    let n1_id = arena.new_node("1");
+    assert_eq!(*arena[n1_id].get(), "1");
+    assert!(n2_id.is_removed(&arena));
+}
+
+#[test]
+fn prepend_value() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(10);
+    let c1 = root.prepend_value(1, &mut arena);
+    let c2 = root.prepend_value(2, &mut arena);
+    let c3 = root.prepend_value(3, &mut arena);
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c3, c2, c1]);
+}
+
+#[test]
+fn reverse_children() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(10);
+    root.append_value(1, &mut arena);
+    root.append_value(2, &mut arena);
+    root.append_value(3, &mut arena);
+    let mut iter = root.children(&arena).rev().map(|n| *arena[n].get());
+    assert_eq!(iter.next(), Some(3));
+    assert_eq!(iter.next(), Some(2));
+    assert_eq!(iter.next(), Some(1));
+    assert_eq!(iter.next(), None);
+}
+
+#[test]
+fn detach_children_no_children() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = arena.new_node("child");
+    root.append(child, &mut arena);
+
+    // Detach children of a leaf node (no-op)
+    child.detach_children(&mut arena);
+    assert_eq!(child.children(&arena).count(), 0);
+    // Parent relationship preserved
+    assert_eq!(child.parent(&arena), Some(root));
+}
+
+#[test]
+fn detach_children_single_child() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = arena.new_node("child");
+    root.append(child, &mut arena);
+
+    root.detach_children(&mut arena);
+    assert_eq!(root.children(&arena).count(), 0);
+    assert!(arena[child].parent().is_none());
+    assert!(!arena[child].is_removed());
+}
+
+#[test]
+fn detach_children_preserves_parent_position() {
+    let mut arena = Arena::new();
+    let grandparent = arena.new_node("gp");
+    let parent = arena.new_node("p");
+    let sibling = arena.new_node("s");
+    grandparent.append(parent, &mut arena);
+    grandparent.append(sibling, &mut arena);
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    parent.append(c1, &mut arena);
+    parent.append(c2, &mut arena);
+
+    parent.detach_children(&mut arena);
+
+    // Parent still in its original position
+    assert_eq!(parent.parent(&arena), Some(grandparent));
+    assert_eq!(arena[parent].next_sibling(), Some(sibling));
+    // Children are detached and independent
+    assert!(arena[c1].parent().is_none());
+    assert!(arena[c1].next_sibling().is_none());
+    assert!(arena[c2].parent().is_none());
+    assert!(arena[c2].previous_sibling().is_none());
+}
+
+#[test]
+fn remove_children_no_children() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = arena.new_node("child");
+    root.append(child, &mut arena);
+
+    // Remove children of a leaf node (no-op)
+    child.remove_children(&mut arena);
+    assert_eq!(child.children(&arena).count(), 0);
+    assert_eq!(child.parent(&arena), Some(root));
+}
+
+#[test]
+fn remove_children_preserves_parent_position() {
+    let mut arena = Arena::new();
+    let grandparent = arena.new_node("gp");
+    let parent = arena.new_node("p");
+    let sibling = arena.new_node("s");
+    grandparent.append(parent, &mut arena);
+    grandparent.append(sibling, &mut arena);
+    let c1 = arena.new_node("c1");
+    let c1_1 = arena.new_node("c1_1");
+    let c2 = arena.new_node("c2");
+    parent.append(c1, &mut arena);
+    c1.append(c1_1, &mut arena);
+    parent.append(c2, &mut arena);
+
+    parent.remove_children(&mut arena);
+
+    // Parent still in its original position
+    assert_eq!(parent.parent(&arena), Some(grandparent));
+    assert_eq!(arena[parent].next_sibling(), Some(sibling));
+    assert_eq!(parent.children(&arena).count(), 0);
+    // All children and grandchildren removed
+    assert!(c1.is_removed(&arena));
+    assert!(c1_1.is_removed(&arena));
+    assert!(c2.is_removed(&arena));
+}
+
+#[test]
+fn reverse_traverse() {
+    use indextree::NodeEdge;
+
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n1_1 = arena.new_node("1_1");
+    n1.append(n1_1, &mut arena);
+    let n1_2 = arena.new_node("1_2");
+    n1.append(n1_2, &mut arena);
+
+    let forward: Vec<_> = n1.traverse(&arena).collect();
+    let mut reverse: Vec<_> = n1.reverse_traverse(&arena).collect();
+    reverse.reverse();
+    assert_eq!(forward, reverse);
+
+    // Verify specific order
+    let events: Vec<_> = n1.reverse_traverse(&arena).collect();
+    assert_eq!(events[0], NodeEdge::End(n1));
+    assert_eq!(events[1], NodeEdge::End(n1_2));
+    assert_eq!(events[2], NodeEdge::Start(n1_2));
+    assert_eq!(events[3], NodeEdge::End(n1_1));
+    assert_eq!(events[4], NodeEdge::Start(n1_1));
+    assert_eq!(events[5], NodeEdge::Start(n1));
+    assert_eq!(events.len(), 6);
+}
+
+#[test]
+fn predecessors() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n1_1 = arena.new_node("1_1");
+    n1.append(n1_1, &mut arena);
+    let n1_2 = arena.new_node("1_2");
+    n1.append(n1_2, &mut arena);
+
+    let preds: Vec<_> = n1_2.predecessors(&arena).collect();
+    assert_eq!(preds, vec![n1_2, n1_1, n1]);
+}
+
+#[test]
+fn iter_node_ids() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n2 = arena.new_node("2");
+    let n3 = arena.new_node("3");
+    n2.remove(&mut arena);
+
+    let ids: Vec<_> = arena.iter_node_ids().collect();
+    assert_eq!(ids, vec![n1, n3]);
+}
+
+#[test]
+fn node_display() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n2 = arena.new_node("2");
+    n1.append(n2, &mut arena);
+
+    let display = format!("{}", arena[n1]);
+    assert!(display.contains("no parent"));
+    assert!(display.contains("first child"));
+
+    let display = format!("{}", arena[n2]);
+    assert!(display.contains("parent:"));
+    assert!(display.contains("no first child"));
+}
+
+#[test]
+fn node_error_display() {
+    let err = NodeError::AppendSelf;
+    assert_eq!(format!("{err}"), "Can not append a node to itself");
+
+    let err = NodeError::Removed;
+    assert_eq!(
+        format!("{err}"),
+        "Removed node cannot have any parent, siblings, and children"
+    );
+}
+
+#[test]
+fn last_child_accessor() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    assert_eq!(arena[n1].last_child(), None);
+
+    let n1_1 = arena.new_node("1_1");
+    n1.append(n1_1, &mut arena);
+    let n1_2 = arena.new_node("1_2");
+    n1.append(n1_2, &mut arena);
+
+    assert_eq!(arena[n1].last_child(), Some(n1_2));
+}
+
+#[test]
+fn children_reverse_iterator() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    let c3 = arena.new_node("c3");
+    root.append(c1, &mut arena);
+    root.append(c2, &mut arena);
+    root.append(c3, &mut arena);
+
+    let forward: Vec<_> = root.children(&arena).collect();
+    assert_eq!(forward, vec![c1, c2, c3]);
+
+    let backward: Vec<_> = root.children(&arena).rev().collect();
+    assert_eq!(backward, vec![c3, c2, c1]);
+}
+
+#[test]
+fn following_siblings_reverse() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    let c3 = arena.new_node("c3");
+    root.append(c1, &mut arena);
+    root.append(c2, &mut arena);
+    root.append(c3, &mut arena);
+
+    let forward: Vec<_> = c1.following_siblings(&arena).collect();
+    assert_eq!(forward, vec![c1, c2, c3]);
+
+    let backward: Vec<_> = c1.following_siblings(&arena).rev().collect();
+    assert_eq!(backward, vec![c3, c2, c1]);
+}
+
+#[test]
+fn preceding_siblings_reverse() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    let c3 = arena.new_node("c3");
+    root.append(c1, &mut arena);
+    root.append(c2, &mut arena);
+    root.append(c3, &mut arena);
+
+    let forward: Vec<_> = c3.preceding_siblings(&arena).collect();
+    assert_eq!(forward, vec![c3, c2, c1]);
+
+    let backward: Vec<_> = c3.preceding_siblings(&arena).rev().collect();
+    assert_eq!(backward, vec![c1, c2, c3]);
+}
+
+#[test]
+fn node_error_display_all_variants() {
+    let err = NodeError::PrependSelf;
+    assert_eq!(format!("{err}"), "Can not prepend a node to itself");
+
+    let err = NodeError::InsertBeforeSelf;
+    assert_eq!(format!("{err}"), "Can not insert a node before itself");
+
+    let err = NodeError::InsertAfterSelf;
+    assert_eq!(format!("{err}"), "Can not insert a node after itself");
+
+    let err = NodeError::AppendAncestor;
+    assert_eq!(format!("{err}"), "Can not append a node to its descendant");
+
+    let err = NodeError::PrependAncestor;
+    assert_eq!(format!("{err}"), "Can not prepend a node to its descendant");
+}
+
+#[test]
+fn panicking_wrappers() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    let c3 = arena.new_node("c3");
+
+    root.prepend(c1, &mut arena);
+    root.prepend(c2, &mut arena);
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c2, c1]);
+
+    c2.insert_after(c3, &mut arena);
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c2, c3, c1]);
+
+    let c4 = arena.new_node("c4");
+    c3.insert_before(c4, &mut arena);
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c2, c4, c3, c1]);
+}
+
+#[test]
+fn get_node_id_at() {
+    use std::num::NonZeroUsize;
+
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n2 = arena.new_node("2");
+    let n3 = arena.new_node("3");
+
+    let idx1: NonZeroUsize = n1.into();
+    let idx2: NonZeroUsize = n2.into();
+    let idx3: NonZeroUsize = n3.into();
+
+    assert_eq!(arena.get_node_id_at(idx1), Some(n1));
+    assert_eq!(arena.get_node_id_at(idx2), Some(n2));
+    assert_eq!(arena.get_node_id_at(idx3), Some(n3));
+
+    // Out of bounds index returns None
+    let out_of_bounds = NonZeroUsize::new(100).unwrap();
+    assert_eq!(arena.get_node_id_at(out_of_bounds), None);
+
+    // Removed node returns None
+    n2.remove(&mut arena);
+    assert_eq!(arena.get_node_id_at(idx2), None);
+}
+
+#[test]
+fn as_slice() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node(10);
+    let n2 = arena.new_node(20);
+    let n3 = arena.new_node(30);
+    n1.append(n2, &mut arena);
+    n1.append(n3, &mut arena);
+
+    let slice = arena.as_slice();
+    assert_eq!(slice.len(), 3);
+    assert_eq!(*slice[0].get(), 10);
+    assert_eq!(*slice[1].get(), 20);
+    assert_eq!(*slice[2].get(), 30);
+}
+
+#[test]
+fn child_count() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    assert_eq!(root.child_count(&arena), 0);
+
+    let c1 = arena.new_node("c1");
+    root.append(c1, &mut arena);
+    assert_eq!(root.child_count(&arena), 1);
+
+    root.append_value("c2", &mut arena);
+    root.append_value("c3", &mut arena);
+    assert_eq!(root.child_count(&arena), 3);
+
+    // Grandchildren don't count
+    c1.append_value("gc1", &mut arena);
+    assert_eq!(root.child_count(&arena), 3);
+    assert_eq!(c1.child_count(&arena), 1);
+}
+
+#[test]
+fn size_hint_iterators() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+    c1.append_value("gc1", &mut arena);
+
+    // Non-empty iterators have lower bound of 1
+    assert_eq!(root.ancestors(&arena).size_hint(), (1, None));
+    assert_eq!(root.children(&arena).size_hint(), (1, None));
+    assert_eq!(root.descendants(&arena).size_hint(), (1, None));
+    assert_eq!(root.traverse(&arena).size_hint(), (1, None));
+    assert_eq!(root.reverse_traverse(&arena).size_hint(), (1, None));
+    assert_eq!(c2.preceding_siblings(&arena).size_hint(), (1, None));
+    assert_eq!(c1.following_siblings(&arena).size_hint(), (1, None));
+    assert_eq!(c1.predecessors(&arena).size_hint(), (1, None));
+
+    // Leaves: lower bound is 0 (filtering), upper bound from descendants
+    let (lo, _) = root.leaves(&arena).size_hint();
+    assert_eq!(lo, 0);
+
+    // BFS: lower bound is queue length
+    assert_eq!(root.breadth_first(&arena).size_hint(), (1, None));
+
+    // Exhausted iterators report exact zero
+    let mut iter = root.ancestors(&arena);
+    iter.next(); // root itself, no parent
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.children(&arena);
+    iter.next(); // c1
+    iter.next(); // c2
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.traverse(&arena);
+    while iter.next().is_some() {}
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.reverse_traverse(&arena);
+    while iter.next().is_some() {}
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.descendants(&arena);
+    while iter.next().is_some() {}
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.leaves(&arena);
+    while iter.next().is_some() {}
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+
+    let mut iter = root.breadth_first(&arena);
+    while iter.next().is_some() {}
+    assert_eq!(iter.size_hint(), (0, Some(0)));
+}
+
+#[test]
+fn node_display_with_siblings() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = arena.new_node("c1");
+    let c2 = arena.new_node("c2");
+    let c3 = arena.new_node("c3");
+    root.append(c1, &mut arena);
+    root.append(c2, &mut arena);
+    root.append(c3, &mut arena);
+
+    // Middle child has both previous and next siblings
+    let display = format!("{}", arena[c2]);
+    assert!(display.contains("previous sibling:"));
+    assert!(display.contains("next sibling:"));
+
+    // First child has next but no previous
+    let display = format!("{}", arena[c1]);
+    assert!(display.contains("no previous sibling"));
+    assert!(display.contains("next sibling:"));
+
+    // Last child has previous but no next
+    let display = format!("{}", arena[c3]);
+    assert!(display.contains("previous sibling:"));
+    assert!(display.contains("no next sibling"));
+}
+
+#[test]
+fn double_remove_is_safe() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    child.remove(&mut arena);
+    assert!(child.is_removed(&arena));
+    // Calling remove_subtree on an already-removed node should not corrupt
+    // the free list (free_node guards against double-free).
+    child.remove_subtree(&mut arena);
+    assert!(child.is_removed(&arena));
+    // Arena is still usable
+    let new_node = arena.new_node("new");
+    assert!(!new_node.is_removed(&arena));
+}
+
+#[test]
+fn stale_node_id_after_slot_reuse() {
+    let mut arena = Arena::new();
+    let original = arena.new_node("original");
+    let original_id = original;
+    original.remove(&mut arena);
+
+    let reused = arena.new_node("reused");
+
+    // Stale ID should not see the new data
+    assert!(arena.get(original_id).is_none());
+    assert!(original_id.is_removed(&arena));
+
+    // New ID sees the new data
+    assert_eq!(*arena.get(reused).unwrap().get(), "reused");
+    assert!(!reused.is_removed(&arena));
+
+    // The two IDs are different even though they may share an index
+    assert_ne!(original_id, reused);
+}
+
+#[test]
+fn remove_subtree_leaf_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    let leaf = child.append_value("leaf", &mut arena);
+
+    leaf.remove_subtree(&mut arena);
+
+    assert!(leaf.is_removed(&arena));
+    assert!(!child.is_removed(&arena));
+    assert!(!root.is_removed(&arena));
+    assert_eq!(child.children(&arena).count(), 0);
+}
+
+#[test]
+fn node_try_get() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("hello");
+    assert_eq!(arena[n1].try_get(), Some(&"hello"));
+
+    n1.remove(&mut arena);
+    assert_eq!(arena[n1].try_get(), None);
+}
+
+#[test]
+fn node_try_get_mut() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node(42);
+    *arena[n1].try_get_mut().unwrap() = 99;
+    assert_eq!(*arena[n1].get(), 99);
+}
+
+#[test]
+fn arena_len() {
+    let mut arena = Arena::new();
+    assert_eq!(arena.len(), 0);
+    let n1 = arena.new_node("a");
+    assert_eq!(arena.len(), 1);
+    arena.new_node("b");
+    assert_eq!(arena.len(), 2);
+    n1.remove(&mut arena);
+    assert_eq!(arena.len(), 2); // removed nodes still counted
+}
+
+#[test]
+fn into_iterator_ref() {
+    let mut arena = Arena::new();
+    arena.new_node(1);
+    arena.new_node(2);
+    arena.new_node(3);
+
+    let values: Vec<_> = (&arena).into_iter().map(|n| *n.get()).collect();
+    assert_eq!(values, vec![1, 2, 3]);
+}
+
+#[test]
+fn into_iterator_mut() {
+    let mut arena: Arena<i32> = Arena::new();
+    arena.new_node(1);
+    arena.new_node(2);
+    arena.new_node(3);
+
+    for node in &mut arena {
+        *node.get_mut() += 10;
+    }
+
+    let values: Vec<_> = (&arena).into_iter().map(|n| *n.get()).collect();
+    assert_eq!(values, vec![11, 12, 13]);
+}
+
+#[test]
+fn depth() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    let grandchild = child.append_value("grandchild", &mut arena);
+
+    assert_eq!(root.depth(&arena), 0);
+    assert_eq!(child.depth(&arena), 1);
+    assert_eq!(grandchild.depth(&arena), 2);
+}
+
+#[test]
+fn nth_child() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c0 = root.append_value("c0", &mut arena);
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+
+    assert_eq!(root.nth_child(0, &arena), Some(c0));
+    assert_eq!(root.nth_child(1, &arena), Some(c1));
+    assert_eq!(root.nth_child(2, &arena), Some(c2));
+    assert_eq!(root.nth_child(3, &arena), None);
+    assert_eq!(c0.nth_child(0, &arena), None);
+}
+
+#[test]
+fn is_ancestor_of() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    let grandchild = child.append_value("grandchild", &mut arena);
+
+    assert!(root.is_ancestor_of(child, &arena));
+    assert!(root.is_ancestor_of(grandchild, &arena));
+    assert!(child.is_ancestor_of(grandchild, &arena));
+
+    assert!(!child.is_ancestor_of(root, &arena));
+    assert!(!grandchild.is_ancestor_of(root, &arena));
+    assert!(!root.is_ancestor_of(root, &arena));
+}
+
+#[test]
+fn is_descendant_of() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+    let grandchild = child.append_value("grandchild", &mut arena);
+
+    assert!(grandchild.is_descendant_of(root, &arena));
+    assert!(child.is_descendant_of(root, &arena));
+    assert!(grandchild.is_descendant_of(child, &arena));
+
+    assert!(!root.is_descendant_of(child, &arena));
+    assert!(!root.is_descendant_of(root, &arena));
+}
+
+#[test]
+fn node_error_eq() {
+    assert_eq!(NodeError::AppendSelf, NodeError::AppendSelf);
+    assert_ne!(NodeError::AppendSelf, NodeError::Removed);
+
+    // Can use assert_eq! with checked_ methods
+    let mut arena = Arena::new();
+    let n = arena.new_node("x");
+    assert_eq!(n.checked_append(n, &mut arena), Err(NodeError::AppendSelf));
+}
+
+#[test]
+fn is_removed_after_clear() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("1");
+    let n2 = arena.new_node("2");
+    arena.clear();
+    // Should not panic, just return true
+    assert!(n1.is_removed(&arena));
+    assert!(n2.is_removed(&arena));
+}
+
+#[test]
+fn get_returns_none_for_removed() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("hello");
+    assert!(arena.get(n1).is_some());
+    n1.remove(&mut arena);
+    assert!(arena.get(n1).is_none());
+    assert!(arena.get_mut(n1).is_none());
+}
+
+#[test]
+#[should_panic(expected = "Preconditions not met")]
+fn append_self_panics() {
+    let mut arena = Arena::new();
+    let n = arena.new_node("x");
+    n.append(n, &mut arena);
+}
+
+#[test]
+#[should_panic(expected = "Preconditions not met")]
+fn prepend_self_panics() {
+    let mut arena = Arena::new();
+    let n = arena.new_node("x");
+    n.prepend(n, &mut arena);
+}
+
+#[test]
+#[should_panic(expected = "Preconditions not met")]
+fn insert_after_self_panics() {
+    let mut arena = Arena::new();
+    let n = arena.new_node("x");
+    n.insert_after(n, &mut arena);
+}
+
+#[test]
+#[should_panic(expected = "Preconditions not met")]
+fn insert_before_self_panics() {
+    let mut arena = Arena::new();
+    let n = arena.new_node("x");
+    n.insert_before(n, &mut arena);
+}
+
+#[test]
+fn insert_after_value() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c3 = root.append_value("c3", &mut arena);
+    let c2 = c1.insert_after_value("c2", &mut arena);
+
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c1, c2, c3]);
+    assert_eq!(*arena[c2].get(), "c2");
+}
+
+#[test]
+fn insert_before_value() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c3 = root.append_value("c3", &mut arena);
+    let c2 = c3.insert_before_value("c2", &mut arena);
+
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c1, c2, c3]);
+    assert_eq!(*arena[c2].get(), "c2");
+}
+
+#[cfg(feature = "serde")]
+#[test]
+fn serde_round_trip_with_free_list() {
+    let mut arena = Arena::new();
+    let n1 = arena.new_node("a");
+    let n2 = arena.new_node("b");
+    let n3 = arena.new_node("c");
+    n1.append(n3, &mut arena);
+
+    // Remove n2 to populate the free list
+    n2.remove(&mut arena);
+
+    let json = serde_json::to_string(&arena).unwrap();
+    let deserialized: Arena<&str> = serde_json::from_str(&json).unwrap();
+
+    assert_eq!(arena, deserialized);
+
+    // Verify the free list works after deserialization by allocating a new node
+    let mut deserialized = deserialized;
+    let n4 = deserialized.new_node("d");
+    // The new node should reuse n2's slot (same 1-based index)
+    assert_eq!(usize::from(n4), usize::from(n2));
+    assert_eq!(*deserialized[n4].get(), "d");
+}
+
+#[cfg(feature = "par_iter")]
+#[test]
+fn par_iter_mut() {
+    let mut arena: Arena<i64> = Arena::new();
+    let root = arena.new_node(1);
+    root.append_value(2, &mut arena);
+    root.append_value(3, &mut arena);
+
+    arena.par_iter_mut().for_each(|node| {
+        if let Some(data) = node.try_get_mut() {
+            *data *= 10;
+        }
+    });
+
+    let sum: i64 = arena.par_iter().map(|node| *node.get()).sum();
+    assert_eq!(sum, 60);
+}
+
+#[test]
+fn remove_subtree_on_root() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+    let gc1 = c1.append_value("gc1", &mut arena);
+
+    root.remove_subtree(&mut arena);
+
+    assert!(root.is_removed(&arena));
+    assert!(c1.is_removed(&arena));
+    assert!(c2.is_removed(&arena));
+    assert!(gc1.is_removed(&arena));
+}
+
+#[test]
+fn children_double_ended_interleaved() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+    let c3 = root.append_value("c3", &mut arena);
+    let c4 = root.append_value("c4", &mut arena);
+
+    let mut iter = root.children(&arena);
+    assert_eq!(iter.next(), Some(c1));
+    assert_eq!(iter.next_back(), Some(c4));
+    assert_eq!(iter.next(), Some(c2));
+    assert_eq!(iter.next_back(), Some(c3));
+    assert_eq!(iter.next(), None);
+    assert_eq!(iter.next_back(), None);
+}
+
+#[test]
+fn detach_children_three_plus() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+    let c3 = root.append_value("c3", &mut arena);
+    let c4 = root.append_value("c4", &mut arena);
+
+    // Give c2 a subtree
+    let gc1 = c2.append_value("gc1", &mut arena);
+
+    root.detach_children(&mut arena);
+
+    assert_eq!(root.children(&arena).count(), 0);
+    assert!(root.first_child(&arena).is_none());
+    assert!(root.last_child(&arena).is_none());
+
+    // All children are detached
+    for &child in &[c1, c2, c3, c4] {
+        assert!(child.parent(&arena).is_none());
+        assert!(child.next_sibling(&arena).is_none());
+        assert!(child.previous_sibling(&arena).is_none());
+        assert!(!child.is_removed(&arena));
+    }
+
+    // Subtrees are preserved
+    assert_eq!(gc1.parent(&arena), Some(c2));
+    assert_eq!(c2.first_child(&arena), Some(gc1));
+}
+
+#[test]
+fn nodeid_convenience_accessors() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+
+    assert_eq!(root.first_child(&arena), Some(c1));
+    assert_eq!(root.last_child(&arena), Some(c2));
+    assert_eq!(c1.next_sibling(&arena), Some(c2));
+    assert_eq!(c2.previous_sibling(&arena), Some(c1));
+    assert_eq!(c1.previous_sibling(&arena), None);
+    assert_eq!(c2.next_sibling(&arena), None);
+}
+
+#[test]
+fn nodeid_predicates() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+
+    assert!(root.is_root(&arena));
+    assert!(!child.is_root(&arena));
+    assert!(root.has_children(&arena));
+    assert!(!child.has_children(&arena));
+    assert!(!root.is_leaf(&arena));
+    assert!(child.is_leaf(&arena));
+}
+
+#[test]
+fn arena_live_count() {
+    let mut arena = Arena::new();
+    assert_eq!(arena.live_count(), 0);
+
+    let n1 = arena.new_node("a");
+    arena.new_node("b");
+    arena.new_node("c");
+    assert_eq!(arena.live_count(), 3);
+    assert_eq!(arena.len(), 3);
+
+    n1.remove(&mut arena);
+    assert_eq!(arena.live_count(), 2);
+    assert_eq!(arena.len(), 3);
+}
+
+#[test]
+fn arena_shrink_to_fit() {
+    let mut arena: Arena<i32> = Arena::with_capacity(100);
+    assert!(arena.capacity() >= 100);
+
+    arena.new_node(1);
+    arena.new_node(2);
+    arena.shrink_to_fit();
+    // After shrinking, capacity should be close to len
+    assert!(arena.capacity() < 100);
+    assert!(arena.capacity() >= 2);
+}
+
+#[test]
+fn arena_into_iterator_owned() {
+    let mut arena = Arena::new();
+    arena.new_node(1);
+    arena.new_node(2);
+    arena.new_node(3);
+
+    let values: Vec<_> = arena.into_iter().map(|n| *n.get()).collect();
+    assert_eq!(values, vec![1, 2, 3]);
+}
+
+#[test]
+fn descendants_single_node() {
+    let mut arena = Arena::new();
+    let leaf = arena.new_node("leaf");
+
+    let mut iter = leaf.descendants(&arena);
+    assert_eq!(iter.next(), Some(leaf));
+    assert_eq!(iter.next(), None);
+    // FusedIterator: stays None
+    assert_eq!(iter.next(), None);
+}
+
+#[test]
+fn descendants_subtree_root() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let a = root.append_value("a", &mut arena);
+    let b = a.append_value("b", &mut arena);
+    let c = a.append_value("c", &mut arena);
+    root.append_value("d", &mut arena);
+
+    let sub: Vec<_> = a.descendants(&arena).collect();
+    assert_eq!(sub, vec![a, b, c]);
+}
+
+#[test]
+fn fused_iterators() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+
+    let mut children = root.children(&arena);
+    assert_eq!(children.next(), Some(c1));
+    assert_eq!(children.next(), None);
+    assert_eq!(children.next(), None);
+
+    let mut ancestors = c1.ancestors(&arena);
+    assert_eq!(ancestors.next(), Some(c1));
+    assert_eq!(ancestors.next(), Some(root));
+    assert_eq!(ancestors.next(), None);
+    assert_eq!(ancestors.next(), None);
+
+    let mut siblings = c1.following_siblings(&arena);
+    assert_eq!(siblings.next(), Some(c1));
+    assert_eq!(siblings.next(), None);
+    assert_eq!(siblings.next(), None);
+
+    let mut leaves = root.leaves(&arena);
+    assert_eq!(leaves.next(), Some(c1));
+    assert_eq!(leaves.next(), None);
+    assert_eq!(leaves.next(), None);
+
+    let mut bfs = root.breadth_first(&arena);
+    assert_eq!(bfs.next(), Some(root));
+    assert_eq!(bfs.next(), Some(c1));
+    assert_eq!(bfs.next(), None);
+    assert_eq!(bfs.next(), None);
+}
+
+#[test]
+fn clear_then_reuse() {
+    let mut arena = Arena::new();
+    let a = arena.new_node("a");
+    let b = arena.new_node("b");
+    a.append(b, &mut arena);
+    arena.new_node("c");
+
+    arena.clear();
+    assert!(arena.is_empty());
+    assert_eq!(arena.len(), 0);
+
+    let d = arena.new_node("d");
+    let e = arena.new_node("e");
+    d.append(e, &mut arena);
+
+    assert_eq!(arena.len(), 2);
+    assert_eq!(*arena[d].get(), "d");
+    assert_eq!(arena[e].parent(), Some(d));
+}
+
+#[test]
+fn remove_children_single_child() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let only = root.append_value("only", &mut arena);
+    let gc = only.append_value("gc", &mut arena);
+
+    root.remove_children(&mut arena);
+
+    assert_eq!(root.children(&arena).count(), 0);
+    assert!(only.is_removed(&arena));
+    assert!(gc.is_removed(&arena));
+}
+
+#[test]
+fn detach_on_root_is_noop() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+
+    root.detach(&mut arena);
+
+    assert!(root.parent(&arena).is_none());
+    assert_eq!(root.first_child(&arena), Some(child));
+}
+
+#[test]
+fn arena_extend_and_from_iterator() {
+    let arena: Arena<i32> = (1..=5).collect();
+    assert_eq!(arena.len(), 5);
+
+    let values: Vec<_> = arena.iter().map(|n| *n.get()).collect();
+    assert_eq!(values, vec![1, 2, 3, 4, 5]);
+
+    let mut arena2 = Arena::new();
+    arena2.new_node(0);
+    arena2.extend(10..=12);
+    assert_eq!(arena2.len(), 4);
+}
+
+#[test]
+fn arena_roots() {
+    let mut arena = Arena::new();
+    let a = arena.new_node("a");
+    let b = arena.new_node("b");
+    let c = arena.new_node("c");
+    a.append(c, &mut arena);
+
+    let roots: Vec<_> = arena.roots().collect();
+    assert_eq!(roots, vec![a, b]);
+}
+
+#[test]
+fn node_into_data() {
+    let mut arena = Arena::new();
+    arena.new_node(String::from("hello"));
+    let id = arena.new_node(String::from("world"));
+    id.remove(&mut arena);
+
+    let data: Vec<_> = arena.into_iter().filter_map(|n| n.into_data()).collect();
+    assert_eq!(data, vec!["hello"]);
+}
+
+#[test]
+fn reparent_node() {
+    let mut arena = Arena::new();
+    let a = arena.new_node("a");
+    let b = a.append_value("b", &mut arena);
+    let c = arena.new_node("c");
+
+    b.reparent(c, &mut arena);
+
+    assert_eq!(b.parent(&arena), Some(c));
+    assert_eq!(a.children(&arena).count(), 0);
+    assert_eq!(c.first_child(&arena), Some(b));
+}
+
+#[test]
+fn remove_children_preserves_parent() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let parent = arena.new_node("parent");
+    root.append(parent, &mut arena);
+    let c1 = parent.append_value("c1", &mut arena);
+    let c2 = parent.append_value("c2", &mut arena);
+    let gc = c1.append_value("gc", &mut arena);
+
+    parent.remove_children(&mut arena);
+
+    assert_eq!(parent.parent(&arena), Some(root));
+    assert_eq!(parent.children(&arena).count(), 0);
+    assert!(c1.is_removed(&arena));
+    assert!(c2.is_removed(&arena));
+    assert!(gc.is_removed(&arena));
+}
+
+#[test]
+fn remove_children_deep_tree() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let gc1 = c1.append_value("gc1", &mut arena);
+    let ggc1 = gc1.append_value("ggc1", &mut arena);
+    let gc2 = c1.append_value("gc2", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+    let c3 = root.append_value("c3", &mut arena);
+    let gc3 = c3.append_value("gc3", &mut arena);
+
+    root.remove_children(&mut arena);
+
+    assert_eq!(root.children(&arena).count(), 0);
+    assert!(!root.is_removed(&arena));
+    for &id in &[c1, gc1, ggc1, gc2, c2, c3, gc3] {
+        assert!(id.is_removed(&arena));
+    }
+}
+
+#[test]
+fn checked_prepend_already_first_child() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let c1 = root.append_value("c1", &mut arena);
+    let c2 = root.append_value("c2", &mut arena);
+
+    // Prepending the existing first child should succeed (detach + re-insert).
+    assert!(root.checked_prepend(c1, &mut arena).is_ok());
+    let children: Vec<_> = root.children(&arena).collect();
+    assert_eq!(children, vec![c1, c2]);
+}
+
+#[test]
+fn checked_prepend_moves_child_from_another_parent() {
+    let mut arena = Arena::new();
+    let a = arena.new_node("a");
+    let b = arena.new_node("b");
+    let c = a.append_value("c", &mut arena);
+
+    // c is currently a child of a; prepending it to b should detach it first.
+    assert!(b.checked_prepend(c, &mut arena).is_ok());
+    assert_eq!(a.children(&arena).count(), 0);
+    assert_eq!(b.first_child(&arena), Some(c));
+}
+
+#[test]
+fn checked_detach_children_on_removed_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    root.append_value("child", &mut arena);
+    root.remove_subtree(&mut arena);
+
+    let result = root.checked_detach_children(&mut arena);
+    assert!(matches!(result, Err(NodeError::Removed)));
+}
+
+#[test]
+fn checked_remove_children_on_removed_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    root.append_value("child", &mut arena);
+    root.remove_subtree(&mut arena);
+
+    let result = root.checked_remove_children(&mut arena);
+    assert!(matches!(result, Err(NodeError::Removed)));
+}
+
+#[test]
+fn checked_reparent_to_self_returns_error() {
+    let mut arena = Arena::new();
+    let node = arena.new_node("node");
+
+    let result = node.checked_reparent(node, &mut arena);
+    assert!(matches!(result, Err(NodeError::AppendSelf)));
+}
+
+#[test]
+fn checked_reparent_to_descendant_returns_error() {
+    let mut arena = Arena::new();
+    let root = arena.new_node("root");
+    let child = root.append_value("child", &mut arena);
+
+    let result = root.checked_reparent(child, &mut arena);
+    assert!(matches!(result, Err(NodeError::AppendAncestor)));
+}
+
+#[test]
+fn into_data_on_freed_node() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(42);
+    root.remove_subtree(&mut arena);
+
+    let result = arena.into_iter().next().unwrap().into_data();
+    assert!(result.is_none());
+}
+
+#[test]
+fn map_preserves_removed_nodes() {
+    let mut arena = Arena::new();
+    let root = arena.new_node(1);
+    root.append_value(2, &mut arena);
+    let c = root.append_value(3, &mut arena);
+    c.remove_subtree(&mut arena);
+
+    let mapped = arena.map(|val| val * 10);
+    assert!(mapped.validate());
+
+    let root2 = mapped.iter().next().unwrap();
+    assert_eq!(*root2.get(), 10);
+}
+
+#[test]
+fn extend_reserves_capacity() {
+    let mut arena: Arena<i32> = Arena::new();
+    arena.extend(0..100);
+    assert!(arena.capacity() >= 100);
+    assert_eq!(arena.len(), 100);
+}

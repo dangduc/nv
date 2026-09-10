@@ -1,0 +1,39 @@
+#+TITLE: Org preview fixture
+* TODO [#A] Read notes :work:
+SCHEDULED: <2026-09-10 Thu>
+:PROPERTIES:
+:ID: fixture-id
+:OWNER: someone
+:END:
+Hello *bold* /italic/ _underline_ +strike+ =literal= ~code~.
+Unicode café 日本語 👩‍💻.
+
+- [ ] pending
+- [X] complete
+- ordinary
+  - nested
+
+
+1. first
+2. second
+
+| Name | Count |
+|------+-------|
+| α    |     2 |
+
+[[https://example.com/notes][Example link]] and [[file:picture.png][image]].
+
+#+BEGIN_SRC json
+{"ok": true, "value": "<tag> &"}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+,* keep these stars
+literal <xml> & value
+#+END_EXAMPLE
+
+** DONE Child heading
+A quotation follows.
+#+BEGIN_QUOTE
+quoted text
+#+END_QUOTE

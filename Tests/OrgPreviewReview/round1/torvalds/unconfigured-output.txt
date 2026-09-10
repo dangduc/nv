@@ -1,0 +1,90 @@
+PASS: snapshot binary hash matches the snapshot manifest
+PASS: direct compiler is the recorded pinned toolchain
+PASS: resolved graph contains only the helper and eight recorded dependencies
+PASS: bytecount resolves inside the isolated staged sources
+PASS: bytecount resolved version matches its manifest entry
+PASS: indextree resolves inside the isolated staged sources
+PASS: indextree resolved version matches its manifest entry
+PASS: jetscii resolves inside the isolated staged sources
+PASS: jetscii resolved version matches its manifest entry
+PASS: lazy_static resolves inside the isolated staged sources
+PASS: lazy_static resolved version matches its manifest entry
+PASS: memchr resolves inside the isolated staged sources
+PASS: memchr resolved version matches its manifest entry
+PASS: minimal-lexical resolves inside the isolated staged sources
+PASS: minimal-lexical resolved version matches its manifest entry
+PASS: nom resolves inside the isolated staged sources
+PASS: nom resolved version matches its manifest entry
+PASS: nv-org-preview resolves inside the isolated staged sources
+PASS: orgize resolves inside the isolated staged sources
+PASS: orgize resolved version matches its manifest entry
+PASS: Orgize serialization and WASM defaults are disabled
+PASS: indextree enables std without macro/procedural dependencies
+PASS: jetscii is the sole build script in the resolved graph
+PASS: clean locked/offline rebuild produced an executable helper
+PASS: empty Cargo cache gained no registry or Git dependency content
+PASS: nv-org-preview is a thin Intel Mach-O executable
+PASS: nv-org-preview has consistent load-command bounds
+PASS: nv-org-preview declares macOS 10.13 exactly
+PASS: nv-org-preview links only libSystem
+PASS: nv-org-preview contains one Mach-O UUID
+PASS: rebuilt-helper is a thin Intel Mach-O executable
+PASS: rebuilt-helper has consistent load-command bounds
+PASS: rebuilt-helper declares macOS 10.13 exactly
+PASS: rebuilt-helper links only libSystem
+PASS: rebuilt-helper contains one Mach-O UUID
+INFO: only_uuid_differs=False, differing_bytes_after_uuid_mask=1815
+PASS: built app contains exactly the reviewed snapshot helper
+PASS: app resource retains executable permission
+PASS: built app carries exact OrgPreviewNotices.txt
+PASS: built app carries exact Rust-1.98.1-COPYRIGHT-library.html
+PASS: bytecount distribution notice contains LICENSE.Apache2
+PASS: bytecount distribution notice contains LICENSE.MIT
+PASS: indextree distribution notice contains LICENSE
+PASS: jetscii distribution notice contains LICENSE-APACHE
+PASS: jetscii distribution notice contains LICENSE-MIT
+PASS: lazy_static distribution notice contains LICENSE-APACHE
+PASS: lazy_static distribution notice contains LICENSE-MIT
+PASS: memchr distribution notice contains COPYING
+PASS: memchr distribution notice contains LICENSE-MIT
+PASS: memchr distribution notice contains UNLICENSE
+PASS: minimal-lexical distribution notice contains LICENSE-APACHE
+PASS: minimal-lexical distribution notice contains LICENSE-MIT
+PASS: minimal-lexical distribution notice contains LICENSE.md
+PASS: nom distribution notice contains LICENSE
+PASS: orgize distribution notice contains LICENSE
+PASS: empty exits successfully without diagnostics
+PASS: empty preserves expected ordinary rendered content
+PASS: empty matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: heading exits successfully without diagnostics
+PASS: heading preserves expected ordinary rendered content
+PASS: heading matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: no-final-newline exits successfully without diagnostics
+PASS: no-final-newline preserves expected ordinary rendered content
+PASS: no-final-newline matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: crlf exits successfully without diagnostics
+PASS: crlf preserves expected ordinary rendered content
+PASS: crlf matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: unicode exits successfully without diagnostics
+PASS: unicode preserves expected ordinary rendered content
+PASS: unicode matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: lists exits successfully without diagnostics
+PASS: lists preserves expected ordinary rendered content
+PASS: lists matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: literal exits successfully without diagnostics
+PASS: literal preserves expected ordinary rendered content
+PASS: literal matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: emphasis exits successfully without diagnostics
+PASS: emphasis preserves expected ordinary rendered content
+PASS: emphasis matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: relative-link exits successfully without diagnostics
+PASS: relative-link preserves expected ordinary rendered content
+PASS: relative-link matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: table exits successfully without diagnostics
+PASS: table preserves expected ordinary rendered content
+PASS: table matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: multilingual-body exits successfully without diagnostics
+PASS: multilingual-body preserves expected ordinary rendered content
+PASS: multilingual-body matches across rebuilt/app helpers and three pipe chunk sizes
+PASS: all ordinary conversions leave the disposable working directory unchanged
+PASS: 88 native packaging and transport checks

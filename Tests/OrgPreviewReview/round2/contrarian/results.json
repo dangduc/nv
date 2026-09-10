@@ -1,0 +1,2074 @@
+[
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "preferred",
+        "text": "TODO [#A] First bold :team:"
+      },
+      {
+        "id": "shared",
+        "text": "Second"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#preferred",
+        "text": "First ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First custom"
+      },
+      {
+        "href": "#shared",
+        "text": "Second heading"
+      },
+      {
+        "href": "#shared",
+        "text": "Second ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First raw title"
+      },
+      {
+        "href": "#preferred",
+        "text": "First exact title"
+      },
+      {
+        "href": "First bold",
+        "text": "Visible title is not raw title"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First custom",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: Second heading",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: Second ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First raw title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First exact title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "competing-aliases",
+    "check": "unchanged path: Visible title is not raw title",
+    "passed": true,
+    "detail": "First bold"
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "東京#%20&\"id",
+        "text": "Café é 👩🏽‍💻 東京"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "東京#%20&\"id"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "東京#%20&\"id"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Unicode title"
+      },
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Literal percent ID"
+      },
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Unicode alias"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Unicode title",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Literal percent ID",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Unicode alias",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "literal or Unicode text preserved: é 👩🏽‍💻",
+    "passed": true,
+    "detail": "Unicode title\nLiteral percent ID\nUnicode aliasCafé é 👩🏽‍💻 東京Text é 👩🏽‍💻 and literal /markup/."
+  },
+  {
+    "backend": "helper",
+    "fixture": "unicode-percent",
+    "check": "literal or Unicode text preserved: literal /markup/",
+    "passed": true,
+    "detail": "Unicode title\nLiteral percent ID\nUnicode aliasCafé é 👩🏽‍💻 東京Text é 👩🏽‍💻 and literal /markup/."
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1",
+        "text": "Assets"
+      },
+      {
+        "id": "nv-org-heading-2",
+        "text": "https://example.com/notes"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1",
+      "nv-org-heading-2"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Bare heading"
+      },
+      {
+        "href": "Assets",
+        "text": "Explicit file"
+      },
+      {
+        "href": "./Assets",
+        "text": "Relative file"
+      },
+      {
+        "href": "../Assets",
+        "text": "Parent file"
+      },
+      {
+        "href": "/Assets",
+        "text": "Absolute file"
+      },
+      {
+        "href": "~/Assets",
+        "text": "Home file"
+      },
+      {
+        "href": "https://example.com/notes",
+        "text": "Web URL"
+      },
+      {
+        "href": "#nv-org-heading-2",
+        "text": "URL-named heading"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "fragment target: Bare heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Assets"
+        },
+        {
+          "id": "nv-org-heading-2",
+          "text": "https://example.com/notes"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "fragment target: URL-named heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-2",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Assets"
+        },
+        {
+          "id": "nv-org-heading-2",
+          "text": "https://example.com/notes"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Explicit file",
+    "passed": true,
+    "detail": "Assets"
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Relative file",
+    "passed": true,
+    "detail": "./Assets"
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Parent file",
+    "passed": true,
+    "detail": "../Assets"
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Absolute file",
+    "passed": true,
+    "detail": "/Assets"
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Home file",
+    "passed": true,
+    "detail": "~/Assets"
+  },
+  {
+    "backend": "helper",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Web URL",
+    "passed": true,
+    "detail": "https://example.com/notes"
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "first",
+        "text": "Repeated"
+      },
+      {
+        "id": "second",
+        "text": "Repeated"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#first",
+        "text": "Exact duplicate"
+      },
+      {
+        "href": "#first",
+        "text": "Starred duplicate"
+      },
+      {
+        "href": "#second",
+        "text": "Explicit second"
+      },
+      {
+        "href": "#first",
+        "text": "Explicit first"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Exact duplicate",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Starred duplicate",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Explicit first",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Explicit second",
+    "passed": true,
+    "detail": {
+      "href": "#second",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1",
+        "text": "Actual"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Actual heading"
+      },
+      {
+        "href": "*Example heading",
+        "text": "Example is not a heading"
+      },
+      {
+        "href": "https://example.com",
+        "text": "*literal label* and /markers/"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "fragment target: Actual heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Actual"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "unchanged path: Example is not a heading",
+    "passed": true,
+    "detail": "*Example heading"
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "unchanged path: *literal label* and /markers/",
+    "passed": true,
+    "detail": "https://example.com"
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: * Example heading",
+    "passed": true,
+    "detail": "Actual heading\nExample is not a headingActual* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n*literal label* and /markers/"
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: [[*Actual][Example link stays literal]]",
+    "passed": true,
+    "detail": "Actual heading\nExample is not a headingActual* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n*literal label* and /markers/"
+  },
+  {
+    "backend": "helper",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: :CUSTOM_ID: example-only",
+    "passed": true,
+    "detail": "Actual heading\nExample is not a headingActual* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n*literal label* and /markers/"
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1-2",
+        "text": "Automatic"
+      },
+      {
+        "id": "nv-org-heading-1",
+        "text": "Reserved"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1-2",
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1-2",
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1-2",
+        "text": "First automatic"
+      },
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Later explicit ID"
+      },
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Explicit generated-looking ID"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "fragment target: First automatic",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1-2",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "fragment target: Later explicit ID",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "reserved-name",
+    "check": "fragment target: Explicit generated-looking ID",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "preferred",
+        "text": "TODO [#A] First bold :team:"
+      },
+      {
+        "id": "shared",
+        "text": "Second"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#preferred",
+        "text": "First ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First custom"
+      },
+      {
+        "href": "#shared",
+        "text": "Second heading"
+      },
+      {
+        "href": "#shared",
+        "text": "Second ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First raw title"
+      },
+      {
+        "href": "#preferred",
+        "text": "First exact title"
+      },
+      {
+        "href": "First bold",
+        "text": "Visible title is not raw title"
+      }
+    ]
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First custom",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: Second heading",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: Second ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First raw title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First exact title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "TODO [#A] First bold :team:"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "helper",
+    "fixture": "crlf-aliases",
+    "check": "unchanged path: Visible title is not raw title",
+    "passed": true,
+    "detail": "First bold"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "preferred",
+        "text": "\nTODO [#A] First bold :team:\n"
+      },
+      {
+        "id": "shared",
+        "text": "Second"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#preferred",
+        "text": "First ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First custom"
+      },
+      {
+        "href": "#shared",
+        "text": "Second heading"
+      },
+      {
+        "href": "#shared",
+        "text": "Second ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First raw title"
+      },
+      {
+        "href": "#preferred",
+        "text": "First exact title"
+      },
+      {
+        "href": "First%20bold",
+        "text": "Visible title is not raw title"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First custom",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: Second heading",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: Second ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First raw title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "fragment target: First exact title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "competing-aliases",
+    "check": "unchanged path: Visible title is not raw title",
+    "passed": true,
+    "detail": "First%20bold"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "東京#%20&\"id",
+        "text": "Café é 👩🏽‍💻 東京"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "東京#%20&\"id"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "東京#%20&\"id"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Unicode title"
+      },
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Literal percent ID"
+      },
+      {
+        "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+        "text": "Unicode alias"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Unicode title",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Literal percent ID",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "fragment target: Unicode alias",
+    "passed": true,
+    "detail": {
+      "href": "#%E6%9D%B1%E4%BA%AC%23%2520%26%22id",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "東京#%20&\"id",
+          "text": "Café é 👩🏽‍💻 東京"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "literal or Unicode text preserved: é 👩🏽‍💻",
+    "passed": true,
+    "detail": "unicode-percent.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Unicode title\nLiteral percent ID\nUnicode aliasCafé é 👩🏽‍💻 東京\nText é 👩🏽‍💻 and literal /markup/."
+  },
+  {
+    "backend": "renderer",
+    "fixture": "unicode-percent",
+    "check": "literal or Unicode text preserved: literal /markup/",
+    "passed": true,
+    "detail": "unicode-percent.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Unicode title\nLiteral percent ID\nUnicode aliasCafé é 👩🏽‍💻 東京\nText é 👩🏽‍💻 and literal /markup/."
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1",
+        "text": "Assets"
+      },
+      {
+        "id": "nv-org-heading-2",
+        "text": "https://example.com/notes"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1",
+      "nv-org-heading-2"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Bare heading"
+      },
+      {
+        "href": "Assets",
+        "text": "Explicit file"
+      },
+      {
+        "href": "./Assets",
+        "text": "Relative file"
+      },
+      {
+        "href": "../Assets",
+        "text": "Parent file"
+      },
+      {
+        "href": "/Assets",
+        "text": "Absolute file"
+      },
+      {
+        "href": "~/Assets",
+        "text": "Home file"
+      },
+      {
+        "href": "https://example.com/notes",
+        "text": "Web URL"
+      },
+      {
+        "href": "#nv-org-heading-2",
+        "text": "URL-named heading"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "fragment target: Bare heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Assets"
+        },
+        {
+          "id": "nv-org-heading-2",
+          "text": "https://example.com/notes"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "fragment target: URL-named heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-2",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Assets"
+        },
+        {
+          "id": "nv-org-heading-2",
+          "text": "https://example.com/notes"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Explicit file",
+    "passed": true,
+    "detail": "Assets"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Relative file",
+    "passed": true,
+    "detail": "./Assets"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Parent file",
+    "passed": true,
+    "detail": "../Assets"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Absolute file",
+    "passed": true,
+    "detail": "/Assets"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Home file",
+    "passed": true,
+    "detail": "~/Assets"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "path-title-ambiguity",
+    "check": "unchanged path: Web URL",
+    "passed": true,
+    "detail": "https://example.com/notes"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "first",
+        "text": "Repeated"
+      },
+      {
+        "id": "second",
+        "text": "Repeated"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "first",
+      "second"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#first",
+        "text": "Exact duplicate"
+      },
+      {
+        "href": "#first",
+        "text": "Starred duplicate"
+      },
+      {
+        "href": "#second",
+        "text": "Explicit second"
+      },
+      {
+        "href": "#first",
+        "text": "Explicit first"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Exact duplicate",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Starred duplicate",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Explicit first",
+    "passed": true,
+    "detail": {
+      "href": "#first",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "duplicate-titles",
+    "check": "fragment target: Explicit second",
+    "passed": true,
+    "detail": {
+      "href": "#second",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "first",
+          "text": "Repeated"
+        },
+        {
+          "id": "second",
+          "text": "Repeated"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1",
+        "text": "Actual"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Actual heading"
+      },
+      {
+        "href": "*Example%20heading",
+        "text": "Example is not a heading"
+      },
+      {
+        "href": "https://example.com",
+        "text": "*literal label* and /markers/"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "fragment target: Actual heading",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1",
+          "text": "Actual"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "unchanged path: Example is not a heading",
+    "passed": true,
+    "detail": "*Example%20heading"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "unchanged path: *literal label* and /markers/",
+    "passed": true,
+    "detail": "https://example.com"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: * Example heading",
+    "passed": true,
+    "detail": "literal-protection.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Actual heading\nExample is not a headingActual\n* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n\n*literal label* and /markers/"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: [[*Actual][Example link stays literal]]",
+    "passed": true,
+    "detail": "literal-protection.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Actual heading\nExample is not a headingActual\n* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n\n*literal label* and /markers/"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "literal-protection",
+    "check": "literal or Unicode text preserved: :CUSTOM_ID: example-only",
+    "passed": true,
+    "detail": "literal-protection.org:root{color-scheme:light dark}body{font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif;margin:24px;overflow-wrap:anywhere}pre,code{font-family:ui-monospace,Menlo,monospace}pre{overflow:auto;padding:12px;background:rgba(128,128,128,.12)}img,video{max-width:100%}table{border-collapse:collapse}th,td{padding:6px 10px;border:1px solid #888}blockquote{border-left:3px solid #999;padding-left:16px;margin-left:0}input,textarea,select,button{pointer-events:none}a{color:#2679ce}Actual heading\nExample is not a headingActual\n* Example heading\n:PROPERTIES:\n:CUSTOM_ID: example-only\n:END:\n[[*Actual][Example link stays literal]]\n\n*literal label* and /markers/"
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "nv-org-heading-1-2",
+        "text": "Automatic"
+      },
+      {
+        "id": "nv-org-heading-1",
+        "text": "Reserved"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1-2",
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "nv-org-heading-1-2",
+      "nv-org-heading-1"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#nv-org-heading-1-2",
+        "text": "First automatic"
+      },
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Later explicit ID"
+      },
+      {
+        "href": "#nv-org-heading-1",
+        "text": "Explicit generated-looking ID"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "fragment target: First automatic",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1-2",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "fragment target: Later explicit ID",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "reserved-name",
+    "check": "fragment target: Explicit generated-looking ID",
+    "passed": true,
+    "detail": {
+      "href": "#nv-org-heading-1",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "nv-org-heading-1-2",
+          "text": "Automatic"
+        },
+        {
+          "id": "nv-org-heading-1",
+          "text": "Reserved"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "visible headings preserve expected order and markup",
+    "passed": true,
+    "detail": [
+      {
+        "id": "preferred",
+        "text": "\nTODO [#A] First bold :team:\n"
+      },
+      {
+        "id": "shared",
+        "text": "Second"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "every heading has a unique anchor",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "explicit anchor 0",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "explicit anchor 1",
+    "passed": true,
+    "detail": [
+      "preferred",
+      "shared"
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "exact link labels remain visible",
+    "passed": true,
+    "detail": [
+      {
+        "href": "#preferred",
+        "text": "First ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First custom"
+      },
+      {
+        "href": "#shared",
+        "text": "Second heading"
+      },
+      {
+        "href": "#shared",
+        "text": "Second ID alias"
+      },
+      {
+        "href": "#preferred",
+        "text": "First raw title"
+      },
+      {
+        "href": "#preferred",
+        "text": "First exact title"
+      },
+      {
+        "href": "First%20bold",
+        "text": "Visible title is not raw title"
+      }
+    ]
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First custom",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: Second heading",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: Second ID alias",
+    "passed": true,
+    "detail": {
+      "href": "#shared",
+      "target_heading_index": 1,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First raw title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "fragment target: First exact title",
+    "passed": true,
+    "detail": {
+      "href": "#preferred",
+      "target_heading_index": 0,
+      "headings": [
+        {
+          "id": "preferred",
+          "text": "\nTODO [#A] First bold :team:\n"
+        },
+        {
+          "id": "shared",
+          "text": "Second"
+        }
+      ]
+    }
+  },
+  {
+    "backend": "renderer",
+    "fixture": "crlf-aliases",
+    "check": "unchanged path: Visible title is not raw title",
+    "passed": true,
+    "detail": "First%20bold"
+  }
+]

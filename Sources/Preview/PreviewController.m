@@ -56,6 +56,11 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     return @[[snapshot libraryIdentifier] ?: @"", [snapshot noteIdentifier] ?: @"", identifier ?: @""];
 }
 
+static NSString *ViewerDocumentBaseWithoutFragment(NSString *base) {
+    NSRange fragment = [base rangeOfString:@"#"];
+    return fragment.location == NSNotFound ? base : [base substringToIndex:fragment.location];
+}
+
 @interface NVViewerStateCapture : NSObject {
 @public
     NVNoteContentSnapshot *snapshot;
@@ -279,11 +284,12 @@ static NSArray *ViewerStateKey(NVNoteContentSnapshot *snapshot, NSString *identi
     if (capture->finished) return;
     capture->finished = YES;
     // Preserve the call-time query. Only offsets from the same immutable
-    // document base can replace the cached offsets.
+    // document base can replace the cached offsets. Heading navigation changes
+    // only its fragment; the asset scope, path and query must still match.
     NSMutableDictionary *state = [[capture->cachedState mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];
     BOOL matchingDocument = [documentState isKindOfClass:[NSArray class]] && [documentState count] == 3 &&
         [[documentState objectAtIndex:0] isKindOfClass:[NSString class]] &&
-        [[documentState objectAtIndex:0] caseInsensitiveCompare:capture->documentBase] == NSOrderedSame;
+        [ViewerDocumentBaseWithoutFragment([documentState objectAtIndex:0]) caseInsensitiveCompare:ViewerDocumentBaseWithoutFragment(capture->documentBase)] == NSOrderedSame;
     if (matchingDocument) {
         for (NSUInteger index = 1; index < 3; index++) {
             id value = [documentState objectAtIndex:index];

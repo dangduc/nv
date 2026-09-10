@@ -1,0 +1,74 @@
+2026-09-09 19:12:07.113 nvALT[4597:343573040] PASS: isolated copied-app preferences domain
+2026-09-09 19:12:07.113 nvALT[4597:343573040] PASS: copied app and temporary library share the test root
+2026-09-09 19:12:07.115 nvALT[4597:343573040] PASS: temporary library directory exists
+2026-09-09 19:12:07.116 nvALT[4597:343573040] PASS: temporary library opens
+2026-09-09 19:12:07.173 nvALT[4597:343573040] verified 0 notes in 0.000200987 s
+2026-09-09 19:12:07.686 nvALT[4597:343573040] PASS: both browser editors retain one shared source storage
+2026-09-09 19:12:07.686 nvALT[4597:343573040] PASS: preview review starts with Plain Text source syntax
+2026-09-09 19:12:07.691 nvALT[4597:343573040] PASS: menus and popup expose exactly the four renderer choices
+2026-09-09 19:12:08.076 nvALT[4597:343573040] PASS: each advertised viewer renders through the actual provider
+2026-09-09 19:12:08.076 nvALT[4597:343573040] PASS: the popup follows the selected viewer
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: the checked viewer menu item matches the provider
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.077 nvALT[4597:343573040] PASS: exactly one viewer menu choice is checked
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: each advertised viewer renders through the actual provider
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: the popup follows the selected viewer
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: the checked viewer menu item matches the provider
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.194 nvALT[4597:343573040] PASS: exactly one viewer menu choice is checked
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: each advertised viewer renders through the actual provider
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: the popup follows the selected viewer
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: the checked viewer menu item matches the provider
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.206 nvALT[4597:343573040] PASS: exactly one viewer menu choice is checked
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: each advertised viewer renders through the actual provider
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: the popup follows the selected viewer
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: each viewer menu item remains enabled
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: the checked viewer menu item matches the provider
+2026-09-09 19:12:08.390 nvALT[4597:343573040] PASS: exactly one viewer menu choice is checked
+2026-09-09 19:12:08.400 nvALT[4597:343573040] PASS: the real Org helper produces the visible heading
+2026-09-09 19:12:08.400 nvALT[4597:343573040] PASS: viewer selection leaves the peer in Source with the same storage
+2026-09-09 19:12:08.400 nvALT[4597:343573040] PASS: Org preview does not require or set Org source metadata
+2026-09-09 19:12:08.411 nvALT[4597:343573040] PASS: HTML becomes visible before window state restoration
+2026-09-09 19:12:08.523 nvALT[4597:343573040] PASS: browser state restores Org after another viewer and Source mode
+2026-09-09 19:12:08.523 nvALT[4597:343573040] PASS: helper mutation is restricted to the disposable app copy
+2026-09-09 19:12:08.526 nvALT[4597:343573040] PASS: temporarily remove only the copied helper
+2026-09-09 19:12:08.537 nvALT[4597:343573040] PASS: a real helper failure terminates the provider request
+2026-09-09 19:12:08.537 nvALT[4597:343573040] PASS: the provider preserves the renderer failure category
+2026-09-09 19:12:08.538 nvALT[4597:343573040] PASS: the error message is visible and the previous web document is hidden
+2026-09-09 19:12:08.538 nvALT[4597:343573040] PASS: a failed request cannot retain the previous export document
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: helper failure leaves live source and model source unchanged
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: helper failure leaves the peer editor visible and attached
+2026-09-09 19:12:08.539 nvALT[4597:343573040] PASS: returning from a failed preview restores the source and caret
+2026-09-09 19:12:08.540 nvALT[4597:343573040] PASS: install a controlled failing helper in the disposable copy
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: a real helper failure terminates the provider request
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: the provider preserves the renderer failure category
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: the error message is visible and the previous web document is hidden
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: a failed request cannot retain the previous export document
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: helper status and diagnostic reach the user-visible error
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: export, print and viewer Find disable while the helper is unavailable
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: helper failure leaves live source and model source unchanged
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: helper failure leaves the peer editor visible and attached
+2026-09-09 19:12:08.759 nvALT[4597:343573040] PASS: returning from a failed preview restores the source and caret
+2026-09-09 19:12:08.760 nvALT[4597:343573040] PASS: restore the original helper in the disposable copy
+2026-09-09 19:12:08.952 nvALT[4597:343573040] PASS: retry after restoring the helper clears the error and renders Org
+2026-09-09 19:12:08.963 nvALT[4597:343573040] PASS: the recovered preview displays the real Org document
+2026-09-09 19:12:08.963 nvALT[4597:343573040] PASS: all viewer transitions and failures preserve source generation, dates and Undo
+2026-09-09 19:12:08.963 nvALT[4597:343573040] ORG PREVIEW OUSTERHOUT ROUND 1 PASSED (72 checks)

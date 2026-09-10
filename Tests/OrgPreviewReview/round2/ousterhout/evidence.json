@@ -1,0 +1,22 @@
+{
+  "head": "415cf6920bd5c74bc3911829431f3dcff7c4acb2",
+  "provider_fix_sha256": "e786f468b82d7ae45c59adb3aed5123bcaa6dc3b757145ead9b219e90b79436a",
+  "provider_changed_from_head": "diff --git a/Sources/Preview/PreviewController.m b/Sources/Preview/PreviewController.m\nindex c676ff0..8c5ea85 100755\n--- a/Sources/Preview/PreviewController.m\n+++ b/Sources/Preview/PreviewController.m\n@@ -56,6 +56,11 @@ @implementation NVViewerCaptureOwner\n     return @[[snapshot libraryIdentifier] ?: @\"\", [snapshot noteIdentifier] ?: @\"\", identifier ?: @\"\"];\n }\n \n+static NSString *ViewerDocumentBaseWithoutFragment(NSString *base) {\n+    NSRange fragment = [base rangeOfString:@\"#\"];\n+    return fragment.location == NSNotFound ? base : [base substringToIndex:fragment.location];\n+}\n+\n @interface NVViewerStateCapture : NSObject {\n @public\n     NVNoteContentSnapshot *snapshot;\n@@ -279,11 +284,12 @@ - (void)finishStateCapture:(NVViewerStateCapture *)capture documentState:(id)doc\n     if (capture->finished) return;\n     capture->finished = YES;\n     // Preserve the call-time query. Only offsets from the same immutable\n-    // document base can replace the cached offsets.\n+    // document base can replace the cached offsets. Heading navigation changes\n+    // only its fragment; the asset scope, path and query must still match.\n     NSMutableDictionary *state = [[capture->cachedState mutableCopy] autorelease] ?: [NSMutableDictionary dictionary];\n     BOOL matchingDocument = [documentState isKindOfClass:[NSArray class]] && [documentState count] == 3 &&\n         [[documentState objectAtIndex:0] isKindOfClass:[NSString class]] &&\n-        [[documentState objectAtIndex:0] caseInsensitiveCompare:capture->documentBase] == NSOrderedSame;\n+        [ViewerDocumentBaseWithoutFragment([documentState objectAtIndex:0]) caseInsensitiveCompare:ViewerDocumentBaseWithoutFragment(capture->documentBase)] == NSOrderedSame;\n     if (matchingDocument) {\n         for (NSUInteger index = 1; index < 3; index++) {\n             id value = [documentState objectAtIndex:index];\n",
+  "app": "/Users/duc/dev/nv/build/OrgPreviewWorktree/build/DerivedData/Build/Products/Development/nvALT.app",
+  "app_sha256": "b609ca3f9febb6e286a7e5a80c3e0521acebf5880f6c0dc90775512189e4126e",
+  "helper_sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+  "architecture": "x86_64 (Rosetta)",
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_status": 0,
+  "passes": 43,
+  "isolation": "temporary copied app, UUID defaults domain, temporary notes and support directories",
+  "source_sha256": {
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/PreviewController.m": "e786f468b82d7ae45c59adb3aed5123bcaa6dc3b757145ead9b219e90b79436a",
+    "Sources/Browser/AppController_Preview.m": "251289273c70ce501ce567cfbd424fb5cb1c8960ae01a777ee1d19ccb4b50fe5",
+    "Sources/Browser/AppController_MultipleWindows.m": "232f0c675f9744462b553b1e2e7874d858b0ac89e76da9d80c3fb5ce80855aaa",
+    "Sources/Application/NVApplicationController.m": "3113410751bd0c2e7331738836fd224732313c04e2413bffdbf3d2b2d498ed57",
+    "ThirdParty/OrgPreview/src/main.rs": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03"
+  }
+}

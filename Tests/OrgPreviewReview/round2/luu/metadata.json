@@ -1,0 +1,21 @@
+{
+  "head": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "before_helper_sha256": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359",
+  "reviewed_helper_sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+  "reviewed_helper_bytes": 366408,
+  "source_sha256": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
+  "renderer_sha256": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+  "fixture_sha256": {
+    "journal-64-8": "e8b1f3d14ed16da1da9993e28ea8ab19254f7d6316feed41c14bff9494363d21",
+    "journal-256-8": "45f9a8e5082534c44d76ed4e34ce80487b6532d7663115c034eef058002121d1",
+    "journal-1024-8": "e9e4e7ea25c1773ddf5280f1f945b2e47bd34469ae5b7fe17cc3d46da4815658",
+    "links-64-16": "91525bdd4628b987a55c8aa979f5337426a8753d55b2906d4a37d22b1943779e",
+    "links-64-64": "331b1ce49f5611dc27068fa2aa56b91c4a392d855d4dd19aba301a1aec36c7c1",
+    "links-64-256": "8e60000f5670274c916a554b061ec87b071df8c321190d80535afca15cf46d98",
+    "duplicate-32-8": "7dc526def190d2b3b2c81da9d56f9feac5313d94f11adcbcc50201ea5fb35ff8",
+    "duplicate-256-8": "aa60f7056d065318bb8dd2ada63c0867a33c7940c86c8d6889df674f6c5caa98",
+    "duplicate-1024-8": "ae67d7831a39bfb47b217125f4f6cb161c175db497c0e14347ad372f77579da5"
+  },
+  "oracle_checks": 483229,
+  "scope": "Ordinary valid journals and merged duplicate IDs. No malformed converter input or live WebKit."
+}

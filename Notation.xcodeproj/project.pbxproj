@@ -235,6 +235,9 @@
 		BD109811989EEE3F3DA146C3 /* fzf.c in Sources */ = {isa = PBXBuildFile; fileRef = 75155DE78FC3BEDC660B250E /* fzf.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
 		84315EA16115E2893A5C94D7 /* utf8proc.c in Sources */ = {isa = PBXBuildFile; fileRef = C12DBBCCFCAA6C037BF047F9 /* utf8proc.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
 		E8952D246642677D1AE78F9C /* SearchLicenses in Resources */ = {isa = PBXBuildFile; fileRef = 52C49B93E33D3BBAA40DC328 /* SearchLicenses */; };
+		1FD1E0D82592C23B98808250 /* nv-org-preview in CopyFiles */ = {isa = PBXBuildFile; fileRef = A3CCCE6912DD73832E2E33CA /* nv-org-preview */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		82C28B3FC4F8DF99EB2D7D8D /* OrgPreviewNotices.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7B7ABD77663D9A491E778 /* OrgPreviewNotices.txt */; };
+		C4C39E9F498F810C9FB9874A /* Rust-1.98.1-COPYRIGHT-library.html in Resources */ = {isa = PBXBuildFile; fileRef = 9783EE121275F831FAE92745 /* Rust-1.98.1-COPYRIGHT-library.html */; };
 		AA52C58EDC5C895FCB4B7D97 /* NVTreeSitterOrg.c in Sources */ = {isa = PBXBuildFile; fileRef = A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		43B26080361940BD851AFC25 /* NVTreeSitterOrgScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 /* End PBXBuildFile section */
@@ -247,6 +250,7 @@
 			dstSubfolderSpec = 7;
 			files = (
 				93365DE11D9AD97B005A230B /* multimarkdown in CopyFiles */,
+				1FD1E0D82592C23B98808250 /* nv-org-preview in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +885,10 @@
 		0BC7883BB037C6A432EEC3C5 /* utf8proc_data.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "utf8proc-2.10.0/utf8proc_data.c"; sourceTree = "<group>"; };
 		52C49B93E33D3BBAA40DC328 /* SearchLicenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "SearchLicenses"; sourceTree = "<group>"; };
 		A14892586C9D2FE481362405 /* SavedSearchesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedSearchesController.h; sourceTree = "<group>"; };
+		A3CCCE6912DD73832E2E33CA /* nv-org-preview */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "nv-org-preview"; sourceTree = "<group>"; };
+		7BC7B7ABD77663D9A491E778 /* OrgPreviewNotices.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OrgPreviewNotices.txt; sourceTree = "<group>"; };
+		6D37884BA9D17C3D9C83B6CD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9783EE121275F831FAE92745 /* Rust-1.98.1-COPYRIGHT-library.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "licenses/Rust-1.98.1-COPYRIGHT-library.html"; sourceTree = "<group>"; };
 		A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrg.c; sourceTree = "<group>"; };
 		E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrgScanner.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1355,6 +1363,7 @@
 			isa = PBXGroup;
 			children = (
 				52C49B93E33D3BBAA40DC328 /* SearchLicenses */,
+				7BC7B7ABD77663D9A491E778 /* OrgPreviewNotices.txt */,
 				5AAB8E66A99646B17BE7BBDB /* Syntax */,
 				5B609FD15BA9E7409690F8E4 /* Help */,
 				188FA73E721A45436BC21EB3 /* Images */,
@@ -1397,6 +1406,7 @@
 			children = (
 				BFD455A36DA07F4DCF01C4E1 /* fzf-native */,
 				5C9738F6B6F219D221F51568 /* TreeSitter */,
+				A9BA25BBA78E96B4E815E075 /* OrgPreview */,
 				B2B98D241041156EE4F8C00D /* Crypto */,
 				0FC0EA020AFA83B960F5801B /* MultiMarkdown */,
 				A9C05C3E2663C8BA3F775BBF /* ODBEditor */,
@@ -1858,6 +1868,16 @@
 			path = "fzf-native";
 			sourceTree = "<group>";
 		};
+		A9BA25BBA78E96B4E815E075 /* OrgPreview */ = {
+			isa = PBXGroup;
+			children = (
+				A3CCCE6912DD73832E2E33CA /* nv-org-preview */,
+				6D37884BA9D17C3D9C83B6CD /* README.md */,
+				9783EE121275F831FAE92745 /* Rust-1.98.1-COPYRIGHT-library.html */,
+			);
+			path = OrgPreview;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1928,6 +1948,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8952D246642677D1AE78F9C /* SearchLicenses in Resources */,
+				82C28B3FC4F8DF99EB2D7D8D /* OrgPreviewNotices.txt in Resources */,
+				C4C39E9F498F810C9FB9874A /* Rust-1.98.1-COPYRIGHT-library.html in Resources */,
 				C332354D97ECCC7E6B1EFF0D /* Syntax in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				5C625D3A19DCAB8E00BF0492 /* ServicesMenu.strings in Resources */,

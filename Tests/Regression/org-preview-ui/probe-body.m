@@ -1,0 +1,201 @@
+    unsetenv("DYLD_INSERT_LIBRARIES");
+    @try {
+        NVApplicationController *coordinator = [NVApplicationController sharedController];
+        NotationController *library = [coordinator library];
+        NSString *core = [NSString stringWithContentsOfFile:[NSString stringWithUTF8String:getenv("NV_ORG_CORE_FIXTURE")] encoding:NSUTF8StringEncoding error:NULL];
+        Check([core length] > 0, @"Org UI fixture loads");
+        NSMutableString *source = [NSMutableString stringWithString:core];
+        NSString *includePath = [TestDirectory stringByAppendingPathComponent:@"include-source.txt"];
+        NSString *codePath = [TestDirectory stringByAppendingPathComponent:@"code-ran.txt"];
+        Check([@"NV_ORG_INCLUDE_PRIVATE_SENTINEL" writeToFile:includePath atomically:YES encoding:NSUTF8StringEncoding error:NULL], @"write a disposable include sentinel");
+        [source appendFormat:@"\n#+INCLUDE: \"%@\"\n#+BEGIN_SRC sh\nprintf NV_ORG_CODE_SENTINEL > \"%@\"\n#+END_SRC\n#+BEGIN_EXPORT html\n<script>window.NV_ORG_SCRIPT_EXECUTED = true;</script>\n#+END_EXPORT\n", includePath, codePath];
+        for (NSUInteger line = 0; line < 80; line++) [source appendFormat:@"\nFind target paragraph %lu with *emphasis*.\n", (unsigned long)line];
+        NSString *original = [[source copy] autorelease];
+        NoteObject *note = MakeNote(library, @"Org preview checks", original);
+        AppController *browser = self;
+        [browser revealNote:note options:0];
+        [coordinator newWindow:self]; Pump();
+        AppController *peer = [[coordinator browserControllers] lastObject];
+        [peer revealNote:note options:0]; Pump();
+        LinkingEditor *editor = [browser valueForKey:@"textView"], *peerEditor = [peer valueForKey:@"textView"];
+        Check([editor textStorage] == [peerEditor textStorage], @"Org preview and source peer share one editing session");
+        Check([[note sourceSyntaxIdentifier] isEqual:@"plain"], @"fixture begins with independent Plain Text source syntax");
+        [editor setSelectedRange:NSMakeRange(8, 4)];
+        NSRange sourceCaret = [editor selectedRange];
+        BOOL beforeUndo = [[note undoManager] canUndo];
+        CFAbsoluteTime beforeModified = modifiedDateOfNote(note);
+        NSMutableArray *orgMenus = [NSMutableArray array];
+        CollectPreviewItems([NSApp mainMenu], orgMenus);
+        Check([orgMenus count] > 0, @"native Preview Format menu contains Org");
+        NSPopUpButton *viewerPopup = [browser valueForKey:@"viewerTypeControl"];
+        Check([viewerPopup indexOfItemWithRepresentedObject:@"org"] >= 0, @"native preview-format popup contains Org");
+        [browser selectPreviewMode:[orgMenus firstObject]];
+        PreviewController *preview = [browser valueForKey:@"previewController"];
+        Check(Await(^BOOL { return Ready(preview, @"org"); }, 20), @"Org menu selection renders through the native WK viewer");
+        Check([browser isViewingNote] && ![peer isViewingNote] && [[browser selectedViewerIdentifier] isEqual:@"org"], @"Org selection changes only the requested browser presentation");
+        Check([[note sourceSyntaxIdentifier] isEqual:@"plain"] && [[[preview snapshot] contentType] isEqual:@"plain"], @"Org viewer keeps Plain Text source metadata unchanged");
+        Check([[[viewerPopup selectedItem] representedObject] isEqual:@"org"], @"preview popup reflects the active Org viewer");
+        for (NSMenuItem *item in orgMenus) Check([browser validateMenuItem:item] && [item state] == NSControlStateValueOn, @"Org preview menu choice validates as checked");
+        Check([[[note contentString] string] isEqual:original] && [[note undoManager] canUndo] == beforeUndo && modifiedDateOfNote(note) == beforeModified, @"opening Org preview changes neither source, Undo nor modified date");
+        NSDictionary *dom = NativeJavaScript([preview webView], @"(()=>({headings:Array.from(document.querySelectorAll('h1,h2')).map(x=>x.textContent),body:document.body.textContent,ul:document.querySelectorAll('ul').length,ol:document.querySelectorAll('ol').length,table:document.querySelectorAll('table').length,bold:Array.from(document.querySelectorAll('b,strong')).some(x=>x.textContent==='bold'),italic:Array.from(document.querySelectorAll('i,em')).some(x=>x.textContent==='italic'),underline:Array.from(document.querySelectorAll('u')).some(x=>x.textContent==='underline'),strike:Array.from(document.querySelectorAll('s,del')).some(x=>x.textContent==='strike'),code:Array.from(document.querySelectorAll('pre,code')).map(x=>x.textContent),links:Array.from(document.querySelectorAll('a')).map(x=>x.getAttribute('href')),scripts:document.querySelectorAll('script').length,executed:typeof window.NV_ORG_SCRIPT_EXECUTED!=='undefined',editable:document.designMode==='on'||Array.from(document.querySelectorAll('*')).some(x=>x.isContentEditable)}))()");
+        Check([dom isKindOfClass:[NSDictionary class]], @"native WebKit exposes the rendered Org DOM");
+        NSString *body = dom[@"body"];
+        Check([dom[@"headings"] count] >= 2 && [body containsString:@"TODO"] && [body containsString:@"DONE"] && [body containsString:@"[#A]"] && [body containsString:@"work"], @"rendered DOM preserves heading hierarchy, task state, priority and tags");
+        Check([dom[@"ul"] unsignedIntegerValue] >= 2 && [dom[@"ol"] unsignedIntegerValue] >= 1 && [body containsString:@"[ ]"] && [body containsString:@"[X]"], @"rendered DOM contains nested and numbered lists with checkbox states");
+        Check([dom[@"table"] unsignedIntegerValue] == 1 && [body containsString:@"α"], @"rendered DOM contains the Org table and Unicode cells");
+        Check([dom[@"bold"] boolValue] && [dom[@"italic"] boolValue] && [dom[@"underline"] boolValue] && [dom[@"strike"] boolValue], @"Org emphasis produces native DOM formatting elements");
+        NSString *literal = [dom[@"code"] componentsJoinedByString:@"\n"];
+        Check([literal containsString:@"{\"ok\": true, \"value\": \"<tag> &\"}"] && [literal containsString:@"* keep these stars\nliteral <xml> & value"], @"source and example blocks remain literal text after HTML decoding");
+        Check([dom[@"links"] containsObject:@"https://example.com/notes"] && [dom[@"links"] containsObject:@"picture.png"], @"Org links retain their expected external and relative destinations without activation");
+        Check(![dom[@"editable"] boolValue], @"Org rendered document has no editable content");
+        Check(![dom[@"executed"] boolValue] && [dom[@"scripts"] unsignedIntegerValue] == 0, @"source-authored script markup does not execute or survive sanitization");
+        Check(![body containsString:@"NV_ORG_INCLUDE_PRIVATE_SENTINEL"] && [body containsString:@"#+INCLUDE:"], @"include directives stay visible without reading the referenced file");
+        Check(![[NSFileManager defaultManager] fileExistsAtPath:codePath] && [literal containsString:@"NV_ORG_CODE_SENTINEL"], @"Org code remains display text and creates no output file");
+
+        if (@available(macOS 11.0, *)) {
+            Method originalFind = class_getInstanceMethod([WKWebView class], @selector(findString:withConfiguration:completionHandler:));
+            Method testFind = class_getInstanceMethod([WKWebView class], @selector(nv_orgFindString:withConfiguration:completionHandler:));
+            method_exchangeImplementations(originalFind, testFind); OrgFindView = [preview webView];
+            NSMenuItem *find = [[[NSMenuItem alloc] initWithTitle:@"Find" action:@selector(performFindPanelAction:) keyEquivalent:@""] autorelease];
+            [find setTag:NSFindPanelActionShowFindPanel];
+            Check([browser validateMenuItem:find], @"native Find command is enabled for Org preview");
+            [browser performFindPanelAction:find];
+            NSSearchField *findField = [preview valueForKey:@"findField"];
+            Check(![findField isHidden], @"Find command reveals the native preview search field");
+            [findField setStringValue:@"Find target"];
+            Check([NSApp sendAction:[findField action] to:[findField target] from:findField], @"native preview search field invokes its configured Find action");
+            Check(Await(^BOOL { return OrgFindCompletions == 1; }, 5) && OrgFindCalls == 1 && OrgFindMatch, @"Org Find forwards to WKWebView and reports a rendered match");
+            Check([[[preview viewerState] objectForKey:@"find"] isEqual:@"Find target"], @"Org viewer state retains the Find query");
+            method_exchangeImplementations(originalFind, testFind); OrgFindView = nil;
+            [findField setHidden:YES];
+        }
+        double orgScroll = [NativeJavaScript([preview webView], @"window.scrollTo(0,360);window.scrollY") doubleValue];
+        Check(orgScroll > 300, @"Org preview can scroll through a long note");
+        [browser captureBodyPresentation];
+        Check(Await(^BOOL { return fabs([[[preview viewerState] objectForKey:@"scrollY"] doubleValue] - orgScroll) <= 2; }, 3), @"Org viewer captures its actual DOM scroll position");
+        NSDictionary *retainedState = [[browser browserWindowState] copy];
+        [browser selectPreviewMode:PreviewItem(@"markdown")];
+        Check(Await(^BOOL { return Ready(preview, @"markdown"); }, 20), @"same source can switch from Org to Markdown preview");
+        Check([[note sourceSyntaxIdentifier] isEqual:@"plain"], @"viewer switching leaves source syntax independent");
+        [browser selectPreviewMode:PreviewItem(@"org")];
+        Check(Await(^BOOL { return Ready(preview, @"org"); }, 20), @"returning to Org renders successfully");
+        Check(Await(^BOOL { return fabs([NativeJavaScript([preview webView], @"window.scrollY") doubleValue] - orgScroll) <= 2; }, 4), @"Org restores its separate scroll position after another viewer");
+        if (@available(macOS 11.0, *)) Check([[[preview viewerState] objectForKey:@"find"] isEqual:@"Find target"], @"Org restores its own Find query after another viewer");
+        [browser setViewingNote:NO];
+        Check(NSEqualRanges([editor selectedRange], sourceCaret) && [[[note contentString] string] isEqual:original] && [[note undoManager] canUndo] == beforeUndo, @"Source return preserves the original caret, source and Undo state");
+        [browser restoreBrowserWindowState:retainedState]; [retainedState release];
+        Check(Await(^BOOL { return [browser isViewingNote] && [[browser selectedViewerIdentifier] isEqual:@"org"] && Ready([browser valueForKey:@"previewController"], @"org"); }, 20), @"saved browser state restores the Org viewer identifier");
+        preview = [browser valueForKey:@"previewController"];
+
+        // Native composition is committed through insertText:replacementRange:.
+        // The fixture does not call the legacy unmarkText path.
+        NSUInteger end = [[peerEditor string] length];
+        [peerEditor setMarkedText:@"\nPeer draft" selectedRange:NSMakeRange(11, 0) replacementRange:NSMakeRange(end, 0)];
+        Check([peerEditor hasMarkedText], @"peer starts a native source composition");
+        [browser updateViewerSnapshot];
+        Check(Await(^BOOL { return Ready(preview, @"org"); }, 20), @"Org preview refresh completes while the peer composes");
+        Check([[[preview snapshot] source] isEqual:original] && [[[note contentString] string] isEqual:original] && ![[preview renderedHTML] containsString:@"Peer draft"], @"Org preview uses only committed source while its peer has marked text");
+        [peerEditor insertText:@"\nPeer committed update.\n" replacementRange:[peerEditor markedRange]];
+        [peer finishEditing];
+        NSString *committed = [[[note contentString] string] copy];
+        Check(![peerEditor hasMarkedText] && [committed containsString:@"Peer committed update."], @"native replacement commits the peer source update");
+        Check(Await(^BOOL { return Ready(preview, @"org") && [[[preview snapshot] source] isEqual:committed] && [[preview renderedHTML] containsString:@"Peer committed update."]; }, 20), @"peer edits refresh Org with the exact committed source snapshot");
+        BOOL editUndo = [[note undoManager] canUndo];
+        [browser setViewingNote:NO]; [editor setSelectedRange:sourceCaret];
+        [browser setViewingNote:YES];
+        Check(Await(^BOOL { return Ready(preview, @"org"); }, 20), @"Org preview reopens after a committed edit");
+        [browser setViewingNote:NO];
+        Check(editUndo && [[note undoManager] canUndo] && NSEqualRanges([editor selectedRange], sourceCaret) && [[[note contentString] string] isEqual:committed], @"mode round trip retains an existing Undo entry and source caret");
+        [peerEditor undo:self];
+        Check([[[note contentString] string] isEqual:original], @"Undo after preview restores the source before the peer edit");
+        [peerEditor redo:self];
+        Check([[[note contentString] string] isEqual:committed], @"Redo after preview restores the exact committed edit");
+        [browser setViewingNote:YES];
+        Check(Await(^BOOL { return Ready(preview, @"org") && [[[preview snapshot] source] isEqual:committed]; }, 20), @"Org preview receives the redone source snapshot");
+        [committed release];
+
+        NSString *displayedHTML = [[preview renderedHTML] copy];
+        OrgExportPanel = [[NVOrgTestExportPanel alloc] init];
+        OrgExportPanel->destination = [[NSURL fileURLWithPath:[TestDirectory stringByAppendingPathComponent:@"org-export.html"]] retain];
+        Method originalPanel = class_getClassMethod([NSSavePanel class], @selector(savePanel));
+        Method testPanel = class_getClassMethod([NSSavePanel class], @selector(nv_orgExportPanel));
+        method_exchangeImplementations(originalPanel, testPanel);
+        [browser savePreview:self];
+        method_exchangeImplementations(originalPanel, testPanel);
+        Check(OrgExportPanel->response != nil && [OrgExportPanel->proposedName isEqual:@"Org preview checks.html"], @"HTML export captures the displayed Org result and proposes the note title");
+        [peerEditor insertText:@"\nLater source for export ordering.\n" replacementRange:NSMakeRange([[peerEditor string] length], 0)];
+        [peer finishEditing];
+        Check(Await(^BOOL { return Ready(preview, @"org") && [[preview renderedHTML] containsString:@"Later source for export ordering."]; }, 20), @"a later peer edit can finish while the export response is pending");
+        OrgExportPanel->response(NSModalResponseOK);
+        NSString *exported = [NSString stringWithContentsOfURL:OrgExportPanel->destination encoding:NSUTF8StringEncoding error:NULL];
+        Check([exported isEqual:displayedHTML] && ![exported containsString:@"Later source for export ordering."], @"HTML export writes the exact captured inert result despite later edits");
+        Check([exported containsString:@"Content-Security-Policy"] && ![exported containsString:@"<script>"] && ![exported containsString:@"NV_ORG_INCLUDE_PRIVATE_SENTINEL"], @"export retains the inert document policy without script or included-file contents");
+        [OrgExportPanel->response release]; OrgExportPanel->response = nil;
+        [OrgExportPanel release]; OrgExportPanel = nil; [displayedHTML release];
+
+#include "fragment-capture.inc"
+
+        {
+            NSString *combinedSource = @"* TODO Combined Org note\nA *bold* paragraph with Unicode café 日本語.\n";
+            NoteObject *combinedNote = MakeNote(library, @"Org source and preview", combinedSource);
+            [browser setViewingNote:NO]; [browser revealNote:combinedNote options:0];
+            NSPopUpButton *syntaxPopup = [browser valueForKey:@"sourceSyntaxControl"];
+            NSInteger orgIndex = [syntaxPopup indexOfItemWithRepresentedObject:@"org"];
+            Check(orgIndex >= 0, @"combined app exposes Org source syntax alongside the Org viewer");
+            [syntaxPopup selectItemAtIndex:orgIndex]; [browser selectSourceSyntax:syntaxPopup];
+            Check(![browser isViewingNote] && [[combinedNote sourceSyntaxIdentifier] isEqual:@"org"] &&
+                [[browser selectedViewerIdentifier] isEqual:@"org"], @"Org source selection retains the independent viewer choice and Source mode");
+            NSUInteger keyword = [combinedSource rangeOfString:@"TODO"].location;
+            Check(Await(^BOOL { return OrgSourceHasKeywordColor(editor, keyword); }, 4),
+                @"Org source installs a current TODO capture and uses its syntax color for drawing");
+            NSString *combinedUUID = [NSString uuidStringWithBytes:*[combinedNote uniqueNoteIDBytes]];
+            NSDictionary *combinedMetadata = [[[library notationPrefs] sourceMetadataForNoteUUID:combinedUUID] copy];
+            [editor setSelectedRange:NSMakeRange(keyword, 4)];
+            NSRange combinedCaret = [editor selectedRange];
+            BOOL combinedUndo = [[combinedNote undoManager] canUndo];
+            CFAbsoluteTime combinedModified = modifiedDateOfNote(combinedNote);
+            [browser selectPreviewMode:PreviewItem(@"org")];
+            Check(Await(^BOOL { return Ready(preview, @"org") &&
+                [[[preview snapshot] source] isEqual:combinedSource] && [[[preview snapshot] contentType] isEqual:@"org"]; }, 20),
+                @"Org viewer renders the exact snapshot with Org source metadata");
+            Check([NativeJavaScript([preview webView], @"document.querySelector('h1').textContent") containsString:@"Combined Org note"],
+                @"combined Org source renders a heading in the native viewer");
+            [browser setViewingNote:NO];
+            Check([[editor string] isEqual:combinedSource] && [[[combinedNote contentString] string] isEqual:combinedSource] &&
+                [[[library notationPrefs] sourceMetadataForNoteUUID:combinedUUID] isEqual:combinedMetadata] &&
+                [[combinedNote sourceSyntaxIdentifier] isEqual:@"org"] && NSEqualRanges([editor selectedRange], combinedCaret) &&
+                [[combinedNote undoManager] canUndo] == combinedUndo && modifiedDateOfNote(combinedNote) == combinedModified,
+                @"Org preview round trip preserves source characters, metadata, caret, Undo and modified date");
+            Check([editor isEditable] && ![editor isHiddenOrHasHiddenAncestor] &&
+                Await(^BOOL { return OrgSourceHasKeywordColor(editor, keyword); }, 4),
+                @"returning to Source restores editable Org text with current syntax colors");
+            Check([[editor textStorage] attribute:NVSourceCaptureAttributeName atIndex:keyword effectiveRange:NULL] == nil,
+                @"Org source highlighting remains display-only after the preview round trip");
+            [combinedMetadata release];
+        }
+
+        if (getenv("NV_UI_ARTIFACTS")) {
+            NSString *directory = [NSString stringWithUTF8String:getenv("NV_UI_ARTIFACTS")];
+            Check([[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL], @"Org preview screenshot directory exists");
+            NSString *demo = @"* TODO Plan the next release :work:\nAn Org note with *bold*, /italic/, and =inline code=.\n\n** Checklist\n- [X] Keep the source editable\n- [X] Render Org as a read-only viewer\n- [ ] Write the release notes\n\n| Feature | Status |\n|---------+--------|\n| Tables | Ready |\n| Task lists | Ready |\n\n** Source block\n#+BEGIN_SRC json\n{\"format\": \"org\", \"editable_source\": true}\n#+END_SRC\n\n[[https://orgmode.org][Org documentation]]\n";
+            NoteObject *demoNote = MakeNote(library, @"Project notebook", demo);
+            [browser revealNote:demoNote options:0]; [browser selectPreviewMode:PreviewItem(@"org")];
+            Check(Await(^BOOL { return Ready(preview, @"org") && [[[preview snapshot] source] isEqual:demo]; }, 20), @"disposable screenshot note renders as Org");
+            [[GlobalPrefs defaultPrefs] setShowTitleInTopSection:YES sender:nil];
+            [[GlobalPrefs defaultPrefs] setShowBodyControlsInTopSection:YES sender:nil];
+            [[browser window] setFrame:NSMakeRect(100, 100, 940, 850) display:YES]; [browser setNotesListHeight:90];
+            [NSApp activateIgnoringOtherApps:YES]; [[browser window] makeKeyAndOrderFront:self];
+            NativeJavaScript([preview webView], @"window.scrollTo(0,0)");
+            Check(CapturePreview([browser window], [directory stringByAppendingPathComponent:@"org-preview.png"]), @"capture the unmodified native Org preview window");
+        }
+        Check(![[NSFileManager defaultManager] fileExistsAtPath:codePath], @"all Org preview operations leave the code sentinel absent");
+        NSLog(@"ORG PREVIEW UI PASSED (%lu checks)", (unsigned long)Checks);
+        [library flushAllNoteChanges]; [library closeJournal];
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        exit(0);
+    } @catch (NSException *exception) {
+        NSLog(@"FAIL: %@", exception); exit(1);
+    }
+}
+@end

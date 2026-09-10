@@ -1,0 +1,13 @@
+{
+  "head_before_build": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "input_sha256": {
+    "Sources/Preview/NVNoteContentSnapshot.m": "548075739a1afa2a5711a7d4cd5ab32ed2095b4c71d33c1d16d2655dca890cad",
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/PreviewController.m": "852af0f8665b7ad9518269a51164eb20858138272322d117971d7d225de71bbb",
+    "ThirdParty/OrgPreview/nv-org-preview": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359"
+  },
+  "inputs_unchanged_during_run": true,
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_code": 0
+}

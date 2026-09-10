@@ -24,7 +24,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     id viewers = [value objectForKey:@"viewers"];
     if ([viewers isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary *validViewers = [NSMutableDictionary dictionary];
-        for (NSString *identifier in @[@"markdown", @"textile", @"html"]) {
+        for (NSString *identifier in @[@"markdown", @"textile", @"html", @"org"]) {
             id viewerState = [viewers objectForKey:identifier];
             if ([viewerState isKindOfClass:[NSDictionary class]]) [validViewers setObject:viewerState forKey:identifier];
         }
@@ -223,7 +223,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     if ([state[@"listScroll"] isKindOfClass:[NSString class]]) [notesTableView scrollPoint:NSPointFromString(state[@"listScroll"])];
     if (currentNote && [state[@"editorScroll"] isKindOfClass:[NSString class]]) [textView scrollPoint:NSPointFromString(state[@"editorScroll"])];
     NSString *viewer = state[@"viewerIdentifier"];
-    if ([@[@"markdown", @"textile", @"html"] containsObject:viewer]) {
+    if ([@[@"markdown", @"textile", @"html", @"org"] containsObject:viewer]) {
         [selectedViewerIdentifier release]; selectedViewerIdentifier = [viewer copy];
     }
     if (currentNote) [noteBodyStates setObject:ValidatedBodyState(state[@"bodyState"])

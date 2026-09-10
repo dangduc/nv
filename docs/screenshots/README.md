@@ -115,3 +115,19 @@ To refresh this image after a Development build:
 ```sh
 NV_UI_ARTIFACTS="$PWD/build/org-integration-artifacts" python3 Tests/OrgSource/Integration/run.py
 ```
+
+## Org preview
+
+`org-preview.png` shows the Org viewer on September 9, 2026.
+The Intel Development app ran through Rosetta on macOS 26.5.2 with Xcode 26.6.
+The capture uses a disposable library and preferences domain.
+WindowServer captures the native window without pixel changes.
+The executable has SHA-256 `8b5223f71a9a71246a1de7184df76a1ed1fdce4a0c1f151345287acd3d0d81c0`.
+
+To refresh this image after a Development build:
+
+```sh
+NV_UI_ARTIFACTS="$PWD/build/org-preview-artifacts" python3 Tests/Regression/org-preview-ui/run.py
+```
+
+The capture run passed 59 checks. Inspect the output image before replacing this file.
