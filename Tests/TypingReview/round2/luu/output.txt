@@ -1,0 +1,26 @@
+case,links,utf16,p50_ms,max_ms,edit_notifications
+unchanged,1000,25028,0.655,0.681,0
+prepend_shift,1000,25028,0.650,0.660,0
+one_target,1000,25027,0.679,0.704,5
+all_targets,1000,25027,3.543,3.562,5
+syntax_remove_all,1000,25027,1.960,1.979,5
+syntax_add_all,1000,25027,1.726,1.739,5
+unchanged,4000,100028,3.989,4.021,0
+prepend_shift,4000,100028,3.960,3.993,0
+one_target,4000,100027,4.040,4.096,5
+all_targets,4000,100027,18.229,18.288,5
+syntax_remove_all,4000,100027,12.474,12.637,5
+syntax_add_all,4000,100027,5.780,5.840,5
+unchanged,10000,250028,13.935,14.242,0
+prepend_shift,10000,250028,13.835,14.160,0
+one_target,10000,250027,14.080,14.152,5
+all_targets,10000,250027,71.462,76.705,5
+syntax_remove_all,10000,250027,56.476,59.163,5
+syntax_add_all,10000,250027,11.295,11.514,5
+snapshot_utf16,p50_ms,max_ms,edit_holding_snapshot_p50_ms,edit_without_snapshot_p50_ms,copy_is_immutable
+100008,0.001,0.012,3.598,3.477,yes
+word_count,100008,20835,worker_helper_ms=21.973,main_publish_mean_ms=0.000472
+1000008,0.001,0.005,3.479,3.450,yes
+word_count,1000008,208335,worker_helper_ms=219.821,main_publish_mean_ms=0.000468
+4000008,0.001,0.005,3.483,3.494,yes
+PASS: production publication, shift, snapshot, and word-cache probes

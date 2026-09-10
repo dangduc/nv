@@ -1,0 +1,4 @@
+PASS: 24 checks; last-layout detach, peer detach, reattach, character ABA, syntax ABA, queued close
+
+Negative control:
+FAIL: last detached layout cancels queued publication

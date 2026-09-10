@@ -1,0 +1,8 @@
+{
+  "app": "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/DerivedData/Build/Products/Development/nvALT.app",
+  "binary_sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+  "mode": "production-regression",
+  "native_exit": 0,
+  "checks": 19,
+  "passed": true
+}

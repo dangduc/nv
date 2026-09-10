@@ -75,3 +75,8 @@ Executable SHA-256: `d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca
 These measurements have the same host and interpretation limits as the initial comparison.
 The link-heavy probe separately reduces 4,000-link publication from 2,848 ms to 5.9 ms, excluding layout and drawing.
 See `Tests/TypingReview/fixes/link-publication/README.md` for its cases and raw output.
+
+After the integrated build, both required runners ran again.
+Multiple windows again passed its primary checks before the library-replacement crash.
+The aggregate regression runner passed its earlier entries, then stopped at the same Fuzzy UI activation failure.
+The independent editing-history run passed all 52 checks, so the candidate-only Reveal failure is resolved.

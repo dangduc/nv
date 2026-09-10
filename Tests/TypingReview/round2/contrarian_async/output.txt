@@ -1,0 +1,22 @@
+PASS: real link worker reaches capture boundary
+PASS: interest added after links-only capture eventually receives words
+PASS: late interest renders the computed count
+PASS: word-interested capture reaches barrier
+PASS: removing last interest suppresses late word publication
+PASS: reenabling after discarded completion recovers count
+PASS: reenabled observer receives one current notification
+PASS: shared client capture reaches barrier
+PASS: remaining client preserves shared count demand
+PASS: unsubscribed hidden client receives no late count label
+PASS: 100 off/on transitions reuse an already-current count
+PASS: notification for another session does not alter active label
+PASS: toggle test reaches barrier
+PASS: in-flight off/on churn publishes the still-current source
+PASS: coalesced redundant follow-up makes one nil snapshot and stops
+PASS: empty source accepts zero word count
+PASS: zero is a valid cached count with an empty label
+PASS: empty-source repeated demand does not reschedule work
+PASS: detached source returns nil once and remains idle
+PASS: nil-snapshot demand does not spin
+PASS: reattachment demand recovers from unavailable snapshot
+PASS: 21 assertions across 6 demand/observer transition cases

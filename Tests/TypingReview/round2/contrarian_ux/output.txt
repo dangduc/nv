@@ -1,0 +1,22 @@
+2026-09-10 14:30:15.756 nvALT[41476:345623403] PASS: isolated preferences domain
+2026-09-10 14:30:15.756 nvALT[41476:345623403] PASS: copied app inside disposable test root
+2026-09-10 14:30:15.757 nvALT[41476:345623403] PASS: temporary library directory exists
+2026-09-10 14:30:15.758 nvALT[41476:345623403] PASS: temporary library opens
+2026-09-10 14:30:15.825 nvALT[41476:345623403] verified 0 notes in 0.000198007 s
+2026-09-10 14:30:16.192 nvALT[41476:345623403] PASS: word count begins hidden under popup preference
+2026-09-10 14:30:16.192 nvALT[41476:345623403] PASS: event-qualified production popup exposes native count control
+2026-09-10 14:30:16.269 nvALT[41476:345623403] PASS: popup alone requests and publishes three-word count
+2026-09-10 14:30:16.269 nvALT[41476:345623403] PASS: popup hide clears native label
+2026-09-10 14:30:16.342 nvALT[41476:345623403] PASS: analysis settles after show-then-hide during pending count
+2026-09-10 14:30:16.342 nvALT[41476:345623403] PASS: late completion does not repaint hidden popup
+2026-09-10 14:30:16.407 nvALT[41476:345623403] PASS: showing popup again obtains latest count after canceled demand
+2026-09-10 14:30:16.541 nvALT[41476:345623403] PASS: two native windows share count source storage
+2026-09-10 14:30:16.541 nvALT[41476:345623403] PASS: both visible controls obtain shared cached count
+2026-09-10 14:30:16.605 nvALT[41476:345623403] PASS: peer edit refreshes both native count controls
+2026-09-10 14:30:16.606 nvALT[41476:345623403] PASS: note switch completes while old count is pending
+2026-09-10 14:30:16.670 nvALT[41476:345623403] PASS: pending old-note count updates peer without contaminating replacement note
+2026-09-10 14:30:16.694 nvALT[41476:345623403] PASS: last old-note browser closes while analysis is pending
+2026-09-10 14:30:16.734 nvALT[41476:345623403] PASS: reattaching closed-window note computes complete latest count
+2026-09-10 14:30:16.736 nvALT[41476:345623403] verified 2 notes in 0.000377059 s
+2026-09-10 14:30:16.737 nvALT[41476:345623403] PASS: disposable library checkpoint succeeds
+2026-09-10 14:30:16.737 nvALT[41476:345623403] TYPING UX PASSED (19 checks)

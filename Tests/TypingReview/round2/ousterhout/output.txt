@@ -1,0 +1,29 @@
+SCENARIO: blocked Reveal replaced by another Reveal, then an invalid target
+PASS: starting Exact projection is current
+PASS: invalid library target is rejected
+PASS: invalid Reveal preserves latest accepted intent
+PASS: unblocked publication is current
+PASS: one current publication delivers the replacement target
+PASS: delayed retry cannot repeat the consumed Reveal
+SCENARIO: restoration replaces blocked Reveal and Reveal replaces restoration
+PASS: starting Exact projection is current
+PASS: unblocked publication is current
+PASS: synchronous publication consumes the restoration payload once
+PASS: replaced Reveal cannot select its old target
+PASS: unblocked publication is current
+PASS: later accepted Reveal cancels older restoration
+SCENARIO: excluded pending Reveal clears query during completion publication
+PASS: starting Exact projection is current
+PASS: unblocked publication is current
+PASS: excluded target is selected after nested empty-query publication
+PASS: test entered a nested production state callback
+PASS: recursive publications neither redeliver nor leave the application guard set
+PASS: draining deferred work preserves the nested completion result
+SCENARIO: multi-note Reveal replaces single intent, then user cancels
+PASS: starting Exact projection is current
+PASS: multi-note intent filters missing notes and deduplicates UUIDs
+PASS: unblocked publication is current
+PASS: multi-note completion clears excluding query and consumes one intent
+PASS: unblocked publication is current
+PASS: canceled explicit intent cannot run on the next current publication
+PASS: intent publication review (24 checks)

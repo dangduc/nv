@@ -1,0 +1,39 @@
+{
+  "head": "5eda58bd50bdda6b31ea705ad1ce6b256ffd671a",
+  "methods_sha256": "021b84b8f4f90400a3b39ce35be48761d6602996e74e59a41b05e6b62b7857a5",
+  "production_exit": 0,
+  "negative_control_exit": 1,
+  "passed": true,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "compile_command": [
+    "xcrun",
+    "clang",
+    "-arch",
+    "x86_64",
+    "-mmacosx-version-min=10.13",
+    "-fblocks",
+    "-fno-objc-arc",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-Wno-deprecated-declarations",
+    "-Wno-incomplete-implementation",
+    "-I",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Sources/Editor",
+    "-I",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/kingsbury",
+    "-framework",
+    "Cocoa",
+    "-framework",
+    "CoreServices",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/kingsbury/links.m",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Sources/Editor/NVSourceAnalysis.m",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round2/kingsbury/probe.m",
+    "-o",
+    "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/kingsbury/probe"
+  ]
+}
