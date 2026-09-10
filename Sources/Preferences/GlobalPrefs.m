@@ -60,7 +60,6 @@ static NSString *BackgroundTextColorKey = @"BackgroundTextColor";
 static NSString *DarkSearchTermHighlightColorKey = @"DarkSearchTermHighlightColor";
 static NSString *DarkForegroundTextColorKey = @"DarkForegroundTextColor";
 static NSString *DarkBackgroundTextColorKey = @"DarkBackgroundTextColor";
-static NSString *NumberOfSpacesInTabKey = @"NumberOfSpacesInTab";
 static NSString *MakeURLsClickableKey = @"MakeURLsClickable";
 static NSString *AppActivationKeyCodeKey = @"AppActivationKeyCode";
 static NSString *AppActivationModifiersKey = @"AppActivationModifiers";
@@ -122,7 +121,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 		[defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithBool:NO], UseFinderTagsKey,
 			[NSNumber numberWithBool:YES], AutoFormatsDoneTagKey, 
-			[NSNumber numberWithInteger:4], NumberOfSpacesInTabKey,
 			[NSNumber numberWithBool:YES], ConfirmNoteDeletionKey,
 			[NSNumber numberWithBool:YES], AutoCompleteSearchesKey,
 			[NSNumber numberWithBool:YES], QuitWhenClosingMainWindowKey, 
@@ -463,10 +461,6 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 	return [defaults boolForKey:UseFinderTagsKey];
 }
 
-- (NSInteger)numberOfSpacesInTab {
-	return [defaults integerForKey:NumberOfSpacesInTabKey];
-}
-
 BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 	//sometimes floating point numbers really don't like to be compared to each other
 
@@ -499,9 +493,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 - (void)_setNoteBodyFont:(NSFont*)aFont {
 	NSFont *oldFont = noteBodyFont;
 	noteBodyFont = [aFont retain];
-	
-	[noteBodyParagraphStyle release];
-	noteBodyParagraphStyle = nil;
 	
 	[noteBodyAttributes release];
 	noteBodyAttributes = nil; //cause method to re-update
@@ -555,12 +546,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 			[attrs setObject:fgColor forKey:NSForegroundColorAttributeName];
 		}
 		// background text color is handled directly by the NSTextView subclass and so does not need to be stored here
-		if ([self _bodyFontIsMonospace]) {			
-//			NSLog(@"notebody att3");
-			NSParagraphStyle *pStyle = [self noteBodyParagraphStyle];
-			if (pStyle)
-				[attrs setObject:pStyle forKey:NSParagraphStyleAttributeName];
-		}
 		noteBodyAttributes = attrs;
 	}else {
 		//NSLog(@"notebody att4");
@@ -575,39 +560,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 
 	return noteBodyAttributes;
 }
-
-- (BOOL)_bodyFontIsMonospace {
-	NSString *name = [noteBodyFont fontName];
-	return (([noteBodyFont isFixedPitch] || [name caseInsensitiveCompare:@"Osaka-Mono"] == NSOrderedSame) && 
-			[name caseInsensitiveCompare:@"MS-PGothic"] != NSOrderedSame);
-}
-
-- (NSParagraphStyle*)noteBodyParagraphStyle {
-	NSFont *bodyFont = [self noteBodyFont];
-
-	if (!noteBodyParagraphStyle && bodyFont) {
-		NSInteger numberOfSpaces = [self numberOfSpacesInTab];
-		NSMutableString *sizeString = [[NSMutableString alloc] initWithCapacity:numberOfSpaces];
-		while (numberOfSpaces--) {
-			[sizeString appendString:@" "];
-		}
-
-		float sizeOfTab = [sizeString sizeWithAttributes:@{NSFontAttributeName:bodyFont}].width;
-		[sizeString release];
-		
-		noteBodyParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-
-
-        for (NSTextTab *textTabToBeRemoved in [noteBodyParagraphStyle tabStops]) {
-            [noteBodyParagraphStyle removeTabStop:textTabToBeRemoved];
-        }
-
-		[noteBodyParagraphStyle setDefaultTabInterval:sizeOfTab];
-	}
-	
-	return noteBodyParagraphStyle;
-}
-
 - (void)setForegroundTextColor:(NSColor*)aColor sender:(id)sender {
 	if (aColor) {
 		[noteBodyAttributes release];

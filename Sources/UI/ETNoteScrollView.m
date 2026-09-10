@@ -7,7 +7,6 @@
 //
 
 #import "ETNoteScrollView.h"
-#import "LinkingEditor.h"
 
 @implementation ETNoteScrollView
 
@@ -26,7 +25,6 @@
         NSView *tView=[super hitTest:aPoint];
         BOOL tViewIsDoc=(tView==self.documentView);
         if (tViewIsDoc||[tView isKindOfClass:self.class]||[tView isKindOfClass:NSClassFromString(@"ETClipView")]){
-            [self.documentView setMouseInside:YES];
             return self.documentView;
         }
         return tView;

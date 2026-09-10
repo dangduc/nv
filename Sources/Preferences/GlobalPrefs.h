@@ -57,7 +57,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 	BookmarksController *bookmarksController;
 	NotationPrefs *notationPrefs;
 	NSDictionary *noteBodyAttributes;
-	NSMutableParagraphStyle *noteBodyParagraphStyle;
 	NSFont *noteBodyFont;
 	BOOL autoCompleteSearches;
 	
@@ -102,8 +101,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)_setNoteBodyFont:(NSFont*)aFont;
 - (NSFont*)noteBodyFont;
 - (NSDictionary*)noteBodyAttributes;
-- (NSParagraphStyle*)noteBodyParagraphStyle;
-- (BOOL)_bodyFontIsMonospace;
 
 - (void)setForegroundTextColor:(NSColor*)aColor sender:(id)sender;
 - (NSColor*)foregroundTextColor;
@@ -144,8 +141,6 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (void)setUseFinderTags:(id)sender;
 //- (void)setUseFinderTags:(BOOL)value sender:(id)sender;
 - (BOOL)useFinderTags;
-
-- (NSInteger)numberOfSpacesInTab;
 
 - (float)tableFontSize;
 - (void)setTableFontSize:(float)fontSize sender:(id)sender;

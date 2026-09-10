@@ -13,18 +13,12 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import <objc/runtime.h>
-
 @class NotesTableView;
-@class NoteObject;
 @class GlobalPrefs;
 
-@interface LinkingEditor : NSTextView
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-<NSLayoutManagerDelegate>
-#endif
+@interface LinkingEditor : NSTextView <NSLayoutManagerDelegate, NSTextFinderClient>
 {	
-    id textFinder;
+    NSTextFinder *textFinder;
     IBOutlet NSTextField *controlField;
     IBOutlet NotesTableView *notesTableView;
 	
@@ -34,16 +28,10 @@
 	NSRange lastAutomaticallySelectedRange;
 	NSRange changedRange;
 	
-	BOOL backgroundIsDark, mouseInside;
+	BOOL backgroundIsDark;
     BOOL searchHighlightsInvalidated;
 	
-	//ludicrous ivars used to hack NSTextFinder. just write your own, damnit!
-	NSRange selectedRangeDuringFind;
 	NSString *lastImportedFindString;
-	NSString *stringDuringFind;
-	NoteObject *noteDuringFind;
-	
-	IMP defaultIBeamCursorIMP, whiteIBeamCursorIMP;
     
     BOOL managesTextWidth;
 }
@@ -68,13 +56,9 @@
 - (void)indicateRange:(NSValue*)rangeValue;
 
 - (void)fixTypingAttributesForSubstitutedFonts;
-- (void)fixCursorForBackgroundUpdatingMouseInside:(BOOL)checkMouseLoc;
-
 - (BOOL)didRenderFully;
 
 #pragma mark - nvALT additions
-- (void)setMouseInside:(BOOL)inside;
-- (BOOL)mouseIsHere;
 - (void)resetInset;
 - (void)updateInsetAndForceLayout:(BOOL)force;
 - (void)updateInsetForFrame:(NSRect)frameRect andForceLayout:(BOOL)force;
@@ -82,25 +66,11 @@
 - (IBAction)performFindPanelAction:(id)sender;
 - (void)updateTextColors;
 - (void)prepareTextFinder;
-- (void)prepareTextFinderPreLion;
 - (BOOL)textFinderIsVisible;
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 - (void)textFinderShouldResetContext:(NSNotification *)aNotification;
 - (void)textFinderShouldUpdateContext:(NSNotification *)aNotification;
-- (void)textFinderShouldNoteChanges:(NSNotification *)aNotification;
 - (void)hideTextFinderIfNecessary:(NSNotification *)aNotification;
-#endif
 //
 - (void)undo:(id)sender;
 - (void)redo:(id)sender;
-@end
-
-@interface NSTextView (Private)
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6
-- (void)toggleAutomaticTextReplacement:(id)sender;
-- (BOOL)isAutomaticTextReplacementEnabled;
-- (void)setAutomaticTextReplacementEnabled:(BOOL)flag;
-- (void)moveToLeftEndOfLine:(id)sender;
-#endif
-
 @end

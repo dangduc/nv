@@ -139,6 +139,7 @@ compat_matches = {token: matches for token, matches in compat_matches.items() if
 dead_members = ("selectedRangeDuringFind", "stringDuringFind", "noteDuringFind",
                 "windowBecameOrResignedMain")
 dead_matches = {token: occurrences(token, (editor_path, editor_header)) for token in dead_members}
+dead_matches = {token: matches for token, matches in dead_matches.items() if matches}
 if compat_matches or dead_matches:
     print("FINDING P3: LinkingEditor retains unsupported find compatibility and dead state")
     for token, matches in {**compat_matches, **dead_matches}.items():

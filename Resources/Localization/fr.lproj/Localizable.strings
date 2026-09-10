@@ -389,15 +389,6 @@
 /* No comment provided by engineer. */
 "Plain Text Style" = "Texte simple";
 
-/* use-text-replacement command in the edit menu */
-"Use Automatic Text Replacement" = "Utiliser la substitution automatique de texte";
-
-/* new-password command in the edit menu (shows generated passwords window) */
-"New Password..." = "Nouveau mot de passe…";
-
-/* insert new password command in the edit menu */
-"Insert New Password" = "Insérer le nouveau mot de passe";
-
 /* menu item in the View menu to turn on note-body previews in the Title column */
 "Show Note Previews in Title" =  "Afficher l'aperçu des notes dans leur titre";
 
@@ -436,9 +427,6 @@
 
 /* No comment provided by engineer. */
 "Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?" = "Impossible de créer ou d'accéder au fichier Interim Note-Changes. Une autre copie de Notational Velocity est-elle exécutée ?";
-
-/* No comment provided by engineer. */
-"Strikethrough" = "Barré";
 
 /* No comment provided by engineer. */
 "Use a single database file" = "Utiliser une base de données";
@@ -522,9 +510,6 @@
 
 /* menu item title for exiting fullscreen */
 "Exit Full Screen" = "Exit Full Screen";
-
-/* Menu Item for Insert Link */
-"Insert Link" = "Insert Link";
 
 /* Menu Item for Use Selection for Find */
 "Use Selection for Find" = "Use Selection for Find";

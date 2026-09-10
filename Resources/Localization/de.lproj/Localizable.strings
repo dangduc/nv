@@ -389,15 +389,6 @@
 /* No comment provided by engineer. */
 "Plain Text Style" = "Einfacher Text";
 
-/* use-text-replacement command in the edit menu */
-"Use Automatic Text Replacement" = "Automatische Textersetzung verwenden";
-
-/* new-password command in the edit menu (shows generated passwords window) */
-"New Password..." = "Neues Passwort...";
-
-/* insert new password command in the edit menu */
-"Insert New Password" = "Neues Passwort einsetzen";
-
 /* menu item in the View menu to turn off note-body previews in the Title column */
 "Hide Note Previews in Title" = "Notizvorschau in Titel nicht anzeigen";
 
@@ -436,9 +427,6 @@
 
 /* No comment provided by engineer. */
 "Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?" = "Auf die “Interim Note-Changes“ Datei konnte nicht zugegriffen werden. Läuft gerade vielleicht eine weitere Instanz von Notational Velocity?";
-
-/* No comment provided by engineer. */
-"Strikethrough" = "Durchgestrichen";
 
 /* No comment provided by engineer. */
 "Use a single database file" = "Einzelne Datenbankdatei verwenden";
@@ -516,9 +504,6 @@
 
 /* prefix for source-URLs inserted into imported notes; e.g., "From <http://www.apple.com>: ..." */
 "From" = "Von";
-
-/* insert link menu item title */
-"Insert Link" = "Link einfügen";
 
 /* menu item title for entering fullscreen */
 "Enter Full Screen" = "Vollbildmodus ein";

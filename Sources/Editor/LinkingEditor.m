@@ -20,28 +20,8 @@
 #import "AppController.h"
 #import "NotesTableView.h"
 #import "ETClipView.h"
-//#import "NSTextFinder.h"
-//#import "NVTextFinderAdditions.h"
-
-
 #define kDefaultTextInsetWidth 8.0
 #define kDefaultTextInsetHeight 8.0
-
-@interface NSCursor (WhiteIBeamCursor)
-+ (NSCursor*)whiteIBeamCursor;
-@end
-
-@implementation NSCursor (WhiteIBeamCursor)
-
-+ (NSCursor*)whiteIBeamCursor {
-	static NSCursor *invertedIBeamCursor = nil;
-	if (!invertedIBeamCursor) {
-		invertedIBeamCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"IBeamInverted"] hotSpot:NSMakePoint(4,5)];
-	}
-	return invertedIBeamCursor;	
-}
-
-@end
 
 
 @implementation LinkingEditor
@@ -77,12 +57,6 @@ CGFloat _perceptualDarkness(NSColor*a);
 	[self updateTextColors];
     [self updateInsetAndForceLayout:YES];
     [self prepareTextFinder];
-    
-	[[self window] setAcceptsMouseMovedEvents:YES];
-	if (IsLeopardOrLater) {
-		defaultIBeamCursorIMP = method_getImplementation(class_getClassMethod([NSCursor class], @selector(IBeamCursor)));
-		whiteIBeamCursorIMP = method_getImplementation(class_getClassMethod([NSCursor class], @selector(whiteIBeamCursor)));
-	}
 	
 	didRenderFully = NO;
 	[[self layoutManager] setDelegate:self];
@@ -91,13 +65,6 @@ CGFloat _perceptualDarkness(NSColor*a);
     [self setRichText:NO];
     [self setImportsGraphics:NO];
 
-    //	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//	[center addObserver:self selector:@selector(windowBecameOrResignedMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
-//	[center addObserver:self selector:@selector(windowBecameOrResignedMain:) name:NSWindowDidResignMainNotification object:[self window]];
-    
-	//[center addObserver:self selector:@selector(updateTextColors) name:NSSystemColorsDidChangeNotification object:nil]; // recreate gradient if needed
-    //	NoMods = YES;
-   
 	outletObjectAwoke(self);
 }
 
@@ -144,21 +111,15 @@ CGFloat _perceptualDarkness(NSColor*a);
 //    NSLog(@"exist :>%@<",self.defaultParagraphStyle);
 //    [self.textStorage setAttributes:@{NSParagraphStyleAttributeName:[NSParagraphStyle defaultParagraphStyle]} range:NSMakeRange(0, self.string.length)];
 //    NSLog(@"exist :>%@<",self.defaultParagraphStyle);
-	[self performSelector:@selector(_fixCursorForBackgroundUpdatingMouseInside:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
-	
 	return [super becomeFirstResponder];
 }
 
 - (void)indicateRange:(NSValue*)rangeValue {
-	if (IsLeopardOrLater) {
-		[self showFindIndicatorForRange:[rangeValue rangeValue]];
-	}
+	[self showFindIndicatorForRange:[rangeValue rangeValue]];
 }
 
 - (BOOL)resignFirstResponder {
 	[notesTableView setShouldUseSecondaryHighlightColor:NO];
-	
-	[self performSelector:@selector(_fixCursorForBackgroundUpdatingMouseInside:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
 	
 	return [super resignFirstResponder];
 }
@@ -170,7 +131,6 @@ CGFloat _perceptualDarkness(NSColor*a);
 
 - (void)setBackgroundColor:(NSColor*)aColor {
 	backgroundIsDark = (_perceptualDarkness([aColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace]) > 0.5);
-    [self fixCursorForBackgroundUpdatingMouseInside:YES];
 	[super setBackgroundColor:aColor];
 }
 
@@ -182,7 +142,7 @@ CGFloat _perceptualDarkness(NSColor*a);
         [self setBackgroundColor:bgColor];
     }
 	[[self enclosingScrollView] setBackgroundColor:bgColor];
-    if (IsLionOrLater&&[self textFinderIsVisible]) {
+    if ([self textFinderIsVisible]) {
         [[self window]invalidateCursorRectsForView:[[self enclosingScrollView]findBarView]];
     }
     
@@ -473,65 +433,6 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
     
-- (void)mouseEntered:(NSEvent*)anEvent {
-//	mouseInside = YES;
-	[self fixCursorForBackgroundUpdatingMouseInside:YES];
-    [super mouseEntered:anEvent];
-}
-- (void)mouseExited:(NSEvent*)anEvent {
-	mouseInside = NO;
-	[self fixCursorForBackgroundUpdatingMouseInside:NO];
-    
-    //fix for tooltip hanging around
-    [super mouseExited:anEvent];
-}
-
-- (void)_fixCursorForBackgroundUpdatingMouseInside:(NSNumber*)num {
-	[self fixCursorForBackgroundUpdatingMouseInside:[num boolValue]];
-}
-
-- (void)fixCursorForBackgroundUpdatingMouseInside:(BOOL)checkMouseLoc {
-	
-	if (IsLeopardOrLater && whiteIBeamCursorIMP && defaultIBeamCursorIMP) {
-        if (checkMouseLoc) {
-            mouseInside=[self mouseIsHere];
-        }
-//          NSLog(@"mouseInside :>%d<",mouseInside);
-		BOOL shouldBeWhite = mouseInside && backgroundIsDark && ![self isHidden];
-      
-		Class class = [NSCursor class];
-		
-		//set method implementation directly; whiteIBeamCursorIMP and defaultIBeamCursorIMP always point to the same respective blocks of code
-		Method defaultIBeamCursorMethod = class_getClassMethod(class, @selector(IBeamCursor));
-		method_setImplementation(defaultIBeamCursorMethod, shouldBeWhite ? whiteIBeamCursorIMP : defaultIBeamCursorIMP);
-		
-		NSCursor *currentCursor = [NSCursor currentCursor];
-		NSCursor *whiteCursor = whiteIBeamCursorIMP;
-		NSCursor *defaultCursor = defaultIBeamCursorIMP;
-      
-		//if the current cursor is set incorrectly, and and it's not a non-IBeam cursor, then update it (IBeamCursor points to our recently-set implementation)
-		if ((currentCursor == whiteCursor) != shouldBeWhite && (currentCursor == whiteCursor || currentCursor == defaultCursor)) {
-			[[NSCursor IBeamCursor] set];
-		}
-	}
-}
-
-//hiding or showing the view does not always produce mouseEntered/Exited events
-- (void)viewDidUnhide {
-	[self performSelector:@selector(_fixCursorForBackgroundUpdatingMouseInside:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
-
-	[super viewDidUnhide];
-}
-- (void)viewDidHide {
-	[self fixCursorForBackgroundUpdatingMouseInside:YES];
-	[super viewDidHide];
-}
-
-- (void)windowBecameOrResignedMain:(NSNotification *)aNotification  {
-	//changing the window ordering seems to occasionally trigger mouseExited events w/o a corresponding mouseEntered
-//	[self fixCursorForBackgroundUpdatingMouseInside:YES];
-}
-
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	//need to fix this for better style detection
 	
@@ -542,18 +443,8 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     if (action==@selector(performFindPanelAction:)) {
         //for ElasticThreads Find... fix. Also make sure all Find menuItems point their targets to LinkingEditor instead of firstResponder
         
-        //hide Find and Replace... on Pre-Lion machines
-        if (!IsLionOrLater){
-            if([menuItem tag]==12) {
-            [menuItem setHidden:YES];
+        if ([menuItem tag] == 7 && ![textFinder validateAction:[menuItem tag]]) {
             return NO;
-            }
-        }else{
-            if ([menuItem tag]==7) {
-                if (![textFinder validateAction:[menuItem tag]]) {
-                    return NO;
-                }
-            }
         }
         return YES;
     }
@@ -659,14 +550,9 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 - (void)dealloc {
     NSLog(@"dealloc linkinged");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
-    if (IsLionOrLater) {
-        [textFinder release];
-    }
-    // Nib outlets, shared preferences, and computed substring results are borrowed.
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [textFinder release];
     [lastImportedFindString release];
-    [stringDuringFind release];
-    [noteDuringFind release];
     
 	[super dealloc];
 }
@@ -676,40 +562,6 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 - (BOOL)isOpaque{
     return YES;
-}
-
-- (void)flagsChanged:(NSEvent *)theEvent{
-	[(AppController *)NVControllerForView(self) flagsChanged:theEvent];
-}
-
-- (BOOL)mouseIsHere{
-    NSPoint mPt;
-    NSRect vRect=[[self enclosingScrollView]visibleRect];
-    if (IsLionOrLater) {
-        NSRect aRect=NSZeroRect;
-        aRect.origin=[NSEvent mouseLocation];
-        mPt=[[self enclosingScrollView] convertPoint:[[self window] convertRectFromScreen:aRect].origin fromView:nil];
-        if ([self textFinderIsVisible]) {
-            NSView *fbView=[[self enclosingScrollView]findBarView];
-            if (NSMouseInRect(mPt,[fbView frame],[fbView isFlipped])) {
-                if (backgroundIsDark) {
-                    [[self window]invalidateCursorRectsForView:fbView];
-                }
-                return NO;
-            }
-        }
-    }else{
-        mPt= [[self window]convertScreenToBase:[NSEvent mouseLocation]];
-    }
-    //    vRect.size.width=[[self enclosingScrollView]visibleRect].size.width;
-    //     NSLog(@"mPt:%@     vRect :>%@<",NSStringFromPoint(mPt),NSStringFromRect(vRect));
-    return NSMouseInRect(mPt,vRect,YES);
-}
-
-
-- (void)setMouseInside:(BOOL)inside{
-    mouseInside=inside;
-    [self fixCursorForBackgroundUpdatingMouseInside:NO];
 }
 
 - (void)resetInset{
@@ -763,92 +615,42 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 
-- (void)prepareTextFinder{        
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    if (IsLionOrLater) {
-        
-        
-        [self setUsesFindBar:YES];
-        
-        [self setIncrementalSearchingEnabled:YES];
-        textFinder=[[[NSTextFinder alloc]init]retain];
-        [textFinder setClient:self];
-        
-        [textFinder setIncrementalSearchingEnabled:YES];
-//        [textFinder setIncrementalSearchingShouldDimContentView:NO];
-        NSNotificationCenter *dc=[NSNotificationCenter defaultCenter];
-        [dc addObserver:self selector:@selector(textFinderShouldUpdateContext:) name:@"TextFindContextShouldUpdate" object:nil];
-        [dc addObserver:self selector:@selector(textFinderShouldNoteChanges:) name:@"TextFindContextShouldNoteChanges" object:nil];
-        [dc addObserver:self selector:@selector(textFinderShouldResetContext:) name:@"TextFindContextShouldReset" object:nil];
-         [dc addObserver:self selector:@selector(hideTextFinderIfNecessary:) name:@"TextFinderShouldHide" object:nil];
-        return;       
-    }
-#endif
-    [self prepareTextFinderPreLion];
+- (void)prepareTextFinder {
+    [self setUsesFindBar:YES];
+    [self setIncrementalSearchingEnabled:YES];
+    textFinder = [[NSTextFinder alloc] init];
+    [textFinder setClient:self];
+    [textFinder setIncrementalSearchingEnabled:YES];
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(textFinderShouldUpdateContext:) name:@"TextFindContextShouldUpdate" object:nil];
+    [center addObserver:self selector:@selector(textFinderShouldResetContext:) name:@"TextFindContextShouldReset" object:nil];
+    [center addObserver:self selector:@selector(hideTextFinderIfNecessary:) name:@"TextFinderShouldHide" object:nil];
 }
 
-- (void)prepareTextFinderPreLion{
-    [self setUsesFindPanel:YES];
-    textFinder=[NSClassFromString(@"NSTextFinder")sharedTextFinder];
-    [[textFinder findPanel:YES] setDelegate:self];
-    NSArray *sViews = [[[textFinder findPanel:YES] contentView] subviews];
-    for (id thing in sViews){
-        if ([[thing className] isEqualToString:@"NSButton"]) {
-            NSButton *aBut = thing;
-            //            if (![aBut target]==nil) {
-            [aBut setTarget:self];
-            [aBut setAction:@selector(performFindPanelAction:)];
-            //            }
-        }
-    }    
-    [[textFinder findPanel:YES] update];
-}
-
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 - (void)textFinderShouldResetContext:(NSNotification *)aNotification{
     if ([aNotification object] != NVControllerForView(self)) return;
-    
-    if (IsLionOrLater){
-        [textFinder cancelFindIndicator];
-        [textFinder noteClientStringWillChange];
-    }
-}
-
-- (void)textFinderShouldNoteChanges:(NSNotification *)aNotification{
-    if ([aNotification object] != NVControllerForView(self)) return;
-    if (IsLionOrLater){
-        [textFinder noteClientStringWillChange];
-    }
+    [textFinder cancelFindIndicator];
+    [textFinder noteClientStringWillChange];
 }
 
 - (void)textFinderShouldUpdateContext:(NSNotification *)aNotification{
     if ([aNotification object] != NVControllerForView(self)) return;
-    
-    if (IsLionOrLater){
-        [textFinder setFindIndicatorNeedsUpdate:YES];
-    }
+    [textFinder setFindIndicatorNeedsUpdate:YES];
 }
 
 - (void)hideTextFinderIfNecessary:(NSNotification *)aNotification{
     if ([aNotification object] != NVControllerForView(self)) return;
-    if (IsLionOrLater){        
-        if([self textFinderIsVisible]){            
-            [textFinder setFindIndicatorNeedsUpdate:YES];
-            [textFinder cancelFindIndicator];
-            [textFinder performAction:NSTextFinderActionHideFindInterface];
-        }
+    if([self textFinderIsVisible]){
+        [textFinder setFindIndicatorNeedsUpdate:YES];
+        [textFinder cancelFindIndicator];
+        [textFinder performAction:NSTextFinderActionHideFindInterface];
     }
 }
-#endif
 
 - (BOOL)textFinderIsVisible{
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    if ((IsLionOrLater)&&([[self enclosingScrollView]findBarView]!=nil)) {
-        return [[[self enclosingScrollView] subviews]containsObject:[[self enclosingScrollView]findBarView]];
-    }
-#endif
-    return NO;
+    NSView *findBarView = [[self enclosingScrollView] findBarView];
+    return findBarView && [[[self enclosingScrollView] subviews] containsObject:findBarView];
 }
 
 - (IBAction)performFindPanelAction:(id)sender {
@@ -859,13 +661,8 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     NSInteger findTag=[sender tag];
     
     [sender setTarget:nil];
-    if(!IsLionOrLater||([sender tag]!=7)){
-        NSString *pbType;
-        if (IsSnowLeopardOrLater) {
-            pbType=NSPasteboardTypeString;
-        }else{
-            pbType=NSStringPboardType;
-        }
+    if ([sender tag] != 7) {
+        NSString *pbType = NSPasteboardTypeString;
         NSString *typedString = [controller typedString];
         if (!typedString) typedString = [controlField stringValue];
         if (!typedString||([typedString length]==0)) {
@@ -876,7 +673,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
              typedString=[typedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
              if ([typedString length] > 0 && ![lastImportedFindString isEqualToString:typedString]) {
                  
-                 NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSFindPboard];
+                 NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSPasteboardNameFind];
                  [pasteboard declareTypes:[NSArray arrayWithObject:pbType] owner:nil];
                  [pasteboard setString:typedString forType:pbType];
                  [lastImportedFindString release];
@@ -888,62 +685,42 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     if ([[self window] firstResponder]!=self) {
         [[self window]makeFirstResponder:self];
     }
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    if (IsLionOrLater) {
-        
-        id newSender=[sender copy];
-        if((findTag!=1)&&(findTag!=12)&&(findTag!=7)&&(![self textFinderIsVisible])){            
+    id newSender=[sender copy];
+    if((findTag!=1)&&(findTag!=12)&&(findTag!=7)&&(![self textFinderIsVisible])){
+        [newSender setTag:NSTextFinderActionShowFindInterface];
+        [super performTextFinderAction:newSender];
+    }
+    if (findTag==1) {
+        findTag=NSTextFinderActionShowFindInterface;
+    }else if (findTag==2) {
+        findTag=NSTextFinderActionNextMatch;
+    }else if (findTag==3) {
+        findTag=NSTextFinderActionPreviousMatch;
+    }else if (findTag==4) {
+        findTag=NSTextFinderActionReplaceAll;
+    }else if (findTag==5) {
+        findTag=NSTextFinderActionReplace;
+    }else if (findTag==6) {
+        findTag=NSTextFinderActionReplaceAndFind;
+    }else if (findTag==7) {
+        findTag=NSTextFinderActionSetSearchString;
+    }else if (findTag==9) {
+        findTag=NSTextFinderActionSelectAll;
+    }else if (findTag==12) {
+        findTag=NSTextFinderActionShowReplaceInterface;
+    }
+    [newSender setTag:findTag];
+
+    if ([textFinder validateAction:findTag]) {
+        [super performTextFinderAction:newSender];
+        if ((findTag==NSTextFinderActionSetSearchString)&&(![self textFinderIsVisible])) {
             [newSender setTag:NSTextFinderActionShowFindInterface];
             [super performTextFinderAction:newSender];
-        } 
-        if (findTag==1) {
-            findTag=NSTextFinderActionShowFindInterface;
-        }else if (findTag==2) {            
-            findTag=NSTextFinderActionNextMatch;
-        }else if (findTag==3) {
-            findTag=NSTextFinderActionPreviousMatch;
-        }else if (findTag==4) {
-            findTag=NSTextFinderActionReplaceAll;
-        }else if (findTag==5) {
-            findTag=NSTextFinderActionReplace;
-        }else if (findTag==6) {
-            findTag=NSTextFinderActionReplaceAndFind;
-        }else if (findTag==7) {
-            findTag=(NSTextFinderActionSetSearchString);
-        }else if (findTag==9) {
-            findTag=NSTextFinderActionSelectAll;
-        }else if (findTag==12) {
-            findTag=NSTextFinderActionShowReplaceInterface;
-        }//NSTextFinderActionSelectAll = 9,
-        [newSender setTag:findTag];
-        
-        if ([textFinder validateAction:findTag]) {
-            [super performTextFinderAction:newSender]; 
-            if ((findTag==NSTextFinderActionSetSearchString)&&(![self textFinderIsVisible])) {
-                [newSender setTag:NSTextFinderActionShowFindInterface];
-                [super performTextFinderAction:newSender];
-            }
-            
-//            [textFinder setFindIndicatorNeedsUpdate:YES];
-        }else{
-            NSLog(@"find action was invalid");
         }
-        [newSender release];
-        return;
+    }else{
+        NSLog(@"find action was invalid");
     }
-#endif
-    //not lion do it the old, hacky way
-    if([sender tag]==1){
-        if(lastImportedFindString&&(lastImportedFindString.length>0)&&([textFinder respondsToSelector:@selector(loadFindStringFromPasteboard)])){                
-            if(![textFinder loadFindStringFromPasteboard]){
-                [textFinder setFindString:lastImportedFindString writeToPasteboard:YES updateUI:YES];
-            }
-        }
-//        else{
-//            NSLog(@"Apple changed NSTextFinder (loadFindStringFromPasteboard)");
-//        }	
-    }
-    [super performFindPanelAction:sender];    
+    [newSender release];
 }
 
 @end

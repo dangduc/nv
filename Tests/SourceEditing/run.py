@@ -23,8 +23,44 @@ args = parser.parse_args()
 
 locales = ("en", "de", "fr", "it", "pt-PT", "zh")
 localization = repo / "Resources" / "Localization"
+project = (repo / "Notation.xcodeproj" / "project.pbxproj").read_text()
+for generator_name in ("NVPasswordGenerator.h", "NVPasswordGenerator.m"):
+    assert not (repo / "Sources" / "Preferences" / generator_name).exists(), generator_name
+    assert generator_name not in project, generator_name
+
+removed_command_localizations = (
+    "Use Automatic Text Replacement",
+    "New Password...",
+    "Insert New Password",
+    "Insert Link",
+    "Strikethrough",
+)
+global_prefs_h = (repo / "Sources/Preferences/GlobalPrefs.h").read_text()
+global_prefs_m = (repo / "Sources/Preferences/GlobalPrefs.m").read_text()
+linking_editor_h = (repo / "Sources/Editor/LinkingEditor.h").read_text()
+linking_editor_m = (repo / "Sources/Editor/LinkingEditor.m").read_text()
+app_controller_m = (repo / "Sources/Browser/AppController.m").read_text()
+for removed_token in ("NumberOfSpacesInTab", "numberOfSpacesInTab",
+                      "noteBodyParagraphStyle", "_bodyFontIsMonospace",
+                      "setDefaultTabInterval"):
+    assert removed_token not in global_prefs_h, removed_token
+    assert removed_token not in global_prefs_m, removed_token
+for removed_token in ("WhiteIBeamCursor", "whiteIBeamCursor", "IBeamCursorIMP",
+                      "method_setImplementation", "prepareTextFinderPreLion",
+                      "selectedRangeDuringFind", "stringDuringFind", "noteDuringFind",
+                      "windowBecameOrResignedMain", "TextFindContextShouldNoteChanges"):
+    assert removed_token not in linking_editor_h, removed_token
+    assert removed_token not in linking_editor_m, removed_token
+assert "TextFindContextShouldNoteChanges" not in app_controller_m
+assert "textFinder = [[NSTextFinder alloc] init];" in linking_editor_m
 for locale in locales:
     root = localization / f"{locale}.lproj"
+    strings_path = root / "Localizable.strings"
+    subprocess.run(["plutil", "-lint", str(strings_path)], check=True,
+                   stdout=subprocess.DEVNULL)
+    strings = strings_path.read_text()
+    for key in removed_command_localizations:
+        assert f'"{key}" =' not in strings, (locale, key)
     for xib_name in ("MainMenu.xib", "BrowserWindow.xib"):
         document = ET.fromstring((root / xib_name).read_text())
         editors = [node for node in document.iter("textView")
@@ -89,4 +125,6 @@ with tempfile.TemporaryDirectory(prefix="nvalt-source-editing-") as temporary:
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         print(result.stdout, end="")
         completed = "SOURCE EDITING PASSED (" in result.stdout
+        if result.returncode != 0 or not completed:
+            print(f"FAIL: source-editing app exited {result.returncode} without its completion marker")
         raise SystemExit(0 if result.returncode == 0 and completed else 1)

@@ -1500,20 +1500,6 @@ terminateApp:
       }*/
 }
 
-- (BOOL)textShouldBeginEditing:(NSText *)aTextObject {
-    if (IsLionOrLater) {
-        if (aTextObject==textView) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"TextFindContextShouldNoteChanges" object:nil];
-            
-        }else{
-            
-            NSLog(@"not textview should begin with to:%@",[aTextObject description]);
-        }
-    }
-    return YES;
-    
-}
-
 - (void)controlTextDidBeginEditing:(NSNotification *)notification {
     id control = [notification object];
     if (control == noteTitleField || control == noteTagsField) [self beginNoteMetadataEditing:control];

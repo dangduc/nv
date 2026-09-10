@@ -203,7 +203,6 @@
 		B69E26F516F0B523001C6E4B /* DFCapRightInactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26ED16F0B523001C6E4B /* DFCapRightInactive@2x.png */; };
 		B69E26F616F0B523001C6E4B /* Pencil@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26EE16F0B523001C6E4B /* Pencil@2x.png */; };
 		B69E26F716F0B523001C6E4B /* Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B69E26EF16F0B523001C6E4B /* Search@2x.png */; };
-		D3EECA00106F66C70023D7F8 /* NVPasswordGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EEC9FE106F66C70023D7F8 /* NVPasswordGenerator.m */; };
 		1623951E9A281E87B499BE94 /* NVApplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D669932DCF1684BC0183288 /* NVApplicationController.m */; };
 		6B68E49DBA31ABFE2D588493 /* NVBrowserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */; };
 		3FAC17CB2473CC51FC413902 /* NVNoteEditingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */; };
@@ -674,8 +673,6 @@
 		B69E26ED16F0B523001C6E4B /* DFCapRightInactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DFCapRightInactive@2x.png"; path = "DFCapRightInactive@2x.png"; sourceTree = "<group>"; };
 		B69E26EE16F0B523001C6E4B /* Pencil@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pencil@2x.png"; path = "Pencil@2x.png"; sourceTree = "<group>"; };
 		B69E26EF16F0B523001C6E4B /* Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Search@2x.png"; path = "Search@2x.png"; sourceTree = "<group>"; };
-		D3EEC9FE106F66C70023D7F8 /* NVPasswordGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVPasswordGenerator.m; sourceTree = "<group>"; };
-		D3EEC9FF106F66C70023D7F8 /* NVPasswordGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVPasswordGenerator.h; sourceTree = "<group>"; };
 		1812F2B568444172B0960021 /* NVApplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVApplicationController.h; sourceTree = "<group>"; };
 		6D669932DCF1684BC0183288 /* NVApplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVApplicationController.m; sourceTree = "<group>"; };
 		42687BEEE57B81B142B0EFAB /* NVBrowserSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBrowserSession.h; sourceTree = "<group>"; };
@@ -1452,8 +1449,6 @@
 				21A2F95D09DF3FDC001AF0B5 /* NotationPrefs.m */,
 				21A2FA1509DF6174001AF0B5 /* NotationPrefsViewController.h */,
 				21A2FA1609DF6174001AF0B5 /* NotationPrefsViewController.m */,
-				D3EEC9FF106F66C70023D7F8 /* NVPasswordGenerator.h */,
-				D3EEC9FE106F66C70023D7F8 /* NVPasswordGenerator.m */,
 				2144987D0AE192F900E2A2B6 /* PassphraseChanger.h */,
 				215450F80B06509600C0D1D5 /* PassphraseChanger.m */,
 				214495110ADC8A6600E2A2B6 /* PassphrasePicker.h */,
@@ -2140,7 +2135,6 @@
 				21582DC50B73F59B00711663 /* BookmarksController.m in Sources */,
 				213621F20B92414F008C0830 /* MultiTextFinder.m in Sources */,
 				21469C8C0BEBA6A10094835F /* TemporaryFileCache.m in Sources */,
-				D3EECA00106F66C70023D7F8 /* NVPasswordGenerator.m in Sources */,
 				21BD2ED110DAF31500BA3DF6 /* LinearDividerShader.m in Sources */,
 				21B1BC361104D20E0004A7D0 /* InvocationRecorder.m in Sources */,
 				21B548FA112F307E00E163A1 /* NotationDirectoryManager.m in Sources */,

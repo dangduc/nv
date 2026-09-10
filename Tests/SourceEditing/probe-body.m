@@ -16,7 +16,8 @@
             NSStringFromSelector(@selector(selectionRangeForProposedRange:granularity:)),
             NSStringFromSelector(@selector(insertText:)),
             NSStringFromSelector(@selector(insertText:replacementRange:)),
-            NSStringFromSelector(@selector(rangeForUserCompletion))
+            NSStringFromSelector(@selector(rangeForUserCompletion)),
+            NSStringFromSelector(@selector(flagsChanged:))
         ];
         for (NSString *selectorName in nativeSelectors) {
             SEL selector = NSSelectorFromString(selectorName);
@@ -32,6 +33,21 @@
               @"source editor delegate does not provide note-title completions");
         Check([browser respondsToSelector:@selector(control:textView:completions:forPartialWordRange:indexOfSelectedItem:)],
               @"tag-field completion delegate remains available");
+
+        Method iBeamMethod = class_getClassMethod([NSCursor class], @selector(IBeamCursor));
+        IMP nativeIBeamImplementation = method_getImplementation(iBeamMethod);
+        NSColor *originalBackground = [[editor backgroundColor] retain];
+        [editor setBackgroundColor:[NSColor blackColor]];
+        Check(method_getImplementation(iBeamMethod) == nativeIBeamImplementation,
+              @"source editor appearance cannot replace the process-wide I-beam implementation");
+        Check([editor insertionPointColor] != nil,
+              @"source editor retains a view-local insertion-point color");
+        [editor setBackgroundColor:originalBackground];
+        [originalBackground release];
+
+        NSTextFinder *finder = [editor valueForKey:@"textFinder"];
+        Check(finder != nil && [editor usesFindBar] && [finder client] == editor,
+              @"source editor owns one supported NSTextFinder client path");
 
         __block NSUInteger fixtureNumber = 0;
         void (^Prepare)(NSString *) = ^(NSString *source) {
@@ -52,6 +68,21 @@
         NSTextView *initialReference = Reference(@"", NSMakeRange(0, 0));
         Check([editor smartInsertDeleteEnabled] == [initialReference smartInsertDeleteEnabled],
               @"decoded source editor starts with native smart insert/delete behavior");
+
+        NSDictionary *bodyAttributes = [prefsController noteBodyAttributes];
+        Check([bodyAttributes objectForKey:NSFontAttributeName] != nil,
+              @"source presentation retains the configured body font");
+        Check([bodyAttributes objectForKey:NSParagraphStyleAttributeName] == nil,
+              @"source attributes leave paragraph and tab layout to AppKit");
+
+        Prepare(@"\tvalue");
+        NSDictionary *sourceAttributes = [[editor textStorage] attributesAtIndex:0 effectiveRange:NULL];
+        NSParagraphStyle *nativeParagraph = [NSParagraphStyle defaultParagraphStyle];
+        Check([sourceAttributes objectForKey:NSFontAttributeName] != nil &&
+              [sourceAttributes objectForKey:NSParagraphStyleAttributeName] == nil,
+              @"stored source text retains font presentation without a paragraph override");
+        Check([[nativeParagraph tabStops] count] > 0 && [nativeParagraph defaultTabInterval] == 0.0,
+              @"AppKit supplies the source editor's native tab-stop layout");
 
         Prepare(@"    alpha");
         [editor setSelectedRange:NSMakeRange(9, 0)];
