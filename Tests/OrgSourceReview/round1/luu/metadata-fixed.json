@@ -1,0 +1,7 @@
+{
+  "os": "macOS-26.5.2-arm64-arm-64bit",
+  "architecture": "x86_64 under Rosetta",
+  "production_sha256": "cc0f45548be919b35526d140e0f208b829fb6964af8c6f25385969c81112fc7f",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "scope": "Exact extracted current production link methods."
+}

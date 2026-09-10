@@ -1,0 +1,18 @@
+NVSourceHighlighter.m SHA256: 6fb880ba4bc7c86bcfb17be1238be8445fc316c1547211c57c7d43a3eb580974
+fixture=emphasis utf16=16384 trials=3 completed=3 fallback=0 mean_ms=8.592 max_ms=9.159 max_captures=1512
+fixture=emphasis utf16=65536 trials=3 completed=3 fallback=0 mean_ms=30.381 max_ms=30.564 max_captures=6050
+fixture=emphasis utf16=262144 trials=3 completed=0 fallback=3 mean_ms=73.090 max_ms=74.977 max_captures=0
+fixture=emphasis utf16=524288 trials=3 completed=0 fallback=3 mean_ms=123.259 max_ms=123.333 max_captures=0
+fixture=links utf16=16384 trials=3 completed=3 fallback=0 mean_ms=5.171 max_ms=5.204 max_captures=528
+fixture=links utf16=65536 trials=3 completed=3 fallback=0 mean_ms=16.417 max_ms=16.454 max_captures=2114
+fixture=links utf16=262144 trials=3 completed=3 fallback=0 mean_ms=62.392 max_ms=62.686 max_captures=8456
+fixture=links utf16=524288 trials=3 completed=0 fallback=3 mean_ms=124.291 max_ms=124.665 max_captures=0
+fixture=prose utf16=16384 trials=3 completed=3 fallback=0 mean_ms=5.952 max_ms=5.989 max_captures=0
+fixture=prose utf16=65536 trials=3 completed=3 fallback=0 mean_ms=19.393 max_ms=19.524 max_captures=0
+fixture=prose utf16=262144 trials=3 completed=0 fallback=3 mean_ms=75.036 max_ms=77.424 max_captures=0
+fixture=prose utf16=524288 trials=3 completed=0 fallback=3 mean_ms=123.666 max_ms=123.736 max_captures=0
+fixture=tasks utf16=16384 trials=3 completed=3 fallback=0 mean_ms=8.994 max_ms=9.024 max_captures=1490
+fixture=tasks utf16=65536 trials=3 completed=3 fallback=0 mean_ms=34.132 max_ms=34.328 max_captures=5960
+fixture=tasks utf16=262144 trials=3 completed=0 fallback=3 mean_ms=141.774 max_ms=142.354 max_captures=0
+fixture=tasks utf16=524288 trials=3 completed=0 fallback=3 mean_ms=120.065 max_ms=120.758 max_captures=0
+PASS: 78405 independent bounds, capture-count, and recovery checks

@@ -10,7 +10,7 @@ vendor = root / 'ThirdParty/TreeSitter'
 objects = []
 for source in sorted((root / 'Sources/Editor/TreeSitter').glob('NVTreeSitter*.c')):
     obj = build / (source.stem + '.o')
-    subprocess.run(common + ['-I', str(vendor / 'runtime/include'), '-I', str(vendor / 'runtime/src'), '-c', str(source), '-o', str(obj)], check=True)
+    subprocess.run(common + ['-I', str(vendor / 'runtime/include'), '-I', str(vendor / 'org/src'), '-I', str(vendor / 'runtime/src'), '-c', str(source), '-o', str(obj)], check=True)
     objects.append(str(obj))
 subprocess.run(common + ['-I', str(root / 'Sources/Editor'), '-framework', 'Cocoa', str(root / 'Sources/Editor/NVSourceHighlighter.m'), str(Path(__file__).with_name('latency.m'))] + objects + ['-o', str(build / 'latency')], check=True)
 result = subprocess.run([str(build / 'latency'), str(root / 'Resources/Syntax')], check=True, text=True, capture_output=True)

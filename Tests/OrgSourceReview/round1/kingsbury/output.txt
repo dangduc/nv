@@ -1,0 +1,56 @@
+2026-09-09 18:39:21.993 probe[97930:343527092] CASE: successful stale results across coalesced edits and Org/Plain/Org transitions
+2026-09-09 18:39:22.069 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.069 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.069 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.070 probe[97930:343527092] PASS: unpublished initial captures stay invisible in both layouts
+2026-09-09 18:39:22.072 probe[97930:343527092] PASS: initial Org result becomes current in both layouts
+2026-09-09 18:39:22.073 probe[97930:343527092] PASS: typing preserves provisional Org display while invalidating syntax semantics
+2026-09-09 18:39:22.138 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.139 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.139 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.139 probe[97930:343527092] PASS: held result was computed for the intermediate DONE source
+2026-09-09 18:39:22.141 probe[97930:343527092] PASS: returning to Org still advances the publication generation
+2026-09-09 18:39:22.141 probe[97930:343527092] PASS: syntax changes invalidate old Org revisions immediately
+2026-09-09 18:39:22.208 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.208 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.208 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.209 probe[97930:343527092] PASS: successful stale DONE result cannot publish after the Org/Plain/Org transition
+2026-09-09 18:39:22.209 probe[97930:343527092] PASS: replacement request uses the latest immutable source and syntax
+2026-09-09 18:39:22.214 probe[97930:343527092] PASS: only the latest TODO result becomes current in both layouts
+2026-09-09 18:39:22.214 probe[97930:343527092] PASS: analysis and syntax transitions preserve source characters
+2026-09-09 18:39:22.214 probe[97930:343527092] PASS: published syntax never enters note text storage
+2026-09-09 18:39:22.214 probe[97930:343527092] PASS: stale and fresh deliveries retain independent search backgrounds on unchanged text
+2026-09-09 18:39:22.215 probe[97930:343527092] CASE: detach, close with result in flight, reuse a layout, and reopen source analysis
+2026-09-09 18:39:22.290 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.291 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.292 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.297 probe[97930:343527092] PASS: both layouts begin with current Org captures
+2026-09-09 18:39:22.297 probe[97930:343527092] PASS: a reused layout rejects the prior note's capture token before any new analysis
+2026-09-09 18:39:22.298 probe[97930:343527092] PASS: reattachment updates the remaining owner without coloring another note
+2026-09-09 18:39:22.368 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.369 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.370 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.371 probe[97930:343527092] PASS: the old owner holds a successful result when its last layout closes
+2026-09-09 18:39:22.371 probe[97930:343527092] PASS: closing invalidates capture tokens even on detached layouts
+2026-09-09 18:39:22.439 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.440 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.440 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.444 probe[97930:343527092] PASS: a reopened owner publishes the current JSON note independently
+2026-09-09 18:39:22.449 probe[97930:343527092] PASS: a closed owner survives its callback and then deallocates
+2026-09-09 18:39:22.450 probe[97930:343527092] PASS: late successful Org result cannot replace a reopened owner's JSON captures
+2026-09-09 18:39:22.450 probe[97930:343527092] PASS: late delivery cannot color a layout attached to a different note
+2026-09-09 18:39:22.451 probe[97930:343527092] PASS: late delivery leaves reopened source and its persistent attributes unchanged
+2026-09-09 18:39:22.451 probe[97930:343527092] PASS: reattached peer receives the reopened owner's current revision
+2026-09-09 18:39:22.452 probe[97930:343527092] CASE: switch to Plain Text while the first Org result is awaiting delivery
+2026-09-09 18:39:22.521 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.522 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.522 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.522 probe[97930:343527092] PASS: the pending Org result contains real captures
+2026-09-09 18:39:22.588 probe[97930:343527092] PASS: real parser result reaches the controlled delivery gate
+2026-09-09 18:39:22.589 probe[97930:343527092] PASS: one serial worker request is pending
+2026-09-09 18:39:22.590 probe[97930:343527092] PASS: pending request completed real syntax analysis within its budget
+2026-09-09 18:39:22.590 probe[97930:343527092] PASS: the stale first Org result remains invisible after selecting Plain Text
+2026-09-09 18:39:22.591 probe[97930:343527092] PASS: the replacement Plain Text request has no syntax captures
+2026-09-09 18:39:22.594 probe[97930:343527092] PASS: Plain Text remains uncolored after both callbacks complete
+2026-09-09 18:39:22.594 probe[97930:343527092] PASS: switching during delivery preserves all Org source characters
+2026-09-09 18:39:22.600 probe[97930:343527092] PASS: 52 independent Org publication/lifecycle checks

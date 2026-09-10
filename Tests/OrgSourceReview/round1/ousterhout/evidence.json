@@ -1,0 +1,16 @@
+{
+  "base": "f3a8abb2b7942d06ec33af64b4946cfd1b6db163",
+  "date": "2026-09-09",
+  "macOS": "26.5.2",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "sha256": {
+    "Sources/Editor/NVNoteEditingSession.m": "93402164f6ecae147eb271e143fdea5812c5a65f07a26b1b7264e424e605de21",
+    "Sources/Editor/AttributedPlainText.m": "fc4e95a8d2ddf42e59d4ab698d21931058c5027c9700a390fd7d27b2d82ff1fa",
+    "Sources/Editor/LinkingEditor.m": "91dced2300ca10a5e9d7316fbe5ebe0fcdc672942542095ed6fa18647077113f",
+    "Sources/Model/NoteObject.m": "94a0162091788f04987b306710b10ba222db3fe3afb4acc02e5d21370392af78",
+    "Sources/Preferences/NotationPrefs.m": "e94b782e08e6ed9ff5277e040db4ff534ee321f22d511eb39310beb78f970a71",
+    "Sources/Application/NVApplicationController.m": "d4cbd62868c3f05206621f99ffbd00eb996c09000d98a2670606b5dd0a4657ec",
+    "Sources/Browser/AppController_Preview.m": "44270dc0f7beaf078f7c725402b419f77659e5ef1e2808f7b13ffda02e58267f",
+    "build/DerivedData/Build/Products/Development/nvALT.app/Contents/MacOS/nvALT": "e7444eb06146ddf7c20949a99c127fbadc31a11b3af2edb62b0a59b0075b8628"
+  }
+}

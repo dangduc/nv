@@ -1,0 +1,146 @@
+2026-09-09 18:55:12.437 nvALT[1022:343549434] PASS: isolated copied-app preferences domain
+2026-09-09 18:55:12.437 nvALT[1022:343549434] PASS: copied app and temporary library share the test root
+2026-09-09 18:55:12.437 nvALT[1022:343549434] PASS: temporary library directory exists
+2026-09-09 18:55:12.438 nvALT[1022:343549434] PASS: temporary library opens
+2026-09-09 18:55:12.494 nvALT[1022:343549434] verified 0 notes in 0.000208974 s
+2026-09-09 18:55:13.013 nvALT[1022:343549434] PASS: popup exposes exactly the model syntax choices
+2026-09-09 18:55:13.013 nvALT[1022:343549434] PASS: both source menu surfaces exist
+2026-09-09 18:55:13.013 nvALT[1022:343549434] PASS: menu choices match the popup and model contract
+2026-09-09 18:55:13.013 nvALT[1022:343549434] PASS: menu choices match the popup and model contract
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.014 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.015 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: menu action and popup agree with the note's effective syntax
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the effective syntax transition sends exactly one notification
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: repeating the selection sends no duplicate notification
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.016 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: application forwarding enables the source choice for the current note
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: the checked menu item is the current model choice
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: each source menu has exactly one checked choice
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: invalid public API input changes Org to Plain Text once
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: repeated invalid input is a notification no-op
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: the UI receives the sanitized model choice
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: invalid public API input changes Org to Plain Text once
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: repeated invalid input is a notification no-op
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: the UI receives the sanitized model choice
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: invalid public API input changes Org to Plain Text once
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: repeated invalid input is a notification no-op
+2026-09-09 18:55:13.017 nvALT[1022:343549434] PASS: the UI receives the sanitized model choice
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: invalid public API input changes Org to Plain Text once
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: repeated invalid input is a notification no-op
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: the UI receives the sanitized model choice
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: syntax changes preserve unrelated local metadata
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: the API matrix preserves source, modification date, filename and Undo history
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: source syntax never changes the independent preview choice or source mode
+2026-09-09 18:55:13.018 nvALT[1022:343549434] PASS: an unopened archived note restores Org through library UUID metadata
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: the lazy session owns exact source before any editor attaches
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: initial session construction uses the restored Org semantics
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: a session without layouts refreshes links after a syntax change
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: link-only changes leave the source generation unchanged
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: closing the session removes its syntax observer
+2026-09-09 18:55:13.019 nvALT[1022:343549434] PASS: the same note UUID in a different metadata store retains library isolation
+2026-09-09 18:55:13.019 nvALT[1022:343549434] ORG OUSTERHOUT ROUND 2 PASSED (144 checks)

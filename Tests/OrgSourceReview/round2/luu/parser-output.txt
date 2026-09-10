@@ -1,0 +1,26 @@
+notebook sections=1 utf16=794 median_ms=1.895 max_ms=3.147 fallbacks=0 captures=44
+supplemental sections=1 median_ms=0.045 max_ms=0.047 added_captures=11
+notebook sections=8 utf16=6016 median_ms=5.275 max_ms=5.459 fallbacks=0 captures=338
+supplemental sections=8 median_ms=0.356 max_ms=0.503 added_captures=88
+notebook sections=32 utf16=23964 median_ms=16.107 max_ms=16.467 fallbacks=0 captures=1346
+supplemental sections=32 median_ms=1.344 max_ms=1.375 added_captures=352
+notebook sections=128 utf16=95828 median_ms=63.791 max_ms=74.573 fallbacks=0 captures=5378
+notebook sections=384 utf16=287828 median_ms=122.748 max_ms=123.291 fallbacks=5 captures=0
+edit=initial utf16=6016 captures=338 incremental_ms=5.398
+edit=typo-1 utf16=6015 captures=338 incremental_ms=3.572
+edit=typo-2 utf16=6016 captures=338 incremental_ms=3.534
+edit=typo-3 utf16=6015 captures=337 incremental_ms=3.821
+edit=typo-4 utf16=6016 captures=338 incremental_ms=3.529
+edit=typo-5 utf16=6016 captures=338 incremental_ms=3.772
+edit=typo-6 utf16=6017 captures=338 incremental_ms=3.587
+edit=typo-7 utf16=6016 captures=338 incremental_ms=3.575
+edit=typo-8 utf16=6015 captures=337 incremental_ms=3.577
+edit=typo-9 utf16=6016 captures=338 incremental_ms=3.579
+edit=typo-10 utf16=6020 captures=338 incremental_ms=3.718
+edit=typo-11 utf16=6019 captures=338 incremental_ms=3.577
+edit=typo-12 utf16=6020 captures=338 incremental_ms=3.571
+pre_cancelled_ms=0.001
+edit=after-cancellation utf16=6020 captures=338 incremental_ms=3.651
+edit=after-length-fallback utf16=794 captures=44 incremental_ms=1.994
+display_budget captures=1346 layouts=3:complete layouts=4:plain layouts=3:restored
+PASS: 42718 bounds, completion, fresh-edit equivalence, and recovery checks

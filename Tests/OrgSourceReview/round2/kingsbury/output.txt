@@ -1,0 +1,46 @@
+2026-09-09 18:59:16.941 probe[2644:343556819] CASE: cached Org revision crosses the aggregate display budget as a peer joins and leaves
+2026-09-09 18:59:17.028 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.028 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.029 probe[2644:343556819] EVIDENCE: 13190 UTF-16 units, 2100 real Org captures
+2026-09-09 18:59:17.029 probe[2644:343556819] PASS: fixture fits one layout and exceeds the aggregate budget with two
+2026-09-09 18:59:17.029 probe[2644:343556819] PASS: one layout publishes current TODO captures
+2026-09-09 18:59:17.030 probe[2644:343556819] PASS: joining peer makes both layouts use plain display atomically
+2026-09-09 18:59:17.030 probe[2644:343556819] PASS: budget fallback leaves no partial syntax attributes in either layout
+2026-09-09 18:59:17.030 probe[2644:343556819] PASS: layout budget transition reuses the cached result without analysis or generation change
+2026-09-09 18:59:17.030 probe[2644:343556819] PASS: budget fallback preserves both independent search backgrounds
+2026-09-09 18:59:17.031 probe[2644:343556819] PASS: remaining layout recovers current colors from the cached revision when its peer leaves
+2026-09-09 18:59:17.031 probe[2644:343556819] PASS: detached peer cannot display the recovered storage revision
+2026-09-09 18:59:17.031 probe[2644:343556819] PASS: budget recovery also needs no parser request or source edit
+2026-09-09 18:59:17.032 probe[2644:343556819] PASS: a second attachment repeats whole-revision fallback
+2026-09-09 18:59:17.033 probe[2644:343556819] PASS: a second detachment recovers the same current revision
+2026-09-09 18:59:17.034 probe[2644:343556819] PASS: layout churn preserves source characters and persistent attributes
+2026-09-09 18:59:17.035 probe[2644:343556819] PASS: close clears the recovered revision
+2026-09-09 18:59:17.035 probe[2644:343556819] CASE: new peer joins pending edit, then empty and oversized source recover to Org
+2026-09-09 18:59:17.110 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.110 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.110 probe[2644:343556819] PASS: initial source has current captures
+2026-09-09 18:59:17.110 probe[2644:343556819] PASS: edited layout retains provisional display while semantic captures become stale
+2026-09-09 18:59:17.111 probe[2644:343556819] PASS: new peer attachment retains the existing layout's provisional colors
+2026-09-09 18:59:17.111 probe[2644:343556819] PASS: new peer never receives stale absolute ranges from the prior source
+2026-09-09 18:59:17.177 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.177 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.177 probe[2644:343556819] PASS: both layouts converge to the completed DONE source
+2026-09-09 18:59:17.177 probe[2644:343556819] PASS: both layouts use fixed hashtag-prose classification after incremental parsing
+2026-09-09 18:59:17.177 probe[2644:343556819] PASS: both layouts keep actual comment classification after incremental parsing
+2026-09-09 18:59:17.243 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.244 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.245 probe[2644:343556819] PASS: empty source retires both layouts' capture tokens
+2026-09-09 18:59:17.320 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.321 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.322 probe[2644:343556819] PASS: inserting source after empty fallback recovers both layouts
+2026-09-09 18:59:17.396 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.397 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.406 probe[2644:343556819] PASS: source above the analysis length bound remains complete and editable
+2026-09-09 18:59:17.407 probe[2644:343556819] PASS: oversized source leaves both layouts in bounded plain display
+2026-09-09 18:59:17.407 probe[2644:343556819] PASS: oversized-source fallback clears every surviving provisional syntax attribute
+2026-09-09 18:59:17.477 probe[2644:343556819] PASS: production request completes and its main-thread callback runs
+2026-09-09 18:59:17.478 probe[2644:343556819] PASS: one analysis serves this state transition
+2026-09-09 18:59:17.478 probe[2644:343556819] PASS: shrinking oversized source recovers Org colors without reopening the note
+2026-09-09 18:59:17.479 probe[2644:343556819] PASS: fresh recovery preserves corrected prose and comment semantics
+2026-09-09 18:59:17.479 probe[2644:343556819] PASS: all fallback and recovery transitions preserve source and keep syntax out of persistent attributes
+2026-09-09 18:59:17.479 probe[2644:343556819] PASS: 42 Org publication-budget and recovery checks

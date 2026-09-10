@@ -1,0 +1,23 @@
+2026-09-09 18:18:25.156 nvALT[94490:343500882] PASS: isolated copied-app preferences domain
+2026-09-09 18:18:25.156 nvALT[94490:343500882] PASS: copied app and temporary library share the test root
+2026-09-09 18:18:25.158 nvALT[94490:343500882] PASS: temporary library directory exists
+2026-09-09 18:18:25.158 nvALT[94490:343500882] PASS: temporary library opens
+2026-09-09 18:18:25.214 nvALT[94490:343500882] verified 0 notes in 0.000172019 s
+2026-09-09 18:18:25.740 nvALT[94490:343500882] PASS: one shared storage owns the source and links
+2026-09-09 18:18:25.741 nvALT[94490:343500882] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:18:25.741 nvALT[94490:343500882] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:18:25.742 nvALT[94490:343500882] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: syntax changes preserve live and committed source
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: syntax-only changes leave content generation, dates and notifications unchanged
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: syntax-only decoration creates no Undo entry
+2026-09-09 18:18:25.743 nvALT[94490:343500882] PASS: Org disables nv link completion in both editors
+2026-09-09 18:18:25.805 nvALT[94490:343500882] PASS: peer edits reach the first editor and committed note
+2026-09-09 18:18:25.805 nvALT[94490:343500882] PASS: peer edits retain the explicit Org URL on the new label
+2026-09-09 18:18:25.806 nvALT[94490:343500882] FAIL: *** -[NSBigMutableString characterAtIndex:]: Index 63 out of bounds; string length 60

@@ -32,6 +32,17 @@
         "markdown",
         "markdown-inline"
       ]
+    },
+    {
+      "repository": "https://github.com/nvim-orgmode/tree-sitter-org",
+      "commit": "f15da8e8fcb3a2d764c7092ae6ba4dc87d3b3093",
+      "license": "MIT",
+      "vendored_directories": [
+        "org"
+      ],
+      "local_patches": {
+        "org/src/scanner.c": "Versioned fixed-width serialization, complete capacity and decode validation, bounded counters, and a thread-local failure flag. See org/LOCAL_PATCHES.md."
+      }
     }
   ],
   "compiled_runtime": "runtime/src/lib.c",
@@ -39,19 +50,20 @@
     "json": 14,
     "html": 14,
     "markdown": 15,
-    "markdown-inline": 15
+    "markdown-inline": 15,
+    "org": 14
   },
   "accepted_runtime_abi": [
     13,
     15
   ],
   "excluded": "WASM stdlib, bindings, generators, node types, grammar JSON, injection queries, upstream tests, build systems, package manifests. lib.c includes wasm_store.c for native no-op stubs; WASM execution is not enabled.",
-  "query_policy": "Pinned upstream highlighting queries contain no predicates. Adapter explicitly rejects query predicates or directives. No language injections.",
-  "vendored_bytes": 5307110,
+  "query_policy": "Pinned highlighting queries contain no predicates. The Org query is authored for nvALT. Adapter explicitly rejects query predicates or directives. Org task words and emphasis use a bounded explicit pass. No language injections.",
+  "vendored_bytes": 8778230,
   "files": {
     "README.md": {
-      "bytes": 1701,
-      "sha256": "529d2f106e9f25f6c5670d89321c7423ef7c003ce47de5d9366322136426b41a"
+      "bytes": 2758,
+      "sha256": "f09cc895fe35474b1948bd1f2a0ff683afb846c57d758b4be82380ca7b6c2d18"
     },
     "html/LICENSE": {
       "bytes": 1080,
@@ -148,6 +160,34 @@
     "markdown-inline/src/tree_sitter/parser.h": {
       "bytes": 7624,
       "sha256": "180b893c8734778fd32f372dfbc27bd6ad1cd2221f26150b31256ff6716320d2"
+    },
+    "org/LICENSE": {
+      "bytes": 1076,
+      "sha256": "e086f5e5a02e781622b170fa899692306bbcbae92504a7671ec969366d8b7738"
+    },
+    "org/LOCAL_PATCHES.md": {
+      "bytes": 1841,
+      "sha256": "8483deb9cecb09da510350f3fe79e52ce0b5904ffb47433bc23aa8bf1e3a20a1"
+    },
+    "org/src/parser.c": {
+      "bytes": 3431045,
+      "sha256": "c6027e7d2f27dd136f03a9a9ccaace4a18b63aa27237f29d5944f84ea9927add"
+    },
+    "org/src/scanner.c": {
+      "bytes": 17735,
+      "sha256": "36d762d800c3df7cd526b5a663f58d0ddc8ba082df65c48c63b9e161e2307e29"
+    },
+    "org/src/tree_sitter/alloc.h": {
+      "bytes": 958,
+      "sha256": "253b44a7b4313a7afd0c505c2fc6e7ce4b8e78955ebf4be3ea000532ec060673"
+    },
+    "org/src/tree_sitter/array.h": {
+      "bytes": 10420,
+      "sha256": "4ff743903dc46f5db6aa54f31c6b4d160a8a9779e5b2ab1ee59ae7ebcd850ea1"
+    },
+    "org/src/tree_sitter/parser.h": {
+      "bytes": 6988,
+      "sha256": "a3eb18ef034b3f4255b965a26caa276f9cfe13a79573b402f1a12dc5018052aa"
     },
     "runtime/LICENSE": {
       "bytes": 1080,
@@ -342,6 +382,10 @@
     "Resources/Syntax/markdown.scm": {
       "bytes": 787,
       "sha256": "2eb06e766ccd672d49599d14f398f07f4f5f7f2208262993d3cd9207c1078e2f"
+    },
+    "Resources/Syntax/org.scm": {
+      "bytes": 652,
+      "sha256": "cd5c8ba6e80374d0fb1a31c6e171f202ed3ad121447372fd4a34e2a63e059bd9"
     }
   }
 }

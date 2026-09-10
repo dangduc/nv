@@ -86,6 +86,7 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 	if ([extension isEqualToString:@"textile"]) return @"textile";
 	if ([@[@"html", @"htm", @"shtml", @"xhtml", @"xht"] containsObject:extension]) return @"html";
 	if ([extension isEqualToString:@"json"]) return @"json";
+	if ([extension isEqualToString:@"org"]) return @"org";
 	return @"plain";
 }
 
@@ -136,11 +137,11 @@ static void setCatalogNodeID(NoteObject *note, UInt32 cnid);
 
 - (NSString*)sourceSyntaxIdentifier {
 	NSString *syntax = [[self sourceMetadata] objectForKey:@"syntax"];
-	return [syntax isKindOfClass:[NSString class]] && [@[@"plain", @"markdown", @"textile", @"html", @"json"] containsObject:syntax] ? syntax : @"plain";
+	return [syntax isKindOfClass:[NSString class]] && [@[@"plain", @"markdown", @"textile", @"html", @"json", @"org"] containsObject:syntax] ? syntax : @"plain";
 }
 
 - (void)setSourceSyntaxIdentifier:(NSString*)identifier {
-	if (![identifier isKindOfClass:[NSString class]] || ![@[@"plain", @"markdown", @"textile", @"html", @"json"] containsObject:identifier]) identifier = @"plain";
+	if (![identifier isKindOfClass:[NSString class]] || ![@[@"plain", @"markdown", @"textile", @"html", @"json", @"org"] containsObject:identifier]) identifier = @"plain";
 	if ([[self sourceSyntaxIdentifier] isEqualToString:identifier]) return;
 	NSMutableDictionary *metadata = [[[self sourceMetadata] mutableCopy] autorelease];
 	[metadata setObject:identifier forKey:@"syntax"];

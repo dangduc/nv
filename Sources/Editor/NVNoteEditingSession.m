@@ -134,7 +134,7 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
         metadataUndoTarget = [[NVNoteMetadataUndoTarget alloc] initWithSession:self];
         committedContents = [[note contentString] copy];
         textStorage = [[NSTextStorage alloc] initWithString:[committedContents string] attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-        [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length])];
+        [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length]) syntaxIdentifier:[note sourceSyntaxIdentifier]];
         sourceGeneration = 1;
         sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceCharactersChanged:) name:NSTextStorageDidProcessEditingNotification object:textStorage];
@@ -151,6 +151,9 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     if ([textStorage editedMask] & NSTextStorageEditedCharacters) sourceGeneration++;
 }
 - (void)sourceSyntaxChanged:(NSNotification *)notification {
+    NSRange range = NSMakeRange(0, [textStorage length]);
+    [textStorage removeAttribute:NSLinkAttributeName range:range];
+    [textStorage addLinkAttributesForRange:range syntaxIdentifier:[note sourceSyntaxIdentifier]];
     [sourceHighlighter setSyntaxIdentifier:[note sourceSyntaxIdentifier]];
 }
 - (void)sourceLayoutDidAttach {
@@ -196,7 +199,7 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     // Cocoa wrapper attributes, including after Undo to an older snapshot.
     [textStorage setAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [textStorage length])];
     [sourceFont release]; sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
-    [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length])];
+    [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length]) syntaxIdentifier:[note sourceSyntaxIdentifier]];
     [snapshot release];
 }
 - (void)refreshSourceFont {

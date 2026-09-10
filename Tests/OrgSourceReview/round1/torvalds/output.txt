@@ -1,0 +1,34 @@
+x86_64: PASS: 2014 native ABI, ordinary source, node-bound and incremental checks across 13 fixtures
+
+/Users/duc/dev/nv/build/OrgSourceReview/round1/torvalds/probe-x86_64:
+Load command 9
+      cmd LC_VERSION_MIN_MACOSX
+  cmdsize 16
+  version 10.13
+      sdk 26.5
+
+arm64: PASS: 2014 native ABI, ordinary source, node-bound and incremental checks across 13 fixtures
+
+/Users/duc/dev/nv/build/OrgSourceReview/round1/torvalds/probe-arm64:
+Load command 10
+      cmd LC_BUILD_VERSION
+  cmdsize 32
+ platform MACOS
+    minos 11.0
+      sdk 26.5
+   ntools 1
+     tool LD
+  version 1267.0
+
+PASS: all vendored file sizes and hashes match the manifest
+
+PASS: six Org vendored files match the recorded upstream commit byte for byte
+
+PASS: built app carries the exact Org query, license notice and document-type registration
+
+/Users/duc/dev/nv/build/DerivedData/Build/Products/Development/nvALT.app/Contents/MacOS/nvALT:
+Load command 9
+      cmd LC_VERSION_MIN_MACOSX
+  cmdsize 16
+  version 10.13
+      sdk 26.5

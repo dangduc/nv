@@ -1104,6 +1104,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (NSRange)rangeForUserCompletion {
+    if ([[self sourceSyntaxIdentifier] isEqualToString:@"org"]) return NSMakeRange(NSNotFound, 0);
 	NSRange completionRange = [super rangeForUserCompletion];
 	//NSLog(@"completionRange: %@", [[self string] substringWithRange:completionRange]);
 	
@@ -1165,7 +1166,7 @@ cancelCompetion:
 	//-removeAttribute:range: seems slow for some reason; try checking with -attributesAtIndex:effectiveRange: first
 	if ([[self textStorage] attribute:NSLinkAttributeName existsInRange:changedRange])
 		[[self textStorage] removeAttribute:NSLinkAttributeName range:changedRange];
-	[[self textStorage] addLinkAttributesForRange:changedRange];
+	[[self textStorage] addLinkAttributesForRange:changedRange syntaxIdentifier:[self sourceSyntaxIdentifier]];
 	
 
 	

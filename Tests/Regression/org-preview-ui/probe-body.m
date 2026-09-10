@@ -135,6 +135,45 @@
 
 #include "fragment-capture.inc"
 
+        {
+            NSString *combinedSource = @"* TODO Combined Org note\nA *bold* paragraph with Unicode café 日本語.\n";
+            NoteObject *combinedNote = MakeNote(library, @"Org source and preview", combinedSource);
+            [browser setViewingNote:NO]; [browser revealNote:combinedNote options:0];
+            NSPopUpButton *syntaxPopup = [browser valueForKey:@"sourceSyntaxControl"];
+            NSInteger orgIndex = [syntaxPopup indexOfItemWithRepresentedObject:@"org"];
+            Check(orgIndex >= 0, @"combined app exposes Org source syntax alongside the Org viewer");
+            [syntaxPopup selectItemAtIndex:orgIndex]; [browser selectSourceSyntax:syntaxPopup];
+            Check(![browser isViewingNote] && [[combinedNote sourceSyntaxIdentifier] isEqual:@"org"] &&
+                [[browser selectedViewerIdentifier] isEqual:@"org"], @"Org source selection retains the independent viewer choice and Source mode");
+            NSUInteger keyword = [combinedSource rangeOfString:@"TODO"].location;
+            Check(Await(^BOOL { return OrgSourceHasKeywordColor(editor, keyword); }, 4),
+                @"Org source installs a current TODO capture and uses its syntax color for drawing");
+            NSString *combinedUUID = [NSString uuidStringWithBytes:*[combinedNote uniqueNoteIDBytes]];
+            NSDictionary *combinedMetadata = [[[library notationPrefs] sourceMetadataForNoteUUID:combinedUUID] copy];
+            [editor setSelectedRange:NSMakeRange(keyword, 4)];
+            NSRange combinedCaret = [editor selectedRange];
+            BOOL combinedUndo = [[combinedNote undoManager] canUndo];
+            CFAbsoluteTime combinedModified = modifiedDateOfNote(combinedNote);
+            [browser selectPreviewMode:PreviewItem(@"org")];
+            Check(Await(^BOOL { return Ready(preview, @"org") &&
+                [[[preview snapshot] source] isEqual:combinedSource] && [[[preview snapshot] contentType] isEqual:@"org"]; }, 20),
+                @"Org viewer renders the exact snapshot with Org source metadata");
+            Check([NativeJavaScript([preview webView], @"document.querySelector('h1').textContent") containsString:@"Combined Org note"],
+                @"combined Org source renders a heading in the native viewer");
+            [browser setViewingNote:NO];
+            Check([[editor string] isEqual:combinedSource] && [[[combinedNote contentString] string] isEqual:combinedSource] &&
+                [[[library notationPrefs] sourceMetadataForNoteUUID:combinedUUID] isEqual:combinedMetadata] &&
+                [[combinedNote sourceSyntaxIdentifier] isEqual:@"org"] && NSEqualRanges([editor selectedRange], combinedCaret) &&
+                [[combinedNote undoManager] canUndo] == combinedUndo && modifiedDateOfNote(combinedNote) == combinedModified,
+                @"Org preview round trip preserves source characters, metadata, caret, Undo and modified date");
+            Check([editor isEditable] && ![editor isHiddenOrHasHiddenAncestor] &&
+                Await(^BOOL { return OrgSourceHasKeywordColor(editor, keyword); }, 4),
+                @"returning to Source restores editable Org text with current syntax colors");
+            Check([[editor textStorage] attribute:NVSourceCaptureAttributeName atIndex:keyword effectiveRange:NULL] == nil,
+                @"Org source highlighting remains display-only after the preview round trip");
+            [combinedMetadata release];
+        }
+
         if (getenv("NV_UI_ARTIFACTS")) {
             NSString *directory = [NSString stringWithUTF8String:getenv("NV_UI_ARTIFACTS")];
             Check([[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL], @"Org preview screenshot directory exists");

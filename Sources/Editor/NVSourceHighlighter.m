@@ -25,6 +25,9 @@ BOOL NVSourceCapturesAreCurrent(NSLayoutManager *layout) {
     return NVSourceCapturesCanDisplay(layout) && revision->current;
 }
 
+extern const TSLanguage *tree_sitter_org(void);
+extern void nv_org_scanner_begin_parse(void);
+extern bool nv_org_scanner_did_fail(void);
 extern const TSLanguage *tree_sitter_json(void);
 extern const TSLanguage *tree_sitter_html(void);
 extern const TSLanguage *tree_sitter_markdown(void);
@@ -144,6 +147,169 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     return budget->stopped ? nil : ranges;
 }
 
+static BOOL NVOrgCapture(NSMutableArray *captures, NSRange range, NSString *kind, NVSourceBudget *budget) {
+    if (NVStop(budget) || [captures count] >= NVSourceMaximumCaptures) { budget->stopped = YES; return NO; }
+    [captures addObject:@{@"range": [NSValue valueWithRange:range], @"kind": kind}];
+    return YES;
+}
+static BOOL NVOrgWhitespace(unichar c) {
+    return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+}
+static BOOL NVOrgOpeningBoundary(const unichar *text, NSUInteger index) {
+    if (!index) return YES;
+    unichar c = text[index - 1];
+    return NVOrgWhitespace(c) || c == '-' || c == '(' || c == '\'' || c == '"' || c == '{';
+}
+static BOOL NVOrgClosingBoundary(const unichar *text, NSUInteger index, NSUInteger length) {
+    if (index + 1 == length) return YES;
+    unichar c = text[index + 1];
+    return NVOrgWhitespace(c) || c == '-' || c == '.' || c == ',' || c == ';' || c == ':' ||
+        c == '!' || c == '?' || c == '\'' || c == '"' || c == ')' || c == '}' || c == '[' || c == '\\';
+}
+static BOOL NVOrgNewline(const unichar *text, NSUInteger index, NSUInteger length) {
+    return text[index] == '\n' || (text[index] == '\r' && (index + 1 == length || text[index + 1] != '\n'));
+}
+static BOOL NVOrgProtectedNode(const char *type) {
+    return !strcmp(type, "block") || !strcmp(type, "dynamic_block") || !strcmp(type, "drawer") ||
+        !strcmp(type, "property_drawer") || !strcmp(type, "directive") ||
+        !strcmp(type, "link") || !strcmp(type, "link_desc") || !strcmp(type, "inline_code_block") ||
+        !strcmp(type, "inline_math_block") || !strcmp(type, "display_math_block") ||
+        !strcmp(type, "latex_env") || !strcmp(type, "citation") || !strcmp(type, "timestamp") || !strcmp(type, "priority");
+}
+// The grammar exposes ordinary emphasis and TODO words as generic expressions.
+// Interpret only this fixed Org subset; query predicates remain unsupported.
+// All passes are linear, share the parser budget, and use UTF-16 source indices.
+static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captures, NVSourceBudget *budget) {
+    NSUInteger length = [source length];
+    NSMutableData *characters = [NSMutableData dataWithLength:length * sizeof(unichar)];
+    unichar *text = [characters mutableBytes];
+    [source getCharacters:text range:NSMakeRange(0, length)];
+    NSMutableData *prose = [NSMutableData dataWithLength:length];
+    unsigned char *eligible = [prose mutableBytes];
+    TSTreeCursor cursor = ts_tree_cursor_new(ts_tree_root_node(tree));
+    NSUInteger nodes = 0;
+    BOOL done = NO;
+    while (!done) {
+        TSNode node = ts_tree_cursor_current_node(&cursor);
+        if (++nodes > 100000 || NVStop(budget)) { budget->stopped = YES; break; }
+        uint32_t start = ts_node_start_byte(node), end = ts_node_end_byte(node);
+        if (end < start || start % 2 || end % 2 || end / 2 > length) { budget->stopped = YES; break; }
+        NSRange range = NSMakeRange(start / 2, (end - start) / 2);
+        const char *type = ts_node_type(node);
+        BOOL protected = NVOrgProtectedNode(type);
+        if (protected) memset(eligible + range.location, 0, range.length);
+        else if (!strcmp(type, "paragraph") || !strcmp(type, "item") || !strcmp(type, "cell") ||
+                 !strcmp(type, "description") || !strcmp(type, "comment")) {
+            memset(eligible + range.location, 1, range.length);
+            if (!strcmp(type, "item") && range.length >= 4 &&
+                (range.length == 4 || NVOrgWhitespace(text[range.location + 4]))) {
+                NSString *word = [source substringWithRange:NSMakeRange(range.location, 4)];
+                if ([word isEqualToString:@"TODO"] || [word isEqualToString:@"DONE"]) {
+                    if (!NVOrgCapture(captures, NSMakeRange(range.location, 4),
+                        [word isEqualToString:@"TODO"] ? @"keyword.todo" : @"constant.done", budget)) break;
+                }
+            }
+        }
+        if (!protected && ts_tree_cursor_goto_first_child(&cursor)) continue;
+        while (!ts_tree_cursor_goto_next_sibling(&cursor)) {
+            if (!ts_tree_cursor_goto_parent(&cursor)) { done = YES; break; }
+        }
+    }
+    ts_tree_cursor_delete(&cursor);
+    if (budget->stopped) return NO;
+
+    // The grammar can group hashtag prose into a comment node, or parse a
+    // comment after a directive as paragraph text. Classify each line by Org's
+    // actual prefix so neighboring lines cannot change its meaning.
+    for (NSUInteger line = 0; line < length;) {
+        if (NVStop(budget)) return NO;
+        NSUInteger end = line;
+        while (end < length && text[end] != '\n' && text[end] != '\r') {
+            if (!(end % 256) && NVStop(budget)) return NO;
+            end++;
+        }
+        NSUInteger start = line;
+        while (start < end && (text[start] == ' ' || text[start] == '\t')) start++;
+        if (start < end && eligible[start] && text[start] == '#' &&
+            (start + 1 == end || NVOrgWhitespace(text[start + 1]))) {
+            if (!NVOrgCapture(captures, NSMakeRange(start, end - start), @"comment", budget)) return NO;
+            memset(eligible + line, 0, end - line);
+        }
+        line = end + 1;
+    }
+
+    // The grammar splits CRLF prose at LF. Join only that gap and optional
+    // indentation before another eligible prose line; never rewrite source.
+    for (NSUInteger i = 0; i < length; i++) {
+        if (!(i % 256) && NVStop(budget)) return NO;
+        if (i && text[i] == '\n' && text[i - 1] == '\r' && eligible[i - 1] && !eligible[i]) {
+            NSUInteger next = i + 1;
+            while (next < length && (text[next] == ' ' || text[next] == '\t')) {
+                if (!(next % 256) && NVStop(budget)) return NO;
+                next++;
+            }
+            if (next < length && eligible[next] && text[next] != '\r' && text[next] != '\n')
+                memset(eligible + i, 1, next - i);
+        }
+    }
+
+    // Find each opener's nearest valid closer before selecting spans. An
+    // unmatched opener must not hide a later complete literal of either type.
+    // Two closing positions per type handle an adjacent empty delimiter pair.
+    // Source length is already bounded; this table adds at most 2 MiB.
+    NSMutableData *literalEnds = [NSMutableData dataWithLength:length * sizeof(uint32_t)];
+    uint32_t *ends = [literalEnds mutableBytes];
+    NSUInteger closers[2][2] = {{0, 0}, {0, 0}}, closerLines[2][2] = {{0, 0}, {0, 0}};
+    NSUInteger line = 0;
+    for (NSUInteger remaining = length; remaining; remaining--) {
+        NSUInteger i = remaining - 1;
+        if (!(i % 256) && NVStop(budget)) return NO;
+        if (NVOrgNewline(text, i, length)) line++;
+        if (!eligible[i]) { memset(closers, 0, sizeof(closers)); continue; }
+        if (text[i] != '=' && text[i] != '~') continue;
+        NSUInteger marker = text[i] == '=' ? 0 : 1;
+        if (NVOrgOpeningBoundary(text, i) && i + 1 < length && eligible[i + 1] && !NVOrgWhitespace(text[i + 1])) {
+            NSUInteger candidate = closers[marker][0] == i + 2 ? 1 : 0;
+            if (closers[marker][candidate] && line - closerLines[marker][candidate] <= 1)
+                ends[i] = (uint32_t)closers[marker][candidate];
+        }
+        if (i && !NVOrgWhitespace(text[i - 1]) && NVOrgClosingBoundary(text, i, length)) {
+            closers[marker][1] = closers[marker][0]; closerLines[marker][1] = closerLines[marker][0];
+            closers[marker][0] = i + 1; closerLines[marker][0] = line;
+        }
+    }
+    // Select the first complete span and skip its contents. Thus closed outer
+    // literals suppress inner markup, but unfinished literals remain prose.
+    for (NSUInteger i = 0; i < length; i++) {
+        if (!(i % 256) && NVStop(budget)) return NO;
+        if (!ends[i]) continue;
+        NSRange range = NSMakeRange(i, ends[i] - i);
+        if (!NVOrgCapture(captures, range, @"text.literal", budget)) return NO;
+        // Keep enclosing ordinary emphasis open across literal text.
+        memset(eligible + range.location, 2, range.length);
+        i = ends[i] - 1;
+    }
+    const unichar markers[] = {'*', '/', '_', '+'};
+    NSString *kinds[] = {@"text.strong", @"text.emphasis", @"text.underline", @"text.strike"};
+    NSUInteger openings[] = {NSNotFound, NSNotFound, NSNotFound, NSNotFound};
+    NSUInteger newlines[] = {0, 0, 0, 0};
+    for (NSUInteger i = 0; i < length; i++) {
+        if (!(i % 256) && NVStop(budget)) return NO;
+        for (NSUInteger marker = 0; marker < 4; marker++) {
+            if (!eligible[i] || (NVOrgNewline(text, i, length) && openings[marker] != NSNotFound && ++newlines[marker] > 1)) openings[marker] = NSNotFound;
+            if (eligible[i] != 1 || text[i] != markers[marker]) continue;
+            if (openings[marker] != NSNotFound && i > openings[marker] + 1 && !NVOrgWhitespace(text[i - 1]) && NVOrgClosingBoundary(text, i, length)) {
+                if (!NVOrgCapture(captures, NSMakeRange(openings[marker], i - openings[marker] + 1), kinds[marker], budget)) return NO;
+                openings[marker] = NSNotFound;
+            } else if (openings[marker] == NSNotFound && NVOrgOpeningBoundary(text, i) &&
+                       i + 1 < length && eligible[i + 1] && !NVOrgWhitespace(text[i + 1])) {
+                openings[marker] = i; newlines[marker] = 0;
+            }
+        }
+    }
+    return !NVStop(budget);
+}
+
 @implementation NVSourceParser
 - (id)initWithQueryDirectory:(NSString *)directory {
     if ((self = [super init])) { parserState = calloc(1, sizeof(NVParserState)); queryDirectory = [directory copy]; }
@@ -151,7 +317,7 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
 }
 - (NSArray *)capturesForString:(NSString *)source syntaxIdentifier:(NSString *)syntax cancellationToken:(const uint64_t *)token generation:(uint64_t)generation {
     NVParserState *state = parserState;
-    const TSLanguage *language = [syntax isEqualToString:@"json"] ? tree_sitter_json() : [syntax isEqualToString:@"html"] ? tree_sitter_html() : [syntax isEqualToString:@"markdown"] ? tree_sitter_markdown() : NULL;
+    const TSLanguage *language = [syntax isEqualToString:@"org"] ? tree_sitter_org() : [syntax isEqualToString:@"json"] ? tree_sitter_json() : [syntax isEqualToString:@"html"] ? tree_sitter_html() : [syntax isEqualToString:@"markdown"] ? tree_sitter_markdown() : NULL;
     if (!language || [source length] > NVSourceMaximumLength || ![source length]) { NVClearParser(state); return @[]; }
     NVSourceBudget budget = {token, generation, NVClock() + 120000000ULL, NO};
     if (NVStop(&budget)) return nil;
@@ -181,12 +347,16 @@ static NSData *NVInlineRanges(TSTree *tree, NVSourceBudget *budget) {
     }
     TSInput input = {.payload = bytes, .read = NVRead, .encoding = TSInputEncodingUTF16LE};
     TSParseOptions options = {.payload = &budget, .progress_callback = NVParseProgress};
+    BOOL isOrg = [syntax isEqualToString:@"org"];
+    if (isOrg) nv_org_scanner_begin_parse();
     TSTree *tree = ts_parser_parse_with_options(state->parser, state->tree, input, options);
+    BOOL scannerFailed = isOrg && nv_org_scanner_did_fail();
     ts_tree_delete(state->tree); state->tree = tree;
     [state->source release]; state->source = [source copy];
-    if (!tree || NVStop(&budget)) { NVClearParser(state); return nil; }
+    if (!tree || scannerFailed || NVStop(&budget)) { NVClearParser(state); return nil; }
     NSMutableArray *captures = [NSMutableArray array];
     if (!NVCaptureTree(tree, state->query, captures, [source length], &budget)) { NVClearParser(state); return nil; }
+    if ([syntax isEqualToString:@"org"] && !NVOrgCaptures(tree, source, captures, &budget)) { NVClearParser(state); return nil; }
     if (state->inlineParser) {
         NSData *ranges = NVInlineRanges(tree, &budget);
         if (!ranges) { NVClearParser(state); return nil; }

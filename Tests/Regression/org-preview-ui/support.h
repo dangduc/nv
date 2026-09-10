@@ -2,6 +2,7 @@
 #import "PreviewController.h"
 #import "NVMarkupRenderer.h"
 #import "NVNoteContentSnapshot.h"
+#import "NVSourceHighlighter.h"
 #import "NotationPrefs.h"
 #import "NSString_NV.h"
 #import <WebKit/WebKit.h>
@@ -36,6 +37,20 @@ static void CollectPreviewItems(NSMenu *menu, NSMutableArray *items) {
 static NSMenuItem *PreviewItem(NSString *identifier) {
     NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:identifier action:@selector(selectPreviewMode:) keyEquivalent:@""] autorelease];
     [item setRepresentedObject:identifier]; return item;
+}
+static BOOL OrgSourceHasKeywordColor(NSTextView *editor, NSUInteger index) {
+    NSLayoutManager *layout = [editor layoutManager];
+    if (!NVSourceCapturesAreCurrent(layout) || index >= [[editor textStorage] length]) return NO;
+    NSRange range;
+    NSDictionary *attributes = [layout temporaryAttributesAtCharacterIndex:index effectiveRange:&range];
+    if (![attributes[NVSourceCaptureAttributeName] isEqual:@"keyword.todo"]) return NO;
+    NSDictionary *drawn = [[layout delegate] layoutManager:layout shouldUseTemporaryAttributes:attributes
+        forDrawingToScreen:YES atCharacterIndex:index effectiveRange:&range];
+    NSRange plainRange = NSMakeRange(index, 1);
+    NSDictionary *plain = [[layout delegate] layoutManager:layout shouldUseTemporaryAttributes:@{}
+        forDrawingToScreen:YES atCharacterIndex:index effectiveRange:&plainRange];
+    NSColor *color = drawn[NSForegroundColorAttributeName];
+    return color && ![color isEqual:plain[NSForegroundColorAttributeName]];
 }
 static BOOL CapturePreview(NSWindow *window, NSString *path) {
     [[window contentView] layoutSubtreeIfNeeded]; [window displayIfNeeded];

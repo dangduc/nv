@@ -151,7 +151,7 @@ AppController *NVControllerForView(NSView *view) {
                     action:NULL keyEquivalent:@""] autorelease];
                 NSMenu *choices = [[[NSMenu alloc] initWithTitle:[syntax title]] autorelease];
                 for (NSArray *entry in @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"],
-                                          @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"]]) {
+                                          @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"], @[@"Org", @"org"]]) {
                     NSMenuItem *choice = [choices addItemWithTitle:NSLocalizedString(entry[0], nil)
                         action:@selector(selectSourceSyntax:) keyEquivalent:@""];
                     [choice setTarget:self];
@@ -164,7 +164,7 @@ AppController *NVControllerForView(NSView *view) {
             // keeps its compact toggle without duplicate format submenus.
             if (hasPreview && !hasViewerMenu && [candidate indexOfItemWithTarget:self andAction:@selector(toggleSourceView:)] >= 0) {
                 for (NSArray *spec in @[@[@"Preview Format", @"selectPreviewMode:", @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"Org", @"org"]]],
-                                          @[@"Source Syntax", @"selectSourceSyntax:", @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"]]]]) {
+                                          @[@"Source Syntax", @"selectSourceSyntax:", @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"], @[@"Org", @"org"]]]]) {
                     NSMenuItem *parent = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(spec[0], nil) action:NULL keyEquivalent:@""] autorelease];
                     [parent setTag:24001];
                     NSMenu *choices = [[[NSMenu alloc] initWithTitle:[parent title]] autorelease];
