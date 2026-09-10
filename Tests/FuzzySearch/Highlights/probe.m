@@ -3,10 +3,10 @@
 @interface SearchEditor : NSObject {
     NSTextStorage *_storage;
 }
-@property NSUInteger clears;
+@property NSUInteger invalidations;
 - (id)initWithStorage:(NSTextStorage *)storage;
 - (NSTextStorage *)textStorage;
-- (void)removeHighlightedTerms;
+- (void)invalidateSearchHighlights;
 @end
 @implementation SearchEditor
 - (id)initWithStorage:(NSTextStorage *)storage {
@@ -15,7 +15,7 @@
 }
 - (void)dealloc { [_storage release]; [super dealloc]; }
 - (NSTextStorage *)textStorage { return _storage; }
-- (void)removeHighlightedTerms { ++_clears; }
+- (void)invalidateSearchHighlights { ++_invalidations; }
 @end
 
 @interface SearchBrowser : NSObject {
@@ -46,16 +46,16 @@ int main(void) {
         for (SearchBrowser *browser in @[first, peer])
             [center addObserver:browser selector:@selector(searchSourceStorageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:shared];
         [shared replaceCharactersInRange:NSMakeRange(0, 0) withString:@"x"];
-        Check(first->textView.clears == 1, "origin clears before a model commit");
-        Check(peer->textView.clears == 1, "peer clears before a model commit");
+        Check(first->textView.invalidations == 1, "origin invalidates before a model commit");
+        Check(peer->textView.invalidations == 1, "peer invalidates before a model commit");
         Check(first->searchHighlightGeneration == 1 && peer->searchHighlightGeneration == 1, "both reject old position callbacks");
         [shared addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:NSMakeRange(0, 1)];
-        Check(first->textView.clears == 1 && peer->textView.clears == 1, "attribute-only changes preserve search state");
+        Check(first->textView.invalidations == 1 && peer->textView.invalidations == 1, "attribute-only changes preserve search state");
         [first searchSourceStorageWillProcessEditing:[NSNotification notificationWithName:NSTextStorageWillProcessEditingNotification object:other]];
-        Check(first->textView.clears == 1, "unrelated storage cannot clear this browser");
+        Check(first->textView.invalidations == 1, "unrelated storage cannot invalidate this browser");
         [center removeObserver:first name:NSTextStorageWillProcessEditingNotification object:shared];
         [shared replaceCharactersInRange:NSMakeRange(0, 1) withString:@"y"];
-        Check(first->textView.clears == 1 && peer->textView.clears == 2, "detached browser stops observing shared edits");
+        Check(first->textView.invalidations == 1 && peer->textView.invalidations == 2, "detached browser stops observing shared edits");
         Check([[shared attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL] isEqual:[NSColor redColor]], "character invalidation preserves foreground attributes");
         [center removeObserver:peer];
         printf("PASS: %lu shared-source highlight checks\n", (unsigned long)checks);

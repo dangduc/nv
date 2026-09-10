@@ -37,6 +37,7 @@
 	BOOL isAutocompleting, wasDeleting;
 	
 	BOOL backgroundIsDark, mouseInside;
+    BOOL searchHighlightsInvalidated;
 	
 	//ludicrous ivars used to hack NSTextFinder. just write your own, damnit!
 	NSRange selectedRangeDuringFind;
@@ -71,6 +72,7 @@
 - (NSRange)selectedRangeWasAutomatic:(BOOL*)automatic;
 - (void)setAutomaticallySelectedRange:(NSRange)newRange;
 - (void)removeHighlightedTerms;
+- (void)invalidateSearchHighlights;
 - (void)setSearchHighlightRanges:(NSArray *)ranges;
 - (void)highlightRangesTemporarily:(CFArrayRef)ranges;
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;

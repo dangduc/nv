@@ -17,21 +17,61 @@ static BOOL LeaseReleasedOnMain;
 - (BOOL)highlightSearchTerms { return YES; }
 - (NSDictionary *)searchTermHighlightAttributes { return @{NSBackgroundColorAttributeName:[NSColor yellowColor]}; }
 @end
-@interface Editor : NSObject { @public NSTextStorage *storage; NSLayoutManager *layout; Prefs *prefsController; }
+@interface TrackingLayout : NSLayoutManager { @public NSUInteger backgroundMutations; }
+@end
+@implementation TrackingLayout
+- (void)addTemporaryAttribute:(NSString *)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) ++backgroundMutations;
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) ++backgroundMutations;
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+@end
+@interface Editor : NSObject { @public NSTextStorage *storage; NSLayoutManager *layout; Prefs *prefsController; BOOL searchHighlightsInvalidated; }
 - (NSString *)string;
 - (NSLayoutManager *)layoutManager;
 - (NSTextStorage *)textStorage;
+- (void)invalidateSearchHighlights;
 - (void)removeHighlightedTerms;
 - (void)setSearchHighlightRanges:(NSArray *)ranges;
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString *)query avoidHighlight:(BOOL)avoid;
 @end
 @implementation Editor
-- (id)init { if((self=[super init])){storage=[[NSTextStorage alloc]init];layout=[[NSLayoutManager alloc]init];[storage addLayoutManager:layout];prefsController=[[Prefs alloc]init];} return self; }
+- (id)init { if((self=[super init])){storage=[[NSTextStorage alloc]init];layout=[[TrackingLayout alloc]init];[storage addLayoutManager:layout];prefsController=[[Prefs alloc]init];} return self; }
 - (NSString *)string { return [storage string]; }
 - (NSLayoutManager *)layoutManager { return layout; }
 - (NSTextStorage *)textStorage { return storage; }
 #include "editor.inc"
-- (void)dealloc { [storage removeLayoutManager:layout];[storage release];[layout release];[prefsController release];[super dealloc]; }
+- (void)dealloc { [NSObject cancelPreviousPerformRequestsWithTarget:self];[storage removeLayoutManager:layout];[storage release];[layout release];[prefsController release];[super dealloc]; }
+@end
+@interface TrackingEditor : Editor { @public NSUInteger scheduledClears, clearCalls; NSTimeInterval lastClearDelay; }
+@end
+@implementation TrackingEditor
+- (void)performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes {
+    if (selector == @selector(removeHighlightedTerms)) { ++scheduledClears; lastClearDelay = delay; }
+    [super performSelector:selector withObject:object afterDelay:delay inModes:modes];
+}
+- (void)removeHighlightedTerms { ++clearCalls; [super removeHighlightedTerms]; }
+@end
+@interface EditingAttemptObserver : NSObject {
+@public
+    TrackingEditor *editor;
+    BOOL installRanges, invalidatedDuringEdit, mutatedDuringEdit;
+    NSUInteger notifications;
+}
+@end
+@implementation EditingAttemptObserver
+- (void)storageWillProcessEditing:(NSNotification *)notification {
+    if ([notification object] != editor->storage || !([editor->storage editedMask] & NSTextStorageEditedCharacters)) return;
+    ++notifications;
+    NSUInteger mutations = ((TrackingLayout *)editor->layout)->backgroundMutations;
+    if (installRanges) [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 1)]]];
+    else [editor removeHighlightedTerms];
+    invalidatedDuringEdit = editor->searchHighlightsInvalidated;
+    mutatedDuringEdit = mutations != ((TrackingLayout *)editor->layout)->backgroundMutations;
+}
 @end
 @interface Note : NSObject { @public NSAttributedString *content; } @end
 @implementation Note
@@ -77,11 +117,84 @@ static BOOL LeaseReleasedOnMain;
 @end
 static NSString *Source(NSUInteger length) { NSString *line=@"meeting notes: a clear goal and a small task to finish today.\n";return [line stringByPaddingToLength:length withString:line startingAtIndex:0]; }
 static NSUInteger BackgroundRuns(Editor *editor) { NSUInteger count=0,index=0,length=[[editor string]length];while(index<length){NSRange range;id value=[editor->layout temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:index effectiveRange:&range];if(value)++count;if(NSMaxRange(range)<=index)abort();index=NSMaxRange(range);}return count; }
+static void DrainScheduledClears(void) {
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:.03];
+    while ([end timeIntervalSinceNow] > 0) [[NSRunLoop mainRunLoop] runMode:NSDefaultRunLoopMode beforeDate:end];
+}
+static void CheckDeferredClearing(void) {
+    TrackingEditor *editor = [[[TrackingEditor alloc] init] autorelease];
+    [editor->storage replaceCharactersInRange:NSMakeRange(0, 0) withString:@"a search match"];
+    [editor->layout addTemporaryAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] forCharacterRange:NSMakeRange(0, 14)];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 14)]]];
+    NSUInteger calls = editor->clearCalls;
+    [editor invalidateSearchHighlights];
+    [editor invalidateSearchHighlights];
+    [editor invalidateSearchHighlights];
+    Check(editor->searchHighlightsInvalidated, "invalidation marks stale search presentation immediately");
+    Check(editor->scheduledClears == 1, "repeated invalidations coalesce one delayed selector");
+    Check(editor->clearCalls == calls && BackgroundRuns(editor) == 1, "invalidation defers native layout mutation");
+    Check(Await(^BOOL{return !editor->searchHighlightsInvalidated;}), "deferred cleanup runs on the main run loop");
+    Check(editor->clearCalls == calls + 1 && BackgroundRuns(editor) == 0, "coalesced cleanup clears native backgrounds once");
+    Check([editor->layout temporaryAttribute:NSForegroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil, "deferred cleanup preserves native syntax foreground");
+
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 1)]]];
+    [editor invalidateSearchHighlights];
+    [editor removeHighlightedTerms];
+    Check(!editor->searchHighlightsInvalidated && BackgroundRuns(editor) == 0, "explicit stable cleanup clears pending presentation");
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(2, 6)]]];
+    calls = editor->clearCalls;
+    DrainScheduledClears();
+    Check(editor->clearCalls == calls, "explicit cleanup cancels the queued selector");
+    Check(BackgroundRuns(editor) == 1, "cancelled old cleanup cannot erase freshly published ranges");
+
+    EditingAttemptObserver *observer = [[[EditingAttemptObserver alloc] init] autorelease];
+    observer->editor = editor;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:observer selector:@selector(storageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:editor->storage];
+    for (NSUInteger install = 0; install < 2; ++install) {
+        observer->installRanges = install;
+        [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, [editor->storage length])]]];
+        [editor->storage replaceCharactersInRange:NSMakeRange([editor->storage length] - 1, 1) withString:@""];
+        Check(observer->notifications == install + 1, "native storage emits character-edit notification for backspace");
+        Check(observer->invalidatedDuringEdit && !observer->mutatedDuringEdit, "cleanup and range publication defer all layout mutation during character processing");
+        Check(Await(^BOOL{return !editor->searchHighlightsInvalidated;}), "reentrant cleanup completes after native character processing");
+        Check(BackgroundRuns(editor) == 0, "backspace leaves no stale temporary backgrounds");
+        Check([editor->layout temporaryAttribute:NSForegroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil, "backspace cleanup preserves syntax foreground");
+    }
+    Check([[editor string] isEqual:@"a search mat"], "deferred cleanup does not alter source characters");
+    [center removeObserver:observer];
+
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 1)]]];
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange([editor->storage length] - 1, 1) withString:@""];
+    NSUInteger mutations = ((TrackingLayout *)editor->layout)->backgroundMutations;
+    [editor removeHighlightedTerms];
+    Check(editor->lastClearDelay >= .01, "open character batch retries with a positive minimum delay");
+    Check(editor->searchHighlightsInvalidated, "open character batch keeps stale presentation suppressed");
+    calls = editor->clearCalls;
+    [editor removeHighlightedTerms];
+    Check(editor->lastClearDelay >= .01, "repeated open batch cleanup preserves retry delay");
+    Check(((TrackingLayout *)editor->layout)->backgroundMutations == mutations, "open batch retries preserve the native layout guard");
+    [editor->storage endEditing];
+    Check(Await(^BOOL{return !editor->searchHighlightsInvalidated;}), "delayed retry clears after the character batch ends");
+    Check(editor->clearCalls == calls + 2, "repeated open batch cleanup leaves only one queued retry");
+    Check(BackgroundRuns(editor) == 0, "delayed retry removes stale background ranges");
+
+    [editor->storage beginEditing];
+    [editor->storage replaceCharactersInRange:NSMakeRange([editor->storage length] - 1, 1) withString:@""];
+    [editor removeHighlightedTerms];
+    [editor->storage endEditing];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(0, 1)]]];
+    calls = editor->clearCalls;
+    DrainScheduledClears();
+    Check(editor->clearCalls == calls && BackgroundRuns(editor) == 1, "fresh publication cancels delayed retry without losing its background");
+}
 static NSRange OldCaret(NSString *source, NSString *query, BOOL avoid) {
     NSString *separator=[query rangeOfString:@"\""].location==NSNotFound?@" ":@"\"";NSRange first=NSMakeRange(NSNotFound,0);
     for(NSString *term in [query componentsSeparatedByString:separator]){if(![term length])continue;CFArrayRef ranges=CFStringCreateArrayWithFindResults(NULL,(CFStringRef)source,(CFStringRef)term,CFRangeMake(0,[source length]),kCFCompareCaseInsensitive);if(!ranges)continue;for(CFIndex i=0;i<CFArrayGetCount(ranges);++i){CFRange range=*(CFRange*)CFArrayGetValueAtIndex(ranges,i);if((NSUInteger)range.location<first.location){first=NSMakeRange(range.location,range.length);if(avoid){CFRelease(ranges);return first;}}}CFRelease(ranges);}return first;
 }
 int main(void) { setvbuf(stdout,NULL,_IOLBF,0); @autoreleasepool {
+    CheckDeferredClearing();
     NVSearchService *service=[[[NVSearchService alloc]init]autorelease];[(NVApplicationController*)[NVApplicationController sharedController] setValue:service forKey:@"service"];
     Controller *controller=[[[Controller alloc]init]autorelease];controller->textView=[[[Editor alloc]init]autorelease];controller->prefsController=[[[Prefs alloc]init]autorelease];controller->notesTableView=[[[Table alloc]init]autorelease];controller->currentNote=[[[Note alloc]init]autorelease];controller->browser=[[[NVBrowserSession alloc]init]autorelease];
     Editor *editor=controller->textView; NVBrowserSession *browser=controller->browser;

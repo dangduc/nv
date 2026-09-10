@@ -153,7 +153,7 @@
     if (storage != [textView textStorage] || !([storage editedMask] & NSTextStorageEditedCharacters)) return;
     // Every attached editor observes shared characters, including uncommitted composition.
     ++searchHighlightGeneration;
-    [textView removeHighlightedTerms];
+    [textView invalidateSearchHighlights];
 }
 - (void)refreshSearchHighlights {
     NSUInteger generation = ++searchHighlightGeneration;

@@ -109,7 +109,9 @@ Mapping resumes between complete composed sequences in batches of at most 4,096 
 Each continuation joins the back of the worker queue so another browser can search while mapping continues.
 Native position extraction and individual composed-sequence operations remain indivisible.
 Search highlights use only temporary background attributes on each editor's layout manager.
-Shared character edits clear stale highlights in every attached editor, including before composition commits.
+Shared character edits invalidate stale highlights in every attached editor, including before composition commits.
+Drawing suppresses their backgrounds immediately. A coalesced callback removes the attributes after TextKit processes the edit and updates its glyph ranges.
+Fresh highlights cancel pending cleanup. Note switches clear the old backgrounds and cancel cleanup before the layout manager changes storage.
 Snapshot highlights stay suppressed while live source differs from committed source.
 The search worker compares immutable source copies and discovers literal ranges with cancellation checks.
 Source decoration stops after 2,048 literal occurrences and installs at most 2,048 temporary background ranges.

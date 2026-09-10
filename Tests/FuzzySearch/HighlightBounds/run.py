@@ -25,7 +25,7 @@ refresh = methods('Sources/Browser/AppController_Search.m', ['- (void)refreshSea
 # This fixture checks range discovery and installation. Native rendering tests
 # cover the browser appearance that supplies the highlight color.
 editor = '- (NSDictionary *)currentSearchHighlightAttributes { return [prefsController searchTermHighlightAttributes]; }\n'
-editor += methods('Sources/Editor/LinkingEditor.m', ['- (void)removeHighlightedTerms', '- (void)setSearchHighlightRanges:', '- (NSRange)highlightTermsTemporarilyReturningFirstRange:'])
+editor += methods('Sources/Editor/LinkingEditor.m', ['- (void)invalidateSearchHighlights', '- (void)removeHighlightedTerms', '- (void)setSearchHighlightRanges:', '- (NSRange)highlightTermsTemporarilyReturningFirstRange:'])
 query = (ROOT / 'Sources/Search/NVSearchQuery.m').read_text()
 flags = ['-O1' if a.sanitize else '-O2', '-g', '-fblocks', '-fno-objc-arc', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter', '-Wno-unused-variable', '-DUTF8PROC_STATIC', '-I'+str(OUT), '-I'+str(ROOT/'Sources/Search'), '-I'+str(ROOT/'ThirdParty/fzf-native')]
 if a.arch: flags += ['-arch',a.arch,'-mmacosx-version-min=10.13' if a.arch=='x86_64' else '-mmacosx-version-min=11.0']
@@ -49,6 +49,13 @@ def run_case(name, refresh_text, editor_text, query_text, positive, object_files
 run_case('positive',refresh,editor,query,True)
 if a.negative_controls and not a.build_only:
     mutants=[('missing_generation',refresh.replace('generation == searchHighlightGeneration &&','YES &&'),editor,query),('missing_row_context',refresh.replace('[[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key]','YES'),editor,query),('uncancelled_discovery',refresh,editor,query.replace('if (cancelled && cancelled()) return nil;','if (NO) return nil;')),('unbounded_discovery',refresh,editor,query.replace('NSUInteger occurrences = 0, length = [string length];','maximumCount = NSUIntegerMax; NSUInteger occurrences = 0, length = [string length];')),('uncapped_editor',refresh,editor.replace('if (displayed++ == NVSearchMaximumDisplayedRanges) break;',''),query)]
+    mutants += [
+        ('uncoalesced_invalidation', refresh, editor.replace('    if (searchHighlightsInvalidated) return;\n    searchHighlightsInvalidated = YES;', '    searchHighlightsInvalidated = YES;'), query),
+        ('uncancelled_clear', refresh, editor.replace('    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];\n', ''), query),
+        ('unsafe_character_edit_clear', refresh, editor.replace('    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {', '    if (NO) {'), query),
+        ('zero_delay_edit_retry', refresh, editor.replace('afterDelay:0.01', 'afterDelay:0'), query),
+        ('unsafe_character_edit_publication', refresh, editor.replace('    [self removeHighlightedTerms];\n    if (searchHighlightsInvalidated) return;\n', '    [self removeHighlightedTerms];\n'), query),
+    ]
     for name,r,e,q in mutants:
         if (r,e,q)==(refresh,editor,query): raise SystemExit('Mutation no longer applies: '+name)
         run_case(name,r,e,q,False)
