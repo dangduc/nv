@@ -1,0 +1,5 @@
+CopyPNGFile $TMP/DerivedData/Build/Products/Development/nvALT.app/Contents/Resources/IBeamInverted.png $REPO/Resources/Images/IBeamInverted.png (in target 'Notation' from project 'Notation')
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng $REPO/Resources/Images/IBeamInverted.png $TMP/DerivedData/Build/Products/Development/nvALT.app/Contents/Resources/IBeamInverted.png
+error: Build input file cannot be found: '$REPO/Resources/Images/IBeamInverted.png'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'Notation' from project 'Notation')
+** BUILD FAILED **
+	CopyPNGFile $TMP/DerivedData/Build/Products/Development/nvALT.app/Contents/Resources/IBeamInverted.png $REPO/Resources/Images/IBeamInverted.png (in target 'Notation' from project 'Notation')

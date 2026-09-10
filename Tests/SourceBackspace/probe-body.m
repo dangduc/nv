@@ -6,7 +6,7 @@
         [browser searchForString:@""]; Pump();
         NSArray *fixtures = @[
             @[@"alpha beta gamma\nlast line", @"alpha beta gamma\nlast lin", @"26", @"0"],
-            @[@"    text", @"text", @"4", @"0"],
+            @[@"    text", @"   text", @"4", @"0"],
             @[@"first\nsecond", @"firstsecond", @"6", @"0"],
             @[@"a🙂z", @"az", @"3", @"0"],
             @[@"caféz", @"cafz", @"5", @"0"],

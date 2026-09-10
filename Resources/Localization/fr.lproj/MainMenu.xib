@@ -192,12 +192,6 @@ CA
                                     <action selector="paste:" target="1224" id="1248"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Coller Markdown Link" keyEquivalent="v" id="1348">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="pasteMarkdownLink:" target="1261" id="1349"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Effacer" id="771">
                                 <connections>
                                     <action selector="delete:" target="-1" id="773"/>
@@ -268,12 +262,7 @@ CA
                                         </menuItem>
                                         <menuItem title="Vérifier en cours de frappe" id="191">
                                             <connections>
-                                                <binding destination="1291" name="value" keyPath="values.CheckSpellingInNoteBody" id="qFH-Tn-nE4">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <bool key="NSValidatesImmediately" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
+                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="qFH-Tn-nE4"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -291,33 +280,18 @@ CA
                                         <menuItem isSeparatorItem="YES" hidden="YES" id="tic-Z0-p3n"/>
                                         <menuItem title="Smart Copy/Paste" tag="1" keyEquivalent="f" id="4z0-J9-YdN">
                                             <connections>
-                                                <binding destination="1291" name="value" keyPath="values.UseSmartInsertDelete" id="FNL-Qx-rO2">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <bool key="NSValidatesImmediately" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
+                                                <action selector="toggleSmartInsertDelete:" target="-1" id="FNL-Qx-rO2"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Smart Quotes" tag="2" keyEquivalent="g" id="bXv-UL-YfK">
                                             <connections>
-                                                <binding destination="1291" name="value" keyPath="values.NSAutomaticQuoteSubstitutionEnabled" id="pZa-aH-r9A">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <bool key="NSValidatesImmediately" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
+                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="pZa-aH-r9A"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Smart Dashes" id="ngE-qT-3rP">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <binding destination="1291" name="value" keyPath="values.NSAutomaticDashSubstitutionEnabled" id="W4c-sc-RsB">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <bool key="NSValidatesImmediately" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
+                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="W4c-sc-RsB"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Smart Links" tag="3" hidden="YES" enabled="NO" keyEquivalent="G" id="EDA-MB-EdC">
@@ -329,12 +303,7 @@ CA
                                         <menuItem title="Text Replacement" id="DcL-gz-37t">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <binding destination="1291" name="value" keyPath="values.TextReplacementInNoteBody" id="0EP-sj-ccz">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <bool key="NSValidatesImmediately" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
+                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="0EP-sj-ccz"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -482,63 +451,6 @@ CA
                     <menu key="submenu" title="Format" id="398">
                         <items>
 
-                            <menuItem title="Gras" tag="2" keyEquivalent="b" id="574">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Gras">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="LucidaGrande-Bold"/>
-                                            <font key="NSOriginalFont" size="14" name="LucidaGrande-Bold"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="bold:" target="-1" id="981"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Italique" tag="1" keyEquivalent="i" id="575">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Italique">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="Helvetica-Oblique"/>
-                                            <font key="NSOriginalFont" size="14" name="Helvetica-Oblique"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="italic:" target="-1" id="982"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Barré" keyEquivalent="y" id="576">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Barré">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="LucidaGrande"/>
-                                            <font key="NSOriginalFont" size="14" name="LucidaGrande"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                            <integer key="NSStrikethrough" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="strikethroughNV:" target="-1" id="1114"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="577">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Décaler à gauche" keyEquivalent="[" id="563">
-                                <connections>
-                                    <action selector="shiftLeftAction:" target="-1" id="568"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Décaler à droite" keyEquivalent="]" id="564">
-                                <connections>
-                                    <action selector="shiftRightAction:" target="-1" id="569"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="565">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Définir l'encodage du texte..." tag="102" id="534">
                                 <connections>
                                     <action selector="fixFileEncoding:" target="213" id="536"/>
@@ -748,64 +660,6 @@ CA
                 <menuItem title="Format" id="1186">
                     <menu key="submenu" title="Format" id="1187">
                         <items>
-
-                            <menuItem title="Gras" tag="2" keyEquivalent="b" id="1192">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Gras">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="LucidaGrande-Bold"/>
-                                            <font key="NSOriginalFont" size="14" name="LucidaGrande-Bold"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="bold:" target="-1" id="1201"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Italique" tag="1" keyEquivalent="i" id="1191">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Italique">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="Helvetica-Oblique"/>
-                                            <font key="NSOriginalFont" size="14" name="Helvetica-Oblique"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="italic:" target="-1" id="1200"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Barré" keyEquivalent="y" id="1190">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Barré">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="LucidaGrande"/>
-                                            <font key="NSOriginalFont" size="14" name="LucidaGrande"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                            <integer key="NSStrikethrough" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <connections>
-                                    <action selector="strikethroughNV:" target="-1" id="1198"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1189">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Décaler à gauche" keyEquivalent="[" id="1195">
-                                <connections>
-                                    <action selector="shiftLeftAction:" target="-1" id="1197"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Décaler à droite" keyEquivalent="]" id="1194">
-                                <connections>
-                                    <action selector="shiftRightAction:" target="-1" id="1203"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1193">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Définir l'encodage du texte..." tag="102" id="1196">
                                 <connections>
                                     <action selector="fixFileEncoding:" target="213" id="1199"/>
@@ -841,11 +695,6 @@ CA
 </string>
                     <connections>
                         <action selector="deleteNote:" target="213" id="1172"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Insert Link" keyEquivalent="L" id="1323">
-                    <connections>
-                        <action selector="insertLink:" target="1261" id="1324"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="FeH-4F-lml"/>
@@ -949,7 +798,7 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1261" customClass="LinkingEditor">
+                    <textView smartInsertDelete="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1261" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

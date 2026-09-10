@@ -1,0 +1,23 @@
+continuousSpellChecking=0
+automaticSpellingCorrection=1
+automaticQuoteSubstitution=1
+automaticDashSubstitution=1
+automaticTextReplacement=1
+smartInsertDelete=1
+localizedMenusChecked=6
+localizedEditorsMatchingNativeSpellingCorrection=6
+localizedHelpFilesChecked=6
+PROBLEM: de.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', 'Textkodierung reparieren...', None)]
+PROBLEM: en.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', 'Fix Text Encoding…', None)]
+PROBLEM: fr.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', "Définir l'encodage du texte...", None)]
+PROBLEM: it.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', 'Correggi codifica testo…', None)]
+PROBLEM: pt-PT.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', 'Corrigir Codificação de Texto…', None)]
+PROBLEM: zh.lproj: status Format starts with adjacent separators: [('menuItem', None, 'YES'), ('menuItem', None, 'YES'), ('menuItem', '修正文本编码…', None)]
+PROBLEM: de.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+PROBLEM: en.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+PROBLEM: fr.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+PROBLEM: it.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+PROBLEM: pt-PT.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+PROBLEM: zh.lproj: shipped help still claims removed shortcuts ['⌘[', '⌘]', '⌥Tab', '⌘T', '⌘B', '⌘I', '⌘Y', '⌘←', '⌘→']
+removedShortcutImplementations=7
+PASS: reproduced stale shipped help and localized status-menu residue

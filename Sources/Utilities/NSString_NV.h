@@ -36,8 +36,6 @@ void resetCurrentDayTime();
 - (NSString*)syntheticTitleAndSeparatorWithContext:(NSString**)sepStr bodyLoc:(NSUInteger*)bodyLoc 
 										  oldTitle:(NSString*)oldTitle maxTitleLen:(NSUInteger)maxTitleLen;
 - (NSString*)syntheticTitleAndTrimmedBody:(NSString**)newBody;
-+ (NSString *)tabbifiedStringWithNumberOfSpaces:(NSInteger)origNumSpaces tabWidth:(NSInteger)tabWidth usesTabs:(BOOL)usesTabs;
-- (NSInteger)numberOfLeadingSpacesFromRange:(NSRange*)range tabWidth:(NSInteger)tabWidth;
 
 	BOOL IsHardLineBreakUnichar(unichar uchar, NSString *str, unsigned charIndex);
 
@@ -57,14 +55,10 @@ void resetCurrentDayTime();
 
 - (NSData *)decodeBase64;
 - (NSData *)decodeBase64WithNewlines:(BOOL)encodedWithNewlines;
-- (NSString *)firstNumberFromStringWithinRange:(NSRange)subRange isInRange:(NSRange *)foundRange;
-- (NSInteger)isPairedCharacterWithMatchString:(NSString **)matchString;
-//- (NSTextView*)textViewWithFrame:(NSRect*)theFrame;
 
 @end
 
 @interface NSMutableString (NV)
-- (void)replaceTabsWithSpacesOfWidth:(NSInteger)tabWidth;
 + (NSMutableString*)newShortLivedStringFromFile:(NSString*)filename;
 + (NSMutableString*)newShortLivedStringFromData:(NSMutableData*)data ofGuessedEncoding:(NSStringEncoding*)encoding 
 									   withPath:(const char*)aPath orWithFSRef:(const FSRef*)fsRef;
@@ -76,7 +70,6 @@ void resetCurrentDayTime();
 
 @interface NSCharacterSet (NV)
 + (NSCharacterSet*)labelSeparatorCharacterSet;
-+ (NSCharacterSet*)listBulletsCharacterSet;
 
 
 @end

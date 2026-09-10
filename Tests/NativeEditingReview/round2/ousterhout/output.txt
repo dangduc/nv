@@ -1,0 +1,21 @@
+2026-09-10 00:33:53.102 nvALT[1517:344789171] PASS: temporary library directory exists
+2026-09-10 00:33:53.103 nvALT[1517:344789171] PASS: temporary library opens
+2026-09-10 00:33:53.274 nvALT[1517:344789171] verified 0 notes in 0.000193954 s
+2026-09-10 00:33:53.739 nvALT[1517:344789171] PASS: a second browser opens over the shared library
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: both editors use the editing session's single text storage
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: each editor owns a separate layout manager
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: keyDown: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: deleteBackward: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: insertNewline: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: insertTab: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: insertText:replacementRange: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: complete: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: selectionRangeForProposedRange:granularity: remains owned by NSTextView
+2026-09-10 00:33:53.791 nvALT[1517:344789171] PASS: the body delegate has no source-specific completion policy
+2026-09-10 00:33:53.851 nvALT[1517:344789171] PASS: native input reaches the shared editor and note model
+2026-09-10 00:33:53.909 nvALT[1517:344789171] PASS: shared-session Undo updates both native views and the model
+2026-09-10 00:33:53.909 nvALT[1517:344789171] PASS: hovering one dark source editor replaces NSCursor's class implementation
+2026-09-10 00:33:53.910 nvALT[1517:344789171] PASS: the replacement remains process-wide for unrelated text views
+2026-09-10 00:33:53.910 nvALT[1517:344789171] PASS: another source-editor event is required to restore the global cursor method
+2026-09-10 00:33:53.910 nvALT[1517:344789171] OUSTERHOUT ROUND 2 EVIDENCE PASSED (18 checks)
+2026-09-10 00:33:53.911 nvALT[1517:344789171] verified 1 notes in 0.000368953 s
