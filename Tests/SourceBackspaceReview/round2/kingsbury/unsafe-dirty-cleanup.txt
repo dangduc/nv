@@ -1,0 +1,1 @@
+FAIL: both pending clears survive an open nested edit

@@ -1,0 +1,36 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "reviewed_head": "5db853c252edf2cb8c81fc10e88f722006f3edb3",
+  "sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+    "Tests/SourceBackspace/run.py": "cd19b861ee8d01d21dec689a2075db72bba3c1d5619e8cda464ca412d1ec0945",
+    "Tests/SourceBackspace/probe-body.m": "78ec1b3ee0426ded571dff84b4b039103128bafb4a0facb263be0d9bfe635c02",
+    "Tests/SourceBackspace/support.h": "7208c472f16ed5a4d9b62a117e2353af3d0e182ddb46c0f50bb5e960e475aa87",
+    "Tests/MultipleWindowsTests.m": "f1300a0309205599ad2e5144838d7a64bfa970724f8ef7a5b251c369da40e786",
+    "Tests/FuzzySearch/HighlightBounds/run.py": "bda66c9962b0b96f980ab1bfba0923b0c5ae16811c5fae27ac64aedccfcaab3f",
+    "Tests/FuzzySearch/HighlightBounds/probe.m": "d6ccc42639c1bc8c8d5dc70aad8353a8f5cebc6fccbd3f6f07e1d06a9f082d33",
+    "Tests/FuzzySearch/Highlights/run.py": "f46f32e6f1db079b1624a0246dc6b28eb6b323802b27cd31d62107dcb1ad8a95",
+    "Tests/FuzzySearch/Highlights/probe.m": "483abbc277e10c233ba066746f5adfcfbb81dfb18fd261c4115776cf07f83ebf",
+    "Tests/run-regression-tests.py": "d66c91268dcb8e48298e99e8d101a59f8c66061b98fb69562d14f620189c0da8"
+  },
+  "sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9",
+    "Tests/SourceBackspace/run.py": "cd19b861ee8d01d21dec689a2075db72bba3c1d5619e8cda464ca412d1ec0945",
+    "Tests/SourceBackspace/probe-body.m": "78ec1b3ee0426ded571dff84b4b039103128bafb4a0facb263be0d9bfe635c02",
+    "Tests/SourceBackspace/support.h": "7208c472f16ed5a4d9b62a117e2353af3d0e182ddb46c0f50bb5e960e475aa87",
+    "Tests/MultipleWindowsTests.m": "f1300a0309205599ad2e5144838d7a64bfa970724f8ef7a5b251c369da40e786",
+    "Tests/FuzzySearch/HighlightBounds/run.py": "bda66c9962b0b96f980ab1bfba0923b0c5ae16811c5fae27ac64aedccfcaab3f",
+    "Tests/FuzzySearch/HighlightBounds/probe.m": "d6ccc42639c1bc8c8d5dc70aad8353a8f5cebc6fccbd3f6f07e1d06a9f082d33",
+    "Tests/FuzzySearch/Highlights/run.py": "f46f32e6f1db079b1624a0246dc6b28eb6b323802b27cd31d62107dcb1ad8a95",
+    "Tests/FuzzySearch/Highlights/probe.m": "483abbc277e10c233ba066746f5adfcfbb81dfb18fd261c4115776cf07f83ebf",
+    "Tests/run-regression-tests.py": "d66c91268dcb8e48298e99e8d101a59f8c66061b98fb69562d14f620189c0da8"
+  },
+  "checks": 21,
+  "scope": "Maintained Python runner decisions with controlled compiler/application subprocess outputs. No native app, editor, or GUI operation."
+}

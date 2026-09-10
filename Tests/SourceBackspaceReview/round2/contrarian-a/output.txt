@@ -1,0 +1,34 @@
+{"scenario": "full", "exit": 0, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/full.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "production-regression", "native_exit": 0, "checks": 310, "original_range_exception": false, "passed": true}, "inherited_repro_in_child": null, "kill_sent": false}
+PASS: full completion marker accepts the controlled 310-check success
+PASS: runner changes the copied application identifier before launch
+PASS: child library root belongs to the disposable copied app
+PASS: native process wait has the documented timeout
+{"scenario": "ambient-repro", "exit": 0, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/ambient-repro.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "production-regression", "native_exit": 0, "checks": 12, "original_range_exception": false, "passed": true}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: normal runner inherits the first-case-only environment switch
+PASS: FINDING: normal runner accepts first-case-only success as full regression success
+PASS: native fixture contains the inherited switch and accepted early success marker
+{"scenario": "original-match", "exit": 0, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/original-match.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "original-crash-negative-control", "native_exit": 1, "checks": 0, "original_range_exception": true, "passed": true}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: negative control accepts the controlled original range signature
+{"scenario": "wrong-index", "exit": 1, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/wrong-index.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "original-crash-negative-control", "native_exit": 1, "checks": 0, "original_range_exception": false, "passed": false}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: negative control rejects wrong-index
+{"scenario": "unrelated-exception", "exit": 1, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/unrelated-exception.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "original-crash-negative-control", "native_exit": 1, "checks": 0, "original_range_exception": false, "passed": false}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: negative control rejects unrelated-exception
+{"scenario": "signal-without-signature", "exit": 1, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/signal-without-signature.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "original-crash-negative-control", "native_exit": -11, "checks": 0, "original_range_exception": false, "passed": false}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: negative control rejects signal-without-signature
+{"scenario": "successful-old-app", "exit": 1, "report": {"app": "/private/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/successful-old-app.app", "binary_sha256": "1864c3809633da3a8c5f2ef9adf5ec1900b3cb8a249ea49ea7b5b8da2ac2e713", "mode": "original-crash-negative-control", "native_exit": 0, "checks": 12, "original_range_exception": false, "passed": false}, "inherited_repro_in_child": "1", "kill_sent": false}
+PASS: negative control rejects successful-old-app
+{"scenario": "timeout", "exit": "Probe timed out; kill sent to disposable PID 987654. Log: /var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/backspace-review-runner-rs0bz2av/timeout-output/native.log", "report": null, "inherited_repro_in_child": "1", "kill_sent": true}
+PASS: negative control rejects timeout and sends kill to its disposable child
+{"bounds_scenario": "expected-assertion", "treated_as_expected_result": true, "exit": null, "output": "REJECTED: expected-assertion FAIL: repeated invalidations coalesce one delayed selector\n"}
+PASS: HighlightBounds accepts a controlled intended mutation assertion
+{"bounds_scenario": "loader-failure", "treated_as_expected_result": true, "exit": null, "output": "REJECTED: loader-failure dyld: Library not loaded: /missing/review.dylib\n"}
+PASS: FINDING: HighlightBounds also accepts an unrelated loader failure as a mutation rejection
+{"bounds_scenario": "unrelated-signal", "treated_as_expected_result": true, "exit": null, "output": "REJECTED: unrelated-signal \n"}
+PASS: FINDING: HighlightBounds also accepts an unrelated signal as a mutation rejection
+{"bounds_scenario": "surviving-mutant", "treated_as_expected_result": false, "exit": "Mutation unexpectedly passed: surviving-mutant", "output": ""}
+PASS: HighlightBounds rejects a mutant that exits successfully
+{"bounds_scenario": "failed-positive", "treated_as_expected_result": false, "exit": "dyld: Library not loaded\n", "output": ""}
+PASS: HighlightBounds rejects the same loader failure for a positive run
+PASS: aggregate runs SourceBackspace first and stops on its failure
+PASS: aggregate does not print all-pass after a child failure
+PASS: production and reviewed test source hashes remain unchanged
