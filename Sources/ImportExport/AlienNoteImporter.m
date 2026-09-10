@@ -252,7 +252,7 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 		[@[@"htm", @"html", @"shtml", @"xhtml", @"xht", @"webarchive", @"rtf", @"rtfd", @"rtx", @"nvhelp", @"doc", @"docx", @"pdf"] containsObject:extension] ||
 		[filename UTIOfFileConformsToType:@"public.html"] || [filename UTIOfFileConformsToType:@"com.apple.webarchive"]) return nil;
 	if (fileType != TEXT_TYPE_ID &&
-		![@[@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv"] containsObject:extension] &&
+		![@[@"txt", @"text", @"utf8", @"taskpaper", @"md", @"markdown", @"mdown", @"mkd", @"mmd", @"multimarkdown", @"textile", @"json", @"csv", @"tsv", @"org"] containsObject:extension] &&
 		![filename UTIOfFileConformsToType:@"public.plain-text"]) return nil;
 	NSData *data = [NSData dataWithContentsOfFile:filename options:NSDataReadingUncached error:NULL];
 	NSStringEncoding encoding = NSUTF8StringEncoding;

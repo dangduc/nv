@@ -201,10 +201,29 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 }
 
 - (void)addLinkAttributesForRange:(NSRange)changedRange {
-//    return;
+	[self addLinkAttributesForRange:changedRange syntaxIdentifier:nil];
+}
+
+- (void)addLinkAttributesForRange:(NSRange)changedRange syntaxIdentifier:(NSString *)syntaxIdentifier {
+	if (changedRange.location > [self length]) return;
+	changedRange.length = MIN(changedRange.length, [self length] - changedRange.location);
+	BOOL isOrg = [syntaxIdentifier isEqualToString:@"org"];
+	if (isOrg) {
+		// Rebuild complete lines after edits, including when a closing bracket is removed.
+		changedRange = [[self string] lineRangeForRange:changedRange];
+		[self removeAttribute:NSLinkAttributeName range:changedRange];
+	}
 	if (!changedRange.length)
 		return;
-	
+	if (isOrg) [self _addOrgLinkAttributesForRange:changedRange];
+	else {
+		[self _addDetectedLinkAttributesForRange:changedRange];
+		[self _addDoubleBracketedNVLinkAttributesForRange:changedRange];
+	}
+}
+
+- (void)_addDetectedLinkAttributesForRange:(NSRange)changedRange {
+	if (!changedRange.length) return;
 	static NSDataDetector *linkDetector = nil;
 	if (!linkDetector) {
 		linkDetector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:NULL];
@@ -217,9 +236,42 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 					 range:NSMakeRange([match range].location + changedRange.location, [match range].length)];
 		}
 	}
+}
 
-	//also detect double-bracketed URLs here
-	[self _addDoubleBracketedNVLinkAttributesForRange:changedRange];
+- (void)_addOrgLinkAttributesForRange:(NSRange)changedRange {
+	NSString *string = [self string];
+	NSUInteger cursor = changedRange.location, limit = NSMaxRange(changedRange);
+	while (cursor < limit) {
+		NSUInteger lineEnd = MIN(NSMaxRange([string lineRangeForRange:NSMakeRange(cursor, 0)]), limit);
+		NSRange opening = [string rangeOfString:@"[[" options:NSLiteralSearch range:NSMakeRange(cursor, lineEnd - cursor)];
+		if (opening.location == NSNotFound) {
+			[self _addDetectedLinkAttributesForRange:NSMakeRange(cursor, lineEnd - cursor)];
+			cursor = lineEnd; continue;
+		}
+		[self _addDetectedLinkAttributesForRange:NSMakeRange(cursor, opening.location - cursor)];
+		NSUInteger start = NSMaxRange(opening);
+		NSRange closing = [string rangeOfString:@"]]" options:NSLiteralSearch range:NSMakeRange(start, lineEnd - start)];
+		NSUInteger end = closing.location == NSNotFound ? lineEnd : NSMaxRange(closing);
+		// Org targets have their own meaning. Detected domains and nv wiki links
+		// inside them must never turn file/ID/heading targets into a web or note search.
+		[self removeAttribute:NSLinkAttributeName range:NSMakeRange(opening.location, end - opening.location)];
+		if (closing.location != NSNotFound) {
+			NSRange interior = NSMakeRange(start, closing.location - start);
+			NSRange separator = [string rangeOfString:@"][" options:NSLiteralSearch range:interior];
+			NSRange targetRange = NSMakeRange(start, (separator.location == NSNotFound ? closing.location : separator.location) - start);
+			NSString *target = [string substringWithRange:targetRange];
+			NSURL *URL = [NSURL URLWithString:target];
+			NSString *scheme = [[URL scheme] lowercaseString];
+			BOOL webURL = ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]) && [[URL host] length];
+			BOOL cleanTarget = [target rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location == NSNotFound &&
+				[target rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"[]\\"]].location == NSNotFound;
+			if (webURL && cleanTarget) {
+				NSRange label = separator.location == NSNotFound ? targetRange : NSMakeRange(NSMaxRange(separator), closing.location - NSMaxRange(separator));
+				if (label.length) [self addAttribute:NSLinkAttributeName value:URL range:label];
+			}
+		}
+		cursor = end;
+	}
 }
 
 - (void)_addDoubleBracketedNVLinkAttributesForRange:(NSRange)changedRange {

@@ -17,7 +17,7 @@ vendor = root / 'ThirdParty/TreeSitter'
 objects = []
 for source in sorted((root / 'Sources/Editor/TreeSitter').glob('NVTreeSitter*.c')):
     target = build / (source.stem + '.o')
-    subprocess.run(common + ['-I', str(vendor / 'runtime/include'), '-I', str(vendor / 'runtime/src'),
+    subprocess.run(common + ['-I', str(vendor / 'runtime/include'), '-I', str(vendor / 'org/src'), '-I', str(vendor / 'runtime/src'),
                             '-c', str(source), '-o', str(target)], check=True)
     objects.append(str(target))
 binary = build / 'probe'

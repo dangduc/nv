@@ -34,7 +34,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
         [control setAutoresizingMask:NSViewMinYMargin]; [control setTarget:self];
         [splitSubview addSubview:control];
     }
-    for (NSArray *entry in @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"]]) {
+    for (NSArray *entry in @[@[@"Plain Text", @"plain"], @[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"JSON", @"json"], @[@"Org", @"org"]]) {
         [sourceSyntaxControl addItemWithTitle:NSLocalizedString(entry[0], nil)];
         [[sourceSyntaxControl lastItem] setRepresentedObject:entry[1]];
     }

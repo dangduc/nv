@@ -91,7 +91,7 @@ All screenshots use disposable sample notes.
 | Use system editor colors | Choose **View > Color Schemes > Follow System Appearance**. |
 | Open a preview | Choose **Preview > Preview Format**, then select Markdown, Textile, or HTML. |
 | Return to editing | Choose **Preview > Show Source**. |
-| Select source syntax | Choose **View > Syntax Type**, then select Plain Text, Markdown, Textile, HTML, or JSON. |
+| Select source syntax | Choose **View > Syntax Type**, then select Plain Text, Markdown, Textile, HTML, JSON, or Org. |
 | Show optional controls | Use the title, tag, and Source/Preview visibility commands in **View**. |
 | Show or hide the notes list | Choose **View > Show Notes List** or **Hide Notes List**. |
 | Manage backups | Open **Preferences > Backups**. |
@@ -199,7 +199,13 @@ The suites use temporary notes and a copy of the app. They cover shared edits, U
 
 ## Source and preview
 
-New notes start as editable Plain Text. The syntax menu enables Tree-sitter highlighting for Markdown, HTML, and JSON.
+New notes start as editable Plain Text. The syntax menu enables Tree-sitter highlighting for Markdown, HTML, JSON, and Org.
+
+Org source highlights headings, tags, properties, lists, checkboxes, timestamps, links, tables, blocks, default TODO/DONE keywords, and ordinary emphasis.
+Importing an `.org` file selects Org syntax and preserves its source encoding.
+Existing file libraries recognize `.org` files without changing their selected output extension.
+Org web links open their URL. File, ID, and heading targets remain source text without an action.
+Org syntax does not provide agenda views, folding, task commands, or embedded-language highlighting.
 Textile source supports markup insertion commands with plain display.
 Simplenote support is removed. Existing local notes remain available.
 Syntax settings stay in the local library. They are independent of each window's preview format.

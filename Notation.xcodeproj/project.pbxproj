@@ -235,6 +235,8 @@
 		BD109811989EEE3F3DA146C3 /* fzf.c in Sources */ = {isa = PBXBuildFile; fileRef = 75155DE78FC3BEDC660B250E /* fzf.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
 		84315EA16115E2893A5C94D7 /* utf8proc.c in Sources */ = {isa = PBXBuildFile; fileRef = C12DBBCCFCAA6C037BF047F9 /* utf8proc.c */; settings = {COMPILER_FLAGS = "-std=c11 -DUTF8PROC_STATIC"; }; };
 		E8952D246642677D1AE78F9C /* SearchLicenses in Resources */ = {isa = PBXBuildFile; fileRef = 52C49B93E33D3BBAA40DC328 /* SearchLicenses */; };
+		AA52C58EDC5C895FCB4B7D97 /* NVTreeSitterOrg.c in Sources */ = {isa = PBXBuildFile; fileRef = A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
+		43B26080361940BD851AFC25 /* NVTreeSitterOrgScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -879,6 +881,8 @@
 		0BC7883BB037C6A432EEC3C5 /* utf8proc_data.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "utf8proc-2.10.0/utf8proc_data.c"; sourceTree = "<group>"; };
 		52C49B93E33D3BBAA40DC328 /* SearchLicenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "SearchLicenses"; sourceTree = "<group>"; };
 		A14892586C9D2FE481362405 /* SavedSearchesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedSearchesController.h; sourceTree = "<group>"; };
+		A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrg.c; sourceTree = "<group>"; };
+		E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrgScanner.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1803,6 +1807,8 @@
 				7DAF04F624A1F2CFFEC0DC49 /* NVTreeSitterHTML.c */,
 				7613A4ADA82505E131A80F60 /* NVTreeSitterHTMLScanner.c */,
 				0ECF8B3BF802BE5326B8B1F0 /* NVTreeSitterJSON.c */,
+				E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */,
+				A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */,
 				9A9CCBA5DB08E92BA219973B /* NVTreeSitterMarkdown.c */,
 				714E37FB69F81C7CAB1204EE /* NVTreeSitterMarkdownInline.c */,
 				3490BDA62F6391C280555488 /* NVTreeSitterMarkdownInlineScanner.c */,
@@ -2049,6 +2055,8 @@
 				EC236212744ECE63069CBC5E /* NVTreeSitterHTML.c in Sources */,
 				F59A90A203CF76F5F187A2D3 /* NVTreeSitterHTMLScanner.c in Sources */,
 				0607E914658CC0A9666D07CD /* NVTreeSitterJSON.c in Sources */,
+				43B26080361940BD851AFC25 /* NVTreeSitterOrgScanner.c in Sources */,
+				AA52C58EDC5C895FCB4B7D97 /* NVTreeSitterOrg.c in Sources */,
 				E3066AD461C34F4133D1B2D2 /* NVTreeSitterMarkdown.c in Sources */,
 				5A2FD1133F798A9A9A3F95D7 /* NVTreeSitterMarkdownInline.c in Sources */,
 				2082BFB8705059010EE94B8B /* NVTreeSitterMarkdownInlineScanner.c in Sources */,
@@ -2573,6 +2581,7 @@
 					"$(PROJECT_DIR)/ThirdParty/Crypto",
 					"$(PROJECT_DIR)/ThirdParty/fzf-native",
 					"$(PROJECT_DIR)/ThirdParty/TreeSitter/runtime/include",
+					"$(PROJECT_DIR)/ThirdParty/TreeSitter/org/src",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/ThirdParty/ODBEditor",
 					"$(PROJECT_DIR)/ThirdParty/PTHotKeys",
@@ -2666,6 +2675,7 @@
 					"$(PROJECT_DIR)/ThirdParty/Crypto",
 					"$(PROJECT_DIR)/ThirdParty/fzf-native",
 					"$(PROJECT_DIR)/ThirdParty/TreeSitter/runtime/include",
+					"$(PROJECT_DIR)/ThirdParty/TreeSitter/org/src",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/ThirdParty/ODBEditor",
 					"$(PROJECT_DIR)/ThirdParty/PTHotKeys",
