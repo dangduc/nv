@@ -19,6 +19,8 @@ with tempfile.TemporaryDirectory(prefix="nvalt-source-viewers-") as temporary:
     }))
     shutil.copy2(repo / "ThirdParty/MultiMarkdown/multimarkdown", resources / "multimarkdown")
     shutil.copytree(repo / "ThirdParty/Textile_2.12", resources / "Textile_2.12")
+    shutil.copy2(repo / "ThirdParty/OrgPreview/nv-org-preview", resources / "nv-org-preview")
+    shutil.copy2(repo / "Tests/Regression/org-preview/core.org", resources / "org-fixture.org")
     binary = root / "RendererTests"
     subprocess.run([
         "xcrun", "clang", "-arch", "x86_64", "-mmacosx-version-min=10.13",

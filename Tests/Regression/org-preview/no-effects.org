@@ -1,0 +1,8 @@
+* Read-only input
+#+INCLUDE: "local-data.txt"
+#+SETUPFILE: local-data.txt
+#+BEGIN_SRC sh :results output :exports both
+printf NV_ORG_CODE_SENTINEL > code-ran.txt
+#+END_SRC
+#+CALL: test()
+Text after commands.

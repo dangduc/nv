@@ -228,12 +228,13 @@ static NSString *NVInertDocument(NSString *input, NSString *title, NSError **err
     NSString *source = [_snapshot source];
     NSData *input = [source dataUsingEncoding:NSUTF8StringEncoding];
     NSString *converted = nil;
-    if (!source || ![@[@"markdown", @"textile", @"html"] containsObject:_identifier]) error = NVRenderError(NVMarkupUnsupportedContent, @"This viewer does not support this note's content.");
+    if (!source || ![@[@"markdown", @"textile", @"html", @"org"] containsObject:_identifier]) error = NVRenderError(NVMarkupUnsupportedContent, @"This viewer does not support this note's content.");
     else if (!input) error = NVRenderError(NVMarkupInvalidOutput, @"The source cannot be encoded as UTF-8.");
     else if ([input length] > NVSourceByteLimit) error = NVRenderError(NVMarkupLimitExceeded, @"The source exceeds the 16 MB viewer limit.");
     else if ([self isCancelled]) error = NVRenderError(NVMarkupCancelled, @"Rendering was cancelled.");
     else if ([_identifier isEqualToString:@"html"]) converted = source;
     else if ([_identifier isEqualToString:@"markdown"]) converted = [self runHelper:[[_bundle resourcePath] stringByAppendingPathComponent:@"multimarkdown"] arguments:@[] input:input error:&error];
+    else if ([_identifier isEqualToString:@"org"]) converted = [self runHelper:[[_bundle resourcePath] stringByAppendingPathComponent:@"nv-org-preview"] arguments:@[] input:input error:&error];
     else converted = [self runHelper:@"/usr/bin/perl" arguments:@[[[_bundle resourcePath] stringByAppendingPathComponent:@"Textile_2.12/textilize.pl"]] input:input error:&error];
     if (converted && !error && ![self isCancelled]) {
         NSString *HTML = NVInertDocument([converted length] ? converted : @"<p></p>", [_snapshot title], &error);

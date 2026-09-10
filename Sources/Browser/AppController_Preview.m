@@ -38,7 +38,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
         [sourceSyntaxControl addItemWithTitle:NSLocalizedString(entry[0], nil)];
         [[sourceSyntaxControl lastItem] setRepresentedObject:entry[1]];
     }
-    for (NSArray *entry in @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"]]) {
+    for (NSArray *entry in @[@[@"Markdown", @"markdown"], @[@"Textile", @"textile"], @[@"HTML", @"html"], @[@"Org", @"org"]]) {
         [viewerTypeControl addItemWithTitle:NSLocalizedString(entry[0], nil)];
         [[viewerTypeControl lastItem] setRepresentedObject:entry[1]];
     }
@@ -161,7 +161,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
 }
 - (IBAction)selectPreviewMode:(id)sender {
     NSString *identifier = [sender isKindOfClass:[NSPopUpButton class]] ? [[sender selectedItem] representedObject] : [sender representedObject];
-    if (![@[@"markdown", @"textile", @"html"] containsObject:identifier]) return;
+    if (![@[@"markdown", @"textile", @"html", @"org"] containsObject:identifier]) return;
     [self captureBodyPresentation];
     [selectedViewerIdentifier release]; selectedViewerIdentifier = [identifier copy];
     if (viewingNote) { [self updateBodyPresentation]; [self updateViewerSnapshot]; }

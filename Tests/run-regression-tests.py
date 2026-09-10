@@ -9,6 +9,8 @@ checks = [
     'native-list/run-native.py',
     'source-highlighting/run.py',
     'source-storage/run.py',
+    'org-preview/run.py',
+    'org-preview-ui/run.py',
     'source-viewers/run.py',
     'source-viewers/run-viewer.py',
     'source-workflow/run.py',

@@ -291,7 +291,7 @@ Search commands restore the toolbar and complete window layout before they focus
 The body header selects Source or Preview. New notes and windows start in Source with Plain Text syntax.
 A restored window can return to its saved preview.
 The source syntax menu controls highlighting and source insertion commands independently of the preview format menu.
-Markdown, Textile, and HTML are the initial read-only viewers.
+Markdown, Textile, HTML, and Org are the read-only viewers.
 
 [AppController_Preview.m](Sources/Browser/AppController_Preview.m) hosts the controls and one lazy [PreviewController](Sources/Preview/PreviewController.m).
 Source-only windows allocate no viewer or web view.
@@ -310,8 +310,15 @@ Source restoration lays out through the saved viewport before applying that posi
 Library replacement and restoration reject older state callbacks. Synchronous application termination can use the last cached viewer position.
 
 [NVNoteContentSnapshot](Sources/Preview/NVNoteContentSnapshot.m) copies the library identity, note UUID, generation, title, source, syntax, and scoped asset root.
-[NVMarkupRenderer](Sources/Preview/NVMarkupRenderer.m) converts Markdown or Textile asynchronously and sanitizes direct HTML.
+[NVMarkupRenderer](Sources/Preview/NVMarkupRenderer.m) converts Markdown, Textile, or Org asynchronously and sanitizes direct HTML.
 It bounds helper time, output, and cancellation. Preview and HTML export consume the same immutable result.
+Org uses the bundled Intel `nv-org-preview` helper and its pinned Orgize source dependencies.
+The helper reads UTF-8 from standard input and writes HTML to standard output.
+It preserves task labels and literal blocks without evaluating source code or expanding include directives.
+The standard renderer sanitizer and scoped asset rules also apply to Org.
+Normal Xcode builds copy the helper. The [rebuild script](Scripts/rebuild-org-preview.py) checks a pinned, offline Rust build.
+It renders complete text snapshots without changing source syntax or the note model.
+[The converter manifest](ThirdParty/OrgPreview/manifest.json) and [rebuild procedure](ThirdParty/OrgPreview/README.md) describe its source and executable.
 The browser and provider reject obsolete results after note changes, viewer changes, or closure.
 
 The viewer uses `WKWebView` with inert note content, a content security policy, network blocking, and scoped local assets.

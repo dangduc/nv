@@ -1,6 +1,6 @@
 # nvALT — dangduc fork
 
-nvALT is a macOS notes app with editable source and read-only Markdown, Textile, and HTML previews.
+nvALT is a macOS notes app with editable source and read-only Markdown, Textile, HTML, and Org previews.
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
 Every window keeps the notes list above the editor. All windows share one notes library.
@@ -89,7 +89,7 @@ All screenshots use disposable sample notes.
 | Edit tags | Choose **Note > Tag**. Press **Return** to commit, or **Escape** to cancel. |
 | Resize the list | Drag the divider between the list and the editor. |
 | Use system editor colors | Choose **View > Color Schemes > Follow System Appearance**. |
-| Open a preview | Choose **Preview > Preview Format**, then select Markdown, Textile, or HTML. |
+| Open a preview | Choose **Preview > Preview Format**, then select Markdown, Textile, HTML, or Org. |
 | Return to editing | Choose **Preview > Show Source**. |
 | Select source syntax | Choose **View > Syntax Type**, then select Plain Text, Markdown, Textile, HTML, or JSON. |
 | Show optional controls | Use the title, tag, and Source/Preview visibility commands in **View**. |
@@ -206,7 +206,14 @@ Syntax settings stay in the local library. They are independent of each window's
 
 Each window can edit Source or show a read-only preview of the same note.
 Switching modes retains the source, Undo, caret, and scroll position. Existing composition commits only in the editor being hidden.
-Markdown preview uses MultiMarkdown. Preview and Save HTML use the same rendered result.
+Markdown preview uses MultiMarkdown. Org preview uses a bundled Orgize converter.
+Preview and Save HTML use the same rendered result.
+
+Org preview shows headings, emphasis, task labels, lists, tables, links, and literal code or example blocks.
+Code stays text, and include directives remain visible without loading other files.
+Choose **Preview > Preview Format > Org** to view any note as Org, independently of its source syntax.
+The converter does not require an installed Rust toolchain, Pandoc, or Emacs.
+Custom Emacs export settings, macros, footnotes, and agenda views are outside this viewer's scope.
 
 ![Read-only Markdown preview in the same window](docs/screenshots/readme-preview.png)
 
