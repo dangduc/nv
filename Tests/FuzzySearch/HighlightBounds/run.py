@@ -35,7 +35,23 @@ for index,path in enumerate(['Sources/Search/NVFZF.c','ThirdParty/fzf-native/fzf
     obj=OUT/f'{index}.o';args=flags if path.endswith('.m') else [f for f in flags if f not in ['-fno-objc-arc','-Wextra','-Werror']]+['-std=c11']
     subprocess.run(['xcrun','clang',*args,'-c',str(ROOT/path),'-o',str(obj)],check=True);objects.append(str(obj))
 
+EXPECTED_MUTATION_FAILURES = {
+    'missing_generation': 'stale query generation cannot install highlights',
+    'missing_row_context': 'changed duplicate occurrence rejects old row highlights',
+    'uncancelled_discovery': 'literal discovery obeys cancellation before full scan',
+    'unbounded_discovery': 'literal discovery stops at occurrence cap before allocation grows',
+    'uncapped_editor': 'editor independently caps oversized native range input',
+    'uncoalesced_invalidation': 'repeated invalidations coalesce one delayed selector',
+    'uncancelled_clear': 'explicit cleanup cancels the queued selector',
+    'unsafe_character_edit_clear': 'cleanup and range publication defer all layout mutation during character processing',
+    'zero_delay_edit_retry': 'open character batch retries with a positive minimum delay',
+    'unsafe_character_edit_publication': 'cleanup and range publication defer all layout mutation during character processing',
+    'missing_source_validation': 'canonical equivalents with different UTF16 reject snapshot offsets',
+}
+
 def run_case(name, refresh_text, editor_text, query_text, positive, object_files=None):
+    if not positive and name not in EXPECTED_MUTATION_FAILURES:
+        raise SystemExit('Mutation has no expected assertion: '+name)
     (OUT/'refresh.inc').write_text(refresh_text);(OUT/'editor.inc').write_text(editor_text);(OUT/'query.m').write_text(query_text)
     binary=OUT/name
     subprocess.run(['xcrun','clang',*flags,str(HERE/'probe.m'),str(OUT/'query.m'),*(object_files or objects),'-framework','Cocoa','-o',str(binary)],check=True)
@@ -43,7 +59,10 @@ def run_case(name, refresh_text, editor_text, query_text, positive, object_files
     result=subprocess.run([str(binary)],env=dict(os.environ,UBSAN_OPTIONS='halt_on_error=1'),capture_output=True,text=True,timeout=40)
     (OUT/(name+'.log')).write_text(result.stdout+result.stderr)
     if positive and result.returncode: raise SystemExit(result.stdout+result.stderr)
-    if not positive and result.returncode==0: raise SystemExit('Mutation unexpectedly passed: '+name)
+    if not positive:
+        expected = 'FAIL: '+EXPECTED_MUTATION_FAILURES[name]
+        if result.returncode != 1 or expected not in result.stderr.splitlines():
+            raise SystemExit(f'Mutation did not fail at its expected assertion: {name} (exit {result.returncode})\n'+result.stdout+result.stderr)
     print(result.stdout if positive else 'REJECTED: '+name+' '+result.stderr.strip(),end='\n')
 
 run_case('positive',refresh,editor,query,True)

@@ -69,6 +69,7 @@ with tempfile.TemporaryDirectory(prefix="nvalt-source-backspace-") as temporary:
         binary = app / "Contents/MacOS" / info["CFBundleExecutable"]
         environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root),
                            DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root / "Temp") + "/")
+        environment.pop("NV_BACKSPACE_REPRO_ONLY", None)
         if args.expect_original_crash:
             environment["NV_BACKSPACE_REPRO_ONLY"] = "1"
         log_path = args.output / "native.log"
@@ -86,7 +87,8 @@ with tempfile.TemporaryDirectory(prefix="nvalt-source-backspace-") as temporary:
         original_failure = (result != 0 and "BACKSPACE FIRST DELETE length=26" in output and
                             "SOURCE BACKSPACE EXCEPTION NSRangeException" in output and
                             re.search(r"(?:Index|index) 25 out of bounds.*length 25", output) is not None)
-        passed = original_failure if args.expect_original_crash else result == 0 and "SOURCE BACKSPACE PASSED" in output
+        full_completion = re.search(r"SOURCE BACKSPACE PASSED \([1-9][0-9]* checks\)$", output, re.MULTILINE) is not None
+        passed = original_failure if args.expect_original_crash else result == 0 and full_completion
         report = {"app": str(args.app.resolve()), "binary_sha256": hashlib.sha256(binary.read_bytes()).hexdigest(),
                   "mode": "original-crash-negative-control" if args.expect_original_crash else "production-regression",
                   "native_exit": result, "checks": len(re.findall(r"PASS: ", output)),
