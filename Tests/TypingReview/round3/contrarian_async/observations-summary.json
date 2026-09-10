@@ -1,0 +1,46 @@
+{
+  "short-plain": {
+    "words": 24,
+    "links": 25,
+    "main": 0,
+    "live_storage": 0,
+    "wrong_queue": 0,
+    "production_worker_frames": 49,
+    "helper_frames": 0,
+    "min_source_length": 53,
+    "max_source_length": 169
+  },
+  "short-org": {
+    "words": 24,
+    "links": 24,
+    "main": 0,
+    "live_storage": 0,
+    "wrong_queue": 0,
+    "production_worker_frames": 48,
+    "helper_frames": 0,
+    "min_source_length": 70,
+    "max_source_length": 185
+  },
+  "long-plain": {
+    "words": 1,
+    "links": 23,
+    "main": 0,
+    "live_storage": 0,
+    "wrong_queue": 0,
+    "production_worker_frames": 24,
+    "helper_frames": 0,
+    "min_source_length": 100054,
+    "max_source_length": 100169
+  },
+  "long-org": {
+    "words": 1,
+    "links": 23,
+    "main": 0,
+    "live_storage": 0,
+    "wrong_queue": 0,
+    "production_worker_frames": 24,
+    "helper_frames": 0,
+    "min_source_length": 100070,
+    "max_source_length": 100185
+  }
+}

@@ -32,6 +32,7 @@ with tempfile.TemporaryDirectory(prefix="nvalt-backup-teardown-") as temporary:
 
     # Prove the checks distinguish each unsafe path from the intended teardown.
     mutations = {
+        "source_analysis_not_closed": source.replace("[sourceAnalysis close];", "", 1),
         "session_commit": source.replace("- (void)closeWithoutCommitting {", "- (void)closeWithoutCommitting { [self commitPendingTextChanges];", 1),
         "editor_commit": source.replace("if (finishOldEditing) [self finishEditing];", "[self finishEditing];", 1),
         "deselection_before_detach": source.replace(

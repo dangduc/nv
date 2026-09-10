@@ -1,0 +1,1398 @@
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=0 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=1 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=2 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=3 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=4 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=5 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=6 sessions=6 PASS
+PASS: six independent initial projections become current
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: both empty-query sessions retain queued edits behind publication gate
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: body edits immediately invalidate active-query membership
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: obsolete projection rejects every row action
+PASS: all interleaved projections converge after unblocking
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+PASS: deleted note cannot reappear after trailing dirty publication
+PASS: history and fresh oracle both become current
+PASS: eventual occurrence keys and order equal fresh projection
+PASS: eventual row targets equal fresh projection by object identity
+PASS: result and unique-note counts equal fresh projection
+PASS: all-row commands resolve exactly the current unique notes
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: each occurrence key resolves to its current row
+PASS: no deleted object survives in visible rows
+PASS: superseded dirty-row work drains completely
+MATRIX ordering=7 sessions=6 PASS
+PASS: multi-browser projection matrix (1389 checks; 8 orderings; 48 browser histories)

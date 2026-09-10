@@ -1,0 +1,9 @@
+{
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "command": "python3 Tests/TypingReview/round3/ousterhout/run.py",
+  "application_controller_sha256": "f8af0db6aefad0ac33352a0266b2941169410aec2cb87baee1c70cb64c832425",
+  "browser_controller_sha256": "ba0d762fad49ac17f566a6e4869a83a46b428cc5b9cdb2dcbe3b1cedd39006ed",
+  "multiple_windows_sha256": "991c8f67fe18645715851083d601263757796e19e41142b8cdd00c47fb2d3caf",
+  "native_exit": 0,
+  "passed": true
+}

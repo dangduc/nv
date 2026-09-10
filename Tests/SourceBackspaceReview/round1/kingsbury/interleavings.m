@@ -3,7 +3,7 @@ static NSUInteger Checks, Destroyed;
 static void Check(BOOL ok, const char *name) { if(!ok){fprintf(stderr,"FAIL: %s\n",name);exit(1);} ++Checks; }
 static void Pump(void) { [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.04]]; }
 static const NSUInteger NVSearchMaximumDisplayedRanges = 1024;
-@interface Editor : NSObject { @public BOOL searchHighlightsInvalidated; NSTextStorage *storage; NSLayoutManager *layout; }
+@interface Editor : NSObject { @public BOOL searchHighlightsInvalidated, hasSearchHighlights; NSTextStorage *storage; NSLayoutManager *layout; }
 - (void)invalidateSearchHighlights;
 - (void)removeHighlightedTerms;
 - (void)setSearchHighlightRanges:(NSArray *)ranges;

@@ -22,6 +22,7 @@ NSString *titleOfNote(NoteObject *note) { return note->titleString; }
 // In-memory doubles preserve the model's ivar layout. Production browser and table methods
 // run against real, hidden AppKit windows. No notes directory opens.
 NSString *NoteTitleColumnString = @"title";
+NSString *NoteDateModifiedColumnString = @"Date Modified";
 static NSUInteger ContentsReads, LibraryReads, Comparisons, Checks;
 static BOOL Autocomplete;
 static NSUInteger LabelWrites, ClosedTagEditors;

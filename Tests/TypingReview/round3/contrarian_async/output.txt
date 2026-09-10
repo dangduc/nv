@@ -1,0 +1,47 @@
+2026-09-10 14:47:02.721 nvALT[43251:345640274] PASS: isolated preferences domain
+2026-09-10 14:47:02.721 nvALT[43251:345640274] PASS: copied app inside disposable test root
+2026-09-10 14:47:02.723 nvALT[43251:345640274] PASS: temporary library directory exists
+2026-09-10 14:47:02.724 nvALT[43251:345640274] PASS: temporary library opens
+2026-09-10 14:47:02.808 nvALT[43251:345640274] verified 0 notes in 0.000267029 s
+2026-09-10 14:47:03.508 nvALT[43251:345640274] verified 8 notes in 0.000908971 s
+2026-09-10 14:47:04.163 nvALT[43251:345640274] PASS: exactly twenty disposable notes populate actual library
+2026-09-10 14:47:04.243 nvALT[43251:345640274] PASS: short-plain: selected native editor and initial count settle
+2026-09-10 14:47:04.243 nvALT[43251:345640274] PASS: short-plain: native word count is visible
+2026-09-10 14:47:04.245 nvALT[43251:345640274] PASS: short-plain: native source editor owns focus
+2026-09-10 14:47:05.955 nvALT[43251:345640274] PASS: short-plain: actual typing publishes complete current links and count
+2026-09-10 14:47:05.956 nvALT[43251:345640274] PASS: short-plain: every source character reaches editor and committed note
+2026-09-10 14:47:05.956 nvALT[43251:345640274] PASS: short-plain: URL and wiki links survive typed edits
+2026-09-10 14:47:05.956 nvALT[43251:345640274] OBSERVED short-plain words=24 links=25 main=0 live=0 wrongQueue=0 missingHelper=0
+2026-09-10 14:47:05.962 nvALT[43251:345640274] PASS: short-plain: real app enters both original expensive methods
+2026-09-10 14:47:05.962 nvALT[43251:345640274] PASS: short-plain: all expensive calls use private worker objects through production source-analysis worker
+2026-09-10 14:47:06.031 nvALT[43251:345640274] PASS: short-org: selected native editor and initial count settle
+2026-09-10 14:47:06.031 nvALT[43251:345640274] PASS: short-org: native word count is visible
+2026-09-10 14:47:06.032 nvALT[43251:345640274] PASS: short-org: native source editor owns focus
+2026-09-10 14:47:07.709 nvALT[43251:345640274] PASS: short-org: actual typing publishes complete current links and count
+2026-09-10 14:47:07.709 nvALT[43251:345640274] PASS: short-org: every source character reaches editor and committed note
+2026-09-10 14:47:07.709 nvALT[43251:345640274] PASS: short-org: Org web target resolves and file target stays inert
+2026-09-10 14:47:07.709 nvALT[43251:345640274] OBSERVED short-org words=24 links=24 main=0 live=0 wrongQueue=0 missingHelper=0
+2026-09-10 14:47:07.716 nvALT[43251:345640274] PASS: short-org: real app enters both original expensive methods
+2026-09-10 14:47:07.717 nvALT[43251:345640274] PASS: short-org: all expensive calls use private worker objects through production source-analysis worker
+2026-09-10 14:47:07.868 nvALT[43251:345640274] PASS: long-plain: selected native editor and initial count settle
+2026-09-10 14:47:07.868 nvALT[43251:345640274] PASS: long-plain: native word count is visible
+2026-09-10 14:47:07.869 nvALT[43251:345640274] PASS: long-plain: native source editor owns focus
+2026-09-10 14:47:09.714 nvALT[43251:345640274] PASS: long-plain: actual typing publishes complete current links and count
+2026-09-10 14:47:09.715 nvALT[43251:345640274] PASS: long-plain: every source character reaches editor and committed note
+2026-09-10 14:47:09.716 nvALT[43251:345640274] PASS: long-plain: URL and wiki links survive typed edits
+2026-09-10 14:47:09.716 nvALT[43251:345640274] OBSERVED long-plain words=1 links=23 main=0 live=0 wrongQueue=0 missingHelper=0
+2026-09-10 14:47:09.718 nvALT[43251:345640274] PASS: long-plain: real app enters both original expensive methods
+2026-09-10 14:47:09.718 nvALT[43251:345640274] PASS: long-plain: all expensive calls use private worker objects through production source-analysis worker
+2026-09-10 14:47:09.852 nvALT[43251:345640274] PASS: long-org: selected native editor and initial count settle
+2026-09-10 14:47:09.852 nvALT[43251:345640274] PASS: long-org: native word count is visible
+2026-09-10 14:47:09.854 nvALT[43251:345640274] PASS: long-org: native source editor owns focus
+2026-09-10 14:47:11.716 nvALT[43251:345640274] PASS: long-org: actual typing publishes complete current links and count
+2026-09-10 14:47:11.717 nvALT[43251:345640274] PASS: long-org: every source character reaches editor and committed note
+2026-09-10 14:47:11.718 nvALT[43251:345640274] PASS: long-org: Org web target resolves and file target stays inert
+2026-09-10 14:47:11.718 nvALT[43251:345640274] OBSERVED long-org words=1 links=23 main=0 live=0 wrongQueue=0 missingHelper=0
+2026-09-10 14:47:11.721 nvALT[43251:345640274] PASS: long-org: real app enters both original expensive methods
+2026-09-10 14:47:11.721 nvALT[43251:345640274] PASS: long-org: all expensive calls use private worker objects through production source-analysis worker
+2026-09-10 14:47:11.723 nvALT[43251:345640274] PASS: thread, storage and call-stack observations saved
+2026-09-10 14:47:11.729 nvALT[43251:345640274] verified 20 notes in 0.00234306 s
+2026-09-10 14:47:11.730 nvALT[43251:345640274] PASS: disposable library checkpoint succeeds
+2026-09-10 14:47:11.730 nvALT[43251:345640274] TYPING ASYNC PASSED (39 checks)

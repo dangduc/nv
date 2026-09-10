@@ -1,0 +1,18 @@
+PASS: link-only job reaches worker gate
+PASS: second subscriber receives count after first unsubscribes
+PASS: late interest schedules one word-only follow-up after link acceptance
+PASS: shared count equals Cocoa word rules
+PASS: accepted links equal the complete immutable snapshot
+PASS: detaching interested view removes its weak subscriber
+PASS: remaining layout refreshes links without word subscribers
+PASS: hidden count does no new word computation
+PASS: initial count and links publish
+PASS: replacement reaches controlled worker gate
+PASS: character edits invalidate old link actions immediately
+PASS: reattached subscriber receives newest source and syntax result
+PASS: cancelled detached generation never reaches the delegate
+PASS: reattachment applies current Org targets only
+PASS: word count follows final source generation
+PASS: session independently rejects obsolete result generations
+PASS: attribute publication neither advances source generation nor loops
+PASS: 17 headless review checks across two interleaving probes

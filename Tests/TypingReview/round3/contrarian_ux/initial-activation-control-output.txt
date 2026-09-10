@@ -1,0 +1,30 @@
+2026-09-10 14:40:16.562 nvALT[42813:345633821] PASS: isolated preferences domain
+2026-09-10 14:40:16.562 nvALT[42813:345633821] PASS: copied app inside disposable test root
+2026-09-10 14:40:16.564 nvALT[42813:345633821] PASS: temporary library directory exists
+2026-09-10 14:40:16.569 nvALT[42813:345633821] PASS: temporary library opens
+2026-09-10 14:40:16.644 nvALT[42813:345633821] verified 0 notes in 0.000203013 s
+2026-09-10 14:40:16.980 nvALT[42813:345633821] PASS: initial source link analysis completes
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Open Link action=_openLinkFromMenu: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Open With action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Copy Link action=copyLink: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Search With Google action=_searchWithGoogleFromMenu: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Cut action=cut: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Copy action=copy: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Paste action=paste: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Paste and Match Style action=pasteAsPlainText: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Share… action=_performStandardShareMenuItem: target=SHKSharingServicePicker enabled=1 represented=<NSSharingServicePicker: 0x6000016d3a20>
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Quick Look Attachments action=toggleQuickLookPreviewPanel: target=(null) enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Spelling and Grammar action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Substitutions action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Transformations action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Speech action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] MENU fresh title=Layout Orientation action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:40:17.147 nvALT[42813:345633821] PASS: native current menu contains Open Link
+2026-09-10 14:40:17.149 nvALT[42813:345633821] OBSERVE fresh menu activation=(
+)
+2026-09-10 14:40:17.149 nvALT[42813:345633821] FAIL: native Open Link reaches intercepted workspace activation

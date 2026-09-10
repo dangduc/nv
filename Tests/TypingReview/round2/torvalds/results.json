@@ -1,0 +1,61 @@
+{
+  "head": "5eda58bd50bdda6b31ea705ad1ce6b256ffd671a",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "publication_sha256": "3779686cde48078e2ba13d52c1d33007126b5ad0734a1581dd7d778b5b84d976",
+  "production_exit": 0,
+  "negative_control_exit": 1,
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "passed": true,
+  "commands": [
+    [
+      "xcrun",
+      "clang",
+      "-arch",
+      "x86_64",
+      "-mmacosx-version-min=10.13",
+      "-fblocks",
+      "-fno-objc-arc",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-Wno-deprecated-declarations",
+      "-I",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Sources/Editor",
+      "-I",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/torvalds",
+      "-framework",
+      "Cocoa",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round2/torvalds/probe.m",
+      "-o",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/torvalds/production-probe"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-arch",
+      "x86_64",
+      "-mmacosx-version-min=10.13",
+      "-fblocks",
+      "-fno-objc-arc",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-Wno-deprecated-declarations",
+      "-I",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Sources/Editor",
+      "-I",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/torvalds",
+      "-framework",
+      "Cocoa",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round2/torvalds/probe.m",
+      "-o",
+      "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round2/torvalds/negative-control-removals-last-probe"
+    ]
+  ]
+}

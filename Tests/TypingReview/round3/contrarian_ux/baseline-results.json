@@ -1,0 +1,8 @@
+{
+  "app": "/Users/duc/dev/nv/build/SpaceCaretWorktree/build/DerivedDataTypingBaseline/Build/Products/Development/nvALT.app",
+  "binary_sha256": "6a9bc7b304e40072de11e2a976c7d18c89dc41188d3be82bb9deaad3a31c43a7",
+  "mode": "production-regression",
+  "native_exit": 0,
+  "checks": 11,
+  "passed": true
+}

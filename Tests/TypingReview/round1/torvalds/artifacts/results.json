@@ -1,0 +1,10 @@
+{
+  "head": "b3c2162b9adea5e1c2819f7372ff0f7e7986a64a",
+  "command": "python3 Tests/TypingReview/round1/torvalds/run.py",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "native_exit": 0,
+  "passed": true
+}

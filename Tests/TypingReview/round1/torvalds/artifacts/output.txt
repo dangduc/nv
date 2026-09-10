@@ -1,0 +1,3 @@
+PASS: 618 source/syntax fixtures, 1591 bounded nonempty link runs
+PASS: 42 owner/delegate lifetimes, 40 queued cancellations, nil-snapshot restart, empty-result publication
+PASS: all review probes (3854 checks)

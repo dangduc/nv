@@ -39,7 +39,7 @@ static void Pump(void) {
 @end
 
 @interface ReviewEditor : NSObject {
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     NSTextStorage *storage;
     ReviewLayout *layout;
 }

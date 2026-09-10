@@ -31,7 +31,7 @@ static void Pump(void) {
 }
 @end
 @interface Subject : NSObject {
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     NSTextStorage *storage;
     AuditedLayout *layout;
 @public BOOL noColor;

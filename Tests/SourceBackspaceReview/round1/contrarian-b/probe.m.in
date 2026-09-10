@@ -20,7 +20,7 @@ static void Pump(void) {
 }
 
 @interface MatrixEditor : NSObject {
-    BOOL searchHighlightsInvalidated, backgroundIsDark;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights, backgroundIsDark;
     NSTextStorage *storage;
     NSLayoutManager *layout;
     NSRange fixtureMarkedRange;

@@ -1,0 +1,117 @@
+{
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "methods_sha256": "45690ff2829401497d516f8ee2f6c7a4d1ee34b213eb8bd90be5acf69696673e",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "passed": true,
+  "runs": [
+    {
+      "name": "production",
+      "exit": 0,
+      "stdout": "PASS: 80 native shared-storage cases; 4940 checks; 80 current external and 80 current internal actions; 240 menu boundaries\n",
+      "stderr": "",
+      "command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wno-deprecated-declarations",
+        "-I",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds",
+        "-framework",
+        "Cocoa",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round3/torvalds/probe.m",
+        "-o",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds/production"
+      ]
+    },
+    {
+      "name": "negative-highlight",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL case=1: stale highlight must reject target\n",
+      "command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wno-deprecated-declarations",
+        "-I",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds",
+        "-framework",
+        "Cocoa",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round3/torvalds/probe.m",
+        "-o",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds/negative-highlight"
+      ]
+    },
+    {
+      "name": "negative-click",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL case=1: stale clicks cannot reach external or internal action boundary\n",
+      "command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wno-deprecated-declarations",
+        "-I",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds",
+        "-framework",
+        "Cocoa",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round3/torvalds/probe.m",
+        "-o",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds/negative-click"
+      ]
+    },
+    {
+      "name": "negative-menu",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL case=1: superclass menu boundary sees zero obsolete targets\n",
+      "command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-fblocks",
+        "-fno-objc-arc",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wno-deprecated-declarations",
+        "-I",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds",
+        "-framework",
+        "Cocoa",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/Tests/TypingReview/round3/torvalds/probe.m",
+        "-o",
+        "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/TypingReview/round3/torvalds/negative-menu"
+      ]
+    }
+  ]
+}

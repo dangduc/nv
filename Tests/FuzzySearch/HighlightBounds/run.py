@@ -69,11 +69,11 @@ run_case('positive',refresh,editor,query,True)
 if a.negative_controls and not a.build_only:
     mutants=[('missing_generation',refresh.replace('generation == searchHighlightGeneration &&','YES &&'),editor,query),('missing_row_context',refresh.replace('[[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key]','YES'),editor,query),('uncancelled_discovery',refresh,editor,query.replace('if (cancelled && cancelled()) return nil;','if (NO) return nil;')),('unbounded_discovery',refresh,editor,query.replace('NSUInteger occurrences = 0, length = [string length];','maximumCount = NSUIntegerMax; NSUInteger occurrences = 0, length = [string length];')),('uncapped_editor',refresh,editor.replace('if (displayed++ == NVSearchMaximumDisplayedRanges) break;',''),query)]
     mutants += [
-        ('uncoalesced_invalidation', refresh, editor.replace('    if (searchHighlightsInvalidated) return;\n    searchHighlightsInvalidated = YES;', '    searchHighlightsInvalidated = YES;'), query),
+        ('uncoalesced_invalidation', refresh, editor.replace('    if (!hasSearchHighlights || searchHighlightsInvalidated) return;\n    searchHighlightsInvalidated = YES;', '    searchHighlightsInvalidated = YES;'), query),
         ('uncancelled_clear', refresh, editor.replace('    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];\n', ''), query),
         ('unsafe_character_edit_clear', refresh, editor.replace('    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {', '    if (NO) {'), query),
         ('zero_delay_edit_retry', refresh, editor.replace('afterDelay:0.01', 'afterDelay:0'), query),
-        ('unsafe_character_edit_publication', refresh, editor.replace('    [self removeHighlightedTerms];\n    if (searchHighlightsInvalidated) return;\n', '    [self removeHighlightedTerms];\n'), query),
+        ('unsafe_character_edit_publication', refresh, editor.replace('    [self removeHighlightedTerms];\n    if (searchHighlightsInvalidated || ([[self textStorage] editedMask] & NSTextStorageEditedCharacters)) return;\n', '    [self removeHighlightedTerms];\n'), query),
     ]
     for name,r,e,q in mutants:
         if (r,e,q)==(refresh,editor,query): raise SystemExit('Mutation no longer applies: '+name)

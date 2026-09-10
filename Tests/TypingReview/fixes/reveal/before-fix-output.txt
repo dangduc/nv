@@ -1,0 +1,4 @@
+SCENARIO: immediate exact query 'New matching note'
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+FAIL: Reveal synchronously selects the newly added note

@@ -64,7 +64,14 @@ AppController *NVControllerForView(NSView *view) {
 }
 - (void)searchableNoteDidChange:(NoteObject *)note {
     if (!searchService || ![[library allNotes] containsObject:note]) return;
-    if ([searchService updateSnapshot:[self searchSnapshotForNote:note]]) [self invalidateBrowserSearches];
+    NVSearchNoteSnapshot *snapshot = [self searchSnapshotForNote:note];
+    NVSearchNoteSnapshot *previous = [searchService snapshotForUUID:[snapshot noteUUID]];
+    BOOL bodyOnly = previous && [[previous title] isEqual:[snapshot title]] && [[previous tags] isEqual:[snapshot tags]];
+    if ([searchService updateSnapshot:snapshot]) {
+        if (bodyOnly) {
+            for (AppController *browser in [self browserControllers]) [[browser browserSession] noteBodyDidChange:note];
+        } else [self invalidateBrowserSearches];
+    }
 }
 - (void)searchableNoteWasRemoved:(NoteObject *)note {
     NSData *uuid = [NSData dataWithBytes:[note uniqueNoteIDBytes] length:sizeof(CFUUIDBytes)];
@@ -413,7 +420,13 @@ AppController *NVControllerForView(NSView *view) {
 - (BOOL)notationListShouldChange:(NotationController *)notation { return YES; }
 - (void)notationListMightChange:(NotationController *)notation { }
 - (void)notationListDidChange:(NotationController *)notation { [self scheduleBrowserRefresh]; }
-- (void)rowShouldUpdate:(NSInteger)row { [self scheduleBrowserRefresh]; }
+- (void)rowShouldUpdate:(NSInteger)row {
+    // This legacy row is in the library projection, not any browser's order.
+    FastListDataSource *source = [library notesListDataSource];
+    if (row < 0 || (NSUInteger)row >= [source count]) return;
+    NoteObject *note = [library noteObjectAtFilteredIndex:(NSUInteger)row];
+    for (AppController *browser in [self browserControllers]) [[browser browserSession] notePreviewDidChange:note];
+}
 - (void)noteMetadataUpdated:(NoteObject *)note {
     for (AppController *browser in [self browserControllers]) {
         if ([browser selectedNoteObject] == note) [browser updateNoteHeader];
@@ -435,7 +448,7 @@ AppController *NVControllerForView(NSView *view) {
 }
 - (void)noteEditorChanged:(NSNotification *)notification {
     for (AppController *browser in [self browserControllers]) [browser refreshEditorForNote:[notification object]];
-    [self scheduleBrowserRefresh];
+    // The committed model hook already schedules each browser's list update.
 }
 - (void)notation:(NotationController *)notation revealNote:(NoteObject *)note options:(NSUInteger)options {
     if (preservingExternalContents) { [self scheduleBrowserRefresh]; return; }

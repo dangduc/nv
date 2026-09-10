@@ -59,9 +59,8 @@ for removed_token in ("WhiteIBeamCursor", "whiteIBeamCursor", "IBeamCursorIMP",
 assert "TextFindContextShouldNoteChanges" not in app_controller_m
 assert "textFinder = [[NSTextFinder alloc] init];" in linking_editor_m
 source_change_handler = editing_session_m.split("- (void)sourceCharactersChanged:", 1)[1].split("\n}", 1)[0]
-for required_token in ("editedRange", "lineRangeForRange:",
-                       "removeAttribute:NSLinkAttributeName",
-                       "addLinkAttributesForRange:", "sourceSyntaxIdentifier"):
+for required_token in ("sourceGeneration++", "NVSetSourceLinksCurrent",
+                       "[sourceAnalysis invalidate]", "[sourceAnalysis request]"):
     assert required_token in source_change_handler, required_token
 find_handler = linking_editor_m.split("- (IBAction)performFindPanelAction:", 1)[1].split("\n}", 1)[0]
 assert "generalPasteboard" not in find_handler

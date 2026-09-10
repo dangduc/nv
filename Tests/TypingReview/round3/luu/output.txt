@@ -1,0 +1,53 @@
+PASS: sustained edits deliver before final key
+PASS: first delivery retains initial 100 ms deadline
+PASS: sustained edits deliver before final key
+PASS: first delivery retains initial 100 ms deadline
+PASS: sustained edits deliver before final key
+PASS: first delivery retains initial 100 ms deadline
+METRIC sustained_body browser=0 timers=8 rows=8 full=0 max_deadline_ms=104.885
+METRIC sustained_body browser=1 timers=8 rows=8 full=0 max_deadline_ms=104.949
+METRIC sustained_body browser=2 timers=8 rows=7 full=1 max_deadline_ms=104.982
+PASS: timer rate stays bounded with duplicate legacy row signals
+PASS: Date Modified rebuilds once; title order skips full refresh
+PASS: one row or changed-order publication per timer
+PASS: last body edit drains completely
+PASS: editor fanout adds no header refresh or full refresh scheduling
+PASS: timer rate stays bounded with duplicate legacy row signals
+PASS: Date Modified rebuilds once; title order skips full refresh
+PASS: one row or changed-order publication per timer
+PASS: last body edit drains completely
+PASS: editor fanout adds no header refresh or full refresh scheduling
+PASS: timer rate stays bounded with duplicate legacy row signals
+PASS: Date Modified rebuilds once; title order skips full refresh
+PASS: one row or changed-order publication per timer
+PASS: last body edit drains completely
+PASS: editor fanout adds no header refresh or full refresh scheduling
+PASS: Date Modified browser publishes correct latest-note order
+METRIC synchronous_metadata_burst browser=0 timers=0 rows=0 full=1 max_deadline_ms=0.000
+METRIC synchronous_metadata_burst browser=1 timers=0 rows=0 full=1 max_deadline_ms=0.000
+METRIC synchronous_metadata_burst browser=2 timers=0 rows=0 full=1 max_deadline_ms=0.000
+PASS: metadata burst coalesces and cancels old dirty-row callback
+PASS: metadata replacement projection is current and leaves no delayed body work
+PASS: metadata burst coalesces and cancels old dirty-row callback
+PASS: metadata replacement projection is current and leaves no delayed body work
+PASS: metadata burst coalesces and cancels old dirty-row callback
+PASS: metadata replacement projection is current and leaves no delayed body work
+METRIC twenty_metadata_turns browser=0 timers=0 rows=0 full=20 max_deadline_ms=0.000
+METRIC twenty_metadata_turns browser=1 timers=0 rows=0 full=20 max_deadline_ms=0.000
+METRIC twenty_metadata_turns browser=2 timers=0 rows=0 full=20 max_deadline_ms=0.000
+PASS: twenty metadata turns yield twenty publications with no trailing duplicate refresh
+PASS: twenty metadata turns yield twenty publications with no trailing duplicate refresh
+PASS: twenty metadata turns yield twenty publications with no trailing duplicate refresh
+PASS: each changed Date Modified order publishes by next deadline
+PASS: each changed Date Modified order publishes by next deadline
+PASS: each changed Date Modified order publishes by next deadline
+PASS: each changed Date Modified order publishes by next deadline
+PASS: each changed Date Modified order publishes by next deadline
+PASS: each changed Date Modified order publishes by next deadline
+METRIC alternating_date_order browser=0 timers=6 rows=6 full=0 max_deadline_ms=102.803
+METRIC alternating_date_order browser=1 timers=6 rows=6 full=0 max_deadline_ms=102.851
+METRIC alternating_date_order browser=2 timers=6 rows=0 full=6 max_deadline_ms=102.877
+PASS: changed-order refresh occurs exactly once per due timer
+PASS: changed-order refresh occurs exactly once per due timer
+PASS: changed-order refresh occurs exactly once per due timer
+PASS: sustained coordinator scheduling (40 checks)

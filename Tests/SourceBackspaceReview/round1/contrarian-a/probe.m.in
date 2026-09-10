@@ -43,7 +43,7 @@ static void Drain(void) {
 @end
 @interface Editor : NSObject {
 @public NSTextStorage *storage; CountLayout *layout;
-    BOOL searchHighlightsInvalidated, backgroundIsDark;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights, backgroundIsDark;
 }
 - (NSString *)string;
 - (NSTextStorage *)textStorage;

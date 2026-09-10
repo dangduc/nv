@@ -1,0 +1,11 @@
+production:
+PASS: 80 native shared-storage cases; 4940 checks; 80 current external and 80 current internal actions; 240 menu boundaries
+
+negative-highlight:
+FAIL case=1: stale highlight must reject target
+
+negative-click:
+FAIL case=1: stale clicks cannot reach external or internal action boundary
+
+negative-menu:
+FAIL case=1: superclass menu boundary sees zero obsolete targets

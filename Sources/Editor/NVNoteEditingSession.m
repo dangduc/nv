@@ -6,6 +6,7 @@
 
 NSString * const NVNoteContentsDidChangeNotification = @"NVNoteContentsDidChange";
 NSString * const NVNoteEditorDidChangeNotification = @"NVNoteEditorDidChange";
+NSString * const NVNoteWordCountDidChangeNotification = @"NVNoteWordCountDidChange";
 
 @interface NSObject (NVEditingConflictOwner)
 - (void)preserveExternalContents:(NSAttributedString *)contents forNote:(NoteObject *)note;
@@ -134,7 +135,9 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
         metadataUndoTarget = [[NVNoteMetadataUndoTarget alloc] initWithSession:self];
         committedContents = [[note contentString] copy];
         textStorage = [[NSTextStorage alloc] initWithString:[committedContents string] attributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes]];
-        [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length]) syntaxIdentifier:[note sourceSyntaxIdentifier]];
+        sourceAnalysis = [[NVSourceAnalysis alloc] initWithDelegate:self];
+        wordCountClients = [[NSHashTable weakObjectsHashTable] retain];
+        NVSetSourceLinksCurrent(textStorage, NO);
         sourceGeneration = 1;
         sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceCharactersChanged:) name:NSTextStorageDidProcessEditingNotification object:textStorage];
@@ -151,33 +154,109 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     if (!([textStorage editedMask] & NSTextStorageEditedCharacters)) return;
     sourceGeneration++;
 
-    // Character storage is shared by every source layout. Maintain links here
-    // so edits from any attached editor, Undo, or another storage client have
-    // the same attributes. Rebuilding complete lines also removes a link when
-    // an edit makes a formerly valid URL or note link incomplete.
-    NSUInteger length = [textStorage length];
-    NSRange editedRange = [textStorage editedRange];
-    if (editedRange.location > length) return;
-    editedRange.length = MIN(editedRange.length, length - editedRange.location);
-    NSRange lineRange = [[textStorage string] lineRangeForRange:editedRange];
-    if (!lineRange.length) return;
-    [textStorage removeAttribute:NSLinkAttributeName range:lineRange];
-    [textStorage addLinkAttributesForRange:lineRange syntaxIdentifier:[note sourceSyntaxIdentifier]];
+    // This includes uncommitted IME changes. Do not analyze or mutate any
+    // attributes while TextKit is still processing the character edit.
+    NVSetSourceLinksCurrent(textStorage, NO);
+    [sourceAnalysis invalidate];
+    if ([[textStorage layoutManagers] count]) [sourceAnalysis request];
 }
 - (void)sourceSyntaxChanged:(NSNotification *)notification {
-    NSRange range = NSMakeRange(0, [textStorage length]);
-    [textStorage removeAttribute:NSLinkAttributeName range:range];
-    [textStorage addLinkAttributesForRange:range syntaxIdentifier:[note sourceSyntaxIdentifier]];
+    NVSetSourceLinksCurrent(textStorage, NO);
+    [sourceAnalysis invalidate];
+    if ([[textStorage layoutManagers] count]) [sourceAnalysis request];
     [sourceHighlighter setSyntaxIdentifier:[note sourceSyntaxIdentifier]];
 }
 - (void)sourceLayoutDidAttach {
     [self refreshSourceFont];
     if (!sourceHighlighter) sourceHighlighter = [[NVSourceHighlighter alloc] initWithTextStorage:textStorage syntaxIdentifier:[note sourceSyntaxIdentifier]];
     [sourceHighlighter layoutsChanged];
+    if (!NVSourceLinksAreCurrent(textStorage)) [sourceAnalysis request];
 }
 - (void)sourceLayoutDidDetach {
+    for (NSTextView *view in [wordCountClients allObjects]) {
+        if ([view textStorage] != textStorage || ![[textStorage layoutManagers] containsObject:[view layoutManager]])
+            [wordCountClients removeObject:view];
+    }
     if (![[textStorage layoutManagers] count]) {
         [sourceHighlighter close]; [sourceHighlighter release]; sourceHighlighter = nil;
+        [sourceAnalysis invalidate];
+    }
+}
+
+- (void)setWordCountRequested:(BOOL)requested forTextView:(NSTextView *)view {
+    if (closed || !view) return;
+    if (requested) [wordCountClients addObject:view];
+    else [wordCountClients removeObject:view];
+    if (requested && wordCountGeneration != sourceGeneration) [sourceAnalysis request];
+}
+- (BOOL)getWordCount:(NSUInteger *)count {
+    if (count) *count = wordCount;
+    return wordCountGeneration != 0;
+}
+- (NSDictionary *)snapshotForSourceAnalysis:(NVSourceAnalysis *)analysis {
+    if (closed || ![[textStorage layoutManagers] count]) return nil;
+    BOOL links = !NVSourceLinksAreCurrent(textStorage);
+    BOOL words = [wordCountClients count] && wordCountGeneration != sourceGeneration;
+    if (!links && !words) return nil;
+    return @{@"source": [[[textStorage string] copy] autorelease],
+             @"syntax": [[[note sourceSyntaxIdentifier] copy] autorelease] ?: @"plain",
+             @"generation": @(sourceGeneration), @"links": @(links), @"words": @(words)};
+}
+- (void)sourceAnalysis:(NVSourceAnalysis *)analysis didFinish:(NSDictionary *)result {
+    if (closed || [result[@"generation"] unsignedLongLongValue] != sourceGeneration ||
+        ![result[@"syntax"] isEqualToString:[note sourceSyntaxIdentifier]]) return;
+    if ([textStorage editedMask] & NSTextStorageEditedCharacters) {
+        [sourceAnalysis request];
+        return;
+    }
+    NSArray *links = result[@"linkRuns"];
+    if (links) {
+        // Use a complete snapshot so canceled jobs cannot lose dirty lines or
+        // offsets. Only change attributes whose current range/target differs.
+        NSMutableArray *oldLinks = [NSMutableArray array];
+        [textStorage enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, [textStorage length]) options:0
+            usingBlock:^(id value, NSRange range, BOOL *stop) {
+                if (value) [oldLinks addObject:@{@"range": [NSValue valueWithRange:range], @"url": value}];
+            }];
+        // Both enumerations produce non-overlapping runs in source order.
+        // Merge them directly: equal-sized NSDictionary records share a hash,
+        // so comparing these records through NSSet becomes quadratic.
+        NSMutableArray *removals = [NSMutableArray array], *additions = [NSMutableArray array];
+        NSUInteger oldIndex = 0, newIndex = 0;
+        while (oldIndex < [oldLinks count] && newIndex < [links count]) {
+            NSDictionary *oldLink = [oldLinks objectAtIndex:oldIndex];
+            NSDictionary *newLink = [links objectAtIndex:newIndex];
+            NSRange oldRange = [oldLink[@"range"] rangeValue], newRange = [newLink[@"range"] rangeValue];
+            if (oldRange.location < newRange.location) {
+                [removals addObject:oldLink]; oldIndex++;
+            } else if (newRange.location < oldRange.location) {
+                [additions addObject:newLink]; newIndex++;
+            } else {
+                if (!NSEqualRanges(oldRange, newRange) || ![oldLink[@"url"] isEqual:newLink[@"url"]]) {
+                    [removals addObject:oldLink];
+                    [additions addObject:newLink];
+                }
+                oldIndex++; newIndex++;
+            }
+        }
+        while (oldIndex < [oldLinks count]) [removals addObject:[oldLinks objectAtIndex:oldIndex++]];
+        while (newIndex < [links count]) [additions addObject:[links objectAtIndex:newIndex++]];
+        // Finish removals first so an overlapping old run cannot erase a new one.
+        [textStorage beginEditing];
+        for (NSDictionary *link in removals)
+            [textStorage removeAttribute:NSLinkAttributeName range:[link[@"range"] rangeValue]];
+        for (NSDictionary *link in additions) {
+            NSRange range = [link[@"range"] rangeValue];
+            if (range.location <= [textStorage length] && range.length <= [textStorage length] - range.location)
+                [textStorage addAttribute:NSLinkAttributeName value:link[@"url"] range:range];
+        }
+        [textStorage endEditing];
+        NVSetSourceLinksCurrent(textStorage, YES);
+    }
+    if (result[@"wordCount"] && [wordCountClients count]) {
+        wordCount = [result[@"wordCount"] unsignedIntegerValue];
+        wordCountGeneration = sourceGeneration;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NVNoteWordCountDidChangeNotification object:self];
     }
 }
 
@@ -213,7 +292,9 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     // Cocoa wrapper attributes, including after Undo to an older snapshot.
     [textStorage setAttributes:[[GlobalPrefs defaultPrefs] noteBodyAttributes] range:NSMakeRange(0, [textStorage length])];
     [sourceFont release]; sourceFont = [[[GlobalPrefs defaultPrefs] noteBodyFont] retain];
-    [textStorage addLinkAttributesForRange:NSMakeRange(0, [textStorage length]) syntaxIdentifier:[note sourceSyntaxIdentifier]];
+    NVSetSourceLinksCurrent(textStorage, NO);
+    [sourceAnalysis invalidate];
+    if ([[textStorage layoutManagers] count]) [sourceAnalysis request];
     [snapshot release];
 }
 - (void)refreshSourceFont {
@@ -348,12 +429,16 @@ static NSArray *NVSnapshotEdits(NSString *before, NSString *after, NSRange chang
     [self closeWithoutCommitting];
 }
 - (void)closeWithoutCommitting {
+    closed = YES;
+    [sourceAnalysis close];
     [sourceHighlighter close]; [sourceHighlighter release]; sourceHighlighter = nil;
     [[note undoManager] removeAllActionsWithTarget:self];
     [[note undoManager] removeAllActionsWithTarget:metadataUndoTarget];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)dealloc {
+    [sourceAnalysis close]; [sourceAnalysis release];
+    [wordCountClients release];
     [sourceHighlighter close]; [sourceHighlighter release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[note undoManager] removeAllActionsWithTarget:self];

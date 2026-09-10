@@ -1480,7 +1480,9 @@ terminateApp:
     if (textObject == textView) {
         searchHighlightGeneration++;
         [textView removeHighlightedTerms];
-		[editingSession commitTextChanges];
+        processingSourceEdit = YES;
+        @try { [editingSession commitTextChanges]; }
+        @finally { processingSourceEdit = NO; }
 		[self postTextUpdate];
 		[self updateWordCount:(![prefsController showWordCount])];
         if (IsLionOrLater) {
@@ -1636,6 +1638,13 @@ terminateApp:
     // whether it can select immediately or must wait for current results.
     [self cancelSearchIntents];
 	if (note) {
+        NVBrowserSession *session = [self browserSession];
+        // Reveal can arrive between model invalidation and the delayed list
+        // refresh. Exact and empty-query lists can refresh synchronously;
+        // libraryDidChange also respects composition and active inline edits.
+        if (![session searchResultsAreCurrent] &&
+            (![[session searchMode] isEqual:@"fuzzy"] || ![session hasSearchTerms]))
+            [session libraryDidChange];
         if (![[self browserSession] searchResultsAreCurrent]) {
             [pendingSearchReveal release];
             pendingSearchReveal = [@{@"note":note, @"options":@(opts)} copy];
@@ -2314,18 +2323,21 @@ terminateApp:
 #pragma mark control/opt key hold down to pop word count/preview window
     
     - (void)updateWordCount:(BOOL)doIt{
-        if (doIt) {            
-            NSUInteger theCount;
-            // Release scripting substring observers before other work traverses
-            // the shared storage's layout managers. Keep the existing word rules.
-            @autoreleasepool { theCount = [[[textView textStorage] words] count]; }
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NVNoteWordCountDidChangeNotification object:nil];
+        [editingSession setWordCountRequested:doIt forTextView:textView];
+        if (!doIt) return;
+        if (editingSession) [[NSNotificationCenter defaultCenter] addObserver:self
+            selector:@selector(sourceWordCountDidChange:) name:NVNoteWordCountDidChangeNotification object:editingSession];
+        NSUInteger theCount = 0;
+        // A shared session computes this once for all interested windows. Do
+        // not leave the previous note's count visible while its replacement is pending.
+        BOOL current = [editingSession getWordCount:&theCount];
+        NSString *label = current && theCount ? [NSString stringWithFormat:@"%lu words", (unsigned long)theCount] : @"";
+        if (![[wordCounter stringValue] isEqualToString:label]) [wordCounter setStringValue:label];
+    }
 
-            if (theCount > 0) {
-                [wordCounter setStringValue:[[NSString stringWithFormat:@"%lu", (unsigned long)theCount] stringByAppendingString:@" words"]];
-            }else {
-                [wordCounter setStringValue:@""];
-            }
-        }
+    - (void)sourceWordCountDidChange:(NSNotification *)notification {
+        if ([notification object] == editingSession) [self updateWordCount:![wordCounter isHidden]];
     }
     
     - (void)popWordCount:(BOOL)showIt{
@@ -2342,6 +2354,7 @@ terminateApp:
                 if ((![wordCounter isHidden])&&([prefsController showWordCount])) {
                     [wordCounter setHidden:YES];
                     [wordCounter setStringValue:@""];
+                    [self updateWordCount:NO];
                     popped=0;
                     [self layoutNoteHeader];
                 }

@@ -1,0 +1,5 @@
+Production:
+PASS: 12006 cases; 598715 checks; 12000 Unicode cases; 3906 native character edits; 12006 repeated publications
+
+Negative control (removals after additions):
+FAIL case=1 seed_state=7749363893351949254: overlap two old runs

@@ -75,7 +75,14 @@
         [self performSelector:@selector(showSearchProgress) withObject:nil afterDelay:0.1];
     }
     [self updateSearchAffordance];
-    if ([session searchResultsAreCurrent]) [self refreshSearchHighlights];
+    if ([session searchResultsAreCurrent]) {
+        [self refreshSearchHighlights];
+        // An inline edit can postpone an Exact or empty-query refresh. Those
+        // synchronous publications must also resume explicit selection intents.
+        if ((pendingSearchReveal || pendingSearchRestoration) &&
+            (![[session searchMode] isEqual:@"fuzzy"] || ![session hasSearchTerms]))
+            [self browserSessionSearchDidComplete:session];
+    }
 }
 - (void)browserSessionSearchDidComplete:(NVBrowserSession *)session {
     if (session != [self browserSession] || searchApplyingResult || searchHasPendingComposition) return;
@@ -161,7 +168,7 @@
     NVBrowserSession *session = [self browserSession];
     NVSearchService *service = [[NVApplicationController sharedController] searchService];
     [service cancelLiteralRangesForOwner:session];
-    if (!currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
+    if (![session hasSearchTerms] || !currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
     NSInteger row = [notesTableView primarySelectedRow];
     if (row < 0) return;
     NSString *kind = [session matchKindAtIndex:row];

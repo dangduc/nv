@@ -43,7 +43,7 @@
 <NSToolbarDelegate, NSTableViewDelegate, NSWindowDelegate, NSSearchFieldDelegate, NSTextViewDelegate>
 #endif
 {
-    BOOL applicationOwner, awakenedViews, browserHorizontalLayout, reloadingNotesList;
+    BOOL applicationOwner, awakenedViews, browserHorizontalLayout, reloadingNotesList, processingSourceEdit;
     NSInteger ModFlagger, popped;
     NSArray *windowObjects;
     NSMutableDictionary *noteSelections;

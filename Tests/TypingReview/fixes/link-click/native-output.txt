@@ -1,0 +1,29 @@
+PASS: isolated preferences domain
+PASS: copied app inside disposable test root
+PASS: temporary library directory exists
+PASS: temporary library opens
+PASS: initial source link analysis completes
+PASS: production editor has a URL link attribute
+OBSERVE fresh-click selection={3, 0} callbacks=1
+PASS: ordinary click inside a current URL places the source caret
+PASS: real character edit marks old link attributes stale
+OBSERVE stale-click selection={3, 0} end=30 callbacks=1
+PASS: link analysis becomes current again
+PASS: stale command-link highlight does not select obsolete range
+PASS: native source context menu still opens with stale link analysis
+PASS: context menu removes obsolete link target before Cocoa builds actions
+PASS: context-menu cleanup does not prevent the pending fresh link result
+PASS: asynchronous result restores URL target after stale menu cleanup
+PASS: link targets are current after clickability preference change
+PASS: current clickable URL reaches Cocoa's activation handler
+PASS: changing the URL target invalidates link actions
+PASS: clicking changed URL does not activate obsolete target while analysis is pending
+PASS: stale clickable URL falls back to ordinary caret placement
+PASS: visible word count arrives through production notification path
+PASS: note switch clears previous note's word count before replacement
+PASS: replacement note asynchronously publishes its own count
+PASS: empty source invalidates former links
+PASS: stale callback on empty production editor clamps the caret to zero
+PASS: disposable library checkpoint succeeds
+PASS: ordinary click inside a stale URL still places the source caret
+TYPING UX PASSED (26 checks)

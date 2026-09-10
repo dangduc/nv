@@ -41,7 +41,7 @@ static void Pump(NSString *mode, double duration) {
 - (NSUInteger)generation;
 @end
 @interface ProbeEditor : NSObject {
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     NSTextStorage *storage;
     CountedLayout *layout;
     ProbeController *controller;

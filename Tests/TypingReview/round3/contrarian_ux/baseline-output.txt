@@ -1,0 +1,46 @@
+2026-09-10 14:41:38.912 nvALT[42964:345635937] PASS: isolated preferences domain
+2026-09-10 14:41:38.912 nvALT[42964:345635937] PASS: copied app inside disposable test root
+2026-09-10 14:41:38.914 nvALT[42964:345635937] PASS: temporary library directory exists
+2026-09-10 14:41:38.915 nvALT[42964:345635937] PASS: temporary library opens
+2026-09-10 14:41:38.998 nvALT[42964:345635937] verified 0 notes in 0.000210047 s
+2026-09-10 14:41:39.359 nvALT[42964:345635937] PASS: initial source link analysis completes
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Open Link action=_openLinkFromMenu: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Open With action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Copy Link action=copyLink: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Search With Google action=_searchWithGoogleFromMenu: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Cut action=cut: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Copy action=copy: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Paste action=paste: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Paste and Match Style action=pasteAsPlainText: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Share… action=_performStandardShareMenuItem: target=SHKSharingServicePicker enabled=1 represented=<NSSharingServicePicker: 0x600001796c40>
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title= action=(null) target=(null) enabled=0 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Quick Look Attachments action=toggleQuickLookPreviewPanel: target=(null) enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Spelling and Grammar action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Substitutions action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Transformations action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Speech action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] MENU fresh title=Layout Orientation action=submenuAction: target=NSMenu enabled=1 represented=(null)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] PASS: native current menu contains Open Link
+2026-09-10 14:41:39.388 nvALT[42964:345635937] OBSERVE action dispatch=1 firstResponder=LinkingEditor
+2026-09-10 14:41:39.388 nvALT[42964:345635937] OBSERVE fresh menu activation=(
+)
+2026-09-10 14:41:39.388 nvALT[42964:345635937] LIMITATION programmatic native menu action reaches workspace=0; no active menu-tracking loop is simulated
+2026-09-10 14:41:39.553 nvALT[42964:345635937] PASS: peer native editor shares source storage
+2026-09-10 14:41:39.565 nvALT[42964:345635937] OBSERVE retained open enabled=1 target=(null) represented=(null) source=https://example.com/new
+last line
+2026-09-10 14:41:39.566 nvALT[42964:345635937] OBSERVE action dispatch=1 firstResponder=LinkingEditor
+2026-09-10 14:41:39.566 nvALT[42964:345635937] OBSERVE retained-menu-after-peer-edit activation=(
+)
+2026-09-10 14:41:39.577 nvALT[42964:345635937] OBSERVE pending menu containsOpen=1 current=1 attribute=https://example.com/new
+2026-09-10 14:41:39.577 nvALT[42964:345635937] PASS: fresh analysis publishes after pending menu cleanup
+2026-09-10 14:41:39.580 nvALT[42964:345635937] PASS: new current menu restores Open Link
+2026-09-10 14:41:39.580 nvALT[42964:345635937] PASS: fresh source attribute holds changed URL target
+2026-09-10 14:41:39.580 nvALT[42964:345635937] OBSERVE fresh replacement menu activation=(
+)
+2026-09-10 14:41:39.582 nvALT[42964:345635937] verified 1 notes in 0.000380039 s
+2026-09-10 14:41:39.582 nvALT[42964:345635937] PASS: disposable library checkpoint succeeds
+2026-09-10 14:41:39.583 nvALT[42964:345635937] TYPING UX PASSED (11 checks)

@@ -1,11 +1,13 @@
 #import <Cocoa/Cocoa.h>
+#import "NVSourceAnalysis.h"
 @class NoteObject, NVNoteMetadataUndoTarget, NVSourceHighlighter;
 
 extern NSString * const NVNoteContentsDidChangeNotification;
 extern NSString * const NVNoteEditorDidChangeNotification;
+extern NSString * const NVNoteWordCountDidChangeNotification;
 
 // All editors for a note attach their own layout manager to this session's storage.
-@interface NVNoteEditingSession : NSObject {
+@interface NVNoteEditingSession : NSObject <NVSourceAnalysisDelegate> {
     NoteObject *note;
     NSTextStorage *textStorage;
     NSAttributedString *committedContents;
@@ -15,6 +17,11 @@ extern NSString * const NVNoteEditorDidChangeNotification;
     NVSourceHighlighter *sourceHighlighter;
     uint64_t sourceGeneration;
     NSFont *sourceFont;
+    NVSourceAnalysis *sourceAnalysis;
+    NSHashTable *wordCountClients;
+    NSUInteger wordCount;
+    uint64_t wordCountGeneration;
+    BOOL closed;
 }
 - (id)initWithNote:(NoteObject *)aNote;
 - (NoteObject *)note;
@@ -22,6 +29,9 @@ extern NSString * const NVNoteEditorDidChangeNotification;
 - (uint64_t)sourceGeneration;
 - (void)sourceLayoutDidAttach;
 - (void)sourceLayoutDidDetach;
+- (void)setWordCountRequested:(BOOL)requested forTextView:(NSTextView *)view;
+// Returns the last accepted count for this note, which may lag during typing.
+- (BOOL)getWordCount:(NSUInteger *)count;
 - (BOOL)canUndo;
 - (BOOL)canRedo;
 - (void)undo;

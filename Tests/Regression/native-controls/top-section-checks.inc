@@ -143,9 +143,11 @@
     NSArray *ownLayouts = [[[[[app editingSessionForNote:alpha] textStorage] layoutManagers] copy] autorelease];
     NSArray *peerLayouts = [[[[[app editingSessionForNote:beta] textStorage] layoutManagers] copy] autorelease];
     [prefsController setShowWordCount:NO];
+    NSDate *countDeadline = [NSDate dateWithTimeIntervalSinceNow:4];
+    while (![[[self valueForKey:@"wordCounter"] stringValue] isEqual:@"2 words"] && [countDeadline timeIntervalSinceNow] > 0) Pump();
     Check([[[[app editingSessionForNote:alpha] textStorage] layoutManagers] isEqualToArray:ownLayouts] &&
         [[[[app editingSessionForNote:beta] textStorage] layoutManagers] isEqualToArray:peerLayouts],
-        @"word counting releases temporary substring observers before returning to shared editing");
+        @"asynchronous word counting preserves both shared layout arrays");
     Check([[[self valueForKey:@"wordCounter"] stringValue] isEqual:@"2 words"], @"word count retains the existing count for the source");
     Pump();
     Check([noteTitleField isHidden] && [self nv_headerHeight] > 0 && [peer nv_headerHeight] > 0,

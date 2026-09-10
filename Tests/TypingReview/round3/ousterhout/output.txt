@@ -1,0 +1,26 @@
+PASS: same UUID shares one cached session while another note has its own session
+PASS: nil note does not allocate a cached session
+SCENARIO: body then metadata inside the originating source commit
+PASS: source guard suppresses only originating duplicate broadcast
+PASS: body model hook queues each browser list independently
+PASS: metadata headers reach selected peers even during source guard
+PASS: metadata replaces pending body rows with full invalidation
+PASS: source handler clears guard and updates origin exactly once
+PASS: word and find callbacks occur once per selected browser
+PASS: one full publication consumes interleaved metadata and body changes in all browsers
+PASS: superseded body timer cannot cause a duplicate row redraw
+PASS: committed snapshot contains both metadata and source changes
+SCENARIO: metadata then two body changes before the scheduled refresh
+PASS: title update retains both selected headers
+PASS: reverse interleaving completes one new full publication per browser
+PASS: unchanged snapshot creates no further refresh work
+SCENARIO: body-only notification keeps fixed row refresh boundary
+PASS: body-only broadcast preserves current empty-query commands and queues row work
+PASS: body-only editor broadcast does not schedule full list publication
+PASS: body-only update redraws its one row in every browser independently of selected note
+SCENARIO: failed source commit followed by external editor update
+PASS: finally releases source guard after commit exception
+PASS: later external broadcast still reaches the original browser
+PASS: external contents reload uses the existing shared session
+PASS: explicit external contents refresh reaches both browser lists
+PASS: refresh ownership review (21 checks)

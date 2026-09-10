@@ -41,7 +41,7 @@ static uint32_t Next(void) { seed ^= seed << 13; seed ^= seed >> 17; seed ^= see
 @end
 
 @interface RangeEditor : NSObject {
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     NSTextStorage *storage;
     GuardedLayout *layout;
 @public NSUInteger unrelatedCallbacks;

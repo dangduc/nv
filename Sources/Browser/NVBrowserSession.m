@@ -24,6 +24,8 @@
 - (void)publishDeferredSearchResult;
 - (void)updateExcerptRowsInTable:(NSTableView *)table;
 - (void)startNextExcerpt;
+- (void)cancelBodyRefresh;
+- (void)refreshDirtyBodyRows;
 @end
 
 // The table's C callbacks and inline editors continue to receive NoteObjects.
@@ -121,6 +123,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         visibleNotes = [[NSMutableArray alloc] init];
         matchingNotes = [[NSMutableArray alloc] init];
         previewCache = [[NSMutableDictionary alloc] init];
+        dirtyBodyUUIDs = [[NSMutableSet alloc] init];
         searchString = [@"" copy];
         searchMode = [@"exact" copy];
         rowKeys = [[NSMutableArray alloc] init];
@@ -157,6 +160,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     [matchingNotes release];
     [searchTerms release];
     [previewCache release];
+    [dirtyBodyUUIDs release];
     [searchString release];
     [sortColumn release];
     [super dealloc];
@@ -165,7 +169,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
 - (id)delegate { return delegate; }
 - (void)setDelegate:(id)aDelegate {
     delegate = aDelegate;
-    if (!delegate) { excerptTable = nil; [self invalidateSearch]; }
+    if (!delegate) { excerptTable = nil; [self cancelBodyRefresh]; [self invalidateSearch]; }
 }
 - (NSString *)searchString { return searchString; }
 - (NSString *)searchMode { return searchMode; }
@@ -186,6 +190,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         [delegate browserSessionSearchStateDidChange:self];
 }
 - (void)invalidateSearch {
+    [self cancelBodyRefresh];
     searchGeneration++;
     [searchService cancelRequestsForOwner:self];
     [excerptPositions removeAllObjects];
@@ -197,7 +202,9 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(publishDeferredSearchResult) object:nil];
     [searchError release]; searchError = nil;
     searchPending = compositionSuspended || ([searchMode isEqualToString:@"fuzzy"] && [self hasSearchTerms]);
-    resultsCurrent = !searchPending;
+    // A model/query invalidation can remove a row, even without search terms.
+    // Commands resume only after the replacement projection is published.
+    resultsCurrent = NO;
     [self notifySearchStateChanged];
 }
 - (void)setSearchService:(NVSearchService *)service {
@@ -485,7 +492,65 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     refreshing = NO;
     [self notifySearchStateChanged];
 }
+- (void)cancelBodyRefresh {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshDirtyBodyRows) object:nil];
+    bodyRefreshScheduled = NO;
+    [dirtyBodyUUIDs removeAllObjects];
+}
+- (void)noteBodyDidChange:(NoteObject *)note {
+    candidatesValid = NO;
+    if ([self hasSearchTerms]) {
+        // Search membership can change on this very edit. Disable stale row
+        // actions immediately, then refilter after the model finishes committing.
+        [self invalidateSearch];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(libraryDidChange) object:nil];
+        [self performSelector:@selector(libraryDidChange) withObject:nil afterDelay:0.0];
+    } else [self notePreviewDidChange:note];
+}
+- (void)notePreviewDidChange:(NoteObject *)note {
+    if (!note || !delegate) return;
+    if ([self hasSearchTerms]) return; // The search publication refreshes its excerpts.
+    NSData *uuid = NVBrowserNoteUUID(note);
+    [previewCache removeObjectForKey:uuid];
+    [dirtyBodyUUIDs addObject:uuid];
+    if (!bodyRefreshScheduled) {
+        // A fixed deadline, not a debounce: continuous typing cannot starve it.
+        bodyRefreshScheduled = YES;
+        [self performSelector:@selector(refreshDirtyBodyRows) withObject:nil afterDelay:0.1];
+    }
+}
+- (void)refreshDirtyBodyRows {
+    bodyRefreshScheduled = NO;
+    if (!delegate || [self hasSearchTerms]) { [self cancelBodyRefresh]; return; }
+    if (compositionSuspended || ![delegate notationListShouldChange:(id)self]) {
+        bodyRefreshScheduled = YES;
+        [self performSelector:_cmd withObject:nil afterDelay:0.1];
+        return;
+    }
+    NSSet *dirty = [[dirtyBodyUUIDs copy] autorelease];
+    [dirtyBodyUUIDs removeAllObjects];
+    if (![dirty count]) return;
+    if ([[sortColumn identifier] isEqual:NoteDateModifiedColumnString]) {
+        NSMutableArray *sorted = [[visibleNotes mutableCopy] autorelease];
+        [self sortNotes:sorted];
+        if (![sorted isEqualToArray:visibleNotes]) {
+            [delegate notationListMightChange:(id)self];
+            [visibleNotes setArray:sorted];
+            [matchingNotes setArray:sorted];
+            [self rebuildSingleRows];
+            [dataSource fillArrayFromArray:visibleNotes];
+            [delegate notationListDidChange:(id)self];
+            return;
+        }
+    }
+    // Membership and occurrence identity are unchanged. Avoid reloadData and
+    // selection callbacks; redraw only the affected rows in this browser.
+    for (NSUInteger row = 0; row < [visibleNotes count]; row++) {
+        if ([dirty containsObject:NVBrowserNoteUUID([visibleNotes objectAtIndex:row])]) [delegate rowShouldUpdate:(NSInteger)row];
+    }
+}
 - (void)libraryDidChange {
+    [self cancelBodyRefresh];
     candidatesValid = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:_cmd object:nil];
     BOOL fuzzy = [searchMode isEqualToString:@"fuzzy"] && [self hasSearchTerms];
@@ -531,6 +596,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     [self sortAndRedisplayNotes];
 }
 - (void)sortAndRedisplayNotes {
+    [self cancelBodyRefresh];
     if ([searchMode isEqualToString:@"fuzzy"] && [self hasSearchTerms]) {
         if ([self searchResultsAreCurrent]) [self libraryDidChange];
         return;
@@ -637,8 +703,14 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     GlobalPrefs *prefs = [GlobalPrefs defaultPrefs];
     NSTableColumn *column = [table tableColumnWithIdentifier:NoteTitleColumnString];
     CGFloat width = MAX(1.0, [column width] - [NSScroller scrollerWidth]);
-    NSString *key = [NSString stringWithFormat:@"%p:%.1f:%d:%d", note, width, [delegate horizontalLayout], [prefs tableColumnsShowPreview]];
-    id preview = [previewCache objectForKey:key];
+    NSData *uuid = NVBrowserNoteUUID(note);
+    NSMutableDictionary *notePreviews = [previewCache objectForKey:uuid];
+    if (!notePreviews) {
+        notePreviews = [NSMutableDictionary dictionary];
+        [previewCache setObject:notePreviews forKey:uuid];
+    }
+    NSString *key = [NSString stringWithFormat:@"%.1f:%d:%d", width, [delegate horizontalLayout], [prefs tableColumnsShowPreview]];
+    id preview = [notePreviews objectForKey:key];
     if (!preview) {
         if ([prefs tableColumnsShowPreview]) {
             if ([delegate horizontalLayout]) {
@@ -650,7 +722,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         } else {
             preview = [note->titleString attributedSingleLineTitle];
         }
-        if (preview) [previewCache setObject:preview forKey:key];
+        if (preview) [notePreviews setObject:preview forKey:key];
     }
     return preview ?: note->titleString;
 }

@@ -1,0 +1,43 @@
+SCENARIO: immediate exact query 'New matching note'
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal synchronously selects the newly added note
+PASS: Reveal preserves a matching query and clears an excluding query
+PASS: the note remains selected after delayed work drains
+PASS: Reveal without order-front options does not activate a background window
+SCENARIO: immediate exact query 'Excluded query'
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal synchronously selects the newly added note
+PASS: Reveal preserves a matching query and clears an excluding query
+PASS: the note remains selected after delayed work drains
+PASS: Reveal without order-front options does not activate a background window
+SCENARIO: immediate fuzzy query ''
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal synchronously selects the newly added note
+PASS: Reveal preserves a matching query and clears an excluding query
+PASS: the note remains selected after delayed work drains
+PASS: Reveal without order-front options does not activate a background window
+SCENARIO: inline editor blocks Exact publication
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal queues while the inline editor prohibits list changes
+PASS: the blocked projection stays unavailable and does not complete early
+PASS: ending inline editing resumes and delivers the pending Reveal
+PASS: synchronous publication completes the selection intent once
+PASS: the delayed delivery neither repeats completion nor activates the background window
+SCENARIO: search composition blocks synchronous Reveal
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal does not bypass the session's composition gate
+PASS: composition keeps the old projection inactive without an early selection callback
+PASS: committing a new query preserves the existing intent-cancellation policy
+SCENARIO: active Fuzzy query preserves asynchronous delivery
+PASS: fixture has a current starting projection
+PASS: model invalidation continues to disable stale row actions
+PASS: Reveal waits for active Fuzzy results instead of forcing a synchronous projection
+PASS: active Fuzzy Reveal has no synchronous completion
+PASS: the native Fuzzy completion delivers the requested note
+PASS: Fuzzy completion consumes the intent once without background activation
+PASS: Reveal fix (36 checks)

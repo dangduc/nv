@@ -1,0 +1,24 @@
+PASS: blocked row publication retains both dirty UUIDs
+PASS: body-only delay preserves actionable empty-query membership
+PASS: unblocking delivers both affected rows
+PASS: coalesced dirty rows avoid a full publication and clear once
+PASS: deletion disables stale row actions while its publication is paused
+PASS: deferred membership publication resumes after inline editing
+PASS: pending body work cannot resurrect a deleted note
+PASS: composition defers peer dirty-row publication
+PASS: composition resume replaces the projection and cancels trailing dirty work
+PASS: query change cancels pending empty-query redraws
+PASS: active Exact query rejects stale membership immediately
+PASS: Exact replacement removes the former match
+PASS: Fuzzy search publishes the current source after pending dirty work
+PASS: active Fuzzy query rejects stale membership immediately
+PASS: Fuzzy replacement excludes the obsolete body match
+PASS: Date Modified dirty publication reorders the existing members
+PASS: Date Modified reorder preserves occurrence identity and result membership
+PASS: detachment cancels pending timers and rejects later legacy preview notifications
+PASS: old-library timer cannot publish into the replacement session
+PASS: REPRODUCED: candidate Exact Reveal queues its selection before list refresh
+PASS: deferred Exact projection becomes current with the requested note present
+PASS: REPRODUCED: current Exact projection leaves Reveal stranded without a completion callback
+PASS: matching Exact query is preserved in both versions
+PASS: browser interleavings (23 checks)

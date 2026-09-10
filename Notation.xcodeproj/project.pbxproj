@@ -237,6 +237,7 @@
 		C4C39E9F498F810C9FB9874A /* Rust-1.98.1-COPYRIGHT-library.html in Resources */ = {isa = PBXBuildFile; fileRef = 9783EE121275F831FAE92745 /* Rust-1.98.1-COPYRIGHT-library.html */; };
 		AA52C58EDC5C895FCB4B7D97 /* NVTreeSitterOrg.c in Sources */ = {isa = PBXBuildFile; fileRef = A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		43B26080361940BD851AFC25 /* NVTreeSitterOrgScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
+		BB1200000000000000000001 /* NVSourceAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1200000000000000000003 /* NVSourceAnalysis.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -883,6 +884,8 @@
 		9783EE121275F831FAE92745 /* Rust-1.98.1-COPYRIGHT-library.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "licenses/Rust-1.98.1-COPYRIGHT-library.html"; sourceTree = "<group>"; };
 		A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrg.c; sourceTree = "<group>"; };
 		E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrgScanner.c; sourceTree = "<group>"; };
+		BB1200000000000000000002 /* NVSourceAnalysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVSourceAnalysis.h; sourceTree = "<group>"; };
+		BB1200000000000000000003 /* NVSourceAnalysis.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVSourceAnalysis.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1570,6 +1573,8 @@
 				213621F00B92414F008C0830 /* MultiTextFinder.m */,
 				5CE6624913185202002039D0 /* NSTextFinder.h */,
 				18B226518BEB80F6B304A011 /* NSTextFinder_LastFind.m */,
+				BB1200000000000000000002 /* NVSourceAnalysis.h */,
+				BB1200000000000000000003 /* NVSourceAnalysis.m */,
 				6570F437CC66EC34D8B00059 /* NVNoteEditingSession.h */,
 				ED104D74557BF1B194EFBE28 /* NVNoteEditingSession.m */,
 				5CBA7A961305E38C004ADEBB /* TagEditingManager.h */,
@@ -2077,6 +2082,7 @@
 				2114C11609575BD400614E74 /* AppController.m in Sources */,
 				C758EB1A9F06DE97368E4DA6 /* AppController_MultipleWindows.m in Sources */,
 				B40C00000000000000000001 /* AppController_BrowserUI.m in Sources */,
+				BB1200000000000000000001 /* NVSourceAnalysis.m in Sources */,
 				3FAC17CB2473CC51FC413902 /* NVNoteEditingSession.m in Sources */,
 				6B68E49DBA31ABFE2D588493 /* NVBrowserSession.m in Sources */,
 				1623951E9A281E87B499BE94 /* NVApplicationController.m in Sources */,

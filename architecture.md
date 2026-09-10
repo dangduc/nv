@@ -122,6 +122,17 @@ This display limit does not change note membership, complete source matching, or
 Generation and occurrence checks reject highlights after shared character edits or selection changes.
 The [search design](docs/fuzzy-search-plan.md) and [test guide](Tests/FuzzySearch/README.md) describe the boundaries and validation limits.
 
+With an empty query, body edits invalidate only the changed note's preview cache.
+Each browser collects changed note UUIDs and updates their rows after a fixed 100 ms delay.
+Continuous typing does not move that deadline.
+Date Modified sorting rebuilds the projection only when the order changes.
+Active queries still invalidate immediately and reject commands until current results arrive.
+Creation, deletion, metadata changes, and explicit search commands retain full projection updates.
+Empty-query edits do not request source highlights or clear absent search backgrounds.
+
+Browser detachment cancels its delayed row work before releasing the library.
+Explicit sorting and library replacement cancel pending body refreshes and use the regular publication path.
+
 Selection, editor scroll, list scroll, divider height, and column layout belong to the browser.
 Application settings can supply defaults or update shared display choices.
 Do not move query state into the library or reuse another window's list-preview cache.
@@ -136,11 +147,11 @@ Windows therefore share live text while keeping separate selections and display 
 A body edit follows this path:
 
 1. `LinkingEditor` changes the shared text storage.
-2. `NVNoteEditingSession` observes the processed character edit, advances the source generation, and rebuilds links on the affected complete lines.
+2. `NVNoteEditingSession` observes the processed character edit, advances the source generation, and requests asynchronous source analysis.
 3. `AppController` asks the editing session to commit the change.
 4. The session registers Undo and writes the content to `NoteObject`.
 5. The note schedules persistence and sends `NVNoteContentsDidChangeNotification`.
-6. The session sends `NVNoteEditorDidChangeNotification`. The coordinator refreshes affected editors and browser lists.
+6. The session sends `NVNoteEditorDidChangeNotification`. The coordinator updates peer editor state. The committed model hook schedules list updates.
 
 The session's write guard prevents its own model notification from reloading the content recursively.
 Committed snapshots compare source characters. Links, font preferences, and highlighting do not add source Undo entries.
@@ -355,6 +366,21 @@ These provisional colors remain visible until the latest result replaces them. T
 Syntax changes, analysis fallback, and closure clear provisional colors. A layout cannot use colors from another note's storage.
 Capture replacement waits until TextKit finishes its edit processing and updates its layout caches.
 
+[NVSourceAnalysis](Sources/Editor/NVSourceAnalysis.m) schedules link detection and word counts for each editing session.
+A shared serial queue receives immutable source and syntax snapshots.
+Each session permits one running job and one pending request.
+A pending request captures the latest source when its turn starts, after a fixed 60 ms delay.
+Workers retain snapshots and completion tickets; they do not retain sessions, views, or live text storage.
+Closure clears the ticket's borrowed owner on main and cancels publication.
+
+Word counts use private worker storage and preserve Cocoa's existing word rules.
+Editors request counts only when needed and share one cached count per source generation.
+Link detection uses the existing URL, wiki-link, and Org rules on private attributed text.
+Complete snapshots preserve edits across canceled jobs without separate dirty-range transforms.
+Main rejects obsolete generations and syntax, then applies changed link ranges after character processing ends.
+Old link colors can remain visible while analysis runs, but obsolete targets cannot open.
+Analysis results do not change source characters or add Undo entries.
+
 The pinned Tree-sitter runtime supports Markdown block and inline syntax, HTML, JSON, and Org.
 Plain Text and Textile use plain source display. Language injections and structural editing are not implemented.
 Org uses a pinned parser and an authored query without predicates.
@@ -363,7 +389,7 @@ This pass runs within the existing parser worker and shares its cancellation and
 The link decorator receives the note's syntax on attachment, content replacement, edits, and syntax changes.
 Org single-line bracket links support explicit HTTP and HTTPS targets.
 Other bracket targets remain inert, and Org disables nv's wiki-link completion.
-Syntax changes replace link attributes in shared text storage without changing source characters or Undo.
+Syntax changes invalidate link actions immediately and schedule replacement attributes without changing source characters or Undo.
 Import and file-library recognition accept `.org` source. A one-time preference migration appends the extension without changing the selected output index.
 Later extension removals remain saved.
 Incremental parsing reuses compatible trees. Queries cover the current tree within a work budget.

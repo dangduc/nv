@@ -18,7 +18,7 @@ static void Pump(void) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
 }
 @interface NativeEditor : NSTextView {
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     BOOL allowSearchColor;
 }
 - (void)invalidateSearchHighlights;
