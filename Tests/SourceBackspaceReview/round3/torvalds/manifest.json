@@ -1,0 +1,381 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "head_start": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "head_end": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "last_production_commit": "c2209e2e6ca1194c3a3ffe361e826860e4e830d8",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "checks": [
+    {
+      "passed": true,
+      "description": "New no-argument invalidation selector has one declaration and one definition."
+    },
+    {
+      "passed": true,
+      "description": "Cleanup selector retains one declaration and one definition."
+    },
+    {
+      "passed": true,
+      "description": "Pending state has one editor instance-variable declaration."
+    },
+    {
+      "passed": true,
+      "description": "Storage observer changes only the cleanup call; storage identity, character mask, and generation fence remain unchanged."
+    },
+    {
+      "passed": true,
+      "description": "Range setter retains its exact old body after removal of the new pending-state guard."
+    },
+    {
+      "passed": true,
+      "description": "Range setter retains subtraction-based bounds checks and rejects zero-length ranges."
+    },
+    {
+      "passed": true,
+      "description": "Range setter retains the independent displayed-range cap."
+    },
+    {
+      "passed": true,
+      "description": "Cleanup retains the same background removal over the current string length."
+    },
+    {
+      "passed": true,
+      "description": "Character-edit guard precedes pending-state reset and temporary-attribute removal."
+    },
+    {
+      "passed": true,
+      "description": "Dirty-storage branch schedules a 10 ms common-mode retry and returns before layout mutation."
+    },
+    {
+      "passed": true,
+      "description": "Initial invalidation coalesces pending work before scheduling cleanup."
+    },
+    {
+      "passed": true,
+      "description": "Initial invalidation contains no layout-manager or temporary-attribute operation."
+    },
+    {
+      "passed": true,
+      "description": "Drawing delegate retains its exact previous body after removal of the new background-only prefix."
+    },
+    {
+      "passed": true,
+      "description": "Added drawing prefix removes only the background key from a mutable copy."
+    },
+    {
+      "passed": true,
+      "description": "- (void)highlightRangesTemporarily: remains byte-identical to the base."
+    },
+    {
+      "passed": true,
+      "description": "- (NSRange)highlightTermsTemporarilyReturningFirstRange: remains byte-identical to the base."
+    },
+    {
+      "passed": true,
+      "description": "- (NSColor *)sourceColorForCapture: remains byte-identical to the base."
+    },
+    {
+      "passed": true,
+      "description": "- (NSDictionary *)currentSearchHighlightAttributes remains byte-identical to the base."
+    },
+    {
+      "passed": true,
+      "description": "Asynchronous highlight refresh remains byte-identical to the base."
+    },
+    {
+      "passed": true,
+      "description": "Note attachment changes only by clearing the old editor before detaching its layout manager."
+    },
+    {
+      "passed": true,
+      "description": "Editor deallocation cancels the same cleanup selector that invalidation schedules."
+    },
+    {
+      "passed": true,
+      "description": "Only two old executable lines are replaced: the observer call and the reindented cleanup operation."
+    },
+    {
+      "passed": true,
+      "description": "All four production hashes remain unchanged during this source-only review."
+    }
+  ],
+  "changed_methods": [
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+    "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing",
+    "- (void)dealloc",
+    "- (void)invalidateSearchHighlights",
+    "- (void)removeHighlightedTerms",
+    "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges"
+  ],
+  "line_counts": {
+    "+": {
+      "code": 18,
+      "declaration": 3,
+      "structural": 3,
+      "comment-only": 4,
+      "blank": 0
+    },
+    "-": {
+      "code": 2,
+      "declaration": 0,
+      "structural": 0,
+      "comment-only": 0,
+      "blank": 0
+    }
+  },
+  "changed_lines": [
+    {
+      "side": "+",
+      "path": "Sources/Browser/AppController.m",
+      "line": 1197,
+      "kind": "comment-only",
+      "method": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing",
+      "text": "    // Cancel the old note's deferred cleanup before this editor changes storage."
+    },
+    {
+      "side": "+",
+      "path": "Sources/Browser/AppController.m",
+      "line": 1198,
+      "kind": "code",
+      "method": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing",
+      "text": "    [textView removeHighlightedTerms];"
+    },
+    {
+      "side": "-",
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 156,
+      "kind": "code",
+      "method": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification",
+      "text": "    [textView removeHighlightedTerms];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 156,
+      "kind": "code",
+      "method": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification",
+      "text": "    [textView invalidateSearchHighlights];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.h",
+      "line": 40,
+      "kind": "declaration",
+      "method": "header declaration/state",
+      "text": "    BOOL searchHighlightsInvalidated;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.h",
+      "line": 75,
+      "kind": "declaration",
+      "method": "header declaration/state",
+      "text": "- (void)invalidateSearchHighlights;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 418,
+      "kind": "code",
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+      "text": "    if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 419,
+      "kind": "code",
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+      "text": "        NSMutableDictionary *display = [[attributes mutableCopy] autorelease];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 420,
+      "kind": "code",
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+      "text": "        [display removeObjectForKey:NSBackgroundColorAttributeName];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 421,
+      "kind": "code",
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+      "text": "        attributes = display;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 422,
+      "kind": "structural",
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range",
+      "text": "    }"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 472,
+      "kind": "declaration",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "- (void)invalidateSearchHighlights {"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 473,
+      "kind": "code",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "    if (searchHighlightsInvalidated) return;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 474,
+      "kind": "code",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "    searchHighlightsInvalidated = YES;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 475,
+      "kind": "comment-only",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "    // TextKit has not adjusted its glyph ranges during storage notifications."
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 476,
+      "kind": "comment-only",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "    // Suppress stale backgrounds now and remove them after edit processing."
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 477,
+      "kind": "code",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "    [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 478,
+      "kind": "structural",
+      "method": "- (void)invalidateSearchHighlights",
+      "text": "}"
+    },
+    {
+      "side": "-",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 468,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "\t[[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 480,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 481,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 482,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "        searchHighlightsInvalidated = YES;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 483,
+      "kind": "comment-only",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "        // A nested run loop can run before endEditing. Avoid retrying at zero delay."
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 484,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "        [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 485,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "        return;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 486,
+      "kind": "structural",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "    }"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 487,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "    searchHighlightsInvalidated = NO;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 488,
+      "kind": "code",
+      "method": "- (void)removeHighlightedTerms",
+      "text": "    [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 517,
+      "kind": "code",
+      "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges",
+      "text": "    if (searchHighlightsInvalidated) return;"
+    },
+    {
+      "side": "+",
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 1518,
+      "kind": "code",
+      "method": "- (void)dealloc",
+      "text": "    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+    }
+  ],
+  "scope": "Static source comparisons only. No compilation, app launch, TextKit operation, crash reproduction, or defective variant."
+}

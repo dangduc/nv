@@ -1,0 +1,37 @@
+PASS: All four generation update sites are inventoried
+PASS: The async acceptance predicate has one generation comparison site
+PASS: Pending cleanup state belongs to each LinkingEditor instance
+PASS: The character observer rejects unrelated storage and attribute-only edits
+PASS: Shared character notification advances the async generation before logical cleanup invalidation
+PASS: Refresh changes its generation and cancels old literal work before any request-entry return
+PASS: Request entry checks note, preferences, current results, composition, selection, and retained rows
+PASS: Delivery requires the captured generation, current results, and the selected row key
+PASS: Final publication also rejects error completions
+PASS: Fuzzy first-stage completion checks the same current-state predicate before validation
+PASS: Both request types pass the copied displayed source to range validation
+PASS: Note replacement removes the old observer, clears, detaches, attaches, and registers in that order
+PASS: Empty editor storage has no shared-note observation registration
+PASS: Browser deallocation removes its remaining notification observations
+PASS: Initial cleanup invalidation marks state before scheduling and coalesces repeat invalidations
+PASS: Cleanup cancels its older request before the character-edit branch
+PASS: An open character edit preserves invalidation and retries, while the stable path clears state before native removal
+PASS: Range publication cannot continue while cleanup remains deferred
+PASS: The drawing delegate suppresses stale backgrounds during pending cleanup
+PASS: Editor deallocation cancels its cleanup selector
+PASS: Saved earlier probe contains assertion for character and refresh generations
+PASS: Saved earlier probe contains assertion for row-key delivery check
+PASS: Saved earlier probe contains assertion for selection returns to its old key
+PASS: Saved earlier probe contains assertion for current-results delivery check
+PASS: Saved earlier probe contains assertion for error delivery check
+PASS: Saved earlier probe contains assertion for fuzzy first-stage delivery
+PASS: Saved earlier probe contains assertion for fuzzy second-stage delivery
+PASS: Saved earlier probe contains assertion for open character edit blocks publication
+PASS: Saved earlier probe contains assertion for cleanup eventually settles in the old schedule
+PASS: Saved earlier probe contains assertion for detached owner ignores the previous storage
+PASS: Saved earlier probe contains assertion for new publication cancels the old callback
+PASS: Saved earlier probe contains assertion for owner release after cancellation
+PASS: The round 2 saved native probe hashes match the four current production files
+PASS: The round 2 manifest records its earlier 57-check success and 12 schedules
+PASS: The round 1 manifest records its separate earlier 13-check success
+PASS: All four production hashes remain unchanged during this source review
+Completed 36 source and saved-evidence checks. No native tests ran.

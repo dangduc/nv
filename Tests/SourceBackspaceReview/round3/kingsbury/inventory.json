@@ -1,0 +1,331 @@
+{
+  "generation_updates": [
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1486,
+      "method": "- (void)textDidChange:(NSNotification *)aNotification {",
+      "source": "searchHighlightGeneration++;"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 65,
+      "method": "- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {",
+      "source": "searchHighlightGeneration++;"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 155,
+      "method": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+      "source": "++searchHighlightGeneration;"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 159,
+      "method": "- (void)refreshSearchHighlights {",
+      "source": "NSUInteger generation = ++searchHighlightGeneration;"
+    }
+  ],
+  "generation_reads": [
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 172,
+      "method": "- (void)refreshSearchHighlights {",
+      "source": "return generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&"
+    }
+  ],
+  "observation_lifecycle": [
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 145,
+      "method": "- (id)init {",
+      "source": "[nc addObserver:self selector:@selector(sourceSyntaxChanged:) name:NVNoteSyntaxDidChangeNotification object:nil];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 147,
+      "method": "- (id)init {",
+      "source": "[nc addObserver:self selector:@selector(togDockIcon:) name:@\"AppShouldToggleDockIcon\" object:nil];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 148,
+      "method": "- (id)init {",
+      "source": "[nc addObserver:self selector:@selector(toggleStatusItem:) name:@\"AppShouldToggleStatusItem\" object:nil];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 151,
+      "method": "- (id)init {",
+      "source": "[nc addObserver:self selector:@selector(resetModTimers:) name:@\"ModTimersShouldReset\" object:nil];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 152,
+      "method": "- (id)init {",
+      "source": "[nc addObserver:self selector:@selector(releaseTagEditor:) name:@\"TagEditorShouldRelease\" object:nil];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1196,
+      "method": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {",
+      "source": "[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:[layout textStorage]];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1204,
+      "method": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {",
+      "source": "if (editingSession) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchSourceStorageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:storage];"
+    },
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1932,
+      "method": "- (void)dealloc {",
+      "source": "[[NSNotificationCenter defaultCenter] removeObserver:self];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 127,
+      "method": "- (void)awakeFromNib {",
+      "source": "//\t[center addObserver:self selector:@selector(windowBecameOrResignedMain:) name:NSWindowDidBecomeMainNotification object:[self window]];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 128,
+      "method": "- (void)awakeFromNib {",
+      "source": "//\t[center addObserver:self selector:@selector(windowBecameOrResignedMain:) name:NSWindowDidResignMainNotification object:[self window]];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 130,
+      "method": "- (void)awakeFromNib {",
+      "source": "//[center addObserver:self selector:@selector(updateTextColors) name:NSSystemColorsDidChangeNotification object:nil]; // recreate gradient if needed"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 2138,
+      "method": "- (void)prepareTextFinder{",
+      "source": "[dc addObserver:self selector:@selector(textFinderShouldUpdateContext:) name:@\"TextFindContextShouldUpdate\" object:nil];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 2139,
+      "method": "- (void)prepareTextFinder{",
+      "source": "[dc addObserver:self selector:@selector(textFinderShouldNoteChanges:) name:@\"TextFindContextShouldNoteChanges\" object:nil];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 2140,
+      "method": "- (void)prepareTextFinder{",
+      "source": "[dc addObserver:self selector:@selector(textFinderShouldResetContext:) name:@\"TextFindContextShouldReset\" object:nil];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 2141,
+      "method": "- (void)prepareTextFinder{",
+      "source": "[dc addObserver:self selector:@selector(hideTextFinderIfNecessary:) name:@\"TextFinderShouldHide\" object:nil];"
+    }
+  ],
+  "cleanup_schedules_and_cancellations": [
+    {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1931,
+      "method": "- (void)dealloc {",
+      "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self];"
+    },
+    {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 68,
+      "method": "- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {",
+      "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showSearchProgress) object:nil];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 477,
+      "method": "- (void)invalidateSearchHighlights {",
+      "source": "[self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 480,
+      "method": "- (void)removeHighlightedTerms {",
+      "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 484,
+      "method": "- (void)removeHighlightedTerms {",
+      "source": "[self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 1518,
+      "method": "- (void)dealloc {",
+      "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+    }
+  ],
+  "logical_highlight_state": [
+    {
+      "path": "Sources/Editor/LinkingEditor.h",
+      "line": 40,
+      "method": null,
+      "source": "BOOL searchHighlightsInvalidated;"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 418,
+      "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes",
+      "source": "if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 473,
+      "method": "- (void)invalidateSearchHighlights {",
+      "source": "if (searchHighlightsInvalidated) return;"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 474,
+      "method": "- (void)invalidateSearchHighlights {",
+      "source": "searchHighlightsInvalidated = YES;"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 482,
+      "method": "- (void)removeHighlightedTerms {",
+      "source": "searchHighlightsInvalidated = YES;"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 487,
+      "method": "- (void)removeHighlightedTerms {",
+      "source": "searchHighlightsInvalidated = NO;"
+    },
+    {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 517,
+      "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+      "source": "if (searchHighlightsInvalidated) return;"
+    }
+  ],
+  "scope": "Read-only source inventory and comparison with already saved evidence. No native or application execution.",
+  "source_checks": [
+    "All four generation update sites are inventoried",
+    "The async acceptance predicate has one generation comparison site",
+    "Pending cleanup state belongs to each LinkingEditor instance",
+    "The character observer rejects unrelated storage and attribute-only edits",
+    "Shared character notification advances the async generation before logical cleanup invalidation",
+    "Refresh changes its generation and cancels old literal work before any request-entry return",
+    "Request entry checks note, preferences, current results, composition, selection, and retained rows",
+    "Delivery requires the captured generation, current results, and the selected row key",
+    "Final publication also rejects error completions",
+    "Fuzzy first-stage completion checks the same current-state predicate before validation",
+    "Both request types pass the copied displayed source to range validation",
+    "Note replacement removes the old observer, clears, detaches, attaches, and registers in that order",
+    "Empty editor storage has no shared-note observation registration",
+    "Browser deallocation removes its remaining notification observations",
+    "Initial cleanup invalidation marks state before scheduling and coalesces repeat invalidations",
+    "Cleanup cancels its older request before the character-edit branch",
+    "An open character edit preserves invalidation and retries, while the stable path clears state before native removal",
+    "Range publication cannot continue while cleanup remains deferred",
+    "The drawing delegate suppresses stale backgrounds during pending cleanup",
+    "Editor deallocation cancels its cleanup selector",
+    "Saved earlier probe contains assertion for character and refresh generations",
+    "Saved earlier probe contains assertion for row-key delivery check",
+    "Saved earlier probe contains assertion for selection returns to its old key",
+    "Saved earlier probe contains assertion for current-results delivery check",
+    "Saved earlier probe contains assertion for error delivery check",
+    "Saved earlier probe contains assertion for fuzzy first-stage delivery",
+    "Saved earlier probe contains assertion for fuzzy second-stage delivery",
+    "Saved earlier probe contains assertion for open character edit blocks publication",
+    "Saved earlier probe contains assertion for cleanup eventually settles in the old schedule",
+    "Saved earlier probe contains assertion for detached owner ignores the previous storage",
+    "Saved earlier probe contains assertion for new publication cancels the old callback",
+    "Saved earlier probe contains assertion for owner release after cancellation",
+    "The round 2 saved native probe hashes match the four current production files",
+    "The round 2 manifest records its earlier 57-check success and 12 schedules",
+    "The round 1 manifest records its separate earlier 13-check success",
+    "All four production hashes remain unchanged during this source review"
+  ],
+  "checks": 36,
+  "acceptance_predicate": "- (void)refreshSearchHighlights {\n    NSUInteger generation = ++searchHighlightGeneration;\n    [textView removeHighlightedTerms];\n    NVBrowserSession *session = [self browserSession];\n    NVSearchService *service = [[NVApplicationController sharedController] searchService];\n    [service cancelLiteralRangesForOwner:session];\n    if (!currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;\n    NSInteger row = [notesTableView primarySelectedRow];\n    if (row < 0) return;\n    NSString *kind = [session matchKindAtIndex:row];\n    if ([kind isEqual:@\"retained\"]) return;\n    NSString *key = [[session rowKeyAtIndex:row] copy];\n    NSString *displayedSource = [[textView string] copy];\n    BOOL (^isCurrent)(void) = ^BOOL {\n        return generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&\n            [[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key];\n    };\n    NVSearchLiteralRangesCompletion apply = ^(NSArray *ranges, NSString *source, NSError *error) {\n        // Shared character notifications advance this generation immediately.\n        // The worker compared immutable source copies before returning ranges.\n        if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];\n    };\n    if ([kind isEqual:@\"fuzzy\"]) [session requestSourceHighlightsForRow:row completion:^(NSArray *ranges, NSString *source) {\n        if (isCurrent()) [service validateSourceRanges:ranges source:source matchingSource:displayedSource owner:session completion:apply];\n    }];\n    else [service requestLiteralRangesInSource:[[currentNote contentString] string] matchingSource:displayedSource query:[session searchString] owner:session completion:apply];\n    [displayedSource release]; [key release];\n}",
+  "earlier_coverage": [
+    {
+      "concept": "character and refresh generations",
+      "round": 2,
+      "assertion": "old completion agrees with revision/request oracle"
+    },
+    {
+      "concept": "row-key delivery check",
+      "round": 2,
+      "assertion": "row-key change rejects a late callback before refresh"
+    },
+    {
+      "concept": "selection returns to its old key",
+      "round": 2,
+      "assertion": "ABA note selection rejects old same-key callback after refresh"
+    },
+    {
+      "concept": "current-results delivery check",
+      "round": 2,
+      "assertion": "pending result snapshot rejects callback"
+    },
+    {
+      "concept": "error delivery check",
+      "round": 2,
+      "assertion": "error completion does not publish"
+    },
+    {
+      "concept": "fuzzy first-stage delivery",
+      "round": 2,
+      "assertion": "obsolete fuzzy first stage never enters source validation"
+    },
+    {
+      "concept": "fuzzy second-stage delivery",
+      "round": 2,
+      "assertion": "edit between fuzzy stages rejects old validated ranges"
+    },
+    {
+      "concept": "open character edit blocks publication",
+      "round": 2,
+      "assertion": "even a current callback cannot install ranges during an open edit"
+    },
+    {
+      "concept": "cleanup eventually settles in the old schedule",
+      "round": 2,
+      "assertion": "all pending states settle after the edit closes"
+    },
+    {
+      "concept": "detached owner ignores the previous storage",
+      "round": 1,
+      "assertion": "detached owner ignores peer mutations"
+    },
+    {
+      "concept": "new publication cancels the old callback",
+      "round": 1,
+      "assertion": "new snapshot cancels pending old cleanup"
+    },
+    {
+      "concept": "owner release after cancellation",
+      "round": 1,
+      "assertion": "both editor owners release after callback cancellation"
+    }
+  ],
+  "earlier_evidence": {
+    "round1": {
+      "recorded_checks": 13,
+      "editor_hash_matches_current": false,
+      "limit": "Historical adapter used the pre-correction retry implementation; it did not execute the full note-switch method."
+    },
+    "round2": {
+      "recorded_checks": 57,
+      "recorded_schedules": 12,
+      "four_production_hashes_match_current": true,
+      "limit": "Historical AppKit adapter used stub services, browser state, and table selection. No result was rerun in this round."
+    }
+  },
+  "source_only_paths_without_direct_assertion_in_these_state_probes": [
+    "AppController textDidChange: and browserSessionSearchStateDidChange: generation increments",
+    "Request-entry preference, missing-current-note, marked-search-composition, and retained-row gates",
+    "The complete application note-switch and browser-deallocation methods"
+  ]
+}

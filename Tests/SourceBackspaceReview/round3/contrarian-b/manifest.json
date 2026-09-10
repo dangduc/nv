@@ -1,0 +1,160 @@
+{
+  "reviewed_head": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "head_end": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "final_production_commit": "c2209e2e6ca1194c3a3ffe361e826860e4e830d8",
+  "production_hashes_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_hashes_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "sdk_path": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+  "sdk_header_sha256": {
+    "NSRunLoop.h": "bb16e6d214a90e98c29b8c15e48d0c93b9e4d733cd2d33e43ced27734f67eef7",
+    "NSArray.h": "b9e39f57a0ab40123d23e7f6fa94de43af71a91b025d7fb904de2d3409448b80"
+  },
+  "checks": [
+    {
+      "passed": true,
+      "description": "Stored Xcode configurations retain macOS 10.9 deployment targets."
+    },
+    {
+      "passed": true,
+      "description": "Documented Development and CI commands explicitly build for macOS 10.13."
+    },
+    {
+      "passed": true,
+      "description": "Installed Apple SDK marks NSRunLoopCommonModes available since macOS 10.5."
+    },
+    {
+      "passed": true,
+      "description": "Delayed selector is declared without a later platform availability restriction in the installed SDK."
+    },
+    {
+      "passed": true,
+      "description": "Selector cancellation is declared without a later platform availability restriction in the installed SDK."
+    },
+    {
+      "passed": true,
+      "description": "NSArray object/count creation is declared without a later platform availability restriction in the installed SDK."
+    },
+    {
+      "passed": true,
+      "description": "The new invalidation selector has a matching public declaration and one implementation."
+    },
+    {
+      "passed": true,
+      "description": "The scheduled no-argument cleanup selector has a matching declaration and one implementation."
+    },
+    {
+      "passed": true,
+      "description": "The editor already uses Objective-C array literals in the base revision."
+    },
+    {
+      "passed": true,
+      "description": "New scheduling uses the existing Objective-C literal syntax with the SDK common-mode constant."
+    },
+    {
+      "passed": true,
+      "description": "The patch does not enable ARC in the project configuration."
+    },
+    {
+      "passed": true,
+      "description": "The new mutable drawing dictionary balances its copy ownership with autorelease."
+    },
+    {
+      "passed": true,
+      "description": "New persistent editor state is a primitive BOOL with no object ownership."
+    },
+    {
+      "passed": true,
+      "description": "Explicit cleanup and editor deallocation cancel the same target/selector/object request before teardown."
+    },
+    {
+      "passed": true,
+      "description": "The existing manual-memory-management superclass teardown remains present."
+    },
+    {
+      "passed": true,
+      "description": "Initial scheduling coalesces requests and uses common run-loop modes."
+    },
+    {
+      "passed": true,
+      "description": "The 10 ms retry is a single production literal, and uses the same mode list as initial scheduling."
+    },
+    {
+      "passed": true,
+      "description": "A common-mode retry still checks character-edit state and returns before unsafe cleanup."
+    },
+    {
+      "passed": true,
+      "description": "The production comment explains why a dirty edit receives a nonzero retry delay."
+    },
+    {
+      "passed": true,
+      "description": "Architecture documentation describes the cleanup boundary and fresh-result cancellation."
+    },
+    {
+      "passed": true,
+      "description": "The review index documents the 10 ms correction and links its rationale and evidence."
+    },
+    {
+      "passed": true,
+      "description": "The maintained highlight probe explicitly guards the retry-delay lower bound."
+    },
+    {
+      "passed": true,
+      "description": "The test index links the focused suite and the focused guide gives its command."
+    },
+    {
+      "passed": true,
+      "description": "The aggregate regression runner includes both maintained affected suites."
+    },
+    {
+      "passed": true,
+      "description": "No source, resource, config, or Xcode project content changed after c2209e2."
+    },
+    {
+      "passed": true,
+      "description": "Sources/Browser/AppController.m remains byte-identical to the final production commit."
+    },
+    {
+      "passed": true,
+      "description": "Sources/Browser/AppController_Search.m remains byte-identical to the final production commit."
+    },
+    {
+      "passed": true,
+      "description": "Sources/Editor/LinkingEditor.h remains byte-identical to the final production commit."
+    },
+    {
+      "passed": true,
+      "description": "Sources/Editor/LinkingEditor.m remains byte-identical to the final production commit."
+    },
+    {
+      "passed": true,
+      "description": "Four production hashes match before and after this source-only inventory."
+    }
+  ],
+  "facts": {
+    "project_deployment_targets": [
+      "10.9",
+      "10.9",
+      "10.9",
+      "10.9"
+    ],
+    "sdk_common_modes_declaration": "FOUNDATION_EXPORT NSRunLoopMode const NSRunLoopCommonModes API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));",
+    "sdk_perform_declaration": "- (void)performSelector:(SEL)aSelector withObject:(nullable id)anArgument afterDelay:(NSTimeInterval)delay inModes:(NSArray<NSRunLoopMode> *)modes;",
+    "sdk_cancel_declaration": "+ (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(nullable id)anArgument;",
+    "sdk_array_creation_declaration": "+ (instancetype)arrayWithObjects:(const ObjectType _Nonnull [_Nonnull])objects count:(NSUInteger)cnt;",
+    "base_editor_array_literal_count": 2,
+    "production_paths_changed_after_final_production_commit": []
+  },
+  "scope": "Static source and installed SDK-header review only. No compilation, native execution, GUI, crash reproduction, mutations, or old-OS validation."
+}

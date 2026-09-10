@@ -1,0 +1,51 @@
+SOURCE-ONLY MAINTENANCE/COMPATIBILITY REVIEW
+HEAD: bfaebae755501f834f0eef8fc6dd395c7a2340ff
+SDK: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+PASS: Stored Xcode configurations retain macOS 10.9 deployment targets.
+PASS: Documented Development and CI commands explicitly build for macOS 10.13.
+PASS: Installed Apple SDK marks NSRunLoopCommonModes available since macOS 10.5.
+PASS: Delayed selector is declared without a later platform availability restriction in the installed SDK.
+PASS: Selector cancellation is declared without a later platform availability restriction in the installed SDK.
+PASS: NSArray object/count creation is declared without a later platform availability restriction in the installed SDK.
+PASS: The new invalidation selector has a matching public declaration and one implementation.
+PASS: The scheduled no-argument cleanup selector has a matching declaration and one implementation.
+PASS: The editor already uses Objective-C array literals in the base revision.
+PASS: New scheduling uses the existing Objective-C literal syntax with the SDK common-mode constant.
+PASS: The patch does not enable ARC in the project configuration.
+PASS: The new mutable drawing dictionary balances its copy ownership with autorelease.
+PASS: New persistent editor state is a primitive BOOL with no object ownership.
+PASS: Explicit cleanup and editor deallocation cancel the same target/selector/object request before teardown.
+PASS: The existing manual-memory-management superclass teardown remains present.
+PASS: Initial scheduling coalesces requests and uses common run-loop modes.
+PASS: The 10 ms retry is a single production literal, and uses the same mode list as initial scheduling.
+PASS: A common-mode retry still checks character-edit state and returns before unsafe cleanup.
+PASS: The production comment explains why a dirty edit receives a nonzero retry delay.
+PASS: Architecture documentation describes the cleanup boundary and fresh-result cancellation.
+PASS: The review index documents the 10 ms correction and links its rationale and evidence.
+PASS: The maintained highlight probe explicitly guards the retry-delay lower bound.
+PASS: The test index links the focused suite and the focused guide gives its command.
+PASS: The aggregate regression runner includes both maintained affected suites.
+PASS: No source, resource, config, or Xcode project content changed after c2209e2.
+PASS: Sources/Browser/AppController.m remains byte-identical to the final production commit.
+PASS: Sources/Browser/AppController_Search.m remains byte-identical to the final production commit.
+PASS: Sources/Editor/LinkingEditor.h remains byte-identical to the final production commit.
+PASS: Sources/Editor/LinkingEditor.m remains byte-identical to the final production commit.
+PASS: Four production hashes match before and after this source-only inventory.
+
+RECORDED FACTS
+{
+  "project_deployment_targets": [
+    "10.9",
+    "10.9",
+    "10.9",
+    "10.9"
+  ],
+  "sdk_common_modes_declaration": "FOUNDATION_EXPORT NSRunLoopMode const NSRunLoopCommonModes API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));",
+  "sdk_perform_declaration": "- (void)performSelector:(SEL)aSelector withObject:(nullable id)anArgument afterDelay:(NSTimeInterval)delay inModes:(NSArray<NSRunLoopMode> *)modes;",
+  "sdk_cancel_declaration": "+ (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(nullable id)anArgument;",
+  "sdk_array_creation_declaration": "+ (instancetype)arrayWithObjects:(const ObjectType _Nonnull [_Nonnull])objects count:(NSUInteger)cnt;",
+  "base_editor_array_literal_count": 2,
+  "production_paths_changed_after_final_production_commit": []
+}
+STATIC CHECKS PASSED: 30
+No new runtime validation.

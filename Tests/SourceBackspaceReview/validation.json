@@ -21,5 +21,17 @@
       "passed": true,
       "evidence_directory": "build/SourceBackspaceNegativeControl"
     }
-  ]
+  ],
+  "runner_correction_commit": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "after_runner_correction": {
+    "source_backspace_checks": 310,
+    "highlight_bounds_checks": 134,
+    "expected_mutation_failures": 11,
+    "runner_unit_tests": 16,
+    "logs": [
+      "build/backspace-final-native.log",
+      "build/backspace-final-bounds.log",
+      "Tests/SourceBackspaceReview/fixes/oracles/output.txt"
+    ]
+  }
 }

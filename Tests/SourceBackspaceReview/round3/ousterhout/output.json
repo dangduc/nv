@@ -1,0 +1,318 @@
+{
+  "base_header_api_presence_at_54ce3b8": {
+    "removeHighlightedTerms": true,
+    "invalidateSearchHighlights": false,
+    "setSearchHighlightRanges": true,
+    "highlightRangesTemporarily": true,
+    "highlightTermsTemporarilyReturningFirstRange": true
+  },
+  "scope": "Static source inventory; no native execution or runtime validation.",
+  "source_files_read": 224,
+  "apis": {
+    "removeHighlightedTerms": {
+      "declarations": [
+        {
+          "path": "Sources/Editor/LinkingEditor.h",
+          "line": 74,
+          "method": "- (void)removeHighlightedTerms;",
+          "source": "- (void)removeHighlightedTerms;"
+        }
+      ],
+      "definitions": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 479,
+          "method": "- (void)removeHighlightedTerms {",
+          "source": "- (void)removeHighlightedTerms {"
+        }
+      ],
+      "direct_calls": [
+        {
+          "path": "Sources/Browser/AppController.m",
+          "line": 1198,
+          "method": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {",
+          "source": "[textView removeHighlightedTerms];"
+        },
+        {
+          "path": "Sources/Browser/AppController.m",
+          "line": 1487,
+          "method": "- (void)textDidChange:(NSNotification *)aNotification {",
+          "source": "[textView removeHighlightedTerms];"
+        },
+        {
+          "path": "Sources/Browser/AppController.m",
+          "line": 1501,
+          "method": "- (void)textDidBeginEditing:(NSNotification *)aNotification {",
+          "source": "[textView removeHighlightedTerms];"
+        },
+        {
+          "path": "Sources/Browser/AppController_Search.m",
+          "line": 66,
+          "method": "- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {",
+          "source": "[textView removeHighlightedTerms];"
+        },
+        {
+          "path": "Sources/Browser/AppController_Search.m",
+          "line": 160,
+          "method": "- (void)refreshSearchHighlights {",
+          "source": "[textView removeHighlightedTerms];"
+        },
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 516,
+          "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+          "source": "[self removeHighlightedTerms];"
+        }
+      ],
+      "selector_references": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 477,
+          "method": "- (void)invalidateSearchHighlights {",
+          "source": "[self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];"
+        },
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 480,
+          "method": "- (void)removeHighlightedTerms {",
+          "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+        },
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 484,
+          "method": "- (void)removeHighlightedTerms {",
+          "source": "[self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];"
+        },
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 1518,
+          "method": "- (void)dealloc {",
+          "source": "[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];"
+        }
+      ]
+    },
+    "invalidateSearchHighlights": {
+      "declarations": [
+        {
+          "path": "Sources/Editor/LinkingEditor.h",
+          "line": 75,
+          "method": "- (void)invalidateSearchHighlights;",
+          "source": "- (void)invalidateSearchHighlights;"
+        }
+      ],
+      "definitions": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 472,
+          "method": "- (void)invalidateSearchHighlights {",
+          "source": "- (void)invalidateSearchHighlights {"
+        }
+      ],
+      "direct_calls": [
+        {
+          "path": "Sources/Browser/AppController_Search.m",
+          "line": 156,
+          "method": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+          "source": "[textView invalidateSearchHighlights];"
+        }
+      ],
+      "selector_references": []
+    },
+    "setSearchHighlightRanges": {
+      "declarations": [
+        {
+          "path": "Sources/Editor/LinkingEditor.h",
+          "line": 76,
+          "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges;",
+          "source": "- (void)setSearchHighlightRanges:(NSArray *)ranges;"
+        }
+      ],
+      "definitions": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 515,
+          "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+          "source": "- (void)setSearchHighlightRanges:(NSArray *)ranges {"
+        }
+      ],
+      "direct_calls": [
+        {
+          "path": "Sources/Browser/AppController_Search.m",
+          "line": 178,
+          "method": "- (void)refreshSearchHighlights {",
+          "source": "if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];"
+        }
+      ],
+      "selector_references": []
+    },
+    "highlightRangesTemporarily": {
+      "declarations": [
+        {
+          "path": "Sources/Editor/LinkingEditor.h",
+          "line": 77,
+          "method": "- (void)highlightRangesTemporarily:(CFArrayRef)ranges;",
+          "source": "- (void)highlightRangesTemporarily:(CFArrayRef)ranges;"
+        }
+      ],
+      "definitions": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 530,
+          "method": "- (void)highlightRangesTemporarily:(CFArrayRef)ranges {",
+          "source": "- (void)highlightRangesTemporarily:(CFArrayRef)ranges {"
+        }
+      ],
+      "direct_calls": [],
+      "selector_references": []
+    },
+    "highlightTermsTemporarilyReturningFirstRange": {
+      "declarations": [
+        {
+          "path": "Sources/Editor/LinkingEditor.h",
+          "line": 78,
+          "method": "- (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;",
+          "source": "- (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;"
+        }
+      ],
+      "definitions": [
+        {
+          "path": "Sources/Editor/LinkingEditor.m",
+          "line": 546,
+          "method": "- (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight {",
+          "source": "- (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight {"
+        }
+      ],
+      "direct_calls": [
+        {
+          "path": "Sources/Browser/AppController.m",
+          "line": 1456,
+          "method": "- (BOOL)displayContentsForNoteAtIndex:(NSUInteger)noteIndex {",
+          "source": "firstFoundTermRange = [textView highlightTermsTemporarilyReturningFirstRange:typedString avoidHighlight:"
+        }
+      ],
+      "selector_references": []
+    }
+  },
+  "state_references": {
+    "searchHighlightsInvalidated": [
+      {
+        "path": "Sources/Editor/LinkingEditor.h",
+        "line": 40,
+        "method": null,
+        "source": "BOOL searchHighlightsInvalidated;"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 418,
+        "method": "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes",
+        "source": "if (searchHighlightsInvalidated && [attributes objectForKey:NSBackgroundColorAttributeName]) {"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 473,
+        "method": "- (void)invalidateSearchHighlights {",
+        "source": "if (searchHighlightsInvalidated) return;"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 474,
+        "method": "- (void)invalidateSearchHighlights {",
+        "source": "searchHighlightsInvalidated = YES;"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 482,
+        "method": "- (void)removeHighlightedTerms {",
+        "source": "searchHighlightsInvalidated = YES;"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 487,
+        "method": "- (void)removeHighlightedTerms {",
+        "source": "searchHighlightsInvalidated = NO;"
+      },
+      {
+        "path": "Sources/Editor/LinkingEditor.m",
+        "line": 517,
+        "method": "- (void)setSearchHighlightRanges:(NSArray *)ranges {",
+        "source": "if (searchHighlightsInvalidated) return;"
+      }
+    ],
+    "searchHighlightGeneration": [
+      {
+        "path": "Sources/Browser/AppController.h",
+        "line": 90,
+        "method": null,
+        "source": "NSUInteger searchIntentGeneration, searchHighlightGeneration;"
+      },
+      {
+        "path": "Sources/Browser/AppController.m",
+        "line": 1486,
+        "method": "- (void)textDidChange:(NSNotification *)aNotification {",
+        "source": "searchHighlightGeneration++;"
+      },
+      {
+        "path": "Sources/Browser/AppController_Search.m",
+        "line": 65,
+        "method": "- (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {",
+        "source": "searchHighlightGeneration++;"
+      },
+      {
+        "path": "Sources/Browser/AppController_Search.m",
+        "line": 155,
+        "method": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {",
+        "source": "++searchHighlightGeneration;"
+      },
+      {
+        "path": "Sources/Browser/AppController_Search.m",
+        "line": 159,
+        "method": "- (void)refreshSearchHighlights {",
+        "source": "NSUInteger generation = ++searchHighlightGeneration;"
+      },
+      {
+        "path": "Sources/Browser/AppController_Search.m",
+        "line": 172,
+        "method": "- (void)refreshSearchHighlights {",
+        "source": "return generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&"
+      }
+    ]
+  },
+  "responsibility_excerpts": {
+    "source_character_observer": {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 151,
+      "source": "- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification {\n    NSTextStorage *storage = [notification object];\n    if (storage != [textView textStorage] || !([storage editedMask] & NSTextStorageEditedCharacters)) return;\n    // Every attached editor observes shared characters, including uncommitted composition.\n    ++searchHighlightGeneration;\n    [textView invalidateSearchHighlights];\n}"
+    },
+    "source_highlight_request": {
+      "path": "Sources/Browser/AppController_Search.m",
+      "line": 158,
+      "source": "- (void)refreshSearchHighlights {\n    NSUInteger generation = ++searchHighlightGeneration;\n    [textView removeHighlightedTerms];\n    NVBrowserSession *session = [self browserSession];\n    NVSearchService *service = [[NVApplicationController sharedController] searchService];\n    [service cancelLiteralRangesForOwner:session];\n    if (!currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;\n    NSInteger row = [notesTableView primarySelectedRow];\n    if (row < 0) return;\n    NSString *kind = [session matchKindAtIndex:row];\n    if ([kind isEqual:@\"retained\"]) return;\n    NSString *key = [[session rowKeyAtIndex:row] copy];\n    NSString *displayedSource = [[textView string] copy];\n    BOOL (^isCurrent)(void) = ^BOOL {\n        return generation == searchHighlightGeneration && [session searchResultsAreCurrent] &&\n            [[session rowKeyAtIndex:[notesTableView primarySelectedRow]] isEqual:key];\n    };\n    NVSearchLiteralRangesCompletion apply = ^(NSArray *ranges, NSString *source, NSError *error) {\n        // Shared character notifications advance this generation immediately.\n        // The worker compared immutable source copies before returning ranges.\n        if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];\n    };\n    if ([kind isEqual:@\"fuzzy\"]) [session requestSourceHighlightsForRow:row completion:^(NSArray *ranges, NSString *source) {\n        if (isCurrent()) [service validateSourceRanges:ranges source:source matchingSource:displayedSource owner:session completion:apply];\n    }];\n    else [service requestLiteralRangesInSource:[[currentNote contentString] string] matchingSource:displayedSource query:[session searchString] owner:session completion:apply];\n    [displayedSource release]; [key release];\n}"
+    },
+    "storage_attachment": {
+      "path": "Sources/Browser/AppController.m",
+      "line": 1182,
+      "source": "- (void)_setCurrentNote:(NoteObject *)aNote finishingEditing:(BOOL)finishOldEditing {\n    if (currentNote == aNote) return;\n    if (finishOldEditing) [self finishEditing];\n    [self captureBodyPresentation];\n    if (currentNote) {\n        NSString *key = [NSString uuidStringWithBytes:*[currentNote uniqueNoteIDBytes]];\n        [noteSelections setObject:NSStringFromRange([textView selectedRange]) forKey:key];\n    }\n    [currentNote release];\n    currentNote = [aNote retain];\n    NVNoteEditingSession *previousSession = [editingSession autorelease];\n    editingSession = [[[NVApplicationController sharedController] editingSessionForNote:aNote] retain];\n    NSTextStorage *storage = editingSession ? [editingSession textStorage] : emptyEditorStorage;\n    NSLayoutManager *layout = [[textView layoutManager] retain];\n    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageWillProcessEditingNotification object:[layout textStorage]];\n    // Cancel the old note's deferred cleanup before this editor changes storage.\n    [textView removeHighlightedTerms];\n    // replaceTextStorage: moves every layout manager from the old storage.\n    // Detach only this window's layout manager when switching notes.\n    [[layout textStorage] removeLayoutManager:layout];\n    [previousSession sourceLayoutDidDetach];\n    [storage addLayoutManager:layout];\n    if (editingSession) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchSourceStorageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:storage];\n    [editingSession sourceLayoutDidAttach];\n    [layout release];\n    [textView setAllowsUndo:NO];\n    [self updateNoteHeader];\n    [self updateBodyPresentation];\n    if (!aNote) [self discardViewer];\n    else if (viewingNote) [self updateViewerSnapshot];\n}"
+    },
+    "editor_invalidation": {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 472,
+      "source": "- (void)invalidateSearchHighlights {\n    if (searchHighlightsInvalidated) return;\n    searchHighlightsInvalidated = YES;\n    // TextKit has not adjusted its glyph ranges during storage notifications.\n    // Suppress stale backgrounds now and remove them after edit processing.\n    [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];\n}"
+    },
+    "editor_cleanup": {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 479,
+      "source": "- (void)removeHighlightedTerms {\n    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];\n    if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {\n        searchHighlightsInvalidated = YES;\n        // A nested run loop can run before endEditing. Avoid retrying at zero delay.\n        [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0.01 inModes:@[NSRunLoopCommonModes]];\n        return;\n    }\n    searchHighlightsInvalidated = NO;\n    [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];\n}"
+    },
+    "editor_publication": {
+      "path": "Sources/Editor/LinkingEditor.m",
+      "line": 515,
+      "source": "- (void)setSearchHighlightRanges:(NSArray *)ranges {\n    [self removeHighlightedTerms];\n    if (searchHighlightsInvalidated) return;\n    NSColor *color = [[self currentSearchHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];\n    if (!color) return;\n    NSUInteger length = [[self string] length];\n    NSUInteger displayed = 0;\n    for (NSValue *value in ranges) {\n        if (displayed++ == NVSearchMaximumDisplayedRanges) break;\n        NSRange range = [value rangeValue];\n        if (range.location <= length && range.length <= length - range.location && range.length)\n            [[self layoutManager] addTemporaryAttribute:NSBackgroundColorAttributeName value:color forCharacterRange:range];\n    }\n}"
+    }
+  },
+  "architecture_excerpt": {
+    "path": "architecture.md",
+    "line": 111,
+    "source": "Search highlights use only temporary background attributes on each editor's layout manager.\nShared character edits invalidate stale highlights in every attached editor, including before composition commits.\nDrawing suppresses their backgrounds immediately. A coalesced callback removes the attributes after TextKit processes the edit and updates its glyph ranges.\nFresh highlights cancel pending cleanup. Note switches request cleanup before the layout manager changes storage.\nExplicit cleanup cancels any old scheduled selector.\nIf character editing remains open, cleanup defers removal while drawing suppresses stale backgrounds.\nOtherwise, removal completes before the layout manager changes storage.\nSnapshot highlights stay suppressed while live source differs from committed source.\nThe search worker compares immutable source copies and discovers literal ranges with cancellation checks.\nSource decoration stops after 2,048 literal occurrences and installs at most 2,048 temporary background ranges.\nThis display limit does not change note membership, complete source matching, or native result order.\nGeneration and occurrence checks reject highlights after shared character edits or selection changes.\nThe [search design](docs/fuzzy-search-plan.md) and [test guide](Tests/FuzzySearch/README.md) describe the boundaries and validation limits."
+  },
+  "inventory_consistency_checks": 3
+}

@@ -1,0 +1,21 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "reviewed_head": "bfaebae755501f834f0eef8fc6dd395c7a2340ff",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "prior_manifest_sha256": {
+    "Tests/SourceBackspaceReview/round1/kingsbury/interleavings.json": "89fa08728cec01ad49709da0c754959c10966b21be38fe593c41b89e17fd4730",
+    "Tests/SourceBackspaceReview/round2/kingsbury/manifest.json": "efb90bd7b0a78ad778b615e1068ccec622d85c9320e353e2a8020f2d87de20eb"
+  },
+  "scope": "Read-only source inventory and comparison with already saved evidence. No native or application execution."
+}

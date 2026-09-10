@@ -11,10 +11,22 @@ A separate agent changed retries to 10 ms while preserving immediate display sup
 The [correction probe](fixes/retry/report.md) checks the delay, eventual cleanup, and fresh-result cancellation.
 The zero-delay negative control fails its intended assertion.
 
+The second contrarian review found two test-harness gaps.
+Normal backspace runs could inherit the first-case-only mode and accept its partial completion marker.
+HighlightBounds treated unrelated process failures as expected mutation failures.
+The [delegated corrections](fixes/oracles/README.md) clear the inherited switch and require the full-suite completion marker.
+Each mutation must exit at its expected assertion.
+All 16 runner unit tests pass. The stricter runners also pass 310 app checks and 134 highlight checks, with 11 expected mutation failures.
+
+The third ownership review found an unconditional cleanup statement in `architecture.md`.
+The [delegated documentation correction](fixes/architecture/) now distinguishes selector cancellation from immediate and deferred removal.
+
 ## Review rounds
 
 Each report identifies the tested production hashes, its commands, results, and limits.
 Assertion counts include repeated matrix positions; they are not counts of distinct user workflows.
+Some historical scripts assert that a defect exists. Their saved hashes identify the versions that produced those results.
+Use the maintained suites for current regression checks.
 The first ownership, performance, and state reviews tested the initial candidate before the retry correction.
 The remaining first-round reviews tested the corrected implementation in `c2209e2`.
 Later commits record review evidence without changing production code.
@@ -27,8 +39,21 @@ Later commits record review evidence without changing production code.
 | 1 | Kyle Kingsbury | [State and interleavings](round1/kingsbury/report.md) | No candidate finding; 13 checks and two rejected controls. |
 | 1 | Contrarian A | [Complexity and causal evidence](round1/contrarian-a/report.md) | No finding; 16 checks and five rejected simplifications. |
 | 1 | Contrarian B | [Visual behavior](round1/contrarian-b/report.md) | No finding; 7,680 combinations and 39,819 assertions. |
+| 2 | John Ousterhout | [Controller boundaries](round2/ousterhout/report.md) | No finding; 26 checks and three rejected controls. |
+| 2 | Dan Luu | [Sustained editing](round2/luu/report.md) | No finding; 1,794 checks and two rejected controls. |
+| 2 | Linus Torvalds | [Mixed notifications](round2/torvalds/report.md) | No finding; 43 checks each on Intel and native ASan/UBSan. |
+| 2 | Kyle Kingsbury | [Callback orders](round2/kingsbury/report.md) | No finding; 57 checks across 12 schedules and six rejected controls. |
+| 2 | Contrarian A | [Test result classification](round2/contrarian-a/report.md) | Two test-harness findings; 21 simulated-process checks. |
+| 2 | Contrarian B | [Native appearance ownership](round2/contrarian-b/report.md) | No finding; 48 checks with four native text views. |
+| 3 | John Ousterhout | [Static API ownership](round3/ousterhout/report.md) | Documentation clarification; three static checks across 224 source files. |
+| 3 | Dan Luu | [Static cost paths](round3/luu/report.md) | No finding; 17 source checks and eight call sites. |
+| 3 | Linus Torvalds | [Final implementation inventory](round3/torvalds/report.md) | No finding; 23 static checks. |
+| 3 | Kyle Kingsbury | [Final state inventory](round3/kingsbury/report.md) | No finding; 36 source and saved-evidence checks. |
+| 3 | Contrarian A | [Evidence audit](round3/contrarian-a/report.md) | No discrepancy; 73 static checks across 71 saved inputs. |
+| 3 | Contrarian B | [Maintenance and compatibility](round3/contrarian-b/report.md) | No finding; 30 static checks. |
 
-Rounds two and three are in progress.
+Round three reviewed the corrected branch at `bfaebae`.
+It used source-inventory scripts and code review. It added no native runtime or crash-reproduction coverage.
 
 ## Application validation
 

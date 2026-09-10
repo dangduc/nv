@@ -1,0 +1,443 @@
+{
+  "scope": "Static audit of saved artifacts and source text. No app or test runner execution.",
+  "checks": [
+    {
+      "passed": true,
+      "claim": "Saved Development build log contains the successful-build marker"
+    },
+    {
+      "passed": true,
+      "claim": "Saved validation records agree on 310 copied-app checks"
+    },
+    {
+      "passed": true,
+      "claim": "Copied-app result records report successful native exit"
+    },
+    {
+      "passed": true,
+      "claim": "Saved native log contains 310 PASS records and the full-suite marker"
+    },
+    {
+      "passed": true,
+      "claim": "Final wrapper log includes the saved full native log"
+    },
+    {
+      "passed": true,
+      "claim": "Copied-app binary identity agrees between saved records"
+    },
+    {
+      "passed": true,
+      "claim": "Original-app control record agrees with validation.json"
+    },
+    {
+      "passed": true,
+      "claim": "Final HighlightBounds log supports the 134-check claim"
+    },
+    {
+      "passed": true,
+      "claim": "Saved native HighlightBounds log records 134 checks"
+    },
+    {
+      "passed": true,
+      "claim": "Saved x86_64 HighlightBounds log records 134 checks"
+    },
+    {
+      "passed": true,
+      "claim": "Saved sanitize HighlightBounds log records 134 checks"
+    },
+    {
+      "passed": true,
+      "claim": "All 11 saved rejection labels exactly match the current assertion map"
+    },
+    {
+      "passed": true,
+      "claim": "Saved missing_generation log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved missing_row_context log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved uncancelled_discovery log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved unbounded_discovery log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved uncapped_editor log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved uncoalesced_invalidation log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved uncancelled_clear log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved unsafe_character_edit_clear log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved zero_delay_edit_retry log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved unsafe_character_edit_publication log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Saved missing_source_validation log contains its expected assertion line"
+    },
+    {
+      "passed": true,
+      "claim": "Current bounds runner requires exit 1 and the exact expected stderr line"
+    },
+    {
+      "passed": true,
+      "claim": "Current source runner text clears the inherited first-case-only switch"
+    },
+    {
+      "passed": true,
+      "claim": "Current source runner text requires successful exit and a full-suite marker"
+    },
+    {
+      "passed": true,
+      "claim": "Saved unit output and manifests support 16 passing runner unit tests"
+    },
+    {
+      "passed": true,
+      "claim": "Corrected runner evidence hash matches current Tests/SourceBackspace/run.py"
+    },
+    {
+      "passed": true,
+      "claim": "Corrected runner evidence hash matches current Tests/FuzzySearch/HighlightBounds/run.py"
+    },
+    {
+      "passed": true,
+      "claim": "Corrected runner evidence hash matches current Tests/SourceBackspaceReview/fixes/oracles/test_runners.py"
+    },
+    {
+      "passed": true,
+      "claim": "round1/contrarian-a records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round1/contrarian-b records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round1/kingsbury records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round1/luu records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round1/ousterhout records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round1/torvalds records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/contrarian-a records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/contrarian-b records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/kingsbury records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/luu records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/ousterhout records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "round2/torvalds records stable production hashes"
+    },
+    {
+      "passed": true,
+      "claim": "Twelve completed first/second-round manifests and reports are present"
+    },
+    {
+      "passed": true,
+      "claim": "Only the three documented initial reviews record the pre-retry production version"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round1/ousterhout/output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round1/luu/output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round1/torvalds/candidate-output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round1/contrarian-a/output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round1/contrarian-b/production.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/ousterhout/candidate-output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/luu/production.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/torvalds/candidate-intel-output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/torvalds/candidate-native-sanitize-output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/kingsbury/positive.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved round2/contrarian-b/candidate-output.txt supports its summarized count"
+    },
+    {
+      "passed": true,
+      "claim": "Saved first-round state review supports 13 checks"
+    },
+    {
+      "passed": true,
+      "claim": "Saved simulated-process review contains the reported 21 checks"
+    },
+    {
+      "passed": true,
+      "claim": "Saved window evidence supports the qualified 35-main/11-relaunch baseline comparison"
+    },
+    {
+      "passed": true,
+      "claim": "Saved aggregate log supports the stated fuzzy-browser focus failure"
+    },
+    {
+      "passed": true,
+      "claim": "review README preserves the macOS 13.7.8 validation limit"
+    },
+    {
+      "passed": true,
+      "claim": "review README identifies the supplied search-background precondition"
+    },
+    {
+      "passed": true,
+      "claim": "suite README preserves the macOS 13.7.8 validation limit"
+    },
+    {
+      "passed": true,
+      "claim": "suite README identifies the supplied search-background precondition"
+    },
+    {
+      "passed": true,
+      "claim": "local PR draft preserves the macOS 13.7.8 validation limit"
+    },
+    {
+      "passed": true,
+      "claim": "local PR draft identifies the supplied search-background precondition"
+    },
+    {
+      "passed": true,
+      "claim": "Review README distinguishes simulated-process and static evidence from native execution"
+    },
+    {
+      "passed": true,
+      "claim": "Local PR draft reports incomplete aggregate/window validation"
+    },
+    {
+      "passed": true,
+      "claim": "Review README warns that assertion totals do not count independent workflows"
+    },
+    {
+      "passed": true,
+      "claim": "Current Sources/Browser/AppController.m matches the recorded production commit"
+    },
+    {
+      "passed": true,
+      "claim": "Current Sources/Browser/AppController_Search.m matches the recorded production commit"
+    },
+    {
+      "passed": true,
+      "claim": "Current Sources/Editor/LinkingEditor.h matches the recorded production commit"
+    },
+    {
+      "passed": true,
+      "claim": "Current Sources/Editor/LinkingEditor.m matches the recorded production commit"
+    },
+    {
+      "passed": true,
+      "claim": "Production source hashes remain unchanged during this artifact audit"
+    }
+  ],
+  "reviews": [
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/contrarian-a",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "a7d53bc67f893c5c7fd3a94b5052bb6423d9e75c979070e85d7a0e02e87d1758"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/contrarian-b",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "9f49ce5cdd1c9638b7728ea32b322ea2a319f890bbc4aa25b44e06eb07061a51"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/kingsbury",
+      "matches_final_production": false,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+      },
+      "report_sha256": "325961fab506baa3a1e662756c5239b0771fbfa0c77cdf1387bc6869160f9030"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/luu",
+      "matches_final_production": false,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+      },
+      "report_sha256": "a3a36da5ccff8f8c12ebe58beeddc381990913daf33e52bdce0057493674815b"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/ousterhout",
+      "matches_final_production": false,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "b89f3f945c91c2d635bb924346599eec333f37dafa3efa0ea3b8a15dafc3cf5f"
+      },
+      "report_sha256": "294a3af3d64e942b8f0aa6575b06271637372e81f77b64fc96621192696e5197"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round1/torvalds",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "e1a7f942156067db83ee9420dfcede1c0bc7714be33cd214722a5a2db4fcb5d0"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/contrarian-a",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "665cd515c3af5dea223111705b6fc3769c89e188dee3c045bd9849cedb156f80"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/contrarian-b",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "57ce356e419e7c87c3c4ebbc922116abb16a2bd3cebc0f7b3f07769bfc3657b1"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/kingsbury",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "d4c17cee120ebd9017f799789e23019476aeee8f79ffaf44d7a7f3e36fda9965"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/luu",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "fb56ac5a42447f9ae1b509461ee54b53c38d149111b8ea9775a600a9643c3397"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/ousterhout",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "96a38412c255c65725732edbca56aeea96a17997be00fd74132b9ff7a18502dd"
+    },
+    {
+      "directory": "Tests/SourceBackspaceReview/round2/torvalds",
+      "matches_final_production": true,
+      "production_hashes": {
+        "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+        "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+        "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+        "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+      },
+      "report_sha256": "7f23b33de327f965a9d8d28e72a366329e175e520bb500e11ae946b43f677c3e"
+    }
+  ],
+  "saved_validation_counts": {
+    "source_backspace_checks": 310,
+    "highlight_bounds_checks": 134,
+    "expected_mutation_failures": 11,
+    "runner_unit_tests": 16,
+    "logs": [
+      "build/backspace-final-native.log",
+      "build/backspace-final-bounds.log",
+      "Tests/SourceBackspaceReview/fixes/oracles/output.txt"
+    ]
+  },
+  "failed_checks": []
+}
