@@ -1,0 +1,7 @@
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+checks=48 failures=2 native_views=4 appearance_pairs=2
+2026-09-09 21:47:26.463 source-background-removal[82280:344586196] Error received in message reply handler: Connection invalid
+2026-09-09 21:47:26.463 source-background-removal[82280:344586201] Connection Invalid error for service com.apple.hiservices-xpcservice.
+FAIL stored source background remains independent from search background
+FAIL stored source background remains independent from search background

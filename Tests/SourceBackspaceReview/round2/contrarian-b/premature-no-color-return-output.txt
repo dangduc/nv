@@ -1,0 +1,7 @@
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+native_marked_state: stored_background=0 temporary_background=0 configured_background=1
+checks=48 failures=2 native_views=4 appearance_pairs=2
+2026-09-09 21:47:30.357 premature-no-color-return[82303:344586311] Connection Invalid error for service com.apple.hiservices-xpcservice.
+2026-09-09 21:47:30.357 premature-no-color-return[82303:344586307] Error received in message reply handler: Connection invalid
+FAIL missing color retires pending work before returning to native run loop
+FAIL missing color retires pending work before returning to native run loop

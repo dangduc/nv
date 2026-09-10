@@ -1,0 +1,176 @@
+#import <Cocoa/Cocoa.h>
+
+static NSUInteger checks, failures;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+static NSString *NVSourceCaptureAttributeName = @"NVSourceCapture";
+static BOOL NVSourceCapturesCanDisplay(NSLayoutManager *manager) { return YES; }
+@interface NSObject (ReviewControllerSurface)
+- (NSColor *)foregrndColor;
+@end
+static id NVControllerForView(id view) { return nil; }
+static void Check(BOOL value, NSString *label) {
+    checks++;
+    if (!value) { failures++; fprintf(stderr,"FAIL %s\n",[label UTF8String]); }
+}
+static void Pump(void) {
+    NSDate *until = [NSDate dateWithTimeIntervalSinceNow:0.04];
+    while ([until timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
+}
+@interface NativeEditor : NSTextView {
+    BOOL searchHighlightsInvalidated;
+    BOOL allowSearchColor;
+}
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSColor *)sourceColorForCapture:(NSString *)capture;
+- (BOOL)invalidated;
+- (void)setAllowSearchColor:(BOOL)flag;
+@end
+@implementation NativeEditor
+- (instancetype)initWithFrame:(NSRect)frame textContainer:(NSTextContainer *)container {
+    if ((self = [super initWithFrame:frame textContainer:container])) allowSearchColor=YES;
+    return self;
+}
+- (NSDictionary *)currentSearchHighlightAttributes { return allowSearchColor ? @{NSBackgroundColorAttributeName:[NSColor yellowColor]} : @{}; }
+- (NSDictionary *)preferredLinkAttributes { return @{NSForegroundColorAttributeName:[NSColor purpleColor]}; }
+- (NSColor *)sourceColorForCapture:(NSString *)capture { return capture ? [NSColor blueColor] : nil; }
+- (BOOL)invalidated { return searchHighlightsInvalidated; }
+- (void)setAllowSearchColor:(BOOL)flag { allowSearchColor=flag; }
+/* PRODUCTION_EDITOR_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    [super dealloc];
+}
+@end
+@interface Owner : NSObject {
+    NativeEditor *textView;
+    NSUInteger searchHighlightGeneration;
+}
+- (instancetype)initWithEditor:(NativeEditor *)editor;
+- (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
+- (NSUInteger)generation;
+@end
+@implementation Owner
+- (instancetype)initWithEditor:(NativeEditor *)editor {
+    if ((self=[super init])) {
+        textView=[editor retain];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchSourceStorageWillProcessEditing:)
+            name:NSTextStorageWillProcessEditingNotification object:[textView textStorage]];
+    }
+    return self;
+}
+- (NSUInteger)generation { return searchHighlightGeneration; }
+/* PRODUCTION_OBSERVER */
+- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; [textView release]; [super dealloc]; }
+@end
+
+static NativeEditor *Editor(NSTextStorage *storage) {
+    NSLayoutManager *layout=[[[NSLayoutManager alloc] init] autorelease];
+    NSTextContainer *container=[[[NSTextContainer alloc] initWithContainerSize:NSMakeSize(320,160)] autorelease];
+    [storage addLayoutManager:layout]; [layout addTextContainer:container];
+    NativeEditor *editor=[[[NativeEditor alloc] initWithFrame:NSMakeRect(0,0,320,160) textContainer:container] autorelease];
+    [editor setAllowsUndo:NO];
+    [layout setDelegate:(id)editor];
+    return editor;
+}
+static BOOL Background(NativeEditor *editor, NSUInteger index) {
+    return [[editor layoutManager] temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:index effectiveRange:NULL] != nil;
+}
+static NSArray *Range(NSUInteger location, NSUInteger length) { return @[[NSValue valueWithRange:NSMakeRange(location,length)]]; }
+static NSDictionary *Display(NativeEditor *editor, NSUInteger index) {
+    NSRange range=NSMakeRange(index,1);
+    NSDictionary *stored=[[editor layoutManager] temporaryAttributesAtCharacterIndex:index effectiveRange:NULL];
+    return [editor layoutManager:[editor layoutManager] shouldUseTemporaryAttributes:stored
+        forDrawingToScreen:YES atCharacterIndex:index effectiveRange:&range];
+}
+static void Exercise(BOOL dark) {
+    NSTextStorage *storage=[[[NSTextStorage alloc] initWithString:@"alpha beta gamma"] autorelease];
+    NativeEditor *a=Editor(storage), *b=Editor(storage);
+    Owner *ownerA=[[[Owner alloc] initWithEditor:a] autorelease];
+    Owner *ownerB=[[[Owner alloc] initWithEditor:b] autorelease];
+    NSColor *body=dark ? [NSColor blackColor] : [NSColor whiteColor];
+    NSColor *storedBackground=[NSColor greenColor];
+    [a setAppearance:[NSAppearance appearanceNamed:dark ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+    [b setAppearance:[NSAppearance appearanceNamed:dark ? NSAppearanceNameAqua : NSAppearanceNameDarkAqua]];
+    [a setBackgroundColor:body]; [b setBackgroundColor:[NSColor grayColor]];
+    [a setInsertionPointColor:[NSColor cyanColor]];
+    NSDictionary *selected=@{NSBackgroundColorAttributeName:[NSColor magentaColor],NSForegroundColorAttributeName:[NSColor cyanColor]};
+    NSDictionary *marked=@{NSBackgroundColorAttributeName:[NSColor redColor],NSForegroundColorAttributeName:[NSColor orangeColor],NSUnderlineStyleAttributeName:@1};
+    [a setSelectedTextAttributes:selected]; [a setMarkedTextAttributes:marked];
+    [b setSelectedTextAttributes:@{NSBackgroundColorAttributeName:[NSColor brownColor]}];
+    NSDictionary *peerSelection=[[b selectedTextAttributes] copy];
+    [storage addAttribute:NSBackgroundColorAttributeName value:storedBackground range:NSMakeRange(6,4)];
+    [storage addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:NSMakeRange(0,5)];
+    [a setSelectedRange:NSMakeRange(6,4)]; [b setSelectedRange:NSMakeRange(11,3)];
+    NSRange selectionA=[a selectedRange], selectionB=[b selectedRange];
+    [[a layoutManager] addTemporaryAttribute:NVSourceCaptureAttributeName value:@"text.title" forCharacterRange:NSMakeRange(0,5)];
+    [[a layoutManager] addTemporaryAttribute:NSUnderlineStyleAttributeName value:@2 forCharacterRange:NSMakeRange(0,5)];
+    [a setSearchHighlightRanges:Range(6,4)]; [b setSearchHighlightRanges:Range(0,5)];
+    NSAttributedString *snapshot=[storage copy];
+    [a invalidateSearchHighlights];
+    Check(Background(a,6) && !Display(a,6)[NSBackgroundColorAttributeName], @"invalidated search background stays stored but is suppressed by exact delegate");
+    Check(Background(b,0) && Display(b,0)[NSBackgroundColorAttributeName] != nil, @"other layout keeps its active search background");
+    Pump();
+    Check(!Background(a,6) && Background(b,0), @"one editor cleanup preserves peer temporary background");
+    Check([storage isEqualToAttributedString:snapshot], @"temporary cleanup preserves all native source attributes");
+    Check([[storage attribute:NSBackgroundColorAttributeName atIndex:6 effectiveRange:NULL] isEqual:storedBackground], @"stored source background remains independent from search background");
+    Check([[a selectedTextAttributes] isEqual:selected] && [[b selectedTextAttributes] isEqual:peerSelection], @"cleanup preserves separate native selection-attribute dictionaries");
+    Check(NSEqualRanges(selectionA,[a selectedRange]) && NSEqualRanges(selectionB,[b selectedRange]), @"cleanup does not move either native selection");
+    Check([[a backgroundColor] isEqual:body] && [[a insertionPointColor] isEqual:[NSColor cyanColor]], @"cleanup preserves native editor background and caret color");
+    Check([[a layoutManager] temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil && [[a layoutManager] temporaryAttribute:NSUnderlineStyleAttributeName atCharacterIndex:0 effectiveRange:NULL] != nil, @"cleanup preserves nonbackground temporary decoration");
+    [snapshot release];
+
+    // Drive the real windowless NSTextView composition API. AppKit supplies the
+    // marked range and its backing attributes; the adapter supplies no fake range.
+    [a setSearchHighlightRanges:Range(0,5)];
+    [a setMarkedText:@"xy" selectedRange:NSMakeRange(1,0) replacementRange:NSMakeRange(0,2)];
+    Check([a hasMarkedText] && NSEqualRanges([a markedRange],NSMakeRange(0,2)), @"native NSTextView establishes actual marked text");
+    Check([ownerA generation] > 0 && [ownerA generation] == [ownerB generation], @"actual native composition notifies both extracted source observers");
+    Check([a invalidated] && [b invalidated], @"composition invalidates each layout independently");
+    snapshot=[storage copy];
+    NSRange markedRange=[a markedRange]; selectionA=[a selectedRange];
+    NSDictionary *nativeMarkedAttributes=[[storage attributesAtIndex:0 effectiveRange:NULL] copy];
+    printf("native_marked_state: stored_background=%d temporary_background=%d configured_background=%d\n", [nativeMarkedAttributes objectForKey:NSBackgroundColorAttributeName] != nil, Background(a,0), [[a markedTextAttributes] objectForKey:NSBackgroundColorAttributeName] != nil);
+    Check(!Display(a,0)[NSBackgroundColorAttributeName], @"pending search background is absent from marked-text temporary delegate result");
+    Pump();
+    Check([storage isEqualToAttributedString:snapshot], @"deferred clear does not rewrite native marked source attributes");
+    Check([[storage attributesAtIndex:0 effectiveRange:NULL] isEqual:nativeMarkedAttributes], @"native marked source attributes survive cleanup");
+    Check([a hasMarkedText] && NSEqualRanges([a markedRange],markedRange) && NSEqualRanges([a selectedRange],selectionA), @"cleanup preserves real composition and insertion position");
+    Check([[a markedTextAttributes] isEqual:marked] && [[a selectedTextAttributes] isEqual:selected], @"cleanup preserves marked-text and selection configuration");
+    Check(![a invalidated] && ![b invalidated] && !Background(a,0) && !Background(b,0), @"both observed layouts converge to no stale search background");
+    [nativeMarkedAttributes release]; [snapshot release];
+    [a unmarkText];
+    Check(![a hasMarkedText], @"native editor can finish composition after cleanup");
+    Pump();
+
+    // An empty result and an unavailable search color both retire pending work.
+    // Neither case owns another layout's native appearance or source attributes.
+    [a setSearchHighlightRanges:Range(6,4)]; [b setSearchHighlightRanges:Range(0,2)];
+    snapshot=[storage copy];
+    [a invalidateSearchHighlights]; [a setSearchHighlightRanges:@[]];
+    Pump();
+    Check(![a invalidated] && !Background(a,6) && Background(b,0), @"empty result cancels pending cleanup and preserves peer results");
+    [a setSearchHighlightRanges:Range(6,4)]; [a invalidateSearchHighlights];
+    [a setAllowSearchColor:NO]; [a setSearchHighlightRanges:Range(6,4)];
+    Check(![a invalidated] && !Background(a,6), @"missing color retires pending work before returning to native run loop");
+    Pump();
+    Check(![a invalidated] && !Background(a,6) && Background(b,0), @"missing search color clears local results without altering peer results");
+    Check([storage isEqualToAttributedString:snapshot] && [[a backgroundColor] isEqual:body], @"no-result transitions preserve source attributes and native body background");
+    [a setAllowSearchColor:YES]; [a setSearchHighlightRanges:Range(6,4)];
+    Pump();
+    Check(Background(a,6) && Background(b,0), @"valid result after no-color state restores independent search backgrounds");
+    [snapshot release]; [peerSelection release];
+    [a removeHighlightedTerms]; [b removeHighlightedTerms];
+}
+int main(void) {
+    @autoreleasepool {
+        @try { Exercise(NO); Exercise(YES); }
+        @catch (NSException *exception) { failures++; fprintf(stderr,"EXCEPTION %s: %s\n",[[exception name] UTF8String],[[exception reason] UTF8String]); }
+        printf("checks=%lu failures=%lu native_views=4 appearance_pairs=2\n",(unsigned long)checks,(unsigned long)failures);
+    }
+    return failures ? 1 : 0;
+}
