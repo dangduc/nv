@@ -111,7 +111,10 @@ Native position extraction and individual composed-sequence operations remain in
 Search highlights use only temporary background attributes on each editor's layout manager.
 Shared character edits invalidate stale highlights in every attached editor, including before composition commits.
 Drawing suppresses their backgrounds immediately. A coalesced callback removes the attributes after TextKit processes the edit and updates its glyph ranges.
-Fresh highlights cancel pending cleanup. Note switches clear the old backgrounds and cancel cleanup before the layout manager changes storage.
+Fresh highlights cancel pending cleanup. Note switches request cleanup before the layout manager changes storage.
+Explicit cleanup cancels any old scheduled selector.
+If character editing remains open, cleanup defers removal while drawing suppresses stale backgrounds.
+Otherwise, removal completes before the layout manager changes storage.
 Snapshot highlights stay suppressed while live source differs from committed source.
 The search worker compares immutable source copies and discovers literal ranges with cancellation checks.
 Source decoration stops after 2,048 literal occurrences and installs at most 2,048 temporary background ranges.
