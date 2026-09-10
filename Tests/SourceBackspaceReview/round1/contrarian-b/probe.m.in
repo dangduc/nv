@@ -1,0 +1,174 @@
+#import <Cocoa/Cocoa.h>
+#import <objc/runtime.h>
+
+static NSUInteger checks, failures, matrices;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+/* REVISION_SUPPORT */
+static id NVControllerForView(id editor) { return editor; }
+static void Check(BOOL condition, NSString *label) {
+    checks++;
+    if (!condition) {
+        if (failures < 12) fprintf(stderr, "FAIL %s\n", [label UTF8String]);
+        failures++;
+    }
+}
+static BOOL Equal(id a, id b) { return a == b || [a isEqual:b]; }
+static void Pump(void) {
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:0.025];
+    while ([deadline timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:deadline];
+}
+
+@interface MatrixEditor : NSObject {
+    BOOL searchHighlightsInvalidated, backgroundIsDark;
+    NSTextStorage *storage;
+    NSLayoutManager *layout;
+    NSRange fixtureMarkedRange;
+}
+- (NSLayoutManager *)layoutManager;
+- (NSTextStorage *)textStorage;
+- (NSString *)string;
+- (NSRange)markedRange;
+- (NSColor *)foregrndColor;
+- (NSDictionary *)preferredLinkAttributes;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (void)configurePending:(BOOL)pending dark:(BOOL)dark marked:(NSRange)range revision:(NSInteger)revision;
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+@end
+@implementation MatrixEditor
+- (instancetype)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@"0123456789abcdef"];
+        layout = [[NSLayoutManager alloc] init];
+        [storage addLayoutManager:layout];
+        [storage addAttribute:NSLinkAttributeName value:@"https://example.invalid/" range:NSMakeRange(6, 4)];
+        fixtureMarkedRange = NSMakeRange(NSNotFound, 0);
+    }
+    return self;
+}
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [storage removeLayoutManager:layout];
+    [layout release]; [storage release];
+    [super dealloc];
+}
+- (NSLayoutManager *)layoutManager { return layout; }
+- (NSTextStorage *)textStorage { return storage; }
+- (NSString *)string { return [storage string]; }
+- (NSRange)markedRange { return fixtureMarkedRange; }
+- (NSColor *)foregrndColor { return backgroundIsDark ? [NSColor whiteColor] : [NSColor blackColor]; }
+- (NSDictionary *)preferredLinkAttributes { return @{NSForegroundColorAttributeName:[NSColor cyanColor]}; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName:[NSColor yellowColor]}; }
+- (void)configurePending:(BOOL)pending dark:(BOOL)dark marked:(NSRange)range revision:(NSInteger)revision {
+    searchHighlightsInvalidated = pending; backgroundIsDark = dark; fixtureMarkedRange = range;
+    NVSourceCaptureRevision *token = [[[NVSourceCaptureRevision alloc] init] autorelease];
+    token->valid = revision != 0;
+    token->current = revision == 2;
+    token->sourceStorage = revision == 3 ? nil : storage;
+    objc_setAssociatedObject(layout, &NVSourceCaptureRevisionKey, token, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+/* PRODUCTION_SUPPORT */
+/* CURRENT_DELEGATE */
+/* BASE_DELEGATE */
+@end
+
+static void Matrix(void) {
+    MatrixEditor *editor = [[MatrixEditor alloc] init];
+    NSArray *captures = @[@"keyword.todo", @"comment", @"text.title", @"none"];
+    NSRange markings[] = {NSMakeRange(NSNotFound,0), NSMakeRange(4,5), NSMakeRange(0,16)};
+    NSUInteger indices[] = {0, 3, 4, 6, 8, 9, 10, 15, 16, NSUIntegerMax};
+    for (NSUInteger pending = 0; pending < 2; pending++)
+    for (NSUInteger screen = 0; screen < 2; screen++)
+    for (NSUInteger dark = 0; dark < 2; dark++)
+    for (NSUInteger revision = 0; revision < 4; revision++)
+    for (NSUInteger mark = 0; mark < 3; mark++)
+    for (NSUInteger capture = 0; capture < [captures count]; capture++)
+    for (NSUInteger background = 0; background < 2; background++)
+    for (NSUInteger indexPosition = 0; indexPosition < sizeof(indices)/sizeof(indices[0]); indexPosition++) {
+        @autoreleasepool {
+            NSUInteger index = indices[indexPosition];
+            [editor configurePending:pending dark:dark marked:markings[mark] revision:revision];
+            NSMutableDictionary *input = [@{NVSourceCaptureAttributeName:captures[capture],
+                NSForegroundColorAttributeName:[NSColor magentaColor],
+                NSUnderlineStyleAttributeName:@2, @"ReviewSpellingMarker":@"retain"} mutableCopy];
+            if (background) input[NSBackgroundColorAttributeName] = [NSColor yellowColor];
+            NSDictionary *snapshot = [input copy];
+            NSRange baseRange = NSMakeRange(0, 16), currentRange = baseRange;
+            NSDictionary *baseline = [editor baselineLayoutManager:[editor layoutManager]
+                shouldUseTemporaryAttributes:input forDrawingToScreen:screen atCharacterIndex:index effectiveRange:&baseRange];
+            NSMutableDictionary *expected = [[baseline mutableCopy] autorelease];
+            if (pending) [expected removeObjectForKey:NSBackgroundColorAttributeName];
+            NSDictionary *actual = [editor layoutManager:[editor layoutManager]
+                shouldUseTemporaryAttributes:input forDrawingToScreen:screen atCharacterIndex:index effectiveRange:&currentRange];
+            Check(Equal(actual, expected), @"current delegate differs from base only by stale background suppression");
+            Check(NSEqualRanges(baseRange, currentRange), @"link and marked effective ranges remain unchanged");
+            Check(Equal(input, snapshot), @"incoming temporary attributes are immutable to the delegate");
+            Check(Equal(actual[NSUnderlineStyleAttributeName], @2) && Equal(actual[@"ReviewSpellingMarker"], @"retain"),
+                @"underline and unrelated temporary markers survive");
+            if (screen && index < 16 && NSLocationInRange(index, markings[mark]))
+                Check(Equal(actual[NSForegroundColorAttributeName], [NSColor magentaColor]), @"marked text owns foreground despite syntax and links");
+            if (screen && index < 16) Check(actual[NVSourceCaptureAttributeName] == nil, @"screen drawing consumes private syntax marker");
+            else Check(Equal(actual[NVSourceCaptureAttributeName], captures[capture]), @"offscreen and out-of-range paths preserve base behavior");
+            matrices++;
+            [snapshot release]; [input release];
+        }
+    }
+    for (NSUInteger pending = 0; pending < 2; pending++)
+    for (NSUInteger screen = 0; screen < 2; screen++) {
+        [editor configurePending:pending dark:NO marked:NSMakeRange(NSNotFound,0) revision:2];
+        NSDictionary *base = [editor baselineLayoutManager:[editor layoutManager] shouldUseTemporaryAttributes:nil
+            forDrawingToScreen:screen atCharacterIndex:0 effectiveRange:NULL];
+        NSDictionary *actual = [editor layoutManager:[editor layoutManager] shouldUseTemporaryAttributes:nil
+            forDrawingToScreen:screen atCharacterIndex:0 effectiveRange:NULL];
+        Check(Equal(base, actual), @"nil input and null effectiveRange retain baseline behavior");
+    }
+    [editor release];
+}
+
+static void NativeStorage(void) {
+    MatrixEditor *editor = [[MatrixEditor alloc] init];
+    [editor configurePending:NO dark:NO marked:NSMakeRange(NSNotFound,0) revision:2];
+    NSLayoutManager *manager = [editor layoutManager];
+    [manager addTemporaryAttributes:@{NVSourceCaptureAttributeName:@"keyword.todo", NSUnderlineStyleAttributeName:@2}
+        forCharacterRange:NSMakeRange(0, 16)];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(1, 3)]]];
+    NSDictionary *before = [manager temporaryAttributesAtCharacterIndex:1 effectiveRange:NULL];
+    Check(before[NSBackgroundColorAttributeName] != nil, @"native layout contains a fresh search background");
+    [editor invalidateSearchHighlights];
+    NSDictionary *stored = [manager temporaryAttributesAtCharacterIndex:1 effectiveRange:NULL];
+    Check(stored[NSBackgroundColorAttributeName] != nil, @"invalidation defers actual temporary attribute removal");
+    for (NSUInteger screen = 0; screen < 2; screen++) {
+        NSDictionary *draw = [editor layoutManager:manager shouldUseTemporaryAttributes:stored
+            forDrawingToScreen:screen atCharacterIndex:1 effectiveRange:NULL];
+        Check(draw[NSBackgroundColorAttributeName] == nil && Equal(draw[NSUnderlineStyleAttributeName], @2),
+            @"both output paths suppress native stale backgrounds and retain underlines");
+    }
+    Pump();
+    stored = [manager temporaryAttributesAtCharacterIndex:1 effectiveRange:NULL];
+    Check(stored[NSBackgroundColorAttributeName] == nil && Equal(stored[NVSourceCaptureAttributeName], @"keyword.todo") &&
+        Equal(stored[NSUnderlineStyleAttributeName], @2), @"deferred native removal preserves syntax and underline storage");
+    [editor invalidateSearchHighlights];
+    [editor setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(6, 2)]]];
+    Pump();
+    stored = [manager temporaryAttributesAtCharacterIndex:6 effectiveRange:NULL];
+    Check(stored[NSBackgroundColorAttributeName] != nil, @"freshly installed native background survives canceled old cleanup");
+    NSDictionary *draw = [editor layoutManager:manager shouldUseTemporaryAttributes:stored
+        forDrawingToScreen:YES atCharacterIndex:6 effectiveRange:NULL];
+    Check(draw[NSBackgroundColorAttributeName] != nil && Equal(draw[NSForegroundColorAttributeName], [NSColor cyanColor]),
+        @"fresh search background and link color can appear together");
+    [editor release];
+}
+
+int main(void) {
+    @autoreleasepool {
+        @try { Matrix(); NativeStorage(); }
+        @catch (NSException *exception) {
+            failures++;
+            fprintf(stderr, "EXCEPTION %s %s\n", [[exception name] UTF8String], [[exception reason] UTF8String]);
+        }
+        printf("matrices=%lu checks=%lu failures=%lu\n", (unsigned long)matrices, (unsigned long)checks, (unsigned long)failures);
+    }
+    return failures ? 1 : 0;
+}

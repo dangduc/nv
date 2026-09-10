@@ -1,0 +1,62 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "reviewed_head": "714d586e5eb2fc7686e82f58676ad9f83b513f62",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "results": [
+    {
+      "variant": "production",
+      "returncode": 0,
+      "stdout": "PASS: native character deletion completed\nPASS: character observer never mutates native temporary attributes\nPASS: old async generation is invalidated before a run-loop turn\nPASS: native TextKit retains transformed old search background before cleanup\nPASS: pending cleanup cannot display the old search background\nPASS: pending cleanup retains syntax foreground rendering\nPASS: draw suppression does not mutate layout attributes\nPASS: cleanup eventually clears physical background and logical state\nPASS: new result is installed before the old callback runs\nPASS: queued old cleanup cannot erase a newly published result\nPASS: successful publication cancels old cleanup work\nPASS: explicit clear respects the native character-edit transaction\nPASS: nested run-loop callbacks also respect the open edit\nPASS: retry completes once the actual edit transaction ends\nPASS: old note callback does not mutate the replacement storage\nPASS: replacement storage begins without old logical invalidation\nCompleted 16 checks.\n",
+      "stderr": ""
+    },
+    {
+      "variant": "no_suppression",
+      "returncode": 1,
+      "stdout": "PASS: native character deletion completed\nPASS: character observer never mutates native temporary attributes\nPASS: native TextKit retains transformed old search background before cleanup\n",
+      "stderr": "FAIL: pending cleanup cannot display the old search background\n"
+    },
+    {
+      "variant": "no_cancel",
+      "returncode": 1,
+      "stdout": "PASS: new result is installed before the old callback runs\n",
+      "stderr": "FAIL: queued old cleanup cannot erase a newly published result\n"
+    },
+    {
+      "variant": "no_edit_guard",
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "FAIL: explicit clear respects the native character-edit transaction\n"
+    },
+    {
+      "variant": "no_generation",
+      "returncode": 1,
+      "stdout": "PASS: native character deletion completed\nPASS: character observer never mutates native temporary attributes\n",
+      "stderr": "FAIL: old async generation is invalidated before a run-loop turn\n"
+    },
+    {
+      "variant": "no_switch_clear",
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "FAIL: old note callback does not mutate the replacement storage\n"
+    },
+    {
+      "variant": "original_uncached_layout",
+      "returncode": 0,
+      "stdout": "PASS: original deletion succeeds with no cached view glyph rectangle\nPASS: original observer clears native backgrounds inside character processing\nPASS: original observer also advances the async generation\nPASS: original immediate clear physically removes the old background\nCompleted 4 checks.\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Exact production editor and observer methods; native NSTextStorage/NSLayoutManager; no window or bitmap drawing."
+}

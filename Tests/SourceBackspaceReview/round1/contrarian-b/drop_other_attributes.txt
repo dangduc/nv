@@ -1,0 +1,13 @@
+matrices=7680 checks=39819 failures=5346
+FAIL current delegate differs from base only by stale background suppression
+FAIL underline and unrelated temporary markers survive
+FAIL offscreen and out-of-range paths preserve base behavior
+FAIL current delegate differs from base only by stale background suppression
+FAIL underline and unrelated temporary markers survive
+FAIL offscreen and out-of-range paths preserve base behavior
+FAIL current delegate differs from base only by stale background suppression
+FAIL underline and unrelated temporary markers survive
+FAIL offscreen and out-of-range paths preserve base behavior
+FAIL current delegate differs from base only by stale background suppression
+FAIL underline and unrelated temporary markers survive
+FAIL offscreen and out-of-range paths preserve base behavior

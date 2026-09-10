@@ -1,0 +1,52 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "head": "c2209e2e6ca1194c3a3ffe361e826860e4e830d8",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "architecture": "x86_64 through Rosetta",
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "methods": [
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:(NSArray *)ranges {"
+  ],
+  "variants": {
+    "candidate": {
+      "exit_code": 0,
+      "generated_sha256": "053284e2580d935e6a1a8a3b40acaf63e2bc8945f9c94bf924af1643072f9ce1",
+      "last_line": "checks=51060 failures=0 deaths=6"
+    },
+    "no-cancellation": {
+      "exit_code": 1,
+      "generated_sha256": "7b865a00bc544d996a9462801e84c46e358a465be9ee34d2d31a7b24365ee79c",
+      "last_line": "checks=51060 failures=23302 deaths=6"
+    },
+    "unsafe-edit-clear": {
+      "exit_code": 1,
+      "generated_sha256": "636fb89587185a9f41a33cc3445bbebbf89cb3808fd9771193f934883da770e8",
+      "last_line": "checks=51060 failures=3 deaths=6"
+    },
+    "overflowing-range-check": {
+      "exit_code": 1,
+      "generated_sha256": "09def0bd77b81b0c58bbb355d2ac8f43c5d712922d7cc6a5032985084083a423",
+      "last_line": "checks=49 failures=1 deaths=1"
+    }
+  },
+  "limitations": [
+    "An NSObject adapter supplies editor ownership; the probe uses real NSTextStorage, NSLayoutManager, and the run loop.",
+    "This is a method-level test. It does not create a browser or paint a window.",
+    "The drawing delegate, input method, and actual AppController attachment path are outside this probe.",
+    "The macOS 13 crash was not rerun on this macOS 26 host."
+  ]
+}

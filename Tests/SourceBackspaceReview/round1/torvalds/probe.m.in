@@ -1,0 +1,202 @@
+#import <Cocoa/Cocoa.h>
+#include <stdint.h>
+
+static NSUInteger checks, failures, deaths;
+static const NSUInteger NVSearchMaximumDisplayedRanges = 2048;
+static void Check(BOOL ok, const char *label) {
+    checks++;
+    if (!ok) {
+        failures++;
+        if (failures <= 20) fprintf(stderr, "FAIL %s\n", label);
+        if (failures == 21) fprintf(stderr, "Further individual failures suppressed; total remains in summary.\n");
+    }
+}
+static void Pump(void) {
+    NSDate *until = [NSDate dateWithTimeIntervalSinceNow:0.025];
+    while ([until timeIntervalSinceNow] > 0)
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:until];
+}
+static uint32_t seed = 0x724193a1;
+static uint32_t Next(void) { seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5; return seed; }
+
+@interface GuardedLayout : NSLayoutManager {
+@public NSUInteger clears, additions, unsafeCalls;
+}
+@end
+@implementation GuardedLayout
+- (void)removeTemporaryAttribute:(NSString *)name forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        clears++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) unsafeCalls++;
+    }
+    [super removeTemporaryAttribute:name forCharacterRange:range];
+}
+- (void)addTemporaryAttribute:(NSString *)name value:(id)value forCharacterRange:(NSRange)range {
+    if ([name isEqual:NSBackgroundColorAttributeName]) {
+        additions++;
+        if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) unsafeCalls++;
+    }
+    [super addTemporaryAttribute:name value:value forCharacterRange:range];
+}
+@end
+
+@interface RangeEditor : NSObject {
+    BOOL searchHighlightsInvalidated;
+    NSTextStorage *storage;
+    GuardedLayout *layout;
+@public NSUInteger unrelatedCallbacks;
+}
+- (void)invalidateSearchHighlights;
+- (void)removeHighlightedTerms;
+- (void)setSearchHighlightRanges:(NSArray *)ranges;
+- (NSTextStorage *)textStorage;
+- (GuardedLayout *)layoutManager;
+- (NSString *)string;
+- (NSDictionary *)currentSearchHighlightAttributes;
+- (void)unrelated;
+- (void)detach;
+@end
+@implementation RangeEditor
+- (id)init {
+    if ((self = [super init])) {
+        storage = [[NSTextStorage alloc] initWithString:@"0123456789"];
+        layout = [[GuardedLayout alloc] init];
+        [storage addLayoutManager:layout];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changed:)
+            name:NSTextStorageWillProcessEditingNotification object:storage];
+    }
+    return self;
+}
+- (NSTextStorage *)textStorage { return storage; }
+- (GuardedLayout *)layoutManager { return layout; }
+- (NSString *)string { return [storage string]; }
+- (NSDictionary *)currentSearchHighlightAttributes { return @{NSBackgroundColorAttributeName:[NSColor yellowColor]}; }
+- (void)changed:(NSNotification *)note {
+    if (([storage editedMask] & NSTextStorageEditedCharacters) && [note object] == storage)
+        [self invalidateSearchHighlights];
+}
+- (void)unrelated { unrelatedCallbacks++; }
+- (void)detach {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeHighlightedTerms];
+    [storage removeLayoutManager:layout];
+    [storage release]; storage = nil;
+}
+/* PRODUCTION_METHODS */
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [storage removeLayoutManager:layout];
+    [layout release]; [storage release]; deaths++;
+    [super dealloc];
+}
+@end
+
+static BOOL Background(RangeEditor *e, NSUInteger index) {
+    return [[e layoutManager] temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:index effectiveRange:NULL] != nil;
+}
+static NSArray *FullRange(RangeEditor *e) {
+    return @[[NSValue valueWithRange:NSMakeRange(0, [[e string] length])]];
+}
+static void EmptyAndUnicode(void) {
+    RangeEditor *e = [[RangeEditor alloc] init];
+    NSArray *texts = @[@"", @"x", @"a\r\nb", @"\U0001f469\u200d\U0001f4bb cafe\u0301", @"\u2028\u2029", @"\U0001f600"];
+    for (NSString *text in texts) {
+        NSTextStorage *s = [e textStorage];
+        [s replaceCharactersInRange:NSMakeRange(0, [s length]) withString:text];
+        Pump();
+        [e setSearchHighlightRanges:FullRange(e)];
+        while ([s length]) {
+            NSRange tail = [[s string] rangeOfComposedCharacterSequenceAtIndex:[s length]-1];
+            [s replaceCharactersInRange:tail withString:@""];
+            Pump();
+            for (NSUInteger i=0; i<[s length]; i++) Check(!Background(e,i), "deletion clears background across composed characters");
+            [e setSearchHighlightRanges:FullRange(e)];
+        }
+        [e removeHighlightedTerms];
+        [e setSearchHighlightRanges:@[[NSValue valueWithRange:NSMakeRange(NSUIntegerMax,1)]]];
+        Pump();
+        Check([[e string] isEqual:@""], "empty cleanup preserves empty source");
+    }
+    Check([e layoutManager]->unsafeCalls == 0, "all edge-case clears occur outside character editing");
+    [e release];
+    printf("edge cases: six empty/Unicode fixtures completed\n");
+}
+static void RandomRanges(void) {
+    RangeEditor *e = [[RangeEditor alloc] init];
+    NSTextStorage *s = [e textStorage];
+    NSMutableString *text = [NSMutableString string];
+    for (NSUInteger i=0; i<127; i++) [text appendString:@"a"];
+    [s replaceCharactersInRange:NSMakeRange(0,[s length]) withString:text];
+    Pump();
+    GuardedLayout *l = [e layoutManager];
+    [l addTemporaryAttribute:@"ReviewForeground" value:@"sentinel" forCharacterRange:NSMakeRange(0,[s length])];
+    for (NSUInteger trial=0; trial<200; trial++) {
+        BOOL expected[127] = {0};
+        NSMutableArray *ranges = [NSMutableArray array];
+        // Values include overflow, beyond-end, NSNotFound, zero, and valid overlaps.
+        const NSRange hostile[] = {{NSUIntegerMax,1},{1,NSUIntegerMax},{NSNotFound,8},{128,1},{127,0},{0,0}};
+        for (NSUInteger h=0; h<sizeof(hostile)/sizeof(hostile[0]); h++) [ranges addObject:[NSValue valueWithRange:hostile[h]]];
+        for (NSUInteger r=0; r<32; r++) {
+            NSUInteger start=Next()%150, length=Next()%40;
+            [ranges addObject:[NSValue valueWithRange:NSMakeRange(start,length)]];
+            // Independent bounded-index oracle, with no NSMaxRange arithmetic.
+            for (NSUInteger i=0; i<127; i++) {
+                if (start<127 && length<=127-start && i>=start && i-start<length) expected[i]=YES;
+            }
+        }
+        [e invalidateSearchHighlights];
+        [e setSearchHighlightRanges:ranges];
+        Pump();
+        for (NSUInteger i=0; i<127; i++) {
+            Check(Background(e,i)==expected[i], "latest valid range union survives older cleanup");
+            Check([[l temporaryAttribute:@"ReviewForeground" atCharacterIndex:i effectiveRange:NULL] isEqual:@"sentinel"], "search cleanup preserves independent temporary metadata");
+        }
+        Check([[e string] isEqual:text], "range operations cannot modify source");
+    }
+    Check(l->unsafeCalls==0, "random ranges avoid editing-time layout mutation");
+    [e release];
+    printf("range model: 200 deterministic trials, 127 observed character positions each\n");
+}
+static void CallbacksAndLifetime(void) {
+    RangeEditor *a=[[RangeEditor alloc] init], *b=[[RangeEditor alloc] init];
+    [a setSearchHighlightRanges:FullRange(a)]; [b setSearchHighlightRanges:FullRange(b)];
+    [a invalidateSearchHighlights]; [b invalidateSearchHighlights];
+    [a performSelector:@selector(unrelated) withObject:nil afterDelay:0];
+    [a setSearchHighlightRanges:FullRange(a)];
+    Pump();
+    Check(Background(a,0), "fresh result cancels only old cleanup");
+    Check(!Background(b,0), "cancel does not affect another editor");
+    Check(a->unrelatedCallbacks==1, "cancel does not remove another selector");
+    NSTextStorage *s=[a textStorage]; GuardedLayout *l=[a layoutManager];
+    [s beginEditing]; [s beginEditing];
+    [s replaceCharactersInRange:NSMakeRange(8,2) withString:@""];
+    NSUInteger additions=l->additions;
+    [a setSearchHighlightRanges:FullRange(a)];
+    Pump();
+    Check(l->additions==additions, "completion in active batch cannot install ranges");
+    Check(l->unsafeCalls==0, "nested batch causes no premature layout mutation");
+    [s endEditing]; Pump();
+    Check(l->unsafeCalls==0, "inner endEditing remains guarded");
+    [s endEditing]; Pump();
+    Check(!Background(a,0), "deferred callback eventually clears after outer endEditing");
+    [a invalidateSearchHighlights]; [a detach]; Pump();
+    Check([a textStorage]==nil, "detached storage accepts cleanup without range exception");
+    [a release]; [b release];
+    NSUInteger before=deaths;
+    a=[[RangeEditor alloc] init]; [a invalidateSearchHighlights]; [a release]; Pump();
+    Check(deaths==before+1, "queued selector releases its retained receiver after completion");
+    before=deaths;
+    a=[[RangeEditor alloc] init]; [a invalidateSearchHighlights]; [a setSearchHighlightRanges:FullRange(a)]; [a release];
+    Pump();
+    Check(deaths==before+1, "cancelled selector does not retain receiver indefinitely");
+    printf("callback and lifetime cases completed\n");
+}
+int main(void) {
+    @autoreleasepool {
+        @try { EmptyAndUnicode(); RandomRanges(); CallbacksAndLifetime(); }
+        @catch (NSException *e) { failures++; fprintf(stderr,"EXCEPTION %s: %s\n",[[e name] UTF8String],[[e reason] UTF8String]); }
+        printf("checks=%lu failures=%lu deaths=%lu\n",(unsigned long)checks,(unsigned long)failures,(unsigned long)deaths);
+    }
+    return failures ? 1 : 0;
+}

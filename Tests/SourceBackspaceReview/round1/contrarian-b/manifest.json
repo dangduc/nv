@@ -1,0 +1,60 @@
+{
+  "base": "54ce3b8f94c382e8a4c20c871b8fb20dc30cc376",
+  "head": "714d586e5eb2fc7686e82f58676ad9f83b513f62",
+  "production_sha256_before": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "production_sha256_after": {
+    "Sources/Browser/AppController.m": "d4d3c4a1ce36fdc7228dfc405ff5854578c3db1f1d4280be77f1d7c7a6643d74",
+    "Sources/Browser/AppController_Search.m": "96d7d04c6bddd388e6c24c7f77d1af8dd44ec57c61754773da688180d929d0b8",
+    "Sources/Editor/LinkingEditor.h": "c3f3fc1539308d9294a9a20b85067af3ee2a9f48870c6eeed2edb92ad2144b96",
+    "Sources/Editor/LinkingEditor.m": "66844f5b99527578f07087b0c63747afb9f2de825667b3a476a351a2871445e9"
+  },
+  "unchanged": true,
+  "extracted_methods": [
+    "- (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:",
+    "- (NSColor *)sourceColorForCapture:",
+    "- (void)invalidateSearchHighlights {",
+    "- (void)removeHighlightedTerms {",
+    "- (void)setSearchHighlightRanges:"
+  ],
+  "source_capture_revision_sha256": "c6a16090dc2784c715f14ec109325cd23bd2c864b3bf77d4c4bb1a6298cd9c95",
+  "baseline_delegate_sha256": "6d03f4a8fde8978dbcbf1fdb09445ba6bd8336736c28b5f120a9895aef78bbbf",
+  "cases": [
+    {
+      "case": "production",
+      "exit_code": 0,
+      "generated_sha256": "ddbc5ca5cba5047c755de73dc58f6d4d8ee6850e42bd6eb998a826d9e83d67ac"
+    },
+    {
+      "case": "missing_suppression",
+      "exit_code": 1,
+      "generated_sha256": "5bbb1de643067d153333bce9e3a4ef82968e6be501a28d443cec01b35c145be9"
+    },
+    {
+      "case": "drop_other_attributes",
+      "exit_code": 1,
+      "generated_sha256": "d59edba327d34804663eccfa5663a476413ff1efd09ac08058238c49ce54f622"
+    },
+    {
+      "case": "suppress_fresh_background",
+      "exit_code": 1,
+      "generated_sha256": "ec321020e35c93f75ebea53641db4e78686769750edfd6602e76a89aae4bad6b"
+    },
+    {
+      "case": "suppress_only_screen",
+      "exit_code": 1,
+      "generated_sha256": "a1119f9de657310021001b049f2d32613c098b6a4614904ca602d1a9bcdd114d"
+    },
+    {
+      "case": "ignore_marked_ownership",
+      "exit_code": 1,
+      "generated_sha256": "c8bd4a777294a930fd5a5d31ca342e80b3806f052eefc3702cc107de3b0e21f9"
+    }
+  ],
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "architecture": "x86_64 through Rosetta"
+}

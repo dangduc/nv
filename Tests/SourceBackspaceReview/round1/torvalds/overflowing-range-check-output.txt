@@ -1,0 +1,3 @@
+edge cases: six empty/Unicode fixtures completed
+checks=49 failures=1 deaths=1
+EXCEPTION NSRangeException: NSMutableRLEArray replaceObjectsInRange:withObject:length:: Out of bounds

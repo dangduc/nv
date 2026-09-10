@@ -1,0 +1,25 @@
+edge cases: six empty/Unicode fixtures completed
+range model: 200 deterministic trials, 127 observed character positions each
+callback and lifetime cases completed
+checks=51060 failures=23302 deaths=6
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+FAIL latest valid range union survives older cleanup
+Further individual failures suppressed; total remains in summary.
