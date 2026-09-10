@@ -7,6 +7,8 @@ This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, 
 
 ## What changes in this fork
 
+**Importantly**, this fork makes the source code of notes editable while also making the rich-text un-editable. This is a big breaking change between upstream.
+
 | Area | Upstream nvALT | This fork |
 | --- | --- | --- |
 | Windows | One main notes window. | Multiple windows, one shared notes list. |
@@ -14,6 +16,7 @@ This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, 
 | Search | Exact match strings on note titles. | Fuzzy searches on note title and text. Exact remains available. |
 | Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. |
 | Editor | Editable rich-text in Markdown, Textile, and HTML(?). | Editable source with syntax-highlighting and readonly rich-text previews  in MD, Textile, HTML, Org|
+| Preview | Non-editable source code | Non-editable rich-text |
 
 When migrating to this fork: Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
 
