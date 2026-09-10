@@ -120,6 +120,11 @@ int main(int argc, char **argv) {
     Check([orgHTML containsString:@"<ol>"] && [orgHTML containsString:@"<ul>"] && [orgHTML containsString:@"[X]"] && [orgHTML containsString:@"[ ]"], @"Org preview preserves ordered lists and readonly checkbox state");
     Check([orgHTML containsString:@"<table>"] && [orgHTML containsString:@"日本語 👩‍💻"] && [orgHTML containsString:@"&lt;tag&gt;"], @"Org tables, Unicode, and literal source blocks survive sanitization");
     Check([orgHTML containsString:@"href=\"picture.png\""] && [orgHTML containsString:@"Org &amp; notes"] && [orgHTML containsString:@"script-src 'none'"], @"Org HTML export retains scoped relative links, explicit title, and resource policy");
+    NSString *orgLinks = @"[[*Release plan][Starred]]\n[[Release plan][Exact]]\n[[#release-alias][Alias]]\n\n* TODO Release plan\n:PROPERTIES:\n:CUSTOM_ID: release-plan\n:ID: release-alias\n:END:\n";
+    result = Render(renderer, Snapshot(orgLinks, @"Org heading links", 17), @"org", &error);
+    Check(result && !error && [[result HTML] containsString:@"id=\"release-plan\""], @"Org heading anchor survives the document sanitizer");
+    Check([[result HTML] containsString:@"href=\"#release-plan\">Starred</a>"] && [[result HTML] containsString:@"href=\"#release-plan\">Exact</a>"] && [[result HTML] containsString:@"href=\"#release-plan\">Alias</a>"], @"Org heading and ID alias links remain same-document fragments after sanitization");
+    Check([[[result snapshot] source] isEqual:orgLinks], @"Org heading resolution leaves the source snapshot unchanged");
     NSString *orgInert = @"#+BEGIN_EXPORT html\n<script>document.title='unexpected'</script><p onclick='ignored()'>Org HTML</p>\n#+END_EXPORT\n";
     result = Render(renderer, Snapshot(orgInert, @"Inert Org", 15), @"org", &error);
     Check(result && !error && [[result HTML] containsString:@"Org HTML"] && ![[result HTML] containsString:@"<script"] && ![[result HTML] containsString:@"onclick"], @"Org raw HTML uses the same inert document sanitizer");

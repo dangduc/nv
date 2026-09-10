@@ -1,0 +1,19 @@
+{
+  "head": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "helper_sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+  "source_sha256": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
+  "renderer_sha256": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+  "fixture_sha256": {
+    "tasks": "0913ef0117418800aacb3b123e8aa7be6cd54ac932effeb2db29a1458ee271c4",
+    "literal": "f9c857252e779717c8be7b9d7d9b56d99c5c8d5bd6ef46c530bd1a701bf1bda2",
+    "partial-block": "1eaff04962ff4bed08f8ffc54353dcf955e49dbafa9d49c5c3bafe16bc25b41c",
+    "partial-link": "c957ccc32b0cfd6e2b7c9d821f700505816046da5787a4034cac4255252e2d8b",
+    "web-link": "4adb65157b80d084e5766fe404000346202156b800b956395b203e3ad5213992",
+    "internal-links": "fb73db327cf73e2637ed600d0e184327afee1454ce6814cb53fef96dc4f32305",
+    "nested-lists": "62a53dde14523603624f0c60eec9443405157e6999de9574c7b93a0ece6b0b12",
+    "numbering": "4b6c0332bdd99cfef474b4ccdd4e7374695314d1d14b7c32ff7db579fd11722f",
+    "descriptions": "775ee3bb106ce1974e0328574622ee1d042161ea87f39192dedc645799afa0d4",
+    "styled-link": "546c0bdf50d902a594cc4b557e92fda7613611e71c1befed72d88e9341f69f4c"
+  },
+  "scope": "Ordinary supported Org text only. No application UI or live link navigation."
+}

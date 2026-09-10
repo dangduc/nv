@@ -156,7 +156,7 @@
     "orgize/tests/issue_22.rs": "e24442e47057b982b88a4856a5a1f0b57795deb91205be8abcdcff05aa56dc5a",
     "orgize/tests/parse.rs": "0043620d3f317d6f724b8de0d8edbcee55555959f6d586489185f6aa98829d22",
     "rust-toolchain.toml": "5c8c1c2cd9066d4e2d9fbd0d848385d6d8799ab6feb66d52a19a66eacb2f7f04",
-    "src/main.rs": "6064f812db29cd34acb17c4ea78b2301c9121a44acbe361883125ac99a23aa16",
+    "src/main.rs": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
     "vendor/bytecount/.cargo-checksum.json": "48351509486f183a8e6cc29b6fbb9b227d222bfbcf0d02646116f1b42730974d",
     "vendor/bytecount/.cargo_vcs_info.json": "8698fe1540967dce4ac2897f977dec7a0e1c7d9b0b4c976aada7ed99a4583a1e",
     "vendor/bytecount/.github/dependabot.yml": "9dc3030fc87139b49c283e6fafe1d1f46b2002659ab4eea26350f67d0367b491",
@@ -410,8 +410,8 @@
     "vendor/nom/tests/overflow.rs": "a249ebeebfc5228faf9bfd5241a54a8181df476c4699ef87bb7d8a2161b9fc72",
     "vendor/nom/tests/reborrow_fold.rs": "66230bacd8d36e1559f1dc919ae8eab3515963c4aef85a079ec56218c9a6e676"
   },
-  "binary_sha256": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359",
-  "binary_bytes": 353912,
+  "binary_sha256": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+  "binary_bytes": 366408,
   "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)",
   "sdk": "26.5",
   "rust_library_notices": {

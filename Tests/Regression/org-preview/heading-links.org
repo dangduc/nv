@@ -1,0 +1,54 @@
+[[*Release plan][Forward starred]]
+[[Release plan][Forward exact]]
+[[#release-plan][Custom ID]]
+[[#release-alias][ID alias]]
+[[*Café 日本語 👩‍💻][Unicode heading]]
+[[*Repeated][Repeated heading]]
+[[#same][Repeated ID]]
+[[*ID only][ID property]]
+[[*Special ID][Unicode ID]]
+[[#予定&"item][Special fragment]]
+[[*Invalid ID][Invalid property]]
+[[#bad id][Invalid ID fragment]]
+[[*Missing heading][Unknown starred]]
+[[Missing heading][Unknown exact]]
+[[https://example.com/notes?a=1&b=2][External]]
+[[file:Release plan][Explicit file]]
+[[./Release plan][Relative file]]
+[[../Release plan][Parent file]]
+[[/Release plan][Absolute file]]
+[[*Release plan]]
+[[Release plan]]
+
+* No explicit ID
+* TODO [#A] Release plan :team:
+:PROPERTIES:
+:CUSTOM_ID: release-plan
+:ID: release-alias
+:END:
+* Café 日本語 👩‍💻
+* Repeated
+:PROPERTIES:
+:CUSTOM_ID: same
+:END:
+* Repeated
+:PROPERTIES:
+:CUSTOM_ID: same
+:END:
+* ID only
+:PROPERTIES:
+:ID: only-id
+:END:
+* Special ID
+:PROPERTIES:
+:CUSTOM_ID: 予定&"item
+:END:
+* Invalid ID
+:PROPERTIES:
+:CUSTOM_ID: bad id
+:END:
+* Reserved generated name
+:PROPERTIES:
+:CUSTOM_ID: nv-org-heading-1
+:END:
+* https://example.com/notes?a=1&b=2

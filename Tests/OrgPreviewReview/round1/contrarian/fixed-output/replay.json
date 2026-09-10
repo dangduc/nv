@@ -1,0 +1,13 @@
+{
+  "method": "Unchanged run.py and renderer.m copied to an isolated source tree with the fixed helper and a minimal NSBundle. Production renderer and snapshot sources were copied without changes. Initial review outputs were not modified.",
+  "runner_sha256": "ee96130772ad8a57468714d367dd575d6d3699698f5f027e63ec080478ee34d8",
+  "original_runner_sha256": "ee96130772ad8a57468714d367dd575d6d3699698f5f027e63ec080478ee34d8",
+  "renderer_probe_sha256": "94441511ea11813d073714ef399615329ec61dcff8cd6a0d4aa4b2c8221ea851",
+  "original_renderer_probe_sha256": "94441511ea11813d073714ef399615329ec61dcff8cd6a0d4aa4b2c8221ea851",
+  "initial_evidence_sha256": {
+    "results.json": "b0ea9dfd2283e7e056eaa442e5358bb836746b618b20cb1bb3e9677c15d0ce10",
+    "metadata.json": "1202f01c850c10cff1b7f23ac7f6a084303e480dc86196e27ea620fc4d646798",
+    "renderer-output.txt": "2745f92525883ed58b60203610435a2de4367f22ddbd0032761c3e4522987f71"
+  },
+  "returncode": 0
+}

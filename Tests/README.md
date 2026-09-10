@@ -64,7 +64,7 @@ The aggregate regression command also runs the following suites:
 | --- | --- |
 | `source-highlighting/run.py` | Pinned parsers, UTF-16 ranges, incremental parsing, work limits, stale results, and temporary TextKit attributes. |
 | `source-storage/run.py` | Original bytes, encodings, BOM, line endings, archive reopen, legacy sync migration, local syntax, and source export. |
-| `org-preview/run.py` | Bundled Org helper hashes, deployment target, formatting, input/output limits, and literal code/includes. |
+| `org-preview/run.py` | Bundled Org helper hashes, deployment target, formatting, heading links and unique anchors, input/output limits, and literal code/includes. |
 | `source-viewers/run.py` | Immutable snapshots, conversion, inert HTML, helper errors, timeouts, and cancellation. |
 | `source-viewers/run-viewer.py` | Native WK viewer, local assets, remote blocking, Find, scroll, replacement, and teardown. |
 | `source-workflow/run.py` | Real Source/Preview controls, shared edits, composition, independent syntax, and restoration. |

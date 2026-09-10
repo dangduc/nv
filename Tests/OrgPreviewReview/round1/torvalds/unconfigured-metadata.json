@@ -1,0 +1,101 @@
+{
+  "revision": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "resolved_features": {
+    "bytecount": [],
+    "indextree": [
+      "std"
+    ],
+    "jetscii": [],
+    "lazy_static": [],
+    "memchr": [
+      "alloc",
+      "default",
+      "std"
+    ],
+    "minimal-lexical": [
+      "std"
+    ],
+    "nom": [
+      "alloc",
+      "std"
+    ],
+    "nv-org-preview": [],
+    "orgize": []
+  },
+  "build_scripts": [
+    "jetscii"
+  ],
+  "cargo_cache_files": [
+    ".global-cache",
+    ".package-cache",
+    ".package-cache-mutate",
+    "registry/CACHEDIR.TAG"
+  ],
+  "only_uuid_differs": false,
+  "differing_bytes_after_uuid_mask": 1815,
+  "snapshot_binary_sha256": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359",
+  "rebuilt_binary_sha256": "48eca31ae7c79abd973043780ce43781acd0947a3fb7adc987b3b0f27bb23cd8",
+  "binary_bytes": 498128,
+  "uuid_offset": 1792,
+  "transport_fixtures": [
+    {
+      "name": "empty",
+      "input_bytes": 0,
+      "output_sha256": "4cff6d6aa4040c3d97d4ad5de83c3b9e78d400768a069871ebaf95d3ee52ce1f"
+    },
+    {
+      "name": "heading",
+      "input_bytes": 9,
+      "output_sha256": "554a0c3e2ba72418b285e9f3c2b480ac2f4d8c741fda7a1217385a57f22b4717"
+    },
+    {
+      "name": "no-final-newline",
+      "input_bytes": 8,
+      "output_sha256": "554a0c3e2ba72418b285e9f3c2b480ac2f4d8c741fda7a1217385a57f22b4717"
+    },
+    {
+      "name": "crlf",
+      "input_bytes": 17,
+      "output_sha256": "bfb3b70a6c9e5c3548ac92855f1470f001f86fe107853e63376d697b17abdac7"
+    },
+    {
+      "name": "unicode",
+      "input_bytes": 46,
+      "output_sha256": "36f9aea14d6d8aae0ba0b80fd0548ada5d04614d9a01ef83c162f34705233e16"
+    },
+    {
+      "name": "lists",
+      "input_bytes": 12,
+      "output_sha256": "913408255380f988a773377c66a8288994f0c4d2ca7a4338079245e3f5875c0d"
+    },
+    {
+      "name": "literal",
+      "input_bytes": 42,
+      "output_sha256": "ff05a11bac54dd920fe5a3167974afd6f5b576729bb7a2fef503921e5b018e32"
+    },
+    {
+      "name": "emphasis",
+      "input_bytes": 38,
+      "output_sha256": "4695b2610e84b0c90c488758806b0746bd50959f7727b6b3dd98c54af928343a"
+    },
+    {
+      "name": "relative-link",
+      "input_bytes": 26,
+      "output_sha256": "181cb48843d97b766b022a90a25e64306243ab78bbd4446a692e2f0f907602cf"
+    },
+    {
+      "name": "table",
+      "input_bytes": 44,
+      "output_sha256": "f7f4f9ae2daf94739a1096445628a7ab8a5331a8c6ee973b86d576c3fd9fef59"
+    },
+    {
+      "name": "multilingual-body",
+      "input_bytes": 2040,
+      "output_sha256": "8b902fbf6db3029bd1c5689892c4cff8f4571f43768959a07b1e409a642503ff"
+    }
+  ],
+  "checks": 88
+}

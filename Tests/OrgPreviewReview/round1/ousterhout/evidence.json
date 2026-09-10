@@ -1,0 +1,20 @@
+{
+  "head": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "app": "/Users/duc/dev/nv/build/OrgPreviewWorktree/build/DerivedData/Build/Products/Development/nvALT.app",
+  "app_sha256": "8b5223f71a9a71246a1de7184df76a1ed1fdce4a0c1f151345287acd3d0d81c0",
+  "helper_sha256": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359",
+  "architecture": "x86_64 (Rosetta)",
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_status": 0,
+  "passes": 72,
+  "isolation": "temporary copied app, UUID defaults domain, temporary notes and support directories",
+  "source_sha256": {
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/PreviewController.m": "852af0f8665b7ad9518269a51164eb20858138272322d117971d7d225de71bbb",
+    "Sources/Browser/AppController_Preview.m": "251289273c70ce501ce567cfbd424fb5cb1c8960ae01a777ee1d19ccb4b50fe5",
+    "Sources/Browser/AppController_MultipleWindows.m": "232f0c675f9744462b553b1e2e7874d858b0ac89e76da9d80c3fb5ce80855aaa",
+    "Sources/Application/NVApplicationController.m": "3113410751bd0c2e7331738836fd224732313c04e2413bffdbf3d2b2d498ed57",
+    "ThirdParty/OrgPreview/src/main.rs": "6064f812db29cd34acb17c4ea78b2301c9121a44acbe361883125ac99a23aa16"
+  }
+}

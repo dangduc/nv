@@ -10,11 +10,26 @@ It preserves TODO state, priorities, heading tags, checkbox text, relative file 
 It emits separate HTML lists when item markers change between ordered and unordered forms.
 The parser and the note source remain unchanged.
 
+Links such as `[[*Heading]]` and `[[Heading]]` resolve to headings in the current note, including forward references.
+Each heading has a unique anchor. A valid `CUSTOM_ID` takes precedence over `ID`; otherwise, the converter generates an anchor.
+Both properties can serve as link aliases through `[[#id]]`.
+Unicode headings and IDs are supported. Fragment links encode ID bytes for URL navigation.
+Duplicate titles and IDs resolve to the first matching heading in document order.
+Later duplicate IDs receive generated anchors. IDs that contain whitespace or control characters also receive generated anchors.
+Generated anchors depend on heading order and can change when headings are inserted or removed.
+Use unique `CUSTOM_ID` properties for stable links.
+
+Heading matching uses exact title text, including inline markup, without TODO keywords, priorities, or tags.
+External URLs and explicit file paths retain their targets. Use `file:` to distinguish a file from an identical heading title.
+Unresolved references retain their original link targets.
+Dedicated targets, named elements, and links to IDs in other notes are outside this viewer's scope.
+
 Headings, emphasis, lists, tables, links, quotations, source blocks, and example blocks have regression checks.
 Checkboxes appear as text and remain read-only.
 The converter does not evaluate code, expand includes, or process Emacs configuration.
 Include and setup-file directives remain visible as literal text.
 Org macros, footnotes, agenda functions, and complete Emacs export settings are outside this viewer's scope.
+Explicit list counters, description-list markers, and inline markup inside link descriptions remain literal text.
 
 The converter rejects input that exceeds 16 MiB and output that exceeds 32 MiB.
 The application also enforces its conversion deadline, cancellation, and HTML limits.
@@ -48,10 +63,12 @@ python3 Tests/Regression/source-viewers/run.py
 ```
 
 If Cargo is outside `PATH`, pass its absolute path with `--cargo`.
-The script checks the compiler version, architecture, deployment target, linked libraries, and a native conversion.
+The script supplies the toolchain library path that direct Cargo invocations require for symbol stripping.
+It rejects failed stripping, including warnings that Cargo reports with a successful exit status.
+The script checks the compiler version, architecture, deployment target, linked libraries, stripped symbols, and a native conversion.
 It remaps repository paths in the executable. The manifest records the compiler and SDK that produced the bundled artifact.
 A different SDK can produce different executable bytes.
-Two builds in separate directories with the recorded toolchain matched except for the 16-byte Mach-O UUID.
+Two clean builds from the same source directory matched except for the 16-byte Mach-O UUID.
 The artifact hash identifies the exact executable that the application ships.
 
 To inspect the checked-in artifact without Rust, run:

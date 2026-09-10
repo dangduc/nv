@@ -1,0 +1,68 @@
+[
+  {
+    "sections": 12,
+    "input_bytes": 7963,
+    "samples": [
+      {
+        "wall_ms": 20.639209,
+        "max_rss_bytes": 3670016,
+        "output_bytes": 12171
+      },
+      {
+        "wall_ms": 12.68837500000001,
+        "max_rss_bytes": 3645440,
+        "output_bytes": 12171
+      },
+      {
+        "wall_ms": 11.73225,
+        "max_rss_bytes": 3645440,
+        "output_bytes": 12171
+      }
+    ],
+    "median_ms": 12.68837500000001
+  },
+  {
+    "sections": 144,
+    "input_bytes": 95303,
+    "samples": [
+      {
+        "wall_ms": 22.073999999999998,
+        "max_rss_bytes": 5939200,
+        "output_bytes": 145711
+      },
+      {
+        "wall_ms": 22.22162500000001,
+        "max_rss_bytes": 5959680,
+        "output_bytes": 145711
+      },
+      {
+        "wall_ms": 21.82266699999999,
+        "max_rss_bytes": 5967872,
+        "output_bytes": 145711
+      }
+    ],
+    "median_ms": 22.073999999999998
+  },
+  {
+    "sections": 1536,
+    "input_bytes": 1019271,
+    "samples": [
+      {
+        "wall_ms": 139.38266699999997,
+        "max_rss_bytes": 36413440,
+        "output_bytes": 1556879
+      },
+      {
+        "wall_ms": 128.20112499999996,
+        "max_rss_bytes": 36347904,
+        "output_bytes": 1556879
+      },
+      {
+        "wall_ms": 127.27745800000001,
+        "max_rss_bytes": 36376576,
+        "output_bytes": 1556879
+      }
+    ],
+    "median_ms": 128.20112499999996
+  }
+]

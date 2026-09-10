@@ -1,0 +1,15 @@
+{
+  "head": "4467e7a7251ff3846c6d255db3bd64f465fda6b2",
+  "base": "f3a8abb2b7942d06ec33af64b4946cfd1b6db163",
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "sha256": {
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/NVNoteContentSnapshot.m": "548075739a1afa2a5711a7d4cd5ab32ed2095b4c71d33c1d16d2655dca890cad",
+    "ThirdParty/OrgPreview/src/main.rs": "6064f812db29cd34acb17c4ea78b2301c9121a44acbe361883125ac99a23aa16",
+    "ThirdParty/OrgPreview/Cargo.lock": "43fde6d19a10120e7a9d685c6bcc89ab735cb1b43846dd5720b8ad18689cc83f",
+    "ThirdParty/OrgPreview/nv-org-preview": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359"
+  },
+  "app_helper_sha256": "34d4469bb611c062a0730040ed1224228262e13d249b5437316947f433fe4359",
+  "execution": "Intel helper and Foundation renderer through Rosetta; no WebKit or app UI loaded"
+}

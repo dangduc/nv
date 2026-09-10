@@ -36,8 +36,11 @@ def inspect(binary):
     linked = [line.strip().split(" (", 1)[0] for line in libraries.splitlines()[1:] if line.strip()]
     if linked != ["/usr/lib/libSystem.B.dylib"]:
         raise SystemExit("The Org helper contains an unexpected dynamic dependency.")
+    symbols = subprocess.check_output(["xcrun", "nm", "-Uj", str(binary)], text=True).splitlines()
+    if symbols != ["__mh_execute_header"]:
+        raise SystemExit("The Org helper still contains symbols. Remove build/OrgPreviewRebuild and rebuild.")
     smoke = subprocess.run([str(binary)], input=b"* Org\n", capture_output=True, timeout=5)
-    if smoke.returncode != 0 or b"<h1>Org</h1>" not in smoke.stdout:
+    if smoke.returncode != 0 or b'<h1 id="nv-org-heading-1">Org</h1>' not in smoke.stdout:
         raise SystemExit("The Org helper cannot run or render a heading on this Mac.")
 
 
@@ -72,6 +75,9 @@ def main():
     version = subprocess.check_output(["rustc", "--version"], cwd=SOURCE, env=env, text=True).strip()
     if not version.startswith("rustc " + manifest["rust_version"] + " "):
         raise SystemExit("The helper requires the Rust version in its manifest.")
+    # A direct Cargo path bypasses rustup's library path setup for rust-objcopy.
+    sysroot = subprocess.check_output(["rustc", "--print", "sysroot"], cwd=SOURCE, env=env, text=True).strip()
+    env["DYLD_LIBRARY_PATH"] = str(Path(sysroot) / "lib") + (os.pathsep + env["DYLD_LIBRARY_PATH"] if env.get("DYLD_LIBRARY_PATH") else "")
     log_path = REPO / "build/org-preview-rebuild.log"
     log_path.parent.mkdir(exist_ok=True)
     with log_path.open("w") as log:
@@ -80,6 +86,9 @@ def main():
     if result.returncode:
         print(log_path.read_text(), file=sys.stderr)
         raise SystemExit(result.returncode)
+    if any("stripping" in line and "failed:" in line for line in log_path.read_text().splitlines()):
+        print(log_path.read_text(), file=sys.stderr)
+        raise SystemExit("Rust could not strip the Org helper. The bundled artifact was not updated.")
     built = Path(env["CARGO_TARGET_DIR"]) / manifest["target"] / "release/nv-org-preview"
     inspect(built)
     args.output.parent.mkdir(parents=True, exist_ok=True)
