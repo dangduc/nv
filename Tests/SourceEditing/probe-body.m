@@ -176,7 +176,8 @@
         NSUInteger URLLocation = [sharedStorage length];
         [sharedStorage replaceCharactersInRange:NSMakeRange(URLLocation, 0)
                                      withString:[URLString stringByAppendingString:@"\n"]];
-        Pump();
+        Check(!NVSourceLinksAreCurrent(sharedStorage), @"shared character edits immediately invalidate link actions");
+        Check(Await(^BOOL { return NVSourceLinksAreCurrent(sharedStorage); }, 4), @"shared link analysis completes");
         NSRange URLRange = [[sharedStorage string] rangeOfString:URLString];
         Check(URLRange.location != NSNotFound &&
               [sharedStorage attribute:NSLinkAttributeName atIndex:URLRange.location effectiveRange:NULL] != nil &&
@@ -184,7 +185,8 @@
               @"a direct shared-storage edit installs links for both source layouts");
 
         [sharedStorage replaceCharactersInRange:URLRange withString:@"not a link"];
-        Pump();
+        Check(!NVSourceLinksAreCurrent(sharedStorage), @"obsolete link actions stop before replacement analysis");
+        Check(Await(^BOOL { return NVSourceLinksAreCurrent(sharedStorage); }, 4), @"replacement link analysis completes");
         NSRange changedLine = [[sharedStorage string] lineRangeForRange:NSMakeRange(URLRange.location, 1)];
         BOOL changedLineHasLink = NO;
         for (NSUInteger index = changedLine.location; index < NSMaxRange(changedLine);) {

@@ -105,9 +105,9 @@ static NSDictionary *ValidatedBodyState(id value) {
     [editingSession commitPendingTextChanges];
 }
 - (void)refreshEditorForNote:(NoteObject *)note {
-    if (note == currentNote) {
-        [self updateNoteHeader];
-        [textView setNeedsDisplay:YES];
+    if (note == currentNote && !processingSourceEdit) {
+        // Shared storage already invalidates every attached layout. Body edits
+        // do not change title/tags, and the originating editor updates itself.
         [self postTextUpdate];
         [self updateWordCount:![prefsController showWordCount]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TextFindContextShouldUpdate" object:self];

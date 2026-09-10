@@ -50,6 +50,18 @@ It does not replace the copied-app checks of the shipping Intel/OpenSSL runtime 
 The [backup review record](BackupReview/README.md) links review findings, corrections, and additional native probes.
 Run those probes with `python3 Tests/BackupReview/run.py`.
 
+## Typing performance
+
+The [source analysis tests](SourceAnalysis/README.md) exercise worker cancellation, lifetime, and preserved word and link rules.
+Run them with `python3 Tests/SourceAnalysis/run.py`.
+
+The [typing benchmark](TypingPerformance/README.md) compares production apps with 20 disposable notes.
+It measures main-thread CPU and key dispatch for short notes, visible word counts, and long lines.
+It checks every source edit and the final checkpoint without disabling production work.
+
+The [typing refresh checks](TypingRefresh/README.md) validate row updates, shared editing, search invalidation, and highlight cleanup.
+Run `python3 Tests/TypingRefresh/run.py`; the aggregate regression runner also includes this suite.
+
 ## Native dependency replacements
 
 Run `python3 Tests/Regression/native-dependencies/run.py` after a Development build.

@@ -28,7 +28,7 @@ static void Pump(NSString *mode, NSTimeInterval seconds) {
 @end
 @interface Editor : NSObject {
 @public
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     NSTextStorage *storage;
     Layout *layout;
     NSUInteger schedules, callbacks, zeroDelayRetries;

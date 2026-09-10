@@ -223,9 +223,13 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 
 - (void)_addDetectedLinkAttributesForRange:(NSRange)changedRange {
 	if (!changedRange.length) return;
-	static NSDataDetector *linkDetector = nil;
+	// Imports can still decorate on main while source analysis uses its worker.
+	// Keep each detector on the thread that creates and uses it.
+	NSMutableDictionary *threadState = [[NSThread currentThread] threadDictionary];
+	NSDataDetector *linkDetector = [threadState objectForKey:@"NVSourceLinkDetector"];
 	if (!linkDetector) {
-		linkDetector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:NULL];
+		linkDetector = [[[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:NULL] autorelease];
+		if (linkDetector) [threadState setObject:linkDetector forKey:@"NVSourceLinkDetector"];
 	}
 	NSString *changedString = [[self string] substringWithRange:changedRange];
 	for (NSTextCheckingResult *match in [linkDetector matchesInString:changedString options:0 range:NSMakeRange(0, [changedString length])]) {
@@ -278,13 +282,15 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 - (void)_addDoubleBracketedNVLinkAttributesForRange:(NSRange)changedRange {
 	//add link attributes for [[wiki-style links to other notes or search terms]] 
 	
-	static NSMutableCharacterSet *antiInteriorSet = nil;
-	if (!antiInteriorSet) {
-		antiInteriorSet = [[NSMutableCharacterSet characterSetWithCharactersInString:@"[]"] retain];
-		[antiInteriorSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
-		[antiInteriorSet formUnionWithCharacterSet:[NSCharacterSet illegalCharacterSet]];
-		[antiInteriorSet formUnionWithCharacterSet:[NSCharacterSet controlCharacterSet]];
-	}
+	static NSCharacterSet *antiInteriorSet = nil;
+	static dispatch_once_t once;
+	dispatch_once(&once, ^{
+		NSMutableCharacterSet *characters = [NSMutableCharacterSet characterSetWithCharactersInString:@"[]"];
+		[characters formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+		[characters formUnionWithCharacterSet:[NSCharacterSet illegalCharacterSet]];
+		[characters formUnionWithCharacterSet:[NSCharacterSet controlCharacterSet]];
+		antiInteriorSet = [characters copy];
+	});
 	
 	NSString *string = [self string];
 	NSUInteger nextScanLoc = 0;

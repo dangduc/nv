@@ -6,6 +6,7 @@
 // These doubles preserve production NoteObject ivar layout and expose just the
 // in-memory APIs called by NVBrowserSession. No filesystem or UI is involved.
 NSString *NoteTitleColumnString = @"title";
+NSString *NoteDateModifiedColumnString = @"Date Modified";
 static NSUInteger ProbeContentsReadCount;
 @implementation GlobalPrefs
 + (GlobalPrefs *)defaultPrefs { static GlobalPrefs *prefs; if (!prefs) prefs = [[self alloc] init]; return prefs; }

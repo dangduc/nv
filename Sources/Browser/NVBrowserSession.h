@@ -17,6 +17,8 @@
     BOOL refreshing;
     BOOL candidatesValid;
     NSMutableDictionary *previewCache;
+    NSMutableSet *dirtyBodyUUIDs;
+    BOOL bodyRefreshScheduled;
     NVSearchService *searchService;
     NVSearchResult *searchResult;
     NVSearchResult *deferredSearchResult;
@@ -62,6 +64,8 @@
 - (id)previewForRow:(NSUInteger)index inTable:(NSTableView *)table;
 - (void)requestSourceHighlightsForRow:(NSUInteger)index completion:(void (^)(NSArray *ranges, NSString *source))completion;
 - (void)libraryDidChange;
+- (void)noteBodyDidChange:(NoteObject *)note;
+- (void)notePreviewDidChange:(NoteObject *)note;
 - (void)refilterNotes;
 - (BOOL)filterNotesFromString:(NSString *)string;
 - (BOOL)filterNotesFromUTF8String:(const char *)string forceUncached:(BOOL)force;

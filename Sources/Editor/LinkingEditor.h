@@ -28,7 +28,7 @@
 	NSRange lastAutomaticallySelectedRange;
 	
 	BOOL backgroundIsDark;
-    BOOL searchHighlightsInvalidated;
+    BOOL searchHighlightsInvalidated, hasSearchHighlights;
     
     BOOL managesTextWidth;
 }

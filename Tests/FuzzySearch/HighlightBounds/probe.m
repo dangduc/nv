@@ -29,7 +29,7 @@ static BOOL LeaseReleasedOnMain;
     [super removeTemporaryAttribute:name forCharacterRange:range];
 }
 @end
-@interface Editor : NSObject { @public NSTextStorage *storage; NSLayoutManager *layout; Prefs *prefsController; BOOL searchHighlightsInvalidated; }
+@interface Editor : NSObject { @public NSTextStorage *storage; NSLayoutManager *layout; Prefs *prefsController; BOOL searchHighlightsInvalidated, hasSearchHighlights; }
 - (NSString *)string;
 - (NSLayoutManager *)layoutManager;
 - (NSTextStorage *)textStorage;
@@ -80,6 +80,7 @@ static BOOL LeaseReleasedOnMain;
 @end
 @interface NVBrowserSession : NSObject { @public NSString *query,*key,*kind; BOOL current; }
 - (BOOL)searchResultsAreCurrent;
+- (BOOL)hasSearchTerms;
 - (NSString *)searchString;
 - (NSString *)matchKindAtIndex:(NSInteger)row;
 - (NSString *)rowKeyAtIndex:(NSInteger)row;
@@ -88,6 +89,7 @@ static BOOL LeaseReleasedOnMain;
 @implementation NVBrowserSession
 - (id)init { if((self=[super init])){query=@"a";key=@"title:fixture";kind=@"title";current=YES;}return self; }
 - (BOOL)searchResultsAreCurrent { return current; }
+- (BOOL)hasSearchTerms { return [[[[NVSearchQuery alloc] initWithString:query] autorelease] hasTerms]; }
 - (NSString *)searchString { return query; }
 - (NSString *)matchKindAtIndex:(NSInteger)row { return kind; }
 - (NSString *)rowKeyAtIndex:(NSInteger)row { return key; }

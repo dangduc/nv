@@ -8,6 +8,7 @@ static NSUInteger bodyReads, notifications;
 static double Now(void) { return (double)clock_gettime_nsec_np(CLOCK_UPTIME_RAW)/1e6; }
 static void Check(BOOL value, const char *message) { if (!value) { fprintf(stderr,"FAIL %s\n",message); exit(1); } }
 NSString *NoteTitleColumnString = @"title";
+NSString *NoteDateModifiedColumnString = @"Date Modified";
 @implementation NoteObject
 - (id)initWithNoteBody:(NSAttributedString *)body title:(NSString *)title delegate:(id)owner format:(NSInteger)format labels:(NSString *)labels {
     if ((self=[super init])) {

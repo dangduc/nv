@@ -18,7 +18,7 @@ typedef void (^SourceCompletion)(NSArray *, NSString *);
     removes++; [super removeTemporaryAttribute:name forCharacterRange:range];
 }
 @end
-@interface Editor : NSObject { @public BOOL searchHighlightsInvalidated; NSTextStorage *storage; TrackedLayout *layout; }
+@interface Editor : NSObject { @public BOOL searchHighlightsInvalidated, hasSearchHighlights; NSTextStorage *storage; TrackedLayout *layout; }
 - (id)initWithStorage:(NSTextStorage *)s;
 - (void)invalidateSearchHighlights;
 - (void)removeHighlightedTerms;

@@ -161,7 +161,7 @@
     NVBrowserSession *session = [self browserSession];
     NVSearchService *service = [[NVApplicationController sharedController] searchService];
     [service cancelLiteralRangesForOwner:session];
-    if (!currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
+    if (![session hasSearchTerms] || !currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
     NSInteger row = [notesTableView primarySelectedRow];
     if (row < 0) return;
     NSString *kind = [session matchKindAtIndex:row];

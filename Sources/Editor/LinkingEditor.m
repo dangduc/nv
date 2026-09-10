@@ -1,5 +1,6 @@
 #import "NVApplicationController.h"
 #import "NVNoteEditingSession.h"
+#import "NVSourceAnalysis.h"
 #import "NVSourceHighlighter.h"
 #import "NVSearchQuery.h"
 #import "NoteObject.h"
@@ -324,13 +325,14 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (void)invalidateSearchHighlights {
-    if (searchHighlightsInvalidated) return;
+    if (!hasSearchHighlights || searchHighlightsInvalidated) return;
     searchHighlightsInvalidated = YES;
     // TextKit has not adjusted its glyph ranges during storage notifications.
     // Suppress stale backgrounds now and remove them after edit processing.
     [self performSelector:@selector(removeHighlightedTerms) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];
 }
 - (void)removeHighlightedTerms {
+    if (!hasSearchHighlights && !searchHighlightsInvalidated) return;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
     if ([[self textStorage] editedMask] & NSTextStorageEditedCharacters) {
         searchHighlightsInvalidated = YES;
@@ -339,6 +341,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
         return;
     }
     searchHighlightsInvalidated = NO;
+    hasSearchHighlights = NO;
     [[self layoutManager] removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:NSMakeRange(0, [[self string] length])];
 }
 
@@ -368,7 +371,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 - (void)setSearchHighlightRanges:(NSArray *)ranges {
     [self removeHighlightedTerms];
-    if (searchHighlightsInvalidated) return;
+    if (searchHighlightsInvalidated || ([[self textStorage] editedMask] & NSTextStorageEditedCharacters)) return;
     NSColor *color = [[self currentSearchHighlightAttributes] objectForKey:NSBackgroundColorAttributeName];
     if (!color) return;
     NSUInteger length = [[self string] length];
@@ -376,8 +379,10 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     for (NSValue *value in ranges) {
         if (displayed++ == NVSearchMaximumDisplayedRanges) break;
         NSRange range = [value rangeValue];
-        if (range.location <= length && range.length <= length - range.location && range.length)
+        if (range.location <= length && range.length <= length - range.location && range.length) {
             [[self layoutManager] addTemporaryAttribute:NSBackgroundColorAttributeName value:color forCharacterRange:range];
+            hasSearchHighlights = YES;
+        }
     }
 }
 
@@ -432,6 +437,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex {
 	NSUInteger totalLength = [[self string] length];
+	if (!totalLength || !NVSourceLinksAreCurrent([self textStorage])) return nil;
 	NSUInteger charIndex = givenIndex;
 	if (charIndex >= totalLength)
 		charIndex = totalLength - 1;
@@ -445,6 +451,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 }
 
 - (void)clickedOnLink:(id)aLink atIndex:(NSUInteger)charIndex {
+	if (!NVSourceLinksAreCurrent([self textStorage])) return;
 	NSEvent *currentEvent = [[self window] currentEvent];
 //    NSLog(@"clicked:%@",[currentEvent description]);
 	
@@ -473,6 +480,15 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	} else {
 		[super clickedOnLink:aLink atIndex:charIndex];
 	}
+}
+
+- (NSMenu *)menuForEvent:(NSEvent *)event {
+    // NSTextView creates Open/Copy Link actions directly from its attributes.
+    // Drop obsolete targets before it builds that menu. This runs in response
+    // to a mouse event, after character processing, and never on the typing path.
+    if (!NVSourceLinksAreCurrent([self textStorage]))
+        [[self textStorage] removeAttribute:NSLinkAttributeName range:NSMakeRange(0, [[self textStorage] length])];
+    return [super menuForEvent:event];
 }
 
 - (void)dealloc {
