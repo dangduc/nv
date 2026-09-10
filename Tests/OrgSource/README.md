@@ -13,8 +13,10 @@ The runner also checks the Org dependency hashes and query hash.
 The supplemental pass recognizes default TODO and DONE words at the start of a heading.
 It recognizes `*bold*`, `/italic/`, `_underline_`, `+strike+`, `=verbatim=`, and `~code~` in prose with ordinary Org delimiter boundaries.
 An emphasis span can contain one newline. Literal spans suppress emphasis within their contents.
-Parser-selected blocks, comments, directives, drawers, links, and inline source blocks exclude supplemental emphasis.
+Blocks, comment lines, directives, drawers, links, and inline source blocks exclude supplemental emphasis.
 The comment pass also handles a comment directly after a directive, where the pinned grammar otherwise emits paragraph expressions.
+It classifies each line separately. A hash starts a comment only before whitespace or the end of a line.
+Hashtag prose keeps ordinary emphasis, including inside a grammar node that also contains real comment lines.
 
 The tests use fixed fixtures. They do not establish full Org conformance or macOS 10.13 runtime behavior.
 The existing parser and display budgets still apply. A successful parse can exceed the display limit and use plain source colors.

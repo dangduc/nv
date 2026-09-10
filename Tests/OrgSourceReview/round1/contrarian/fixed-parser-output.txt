@@ -1,0 +1,312 @@
+[
+  {
+    "source" : "#travel *book tickets*\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "hashtag",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      }
+    ]
+  },
+  {
+    "source" : "#+TITLE: Trip\n#travel *book tickets*\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "hashtag after title",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "TITLE"
+      }
+    ]
+  },
+  {
+    "source" : "  #travel *book tickets*\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "indented hashtag",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      }
+    ]
+  },
+  {
+    "source" : "# A comment\n#travel *book tickets*\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "hashtag after comment",
+    "expected_capture" : "text.strong",
+    "comment" : true,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      },
+      {
+        "kind" : "comment",
+        "text" : "# A comment"
+      }
+    ]
+  },
+  {
+    "source" : "A trip.\n\n#travel *book tickets*\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "hashtag after blank line",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      }
+    ]
+  },
+  {
+    "source" : "# travel *book tickets*\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "ordinary comment",
+    "expected_capture" : "text.strong",
+    "comment" : true,
+    "captures" : [
+      {
+        "kind" : "comment",
+        "text" : "# travel *book tickets*"
+      }
+    ]
+  },
+  {
+    "source" : "#+TITLE: Trip\n# travel *book tickets*\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "comment after title",
+    "expected_capture" : "text.strong",
+    "comment" : true,
+    "captures" : [
+      {
+        "kind" : "comment",
+        "text" : "# travel *book tickets*"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "TITLE"
+      }
+    ]
+  },
+  {
+    "source" : "Travel *book tickets*.\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "prose",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*book tickets*"
+      }
+    ]
+  },
+  {
+    "source" : "* TODO Book tickets\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "task",
+    "expected_capture" : "keyword.todo",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.title",
+        "text" : "TODO Book tickets"
+      },
+      {
+        "kind" : "keyword.todo",
+        "text" : "TODO"
+      },
+      {
+        "kind" : "punctuation.special",
+        "text" : "*"
+      }
+    ]
+  },
+  {
+    "source" : "* DONE Book tickets\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "done",
+    "expected_capture" : "constant.done",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.title",
+        "text" : "DONE Book tickets"
+      },
+      {
+        "kind" : "constant.done",
+        "text" : "DONE"
+      },
+      {
+        "kind" : "punctuation.special",
+        "text" : "*"
+      }
+    ]
+  },
+  {
+    "source" : "TODO Book tickets\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "task word in prose",
+    "expected_capture" : "keyword.todo",
+    "comment" : false,
+    "captures" : [
+
+    ]
+  },
+  {
+    "source" : "- TODO Book tickets\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "task word in list",
+    "expected_capture" : "keyword.todo",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "punctuation.special",
+        "text" : "-"
+      }
+    ]
+  },
+  {
+    "source" : "#+BEGIN_SRC text\n* TODO Book tickets\n*book tickets*\n#+END_SRC\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "source block",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "* TODO Book tickets\n*book tickets*\n"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "SRC"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "SRC"
+      }
+    ]
+  },
+  {
+    "source" : "#+BEGIN_EXAMPLE\n*book tickets*\n#+END_EXAMPLE\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "example block",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "*book tickets*\n"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "EXAMPLE"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "EXAMPLE"
+      }
+    ]
+  },
+  {
+    "source" : "#+BEGIN_QUOTE\n*book tickets*\n#+END_QUOTE\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "quoted prose known limit",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "*book tickets*\n"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "QUOTE"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "QUOTE"
+      }
+    ]
+  },
+  {
+    "source" : "#+BEGIN_VERSE\n*book tickets*\n#+END_VERSE\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "verse prose known limit",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "*book tickets*\n"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "VERSE"
+      },
+      {
+        "kind" : "keyword",
+        "text" : "VERSE"
+      }
+    ]
+  },
+  {
+    "source" : "Use =*book tickets*= as text.\n",
+    "expected" : false,
+    "actual" : false,
+    "fixture" : "literal",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.literal",
+        "text" : "=*book tickets*="
+      }
+    ]
+  },
+  {
+    "source" : "Travel *Café 😀 日本語*.\n",
+    "expected" : true,
+    "actual" : true,
+    "fixture" : "unicode emphasis",
+    "expected_capture" : "text.strong",
+    "comment" : false,
+    "captures" : [
+      {
+        "kind" : "text.strong",
+        "text" : "*Café 😀 日本語*"
+      }
+    ]
+  }
+]
+Fixtures=18 semantic_mismatches=0 bounds_checks=32

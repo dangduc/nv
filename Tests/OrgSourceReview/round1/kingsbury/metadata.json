@@ -1,0 +1,11 @@
+{
+  "head_before_build": "e7e1c9343e2d5394dc492151ed9c8d68c356feff",
+  "production_sha256": "53e7e20f01d0f8ad890f1fcc57605bc6918d83fcccf1c3b16415d367b186c224",
+  "org_parser_sha256": "c6027e7d2f27dd136f03a9a9ccaace4a18b63aa27237f29d5944f84ea9927add",
+  "org_scanner_sha256": "36d762d800c3df7cd526b5a663f58d0ddc8ba082df65c48c63b9e161e2307e29",
+  "org_query_sha256": "34aa4f0ecd3beef90defc63b6567d68cda3acfc37c22d3dd7928759991ab33f4",
+  "inputs_unchanged_during_run": true,
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_code": 0
+}

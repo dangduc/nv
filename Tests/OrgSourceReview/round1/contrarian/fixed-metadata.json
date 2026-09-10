@@ -1,0 +1,12 @@
+{
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "architecture": "x86_64 under Rosetta",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "head": "a773c6af4b73d7f6528333e10e649bb5aea330c0",
+  "sha256": {
+    "Sources/Editor/NVSourceHighlighter.m": "74ff25af57969cbcb417651c00b42fe29d308abc2a0562134c8575eb869519cf",
+    "Sources/Editor/AttributedPlainText.m": "cc0f45548be919b35526d140e0f208b829fb6964af8c6f25385969c81112fc7f",
+    "ThirdParty/TreeSitter/org/src/scanner.c": "36d762d800c3df7cd526b5a663f58d0ddc8ba082df65c48c63b9e161e2307e29",
+    "Resources/Syntax/org.scm": "cd5c8ba6e80374d0fb1a31c6e171f202ed3ad121447372fd4a34e2a63e059bd9"
+  }
+}

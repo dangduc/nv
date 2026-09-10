@@ -1,0 +1,1 @@
+PASS: 21 independent comment-presence and comment-extent checks across the 18 fixed fixtures.
