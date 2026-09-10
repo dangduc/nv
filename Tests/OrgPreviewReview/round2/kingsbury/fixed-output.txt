@@ -1,0 +1,178 @@
+2026-09-09 19:34:05.679 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.679 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.679 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.679 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.679 OrgStateTests[68334:344458877] PASS: two native windows render the same immutable Org document
+2026-09-09 19:34:05.721 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.721 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.721 OrgStateTests[68334:344458877] PASS: every rendered heading receives a distinct document ID
+2026-09-09 19:34:05.721 OrgStateTests[68334:344458877] CASE: native fragment navigation for fixed heading-link forms
+2026-09-09 19:34:05.722 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.722 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.722 OrgStateTests[68334:344458877] PASS: Starred target uses a fragment URL
+2026-09-09 19:34:05.722 OrgStateTests[68334:344458877] PASS: Starred target resolves to its expected heading ID
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.723 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#release-plan, captured scroll 2540, actual scroll 2540
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: Exact target uses a fragment URL
+2026-09-09 19:34:05.724 OrgStateTests[68334:344458877] PASS: Exact target resolves to its expected heading ID
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#release-plan, captured scroll 2540, actual scroll 2540
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: Explicit target uses a fragment URL
+2026-09-09 19:34:05.725 OrgStateTests[68334:344458877] PASS: Explicit target resolves to its expected heading ID
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#release-plan, captured scroll 2540, actual scroll 2540
+2026-09-09 19:34:05.726 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: Unicode target uses a fragment URL
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: Unicode target resolves to its expected heading ID
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#r%C3%A9sum%C3%A9-%E6%9D%B1%E4%BA%AC, captured scroll 3854, actual scroll 3854
+2026-09-09 19:34:05.727 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: Generated target uses a fragment URL
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: Generated target resolves to its expected heading ID
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#nv-org-heading-4, captured scroll 3957, actual scroll 3957
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: Duplicate target uses a fragment URL
+2026-09-09 19:34:05.728 OrgStateTests[68334:344458877] PASS: Duplicate target resolves to its expected heading ID
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.729 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://ED316378-E607-48B0-902A-F8A536C11C28/#nv-org-heading-5, captured scroll 4072, actual scroll 4072
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] PASS: fragment navigation in one window leaves the peer at its original position
+2026-09-09 19:34:05.730 OrgStateTests[68334:344458877] CASE: independent window state survives note/viewer changes and source replacement
+2026-09-09 19:34:05.732 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.732 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.732 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.732 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.732 OrgStateTests[68334:344458877] PASS: two providers capture separate scroll and Find state for the same note
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: another note and viewer do not inherit Org Find state
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.736 OrgStateTests[68334:344458877] PASS: switching one provider to another note leaves peer scroll unchanged
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: restored Org presentation uses its own retained scroll state
+2026-09-09 19:34:05.791 OrgStateTests[68334:344458877] PASS: returning to Org retains independent Find queries in both windows
+2026-09-09 19:34:05.847 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.847 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.847 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.847 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: same-note source replacement retains the first window position
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: same-note source replacement retains the second window position
+2026-09-09 19:34:05.848 OrgStateTests[68334:344458877] PASS: both providers converge to the replacement source generation
+2026-09-09 19:34:05.849 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.849 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.849 OrgStateTests[68334:344458877] PASS: Unicode target uses a fragment URL
+2026-09-09 19:34:05.849 OrgStateTests[68334:344458877] PASS: Unicode target resolves to its expected heading ID
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: native host asks the real DOM link to activate
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: production navigation policy allows exactly one current-document fragment
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: real fragment navigation reaches the target heading and scrolls it to the viewport
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: fragment navigation retains the same complete document
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: fragment navigation keeps the current preview visible and usable
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: state capture retains the exact presentation identity
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] EVIDENCE: fragment base nvalt-asset://BAE5F140-5BAF-4746-85F8-C58569D71B76/#r%C3%A9sum%C3%A9-%E6%9D%B1%E4%BA%AC, captured scroll 3854, actual scroll 3854
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: immediate state capture records the heading position after fragment navigation
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: native DOM command completes without an error
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: a fragment click after source replacement still leaves peer state unchanged
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] PASS: navigation and state operations preserve both immutable source generations
+2026-09-09 19:34:05.850 OrgStateTests[68334:344458877] CASE: export anchors remain bound to the document displayed when export starts
+2026-09-09 19:34:05.851 OrgStateTests[68334:344458877] PASS: export captures the current notebook document and title
+2026-09-09 19:34:05.854 OrgStateTests[68334:344458877] PASS: asynchronous boundary completes before its deadline
+2026-09-09 19:34:05.854 OrgStateTests[68334:344458877] PASS: provider owns the requested source snapshot and viewer identity
+2026-09-09 19:34:05.854 OrgStateTests[68334:344458877] PASS: delayed export preserves exact displayed bytes and matching heading anchors after note change
+2026-09-09 19:34:05.854 OrgStateTests[68334:344458877] PASS: export retains encoded Unicode fragment targets from the displayed source generation
+2026-09-09 19:34:05.860 OrgStateTests[68334:344458877] PASS: 167 native Org heading-navigation, state and export checks

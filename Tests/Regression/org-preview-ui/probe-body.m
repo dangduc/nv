@@ -133,6 +133,8 @@
         [OrgExportPanel->response release]; OrgExportPanel->response = nil;
         [OrgExportPanel release]; OrgExportPanel = nil; [displayedHTML release];
 
+#include "fragment-capture.inc"
+
         if (getenv("NV_UI_ARTIFACTS")) {
             NSString *directory = [NSString stringWithUTF8String:getenv("NV_UI_ARTIFACTS")];
             Check([[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL], @"Org preview screenshot directory exists");

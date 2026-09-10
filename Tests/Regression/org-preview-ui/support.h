@@ -86,3 +86,20 @@ static BOOL OrgFindMatch;
     }];
 }
 @end
+
+// Hold only the exact-document DOM reply. Production code owns capture identity,
+// cached offsets, revision ordering, completion and timeout handling.
+static WKWebView *OrgCaptureReplyView;
+static NSMutableArray *OrgCaptureReplies;
+@interface WKWebView (OrgFragmentCaptureTest)
+- (void)nv_orgCaptureJavaScript:(NSString *)script completionHandler:(void (^)(id, NSError *))completion;
+@end
+@implementation WKWebView (OrgFragmentCaptureTest)
+- (void)nv_orgCaptureJavaScript:(NSString *)script completionHandler:(void (^)(id, NSError *))completion {
+    if (self == OrgCaptureReplyView && [script isEqual:@"[document.baseURI,window.scrollX,window.scrollY]"]) {
+        [OrgCaptureReplies addObject:[[completion copy] autorelease]];
+        return;
+    }
+    [self nv_orgCaptureJavaScript:script completionHandler:completion];
+}
+@end

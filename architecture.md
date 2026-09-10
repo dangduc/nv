@@ -300,6 +300,7 @@ Switching to Preview unmarks only that window's source editor and asks the sessi
 A peer's composition can defer the shared commit. The viewer then uses the last committed model snapshot.
 Mode and viewer changes preserve source, Undo, caret, and separate scroll positions when no edits are pending.
 Transition captures read current DOM scroll positions before replacement navigation.
+State capture ignores a document URL's fragment and compares the remaining URL before it accepts DOM offsets.
 Callbacks retain their original note and viewer identity, with a bounded cached-state fallback if WebKit does not reply.
 The provider and browser order canonical state updates per note and viewer. Older replies still complete but cannot replace newer restoration state.
 A loading return joins the pending exact capture for that presentation without extending its deadline.
