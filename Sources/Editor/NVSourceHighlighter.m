@@ -164,7 +164,10 @@ static BOOL NVOrgClosingBoundary(const unichar *text, NSUInteger index, NSUInteg
     if (index + 1 == length) return YES;
     unichar c = text[index + 1];
     return NVOrgWhitespace(c) || c == '-' || c == '.' || c == ',' || c == ';' || c == ':' ||
-        c == '!' || c == '?' || c == '\'' || c == '"' || c == ')' || c == '}' || c == '[';
+        c == '!' || c == '?' || c == '\'' || c == '"' || c == ')' || c == '}' || c == '[' || c == '\\';
+}
+static BOOL NVOrgNewline(const unichar *text, NSUInteger index, NSUInteger length) {
+    return text[index] == '\n' || (text[index] == '\r' && (index + 1 == length || text[index + 1] != '\n'));
 }
 static BOOL NVOrgProtectedNode(const char *type) {
     return !strcmp(type, "block") || !strcmp(type, "dynamic_block") || !strcmp(type, "drawer") ||
@@ -235,25 +238,56 @@ static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captur
         line = end + 1;
     }
 
-    // Literal spans take precedence over every ordinary emphasis marker.
-    NSUInteger literal = NSNotFound, literalLines = 0;
+    // The grammar splits CRLF prose at LF. Join only that gap and optional
+    // indentation before another eligible prose line; never rewrite source.
     for (NSUInteger i = 0; i < length; i++) {
         if (!(i % 256) && NVStop(budget)) return NO;
-        if (!eligible[i]) { literal = NSNotFound; continue; }
-        if (text[i] == '\n' && literal != NSNotFound && ++literalLines > 1) literal = NSNotFound;
-        if (text[i] != '=' && text[i] != '~') continue;
-        if (literal != NSNotFound) {
-            if (text[i] == text[literal] && i > literal + 1 && !NVOrgWhitespace(text[i - 1]) && NVOrgClosingBoundary(text, i, length)) {
-                NSRange range = NSMakeRange(literal, i - literal + 1);
-                if (!NVOrgCapture(captures, range, @"text.literal", budget)) return NO;
-                // Keep an enclosing emphasis span open across literal text,
-                // while ignoring emphasis markers inside that literal span.
-                memset(eligible + range.location, 2, range.length);
-                literal = NSNotFound;
+        if (i && text[i] == '\n' && text[i - 1] == '\r' && eligible[i - 1] && !eligible[i]) {
+            NSUInteger next = i + 1;
+            while (next < length && (text[next] == ' ' || text[next] == '\t')) {
+                if (!(next % 256) && NVStop(budget)) return NO;
+                next++;
             }
-        } else if (NVOrgOpeningBoundary(text, i) && i + 1 < length && eligible[i + 1] && !NVOrgWhitespace(text[i + 1])) {
-            literal = i; literalLines = 0;
+            if (next < length && eligible[next] && text[next] != '\r' && text[next] != '\n')
+                memset(eligible + i, 1, next - i);
         }
+    }
+
+    // Find each opener's nearest valid closer before selecting spans. An
+    // unmatched opener must not hide a later complete literal of either type.
+    // Two closing positions per type handle an adjacent empty delimiter pair.
+    // Source length is already bounded; this table adds at most 2 MiB.
+    NSMutableData *literalEnds = [NSMutableData dataWithLength:length * sizeof(uint32_t)];
+    uint32_t *ends = [literalEnds mutableBytes];
+    NSUInteger closers[2][2] = {{0, 0}, {0, 0}}, closerLines[2][2] = {{0, 0}, {0, 0}};
+    NSUInteger line = 0;
+    for (NSUInteger remaining = length; remaining; remaining--) {
+        NSUInteger i = remaining - 1;
+        if (!(i % 256) && NVStop(budget)) return NO;
+        if (NVOrgNewline(text, i, length)) line++;
+        if (!eligible[i]) { memset(closers, 0, sizeof(closers)); continue; }
+        if (text[i] != '=' && text[i] != '~') continue;
+        NSUInteger marker = text[i] == '=' ? 0 : 1;
+        if (NVOrgOpeningBoundary(text, i) && i + 1 < length && eligible[i + 1] && !NVOrgWhitespace(text[i + 1])) {
+            NSUInteger candidate = closers[marker][0] == i + 2 ? 1 : 0;
+            if (closers[marker][candidate] && line - closerLines[marker][candidate] <= 1)
+                ends[i] = (uint32_t)closers[marker][candidate];
+        }
+        if (i && !NVOrgWhitespace(text[i - 1]) && NVOrgClosingBoundary(text, i, length)) {
+            closers[marker][1] = closers[marker][0]; closerLines[marker][1] = closerLines[marker][0];
+            closers[marker][0] = i + 1; closerLines[marker][0] = line;
+        }
+    }
+    // Select the first complete span and skip its contents. Thus closed outer
+    // literals suppress inner markup, but unfinished literals remain prose.
+    for (NSUInteger i = 0; i < length; i++) {
+        if (!(i % 256) && NVStop(budget)) return NO;
+        if (!ends[i]) continue;
+        NSRange range = NSMakeRange(i, ends[i] - i);
+        if (!NVOrgCapture(captures, range, @"text.literal", budget)) return NO;
+        // Keep enclosing ordinary emphasis open across literal text.
+        memset(eligible + range.location, 2, range.length);
+        i = ends[i] - 1;
     }
     const unichar markers[] = {'*', '/', '_', '+'};
     NSString *kinds[] = {@"text.strong", @"text.emphasis", @"text.underline", @"text.strike"};
@@ -262,7 +296,7 @@ static BOOL NVOrgCaptures(TSTree *tree, NSString *source, NSMutableArray *captur
     for (NSUInteger i = 0; i < length; i++) {
         if (!(i % 256) && NVStop(budget)) return NO;
         for (NSUInteger marker = 0; marker < 4; marker++) {
-            if (!eligible[i] || (text[i] == '\n' && openings[marker] != NSNotFound && ++newlines[marker] > 1)) openings[marker] = NSNotFound;
+            if (!eligible[i] || (NVOrgNewline(text, i, length) && openings[marker] != NSNotFound && ++newlines[marker] > 1)) openings[marker] = NSNotFound;
             if (eligible[i] != 1 || text[i] != markers[marker]) continue;
             if (openings[marker] != NSNotFound && i > openings[marker] + 1 && !NVOrgWhitespace(text[i - 1]) && NVOrgClosingBoundary(text, i, length)) {
                 if (!NVOrgCapture(captures, NSMakeRange(openings[marker], i - openings[marker] + 1), kinds[marker], budget)) return NO;

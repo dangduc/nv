@@ -67,6 +67,43 @@ int main(int argc, const char **argv) { @autoreleasepool {
         NSString *comment = [fixture containsString:@"# travel"] ? @"# travel *book tickets*" : @"#";
         Check(Has(result, fixture, @"comment", comment), @"whitespace or end of line identifies a comment prefix");
     }
+    NSArray *delimiterFixtures = @[
+        @[@"Draft =token then ~code~.\n", @"text.literal", @"~code~", @YES],
+        @[@"Draft ~token then =literal=.\n", @"text.literal", @"=literal=", @YES],
+        @[@"Draft =token then ~Café 👩🏽‍💻 日本語~.\n", @"text.literal", @"~Café 👩🏽‍💻 日本語~", @YES],
+        @[@"Draft =token\nthen ~code~.\n", @"text.literal", @"~code~", @YES],
+        @[@"#draft =token then ~code~.\n", @"text.literal", @"~code~", @YES],
+        @[@"Draft =outer ~inside~ text=.\n", @"text.literal", @"=outer ~inside~ text=", @YES],
+        @[@"Draft =outer ~inside~ text=.\n", @"text.literal", @"~inside~", @NO],
+        @[@"Draft ~outer =inside= text~.\n", @"text.literal", @"=inside=", @NO],
+        @[@"Draft =outer ~inside= then ~later~.\n", @"text.literal", @"~later~", @YES],
+        @[@"Draft =outer ~inside= then ~later~.\n", @"text.literal", @"=outer ~inside=", @YES],
+        @[@"Empty == and ~~ stay plain.\n", @"text.literal", @"==", @NO],
+        @[@"Empty == and ~~ stay plain.\n", @"text.literal", @"~~", @NO],
+        @[@"Review *first\r\nsecond* today.\r\n", @"text.strong", @"*first\r\nsecond*", @YES],
+        @[@"Review ~first\r\nsecond~ today.\r\n", @"text.literal", @"~first\r\nsecond~", @YES],
+        @[@"Review =first\r\nsecond= today.\r\n", @"text.literal", @"=first\r\nsecond=", @YES],
+        @[@"Review *Café 👩🏽‍💻\r\n日本語* today.\r\n", @"text.strong", @"*Café 👩🏽‍💻\r\n日本語*", @YES],
+        @[@"Review *first\r\n  second* today.\r\n", @"text.strong", @"*first\r\n  second*", @YES],
+        @[@"Review *first\r\nsecond\r\nthird* today.\r\n", @"text.strong", @"*first\r\nsecond\r\nthird*", @NO],
+        @[@"Review ~first\r\n\r\nsecond~ today.\r\n", @"text.literal", @"~first\r\n\r\nsecond~", @NO],
+        @[@"Review *first\r\n# comment second*\r\n", @"text.strong", @"*first\r\n# comment second*", @NO],
+        @[@"Review *first\r\n* Heading second*\r\n", @"text.strong", @"*first\r\n* Heading second*", @NO],
+        @[@"Review ~first\r\n- item second~\r\n", @"text.literal", @"~first\r\n- item second~", @NO],
+        @[@"Read *word*\\\\\nthen continue.\n", @"text.strong", @"*word*", @YES],
+        @[@"Read ~code~\\\\\r\nthen continue.\r\n", @"text.literal", @"~code~", @YES],
+        @[@"Read =literal=\\\\\nthen continue.\n", @"text.literal", @"=literal=", @YES]
+    ];
+    for (NSArray *fixture in delimiterFixtures) {
+        NSMutableString *text = [[fixture[0] mutableCopy] autorelease];
+        NSArray *result = Parse(parser, text);
+        Check(Has(result, text, fixture[1], fixture[2]) == [fixture[3] boolValue],
+            [NSString stringWithFormat:@"delimiter and line-ending semantics: %@", fixture[0]]);
+        Check([text isEqual:fixture[0]], @"delimiter analysis preserves original source and line endings");
+        NVSourceParser *fresh = [[NVSourceParser alloc] initWithQueryDirectory:directory];
+        Check([Canonical(result) isEqual:Canonical(Parse(fresh, text))], @"delimiter edits match fresh Org analysis");
+        [fresh release];
+    }
     NSArray *edits = @[[source stringByReplacingOccurrencesOfString:@"TODO" withString:@"DONE"], [source stringByReplacingOccurrencesOfString:@"*bold*" withString:@"*Café 😀 日本語*"], [source stringByReplacingOccurrencesOfString:@"=literal *plain*=" withString:@"literal *plain*"], [source stringByReplacingOccurrencesOfString:@"#+END_SRC" withString:@""], [source stringByAppendingString:@"\n* TODO new heading"], [source stringByReplacingOccurrencesOfString:@"- [ ] Task" withString:@"  - [X] Task"], source];
     for (NSString *edit in edits) {
         NSArray *incremental = Parse(parser, edit);
