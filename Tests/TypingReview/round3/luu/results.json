@@ -1,0 +1,109 @@
+{
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "command": "python3 Tests/TypingReview/round3/luu/run.py",
+  "controller_sha256": "f8af0db6aefad0ac33352a0266b2941169410aec2cb87baee1c70cb64c832425",
+  "browser_source_sha256": "f4af14541bd19112ad0073b632f5869e4e2cc1e0420e820a0261e4fc0cd19a35",
+  "macos": "26.5.2",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+  "native_exit": 0,
+  "passed": true,
+  "checks": 40,
+  "metrics": [
+    {
+      "scenario": "sustained_body",
+      "browser": 0,
+      "timers": 8,
+      "rows": 8,
+      "full": 0,
+      "max_deadline_ms": 104.885
+    },
+    {
+      "scenario": "sustained_body",
+      "browser": 1,
+      "timers": 8,
+      "rows": 8,
+      "full": 0,
+      "max_deadline_ms": 104.949
+    },
+    {
+      "scenario": "sustained_body",
+      "browser": 2,
+      "timers": 8,
+      "rows": 7,
+      "full": 1,
+      "max_deadline_ms": 104.982
+    },
+    {
+      "scenario": "synchronous_metadata_burst",
+      "browser": 0,
+      "timers": 0,
+      "rows": 0,
+      "full": 1,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "synchronous_metadata_burst",
+      "browser": 1,
+      "timers": 0,
+      "rows": 0,
+      "full": 1,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "synchronous_metadata_burst",
+      "browser": 2,
+      "timers": 0,
+      "rows": 0,
+      "full": 1,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "twenty_metadata_turns",
+      "browser": 0,
+      "timers": 0,
+      "rows": 0,
+      "full": 20,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "twenty_metadata_turns",
+      "browser": 1,
+      "timers": 0,
+      "rows": 0,
+      "full": 20,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "twenty_metadata_turns",
+      "browser": 2,
+      "timers": 0,
+      "rows": 0,
+      "full": 20,
+      "max_deadline_ms": 0.0
+    },
+    {
+      "scenario": "alternating_date_order",
+      "browser": 0,
+      "timers": 6,
+      "rows": 6,
+      "full": 0,
+      "max_deadline_ms": 102.803
+    },
+    {
+      "scenario": "alternating_date_order",
+      "browser": 1,
+      "timers": 6,
+      "rows": 6,
+      "full": 0,
+      "max_deadline_ms": 102.851
+    },
+    {
+      "scenario": "alternating_date_order",
+      "browser": 2,
+      "timers": 6,
+      "rows": 0,
+      "full": 6,
+      "max_deadline_ms": 102.877
+    }
+  ]
+}

@@ -21,6 +21,7 @@ The passing fix probes are in `fixes`.
 ## Round 2
 
 Reviewed production commit `5eda58b`. All six perspectives wrote and ran new probes.
+[Findings comment](https://github.com/dangduc/nv/pull/24#issuecomment-5625727721).
 No additional actionable defect was confirmed, so no production change was needed between rounds two and three.
 
 | Perspective | Executed evidence |
@@ -33,3 +34,22 @@ No additional actionable defect was confirmed, so no production change was neede
 | Contrarian UX | 19 native popup, shared-window count, note-switch, close, and reattach checks. |
 
 Each report records its scope and limits under `round2`.
+
+## Round 3
+
+Reviewed `d93f935`, with production unchanged from `5eda58b`.
+All six perspectives wrote and ran new probes. No additional actionable defect was confirmed.
+
+| Perspective | Executed evidence |
+| --- | --- |
+| Ousterhout | 21 body/metadata ordering, duplicate suppression, exception recovery, and session identity checks. |
+| Luu | 40 sustained deadline and metadata-burst checks across three sessions; maximum measured row-timer delay 104.982 ms. |
+| Torvalds | 4,940 checks over 80 native text-storage/editor boundary cases under ASan/UBSan; three negative controls rejected. |
+| Kingsbury | 1,389 checks across eight event orders and 48 browser histories under sanitizers; final state matches fresh projections. |
+| Contrarian async | 39 copied-app checks across short/large Plain Text and Org sources; observed expensive calls use private worker storage, with exact editor/model text and final counts. |
+| Contrarian UX | 13 candidate and 11 baseline native menu checks; no introduced defect confirmed. |
+
+The menu probe cannot establish retained-menu activation safety: its fresh activation control also misses the intercepted launch boundary.
+That limitation is recorded explicitly. Enabled retained menu items occur in both builds and are not treated as a new defect.
+The final reviews and their evidence are posted in the PR conversation.
+All three confirmed round-one findings were fixed before round two. Rounds two and three required no further production changes.

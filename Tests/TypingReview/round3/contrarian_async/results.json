@@ -1,0 +1,15 @@
+{
+  "app": "/Users/duc/dev/nv/build/TypingPerformanceWorktree/build/DerivedData/Build/Products/Development/nvALT.app",
+  "binary_sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+  "mode": "production-regression",
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "helper_symbol_sizes": {
+    "_NVSourceWordCount": 128,
+    "_NVSourceLinkRuns": 272
+  },
+  "worker_offset_from_word_helper": 752,
+  "worker_symbol_size": 784,
+  "native_exit": 0,
+  "checks": 39,
+  "passed": true
+}

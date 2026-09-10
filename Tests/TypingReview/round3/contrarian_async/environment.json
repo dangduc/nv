@@ -1,0 +1,15 @@
+{
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "command": "python3 Tests/TypingReview/round3/contrarian_async/run.py",
+  "source_sha256": {
+    "Sources/Editor/NVSourceAnalysis.m": "ce7d8326803432f782f2b2eece1f98804667af75e0abd5bb63b8980b80d32be1",
+    "Sources/Editor/NVNoteEditingSession.m": "84d8d3927ea911d8b20d2c295134456e73cb58cee6c42412ba33d7663c0818de",
+    "Sources/Editor/AttributedPlainText.m": "0a32cd9a817ff88c5321b8d546fa6ac5bb0c454454d77b3b1229cab55d5eea9b",
+    "Sources/Browser/AppController.m": "ba0d762fad49ac17f566a6e4869a83a46b428cc5b9cdb2dcbe3b1cedd39006ed"
+  },
+  "gui_execution": "escalated copied-app desktop process",
+  "initial_sandbox_exit": -6
+}

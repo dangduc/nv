@@ -1,0 +1,12 @@
+{
+  "head": "d93f93521beb4cd9f6e7d2ba77000eb2bcb41bd6",
+  "production_commit": "5eda58b",
+  "base_commit": "8dde5e8",
+  "macOS": "26.5.2 (25F84)",
+  "Xcode": "26.6 (17F113)",
+  "architecture": "x86_64",
+  "candidate_checks": 13,
+  "baseline_checks": 11,
+  "GUI_isolation": "copied app, UUID bundle ID, temporary notes, support and preferences",
+  "scope_limit": "no active native menu-tracking loop; direct native action never reached intercepted URL activation, including the fresh control"
+}
