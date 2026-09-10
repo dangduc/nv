@@ -240,9 +240,11 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 
 - (void)_addOrgLinkAttributesForRange:(NSRange)changedRange {
 	NSString *string = [self string];
-	NSUInteger cursor = changedRange.location, limit = NSMaxRange(changedRange);
+	NSUInteger cursor = changedRange.location, limit = NSMaxRange(changedRange), lineEnd = changedRange.location;
 	while (cursor < limit) {
-		NSUInteger lineEnd = MIN(NSMaxRange([string lineRangeForRange:NSMakeRange(cursor, 0)]), limit);
+		// Each link on a long line shares its boundary. Repeated line scans here
+		// otherwise make a synchronous edit grow quadratically with the link count.
+		if (cursor >= lineEnd) lineEnd = MIN(NSMaxRange([string lineRangeForRange:NSMakeRange(cursor, 0)]), limit);
 		NSRange opening = [string rangeOfString:@"[[" options:NSLiteralSearch range:NSMakeRange(cursor, lineEnd - cursor)];
 		if (opening.location == NSNotFound) {
 			[self _addDetectedLinkAttributesForRange:NSMakeRange(cursor, lineEnd - cursor)];

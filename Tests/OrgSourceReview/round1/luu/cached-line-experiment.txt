@@ -1,0 +1,13 @@
+shape=single-line links=250 utf16=7750 whole_median_ms=1.429 whole_max_ms=3.331 edit_median_ms=1.566 edit_max_ms=1.651
+shape=one-per-line links=250 utf16=7750 whole_median_ms=1.389 whole_max_ms=1.423 edit_median_ms=0.008 edit_max_ms=0.009
+shape=single-line links=500 utf16=15500 whole_median_ms=2.742 whole_max_ms=2.803 edit_median_ms=3.193 edit_max_ms=3.304
+shape=one-per-line links=500 utf16=15500 whole_median_ms=2.815 whole_max_ms=2.935 edit_median_ms=0.009 edit_max_ms=0.010
+shape=single-line links=1000 utf16=31000 whole_median_ms=5.473 whole_max_ms=5.537 edit_median_ms=6.655 edit_max_ms=6.872
+shape=one-per-line links=1000 utf16=31000 whole_median_ms=5.545 whole_max_ms=5.630 edit_median_ms=0.009 edit_max_ms=0.009
+shape=single-line links=2000 utf16=62000 whole_median_ms=10.806 whole_max_ms=11.690 edit_median_ms=13.477 edit_max_ms=14.037
+shape=one-per-line links=2000 utf16=62000 whole_median_ms=11.797 whole_max_ms=12.542 edit_median_ms=0.010 edit_max_ms=0.012
+shape=single-line links=4000 utf16=124000 whole_median_ms=22.679 whole_max_ms=23.998 edit_median_ms=30.070 edit_max_ms=31.227
+shape=one-per-line links=4000 utf16=124000 whole_median_ms=22.550 whole_max_ms=24.206 edit_median_ms=0.012 edit_max_ms=0.013
+shape=single-line links=8000 utf16=248000 whole_median_ms=45.184 whole_max_ms=47.542 edit_median_ms=72.019 edit_max_ms=73.769
+shape=one-per-line links=8000 utf16=248000 whole_median_ms=45.562 whole_max_ms=46.477 edit_median_ms=0.017 edit_max_ms=0.025
+PASS: both full-note and one-character refreshes preserve every expected link and source character
