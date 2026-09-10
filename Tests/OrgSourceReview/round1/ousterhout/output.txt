@@ -1,0 +1,34 @@
+2026-09-09 18:20:56.166 nvALT[94847:343504307] PASS: isolated copied-app preferences domain
+2026-09-09 18:20:56.166 nvALT[94847:343504307] PASS: copied app and temporary library share the test root
+2026-09-09 18:20:56.166 nvALT[94847:343504307] PASS: temporary library directory exists
+2026-09-09 18:20:56.167 nvALT[94847:343504307] PASS: temporary library opens
+2026-09-09 18:20:56.222 nvALT[94847:343504307] verified 0 notes in 0.000375986 s
+2026-09-09 18:20:56.890 nvALT[94847:343504307] PASS: one shared storage owns the source and links
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:56.891 nvALT[94847:343504307] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: syntax changes preserve live and committed source
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: syntax-only changes leave content generation, dates and notifications unchanged
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: syntax-only decoration creates no Undo entry
+2026-09-09 18:20:56.892 nvALT[94847:343504307] PASS: Org disables nv link completion in both editors
+2026-09-09 18:20:56.949 nvALT[94847:343504307] PASS: peer edits reach the first editor and committed note
+2026-09-09 18:20:56.949 nvALT[94847:343504307] PASS: peer edits retain the explicit Org URL on the new label
+2026-09-09 18:20:57.056 nvALT[94847:343504307] PASS: both browser transitions detach their Org layouts
+2026-09-09 18:20:57.094 nvALT[94847:343504307] verified 2 notes in 0.000362992 s
+2026-09-09 18:20:57.107 nvALT[94847:343504307] PASS: Undo restores source through the shared session
+2026-09-09 18:20:57.107 nvALT[94847:343504307] PASS: Undo rebuilds Org link semantics
+2026-09-09 18:20:57.163 nvALT[94847:343504307] PASS: external source replacement reaches the cached session
+2026-09-09 18:20:57.215 nvALT[94847:343504307] PASS: both editors attach to the latest external source
+2026-09-09 18:20:57.215 nvALT[94847:343504307] PASS: external replacement applies Org links and keeps file targets inert
+2026-09-09 18:20:57.267 nvALT[94847:343504307] PASS: detaching one editor preserves the original storage owner
+2026-09-09 18:20:57.267 nvALT[94847:343504307] PASS: a plain note retains its own nv links after Org detachment
+2026-09-09 18:20:57.321 nvALT[94847:343504307] PASS: reattachment restores the same session and current syntax
+2026-09-09 18:20:57.321 nvALT[94847:343504307] PASS: reattachment retains current Org link semantics
+2026-09-09 18:20:57.321 nvALT[94847:343504307] ORG OUSTERHOUT ROUND 1 PASSED (31 checks)

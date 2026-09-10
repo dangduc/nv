@@ -1,0 +1,64 @@
+2026-09-09 18:20:23.492 nvALT[94668:343503374] PASS: isolated copied-app preferences domain
+2026-09-09 18:20:23.492 nvALT[94668:343503374] PASS: copied app and temporary library share the test root
+2026-09-09 18:20:23.494 nvALT[94668:343503374] PASS: temporary library directory exists
+2026-09-09 18:20:23.495 nvALT[94668:343503374] PASS: temporary library opens
+2026-09-09 18:20:23.557 nvALT[94668:343503374] verified 0 notes in 0.000360012 s
+2026-09-09 18:20:24.078 nvALT[94668:343503374] PASS: one shared storage owns the source and links
+2026-09-09 18:20:24.078 nvALT[94668:343503374] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:24.079 nvALT[94668:343503374] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:24.079 nvALT[94668:343503374] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:24.079 nvALT[94668:343503374] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:20:24.079 nvALT[94668:343503374] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: other syntax restores nv links without stale Org labels
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: menu routing updates the shared syntax in both editors
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: Org syntax owns bracket-link semantics in both windows
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: syntax changes preserve live and committed source
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: syntax-only changes leave content generation, dates and notifications unchanged
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: syntax-only decoration creates no Undo entry
+2026-09-09 18:20:24.080 nvALT[94668:343503374] PASS: Org disables nv link completion in both editors
+2026-09-09 18:20:24.138 nvALT[94668:343503374] PASS: peer edits reach the first editor and committed note
+2026-09-09 18:20:24.138 nvALT[94668:343503374] PASS: peer edits retain the explicit Org URL on the new label
+2026-09-09 18:20:24.140 nvALT[94668:343503374] FAIL: -[NSLayoutManager _fillGlyphHoleForCharacterRange:startGlyphIndex:desiredNumberOfCharacters:] *** attempted glyph generation while textStorage is editing.  It is not valid to cause the layoutManager to do glyph generation while the textStorage is editing (ie the textStorage has been sent a beginEditing message without a matching endEditing.)
+(
+	0   CoreFoundation                      0x00007ff80ea5142a __exceptionPreprocess + 241
+	1   libobjc.A.dylib                     0x00007ff80e4e2104 objc_exception_throw + 62
+	2   CoreFoundation                      0x00007ff80ea512d0 +[NSException exceptionWithName:reason:userInfo:] + 0
+	3   UIFoundation                        0x00007ff813fc0603 -[NSLayoutManager(NSPrivate) _fillGlyphHoleForCharacterRange:startGlyphIndex:desiredNumberOfCharacters:] + 460
+	4   UIFoundation                        0x00007ff813f9790d _NSFastFillAllGlyphHolesForCharacterRange + 980
+	5   UIFoundation                        0x00007ff813f9c8d5 -[NSLayoutManager glyphIndexForCharacterAtIndex:] + 43
+	6   UIFoundation                        0x00007ff813f9c892 -[NSLayoutManager(NSPrivate) _primitiveGlyphRangeForCharacterRange:] + 110
+	7   UIFoundation                        0x00007ff813f9c4c2 -[NSLayoutManager invalidateDisplayForCharacterRange:] + 456
+	8   UIFoundation                        0x00007ff813f9f36f -[NSLayoutManager removeTemporaryAttribute:forCharacterRange:] + 435
+	9   CoreFoundation                      0x00007ff80e9dc321 __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 137
+	10  CoreFoundation                      0x00007ff80ea632e7 ___CFXRegistrationPost_block_invoke + 86
+	11  CoreFoundation                      0x00007ff80ea63242 _CFXRegistrationPost + 538
+	12  CoreFoundation                      0x00007ff80e9ac36a _CFXNotificationPost + 821
+	13  Foundation                          0x00007ff80fb6acd1 -[NSNotificationCenter postNotificationName:object:userInfo:] + 82
+	14  UIFoundation                        0x00007ff813fbe54d -[NSTextStorage processEditing] + 99
+	15  UIFoundation                        0x00007ff813fcb172 -[NSTextStorage endEditing] + 94
+	16  UIFoundation                        0x00007ff813fa483d __NSConcreteTextStorageLockedForwarding + 94
+	17  UIFoundation                        0x00007ff813fdf7f2 -[NSConcreteTextStorage replaceCharactersInRange:withAttributedString:] + 74
+	18  nvALT                               0x0000000104f534e2 -[NVNoteEditingSession applyContents:] + 2946
+	19  nvALT                               0x0000000104f539d9 -[NVNoteEditingSession restoreContents:] + 105
+	20  Foundation                          0x00007ff80fc7b6ca -[_NSUndoStack popAndInvoke] + 192
+	21  Foundation                          0x00007ff80fc7b42f -[NSUndoManager undoNestedGroup] + 356
+	22  OrgIntegration.dylib                0x000000010dcda7ac -[AppController(NVWindowTests) nv_runTests] + 5676
+	23  Foundation                          0x00007ff80fbde4f5 __NSFireDelayedPerform + 438
+	24  CoreFoundation                      0x00007ff80e9fed56 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20
+	25  CoreFoundation                      0x00007ff80e9fe9a3 __CFRunLoopDoTimer + 803
+	26  CoreFoundation                      0x00007ff80e9fe5e8 __CFRunLoopDoTimers + 249
+	27  CoreFoundation                      0x00007ff80e9e5f18 __CFRunLoopRun + 2037
+	28  CoreFoundation                      0x00007ff80eaad385 _CFRunLoopRunSpecificWithOptions + 496
+	29  HIToolbox                           0x00007ff81bb58b8b RunCurrentEventLoopInMode + 283
+	30  HIToolbox                           0x00007ff81bb5bc4d ReceiveNextEventCommon + 599
+	31  HIToolbox                           0x00007ff81bce40ca _BlockUntilNextEventMatchingListInMode + 37
+	32  AppKit                              0x00007ff812ecff04 _DPSBlockUntilNextEventMatchingListInMode + 172
+	33  AppKit                              0x00007ff8127c59c5 _DPSNextEvent + 800
+	34  AppKit                              0x00007ff813473d83 -[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:] + 1265
+	35  AppKit                              0x00007ff813473859 -[NSApplication(NSEventRouting) nextEventMatchingMask:untilDate:inMode:dequeue:] + 67
+	36  AppKit                              0x00007ff8127b685c -[NSApplication run] + 472
+	37  AppKit                              0x00007ff81278c4cd NSApplicationMain + 800
+	38  dyld                                0x0000000205522b28 start + 3240
+)

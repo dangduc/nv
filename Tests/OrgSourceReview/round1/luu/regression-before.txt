@@ -1,0 +1,2 @@
+exit_code=1
+FAIL dense Org paragraph performs bounded line-boundary work
