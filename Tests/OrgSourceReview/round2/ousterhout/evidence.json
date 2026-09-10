@@ -1,0 +1,17 @@
+{
+  "head": "4dab02a9020ff8f76cceeffc75a001927255a17e",
+  "app": "/Users/duc/dev/nv/build/DerivedData/Build/Products/Development/nvALT.app",
+  "app_sha256": "1a8ea42aba4af6ca0abbc03ab76b30310888616ed1e70ee7027de255a453e59b",
+  "architecture": "x86_64 (Rosetta)",
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "exit_status": 0,
+  "passes": 144,
+  "isolation": "temporary copied app, UUID defaults domain, temporary notes and support directories",
+  "source_sha256": {
+    "Sources/Model/NoteObject.m": "94a0162091788f04987b306710b10ba222db3fe3afb4acc02e5d21370392af78",
+    "Sources/Editor/NVNoteEditingSession.m": "93402164f6ecae147eb271e143fdea5812c5a65f07a26b1b7264e424e605de21",
+    "Sources/Browser/AppController_Preview.m": "44270dc0f7beaf078f7c725402b419f77659e5ef1e2808f7b13ffda02e58267f",
+    "Sources/Application/NVApplicationController.m": "d4cbd62868c3f05206621f99ffbd00eb996c09000d98a2670606b5dd0a4657ec"
+  }
+}

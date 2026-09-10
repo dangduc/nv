@@ -1,0 +1,6 @@
+valid_scanner_state depth=0 bytes=8 iterations=200000 encode_decode_mean_ns=11.205
+valid_scanner_state depth=1 bytes=14 iterations=200000 encode_decode_mean_ns=15.345
+valid_scanner_state depth=4 bytes=32 iterations=200000 encode_decode_mean_ns=30.420
+valid_scanner_state depth=16 bytes=104 iterations=200000 encode_decode_mean_ns=78.975
+valid_scanner_state depth=32 bytes=200 iterations=200000 encode_decode_mean_ns=139.355
+PASS: 5 valid scanner states retain all values after 1,000,000 encode/decode pairs

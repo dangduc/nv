@@ -1,0 +1,7 @@
+mixed-links units=128 wrapped=no utf16=13184 full_median_ms=4.639 insert_median_ms=4.860 delete_median_ms=4.857 edit_max_ms=5.841
+mixed-links units=128 wrapped=yes utf16=13248 full_median_ms=4.583 insert_median_ms=0.345 delete_median_ms=0.217 edit_max_ms=0.619
+mixed-links units=512 wrapped=no utf16=52736 full_median_ms=16.400 insert_median_ms=17.361 delete_median_ms=17.573 edit_max_ms=19.145
+mixed-links units=512 wrapped=yes utf16=52992 full_median_ms=16.419 insert_median_ms=0.148 delete_median_ms=0.148 edit_max_ms=0.155
+mixed-links units=2048 wrapped=no utf16=210944 full_median_ms=61.827 insert_median_ms=70.221 delete_median_ms=70.891 edit_max_ms=71.455
+mixed-links units=2048 wrapped=yes utf16=211968 full_median_ms=62.990 insert_median_ms=0.179 delete_median_ms=0.177 edit_max_ms=0.184
+PASS: 120 exact-link-count, label, destination, and source checks
