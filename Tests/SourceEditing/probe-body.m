@@ -159,6 +159,66 @@
               ![prefsController respondsToSelector:@selector(rtl)],
               @"legacy editing and global RTL preference APIs are removed");
 
+        NoteObject *linkNote = MakeNote(library, @"Shared native link maintenance", @"before\n");
+        [linkNote setSourceSyntaxIdentifier:@"markdown"];
+        [browser revealNote:linkNote options:0]; Pump();
+        [[NVApplicationController sharedController] newWindow:self]; Pump();
+        AppController *peer = [[[NVApplicationController sharedController] browserControllers] lastObject];
+        [peer revealNote:linkNote options:0]; Pump();
+        LinkingEditor *peerEditor = [peer valueForKey:@"textView"];
+        NVNoteEditingSession *linkSession = [[NVApplicationController sharedController] editingSessionForNote:linkNote];
+        NSTextStorage *sharedStorage = [linkSession textStorage];
+        Check([editor textStorage] == sharedStorage && [peerEditor textStorage] == sharedStorage &&
+              [editor layoutManager] != [peerEditor layoutManager],
+              @"two source layouts share the session's character and link storage");
+
+        NSString *URLString = @"https://session.example/path";
+        NSUInteger URLLocation = [sharedStorage length];
+        [sharedStorage replaceCharactersInRange:NSMakeRange(URLLocation, 0)
+                                     withString:[URLString stringByAppendingString:@"\n"]];
+        Pump();
+        NSRange URLRange = [[sharedStorage string] rangeOfString:URLString];
+        Check(URLRange.location != NSNotFound &&
+              [sharedStorage attribute:NSLinkAttributeName atIndex:URLRange.location effectiveRange:NULL] != nil &&
+              [[editor string] isEqual:[peerEditor string]],
+              @"a direct shared-storage edit installs links for both source layouts");
+
+        [sharedStorage replaceCharactersInRange:URLRange withString:@"not a link"];
+        Pump();
+        NSRange changedLine = [[sharedStorage string] lineRangeForRange:NSMakeRange(URLRange.location, 1)];
+        BOOL changedLineHasLink = NO;
+        for (NSUInteger index = changedLine.location; index < NSMaxRange(changedLine);) {
+            NSRange effectiveRange;
+            if ([sharedStorage attribute:NSLinkAttributeName atIndex:index
+                   longestEffectiveRange:&effectiveRange inRange:changedLine]) {
+                changedLineHasLink = YES;
+                break;
+            }
+            index = MAX(index + 1, NSMaxRange(effectiveRange));
+        }
+        Check(!changedLineHasLink,
+              @"a direct shared-storage edit removes invalidated links from the complete line");
+        [linkSession commitTextChanges]; Pump();
+        Check([[[linkNote contentString] string] isEqual:[sharedStorage string]] &&
+              [[editor string] isEqual:[peerEditor string]],
+              @"direct shared-storage edits retain the session's model commit path");
+        [[peer window] close]; Pump();
+
+        [[browser window] makeKeyAndOrderFront:self];
+        [[browser window] makeFirstResponder:editor];
+        NSString *generalString = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+        NSString *findTerm = [generalString isEqual:@"native-find-term"] ?
+            @"native-find-term-alternate" : @"native-find-term";
+        NSPasteboard *findBoard = [NSPasteboard pasteboardWithName:NSPasteboardNameFind];
+        [findBoard declareTypes:@[NSPasteboardTypeString] owner:nil];
+        [findBoard setString:findTerm forType:NSPasteboardTypeString];
+        NSMenuItem *findNext = [[[NSMenuItem alloc] initWithTitle:@"Find Next"
+            action:@selector(performFindPanelAction:) keyEquivalent:@""] autorelease];
+        [findNext setTag:NSFindPanelActionNext];
+        [editor performFindPanelAction:findNext]; Pump();
+        Check([[findBoard stringForType:NSPasteboardTypeString] isEqual:findTerm],
+              @"Find Next preserves AppKit's active Find term instead of importing the clipboard");
+
         NoteObject *undoNote = [browser selectedNoteObject];
         [[undoNote undoManager] removeAllActions];
         [editor setSelectedRange:NSMakeRange([[editor string] length], 0)];

@@ -15,6 +15,8 @@ Smart Copy/Paste, native paragraph tab layout, source persistence, and shared
 Undo. It also verifies that removed preference APIs cannot affect the editor
 while tag-field completion remains available. Cursor ownership, native modifier
 dispatch, and the supported `NSTextFinder` client path are covered as editor
-lifecycle regressions. A static preflight checks the editor defaults, the
-absence of the hidden tab-width and finder compatibility paths, status-menu
-structure, and shortcut help in every localization.
+lifecycle regressions. Direct edits through the session's shared text storage
+must update links in both windows, and Find Next must preserve AppKit's active
+Find pasteboard term. A static preflight checks the editor defaults, the absence
+of the hidden tab-width and finder compatibility paths, status-menu structure,
+and shortcut help in every localization.

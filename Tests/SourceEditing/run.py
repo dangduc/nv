@@ -39,6 +39,7 @@ global_prefs_h = (repo / "Sources/Preferences/GlobalPrefs.h").read_text()
 global_prefs_m = (repo / "Sources/Preferences/GlobalPrefs.m").read_text()
 linking_editor_h = (repo / "Sources/Editor/LinkingEditor.h").read_text()
 linking_editor_m = (repo / "Sources/Editor/LinkingEditor.m").read_text()
+editing_session_m = (repo / "Sources/Editor/NVNoteEditingSession.m").read_text()
 app_controller_m = (repo / "Sources/Browser/AppController.m").read_text()
 for removed_token in ("NumberOfSpacesInTab", "numberOfSpacesInTab",
                       "noteBodyParagraphStyle", "_bodyFontIsMonospace",
@@ -48,11 +49,24 @@ for removed_token in ("NumberOfSpacesInTab", "numberOfSpacesInTab",
 for removed_token in ("WhiteIBeamCursor", "whiteIBeamCursor", "IBeamCursorIMP",
                       "method_setImplementation", "prepareTextFinderPreLion",
                       "selectedRangeDuringFind", "stringDuringFind", "noteDuringFind",
-                      "windowBecameOrResignedMain", "TextFindContextShouldNoteChanges"):
+                      "windowBecameOrResignedMain", "TextFindContextShouldNoteChanges",
+                      "changedRange", "sourceSyntaxIdentifier",
+                      "fixTypingAttributesForSubstitutedFonts", "lastImportedFindString",
+                      "highlightRangesTemporarily", "- (void)changeColor:",
+                      "- (void)didChangeText", "- (BOOL)shouldChangeTextInRange:"):
     assert removed_token not in linking_editor_h, removed_token
     assert removed_token not in linking_editor_m, removed_token
 assert "TextFindContextShouldNoteChanges" not in app_controller_m
 assert "textFinder = [[NSTextFinder alloc] init];" in linking_editor_m
+source_change_handler = editing_session_m.split("- (void)sourceCharactersChanged:", 1)[1].split("\n}", 1)[0]
+for required_token in ("editedRange", "lineRangeForRange:",
+                       "removeAttribute:NSLinkAttributeName",
+                       "addLinkAttributesForRange:", "sourceSyntaxIdentifier"):
+    assert required_token in source_change_handler, required_token
+find_handler = linking_editor_m.split("- (IBAction)performFindPanelAction:", 1)[1].split("\n}", 1)[0]
+assert "generalPasteboard" not in find_handler
+assert "pasteboardWithName:NSPasteboardNameFind" not in find_handler
+assert "[super performTextFinderAction:newSender]" in find_handler
 for locale in locales:
     root = localization / f"{locale}.lproj"
     strings_path = root / "Localizable.strings"

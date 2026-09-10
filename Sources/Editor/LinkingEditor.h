@@ -26,12 +26,9 @@
 	BOOL didRenderFully;
 	
 	NSRange lastAutomaticallySelectedRange;
-	NSRange changedRange;
 	
 	BOOL backgroundIsDark;
     BOOL searchHighlightsInvalidated;
-	
-	NSString *lastImportedFindString;
     
     BOOL managesTextWidth;
 }
@@ -48,14 +45,11 @@
 - (void)removeHighlightedTerms;
 - (void)invalidateSearchHighlights;
 - (void)setSearchHighlightRanges:(NSArray *)ranges;
-- (void)highlightRangesTemporarily:(CFArrayRef)ranges;
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight;
-- (NSString *)sourceSyntaxIdentifier;
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex;
 
 - (void)indicateRange:(NSValue*)rangeValue;
 
-- (void)fixTypingAttributesForSubstitutedFonts;
 - (BOOL)didRenderFully;
 
 #pragma mark - nvALT additions

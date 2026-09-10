@@ -25,7 +25,6 @@
 
 
 @implementation LinkingEditor
-- (NSString *)sourceSyntaxIdentifier { return [[NVControllerForView(self) selectedNoteObject] sourceSyntaxIdentifier] ?: @"plain"; }
 - (void)undo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] undo]; }
 - (void)redo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] redo]; }
 
@@ -122,11 +121,6 @@ CGFloat _perceptualDarkness(NSColor*a);
 	[notesTableView setShouldUseSecondaryHighlightColor:NO];
 	
 	return [super resignFirstResponder];
-}
-
-- (void)changeColor:(id)sender {
-	//NSLog(@"You do not change the color.");
-	return;
 }
 
 - (void)setBackgroundColor:(NSColor*)aColor {
@@ -387,22 +381,6 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     }
 }
 
-- (void)highlightRangesTemporarily:(CFArrayRef)ranges {
-	CFIndex rangeIndex;
-	long bodyLength = (long)[[self string] length];
-	NSDictionary *highlightDict = [self currentSearchHighlightAttributes];
-	
-	for (rangeIndex = 0; rangeIndex < MIN(CFArrayGetCount(ranges), NVSearchMaximumDisplayedRanges); rangeIndex++) {
-		CFRange *range = (CFRange *)CFArrayGetValueAtIndex(ranges, rangeIndex);
-		
-		if (range && range->length > 0 && range->location + range->length <= bodyLength) {
-			[[self layoutManager] addTemporaryAttributes:highlightDict forCharacterRange:*(NSRange*)range];
-		} else {
-			NSLog(@"highlightRangesTemporarily: Invalid range (%@)", range ? NSStringFromRange(*(NSRange*)range) : @"null");
-		}
-	}
-}
-
 - (NSRange)highlightTermsTemporarilyReturningFirstRange:(NSString*)typedString avoidHighlight:(BOOL)noHighlight {
     NSRange first = NSMakeRange(NSNotFound, 0);
     NSString *separator = [typedString rangeOfString:@"\""].location == NSNotFound ? @" " : @"\"";
@@ -497,62 +475,11 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	}
 }
 
-- (void)didChangeText {
-	
-	//if the text storage was somehow shortened since changedRange was set in -shouldChangeText, at least avoid an out of bounds exception
-	changedRange = NSMakeRange(changedRange.location, (MIN(NSMaxRange(changedRange), [[self string] length]) - changedRange.location));
-
-
-	//-removeAttribute:range: seems slow for some reason; try checking with -attributesAtIndex:effectiveRange: first
-	if ([[self textStorage] attribute:NSLinkAttributeName existsInRange:changedRange])
-		[[self textStorage] removeAttribute:NSLinkAttributeName range:changedRange];
-	[[self textStorage] addLinkAttributesForRange:changedRange syntaxIdentifier:[self sourceSyntaxIdentifier]];
-	
-
-	//[[self window] invalidateCursorRectsForView:self];
-	
-	[super didChangeText];
-}
-
-- (BOOL)shouldChangeTextInRange:(NSRange)affectedCharRange replacementString:(NSString *)replacementString {
-    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return NO;
-	
-	//it's not exactly proper to alter typing attributes when we don't yet know whether the text should actually be changed, but NV shouldn't cause that to happen, anyway
-	[self fixTypingAttributesForSubstitutedFonts];
-	
-	NSString *string = [self string];
-		
-	NSCharacterSet *separatorCharacterSet = [NSCharacterSet newlineCharacterSet];
-	//even when only seeking newlines, this manual line-finding method is less laggy than -[NSString lineRangeForRange:]
-	NSUInteger begin = [string rangeOfCharacterFromSet:separatorCharacterSet options:NSBackwardsSearch range:NSMakeRange(0, affectedCharRange.location)].location;
-	if (begin == NSNotFound) {
-		begin = 0;
-	}
-	
-	NSUInteger end = [string rangeOfCharacterFromSet:separatorCharacterSet options:0 range:NSMakeRange(affectedCharRange.location + affectedCharRange.length, 
-																									   [string length] - (affectedCharRange.location + affectedCharRange.length))].location;
-	if (end == NSNotFound) {
-		end = [string length];
-	}
-	changedRange = NSMakeRange(begin, (end - begin) + [replacementString length]);
-		
-	if (affectedCharRange.length > 0 && replacementString != nil) { // Deleting something
-		changedRange.length -= affectedCharRange.length;
-	}
-	
-	return [super shouldChangeTextInRange:affectedCharRange replacementString:replacementString];
-}
-
-- (void)fixTypingAttributesForSubstitutedFonts {
-    [self setTypingAttributes:[prefsController noteBodyAttributes]];
-}
-
 - (void)dealloc {
     NSLog(@"dealloc linkinged");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeHighlightedTerms) object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     [textFinder release];
-    [lastImportedFindString release];
     
 	[super dealloc];
 }
@@ -657,39 +584,13 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     id controller = NVControllerForView(self);
     if(![controller setNoteIfNecessary])
         return;
-    
-    NSInteger findTag=[sender tag];
-    
-    [sender setTarget:nil];
-    if ([sender tag] != 7) {
-        NSString *pbType = NSPasteboardTypeString;
-        NSString *typedString = [controller typedString];
-        if (!typedString) typedString = [controlField stringValue];
-        if (!typedString||([typedString length]==0)) {
-            typedString =[[NSPasteboard generalPasteboard]stringForType:pbType];
-        }
-         if (typedString&&([typedString length]>0)) {
-             typedString = [typedString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-             typedString=[typedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-             if ([typedString length] > 0 && ![lastImportedFindString isEqualToString:typedString]) {
-                 
-                 NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSPasteboardNameFind];
-                 [pasteboard declareTypes:[NSArray arrayWithObject:pbType] owner:nil];
-                 [pasteboard setString:typedString forType:pbType];
-                 [lastImportedFindString release];
-                 lastImportedFindString = [typedString retain];
-             }
-         }       
-    
-    }
+
     if ([[self window] firstResponder]!=self) {
         [[self window]makeFirstResponder:self];
     }
+
+    NSInteger findTag=[sender tag];
     id newSender=[sender copy];
-    if((findTag!=1)&&(findTag!=12)&&(findTag!=7)&&(![self textFinderIsVisible])){
-        [newSender setTag:NSTextFinderActionShowFindInterface];
-        [super performTextFinderAction:newSender];
-    }
     if (findTag==1) {
         findTag=NSTextFinderActionShowFindInterface;
     }else if (findTag==2) {
@@ -710,16 +611,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
         findTag=NSTextFinderActionShowReplaceInterface;
     }
     [newSender setTag:findTag];
-
-    if ([textFinder validateAction:findTag]) {
-        [super performTextFinderAction:newSender];
-        if ((findTag==NSTextFinderActionSetSearchString)&&(![self textFinderIsVisible])) {
-            [newSender setTag:NSTextFinderActionShowFindInterface];
-            [super performTextFinderAction:newSender];
-        }
-    }else{
-        NSLog(@"find action was invalid");
-    }
+    [super performTextFinderAction:newSender];
     [newSender release];
 }
 

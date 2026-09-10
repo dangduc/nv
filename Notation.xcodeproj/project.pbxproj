@@ -151,7 +151,6 @@
 		5CF96DCD132EA29D0079B3FD /* TransparentScrollerKnobBottom.tif in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B35351307220E00014119 /* TransparentScrollerKnobBottom.tif */; };
 		5CF96DCF132EA29D0079B3FD /* TransparentScrollerKnobVerticalFill.tif in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B35371307220E00014119 /* TransparentScrollerKnobVerticalFill.tif */; };
 		5CF96DD1132EA29D0079B3FD /* TransparentScrollerSlotTop.tif in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B35391307220E00014119 /* TransparentScrollerSlotTop.tif */; };
-		5CF96DD6132EA29D0079B3FD /* IBeamInverted.png in Resources */ = {isa = PBXBuildFile; fileRef = 21DB407D12D5383F0057F52B /* IBeamInverted.png */; };
 		5CF96DD7132EA29D0079B3FD /* ListDividerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DA1AC12D15F310004B9CE /* ListDividerDrag.png */; };
 		5CF96DDE132EA29D0079B3FD /* TBRolloverBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 212C6A26110E371B004DD82C /* TBRolloverBG.png */; };
 		5CF96DE1132EA29D0079B3FD /* PTKeyboardIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 213FB0230B3CB1C4004C74BD /* PTKeyboardIcon.tiff */; };
@@ -403,7 +402,6 @@
 		21D6FB4812E104D6005C2DA5 /* NSBezierPath_NV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBezierPath_NV.m; sourceTree = "<group>"; };
 		21DB3D0D12D4FBDD0057F52B /* SecureTextEntryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureTextEntryManager.h; sourceTree = "<group>"; };
 		21DB3D0E12D4FBDD0057F52B /* SecureTextEntryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecureTextEntryManager.m; sourceTree = "<group>"; };
-		21DB407D12D5383F0057F52B /* IBeamInverted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IBeamInverted.png; path = IBeamInverted.png; sourceTree = "<group>"; };
 		21DB49BA12DE19480057F52B /* UnifiedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnifiedCell.h; sourceTree = "<group>"; };
 		21DB4BE412DE4E3D0057F52B /* NSString_CustomTruncation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_CustomTruncation.h; sourceTree = "<group>"; };
 		21DB4BE512DE4E3D0057F52B /* NSString_CustomTruncation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_CustomTruncation.m; sourceTree = "<group>"; };
@@ -975,7 +973,6 @@
 				5CF01B06132975910083D66E /* greyscrollerverttop.tiff */,
 				6B42C5777D54A19504FB503D /* greyscrollerverttop2.tiff */,
 				5C94376E132A0C9D00B08B80 /* greyscrollerverttop3.tif */,
-				21DB407D12D5383F0057F52B /* IBeamInverted.png */,
 				216D9C2B12CFEF2A0004B9CE /* LinkBack.tif */,
 				B683A0C716F1CDA600564A1D /* LinkBack@2x.tif */,
 				216D9C2C12CFEF2A0004B9CE /* LinkBackPressed.tif */,
@@ -1994,7 +1991,6 @@
 				5CF96DCD132EA29D0079B3FD /* TransparentScrollerKnobBottom.tif in Resources */,
 				5CF96DCF132EA29D0079B3FD /* TransparentScrollerKnobVerticalFill.tif in Resources */,
 				5CF96DD1132EA29D0079B3FD /* TransparentScrollerSlotTop.tif in Resources */,
-				5CF96DD6132EA29D0079B3FD /* IBeamInverted.png in Resources */,
 				5CF96DD7132EA29D0079B3FD /* ListDividerDrag.png in Resources */,
 				5CF96DDE132EA29D0079B3FD /* TBRolloverBG.png in Resources */,
 				5CF96DE1132EA29D0079B3FD /* PTKeyboardIcon.tiff in Resources */,
