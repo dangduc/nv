@@ -1,0 +1,23 @@
+{
+  "head_before": "415cf6920bd5c74bc3911829431f3dcff7c4acb2",
+  "head_after": "415cf6920bd5c74bc3911829431f3dcff7c4acb2",
+  "host": "macOS-26.5.2-arm64-arm-64bit",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "execution": "x86_64 under Rosetta, macOS 10.13 build target",
+  "production_sha256": {
+    "ThirdParty/OrgPreview/nv-org-preview": "dc5c563e75589ed615bc9faaad465f093ba180ac9c1b6baa3c4b2d874123fcba",
+    "ThirdParty/OrgPreview/src/main.rs": "9dd2bc672f21297befcd9ccc774560c4b98797e26fa937fe9a71137e0327fc03",
+    "Sources/Preview/NVMarkupRenderer.m": "020f81f1c29345af4583b1e200a623ae94f8a5c9475094ba10df59304e44fcd8",
+    "Sources/Preview/NVNoteContentSnapshot.m": "548075739a1afa2a5711a7d4cd5ab32ed2095b4c71d33c1d16d2655dca890cad"
+  },
+  "fixture_sha256": {
+    "competing-aliases": "95d1273bb39151b0d7a236beabc5b15e73442b40d36a7419d13ae2c426fbff41",
+    "unicode-percent": "33221874b1bea4021a21a2e6b7cf1ddcc4de16639aa168cbdb5d4d33cd374cb6",
+    "path-title-ambiguity": "6063232494d1fd6c9f2f11fc5f868bea69e950d1af4662b772e8ed16ca37cb45",
+    "duplicate-titles": "d64d85e8bf536138cc227ea147ce9b204552fbfc5d7f8fc03ef07b2704b17995",
+    "literal-protection": "7fc1ca1c8e71e7c04856fce2227eb433a80b167c44a0fe305fcf33ac7067826a",
+    "reserved-name": "9c0ba1c84e92f3789681577c304711d241e6635b6479e5390bc4840ebda917be",
+    "crlf-aliases": "e2a746a4d1e9e2074fa3f1143cd879a543d4df9c31359eb8dfa362c104435b2e"
+  },
+  "scope": "Ordinary documented Org preview semantics, production helper and renderer. No UI navigation or provider-state checks."
+}

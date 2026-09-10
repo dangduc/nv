@@ -1,0 +1,69 @@
+PASS: reviewed helper is the frozen 366,408-byte artifact
+PASS: caller supplies no DYLD variables
+PASS: direct Cargo build finishes without failed-strip warnings
+PASS: fixed script produces the expected stripped artifact size
+PASS: nv-org-preview has a thin Intel Mach-O header
+PASS: nv-org-preview contains exactly one UUID to normalize
+PASS: rebuilt-helper has a thin Intel Mach-O header
+PASS: rebuilt-helper contains exactly one UUID to normalize
+PASS: clean rebuilt artifact equals the bundled artifact except its UUID
+PASS: rebuild without update-manifest preserves the recorded manifest
+PASS: fresh offline build uses no cached or downloaded dependency content
+PASS: native symbol inspection confirms stripping
+PASS: real unstripped native executable fails the production inspector
+PASS: strip-warning makes the rebuild fail
+PASS: strip-warning is rejected before any artifact copy
+PASS: strip-warning preserves the previous output bytes
+PASS: strip-warning preserves the complete manifest
+PASS: native-symbols makes the rebuild fail
+PASS: native-symbols is rejected before any artifact copy
+PASS: native-symbols preserves the previous output bytes
+PASS: native-symbols preserves the complete manifest
+PASS: cargo-error makes the rebuild fail
+PASS: cargo-error is rejected before any artifact copy
+PASS: cargo-error preserves the previous output bytes
+PASS: cargo-error preserves the complete manifest
+PASS: read-only destination causes a real artifact-copy failure
+PASS: copy failure before opening the destination preserves previous output
+PASS: artifact-copy failure cannot update the manifest
+PASS: unicode-lf gives each heading a unique anchor
+PASS: unicode-lf pairs all native heading tags
+PASS: unicode-lf preserves the escaped Unicode explicit ID
+PASS: unicode-lf resolves all Unicode heading aliases
+PASS: unicode-lf stays deterministic with 1-byte input writes
+PASS: unicode-lf stays deterministic with 2-byte input writes
+PASS: unicode-lf stays deterministic with 5-byte input writes
+PASS: unicode-lf stays deterministic with 13-byte input writes
+PASS: unicode-crlf gives each heading a unique anchor
+PASS: unicode-crlf pairs all native heading tags
+PASS: unicode-crlf preserves the escaped Unicode explicit ID
+PASS: unicode-crlf resolves all Unicode heading aliases
+PASS: unicode-crlf stays deterministic with 1-byte input writes
+PASS: unicode-crlf stays deterministic with 2-byte input writes
+PASS: unicode-crlf stays deterministic with 5-byte input writes
+PASS: unicode-crlf stays deterministic with 13-byte input writes
+PASS: unicode-no-final-newline gives each heading a unique anchor
+PASS: unicode-no-final-newline pairs all native heading tags
+PASS: unicode-no-final-newline preserves the escaped Unicode explicit ID
+PASS: unicode-no-final-newline resolves all Unicode heading aliases
+PASS: unicode-no-final-newline stays deterministic with 1-byte input writes
+PASS: unicode-no-final-newline stays deterministic with 2-byte input writes
+PASS: unicode-no-final-newline stays deterministic with 5-byte input writes
+PASS: unicode-no-final-newline stays deterministic with 13-byte input writes
+PASS: reserved-duplicate-ids gives each heading a unique anchor
+PASS: reserved-duplicate-ids pairs all native heading tags
+PASS: later explicit ID is reserved before duplicate fallback allocation
+PASS: duplicate Unicode title selects the first heading
+PASS: reserved-duplicate-ids stays deterministic with 1-byte input writes
+PASS: reserved-duplicate-ids stays deterministic with 2-byte input writes
+PASS: reserved-duplicate-ids stays deterministic with 5-byte input writes
+PASS: reserved-duplicate-ids stays deterministic with 13-byte input writes
+PASS: deep-heading gives each heading a unique anchor
+PASS: deep-heading pairs all native heading tags
+PASS: deep heading uses a linked and balanced h6 element
+PASS: deep-heading stays deterministic with 1-byte input writes
+PASS: deep-heading stays deterministic with 2-byte input writes
+PASS: deep-heading stays deterministic with 5-byte input writes
+PASS: deep-heading stays deterministic with 13-byte input writes
+PASS: heading conversions leave the working directory unchanged
+PASS: 68 round-two native checks

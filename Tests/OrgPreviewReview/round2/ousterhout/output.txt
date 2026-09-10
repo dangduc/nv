@@ -1,0 +1,45 @@
+2026-09-09 19:39:14.592 nvALT[69222:344466204] PASS: isolated copied-app preferences domain
+2026-09-09 19:39:14.592 nvALT[69222:344466204] PASS: copied app and temporary library share the test root
+2026-09-09 19:39:14.592 nvALT[69222:344466204] PASS: temporary library directory exists
+2026-09-09 19:39:14.593 nvALT[69222:344466204] PASS: temporary library opens
+2026-09-09 19:39:14.705 nvALT[69222:344466204] verified 0 notes in 0.000374913 s
+2026-09-09 19:39:14.909 nvALT[69222:344466204] PASS: an empty Source window allocates no preview provider
+2026-09-09 19:39:14.910 nvALT[69222:344466204] PASS: note-dependent source and viewer commands disable without a selected note
+2026-09-09 19:39:14.910 nvALT[69222:344466204] PASS: note-dependent source and viewer commands disable without a selected note
+2026-09-09 19:39:14.910 nvALT[69222:344466204] PASS: note-dependent source and viewer commands disable without a selected note
+2026-09-09 19:39:14.910 nvALT[69222:344466204] PASS: note-dependent source and viewer commands disable without a selected note
+2026-09-09 19:39:14.910 nvALT[69222:344466204] PASS: note-dependent source and viewer commands disable without a selected note
+2026-09-09 19:39:14.913 nvALT[69222:344466204] PASS: a direct viewer API call without a note allocates no provider
+2026-09-09 19:39:14.913 nvALT[69222:344466204] PASS: an unknown viewer API input retains the previous valid choice without allocation
+2026-09-09 19:39:15.166 nvALT[69222:344466204] PASS: selecting a note keeps source-only allocation despite a saved Org choice
+2026-09-09 19:39:15.337 nvALT[69222:344466204] PASS: a new peer window starts without a viewer allocation
+2026-09-09 19:39:15.337 nvALT[69222:344466204] PASS: both windows attach the same note storage before preview allocation
+2026-09-09 19:39:15.552 nvALT[69222:344466204] PASS: HTML supplies the valid choice before malformed state restoration
+2026-09-09 19:39:15.646 nvALT[69222:344466204] PASS: unknown, numeric or missing saved viewer values retain a supported viewer
+2026-09-09 19:39:15.646 nvALT[69222:344466204] PASS: restoring one window does not allocate or reattach its peer provider
+2026-09-09 19:39:15.646 nvALT[69222:344466204] PASS: malformed viewer state cannot change note syntax or source
+2026-09-09 19:39:15.729 nvALT[69222:344466204] PASS: unknown, numeric or missing saved viewer values retain a supported viewer
+2026-09-09 19:39:15.729 nvALT[69222:344466204] PASS: restoring one window does not allocate or reattach its peer provider
+2026-09-09 19:39:15.729 nvALT[69222:344466204] PASS: malformed viewer state cannot change note syntax or source
+2026-09-09 19:39:15.807 nvALT[69222:344466204] PASS: unknown, numeric or missing saved viewer values retain a supported viewer
+2026-09-09 19:39:15.807 nvALT[69222:344466204] PASS: restoring one window does not allocate or reattach its peer provider
+2026-09-09 19:39:15.807 nvALT[69222:344466204] PASS: malformed viewer state cannot change note syntax or source
+2026-09-09 19:39:16.033 nvALT[69222:344466204] PASS: both independent providers render the same Plain Text note as Org
+2026-09-09 19:39:16.033 nvALT[69222:344466204] PASS: per-window viewers remain separate while source ownership stays shared
+2026-09-09 19:39:16.054 nvALT[69222:344466204] PASS: real WebKit documents carry distinct heading fragments
+2026-09-09 19:39:16.054 nvALT[69222:344466204] PASS: both documents have fresh offsets outside their cached state
+2026-09-09 19:39:16.054 nvALT[69222:344466204] PASS: first capture retains the original snapshot and viewer identity
+2026-09-09 19:39:16.054 nvALT[69222:344466204] PASS: peer capture retains its own snapshot and viewer identity
+2026-09-09 19:39:16.064 nvALT[69222:344466204] PASS: both public capture callbacks complete
+2026-09-09 19:39:16.064 nvALT[69222:344466204] PASS: fragment fix captures the first window offset and keeps its query
+2026-09-09 19:39:16.064 nvALT[69222:344466204] PASS: fragment fix captures the peer offset and keeps its independent query
+2026-09-09 19:39:16.064 nvALT[69222:344466204] PASS: simultaneous captures do not merge the two windows' presentation state
+2026-09-09 19:39:16.666 nvALT[69222:344466204] PASS: capture fallback deadlines cannot issue duplicate callbacks
+2026-09-09 19:39:16.689 nvALT[69222:344466204] PASS: saved state with a missing note restores an empty browser
+2026-09-09 19:39:16.689 nvALT[69222:344466204] PASS: empty restoration closes the old provider and keeps allocation lazy
+2026-09-09 19:39:16.691 nvALT[69222:344466204] PASS: the discarded provider clears its result and marks itself closed
+2026-09-09 19:39:16.691 nvALT[69222:344466204] PASS: closing one restored provider leaves the peer viewer and shared source intact
+2026-09-09 19:39:16.691 nvALT[69222:344466204] PASS: capture after closure terminates once without a WebKit request
+2026-09-09 19:39:16.691 nvALT[69222:344466204] PASS: all restoration and capture paths preserve source metadata, characters and generation
+2026-09-09 19:39:16.691 nvALT[69222:344466204] PASS: viewer ownership transitions leave note dates and Undo unchanged
+2026-09-09 19:39:16.691 nvALT[69222:344466204] ORG PREVIEW OUSTERHOUT ROUND 2 PASSED (43 checks)

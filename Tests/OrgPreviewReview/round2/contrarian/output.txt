@@ -1,0 +1,140 @@
+PASS helper: competing-aliases: visible headings preserve expected order and markup
+PASS helper: competing-aliases: every heading has a unique anchor
+PASS helper: competing-aliases: explicit anchor 0
+PASS helper: competing-aliases: explicit anchor 1
+PASS helper: competing-aliases: exact link labels remain visible
+PASS helper: competing-aliases: fragment target: First ID alias
+PASS helper: competing-aliases: fragment target: First custom
+PASS helper: competing-aliases: fragment target: Second heading
+PASS helper: competing-aliases: fragment target: Second ID alias
+PASS helper: competing-aliases: fragment target: First raw title
+PASS helper: competing-aliases: fragment target: First exact title
+PASS helper: competing-aliases: unchanged path: Visible title is not raw title
+PASS helper: unicode-percent: visible headings preserve expected order and markup
+PASS helper: unicode-percent: every heading has a unique anchor
+PASS helper: unicode-percent: explicit anchor 0
+PASS helper: unicode-percent: exact link labels remain visible
+PASS helper: unicode-percent: fragment target: Unicode title
+PASS helper: unicode-percent: fragment target: Literal percent ID
+PASS helper: unicode-percent: fragment target: Unicode alias
+PASS helper: unicode-percent: literal or Unicode text preserved: é 👩🏽‍💻
+PASS helper: unicode-percent: literal or Unicode text preserved: literal /markup/
+PASS helper: path-title-ambiguity: visible headings preserve expected order and markup
+PASS helper: path-title-ambiguity: every heading has a unique anchor
+PASS helper: path-title-ambiguity: exact link labels remain visible
+PASS helper: path-title-ambiguity: fragment target: Bare heading
+PASS helper: path-title-ambiguity: fragment target: URL-named heading
+PASS helper: path-title-ambiguity: unchanged path: Explicit file
+PASS helper: path-title-ambiguity: unchanged path: Relative file
+PASS helper: path-title-ambiguity: unchanged path: Parent file
+PASS helper: path-title-ambiguity: unchanged path: Absolute file
+PASS helper: path-title-ambiguity: unchanged path: Home file
+PASS helper: path-title-ambiguity: unchanged path: Web URL
+PASS helper: duplicate-titles: visible headings preserve expected order and markup
+PASS helper: duplicate-titles: every heading has a unique anchor
+PASS helper: duplicate-titles: explicit anchor 0
+PASS helper: duplicate-titles: explicit anchor 1
+PASS helper: duplicate-titles: exact link labels remain visible
+PASS helper: duplicate-titles: fragment target: Exact duplicate
+PASS helper: duplicate-titles: fragment target: Starred duplicate
+PASS helper: duplicate-titles: fragment target: Explicit first
+PASS helper: duplicate-titles: fragment target: Explicit second
+PASS helper: literal-protection: visible headings preserve expected order and markup
+PASS helper: literal-protection: every heading has a unique anchor
+PASS helper: literal-protection: exact link labels remain visible
+PASS helper: literal-protection: fragment target: Actual heading
+PASS helper: literal-protection: unchanged path: Example is not a heading
+PASS helper: literal-protection: unchanged path: *literal label* and /markers/
+PASS helper: literal-protection: literal or Unicode text preserved: * Example heading
+PASS helper: literal-protection: literal or Unicode text preserved: [[*Actual][Example link stays literal]]
+PASS helper: literal-protection: literal or Unicode text preserved: :CUSTOM_ID: example-only
+PASS helper: reserved-name: visible headings preserve expected order and markup
+PASS helper: reserved-name: every heading has a unique anchor
+PASS helper: reserved-name: explicit anchor 1
+PASS helper: reserved-name: exact link labels remain visible
+PASS helper: reserved-name: fragment target: First automatic
+PASS helper: reserved-name: fragment target: Later explicit ID
+PASS helper: reserved-name: fragment target: Explicit generated-looking ID
+PASS helper: crlf-aliases: visible headings preserve expected order and markup
+PASS helper: crlf-aliases: every heading has a unique anchor
+PASS helper: crlf-aliases: explicit anchor 0
+PASS helper: crlf-aliases: explicit anchor 1
+PASS helper: crlf-aliases: exact link labels remain visible
+PASS helper: crlf-aliases: fragment target: First ID alias
+PASS helper: crlf-aliases: fragment target: First custom
+PASS helper: crlf-aliases: fragment target: Second heading
+PASS helper: crlf-aliases: fragment target: Second ID alias
+PASS helper: crlf-aliases: fragment target: First raw title
+PASS helper: crlf-aliases: fragment target: First exact title
+PASS helper: crlf-aliases: unchanged path: Visible title is not raw title
+PASS renderer: competing-aliases: visible headings preserve expected order and markup
+PASS renderer: competing-aliases: every heading has a unique anchor
+PASS renderer: competing-aliases: explicit anchor 0
+PASS renderer: competing-aliases: explicit anchor 1
+PASS renderer: competing-aliases: exact link labels remain visible
+PASS renderer: competing-aliases: fragment target: First ID alias
+PASS renderer: competing-aliases: fragment target: First custom
+PASS renderer: competing-aliases: fragment target: Second heading
+PASS renderer: competing-aliases: fragment target: Second ID alias
+PASS renderer: competing-aliases: fragment target: First raw title
+PASS renderer: competing-aliases: fragment target: First exact title
+PASS renderer: competing-aliases: unchanged path: Visible title is not raw title
+PASS renderer: unicode-percent: visible headings preserve expected order and markup
+PASS renderer: unicode-percent: every heading has a unique anchor
+PASS renderer: unicode-percent: explicit anchor 0
+PASS renderer: unicode-percent: exact link labels remain visible
+PASS renderer: unicode-percent: fragment target: Unicode title
+PASS renderer: unicode-percent: fragment target: Literal percent ID
+PASS renderer: unicode-percent: fragment target: Unicode alias
+PASS renderer: unicode-percent: literal or Unicode text preserved: é 👩🏽‍💻
+PASS renderer: unicode-percent: literal or Unicode text preserved: literal /markup/
+PASS renderer: path-title-ambiguity: visible headings preserve expected order and markup
+PASS renderer: path-title-ambiguity: every heading has a unique anchor
+PASS renderer: path-title-ambiguity: exact link labels remain visible
+PASS renderer: path-title-ambiguity: fragment target: Bare heading
+PASS renderer: path-title-ambiguity: fragment target: URL-named heading
+PASS renderer: path-title-ambiguity: unchanged path: Explicit file
+PASS renderer: path-title-ambiguity: unchanged path: Relative file
+PASS renderer: path-title-ambiguity: unchanged path: Parent file
+PASS renderer: path-title-ambiguity: unchanged path: Absolute file
+PASS renderer: path-title-ambiguity: unchanged path: Home file
+PASS renderer: path-title-ambiguity: unchanged path: Web URL
+PASS renderer: duplicate-titles: visible headings preserve expected order and markup
+PASS renderer: duplicate-titles: every heading has a unique anchor
+PASS renderer: duplicate-titles: explicit anchor 0
+PASS renderer: duplicate-titles: explicit anchor 1
+PASS renderer: duplicate-titles: exact link labels remain visible
+PASS renderer: duplicate-titles: fragment target: Exact duplicate
+PASS renderer: duplicate-titles: fragment target: Starred duplicate
+PASS renderer: duplicate-titles: fragment target: Explicit first
+PASS renderer: duplicate-titles: fragment target: Explicit second
+PASS renderer: literal-protection: visible headings preserve expected order and markup
+PASS renderer: literal-protection: every heading has a unique anchor
+PASS renderer: literal-protection: exact link labels remain visible
+PASS renderer: literal-protection: fragment target: Actual heading
+PASS renderer: literal-protection: unchanged path: Example is not a heading
+PASS renderer: literal-protection: unchanged path: *literal label* and /markers/
+PASS renderer: literal-protection: literal or Unicode text preserved: * Example heading
+PASS renderer: literal-protection: literal or Unicode text preserved: [[*Actual][Example link stays literal]]
+PASS renderer: literal-protection: literal or Unicode text preserved: :CUSTOM_ID: example-only
+PASS renderer: reserved-name: visible headings preserve expected order and markup
+PASS renderer: reserved-name: every heading has a unique anchor
+PASS renderer: reserved-name: explicit anchor 1
+PASS renderer: reserved-name: exact link labels remain visible
+PASS renderer: reserved-name: fragment target: First automatic
+PASS renderer: reserved-name: fragment target: Later explicit ID
+PASS renderer: reserved-name: fragment target: Explicit generated-looking ID
+PASS renderer: crlf-aliases: visible headings preserve expected order and markup
+PASS renderer: crlf-aliases: every heading has a unique anchor
+PASS renderer: crlf-aliases: explicit anchor 0
+PASS renderer: crlf-aliases: explicit anchor 1
+PASS renderer: crlf-aliases: exact link labels remain visible
+PASS renderer: crlf-aliases: fragment target: First ID alias
+PASS renderer: crlf-aliases: fragment target: First custom
+PASS renderer: crlf-aliases: fragment target: Second heading
+PASS renderer: crlf-aliases: fragment target: Second ID alias
+PASS renderer: crlf-aliases: fragment target: First raw title
+PASS renderer: crlf-aliases: fragment target: First exact title
+PASS renderer: crlf-aliases: unchanged path: Visible title is not raw title
+138/138 expected-output checks passed; 0 failed
+PASS: 49 native renderer and source-preservation checks
