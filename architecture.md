@@ -179,8 +179,13 @@ The typesetter uses Core Text measurements and a paragraph table of Unicode line
 It temporarily narrows a line's layout width to a suitable word boundary, then restores the full line rectangle and alignment.
 Overflowing ordinary spaces use native character advancement, so they do not move a fitting word to another line.
 A word wider than the available line can still split across lines.
-The paragraph snapshot and break table reset at the next paragraph layout and belong only to that layout manager.
+The paragraph snapshot and break table belong only to that layout manager and release when the paragraph completes.
+Defensive cleanup also runs at the next paragraph layout and typesetter destruction.
 Shared note storage, source characters, editing commands, and caret drawing remain under their existing owners.
+The refinement targets the plain source editor's paragraph settings, not arbitrary rich-text styles.
+Positive tail indents, justified text, and natural alignment with explicit RTL direction have documented geometry limits outside the current source path.
+Very long paragraphs still require synchronous native layout and additional word-boundary measurements.
+The [review measurements](Tests/WordWrapReview/round1/luu/findings.md) record that cost and distinguish it from complete application latency.
 
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.

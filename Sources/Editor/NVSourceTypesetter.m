@@ -4,15 +4,26 @@
 
 @implementation NVSourceTypesetter
 
-- (void)beginParagraph {
+- (void)clearParagraphAnalysis {
     if (paragraphMeasure) CFRelease(paragraphMeasure);
     paragraphMeasure = NULL;
     [lineBreaks release];
     lineBreaks = nil;
+}
+
+- (void)beginParagraph {
+    [self clearParagraphAnalysis];
     limitedLineWidth = NO;
     alignmentShift = 0;
     [super beginParagraph];
     paragraphRange = self.paragraphCharacterRange;
+}
+
+- (void)endParagraph {
+    [super endParagraph];
+    // Empty-note layout does not begin another paragraph. Release completed
+    // analysis now so an idle editor does not retain the previous note's data.
+    [self clearParagraphAnalysis];
 }
 
 - (void)beginLineWithGlyphAtIndex:(NSUInteger)glyphIndex {
@@ -121,8 +132,7 @@
 }
 
 - (void)dealloc {
-    if (paragraphMeasure) CFRelease(paragraphMeasure);
-    [lineBreaks release];
+    [self clearParagraphAnalysis];
     [super dealloc];
 }
 @end
