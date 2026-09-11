@@ -1,0 +1,34 @@
+{
+  "revision": "9e6c8dd6adc058e7044f2c562532af97dd4e63d4",
+  "host": "26.5.2",
+  "glyph_hook_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+  "typesetter_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "runs": [
+    {
+      "checks": 1642,
+      "collapsedCases": 6,
+      "failureKinds": {},
+      "firstFailure": {},
+      "commandComparisons": 576,
+      "failures": 0,
+      "pointComparisons": 378,
+      "rangeComparisons": 60,
+      "markedSteps": 8,
+      "records_sha256": "9611e8a1d813a8d3dfcb7d904ffc4acecd99ded2c7e7e60b2baf85236ea04543",
+      "architecture": "arm64"
+    },
+    {
+      "checks": 1642,
+      "collapsedCases": 6,
+      "failureKinds": {},
+      "firstFailure": {},
+      "commandComparisons": 576,
+      "failures": 0,
+      "pointComparisons": 378,
+      "rangeComparisons": 60,
+      "markedSteps": 8,
+      "records_sha256": "9611e8a1d813a8d3dfcb7d904ffc4acecd99ded2c7e7e60b2baf85236ea04543",
+      "architecture": "x86_64"
+    }
+  ]
+}

@@ -1,0 +1,1617 @@
+[
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words ",
+        "glyphs" : "{0, 35}",
+        "characters" : "{0, 35}",
+        "rect" : "{{0, 0}, {474, 21}}",
+        "used" : "{{0, 0}, {389.2919921875, 21}}"
+      },
+      {
+        "text" : "separated by single spaces and finishes ",
+        "glyphs" : "{35, 40}",
+        "characters" : "{35, 40}",
+        "rect" : "{{0, 21}, {474, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "before a real newline.\n",
+        "glyphs" : "{75, 23}",
+        "characters" : "{75, 23}",
+        "rect" : "{{0, 42}, {474, 21}}",
+        "used" : "{{0, 42}, {248.412109375, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words ",
+        "glyphs" : "{98, 40}",
+        "characters" : "{98, 40}",
+        "rect" : "{{0, 63}, {474, 21}}",
+        "used" : "{{0, 63}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "while shared edits change preceding ",
+        "glyphs" : "{138, 36}",
+        "characters" : "{138, 36}",
+        "rect" : "{{0, 84}, {474, 21}}",
+        "used" : "{{0, 84}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "paragraphs. Unicode remains exact: Việt é ",
+        "glyphs" : "{174, 43}",
+        "characters" : "{174, 43}",
+        "rect" : "{{0, 105}, {474, 21}}",
+        "used" : "{{0, 105}, {465.150390625, 21}}"
+      },
+      {
+        "text" : "👩🏽‍💻.\n",
+        "glyphs" : "{217, 9}",
+        "characters" : "{217, 9}",
+        "rect" : "{{0, 126}, {474, 28}}",
+        "used" : "{{0, 126}, {42.8369140625, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces ",
+        "glyphs" : "{226, 42}",
+        "characters" : "{226, 42}",
+        "rect" : "{{0, 154}, {474, 21}}",
+        "used" : "{{0, 154}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ",
+        "glyphs" : "{268, 1}",
+        "characters" : "{268, 1}",
+        "rect" : "{{0, 175}, {474, 21}}",
+        "used" : "{{0, 175}, {20.8369140625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{474, 10000000}",
+    "matchesCold" : true,
+    "step" : "initial paragraph boundary \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and ",
+        "glyphs" : "{0, 66}",
+        "characters" : "{0, 66}",
+        "rect" : "{{0, 0}, {799, 21}}",
+        "used" : "{{0, 0}, {725.236328125, 21}}"
+      },
+      {
+        "text" : "finishes before a real newline.\n",
+        "glyphs" : "{66, 32}",
+        "characters" : "{66, 32}",
+        "rect" : "{{0, 21}, {799, 21}}",
+        "used" : "{{0, 21}, {345.9443359375, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared edits change ",
+        "glyphs" : "{98, 66}",
+        "characters" : "{98, 66}",
+        "rect" : "{{0, 42}, {799, 21}}",
+        "used" : "{{0, 42}, {725.236328125, 21}}"
+      },
+      {
+        "text" : "preceding paragraphs. Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{164, 62}",
+        "characters" : "{164, 62}",
+        "rect" : "{{0, 63}, {799, 28}}",
+        "used" : "{{0, 63}, {606.3564453125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 91}, {799, 21}}",
+        "used" : "{{0, 91}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "initial paragraph boundary \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words ",
+        "glyphs" : "{0, 35}",
+        "characters" : "{0, 35}",
+        "rect" : "{{0, 0}, {474, 21}}",
+        "used" : "{{0, 0}, {389.2919921875, 21}}"
+      },
+      {
+        "text" : "separated by single spaces and finishes ",
+        "glyphs" : "{35, 40}",
+        "characters" : "{35, 40}",
+        "rect" : "{{0, 21}, {474, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "before a real newline. ANCHOR remains ",
+        "glyphs" : "{75, 38}",
+        "characters" : "{75, 38}",
+        "rect" : "{{0, 42}, {474, 21}}",
+        "used" : "{{0, 42}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "attached to these words while shared edits ",
+        "glyphs" : "{113, 43}",
+        "characters" : "{113, 43}",
+        "rect" : "{{0, 63}, {474, 21}}",
+        "used" : "{{0, 63}, {474, 21}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode ",
+        "glyphs" : "{156, 37}",
+        "characters" : "{156, 37}",
+        "rect" : "{{0, 84}, {474, 21}}",
+        "used" : "{{0, 84}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{193, 32}",
+        "characters" : "{193, 32}",
+        "rect" : "{{0, 105}, {474, 28}}",
+        "used" : "{{0, 105}, {281.2490234375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces ",
+        "glyphs" : "{225, 42}",
+        "characters" : "{225, 42}",
+        "rect" : "{{0, 133}, {474, 21}}",
+        "used" : "{{0, 133}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ",
+        "glyphs" : "{267, 1}",
+        "characters" : "{267, 1}",
+        "rect" : "{{0, 154}, {474, 21}}",
+        "used" : "{{0, 154}, {20.8369140625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{474, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 join paragraphs \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and ",
+        "glyphs" : "{0, 66}",
+        "characters" : "{0, 66}",
+        "rect" : "{{0, 0}, {799, 21}}",
+        "used" : "{{0, 0}, {725.236328125, 21}}"
+      },
+      {
+        "text" : "finishes before a real newline. ANCHOR remains attached to these words ",
+        "glyphs" : "{66, 71}",
+        "characters" : "{66, 71}",
+        "rect" : "{{0, 21}, {799, 21}}",
+        "used" : "{{0, 21}, {779.4208984375, 21}}"
+      },
+      {
+        "text" : "while shared edits change preceding paragraphs. Unicode remains exact: ",
+        "glyphs" : "{137, 71}",
+        "characters" : "{137, 71}",
+        "rect" : "{{0, 42}, {799, 21}}",
+        "used" : "{{0, 42}, {779.4208984375, 21}}"
+      },
+      {
+        "text" : "Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{208, 17}",
+        "characters" : "{208, 17}",
+        "rect" : "{{0, 63}, {799, 28}}",
+        "used" : "{{0, 63}, {118.6953125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 91}, {799, 21}}",
+        "used" : "{{0, 91}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 join paragraphs \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words ",
+        "glyphs" : "{0, 35}",
+        "characters" : "{0, 35}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {389.2919921875, 21}}"
+      },
+      {
+        "text" : "separated by single spaces and finishes ",
+        "glyphs" : "{35, 40}",
+        "characters" : "{35, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "before a real newline. ANCHOR remains ",
+        "glyphs" : "{75, 38}",
+        "characters" : "{75, 38}",
+        "rect" : "{{0, 42}, {469, 21}}",
+        "used" : "{{0, 42}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "attached to these words while shared edits ",
+        "glyphs" : "{113, 43}",
+        "characters" : "{113, 43}",
+        "rect" : "{{0, 63}, {469, 21}}",
+        "used" : "{{0, 63}, {469, 21}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode ",
+        "glyphs" : "{156, 37}",
+        "characters" : "{156, 37}",
+        "rect" : "{{0, 84}, {469, 21}}",
+        "used" : "{{0, 84}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{193, 32}",
+        "characters" : "{193, 32}",
+        "rect" : "{{0, 105}, {469, 28}}",
+        "used" : "{{0, 105}, {281.2490234375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces ",
+        "glyphs" : "{225, 42}",
+        "characters" : "{225, 42}",
+        "rect" : "{{0, 133}, {469, 21}}",
+        "used" : "{{0, 133}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ",
+        "glyphs" : "{267, 1}",
+        "characters" : "{267, 1}",
+        "rect" : "{{0, 154}, {469, 21}}",
+        "used" : "{{0, 154}, {20.8369140625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 change font and widths \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and ",
+        "glyphs" : "{0, 66}",
+        "characters" : "{0, 66}",
+        "rect" : "{{0, 0}, {799, 21}}",
+        "used" : "{{0, 0}, {725.236328125, 21}}"
+      },
+      {
+        "text" : "finishes before a real newline. ANCHOR remains attached to these words ",
+        "glyphs" : "{66, 71}",
+        "characters" : "{66, 71}",
+        "rect" : "{{0, 21}, {799, 21}}",
+        "used" : "{{0, 21}, {779.4208984375, 21}}"
+      },
+      {
+        "text" : "while shared edits change preceding paragraphs. Unicode remains exact: ",
+        "glyphs" : "{137, 71}",
+        "characters" : "{137, 71}",
+        "rect" : "{{0, 42}, {799, 21}}",
+        "used" : "{{0, 42}, {779.4208984375, 21}}"
+      },
+      {
+        "text" : "Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{208, 17}",
+        "characters" : "{208, 17}",
+        "rect" : "{{0, 63}, {799, 28}}",
+        "used" : "{{0, 63}, {118.6953125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 91}, {799, 21}}",
+        "used" : "{{0, 91}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 change font and widths \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {363.82861328125, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {430.30078125, 23}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {456.796875, 23}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {220.63427734375, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 split paragraphs \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline.\n",
+        "glyphs" : "{89, 9}",
+        "characters" : "{89, 9}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {79.7099609375, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared edits change preceding paragraphs. ",
+        "glyphs" : "{98, 88}",
+        "characters" : "{98, 88}",
+        "rect" : "{{0, 46}, {799, 23}}",
+        "used" : "{{0, 46}, {799, 23}}"
+      },
+      {
+        "text" : "Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{186, 40}",
+        "characters" : "{186, 40}",
+        "rect" : "{{0, 69}, {799, 29}}",
+        "used" : "{{0, 69}, {295.623046875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 98}, {799, 23}}",
+        "used" : "{{0, 98}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 split paragraphs \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {455.68359375, 23}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {447.23193359375, 23}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {420.86572265625, 23}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {147.779296875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Undo split \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline. ANCHOR remains attached to these words while shared edits change preceding ",
+        "glyphs" : "{89, 84}",
+        "characters" : "{89, 84}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {765.138671875, 23}}"
+      },
+      {
+        "text" : "paragraphs. Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{173, 52}",
+        "characters" : "{173, 52}",
+        "rect" : "{{0, 46}, {799, 29}}",
+        "used" : "{{0, 46}, {402.30322265625, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 75}, {799, 23}}",
+        "used" : "{{0, 75}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Undo split \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {363.82861328125, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {430.30078125, 23}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {456.796875, 23}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {220.63427734375, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Undo join \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline.\n",
+        "glyphs" : "{89, 9}",
+        "characters" : "{89, 9}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {79.7099609375, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared edits change preceding paragraphs. ",
+        "glyphs" : "{98, 88}",
+        "characters" : "{98, 88}",
+        "rect" : "{{0, 46}, {799, 23}}",
+        "used" : "{{0, 46}, {799, 23}}"
+      },
+      {
+        "text" : "Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{186, 40}",
+        "characters" : "{186, 40}",
+        "rect" : "{{0, 69}, {799, 29}}",
+        "used" : "{{0, 69}, {295.623046875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 98}, {799, 23}}",
+        "used" : "{{0, 98}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Undo join \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {455.68359375, 23}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {447.23193359375, 23}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {420.86572265625, 23}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {147.779296875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Redo join \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline. ANCHOR remains attached to these words while shared edits change preceding ",
+        "glyphs" : "{89, 84}",
+        "characters" : "{89, 84}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {765.138671875, 23}}"
+      },
+      {
+        "text" : "paragraphs. Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{173, 52}",
+        "characters" : "{173, 52}",
+        "rect" : "{{0, 46}, {799, 29}}",
+        "used" : "{{0, 46}, {402.30322265625, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 75}, {799, 23}}",
+        "used" : "{{0, 75}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Redo join \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {363.82861328125, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {430.30078125, 23}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {456.796875, 23}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {220.63427734375, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Redo split \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline.\n",
+        "glyphs" : "{89, 9}",
+        "characters" : "{89, 9}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {79.7099609375, 23}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared edits change preceding paragraphs. ",
+        "glyphs" : "{98, 88}",
+        "characters" : "{98, 88}",
+        "rect" : "{{0, 46}, {799, 23}}",
+        "used" : "{{0, 46}, {799, 23}}"
+      },
+      {
+        "text" : "Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{186, 40}",
+        "characters" : "{186, 40}",
+        "rect" : "{{0, 69}, {799, 29}}",
+        "used" : "{{0, 69}, {295.623046875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 98}, {799, 23}}",
+        "used" : "{{0, 98}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 1 Redo split \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {469, 23}}",
+        "used" : "{{0, 0}, {460.99951171875, 23}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 23}, {469, 23}}",
+        "used" : "{{0, 23}, {455.68359375, 23}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 46}, {469, 23}}",
+        "used" : "{{0, 46}, {447.23193359375, 23}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 69}, {469, 23}}",
+        "used" : "{{0, 69}, {420.86572265625, 23}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 92}, {469, 29}}",
+        "used" : "{{0, 92}, {147.779296875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 121}, {469, 23}}",
+        "used" : "{{0, 121}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 join paragraphs \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and finishes before a real ",
+        "glyphs" : "{0, 89}",
+        "characters" : "{0, 89}",
+        "rect" : "{{0, 0}, {799, 23}}",
+        "used" : "{{0, 0}, {745.1181640625, 23}}"
+      },
+      {
+        "text" : "newline. ANCHOR remains attached to these words while shared edits change preceding ",
+        "glyphs" : "{89, 84}",
+        "characters" : "{89, 84}",
+        "rect" : "{{0, 23}, {799, 23}}",
+        "used" : "{{0, 23}, {765.138671875, 23}}"
+      },
+      {
+        "text" : "paragraphs. Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{173, 52}",
+        "characters" : "{173, 52}",
+        "rect" : "{{0, 46}, {799, 29}}",
+        "used" : "{{0, 46}, {402.30322265625, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 75}, {799, 23}}",
+        "used" : "{{0, 75}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{799, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 join paragraphs \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and ",
+        "glyphs" : "{0, 66}",
+        "characters" : "{0, 66}",
+        "rect" : "{{0, 0}, {569, 23}}",
+        "used" : "{{0, 0}, {563.45849609375, 23}}"
+      },
+      {
+        "text" : "finishes before a real newline. ANCHOR remains attached to ",
+        "glyphs" : "{66, 59}",
+        "characters" : "{66, 59}",
+        "rect" : "{{0, 23}, {569, 23}}",
+        "used" : "{{0, 23}, {525.375, 23}}"
+      },
+      {
+        "text" : "these words while shared edits change preceding paragraphs. ",
+        "glyphs" : "{125, 60}",
+        "characters" : "{125, 60}",
+        "rect" : "{{0, 46}, {569, 23}}",
+        "used" : "{{0, 46}, {538.103515625, 23}}"
+      },
+      {
+        "text" : "Unicode remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{185, 40}",
+        "characters" : "{185, 40}",
+        "rect" : "{{0, 69}, {569, 29}}",
+        "used" : "{{0, 69}, {295.623046875, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 98}, {569, 23}}",
+        "used" : "{{0, 98}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 change font and widths \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single spaces and ",
+        "glyphs" : "{0, 66}",
+        "characters" : "{0, 66}",
+        "rect" : "{{0, 0}, {599, 23}}",
+        "used" : "{{0, 0}, {563.45849609375, 23}}"
+      },
+      {
+        "text" : "finishes before a real newline. ANCHOR remains attached to these ",
+        "glyphs" : "{66, 65}",
+        "characters" : "{66, 65}",
+        "rect" : "{{0, 23}, {599, 23}}",
+        "used" : "{{0, 23}, {577.13330078125, 23}}"
+      },
+      {
+        "text" : "words while shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{131, 62}",
+        "characters" : "{131, 62}",
+        "rect" : "{{0, 46}, {599, 23}}",
+        "used" : "{{0, 46}, {561.333984375, 23}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{193, 32}",
+        "characters" : "{193, 32}",
+        "rect" : "{{0, 69}, {599, 29}}",
+        "used" : "{{0, 69}, {220.63427734375, 29}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 98}, {599, 23}}",
+        "used" : "{{0, 98}, {368.04052734375, 23}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 change font and widths \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline.\n",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {541.0087890625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {508.498046875, 21}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {281.2490234375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 split paragraphs \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 53}",
+        "characters" : "{98, 53}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {584.3564453125, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{151, 51}",
+        "characters" : "{151, 51}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{202, 24}",
+        "characters" : "{202, 24}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 split paragraphs \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline. ",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 52}",
+        "characters" : "{98, 52}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {569, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{150, 51}",
+        "characters" : "{150, 51}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Undo split \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains exact: ",
+        "glyphs" : "{156, 52}",
+        "characters" : "{156, 52}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {573.51953125, 21}}"
+      },
+      {
+        "text" : "Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{208, 17}",
+        "characters" : "{208, 17}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {118.6953125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Undo split \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline.\n",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {541.0087890625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {508.498046875, 21}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {281.2490234375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Undo join \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 53}",
+        "characters" : "{98, 53}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {584.3564453125, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{151, 51}",
+        "characters" : "{151, 51}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{202, 24}",
+        "characters" : "{202, 24}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Undo join \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline. ",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 52}",
+        "characters" : "{98, 52}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {569, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{150, 51}",
+        "characters" : "{150, 51}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Redo join \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains exact: ",
+        "glyphs" : "{156, 52}",
+        "characters" : "{156, 52}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {573.51953125, 21}}"
+      },
+      {
+        "text" : "Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{208, 17}",
+        "characters" : "{208, 17}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {118.6953125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Redo join \/ anchored peer"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline.\n",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {541.0087890625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while ",
+        "glyphs" : "{98, 46}",
+        "characters" : "{98, 46}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {508.498046875, 21}}"
+      },
+      {
+        "text" : "shared edits change preceding paragraphs. Unicode ",
+        "glyphs" : "{144, 50}",
+        "characters" : "{144, 50}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{194, 32}",
+        "characters" : "{194, 32}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {281.2490234375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Redo split \/ actor"
+  },
+  {
+    "length" : 269,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline.\n",
+        "glyphs" : "{55, 43}",
+        "characters" : "{55, 43}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {465.150390625, 21}}"
+      },
+      {
+        "text" : " ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 53}",
+        "characters" : "{98, 53}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {584.3564453125, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{151, 51}",
+        "characters" : "{151, 51}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{202, 24}",
+        "characters" : "{202, 24}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{226, 43}",
+        "characters" : "{226, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "pass 2 Redo split \/ anchored peer"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by ",
+        "glyphs" : "{0, 48}",
+        "characters" : "{0, 48}",
+        "rect" : "{{0, 0}, {569, 21}}",
+        "used" : "{{0, 0}, {530.171875, 21}}"
+      },
+      {
+        "text" : "single spaces and finishes before a real newline. ",
+        "glyphs" : "{48, 50}",
+        "characters" : "{48, 50}",
+        "rect" : "{{0, 21}, {569, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "ANCHOR remains attached to these words while shared ",
+        "glyphs" : "{98, 52}",
+        "characters" : "{98, 52}",
+        "rect" : "{{0, 42}, {569, 21}}",
+        "used" : "{{0, 42}, {569, 21}}"
+      },
+      {
+        "text" : "edits change preceding paragraphs. Unicode remains ",
+        "glyphs" : "{150, 51}",
+        "characters" : "{150, 51}",
+        "rect" : "{{0, 63}, {569, 21}}",
+        "used" : "{{0, 63}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "exact: Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{201, 24}",
+        "characters" : "{201, 24}",
+        "rect" : "{{0, 84}, {569, 28}}",
+        "used" : "{{0, 84}, {194.5537109375, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {569, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{569, 10000000}",
+    "matchesCold" : true,
+    "step" : "final paragraph merge before save \/ actor"
+  },
+  {
+    "length" : 268,
+    "lines" : [
+      {
+        "text" : "A full paragraph has fitting words separated by single ",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {599, 21}}",
+        "used" : "{{0, 0}, {599, 21}}"
+      },
+      {
+        "text" : "spaces and finishes before a real newline. ANCHOR ",
+        "glyphs" : "{55, 50}",
+        "characters" : "{55, 50}",
+        "rect" : "{{0, 21}, {599, 21}}",
+        "used" : "{{0, 21}, {551.845703125, 21}}"
+      },
+      {
+        "text" : "remains attached to these words while shared edits ",
+        "glyphs" : "{105, 51}",
+        "characters" : "{105, 51}",
+        "rect" : "{{0, 42}, {599, 21}}",
+        "used" : "{{0, 42}, {562.6826171875, 21}}"
+      },
+      {
+        "text" : "change preceding paragraphs. Unicode remains exact: ",
+        "glyphs" : "{156, 52}",
+        "characters" : "{156, 52}",
+        "rect" : "{{0, 63}, {599, 21}}",
+        "used" : "{{0, 63}, {573.51953125, 21}}"
+      },
+      {
+        "text" : "Việt é 👩🏽‍💻.\n",
+        "glyphs" : "{208, 17}",
+        "characters" : "{208, 17}",
+        "rect" : "{{0, 84}, {599, 28}}",
+        "used" : "{{0, 84}, {118.6953125, 28}}"
+      },
+      {
+        "text" : "The final paragraph keeps trailing spaces  ",
+        "glyphs" : "{225, 43}",
+        "characters" : "{225, 43}",
+        "rect" : "{{0, 112}, {599, 21}}",
+        "used" : "{{0, 112}, {475.9873046875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{599, 10000000}",
+    "matchesCold" : true,
+    "step" : "final paragraph merge before save \/ anchored peer"
+  }
+]

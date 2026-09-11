@@ -1,0 +1,88 @@
+{
+  "commit": "9e6c8dd6adc058e7044f2c562532af97dd4e63d4",
+  "base": "75d6f4269d5c3f0ff2d3df392659ccf95bc1482b",
+  "host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "architecture": "arm64",
+      "minimum_os": "11.0",
+      "compile_command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fno-objc-arc",
+        "-fblocks",
+        "-Wno-deprecated-declarations",
+        "-Werror=unguarded-availability",
+        "-Werror=unguarded-availability-new",
+        "-framework",
+        "Cocoa",
+        "-framework",
+        "CoreText",
+        "-I",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/probe.m",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2/NVSourceTypesetter.m",
+        "-o",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2/arm64"
+      ],
+      "compiler_stderr": "",
+      "runtime_stdout": "1388 checks; 18 paragraph/size/adjacency cases; 11 baseline differences; 3 failures\n",
+      "runtime_stderr": "FAIL: attachment 9pt paragraph 0: isolated separators match native paragraph geometry\nFAIL: attachment 9pt paragraph 1: isolated separators match native paragraph geometry\nFAIL: attachment 9pt paragraph 2: isolated separators match native paragraph geometry\n",
+      "exit_code": 1,
+      "checks": 1388,
+      "comparisons": 18,
+      "baselineDifferences": 11,
+      "failures": [
+        "attachment 9pt paragraph 0: isolated separators match native paragraph geometry",
+        "attachment 9pt paragraph 1: isolated separators match native paragraph geometry",
+        "attachment 9pt paragraph 2: isolated separators match native paragraph geometry"
+      ]
+    },
+    {
+      "architecture": "x86_64",
+      "minimum_os": "10.13",
+      "compile_command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-mmacosx-version-min=10.13",
+        "-fno-objc-arc",
+        "-fblocks",
+        "-Wno-deprecated-declarations",
+        "-Werror=unguarded-availability",
+        "-Werror=unguarded-availability-new",
+        "-framework",
+        "Cocoa",
+        "-framework",
+        "CoreText",
+        "-I",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/probe.m",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2/NVSourceTypesetter.m",
+        "-o",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round1/platform/separator-platform-exv0m8l2/x86_64"
+      ],
+      "compiler_stderr": "",
+      "runtime_stdout": "1388 checks; 18 paragraph/size/adjacency cases; 11 baseline differences; 3 failures\n",
+      "runtime_stderr": "FAIL: attachment 9pt paragraph 0: isolated separators match native paragraph geometry\nFAIL: attachment 9pt paragraph 1: isolated separators match native paragraph geometry\nFAIL: attachment 9pt paragraph 2: isolated separators match native paragraph geometry\n",
+      "exit_code": 1,
+      "checks": 1388,
+      "comparisons": 18,
+      "baselineDifferences": 11,
+      "failures": [
+        "attachment 9pt paragraph 0: isolated separators match native paragraph geometry",
+        "attachment 9pt paragraph 1: isolated separators match native paragraph geometry",
+        "attachment 9pt paragraph 2: isolated separators match native paragraph geometry"
+      ]
+    }
+  ],
+  "CurrentDelegate_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+  "BaseDelegate_sha256": "8c48b1b0ebf94eda1b8b973b5c6aeb722ba78c0d67117bcef00c291d2d5a6e9f",
+  "NVSourceTypesetter.h_sha256": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+  "NVSourceTypesetter.m_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9"
+}
