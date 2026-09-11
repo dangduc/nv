@@ -1,0 +1,525 @@
+[
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "baseline",
+    "command" : 0,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx éailword",
+    "label" : "accented right neighbor",
+    "command" : 1,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "accented right neighbor Undo",
+    "command" : 2,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx éailword",
+    "label" : "accented right neighbor Redo",
+    "command" : 3,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII right neighbor",
+    "command" : 4,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx éailword",
+    "label" : "restore ASCII right neighbor Undo",
+    "command" : 5,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII right neighbor Redo",
+    "command" : 6,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx中 tailword",
+    "label" : "CJK left neighbor",
+    "command" : 7,
+    "firstRanges" : [
+      "{0, 47}",
+      "{47, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "CJK left neighbor Undo",
+    "command" : 8,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx中 tailword",
+    "label" : "CJK left neighbor Redo",
+    "command" : 9,
+    "firstRanges" : [
+      "{0, 47}",
+      "{47, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII left neighbor",
+    "command" : 10,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx中 tailword",
+    "label" : "restore ASCII left neighbor Undo",
+    "command" : 11,
+    "firstRanges" : [
+      "{0, 47}",
+      "{47, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII left neighbor Redo",
+    "command" : 12,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx t́ailword",
+    "label" : "combining right neighbor",
+    "command" : 13,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 9}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "combining right neighbor Undo",
+    "command" : 14,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx t́ailword",
+    "label" : "combining right neighbor Redo",
+    "command" : 15,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 9}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "remove right combining mark",
+    "command" : 16,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx t́ailword",
+    "label" : "remove right combining mark Undo",
+    "command" : 17,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 9}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "remove right combining mark Redo",
+    "command" : 18,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ́tailword",
+    "label" : "combining mark attached to space",
+    "command" : 19,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "combining mark attached to space Undo",
+    "command" : 20,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ́tailword",
+    "label" : "combining mark attached to space Redo",
+    "command" : 21,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 16}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "Other note body.",
+    "label" : "both editors switch away",
+    "command" : 21,
+    "firstRanges" : [
+      "{0, 16}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ́tailword",
+    "label" : "both editors reattach",
+    "command" : 21,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "detach combining mark from space",
+    "command" : 22,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ́tailword",
+    "label" : "detach combining mark from space Undo",
+    "command" : 23,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "detach combining mark from space Redo",
+    "command" : 24,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx́ tailword",
+    "label" : "combining left neighbor",
+    "command" : 25,
+    "firstRanges" : [
+      "{0, 50}",
+      "{50, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "combining left neighbor Undo",
+    "command" : 26,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx́ tailword",
+    "label" : "combining left neighbor Redo",
+    "command" : 27,
+    "firstRanges" : [
+      "{0, 50}",
+      "{50, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII prefix",
+    "command" : 28,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx́ tailword",
+    "label" : "restore ASCII prefix Undo",
+    "command" : 29,
+    "firstRanges" : [
+      "{0, 50}",
+      "{50, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "restore ASCII prefix Redo",
+    "command" : 30,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 16}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "Other note body.",
+    "label" : "both editors switch away",
+    "command" : 30,
+    "firstRanges" : [
+      "{0, 16}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "both editors reattach",
+    "command" : 30,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  }
+]

@@ -1,0 +1,270 @@
+{
+  "commit": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+  "base": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "checks": 148,
+      "callbackFonts": [
+        "AppleColorEmoji",
+        "Helvetica",
+        "Menlo-Regular",
+        "PingFangSC-Regular",
+        "TimesNewRomanPSMT"
+      ],
+      "comparisons": 12,
+      "callbackBatches": 132,
+      "singletonSpaceBatches": 56,
+      "failures": [],
+      "shapingControls": 6,
+      "records": [
+        {
+          "case": "ASCII-shortcut width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 4,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 4,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "composed-and-repeated-space width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 21,
+          "utf16Length": 21
+        }
+      ],
+      "architecture": "arm64",
+      "minimum_os": "11.0",
+      "exit_code": 0,
+      "compile_command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "arm64",
+        "-mmacosx-version-min=11.0",
+        "-fno-objc-arc",
+        "-fblocks",
+        "-Wno-deprecated-declarations",
+        "-Werror=unguarded-availability",
+        "-Werror=unguarded-availability-new",
+        "-framework",
+        "Cocoa",
+        "-framework",
+        "CoreText",
+        "-I",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/probe.m",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss/NVSourceTypesetter.m",
+        "-o",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss/arm64"
+      ],
+      "compiler_stderr": "",
+      "stdout": "148 checks; 12 exact layout comparisons; 56 single-space batches; 6 shaping controls; 0 failures\n",
+      "stderr": ""
+    },
+    {
+      "checks": 148,
+      "callbackFonts": [
+        "AppleColorEmoji",
+        "Helvetica",
+        "Menlo-Regular",
+        "PingFangSC-Regular",
+        "TimesNewRomanPSMT"
+      ],
+      "comparisons": 12,
+      "callbackBatches": 132,
+      "singletonSpaceBatches": 56,
+      "failures": [],
+      "shapingControls": 6,
+      "records": [
+        {
+          "case": "ASCII-shortcut width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 4,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "ASCII-shortcut width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 4,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "Unicode-fallback width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 27,
+          "utf16Length": 27
+        },
+        {
+          "case": "composed-and-repeated-space width86 shaping0",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width86 shaping1",
+          "exactEqual": true,
+          "lineCount": 3,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width440 shaping0",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 21,
+          "utf16Length": 21
+        },
+        {
+          "case": "composed-and-repeated-space width440 shaping1",
+          "exactEqual": true,
+          "lineCount": 1,
+          "glyphCount": 21,
+          "utf16Length": 21
+        }
+      ],
+      "architecture": "x86_64",
+      "minimum_os": "10.13",
+      "exit_code": 0,
+      "compile_command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "x86_64",
+        "-mmacosx-version-min=10.13",
+        "-fno-objc-arc",
+        "-fblocks",
+        "-Wno-deprecated-declarations",
+        "-Werror=unguarded-availability",
+        "-Werror=unguarded-availability-new",
+        "-framework",
+        "Cocoa",
+        "-framework",
+        "CoreText",
+        "-I",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/probe.m",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss/NVSourceTypesetter.m",
+        "-o",
+        "/Users/duc/dev/nv/build/WrappedSeparatorWorktree/Tests/WrappedSeparatorReview/round3/platform/separator-platform-r3-wm6r1qss/x86_64"
+      ],
+      "compiler_stderr": "",
+      "stdout": "148 checks; 12 exact layout comparisons; 56 single-space batches; 6 shaping controls; 0 failures\n",
+      "stderr": ""
+    }
+  ],
+  "CurrentDelegate_sha256": "ae6265e18b2b8ac2be7c7f92feadb733d8425004c0c5e8dbb7222b3a1650d609",
+  "BaseDelegate_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+  "NVSourceTypesetter.h_sha256": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+  "NVSourceTypesetter.m_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9"
+}

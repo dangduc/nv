@@ -1,0 +1,440 @@
+{
+  "head": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+  "base": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "typesetter_unchanged": true,
+  "macos": "26.5.2",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "host_architecture": "arm64",
+  "binary_architecture": "x86_64",
+  "compiler_flags": "-O2 -fno-objc-arc -fblocks -mmacosx-version-min=10.13",
+  "delegate_sha256": {
+    "2ea92180939a3e51df8fe867ad548140ed455868": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+    "e022109eaf2bad6583512c2ed2b48561d9dae011": "ae6265e18b2b8ac2be7c7f92feadb733d8425004c0c5e8dbb7222b3a1650d609"
+  },
+  "method": {
+    "count_trials": 1,
+    "timing_trials": 5,
+    "discarded_trials": 1,
+    "paired_order": "(trial + order) % 2",
+    "start_pair_edits": 2,
+    "font": "Menlo-Regular 16",
+    "container_width_points": 544,
+    "geometry_comparison": "exact glyph-position and line-rectangle bytes; property hash and line coverage; initial, inserted, restored states"
+  },
+  "checks": {
+    "counts": 2003771,
+    "timing": 10018835
+  },
+  "geometry_equivalence_passed": true,
+  "cases": [
+    {
+      "fixture": "ascii-32768",
+      "operation": "initial",
+      "characters": 32768,
+      "pre-fix": {
+        "wall_ms": [
+          8.882999,
+          8.227999,
+          8.267,
+          8.195001,
+          8.207001
+        ],
+        "delegate_ms": [
+          1.182,
+          1.217001,
+          1.207001,
+          1.179011,
+          1.166998
+        ],
+        "counts": {
+          "glyph_callbacks": 32,
+          "glyphs_visited": 32768,
+          "composed_queries": 5617,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1,
+          "snapshot_characters": 32768,
+          "cluster_suggestions": 625,
+          "line_creates": 936,
+          "token_advances": 5619
+        },
+        "median_wall_ms": 8.217500000000001,
+        "median_delegate_ms": 1.193006
+      },
+      "fixed": {
+        "wall_ms": [
+          7.405,
+          7.001,
+          7.358,
+          7.174,
+          7.25
+        ],
+        "delegate_ms": [
+          0.346998,
+          0.327998,
+          0.351998,
+          0.356001,
+          0.348
+        ],
+        "counts": {
+          "glyph_callbacks": 32,
+          "glyphs_visited": 32768,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1,
+          "snapshot_characters": 32768,
+          "cluster_suggestions": 625,
+          "line_creates": 936,
+          "token_advances": 5619
+        },
+        "median_wall_ms": 7.212,
+        "median_delegate_ms": 0.34999899999999995
+      },
+      "saved_wall_ms": 1.0055000000000014,
+      "saved_delegate_ms": 0.8430070000000001,
+      "other_work_counts_equal": true
+    },
+    {
+      "fixture": "ascii-32768",
+      "operation": "start",
+      "characters": 32768,
+      "pre-fix": {
+        "wall_ms": [
+          16.879001,
+          16.522,
+          16.498,
+          16.599,
+          16.542
+        ],
+        "delegate_ms": [
+          2.389999,
+          2.389001,
+          2.393003,
+          2.390004,
+          2.377003
+        ],
+        "counts": {
+          "glyph_callbacks": 65,
+          "glyphs_visited": 65537,
+          "composed_queries": 11233,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 2,
+          "snapshot_characters": 65537,
+          "cluster_suggestions": 1250,
+          "line_creates": 1872,
+          "token_advances": 11238
+        },
+        "median_wall_ms": 16.532,
+        "median_delegate_ms": 2.3895025
+      },
+      "fixed": {
+        "wall_ms": [
+          15.064,
+          14.962,
+          14.737001,
+          14.716,
+          14.687001
+        ],
+        "delegate_ms": [
+          0.708997,
+          0.718003,
+          0.695998,
+          0.680001,
+          0.683994
+        ],
+        "counts": {
+          "glyph_callbacks": 65,
+          "glyphs_visited": 65537,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 2,
+          "snapshot_characters": 65537,
+          "cluster_suggestions": 1250,
+          "line_creates": 1872,
+          "token_advances": 11238
+        },
+        "median_wall_ms": 14.7265005,
+        "median_delegate_ms": 0.689996
+      },
+      "saved_wall_ms": 1.8054994999999998,
+      "saved_delegate_ms": 1.6995064999999998,
+      "other_work_counts_equal": true
+    },
+    {
+      "fixture": "ascii-262144",
+      "operation": "initial",
+      "characters": 262144,
+      "pre-fix": {
+        "wall_ms": [
+          72.085001,
+          68.371,
+          68.753,
+          69.248,
+          69.237
+        ],
+        "delegate_ms": [
+          9.209998,
+          9.243999,
+          9.403002,
+          9.305002,
+          9.40401
+        ],
+        "counts": {
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 44938,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 1,
+          "snapshot_characters": 262144,
+          "cluster_suggestions": 4994,
+          "line_creates": 7490,
+          "token_advances": 44940
+        },
+        "median_wall_ms": 68.995,
+        "median_delegate_ms": 9.354002000000001
+      },
+      "fixed": {
+        "wall_ms": [
+          62.6,
+          62.987,
+          62.623,
+          62.491001,
+          63.231
+        ],
+        "delegate_ms": [
+          2.770002,
+          2.890009,
+          2.807,
+          2.946,
+          2.734997
+        ],
+        "counts": {
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 1,
+          "snapshot_characters": 262144,
+          "cluster_suggestions": 4994,
+          "line_creates": 7490,
+          "token_advances": 44940
+        },
+        "median_wall_ms": 62.805,
+        "median_delegate_ms": 2.8485044999999998
+      },
+      "saved_wall_ms": 6.190000000000005,
+      "saved_delegate_ms": 6.5054975000000015,
+      "other_work_counts_equal": true
+    },
+    {
+      "fixture": "ascii-262144",
+      "operation": "start",
+      "characters": 262144,
+      "pre-fix": {
+        "wall_ms": [
+          134.661,
+          131.933,
+          132.924,
+          130.874,
+          132.075001
+        ],
+        "delegate_ms": [
+          18.861993,
+          18.676993,
+          19.20401,
+          18.721987,
+          18.680979
+        ],
+        "counts": {
+          "glyph_callbacks": 513,
+          "glyphs_visited": 524289,
+          "composed_queries": 89875,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 16384,
+          "typesetter_creates": 2,
+          "snapshot_characters": 524289,
+          "cluster_suggestions": 9988,
+          "line_creates": 14980,
+          "token_advances": 89880
+        },
+        "median_wall_ms": 132.0040005,
+        "median_delegate_ms": 18.701483
+      },
+      "fixed": {
+        "wall_ms": [
+          117.471999,
+          122.754,
+          119.159,
+          118.551,
+          116.962
+        ],
+        "delegate_ms": [
+          5.586,
+          5.489993,
+          5.430994,
+          5.68,
+          5.533999
+        ],
+        "counts": {
+          "glyph_callbacks": 513,
+          "glyphs_visited": 524289,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 16384,
+          "typesetter_creates": 2,
+          "snapshot_characters": 524289,
+          "cluster_suggestions": 9988,
+          "line_creates": 14980,
+          "token_advances": 89880
+        },
+        "median_wall_ms": 118.855,
+        "median_delegate_ms": 5.511996
+      },
+      "saved_wall_ms": 13.149000499999985,
+      "saved_delegate_ms": 13.189487,
+      "other_work_counts_equal": true
+    },
+    {
+      "fixture": "mixed-unicode",
+      "operation": "initial",
+      "characters": 32830,
+      "pre-fix": {
+        "wall_ms": [
+          75.848,
+          71.056,
+          71.211999,
+          71.395,
+          71.77
+        ],
+        "delegate_ms": [
+          1.676017,
+          1.802012,
+          1.814005,
+          1.785999,
+          1.709
+        ],
+        "counts": {
+          "glyph_callbacks": 4902,
+          "glyphs_visited": 32830,
+          "composed_queries": 5879,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1,
+          "snapshot_characters": 32830,
+          "cluster_suggestions": 1176,
+          "line_creates": 780,
+          "token_advances": 6861
+        },
+        "median_wall_ms": 71.3034995,
+        "median_delegate_ms": 1.7940055
+      },
+      "fixed": {
+        "wall_ms": [
+          70.773,
+          71.661,
+          71.652001,
+          71.426,
+          71.067
+        ],
+        "delegate_ms": [
+          1.616999,
+          1.621019,
+          1.642026,
+          1.641016,
+          1.608011
+        ],
+        "counts": {
+          "glyph_callbacks": 4902,
+          "glyphs_visited": 32830,
+          "composed_queries": 4410,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1,
+          "snapshot_characters": 32830,
+          "cluster_suggestions": 1176,
+          "line_creates": 780,
+          "token_advances": 6861
+        },
+        "median_wall_ms": 71.5390005,
+        "median_delegate_ms": 1.6310175
+      },
+      "saved_wall_ms": -0.2355009999999993,
+      "saved_delegate_ms": 0.1629879999999999,
+      "other_work_counts_equal": true
+    },
+    {
+      "fixture": "mixed-unicode",
+      "operation": "start",
+      "characters": 32830,
+      "pre-fix": {
+        "wall_ms": [
+          145.964,
+          143.708,
+          143.324,
+          144.857,
+          144.091
+        ],
+        "delegate_ms": [
+          3.640004,
+          3.626992,
+          3.762991,
+          3.648997,
+          3.644018
+        ],
+        "counts": {
+          "glyph_callbacks": 9804,
+          "glyphs_visited": 65661,
+          "composed_queries": 11757,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 2,
+          "snapshot_characters": 65661,
+          "cluster_suggestions": 2352,
+          "line_creates": 1560,
+          "token_advances": 13722
+        },
+        "median_wall_ms": 143.8995,
+        "median_delegate_ms": 3.6465075000000002
+      },
+      "fixed": {
+        "wall_ms": [
+          143.475,
+          147.449,
+          143.051,
+          143.941999,
+          143.083001
+        ],
+        "delegate_ms": [
+          3.194008,
+          3.178992,
+          3.213978,
+          3.281973,
+          3.346006
+        ],
+        "counts": {
+          "glyph_callbacks": 9804,
+          "glyphs_visited": 65661,
+          "composed_queries": 8820,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 2,
+          "snapshot_characters": 65661,
+          "cluster_suggestions": 2352,
+          "line_creates": 1560,
+          "token_advances": 13722
+        },
+        "median_wall_ms": 143.5125,
+        "median_delegate_ms": 3.2479755
+      },
+      "saved_wall_ms": 0.38700000000000045,
+      "saved_delegate_ms": 0.39853200000000033,
+      "other_work_counts_equal": true
+    }
+  ],
+  "result": "PASS: P3 query elimination is present in the actual correction; no other measured work amplification or geometry/source change"
+}
