@@ -32,7 +32,9 @@ output = repo / "build/WrappedSeparators" / ("negative" if args.negative_control
 output.mkdir(parents=True, exist_ok=True)
 implementation = (repo / "Sources/Editor/LinkingEditor.m").read_text()
 if args.negative_control:
-    implementation = implementation.replace("if (index > 0 && index < sourceLength - 1 &&", "if (NO && index > 0 && index < sourceLength - 1 &&")
+    preservation_guard = "if (index > 0 && index < sourceLength - 1) {"
+    assert implementation.count(preservation_guard) == 1, "separator preservation guard changed"
+    implementation = implementation.replace(preservation_guard, "if (NO && index > 0 && index < sourceLength - 1) {")
 (output / "space-delegate.h").write_text(
     "@interface SpaceDelegate : NSObject <NSLayoutManagerDelegate>\n@end\n"
     "@implementation SpaceDelegate\n" + glyph_delegate(implementation) + "\n@end\n")
