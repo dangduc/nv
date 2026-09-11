@@ -1,0 +1,24 @@
+{
+  "timing_medians": {
+    "before": {
+      "resizeTotalMs": 2851.9321664999998,
+      "cpuMs": 3164.4494999999997,
+      "dispatchMs": 225.542168,
+      "glyphOverrideMs": 535.0875625000001,
+      "glyphCalls": 4113186.0,
+      "finalLines": 1027.0
+    },
+    "after": {
+      "resizeTotalMs": 2720.8780005,
+      "cpuMs": 3026.339,
+      "dispatchMs": 219.40080799999998,
+      "glyphOverrideMs": 454.491898,
+      "glyphCalls": 4113186.0,
+      "finalLines": 1027.0
+    }
+  },
+  "resizeReductionPercent": 4.595276407321935,
+  "priorDiagnosticGlyphOffMedianMs": 2617.897208,
+  "residualVersusPriorDiagnosticPercent": 3.9337217743042885,
+  "scopedMallocReductionPercent": 99.94377010545648
+}

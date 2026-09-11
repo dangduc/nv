@@ -1,0 +1,74 @@
+{
+  "before": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 69,
+    "styleCount": 1,
+    "checks": 140,
+    "trials": [
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4112930,
+        "glyphOverrideMs": 634.803967,
+        "keys": 64,
+        "resizeTotalMs": 3012.593333,
+        "cpuMs": 3519.286,
+        "mallocBytesInsideGlyphOverride": 190449856,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "freeCallsInsideGlyphOverride": 2066717,
+        "mallocCallsInsideGlyphOverride": 2064738,
+        "resizeMaxMs": 381.782917,
+        "dispatchMs": 209.410503,
+        "finalLines": 1027
+      }
+    ]
+  },
+  "after": {
+    "sha256": "55f97d1af69d120f385698b428a616e473be020200d3fe0ebcc6b626253459be",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 69,
+    "styleCount": 1,
+    "checks": 140,
+    "trials": [
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4111751,
+        "glyphOverrideMs": 478.728608,
+        "keys": 64,
+        "resizeTotalMs": 2806.219124,
+        "cpuMs": 3313.483,
+        "mallocBytesInsideGlyphOverride": 2045088,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "freeCallsInsideGlyphOverride": 3129,
+        "mallocCallsInsideGlyphOverride": 1161,
+        "resizeMaxMs": 353.706417,
+        "dispatchMs": 253.846371,
+        "finalLines": 1027
+      }
+    ]
+  }
+}

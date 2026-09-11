@@ -1,0 +1,160 @@
+{
+  "glyph-on": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 201,
+    "styleCount": 1,
+    "checks": 414,
+    "trials": [
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4111763,
+        "glyphOverrideMs": 542.129786,
+        "keys": 64,
+        "resizeTotalMs": 2885.7351259999996,
+        "cpuMs": 3380.471,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 366.952083,
+        "dispatchMs": 196.922251,
+        "finalLines": 1027
+      },
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4113186,
+        "glyphOverrideMs": 544.498714,
+        "keys": 64,
+        "resizeTotalMs": 2886.4992079999997,
+        "cpuMs": 3180.615,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 367.407042,
+        "dispatchMs": 204.901214,
+        "finalLines": 1027
+      },
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4113186,
+        "glyphOverrideMs": 546.77702,
+        "keys": 64,
+        "resizeTotalMs": 2897.995749,
+        "cpuMs": 3199.8469999999998,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 370.048833,
+        "dispatchMs": 227.044874,
+        "finalLines": 1027
+      }
+    ]
+  },
+  "glyph-off": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 201,
+    "styleCount": 1,
+    "checks": 414,
+    "trials": [
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4111751,
+        "glyphOverrideMs": 40.294875,
+        "keys": 64,
+        "resizeTotalMs": 2612.970917,
+        "cpuMs": 3111.925,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 331.223875,
+        "dispatchMs": 197.745749,
+        "finalLines": 1026
+      },
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4113186,
+        "glyphOverrideMs": 40.232068,
+        "keys": 64,
+        "resizeTotalMs": 2621.847041,
+        "cpuMs": 2921.4490000000005,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 329.857208,
+        "dispatchMs": 223.077744,
+        "finalLines": 1026
+      },
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "glyphCalls": 4113186,
+        "glyphOverrideMs": 40.192298,
+        "keys": 64,
+        "resizeTotalMs": 2617.495792,
+        "cpuMs": 2918.2780000000002,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "resizeMaxMs": 329.945125,
+        "dispatchMs": 197.757916,
+        "finalLines": 1026
+      }
+    ]
+  }
+}

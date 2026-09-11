@@ -42,10 +42,15 @@ All six perspectives wrote and ran code against the corrected character-wrapping
 | Contrarian UX | 2,881 checks and 1,440 native key events passed; no finding. |
 | Contrarian platform | 19,193 assertions across 48 narrow-width matrices passed; no introduced finding. |
 
-The P3 many-paragraph cost is under attribution and correction before round three.
-A same-app control keeps character wrapping active and disables only the glyph adjustment.
+The [round-two correction](fixes/round2/perf/correction.md) mitigates the P3 finding.
+A same-app control attributed the increment to the glyph path.
+The callback now skips ineligible batches and uses a 64-property stack buffer with a heap fallback.
+Measured scoped malloc calls fell from 2,064,738 to 1,161, and resize work fell 4.60%.
+The large-note resize path remains slow; that residual cost is documented rather than reported as eliminated.
+The buffer-equivalence suite passed 465 guarded checks and 271 native-layout checks under ASan/UBSan.
 The original round-two results remain unchanged.
+[Posted findings](https://github.com/dangduc/nv/pull/25#issuecomment-5627833420).
 
 ## Round 3
 
-Pending the round-two findings and dispositions.
+Ready to review the optimized glyph-buffer implementation.
