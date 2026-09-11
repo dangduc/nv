@@ -166,6 +166,11 @@ editing session so every attached layout observes the same result. Cocoa owns
 editor-local text features such as spelling and writing direction; nvALT does not
 persist global editing-behavior overrides.
 
+The editor's layout delegate clears the elastic glyph flag for ordinary U+0020 spaces.
+This makes trailing spaces occupy their font width and wrap onto subsequent visual lines.
+Glyph IDs, source characters, tabs, nonbreaking spaces, and other glyph properties remain unchanged.
+The adjustment runs during native glyph generation and does not query layout or change selection.
+
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.
 After composition ends, it compares local and external changes against the committed snapshot.
