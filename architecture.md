@@ -190,8 +190,12 @@ editing session so every attached layout observes the same result. Cocoa owns
 editor-local text features such as spelling and writing direction; nvALT does not
 persist global editing-behavior overrides.
 
-The editor's layout delegate clears the elastic glyph flag for ordinary U+0020 spaces.
-This makes trailing spaces occupy their font width and wrap onto subsequent visual lines.
+The editor's layout delegate clears the elastic glyph flag for trailing, repeated, and indented U+0020 spaces.
+These spaces occupy their font width and wrap onto subsequent visual lines.
+An isolated U+0020 between non-whitespace characters retains native elasticity.
+At a wrap boundary, that separator can collapse at the previous line's edge instead of indenting the next line.
+The context check reads adjacent characters and preserves spaces with attached combining characters.
+Native text-storage edit processing refreshes the glyphs in each attached layout manager.
 Glyph IDs and source characters remain unchanged.
 The delegate preserves glyph properties for tabs, nonbreaking spaces, and other characters.
 The adjustment runs during native glyph generation and does not query layout or change selection.
@@ -201,7 +205,7 @@ The common note-body attributes use native character wrapping as the layout base
 Each editor's layout manager owns a separate `NVSourceTypesetter`.
 The typesetter uses Core Text measurements and a paragraph table of Unicode line-break opportunities to keep fitting words together.
 It temporarily narrows a line's layout width to a suitable word boundary, then restores the full line rectangle and alignment.
-Overflowing ordinary spaces use native character advancement, so they do not move a fitting word to another line.
+Overflowing trailing and repeated spaces use native character advancement, so they do not move a fitting word to another line.
 A word wider than the available line can still split across lines.
 The paragraph snapshot and break table belong only to that layout manager and release when the paragraph completes.
 Defensive cleanup also runs at the next paragraph layout and typesetter destruction.

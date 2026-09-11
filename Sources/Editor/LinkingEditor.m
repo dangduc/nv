@@ -298,12 +298,21 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
     NSString *source = [[manager textStorage] string];
     NSUInteger sourceLength = [source length];
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSGlyphProperty stackProperties[64];
     NSGlyphProperty *adjusted = NULL;
     for (NSUInteger i = firstCandidate; i < range.length; i++) {
         if ((properties[i] & NSGlyphPropertyElastic) &&
             !(properties[i] & NSGlyphPropertyControlCharacter) && indexes[i] < sourceLength &&
             [source characterAtIndex:indexes[i]] == ' ') {
+            // An isolated word separator keeps native elasticity: it can
+            // collapse at the right margin instead of indenting the next line.
+            // Repeated spaces and paragraph indentation remain literal.
+            NSUInteger index = indexes[i];
+            if (index > 0 && index < sourceLength - 1 &&
+                ![whitespace characterIsMember:[source characterAtIndex:index - 1]] &&
+                ![whitespace characterIsMember:[source characterAtIndex:index + 1]] &&
+                [source rangeOfComposedCharacterSequenceAtIndex:index].length == 1) continue;
             if (!adjusted) {
                 adjusted = range.length <= sizeof(stackProperties) / sizeof(stackProperties[0]) ?
                     stackProperties : malloc(range.length * sizeof(NSGlyphProperty));
