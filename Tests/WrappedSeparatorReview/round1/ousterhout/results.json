@@ -1,0 +1,676 @@
+{
+  "commit": "9e6c8dd6adc058e7044f2c562532af97dd4e63d4",
+  "base": "75d6f42",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "production_hashes": {
+    "glyph_hook": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+    "typesetter": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9"
+  },
+  "runs": {
+    "arm64": {
+      "stdout": "PASS: 296 checks, 36 production-layout comparisons\n",
+      "stderr": "",
+      "rows": [
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 36,
+          "freshMatch": true,
+          "case": "initial-distinct-font-runs"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 36,
+          "freshMatch": true,
+          "case": "initial-distinct-font-runs"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 6,
+          "generated": 28,
+          "freshMatch": true,
+          "case": "mark-U0301-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 28,
+          "freshMatch": true,
+          "case": "mark-U0301-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 27,
+          "freshMatch": true,
+          "case": "mark-U0301-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 27,
+          "freshMatch": true,
+          "case": "mark-U0301-delete"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 7,
+          "generated": 46,
+          "freshMatch": true,
+          "case": "mark-UFE0F-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 46,
+          "freshMatch": true,
+          "case": "mark-UFE0F-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-UFE0F-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-UFE0F-delete"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 7,
+          "generated": 56,
+          "freshMatch": true,
+          "case": "mark-U200D-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 56,
+          "freshMatch": true,
+          "case": "mark-U200D-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-U200D-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-U200D-delete"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-insert"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-remove"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-remove"
+        },
+        {
+          "layout": 0,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 5,
+          "generated": 66,
+          "freshMatch": true,
+          "case": "disjoint-composition-deletion-attributes-batch"
+        },
+        {
+          "layout": 1,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 3,
+          "generated": 66,
+          "freshMatch": true,
+          "case": "disjoint-composition-deletion-attributes-batch"
+        },
+        {
+          "layout": 0,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 4,
+          "generated": 24,
+          "freshMatch": true,
+          "case": "replace-shared-note-contents"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 24,
+          "freshMatch": true,
+          "case": "replace-shared-note-contents"
+        },
+        {
+          "layout": 0,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 4,
+          "generated": 14,
+          "freshMatch": true,
+          "case": "attribute-only-separator-change"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 14,
+          "freshMatch": true,
+          "case": "attribute-only-separator-change"
+        },
+        {
+          "layout": 0,
+          "length": 29,
+          "glyphs": 29,
+          "lines": 5,
+          "generated": 29,
+          "freshMatch": true,
+          "case": "split-layouts-across-notes"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "split-layouts-across-notes"
+        },
+        {
+          "layout": 0,
+          "length": 29,
+          "glyphs": 29,
+          "lines": 5,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "edit-note-A-with-peer-on-note-B"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 15,
+          "freshMatch": true,
+          "case": "edit-note-A-with-peer-on-note-B"
+        },
+        {
+          "layout": 0,
+          "length": 28,
+          "glyphs": 28,
+          "lines": 5,
+          "generated": 13,
+          "freshMatch": true,
+          "case": "edit-composed-space-in-note-B"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "edit-composed-space-in-note-B"
+        },
+        {
+          "layout": 0,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 4,
+          "generated": 25,
+          "freshMatch": true,
+          "case": "reattach-layout-to-shared-note"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reattach-layout-to-shared-note"
+        },
+        {
+          "layout": 0,
+          "length": 0,
+          "glyphs": 0,
+          "lines": 0,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reuse-with-empty-note"
+        },
+        {
+          "layout": 1,
+          "length": 0,
+          "glyphs": 0,
+          "lines": 0,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reuse-with-empty-note"
+        },
+        {
+          "layout": 0,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 7,
+          "generated": 33,
+          "freshMatch": true,
+          "case": "reuse-after-empty-note"
+        },
+        {
+          "layout": 1,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 3,
+          "generated": 33,
+          "freshMatch": true,
+          "case": "reuse-after-empty-note"
+        }
+      ],
+      "checks": 295,
+      "layoutComparisons": 36
+    },
+    "x86_64": {
+      "stdout": "PASS: 296 checks, 36 production-layout comparisons\n",
+      "stderr": "",
+      "rows": [
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 36,
+          "freshMatch": true,
+          "case": "initial-distinct-font-runs"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 36,
+          "freshMatch": true,
+          "case": "initial-distinct-font-runs"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 6,
+          "generated": 28,
+          "freshMatch": true,
+          "case": "mark-U0301-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 28,
+          "freshMatch": true,
+          "case": "mark-U0301-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 27,
+          "freshMatch": true,
+          "case": "mark-U0301-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 27,
+          "freshMatch": true,
+          "case": "mark-U0301-delete"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 7,
+          "generated": 46,
+          "freshMatch": true,
+          "case": "mark-UFE0F-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 46,
+          "freshMatch": true,
+          "case": "mark-UFE0F-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-UFE0F-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-UFE0F-delete"
+        },
+        {
+          "layout": 0,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 7,
+          "generated": 56,
+          "freshMatch": true,
+          "case": "mark-U200D-insert"
+        },
+        {
+          "layout": 1,
+          "length": 37,
+          "glyphs": 37,
+          "lines": 3,
+          "generated": 56,
+          "freshMatch": true,
+          "case": "mark-U200D-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-U200D-delete"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "mark-U200D-delete"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-insert"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-insert"
+        },
+        {
+          "layout": 0,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 7,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-remove"
+        },
+        {
+          "layout": 1,
+          "length": 36,
+          "glyphs": 36,
+          "lines": 3,
+          "generated": 54,
+          "freshMatch": true,
+          "case": "nonbreaking-neighbor-remove"
+        },
+        {
+          "layout": 0,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 5,
+          "generated": 66,
+          "freshMatch": true,
+          "case": "disjoint-composition-deletion-attributes-batch"
+        },
+        {
+          "layout": 1,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 3,
+          "generated": 66,
+          "freshMatch": true,
+          "case": "disjoint-composition-deletion-attributes-batch"
+        },
+        {
+          "layout": 0,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 4,
+          "generated": 24,
+          "freshMatch": true,
+          "case": "replace-shared-note-contents"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 24,
+          "freshMatch": true,
+          "case": "replace-shared-note-contents"
+        },
+        {
+          "layout": 0,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 4,
+          "generated": 14,
+          "freshMatch": true,
+          "case": "attribute-only-separator-change"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 14,
+          "freshMatch": true,
+          "case": "attribute-only-separator-change"
+        },
+        {
+          "layout": 0,
+          "length": 29,
+          "glyphs": 29,
+          "lines": 5,
+          "generated": 29,
+          "freshMatch": true,
+          "case": "split-layouts-across-notes"
+        },
+        {
+          "layout": 1,
+          "length": 24,
+          "glyphs": 24,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "split-layouts-across-notes"
+        },
+        {
+          "layout": 0,
+          "length": 29,
+          "glyphs": 29,
+          "lines": 5,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "edit-note-A-with-peer-on-note-B"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 15,
+          "freshMatch": true,
+          "case": "edit-note-A-with-peer-on-note-B"
+        },
+        {
+          "layout": 0,
+          "length": 28,
+          "glyphs": 28,
+          "lines": 5,
+          "generated": 13,
+          "freshMatch": true,
+          "case": "edit-composed-space-in-note-B"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "edit-composed-space-in-note-B"
+        },
+        {
+          "layout": 0,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 4,
+          "generated": 25,
+          "freshMatch": true,
+          "case": "reattach-layout-to-shared-note"
+        },
+        {
+          "layout": 1,
+          "length": 25,
+          "glyphs": 25,
+          "lines": 2,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reattach-layout-to-shared-note"
+        },
+        {
+          "layout": 0,
+          "length": 0,
+          "glyphs": 0,
+          "lines": 0,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reuse-with-empty-note"
+        },
+        {
+          "layout": 1,
+          "length": 0,
+          "glyphs": 0,
+          "lines": 0,
+          "generated": 0,
+          "freshMatch": true,
+          "case": "reuse-with-empty-note"
+        },
+        {
+          "layout": 0,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 7,
+          "generated": 33,
+          "freshMatch": true,
+          "case": "reuse-after-empty-note"
+        },
+        {
+          "layout": 1,
+          "length": 33,
+          "glyphs": 33,
+          "lines": 3,
+          "generated": 33,
+          "freshMatch": true,
+          "case": "reuse-after-empty-note"
+        }
+      ],
+      "checks": 295,
+      "layoutComparisons": 36
+    }
+  }
+}

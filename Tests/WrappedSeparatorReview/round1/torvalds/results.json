@@ -1,0 +1,114 @@
+{
+  "reviewedCommit": "9e6c8dd6adc058e7044f2c562532af97dd4e63d4",
+  "baseCommit": "75d6f4269d5c3f0ff2d3df392659ccf95bc1482b",
+  "callbackHashes": {
+    "PreviousDelegate": "8c48b1b0ebf94eda1b8b973b5c6aeb722ba78c0d67117bcef00c291d2d5a6e9f",
+    "CurrentDelegate": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "architecture": "arm64",
+      "nativeFallback": {
+        "currentHeapBatches": 2,
+        "batchLengths": {
+          "7": 2,
+          "16": 2,
+          "257": 2,
+          "5": 2,
+          "1": 4,
+          "6": 2,
+          "2": 4
+        },
+        "fonts": [
+          "AppleColorEmoji",
+          "Helvetica",
+          "KohinoorDevanagari-Regular",
+          "Menlo-Regular",
+          "PingFangSC-Regular"
+        ],
+        "baselinePropertyDifferences": 266,
+        "cases": 6
+      },
+      "passed": true,
+      "checks": 16419,
+      "callbackContract": {
+        "allocationFailureCases": 16,
+        "nativeComposedRanges": [
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \u0301y"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \ufe0fy"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \u200dy"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 1}",
+            "source": "\u0600 a"
+          }
+        ],
+        "fixtureStrings": 15,
+        "cases": 1936
+      }
+    },
+    {
+      "architecture": "x86_64",
+      "nativeFallback": {
+        "currentHeapBatches": 2,
+        "batchLengths": {
+          "7": 2,
+          "16": 2,
+          "257": 2,
+          "5": 2,
+          "1": 4,
+          "6": 2,
+          "2": 4
+        },
+        "fonts": [
+          "AppleColorEmoji",
+          "Helvetica",
+          "KohinoorDevanagari-Regular",
+          "Menlo-Regular",
+          "PingFangSC-Regular"
+        ],
+        "baselinePropertyDifferences": 266,
+        "cases": 6
+      },
+      "passed": true,
+      "checks": 16419,
+      "callbackContract": {
+        "allocationFailureCases": 16,
+        "nativeComposedRanges": [
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \u0301y"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \ufe0fy"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 2}",
+            "source": "x \u200dy"
+          },
+          {
+            "nativeSpaceComposedRange": "{1, 1}",
+            "source": "\u0600 a"
+          }
+        ],
+        "fixtureStrings": 15,
+        "cases": 1936
+      }
+    }
+  ],
+  "probeHashes": {
+    "probe.m": "e2fb96e078ecf3b688ca1d8431bf765c4d3b529ae9be430720fc5dfbfd12e073",
+    "run.py": "d41a5807aa3d8ef03f9a4dd9f559da3d7144b74fbf8a2b14fff93de101705cef"
+  }
+}
