@@ -1,0 +1,16 @@
+{
+  "units": {
+    "newAllocations": 12,
+    "equivalenceCases": 54,
+    "fastReturnCases": 22,
+    "checks": 464,
+    "oldAllocations": 22
+  },
+  "native": {
+    "maxHeapAllocation": 8192,
+    "newAllocations": 27,
+    "checks": 270,
+    "oldAllocations": 81,
+    "cases": 54
+  }
+}

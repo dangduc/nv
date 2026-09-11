@@ -171,6 +171,8 @@ This makes trailing spaces occupy their font width and wrap onto subsequent visu
 Glyph IDs and source characters remain unchanged.
 The delegate preserves glyph properties for tabs, nonbreaking spaces, and other characters.
 The adjustment runs during native glyph generation and does not query layout or change selection.
+Batches without eligible elastic properties skip source queries.
+A fixed local property buffer serves small batches, with a checked heap fallback for larger batches.
 The common note-body attributes use native character wrapping.
 Spaces and words break at the character that does not fit the available width.
 This avoids moving an already-fitting word when its trailing spaces overflow.

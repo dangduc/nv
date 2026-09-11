@@ -1,0 +1,39 @@
+{
+  "glyph-on": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 69,
+    "styleCount": 1,
+    "checks": 140,
+    "trials": [
+      {
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ],
+        "changedCalls": 2063382,
+        "glyphCalls": 4110226,
+        "keys": 64,
+        "resizeTotalMs": 2848.118832,
+        "cpuMs": 3323.65,
+        "glyphOverrideMs": 523.755063,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "singleGlyphCalls": 1023422,
+        "maxRange": 268,
+        "initialUTF16": 32968,
+        "glyphUnits": 33001272,
+        "resizeMaxMs": 359.256375,
+        "dispatchMs": 219.237795,
+        "finalLines": 1027
+      }
+    ]
+  }
+}

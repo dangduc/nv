@@ -287,15 +287,23 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
                  properties:(const NSGlyphProperty *)properties characterIndexes:(const NSUInteger *)indexes
                        font:(NSFont *)font forGlyphRange:(NSRange)range {
     if (!range.length || range.length > SIZE_MAX / sizeof(NSGlyphProperty)) return 0;
+    NSUInteger firstCandidate = 0;
+    while (firstCandidate < range.length &&
+        (!(properties[firstCandidate] & NSGlyphPropertyElastic) ||
+         (properties[firstCandidate] & NSGlyphPropertyControlCharacter))) firstCandidate++;
+    if (firstCandidate == range.length) return 0;
+
     NSString *source = [[manager textStorage] string];
     NSUInteger sourceLength = [source length];
+    NSGlyphProperty stackProperties[64];
     NSGlyphProperty *adjusted = NULL;
-    for (NSUInteger i = 0; i < range.length; i++) {
+    for (NSUInteger i = firstCandidate; i < range.length; i++) {
         if ((properties[i] & NSGlyphPropertyElastic) &&
             !(properties[i] & NSGlyphPropertyControlCharacter) && indexes[i] < sourceLength &&
             [source characterAtIndex:indexes[i]] == ' ') {
             if (!adjusted) {
-                adjusted = malloc(range.length * sizeof(NSGlyphProperty));
+                adjusted = range.length <= sizeof(stackProperties) / sizeof(stackProperties[0]) ?
+                    stackProperties : malloc(range.length * sizeof(NSGlyphProperty));
                 if (!adjusted) return 0;
                 memcpy(adjusted, properties, range.length * sizeof(NSGlyphProperty));
             }
@@ -307,7 +315,7 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
     }
     if (!adjusted) return 0;
     [manager setGlyphs:glyphs properties:adjusted characterIndexes:indexes font:font forGlyphRange:range];
-    free(adjusted);
+    if (adjusted != stackProperties) free(adjusted);
     return range.length;
 }
 
