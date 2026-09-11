@@ -173,9 +173,14 @@ The delegate preserves glyph properties for tabs, nonbreaking spaces, and other 
 The adjustment runs during native glyph generation and does not query layout or change selection.
 Batches without eligible elastic properties skip source queries.
 A fixed local property buffer serves small batches, with a checked heap fallback for larger batches.
-The common note-body attributes use native character wrapping.
-Spaces and words break at the character that does not fit the available width.
-This avoids moving an already-fitting word when its trailing spaces overflow.
+The common note-body attributes use native character wrapping as the layout base.
+Each editor's layout manager owns a separate `NVSourceTypesetter`.
+The typesetter uses Core Text measurements and a paragraph table of Unicode line-break opportunities to keep fitting words together.
+It temporarily narrows a line's layout width to a suitable word boundary, then restores the full line rectangle and alignment.
+Overflowing ordinary spaces use native character advancement, so they do not move a fitting word to another line.
+A word wider than the available line can still split across lines.
+The paragraph snapshot and break table reset at the next paragraph layout and belong only to that layout manager.
+Shared note storage, source characters, editing commands, and caret drawing remain under their existing owners.
 
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.

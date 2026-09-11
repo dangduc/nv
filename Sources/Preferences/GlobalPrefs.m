@@ -558,8 +558,8 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 		//	}
 	}
 
-	// Source text wraps at the character that does not fit, including the
-	// fixed-width spaces supplied by the editor's glyph delegate.
+	// NVSourceTypesetter supplies word boundaries over native character layout.
+	// The character base keeps the editor's fixed-width spaces advancing.
 	static NSParagraphStyle *sourceStyle;
 	static dispatch_once_t sourceStyleOnce;
 	dispatch_once(&sourceStyleOnce, ^{
