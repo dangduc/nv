@@ -1,0 +1,63 @@
+{
+  "date": "2026-09-11",
+  "macOS": "26.5.2 (25F84)",
+  "Xcode": "26.6 (17F113)",
+  "actionableFindings": [],
+  "runs": {
+    "arm64": {
+      "checks": 1009,
+      "status": "passed",
+      "outstandingObjects": 0,
+      "releasedObjects": 464,
+      "injectedFailures": 106,
+      "completedParagraphs": 144,
+      "createdObjects": 464,
+      "commit": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "arm64",
+      "cases": 36,
+      "injectionsByMode": {
+        "1": 58,
+        "2": 24,
+        "3": 24
+      }
+    },
+    "x86_64": {
+      "checks": 1009,
+      "status": "passed",
+      "outstandingObjects": 0,
+      "releasedObjects": 464,
+      "injectedFailures": 106,
+      "completedParagraphs": 144,
+      "createdObjects": 464,
+      "commit": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "x86_64",
+      "cases": 36,
+      "injectionsByMode": {
+        "1": 58,
+        "2": 24,
+        "3": 24
+      }
+    },
+    "arm64-negative": {
+      "status": "expected ownership assertion failure",
+      "returncode": 1,
+      "commit": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "arm64"
+    }
+  }
+}

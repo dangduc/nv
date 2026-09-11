@@ -1,0 +1,34 @@
+{
+  "reviewedCommit": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+  "productionHashes": {
+    "Sources/Editor/NVSourceTypesetter.m": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+    "Sources/Editor/NVSourceTypesetter.h": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+    "Sources/Editor/LinkingEditor.m": "6473ccff32374d60031b4cf6b17c1344ee57d7b312ab16921bf15cb873d689b9"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "architectures": {
+    "arm64": {
+      "checks": 660,
+      "phases": 26,
+      "nativeEdits": 34,
+      "passed": true,
+      "targetAtLineStartPhases": 18,
+      "narrowedLines": 44,
+      "detailedResults": "build/WordWrapReview/round3/contrarian_platform/results-arm64.json"
+    },
+    "x86_64": {
+      "checks": 660,
+      "phases": 26,
+      "nativeEdits": 34,
+      "passed": true,
+      "targetAtLineStartPhases": 18,
+      "narrowedLines": 44,
+      "detailedResults": "build/WordWrapReview/round3/contrarian_platform/results-x86_64.json"
+    }
+  },
+  "probeHashes": {
+    "run.py": "eba196d56e7ab77e23cfa81fff0884f80f3b717fb57e29cda399a3073fae175c",
+    "probe.m": "353a2b63b495cfb46721e1d757c20c8a6d97105344cf925621247d3e86d9447c"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "revision": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+  "source_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "host": "26.5.2",
+  "runs": [
+    {
+      "checks": 1694,
+      "failureKinds": {},
+      "cases": 4,
+      "granularityComparisons": 112,
+      "charactersOnDifferentRows": 231,
+      "examples": [],
+      "failures": 0,
+      "navigationComparisons": 192,
+      "selectionIntervalSamples": 1272,
+      "spaceOnlyRows": 6,
+      "observations_sha256": "7ffba0ab9d9ac13c455285dec375b7dff4e4120aa71dcaf47c92efee99224164",
+      "architecture": "arm64"
+    },
+    {
+      "checks": 1694,
+      "failureKinds": {},
+      "cases": 4,
+      "granularityComparisons": 112,
+      "charactersOnDifferentRows": 231,
+      "examples": [],
+      "failures": 0,
+      "navigationComparisons": 192,
+      "selectionIntervalSamples": 1272,
+      "spaceOnlyRows": 6,
+      "observations_sha256": "7ffba0ab9d9ac13c455285dec375b7dff4e4120aa71dcaf47c92efee99224164",
+      "architecture": "x86_64"
+    }
+  ]
+}

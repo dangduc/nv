@@ -1,0 +1,26 @@
+{
+  "revision": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+  "production_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "runs": [
+    {
+      "checks": 27,
+      "narrowedLines": 27,
+      "typesettersCreated": 6,
+      "soleOwnerLayouts": 2,
+      "typesettersDestroyed": 6,
+      "replacements": 4,
+      "paragraphs": 3,
+      "architecture": "arm64"
+    },
+    {
+      "checks": 27,
+      "narrowedLines": 27,
+      "typesettersCreated": 6,
+      "soleOwnerLayouts": 2,
+      "typesettersDestroyed": 6,
+      "replacements": 4,
+      "paragraphs": 3,
+      "architecture": "x86_64"
+    }
+  ]
+}
