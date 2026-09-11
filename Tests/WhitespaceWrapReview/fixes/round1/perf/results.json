@@ -1,0 +1,368 @@
+{
+  "native": {
+    "sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+    "reflows": [
+      {
+        "trial": 0,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 9.89575,
+        "lines": 1
+      },
+      {
+        "trial": 1,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 9.792959,
+        "lines": 1
+      },
+      {
+        "trial": 2,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 9.723666,
+        "lines": 1
+      },
+      {
+        "trial": 0,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 11.785916,
+        "lines": 1
+      },
+      {
+        "trial": 1,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 11.640833,
+        "lines": 1
+      },
+      {
+        "trial": 2,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 12.176292,
+        "lines": 1
+      },
+      {
+        "trial": 0,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 18.204041,
+        "lines": 1
+      },
+      {
+        "trial": 1,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 18.894875,
+        "lines": 1
+      },
+      {
+        "trial": 2,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 18.487208,
+        "lines": 1
+      },
+      {
+        "trial": 0,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 29.849,
+        "lines": 1
+      },
+      {
+        "trial": 1,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 29.77925,
+        "lines": 1
+      },
+      {
+        "trial": 2,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 30.085,
+        "lines": 1
+      }
+    ],
+    "typing": [
+      {
+        "trial": 0,
+        "cpuMs": 269.4390000000001,
+        "keys": 90,
+        "dispatchMs": 363.231292
+      },
+      {
+        "trial": 1,
+        "cpuMs": 255.21399999999994,
+        "keys": 90,
+        "dispatchMs": 376.771254
+      },
+      {
+        "trial": 2,
+        "cpuMs": 260.69500000000016,
+        "keys": 90,
+        "dispatchMs": 385.271796
+      }
+    ],
+    "checks": 585
+  },
+  "before": {
+    "sha256": "6682e85cff4069c18b65ef9989830de2b72c3513240302a197395551d53d7d0c",
+    "reflows": [
+      {
+        "trial": 0,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 8.058625,
+        "lines": 67
+      },
+      {
+        "trial": 1,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 8.03375,
+        "lines": 67
+      },
+      {
+        "trial": 2,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 7.491625,
+        "lines": 67
+      },
+      {
+        "trial": 0,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.494042,
+        "lines": 133
+      },
+      {
+        "trial": 1,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.41725,
+        "lines": 133
+      },
+      {
+        "trial": 2,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.577666,
+        "lines": 133
+      },
+      {
+        "trial": 0,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 22.594042,
+        "lines": 265
+      },
+      {
+        "trial": 1,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 22.136166,
+        "lines": 265
+      },
+      {
+        "trial": 2,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 23.374375,
+        "lines": 265
+      },
+      {
+        "trial": 0,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 65.395541,
+        "lines": 529
+      },
+      {
+        "trial": 1,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 62.901625,
+        "lines": 529
+      },
+      {
+        "trial": 2,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 63.996667,
+        "lines": 529
+      }
+    ],
+    "typing": [
+      {
+        "trial": 0,
+        "cpuMs": 267.10799999999995,
+        "keys": 90,
+        "dispatchMs": 365.492753
+      },
+      {
+        "trial": 1,
+        "cpuMs": 258.73000000000025,
+        "keys": 90,
+        "dispatchMs": 383.038622
+      },
+      {
+        "trial": 2,
+        "cpuMs": 245.50299999999993,
+        "keys": 90,
+        "dispatchMs": 371.409915
+      }
+    ],
+    "checks": 585
+  },
+  "fixed": {
+    "sha256": "ce1abfa2bcda08415d726352a2575412bfabb2e9f4c640a5519db7e1276beacc",
+    "reflows": [
+      {
+        "trial": 0,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 6.945375,
+        "lines": 67
+      },
+      {
+        "trial": 1,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 7.097292,
+        "lines": 67
+      },
+      {
+        "trial": 2,
+        "length": 4096,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 6.652375,
+        "lines": 67
+      },
+      {
+        "trial": 0,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 6.817,
+        "lines": 133
+      },
+      {
+        "trial": 1,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 6.512167,
+        "lines": 133
+      },
+      {
+        "trial": 2,
+        "length": 8192,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 7.329709,
+        "lines": 133
+      },
+      {
+        "trial": 0,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 8.1105,
+        "lines": 265
+      },
+      {
+        "trial": 1,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 7.681916,
+        "lines": 265
+      },
+      {
+        "trial": 2,
+        "length": 16384,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 8.094083,
+        "lines": 265
+      },
+      {
+        "trial": 0,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.002417,
+        "lines": 529
+      },
+      {
+        "trial": 1,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.299417,
+        "lines": 529
+      },
+      {
+        "trial": 2,
+        "length": 32768,
+        "oldWidth": 704,
+        "width": 464,
+        "ms": 10.690584,
+        "lines": 529
+      }
+    ],
+    "typing": [
+      {
+        "trial": 0,
+        "cpuMs": 269.10799999999995,
+        "keys": 90,
+        "dispatchMs": 377.111626
+      },
+      {
+        "trial": 1,
+        "cpuMs": 271.25299999999993,
+        "keys": 90,
+        "dispatchMs": 379.48646
+      },
+      {
+        "trial": 2,
+        "cpuMs": 264.2120000000002,
+        "keys": 90,
+        "dispatchMs": 381.311582
+      }
+    ],
+    "checks": 585
+  }
+}

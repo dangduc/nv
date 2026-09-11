@@ -558,6 +558,17 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 		//	}
 	}
 
+	// Source text wraps at the character that does not fit, including the
+	// fixed-width spaces supplied by the editor's glyph delegate.
+	static NSParagraphStyle *sourceStyle;
+	static dispatch_once_t sourceStyleOnce;
+	dispatch_once(&sourceStyleOnce, ^{
+		NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+		[style setLineBreakMode:NSLineBreakByCharWrapping];
+		sourceStyle = [style copy];
+		[style release];
+	});
+	[(NSMutableDictionary *)noteBodyAttributes setObject:sourceStyle forKey:NSParagraphStyleAttributeName];
 	return noteBodyAttributes;
 }
 - (void)setForegroundTextColor:(NSColor*)aColor sender:(id)sender {

@@ -1,0 +1,12 @@
+{
+  "per-call-control": {
+    "calls": 10000,
+    "distinctLiveStyles": 10000,
+    "styleObjectAllocationBytes": 960000
+  },
+  "shared-production": {
+    "calls": 10000,
+    "distinctLiveStyles": 1,
+    "styleObjectAllocationBytes": 96
+  }
+}

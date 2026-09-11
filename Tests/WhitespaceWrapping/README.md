@@ -9,14 +9,17 @@ The Development build now includes the adjustment in `LinkingEditor`.
 
 The existing layout-manager delegate in `LinkingEditor` clears `NSGlyphPropertyElastic` for ordinary U+0020 space glyphs.
 Control glyphs retain their properties.
-Word wrapping and native editing commands remain active.
+The common note-body attributes use native character wrapping.
+Words can split at the window edge, so overflowing spaces do not move an already-fitting word.
+Native editing commands remain active.
 
 Apple defines the [elastic glyph property](https://developer.apple.com/documentation/appkit/nslayoutmanager/glyphproperty/elastic) as a changeable width, with whitespace as an example.
 Apple also provides a [glyph-generation delegate](https://developer.apple.com/documentation/appkit/nslayoutmanagerdelegate/layoutmanager(_:shouldgenerateglyphs:properties:characterindexes:font:forglyphrange:)) for changes to glyph properties.
 
 The prototype clears one flag in the supplied glyph-property array.
 It preserves glyph IDs, source indexes, font, and all other flags.
-It does not replace spaces, insert newlines, or modify source attributes.
+The glyph delegate does not replace spaces, insert newlines, or modify source attributes.
+The common paragraph style configures character wrapping for source storage and typing attributes.
 It does not override key handling, selection, or caret drawing.
 
 The experiment links the elastic flag to the trailing-space layout behavior on this host.
@@ -50,7 +53,7 @@ Apple documents [horizontal scrolling](https://developer.apple.com/library/archi
 This option changes the editing experience because long lines require horizontal navigation.
 The glyph adjustment preserves soft wrapping, so it better matches the requested behavior.
 
-## Evidence
+## Initial investigation evidence
 
 Environment: macOS 26.5.2 (25F84), Xcode 26.6 (17F113).
 Investigation worktree: merged master `f772c4b`.
@@ -62,7 +65,8 @@ Both arm64 and x86_64 under Rosetta passed:
 - 208 case results per architecture: 13 modes, two font sizes, and eight fixtures.
 - 5,226 repeated Space key events per architecture.
 - Source preservation after insertion and native Backspace.
-- Identical baseline layout for the prose, tab, and Unicode comparison fixtures after the elastic-flag adjustment.
+- Identical baseline layout for the initial prose, tab, and Unicode fixtures with only the elastic-flag adjustment.
+  The final character-wrapping policy intentionally changes word boundaries.
 - Wrapping and caret advancement for blank-space, text-prefix, Unicode-prefix, and repeated-key fixtures.
 
 At Menlo 12, the adjusted caret after 201 spaces was `(121.369, 50)` in view coordinates.
@@ -94,6 +98,10 @@ It does not open nvALT, read its preferences, or access note libraries.
 Raw JSON and logs are in `build/WhitespaceWrapping/`.
 
 ## nvALT integration
+
+Round-one review found fitting-word displacement and slow reflow in long space runs.
+The paragraph character-wrapping setting addresses those interactions with native word wrapping.
+The [review record](../WhitespaceWrapReview/STATUS.md) preserves each finding and its correction evidence.
 
 The production method returns zero when a glyph batch requires no change.
 It copies the property array only for batches that contain eligible spaces.
