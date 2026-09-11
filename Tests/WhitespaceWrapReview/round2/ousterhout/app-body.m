@@ -1,0 +1,93 @@
+    @try {
+        NVApplicationController *app=[NVApplicationController sharedController];
+        NotationController *library=app.library;
+        GlobalPrefs *prefs=[GlobalPrefs defaultPrefs];
+        NSParagraphStyle *style=[[prefs noteBodyAttributes] objectForKey:NSParagraphStyleAttributeName];
+        Check(style.lineBreakMode==NSLineBreakByCharWrapping,@"common source policy uses character wrapping");
+        Check(![style isKindOfClass:[NSMutableParagraphStyle class]],@"common paragraph style is immutable");
+        for(NSUInteger i=0;i<10;i++) Check([[prefs noteBodyAttributes] objectForKey:NSParagraphStyleAttributeName]==style,@"separate attribute requests share the same immutable style");
+        NSMutableParagraphStyle *privateStyle=[[style mutableCopy] autorelease];
+        privateStyle.lineBreakMode=NSLineBreakByWordWrapping; privateStyle.lineSpacing=17;
+        Check(style.lineBreakMode==NSLineBreakByCharWrapping && style.lineSpacing==[NSParagraphStyle defaultParagraphStyle].lineSpacing,@"mutating a client copy cannot change shared source policy");
+        [self searchForString:@""]; Pump();
+        NSString *source=[@"alpha beta" stringByAppendingString:[@"" stringByPaddingToLength:101 withString:@" " startingAtIndex:0]];
+        NoteObject *note=MakeNote(library,@"Shared paragraph policy",source);
+        NoteObject *other=MakeNote(library,@"Second note policy",@"second note\tvalue");
+        [self revealNote:note options:0]; Pump();
+        [app newWindow:self]; Pump();
+        AppController *peer=[app.browserControllers lastObject]; [peer revealNote:note options:0]; Pump();
+        LinkingEditor *a=[self valueForKey:@"textView"], *b=[peer valueForKey:@"textView"];
+        NVNoteEditingSession *session=[app editingSessionForNote:note];
+        Check(a.textStorage==b.textStorage && a.textStorage==session.textStorage,@"peer editors share the session storage");
+        Check(HasSharedPolicy(a,style) && HasSharedPolicy(b,style),@"both attached editors use the common policy");
+        [self.window makeKeyAndOrderFront:self]; [self.window makeFirstResponder:a];
+        [a setSelectedRange:NSMakeRange(a.string.length,0)];
+        [[note undoManager] removeAllActions];
+        [a insertText:@" typed" replacementRange:a.selectedRange]; Pump();
+        NSString *typed=[source stringByAppendingString:@" typed"];
+        Check([a.string isEqual:typed] && [b.string isEqual:typed],@"native insertion propagates through shared storage");
+        Check(HasSharedPolicy(a,style),@"native insertion retains shared paragraph policy");
+        CFAbsoluteTime beforeFontDate=modifiedDateOfNote(note);
+        uint64_t beforeFontGeneration=session.sourceGeneration;
+        [prefs setNoteBodyFont:[NSFont fontWithName:@"Helvetica" size:19] sender:self]; Pump();
+        Check(HasSharedPolicy(a,style) && [[a.typingAttributes objectForKey:NSParagraphStyleAttributeName] lineBreakMode]==NSLineBreakByCharWrapping,@"font change retains source and typing policy");
+        Check(session.sourceGeneration==beforeFontGeneration && modifiedDateOfNote(note)==beforeFontDate,@"font policy update does not create a source edit or new modified date");
+        [a undo:self]; Pump();
+        Check([a.string isEqual:source] && [b.string isEqual:source],@"snapshot Undo restores shared source characters");
+        Check(HasSharedPolicy(a,style),@"snapshot Undo retains current shared paragraph policy");
+        [[note undoManager] redo]; Pump();
+        Check([a.string isEqual:typed] && [b.string isEqual:typed],@"snapshot Redo restores shared source characters");
+        Check(HasSharedPolicy(a,style),@"snapshot Redo retains current shared paragraph policy");
+        [self revealNote:other options:0]; Pump();
+        Check(a.textStorage!=b.textStorage && HasSharedPolicy(a,style) && HasSharedPolicy(b,style),@"different notes use separate storage and the same immutable policy");
+        Check([b.string isEqual:typed],@"note switch preserves peer source");
+        [self revealNote:note options:0]; Pump();
+        Check(a.textStorage==b.textStorage && HasSharedPolicy(a,style),@"reattachment preserves original shared storage and policy");
+        NSString *external=@"external plain source\tvalue\nnext line";
+        NSAttributedString *legacy=[[[NSAttributedString alloc] initWithString:external attributes:@{
+            NSParagraphStyleAttributeName:privateStyle,NSFontAttributeName:[NSFont fontWithName:@"Georgia" size:25]}] autorelease];
+        [note setContentString:legacy]; Pump();
+        Check([a.string isEqual:external] && [b.string isEqual:external],@"attributed external snapshot preserves its source characters");
+        Check(HasSharedPolicy(a,style) && HasSharedPolicy(b,style),@"external snapshot normalizes old paragraph metadata to current source policy");
+        Check(privateStyle.lineBreakMode==NSLineBreakByWordWrapping && privateStyle.lineSpacing==17,@"normalization does not mutate the caller's paragraph object");
+        [self.window makeKeyAndOrderFront:self]; [self.window makeFirstResponder:a];
+        [a setSelectedRange:NSMakeRange(a.string.length,0)];
+        NSPasteboard *board=[NSPasteboard pasteboardWithUniqueName];
+        [board declareTypes:@[NSPasteboardTypeString] owner:nil];
+        [board setString:@"\npasted\ttext" forType:NSPasteboardTypeString];
+        [[note undoManager] removeAllActions];
+        Check([a readSelectionFromPasteboard:board type:NSPasteboardTypeString],@"native paste import reads a private text pasteboard");
+        [self finishEditing]; Pump();
+        NSString *pasted=[external stringByAppendingString:@"\npasted\ttext"];
+        Check([a.string isEqual:pasted] && [b.string isEqual:pasted],@"private native paste preserves source characters in both editors");
+        Check(HasSharedPolicy(a,style),@"native plain paste retains shared paragraph policy");
+        [a undo:self]; Pump();
+        Check([a.string isEqual:external] && HasSharedPolicy(a,style),@"Undo of pasted source retains current policy");
+        [board releaseGlobally];
+        Pump(); Pump();
+        NSAttributedString *beforeLayout=[a.textStorage copy];
+        uint64_t generation=session.sourceGeneration;
+        CFAbsoluteTime modified=modifiedDateOfNote(note);
+        BOOL undo=[[note undoManager] canUndo],redo=[[note undoManager] canRedo];
+        PolicyEditObserver *observer=[[[PolicyEditObserver alloc]init]autorelease];
+        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(changed:) name:NSTextStorageDidProcessEditingNotification object:a.textStorage];
+        for(NSUInteger pass=0;pass<4;pass++) {
+            [self.window setContentSize:NSMakeSize(470+pass*57,640)];
+            [a.layoutManager invalidateGlyphsForCharacterRange:NSMakeRange(0,a.string.length) changeInLength:0 actualCharacterRange:NULL];
+            [a.layoutManager ensureLayoutForTextContainer:a.textContainer];
+            Check([a.textStorage isEqualToAttributedString:beforeLayout],@"layout does not rewrite source wrapper attributes");
+        }
+        Check(observer->notifications==0 && session.sourceGeneration==generation,@"layout emits no source-storage changes");
+        Check(modifiedDateOfNote(note)==modified && ![session hasPendingTextChanges],@"layout does not dirty the note or change its modified date");
+        Check([[note undoManager] canUndo]==undo && [[note undoManager] canRedo]==redo,@"layout preserves Undo and Redo availability");
+        [[NSNotificationCenter defaultCenter] removeObserver:observer]; [beforeLayout release];
+        [peer.window close]; Pump();
+        [library flushAllNoteChanges]; [library closeJournal];
+        NSLog(@"ROUND2 OUSTERHOUT PASSED (%lu checks)",(unsigned long)Checks);
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+        [[NSUserDefaults standardUserDefaults] synchronize]; exit(0);
+    } @catch(NSException *exception) {
+        NSLog(@"ROUND2 OUSTERHOUT EXCEPTION %@ %@\n%@",exception.name,exception.reason,exception.callStackSymbols); exit(1);
+    }
+}
+@end

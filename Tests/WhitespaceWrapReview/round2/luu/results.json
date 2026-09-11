@@ -1,0 +1,262 @@
+{
+  "native": {
+    "sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+    "styleObjectBytes": 0,
+    "styleOffMainCalls": 0,
+    "styleCalls": 400,
+    "styleCount": 0,
+    "checks": 825,
+    "trials": [
+      {
+        "resizeTotalMs": 333.992417,
+        "keys": 64,
+        "dispatchMs": 209.802582,
+        "resizeMaxMs": 43.253834,
+        "cpuMs": 896.857,
+        "case": "single-paragraph",
+        "trial": 0,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 330.519,
+        "keys": 64,
+        "dispatchMs": 197.822252,
+        "resizeMaxMs": 42.8805,
+        "cpuMs": 662.559,
+        "case": "single-paragraph",
+        "trial": 1,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 330.785332,
+        "keys": 64,
+        "dispatchMs": 199.344004,
+        "resizeMaxMs": 43.155583,
+        "cpuMs": 658.768,
+        "case": "single-paragraph",
+        "trial": 2,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2516.162,
+        "keys": 64,
+        "dispatchMs": 244.7205,
+        "resizeMaxMs": 318.454292,
+        "cpuMs": 2817.971,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2508.121251,
+        "keys": 64,
+        "dispatchMs": 227.420455,
+        "resizeMaxMs": 315.729334,
+        "cpuMs": 2810.5599999999995,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2508.288249,
+        "keys": 64,
+        "dispatchMs": 241.797212,
+        "resizeMaxMs": 315.815791,
+        "cpuMs": 2815.3909999999996,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 400,
+    "styleCount": 1,
+    "checks": 825,
+    "trials": [
+      {
+        "resizeTotalMs": 319.513209,
+        "keys": 64,
+        "dispatchMs": 205.420917,
+        "resizeMaxMs": 41.4755,
+        "cpuMs": 862.2640000000001,
+        "case": "single-paragraph",
+        "trial": 0,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 319.34662499999996,
+        "keys": 64,
+        "dispatchMs": 209.107037,
+        "resizeMaxMs": 41.732708,
+        "cpuMs": 637.31,
+        "case": "single-paragraph",
+        "trial": 1,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 317.993127,
+        "keys": 64,
+        "dispatchMs": 211.468875,
+        "resizeMaxMs": 41.096292,
+        "cpuMs": 630.6870000000004,
+        "case": "single-paragraph",
+        "trial": 2,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2796.301248,
+        "keys": 64,
+        "dispatchMs": 230.045002,
+        "resizeMaxMs": 357.11,
+        "cpuMs": 3083.2260000000006,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2787.17925,
+        "keys": 64,
+        "dispatchMs": 257.084789,
+        "resizeMaxMs": 350.530917,
+        "cpuMs": 3093.6140000000014,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2787.7043330000006,
+        "keys": 64,
+        "dispatchMs": 250.167625,
+        "resizeMaxMs": 350.7885,
+        "cpuMs": 3085.3149999999987,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      }
+    ]
+  }
+}

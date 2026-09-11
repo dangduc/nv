@@ -1,0 +1,43 @@
+{
+  "head": "072a6bc0f54a52603f8cedfbcacc17d0ab836a36",
+  "reviewed_head": "072a6bc0f54a52603f8cedfbcacc17d0ab836a36",
+  "glyph_method_sha256": "7a3c15d7e02a071f3f1bab9018e360f6b92decc7c48bb7ecd49189c179a188ef",
+  "style_block_sha256": "f9263d1675de92fde351aa09cc48fd9f7ff6a654332fa5df9644ff40d82fa993",
+  "macOS": "26.5.2",
+  "runs": [
+    {
+      "checks": 4894,
+      "native_batches": 772,
+      "changed_batches": 388,
+      "native_glyphs": 4220,
+      "changed_space_glyphs": 1524,
+      "repeated_character_indexes": 0,
+      "nonbase_glyphs": 382,
+      "fixtures_with_unequal_utf16_glyph_count": 0,
+      "passed": true,
+      "architecture": "arm64",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ],
+      "simultaneous_style_callers": 64
+    },
+    {
+      "checks": 4894,
+      "native_batches": 772,
+      "changed_batches": 388,
+      "native_glyphs": 4220,
+      "changed_space_glyphs": 1524,
+      "repeated_character_indexes": 0,
+      "nonbase_glyphs": 382,
+      "fixtures_with_unequal_utf16_glyph_count": 0,
+      "passed": true,
+      "architecture": "x86_64",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ],
+      "simultaneous_style_callers": 64
+    }
+  ]
+}

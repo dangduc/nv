@@ -15,6 +15,15 @@ Words can split at the window edge, and overflowing spaces leave an already-fitt
 One immutable paragraph style is shared across note-body attribute requests.
 
 The current executable SHA-256 is `be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b`.
+The ZIP is `build/WhitespaceWrapping/nvALT-Character-Wrap.zip`.
+Its SHA-256 is `0adbb9a4daf760515ab0eb52f4ae4a053aaff2df5f84f8396606b4e1bc527926`.
+The ZIP integrity check passed.
+
+The current build passed all 843 wrapping checks, 310 deletion checks, and 57 native-editing checks.
+CI passed the Intel build for production commit `072a6bc`.
+The required aggregate runner reached the previously documented Fuzzy UI focus failure.
+The multi-window runner retained its previously documented library-replacement failure.
+The original no-paragraph-style assertion now requires character wrapping with otherwise native paragraph values.
 The [review record](../WhitespaceWrapReview/STATUS.md) links correction evidence and later review rounds.
 The results and ZIP listed below describe the initial glyph-only build.
 

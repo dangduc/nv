@@ -1,0 +1,16 @@
+{"checks":4894,"native_batches":772,"changed_batches":388,"native_glyphs":4220,"changed_space_glyphs":1524,"repeated_character_indexes":0,"nonbase_glyphs":382,"fixtures_with_unequal_utf16_glyph_count":0,"passed":true}
+PASS: shared style concurrent initialization, immutable ownership, and storage normalization
+PASS: UTF16 boundary indexes, repeated mappings, and all retained flag kinds
+PASS: allocation failure returns native fallback
+PASS: nonspace, control, out-of-range indexes allocate nothing
+PASS: single glyph exact boundary
+PASS: empty source rejects index zero
+OBSERVE native changed=1524 repeated=0 nonbase=382 unequal=0
+{"checks":4894,"native_batches":772,"changed_batches":388,"native_glyphs":4220,"changed_space_glyphs":1524,"repeated_character_indexes":0,"nonbase_glyphs":382,"fixtures_with_unequal_utf16_glyph_count":0,"passed":true}
+PASS: shared style concurrent initialization, immutable ownership, and storage normalization
+PASS: UTF16 boundary indexes, repeated mappings, and all retained flag kinds
+PASS: allocation failure returns native fallback
+PASS: nonspace, control, out-of-range indexes allocate nothing
+PASS: single glyph exact boundary
+PASS: empty source rejects index zero
+OBSERVE native changed=1524 repeated=0 nonbase=382 unequal=0

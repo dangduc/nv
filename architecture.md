@@ -168,7 +168,8 @@ persist global editing-behavior overrides.
 
 The editor's layout delegate clears the elastic glyph flag for ordinary U+0020 spaces.
 This makes trailing spaces occupy their font width and wrap onto subsequent visual lines.
-Glyph IDs, source characters, tabs, nonbreaking spaces, and other glyph properties remain unchanged.
+Glyph IDs and source characters remain unchanged.
+The delegate preserves glyph properties for tabs, nonbreaking spaces, and other characters.
 The adjustment runs during native glyph generation and does not query layout or change selection.
 The common note-body attributes use native character wrapping.
 Spaces and words break at the character that does not fit the available width.

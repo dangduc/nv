@@ -1,0 +1,274 @@
+{
+  "candidate": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "styleObjectBytes": 96,
+    "styleOffMainCalls": 0,
+    "styleCalls": 400,
+    "styleCount": 1,
+    "checks": 825,
+    "trials": [
+      {
+        "resizeTotalMs": 321.370708,
+        "keys": 64,
+        "dispatchMs": 208.891084,
+        "finalLines": 514,
+        "resizeMaxMs": 42.280458,
+        "cpuMs": 852.4709999999999,
+        "case": "single-paragraph",
+        "trial": 0,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 318.252543,
+        "keys": 64,
+        "dispatchMs": 211.336501,
+        "finalLines": 514,
+        "resizeMaxMs": 41.302084,
+        "cpuMs": 629.163,
+        "case": "single-paragraph",
+        "trial": 1,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 317.24195900000007,
+        "keys": 64,
+        "dispatchMs": 211.027752,
+        "finalLines": 514,
+        "resizeMaxMs": 41.015625,
+        "cpuMs": 632.0619999999999,
+        "case": "single-paragraph",
+        "trial": 2,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2810.3547920000005,
+        "keys": 64,
+        "dispatchMs": 234.977247,
+        "finalLines": 1027,
+        "resizeMaxMs": 353.549083,
+        "cpuMs": 3101.523,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2804.689125,
+        "keys": 64,
+        "dispatchMs": 254.539373,
+        "finalLines": 1027,
+        "resizeMaxMs": 353.239375,
+        "cpuMs": 3109.62,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2812.725166,
+        "keys": 64,
+        "dispatchMs": 247.752457,
+        "finalLines": 1027,
+        "resizeMaxMs": 353.588958,
+        "cpuMs": 3112.1659999999993,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      }
+    ]
+  },
+  "native": {
+    "sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+    "styleObjectBytes": 0,
+    "styleOffMainCalls": 0,
+    "styleCalls": 400,
+    "styleCount": 0,
+    "checks": 825,
+    "trials": [
+      {
+        "resizeTotalMs": 336.827916,
+        "keys": 64,
+        "dispatchMs": 211.786747,
+        "finalLines": 513,
+        "resizeMaxMs": 44.537416,
+        "cpuMs": 902.037,
+        "case": "single-paragraph",
+        "trial": 0,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 328.29625100000004,
+        "keys": 64,
+        "dispatchMs": 201.817919,
+        "finalLines": 513,
+        "resizeMaxMs": 42.853584,
+        "cpuMs": 665.5829999999999,
+        "case": "single-paragraph",
+        "trial": 1,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 333.535835,
+        "keys": 64,
+        "dispatchMs": 191.765004,
+        "finalLines": 513,
+        "resizeMaxMs": 43.611417,
+        "cpuMs": 672.5250000000001,
+        "case": "single-paragraph",
+        "trial": 2,
+        "initialUTF16": 31944,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2565.874,
+        "keys": 64,
+        "dispatchMs": 212.045913,
+        "finalLines": 1026,
+        "resizeMaxMs": 325.913,
+        "cpuMs": 2867.2200000000003,
+        "case": "many-paragraphs",
+        "trial": 0,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2570.024667,
+        "keys": 64,
+        "dispatchMs": 224.223122,
+        "finalLines": 1026,
+        "resizeMaxMs": 326.231167,
+        "cpuMs": 2882.831,
+        "case": "many-paragraphs",
+        "trial": 1,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      },
+      {
+        "resizeTotalMs": 2560.0532089999997,
+        "keys": 64,
+        "dispatchMs": 250.135625,
+        "finalLines": 1026,
+        "resizeMaxMs": 322.203,
+        "cpuMs": 2865.656000000001,
+        "case": "many-paragraphs",
+        "trial": 2,
+        "initialUTF16": 32968,
+        "containerWidths": [
+          504,
+          844,
+          504,
+          844,
+          504,
+          844,
+          504,
+          844
+        ]
+      }
+    ]
+  }
+}

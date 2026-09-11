@@ -1,0 +1,1 @@
+PASS 19193 checks; 48 matrices; current cluster splits 0; interior hit records 32; native hit samples 3204
