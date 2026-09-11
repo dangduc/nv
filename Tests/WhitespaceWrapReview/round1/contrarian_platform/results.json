@@ -1,0 +1,1560 @@
+{
+  "nativeFontNames": [
+    "AppleColorEmoji",
+    "CourierNewPSMT",
+    "GeezaPro",
+    "Helvetica",
+    "ITFDevanagari-Book",
+    "KohinoorDevanagari-Regular",
+    "LucidaGrande",
+    "Menlo-Regular",
+    "PingFangSC-Regular",
+    "STSongti-SC-Regular",
+    "Times-Roman",
+    "TimesNewRomanPSMT"
+  ],
+  "passed": true,
+  "checks": 12693,
+  "cases": [
+    {
+      "afterFontBaseLineCount": 5,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Menlo-Regular",
+      "fixedLineCount": 5,
+      "fixedLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          203.8603515625,
+          16
+        ],
+        [
+          23,
+          23,
+          0,
+          16,
+          203.8603515625,
+          16
+        ],
+        [
+          46,
+          24,
+          0,
+          32,
+          212.2890625,
+          16
+        ],
+        [
+          70,
+          24,
+          0,
+          48,
+          212.2890625,
+          16
+        ],
+        [
+          94,
+          17,
+          0,
+          64,
+          153.2880859375,
+          16
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "mono-left-LTR",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 5,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Times-Roman",
+      "baseLineCount": 5,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          203.8603515625,
+          16
+        ],
+        [
+          23,
+          23,
+          0,
+          16,
+          203.8603515625,
+          16
+        ],
+        [
+          46,
+          24,
+          0,
+          32,
+          212.2890625,
+          16
+        ],
+        [
+          70,
+          24,
+          0,
+          48,
+          212.2890625,
+          16
+        ],
+        [
+          94,
+          17,
+          0,
+          64,
+          153.2880859375,
+          16
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Menlo-Regular",
+      "fixedLineCount": 7,
+      "fixedLines": [
+        [
+          0,
+          24,
+          0,
+          0,
+          212.2890625,
+          16
+        ],
+        [
+          24,
+          24,
+          0,
+          16,
+          212.2890625,
+          16
+        ],
+        [
+          48,
+          24,
+          0,
+          32,
+          212.2890625,
+          16
+        ],
+        [
+          72,
+          24,
+          0,
+          48,
+          212.2890625,
+          16
+        ],
+        [
+          96,
+          24,
+          0,
+          64,
+          212.2890625,
+          16
+        ],
+        [
+          120,
+          24,
+          0,
+          80,
+          212.2890625,
+          16
+        ],
+        [
+          144,
+          2,
+          0,
+          96,
+          26.857421875,
+          16
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "mono-left-LTR",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 4,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Times-Roman",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          0,
+          0,
+          220,
+          16
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Menlo-Regular",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          220,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "mono-left-LTR",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 1,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Times-Roman",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          220,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Menlo-Regular",
+      "fixedLineCount": 2,
+      "fixedLines": [
+        [
+          0,
+          28,
+          0,
+          0,
+          216.8994140625,
+          23
+        ],
+        [
+          28,
+          15,
+          0,
+          23,
+          121.92453125,
+          21.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "mono-left-LTR",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 2,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Times-Roman",
+      "baseLineCount": 2,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          28,
+          0,
+          0,
+          216.8994140625,
+          23
+        ],
+        [
+          28,
+          15,
+          0,
+          23,
+          121.92453125,
+          21.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 7,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 132.451171875,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 4,
+      "fixedLines": [
+        [
+          0,
+          31,
+          0,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          0,
+          17,
+          217.033203125,
+          17
+        ],
+        [
+          64,
+          30,
+          0,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          0,
+          51,
+          124.4130859375,
+          17
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-left-LTR",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 8,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 4,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          31,
+          0,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          0,
+          17,
+          217.033203125,
+          17
+        ],
+        [
+          64,
+          30,
+          0,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          0,
+          51,
+          124.4130859375,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 3,
+      "fixedLines": [
+        [
+          0,
+          50,
+          0,
+          0,
+          219.2890625,
+          17
+        ],
+        [
+          50,
+          53,
+          0,
+          17,
+          216.1513671875,
+          17
+        ],
+        [
+          103,
+          43,
+          0,
+          34,
+          177.2548828125,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-left-LTR",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 9,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          0,
+          0,
+          220,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          152.6689453125,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-left-LTR",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 2,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          152.6689453125,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 138.60507812499998,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 2,
+      "fixedLines": [
+        [
+          0,
+          34,
+          0,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          0,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-left-LTR",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 3,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 2,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          34,
+          0,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          0,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 7,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 120.41015625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 4,
+      "fixedLines": [
+        [
+          0,
+          36,
+          3.978515625,
+          0,
+          216.021484375,
+          18
+        ],
+        [
+          36,
+          37,
+          0.068359375,
+          18,
+          219.931640625,
+          18
+        ],
+        [
+          73,
+          33,
+          21.0205078125,
+          36,
+          198.9794921875,
+          18
+        ],
+        [
+          106,
+          5,
+          172.6826171875,
+          54,
+          47.3173828125,
+          18
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-right-LTR",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 8,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 3.5,
+        "sameLineRanges": true,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 4,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          36,
+          7.478515625,
+          0,
+          212.521484375,
+          18
+        ],
+        [
+          36,
+          37,
+          3.568359375,
+          18,
+          216.431640625,
+          18
+        ],
+        [
+          73,
+          33,
+          24.5205078125,
+          36,
+          195.4794921875,
+          18
+        ],
+        [
+          106,
+          5,
+          172.6826171875,
+          54,
+          47.3173828125,
+          18
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 204.697265625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 3,
+      "fixedLines": [
+        [
+          0,
+          56,
+          1.1826171875,
+          0,
+          218.8173828125,
+          18
+        ],
+        [
+          56,
+          60,
+          0,
+          18,
+          220,
+          18
+        ],
+        [
+          116,
+          30,
+          105,
+          36,
+          115,
+          18
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-right-LTR",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 9,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          179.6826171875,
+          0,
+          40.3173828125,
+          18
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          44,
+          0,
+          176,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "serif-right-LTR",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 2,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          44,
+          0,
+          176,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 60.205078125,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 2,
+      "fixedLines": [
+        [
+          0,
+          34,
+          39.1089493670886,
+          0,
+          180.8910506329114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          169.1826171875,
+          24.898681640625,
+          50.8173828125,
+          18
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-right-LTR",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 3,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 23.3173828125,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          43,
+          15.791566554588599,
+          0,
+          204.2084334454114,
+          24.898681640625
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 7,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 126.4306640625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 4,
+      "fixedLines": [
+        [
+          0,
+          31,
+          3.8212890625,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          1.4833984375,
+          17,
+          217.033203125,
+          17
+        ],
+        [
+          64,
+          30,
+          9.6865234375,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          47.79345703125,
+          51,
+          124.4130859375,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-center-LTR",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 8,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 1.94482421875,
+        "sameLineRanges": true,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 4,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          31,
+          5.76611328125,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          3.42822265625,
+          17,
+          216.57177734375,
+          17
+        ],
+        [
+          64,
+          30,
+          11.63134765625,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          47.79345703125,
+          51,
+          124.4130859375,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 207.3486328125,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 3,
+      "fixedLines": [
+        [
+          0,
+          50,
+          0.35546875,
+          0,
+          219.2890625,
+          17
+        ],
+        [
+          50,
+          53,
+          1.92431640625,
+          17,
+          216.1513671875,
+          17
+        ],
+        [
+          103,
+          43,
+          21.37255859375,
+          34,
+          177.2548828125,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-center-LTR",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 9,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 208.07568359375,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          87.87255859375,
+          0,
+          132.12744140625,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          35.6103515625,
+          0,
+          152.6689453125,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-center-LTR",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 2,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          35.6103515625,
+          0,
+          152.6689453125,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 99.40507812499999,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 2,
+      "fixedLines": [
+        [
+          0,
+          34,
+          11.873560621044305,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          81.65185546875,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-center-LTR",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 3,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 9.72412109375,
+        "sameLineRanges": true,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 2,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          34,
+          13.818384839794305,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          91.3759765625,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 7,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 137.75390625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 4,
+      "fixedLines": [
+        [
+          0,
+          36,
+          0,
+          0,
+          219.9999999999998,
+          18
+        ],
+        [
+          36,
+          37,
+          0,
+          18,
+          219.99999999999977,
+          18
+        ],
+        [
+          73,
+          33,
+          0,
+          36,
+          220,
+          18
+        ],
+        [
+          106,
+          5,
+          0,
+          54,
+          47.3173828125,
+          18
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-justified-LTR",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 8,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 8.098236083984375,
+        "sameLineRanges": true,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 4,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          36,
+          0,
+          0,
+          220,
+          18
+        ],
+        [
+          36,
+          37,
+          0,
+          18,
+          220,
+          18
+        ],
+        [
+          73,
+          33,
+          0,
+          36,
+          219.99999999999994,
+          18
+        ],
+        [
+          106,
+          5,
+          0,
+          54,
+          47.3173828125,
+          18
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 3,
+      "fixedLines": [
+        [
+          0,
+          56,
+          0,
+          0,
+          220,
+          18
+        ],
+        [
+          56,
+          60,
+          0,
+          18,
+          220,
+          18
+        ],
+        [
+          116,
+          30,
+          0,
+          36,
+          115,
+          18
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-justified-LTR",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 9,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 210,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          0,
+          0,
+          220,
+          18
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          190,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "serif-justified-LTR",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 2,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          0,
+          0,
+          190,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 138.60507812499998,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Times-Roman",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          97,
+          0,
+          0,
+          219.99999999999983,
+          24.898681640625
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "serif-justified-LTR",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 3,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 119.0971520803804,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          43,
+          0,
+          0,
+          220,
+          24.898681640625
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 7,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 120.41015625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 4,
+      "fixedLines": [
+        [
+          0,
+          31,
+          7.642578125,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          2.966796875,
+          17,
+          217.033203125,
+          17
+        ],
+        [
+          64,
+          30,
+          19.373046875,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          95.5869140625,
+          51,
+          124.4130859375,
+          17
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-right-RTL",
+      "afterFontChangedSpaceGlyphs": 20,
+      "afterFontFixedLineCount": 8,
+      "fixture": "prose",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 4,
+      "changedSpaceGlyphs": 20,
+      "baseLines": [
+        [
+          0,
+          31,
+          7.642578125,
+          0,
+          212.357421875,
+          17
+        ],
+        [
+          31,
+          33,
+          2.966796875,
+          17,
+          217.033203125,
+          17
+        ],
+        [
+          64,
+          30,
+          19.373046875,
+          34,
+          200.626953125,
+          17
+        ],
+        [
+          94,
+          17,
+          95.5869140625,
+          51,
+          124.4130859375,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 1,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 197.958984375,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 3,
+      "fixedLines": [
+        [
+          0,
+          50,
+          0.7109375,
+          0,
+          219.2890625,
+          17
+        ],
+        [
+          50,
+          53,
+          3.8486328125,
+          17,
+          216.1513671875,
+          17
+        ],
+        [
+          103,
+          43,
+          42.7451171875,
+          34,
+          177.2548828125,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-right-RTL",
+      "afterFontChangedSpaceGlyphs": 141,
+      "afterFontFixedLineCount": 9,
+      "fixture": "tail",
+      "geometry": {
+        "maxCoordinateDelta": 206.1103515625,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 141,
+      "baseLines": [
+        [
+          0,
+          146,
+          0,
+          0,
+          220,
+          17
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 1,
+      "fixedLines": [
+        [
+          0,
+          23,
+          88.250828125,
+          0,
+          131.749171875,
+          24.40000283718109
+        ]
+      ],
+      "sameGeometry": 1,
+      "configuration": "proportional-right-RTL",
+      "afterFontChangedSpaceGlyphs": 0,
+      "afterFontFixedLineCount": 2,
+      "fixture": "protected",
+      "geometry": {
+        "maxCoordinateDelta": 0,
+        "sameLineRanges": true,
+        "sameGeometry": 1
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 1,
+      "changedSpaceGlyphs": 0,
+      "baseLines": [
+        [
+          0,
+          23,
+          88.250828125,
+          0,
+          131.749171875,
+          24.40000283718109
+        ]
+      ]
+    },
+    {
+      "afterFontBaseLineCount": 2,
+      "afterFontGeometry": {
+        "maxCoordinateDelta": 138.605078125,
+        "sameLineRanges": false,
+        "sameGeometry": 0
+      },
+      "font": "Helvetica",
+      "fixedLineCount": 2,
+      "fixedLines": [
+        [
+          0,
+          34,
+          23.74712124208861,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          163.3037109375,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ],
+      "sameGeometry": 0,
+      "configuration": "proportional-right-RTL",
+      "afterFontChangedSpaceGlyphs": 12,
+      "afterFontFixedLineCount": 3,
+      "fixture": "fallback",
+      "geometry": {
+        "maxCoordinateDelta": 54.3454296875,
+        "sameLineRanges": true,
+        "sameGeometry": 0
+      },
+      "changedFont": "Menlo-Regular",
+      "baseLineCount": 2,
+      "changedSpaceGlyphs": 12,
+      "baseLines": [
+        [
+          0,
+          34,
+          23.74712124208861,
+          0,
+          196.2528787579114,
+          24.898681640625
+        ],
+        [
+          34,
+          9,
+          163.3037109375,
+          24.898681640625,
+          56.6962890625,
+          17
+        ]
+      ]
+    }
+  ],
+  "head": "83a73071881f2f2c3e3e927f33a16b98935bdb47",
+  "method_sha256": "7a3c15d7e02a071f3f1bab9018e360f6b92decc7c48bb7ecd49189c179a188ef",
+  "architecture": "x86_64",
+  "macOS": "26.5.2"
+}

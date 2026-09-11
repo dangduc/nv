@@ -1,0 +1,3242 @@
+[
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.645917,
+    "lines": 12,
+    "stats": {
+      "glyphs": 895,
+      "allocatedBytes": 7160,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.022957,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.831542,
+    "lines": 11,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.685208,
+    "lines": 11,
+    "stats": {
+      "glyphs": 1095,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000292,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 51,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.213834,
+    "lines": 11,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000458,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.1665,
+    "lines": 11,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.231292,
+    "lines": 11,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.0925,
+    "lines": 8,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.090792,
+    "lines": 7,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.089917,
+    "lines": 7,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.746458,
+    "lines": 4,
+    "stats": {
+      "glyphs": 2595,
+      "allocatedBytes": 20760,
+      "maxAllocationBytes": 808,
+      "callbackMs": 0.03125,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 101,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.704125,
+    "lines": 4,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.718708,
+    "lines": 4,
+    "stats": {
+      "glyphs": 2595,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000372,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 101,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.104208,
+    "lines": 4,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.00025,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.105916,
+    "lines": 4,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.110625,
+    "lines": 4,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.062917,
+    "lines": 4,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.0545,
+    "lines": 3,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.054125,
+    "lines": 3,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 10.849167,
+    "lines": 1640,
+    "stats": {
+      "glyphs": 965,
+      "allocatedBytes": 7720,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.026708,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 10.351166,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 11.347958,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 1305,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000291,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 58,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 13.495042,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.010286,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 13.042125,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 13.110708,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000208,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 8.534667,
+    "lines": 1058,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 8.391459,
+    "lines": 1058,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 8.425542,
+    "lines": 1058,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 10.371708,
+    "lines": 505,
+    "stats": {
+      "glyphs": 2655,
+      "allocatedBytes": 21240,
+      "maxAllocationBytes": 824,
+      "callbackMs": 0.032209,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 103,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 10.288625,
+    "lines": 505,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 10.232125,
+    "lines": 505,
+    "stats": {
+      "glyphs": 2655,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000252,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 103,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 7.443292,
+    "lines": 505,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.010628,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 7.684417,
+    "lines": 505,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 7.522208,
+    "lines": 505,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.00021,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 5.651167,
+    "lines": 432,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 5.541291,
+    "lines": 432,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 5.623459,
+    "lines": 432,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 2.672583,
+    "lines": 207,
+    "stats": {
+      "glyphs": 945,
+      "allocatedBytes": 7560,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.025623,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 2.92925,
+    "lines": 205,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 2.663916,
+    "lines": 205,
+    "stats": {
+      "glyphs": 1545,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000375,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 66,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 1.657083,
+    "lines": 205,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001625,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 1.653583,
+    "lines": 205,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 1.662833,
+    "lines": 205,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 4.1e-05,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 1.07725,
+    "lines": 134,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 1.050083,
+    "lines": 133,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 1.06025,
+    "lines": 133,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 2.715125,
+    "lines": 64,
+    "stats": {
+      "glyphs": 2445,
+      "allocatedBytes": 19560,
+      "maxAllocationBytes": 768,
+      "callbackMs": 0.034585,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 96,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 2.728916,
+    "lines": 64,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 2.75875,
+    "lines": 64,
+    "stats": {
+      "glyphs": 2445,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000125,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 96,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.979167,
+    "lines": 64,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001501,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.988917,
+    "lines": 64,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.97925,
+    "lines": 64,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 4.2e-05,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.750083,
+    "lines": 55,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.711958,
+    "lines": 54,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "letters-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.719125,
+    "lines": 54,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.660833,
+    "lines": 7409,
+    "stats": {
+      "glyphs": 875,
+      "allocatedBytes": 7000,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.024627,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.41475,
+    "lines": 7407,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.482666,
+    "lines": 7407,
+    "stats": {
+      "glyphs": 1035,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000249,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 49,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 65.277541,
+    "lines": 7407,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.034828,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 64.947208,
+    "lines": 7407,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 65.520583,
+    "lines": 7407,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001122,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 33.970458,
+    "lines": 3705,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 33.2845,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 34.134167,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.431333,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 1035,
+      "allocatedBytes": 8280,
+      "maxAllocationBytes": 392,
+      "callbackMs": 0.023916,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 49,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.54925,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.317291,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 1035,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000165,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 49,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 39.727708,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.034049,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 38.812292,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 39.413042,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001002,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 34.294875,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 33.446541,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "no-space-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 33.689625,
+    "lines": 3704,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.393167,
+    "lines": 6252,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 3720,
+      "maxAllocationBytes": 240,
+      "callbackMs": 0.02021,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.457292,
+    "lines": 6251,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.321583,
+    "lines": 6251,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000334,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 54.014958,
+    "lines": 6250,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 800000,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.694375,
+      "changedBatches": 98,
+      "allocations": 98,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 53.088417,
+    "lines": 6250,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 55.205209,
+    "lines": 6250,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000916,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 28.798208,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 28.76125,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 28.843667,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.241417,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 3720,
+      "maxAllocationBytes": 240,
+      "callbackMs": 0.017461,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.277167,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.356333,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000293,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 34.488166,
+    "lines": 3125,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 800000,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.701455,
+      "changedBatches": 98,
+      "allocations": 98,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 33.933709,
+    "lines": 3125,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 34.138875,
+    "lines": 3125,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000917,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 29.078833,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 28.296625,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "prose-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 28.7095,
+    "lines": 3126,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.302666,
+    "lines": 66,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 3720,
+      "maxAllocationBytes": 240,
+      "callbackMs": 0.019623,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.197458,
+    "lines": 65,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.254791,
+    "lines": 65,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000209,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.617916,
+    "lines": 64,
+    "stats": {
+      "glyphs": 1024,
+      "allocatedBytes": 8192,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.009458,
+      "changedBatches": 1,
+      "allocations": 1,
+      "maxBatch": 1024,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.585125,
+    "lines": 64,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.601625,
+    "lines": 64,
+    "stats": {
+      "glyphs": 1024,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.320458,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.322958,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.331917,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.196584,
+    "lines": 33,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 3720,
+      "maxAllocationBytes": 240,
+      "callbackMs": 0.019874,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.191584,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.1945,
+    "lines": 33,
+    "stats": {
+      "glyphs": 465,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000293,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 30,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.394292,
+    "lines": 32,
+    "stats": {
+      "glyphs": 1024,
+      "allocatedBytes": 8192,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.009542,
+      "changedBatches": 1,
+      "allocations": 1,
+      "maxBatch": 1024,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.38775,
+    "lines": 32,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.389959,
+    "lines": 32,
+    "stats": {
+      "glyphs": 1024,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 4.2e-05,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.322,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.314708,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "short-prose",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.318459,
+    "lines": 33,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.554916,
+    "lines": 12,
+    "stats": {
+      "glyphs": 895,
+      "allocatedBytes": 7160,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.025958,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 2.18625,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 2.208625,
+    "lines": 1,
+    "stats": {
+      "glyphs": 6495,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.00025,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 231,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.168459,
+    "lines": 11,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 1608,
+      "maxAllocationBytes": 1608,
+      "callbackMs": 0.004167,
+      "changedBatches": 1,
+      "allocations": 1,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.09,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.091333,
+    "lines": 1,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.09075,
+    "lines": 8,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.044833,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.044667,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.741083,
+    "lines": 4,
+    "stats": {
+      "glyphs": 2595,
+      "allocatedBytes": 20760,
+      "maxAllocationBytes": 808,
+      "callbackMs": 0.053541,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 101,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 2.108792,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 2.141875,
+    "lines": 1,
+    "stats": {
+      "glyphs": 6495,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000166,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 231,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 0.108375,
+    "lines": 4,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 1608,
+      "maxAllocationBytes": 1608,
+      "callbackMs": 0.003916,
+      "changedBatches": 1,
+      "allocations": 1,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 0.088709,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 0.087334,
+    "lines": 1,
+    "stats": {
+      "glyphs": 201,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 201,
+      "callbacks": 1
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 0.061583,
+    "lines": 4,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.045375,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-201",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.042916,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 11.104875,
+    "lines": 1640,
+    "stats": {
+      "glyphs": 965,
+      "allocatedBytes": 7720,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.031334,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 217.29925,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 217.300542,
+    "lines": 1,
+    "stats": {
+      "glyphs": 983505,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.009329,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 990
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 170.524584,
+    "lines": 1639,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 262144,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.522665,
+      "changedBatches": 32,
+      "allocations": 32,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 7.318708,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 7.352375,
+    "lines": 1,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000419,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 109.844709,
+    "lines": 1058,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 5.608875,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 5.407375,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 10.500625,
+    "lines": 505,
+    "stats": {
+      "glyphs": 2655,
+      "allocatedBytes": 21240,
+      "maxAllocationBytes": 824,
+      "callbackMs": 0.055211,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 103,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 214.637625,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 213.703125,
+    "lines": 1,
+    "stats": {
+      "glyphs": 983505,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.009127,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 990
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 55.93175,
+    "lines": 505,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 262144,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.5185,
+      "changedBatches": 32,
+      "allocations": 32,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 7.336375,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 7.156917,
+    "lines": 1,
+    "stats": {
+      "glyphs": 32768,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000291,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 32
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 46.887375,
+    "lines": 432,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 5.367417,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-32k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 5.470625,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 2.881042,
+    "lines": 207,
+    "stats": {
+      "glyphs": 945,
+      "allocatedBytes": 7560,
+      "maxAllocationBytes": 328,
+      "callbackMs": 0.032955,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 41,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 33.948292,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 33.83775,
+    "lines": 1,
+    "stats": {
+      "glyphs": 123345,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001251,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 150
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 4.28175,
+    "lines": 205,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 32768,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.067042,
+      "changedBatches": 4,
+      "allocations": 4,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 1.171334,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 1.146,
+    "lines": 1,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 4.2e-05,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 2.707167,
+    "lines": 134,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.907208,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.900792,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 2.915833,
+    "lines": 64,
+    "stats": {
+      "glyphs": 2445,
+      "allocatedBytes": 19560,
+      "maxAllocationBytes": 768,
+      "callbackMs": 0.05879,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 96,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 33.782292,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 33.71775,
+    "lines": 1,
+    "stats": {
+      "glyphs": 123345,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.001418,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 150
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 1.78825,
+    "lines": 64,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 32768,
+      "maxAllocationBytes": 8192,
+      "callbackMs": 0.065459,
+      "changedBatches": 4,
+      "allocations": 4,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 1.145875,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 1.15975,
+    "lines": 1,
+    "stats": {
+      "glyphs": 4096,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000125,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 4
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 1.399208,
+    "lines": 55,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 0.904,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "spaces-4k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 0.909125,
+    "lines": 1,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.673125,
+    "lines": 11113,
+    "stats": {
+      "glyphs": 681,
+      "allocatedBytes": 5448,
+      "maxAllocationBytes": 264,
+      "callbackMs": 0.022122,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 33,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.504583,
+    "lines": 11111,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.523084,
+    "lines": 11111,
+    "stats": {
+      "glyphs": 765,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.00021,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 40,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 110.623083,
+    "lines": 11111,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.034253,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 109.654125,
+    "lines": 11111,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 112.429125,
+    "lines": 11111,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.00079,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 59.502625,
+    "lines": 5558,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 58.678083,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 160,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 59.730875,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "adjusted",
+    "ms": 1.447916,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 765,
+      "allocatedBytes": 6120,
+      "maxAllocationBytes": 320,
+      "callbackMs": 0.021584,
+      "changedBatches": 30,
+      "allocations": 30,
+      "maxBatch": 40,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "native",
+    "ms": 1.455958,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "30-appends",
+    "mode": "noop",
+    "ms": 1.506958,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 765,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000418,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 40,
+      "callbacks": 30
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "adjusted",
+    "ms": 65.92625,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.03366,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "native",
+    "ms": 64.794208,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "initial",
+    "mode": "noop",
+    "ms": 67.1195,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 100000,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0.000751,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 1024,
+      "callbacks": 98
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "adjusted",
+    "ms": 59.040167,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "native",
+    "ms": 57.589625,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  },
+  {
+    "fixture": "tabs-100k",
+    "width": 480,
+    "stage": "resize",
+    "mode": "noop",
+    "ms": 60.231333,
+    "lines": 5556,
+    "stats": {
+      "glyphs": 0,
+      "allocatedBytes": 0,
+      "maxAllocationBytes": 0,
+      "callbackMs": 0,
+      "changedBatches": 0,
+      "allocations": 0,
+      "maxBatch": 0,
+      "callbacks": 0
+    }
+  }
+]
