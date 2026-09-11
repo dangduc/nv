@@ -1,0 +1,2 @@
+{"checks":8843,"guarded_cases":361,"deterministic_fuzz_cases":256,"stack_stores":100,"heap_stores":199,"native_stack_stores":18,"native_heap_stores":6,"native_compared_glyphs":1416,"passed":true}
+{"checks":8843,"guarded_cases":361,"deterministic_fuzz_cases":256,"stack_stores":100,"heap_stores":199,"native_stack_stores":18,"native_heap_stores":6,"native_compared_glyphs":1416,"passed":true}

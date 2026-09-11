@@ -1,0 +1,1606 @@
+{
+  "candidate": {
+    "history": [
+      {
+        "label": "spaces-63-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}",
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}",
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}",
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}",
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}",
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}",
+          "{307, 0}"
+        ]
+      }
+    ],
+    "wrapLines": 5,
+    "smallChangedBatches": 52,
+    "glyphCallbacks": 481,
+    "checks": 873,
+    "markedGlyphCallbacks": 56,
+    "largeChangedBatches": 177
+  },
+  "baseline": {
+    "history": [
+      {
+        "label": "spaces-63-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{103, 0}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{103, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{112, 0}",
+          "{112, 0}"
+        ]
+      },
+      {
+        "label": "spaces-63-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                            e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{104, 0}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{104, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{113, 0}",
+          "{113, 0}"
+        ]
+      },
+      {
+        "label": "spaces-64-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                             e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{105, 0}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{106, 0}",
+          "{106, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{105, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{114, 0}",
+          "{114, 0}"
+        ]
+      },
+      {
+        "label": "spaces-65-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{115, 0}",
+          "{115, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/owner-closed",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{2, 3}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/undo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/undo-closed-composition",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{33, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/redo-closed-composition",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/redo-peer-edit",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/reopened",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/reopened-delete",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{297, 0}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-0/peer-restores-reopened-delete",
+        "model": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{298, 0}",
+          "{298, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/marked",
+        "model": "HEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/remote-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "HEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{2, 3}",
+          "{297, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/owner-closed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{11, 3}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/undo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/undo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta             END",
+        "live": "remote \u2192\nHEADER\nalpha beta             END",
+        "composing": false,
+        "selections": [
+          "{42, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/redo-closed-composition",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/redo-peer-edit",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/reopened",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{306, 0}",
+          "{306, 0}"
+        ]
+      },
+      {
+        "label": "spaces-257-external-1/peer-restores-reopened-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                                                                                                                                                                              e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb!",
+        "composing": false,
+        "selections": [
+          "{307, 0}",
+          "{307, 0}"
+        ]
+      }
+    ],
+    "wrapLines": 5,
+    "smallChangedBatches": 52,
+    "glyphCallbacks": 481,
+    "checks": 873,
+    "markedGlyphCallbacks": 56,
+    "largeChangedBatches": 177
+  }
+}

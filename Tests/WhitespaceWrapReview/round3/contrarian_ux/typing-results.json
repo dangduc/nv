@@ -1,0 +1,143 @@
+{
+  "fixtures" : [
+    {
+      "repeatSpaces" : 151,
+      "mouseSelection" : "{44, 0}",
+      "mixedSourceLength" : 136,
+      "wrapTransitions" : [
+        {
+          "count" : 50,
+          "before" : {
+            "x" : 544.0087890625,
+            "y" : 8
+          },
+          "after" : {
+            "x" : 23.8369140625,
+            "y" : 29
+          }
+        },
+        {
+          "count" : 99,
+          "before" : {
+            "x" : 544.0087890625,
+            "y" : 29
+          },
+          "after" : {
+            "x" : 23.8369140625,
+            "y" : 50
+          }
+        },
+        {
+          "count" : 148,
+          "before" : {
+            "x" : 544.0087890625,
+            "y" : 50
+          },
+          "after" : {
+            "x" : 23.8369140625,
+            "y" : 71
+          }
+        }
+      ],
+      "setting" : {
+        "font" : "Menlo-Regular",
+        "size" : 18,
+        "width" : 560
+      },
+      "mouseTarget" : 44
+    },
+    {
+      "repeatSpaces" : 352,
+      "mouseSelection" : "{94, 0}",
+      "mixedSourceLength" : 136,
+      "wrapTransitions" : [
+        {
+          "count" : 117,
+          "before" : {
+            "x" : 464.19921875,
+            "y" : 8
+          },
+          "after" : {
+            "x" : 16.8896484375,
+            "y" : 25
+          }
+        },
+        {
+          "count" : 233,
+          "before" : {
+            "x" : 464.19921875,
+            "y" : 25
+          },
+          "after" : {
+            "x" : 16.8896484375,
+            "y" : 42
+          }
+        },
+        {
+          "count" : 349,
+          "before" : {
+            "x" : 464.19921875,
+            "y" : 42
+          },
+          "after" : {
+            "x" : 16.8896484375,
+            "y" : 59
+          }
+        }
+      ],
+      "setting" : {
+        "font" : "Helvetica",
+        "size" : 14,
+        "width" : 470
+      },
+      "mouseTarget" : 94
+    },
+    {
+      "repeatSpaces" : 115,
+      "mouseSelection" : "{32, 0}",
+      "mixedSourceLength" : 136,
+      "wrapTransitions" : [
+        {
+          "count" : 38,
+          "before" : {
+            "x" : 592.1728515625,
+            "y" : 8
+          },
+          "after" : {
+            "x" : 28.6533203125,
+            "y" : 38
+          }
+        },
+        {
+          "count" : 75,
+          "before" : {
+            "x" : 592.1728515625,
+            "y" : 38
+          },
+          "after" : {
+            "x" : 28.6533203125,
+            "y" : 68
+          }
+        },
+        {
+          "count" : 112,
+          "before" : {
+            "x" : 592.1728515625,
+            "y" : 68
+          },
+          "after" : {
+            "x" : 28.6533203125,
+            "y" : 98
+          }
+        }
+      ],
+      "setting" : {
+        "font" : "Menlo-Regular",
+        "size" : 26,
+        "width" : 620
+      },
+      "mouseTarget" : 32
+    }
+  ],
+  "totalKeyEvents" : 1644
+}
