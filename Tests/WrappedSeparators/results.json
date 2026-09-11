@@ -39,5 +39,45 @@
   },
   "negativeControls": "arm64 and x86_64 rejected former fixed-width separators at expected leading-gap assertion",
   "multiwindow": "exit245 after replacement library opens; initial and restoration checks pass",
-  "aggregate": "stopped at recorded FuzzySearch/UI activation failure; later entries did not run"
+  "aggregate": "stopped at recorded FuzzySearch/UI activation failure; later entries did not run",
+  "correction": {
+    "commit": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+    "build": "passed",
+    "focused_assertions_per_architecture": 10316,
+    "negative_controls": "both architectures reject former fixed-width separator at expected leading-gap assertion",
+    "app": {
+      "app_sha256": "b28da33e5f645a589f4802d778225693f7e0764abf6a48a21690d154421ad40c",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 32,
+      "failures": []
+    },
+    "word_wrapping_assertions_per_architecture": 74736,
+    "word_wrapping_app_assertions": 1305,
+    "desktop": {
+      "commit": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+      "runs": [
+        {
+          "suite": "multiwindow",
+          "exit_code": 245,
+          "log": "/tmp/nv-separator-fixed-multiwindow.log"
+        },
+        {
+          "suite": "aggregate",
+          "exit_code": 1,
+          "log": "/tmp/nv-separator-fixed-aggregate.log"
+        }
+      ],
+      "app_sha256": "b28da33e5f645a589f4802d778225693f7e0764abf6a48a21690d154421ad40c"
+    }
+  },
+  "reviews": {
+    "rounds": 3,
+    "perspectives_per_round": 6,
+    "complete": true,
+    "resolved_finding": "P3 ASCII composed-range query overhead",
+    "correction_commit": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+    "remaining_actionable_findings": 0,
+    "production_ci": "https://github.com/dangduc/nv/actions/runs/34643467685"
+  }
 }

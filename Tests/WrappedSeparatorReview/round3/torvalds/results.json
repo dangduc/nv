@@ -1,0 +1,174 @@
+{
+  "commits": {
+    "PreviousDelegate": "2ea92180939a3e51df8fe867ad548140ed455868",
+    "CorrectedDelegate": "e022109eaf2bad6583512c2ed2b48561d9dae011"
+  },
+  "callbackSHA256": {
+    "PreviousDelegate": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+    "CorrectedDelegate": "ae6265e18b2b8ac2be7c7f92feadb733d8425004c0c5e8dbb7222b3a1650d609"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "architecture": "arm64",
+      "passed": true,
+      "oracleContexts": [
+        {
+          "context": "plain",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "prepend",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "combining",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "ZWJ emoji",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "bidi isolation",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "paragraph boundaries",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "supplementary marks",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        }
+      ],
+      "FoundationWhitespaceMembers": 26,
+      "checks": 171497,
+      "oraclePairs": 61852,
+      "nativeBatches": [
+        {
+          "UTF16Length": 35344,
+          "glyphs": 35344,
+          "batch": "all 8836 printable ASCII pairs",
+          "eligibleSpaces": 8836,
+          "retainedElastic": 8836,
+          "removedElastic": 0
+        },
+        {
+          "UTF16Length": 768,
+          "glyphs": 768,
+          "batch": "96 non-ASCII surroundings",
+          "eligibleSpaces": 96,
+          "retainedElastic": 96,
+          "removedElastic": 0
+        },
+        {
+          "UTF16Length": 73,
+          "glyphs": 73,
+          "batch": "ASCII and paragraph boundaries",
+          "eligibleSpaces": 27,
+          "retainedElastic": 9,
+          "removedElastic": 18
+        },
+        {
+          "UTF16Length": 340,
+          "glyphs": 340,
+          "batch": "Unicode fallback and composed spaces",
+          "eligibleSpaces": 86,
+          "retainedElastic": 28,
+          "removedElastic": 58
+        }
+      ]
+    },
+    {
+      "architecture": "x86_64",
+      "passed": true,
+      "oracleContexts": [
+        {
+          "context": "plain",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "prepend",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "combining",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "ZWJ emoji",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "bidi isolation",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "paragraph boundaries",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        },
+        {
+          "context": "supplementary marks",
+          "pairs": 8836,
+          "singletonSpaces": 8836
+        }
+      ],
+      "FoundationWhitespaceMembers": 26,
+      "checks": 171497,
+      "oraclePairs": 61852,
+      "nativeBatches": [
+        {
+          "UTF16Length": 35344,
+          "glyphs": 35344,
+          "batch": "all 8836 printable ASCII pairs",
+          "eligibleSpaces": 8836,
+          "retainedElastic": 8836,
+          "removedElastic": 0
+        },
+        {
+          "UTF16Length": 768,
+          "glyphs": 768,
+          "batch": "96 non-ASCII surroundings",
+          "eligibleSpaces": 96,
+          "retainedElastic": 96,
+          "removedElastic": 0
+        },
+        {
+          "UTF16Length": 73,
+          "glyphs": 73,
+          "batch": "ASCII and paragraph boundaries",
+          "eligibleSpaces": 27,
+          "retainedElastic": 9,
+          "removedElastic": 18
+        },
+        {
+          "UTF16Length": 340,
+          "glyphs": 340,
+          "batch": "Unicode fallback and composed spaces",
+          "eligibleSpaces": 86,
+          "retainedElastic": 28,
+          "removedElastic": 58
+        }
+      ]
+    }
+  ],
+  "probeHashes": {
+    "probe.m": "34d431fe40ed241985ec341339ac2b05b30e6e1801037066b3c70328143dadeb",
+    "run.py": "ff61bf2302ded0f5229e04c13bccf9b49a8ce75a89f46d177d29382f22a85213"
+  }
+}

@@ -1,0 +1,590 @@
+{
+  "revision": "e022109eaf2bad6583512c2ed2b48561d9dae011",
+  "previous_revision": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "original_literal_revision": "75d6f42",
+  "original_literal_hook_sha256": "8c48b1b0ebf94eda1b8b973b5c6aeb722ba78c0d67117bcef00c291d2d5a6e9f",
+  "host": "26.5.2",
+  "typesetter_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "runs": [
+    {
+      "checks": 300,
+      "stages": 36,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshInsertionComparisons": 36,
+      "protectedSpaceAdvances": 6,
+      "widthCompositionHistories": 6,
+      "failures": 0,
+      "nativeInsertionComparisons": 30,
+      "protectedWidths": [
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 11.6982421875,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        }
+      ],
+      "architecture": "arm64",
+      "mode": "optimized",
+      "glyph_hook_sha256": "ae6265e18b2b8ac2be7c7f92feadb733d8425004c0c5e8dbb7222b3a1650d609",
+      "transcript_sha256": "16d07a065a24ecf0f2a654da0dc3f211ce27be15e8beeaa4966ce7c7f5c9f108",
+      "firstHistory": [
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij e\u0301",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "e\u0301",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u0301x",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": false,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u0301x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u96ea",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u96ea",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{12, 0}",
+          "elastic": true,
+          "case": {
+            "stage": "committed",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        }
+      ]
+    },
+    {
+      "checks": 300,
+      "stages": 36,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshInsertionComparisons": 36,
+      "protectedSpaceAdvances": 6,
+      "widthCompositionHistories": 6,
+      "failures": 0,
+      "nativeInsertionComparisons": 30,
+      "protectedWidths": [
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 11.6982421875,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        }
+      ],
+      "architecture": "arm64",
+      "mode": "previous",
+      "glyph_hook_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+      "transcript_sha256": "16d07a065a24ecf0f2a654da0dc3f211ce27be15e8beeaa4966ce7c7f5c9f108",
+      "firstHistory": [
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij e\u0301",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "e\u0301",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u0301x",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": false,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u0301x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u96ea",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u96ea",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{12, 0}",
+          "elastic": true,
+          "case": {
+            "stage": "committed",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        }
+      ]
+    },
+    {
+      "checks": 300,
+      "stages": 36,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshInsertionComparisons": 36,
+      "protectedSpaceAdvances": 6,
+      "widthCompositionHistories": 6,
+      "failures": 0,
+      "nativeInsertionComparisons": 30,
+      "protectedWidths": [
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 11.6982421875,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        }
+      ],
+      "architecture": "x86_64",
+      "mode": "optimized",
+      "glyph_hook_sha256": "ae6265e18b2b8ac2be7c7f92feadb733d8425004c0c5e8dbb7222b3a1650d609",
+      "transcript_sha256": "186031601810fee46f275ee1c312c0d7bcefdc1b9d2963bf5688532b2c255617",
+      "firstHistory": [
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij e\u0301",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "e\u0301",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u0301x",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": false,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u0301x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u96ea",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u96ea",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{12, 0}",
+          "elastic": true,
+          "case": {
+            "stage": "committed",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        }
+      ]
+    },
+    {
+      "checks": 300,
+      "stages": 36,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshInsertionComparisons": 36,
+      "protectedSpaceAdvances": 6,
+      "widthCompositionHistories": 6,
+      "failures": 0,
+      "nativeInsertionComparisons": 30,
+      "protectedWidths": [
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 11.6982421875,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 10.8369140625,
+          "replacement": "\u0301x",
+          "font": "Menlo-Regular",
+          "advance": 10.8369140625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": -0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        },
+        {
+          "widthOffset": 0.25,
+          "ordinaryUnmarkedSpaceWidth": 5.0009765625,
+          "replacement": "\u0301x",
+          "font": "Helvetica",
+          "advance": 5.0009765625,
+          "stage": "marked"
+        }
+      ],
+      "architecture": "x86_64",
+      "mode": "previous",
+      "glyph_hook_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+      "transcript_sha256": "186031601810fee46f275ee1c312c0d7bcefdc1b9d2963bf5688532b2c255617",
+      "firstHistory": [
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij e\u0301",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "e\u0301",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u0301x",
+          "selection": "{13, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 2}",
+          "elastic": false,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u0301x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij \u96ea",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "\u96ea",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{11, 1}",
+          "elastic": true,
+          "case": {
+            "stage": "marked",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        },
+        {
+          "source": "abcdefghij x",
+          "selection": "{12, 0}",
+          "affinity": 0,
+          "markedRange": "{12, 0}",
+          "elastic": true,
+          "case": {
+            "stage": "committed",
+            "replacement": "x",
+            "font": "Menlo-Regular",
+            "widthOffset": -0.25
+          }
+        }
+      ]
+    }
+  ]
+}
