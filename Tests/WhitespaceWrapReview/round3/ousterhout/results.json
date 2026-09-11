@@ -1,0 +1,10 @@
+{
+  "app_sha256": "55f97d1af69d120f385698b428a616e473be020200d3fe0ebcc6b626253459be",
+  "exit_code": 0,
+  "checks": 117,
+  "passed": true,
+  "metrics": [
+    "{\"small_changed_batches\":146,\"large_changed_batches\":38,\"unchanged_batches\":44}"
+  ],
+  "failure": []
+}

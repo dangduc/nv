@@ -1,0 +1,44 @@
+{
+  "before": {
+    "sha256": "be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b",
+    "trials": [
+      {
+        "glyphCalls": 128,
+        "mallocBytes": 31424,
+        "font": "Menlo-Regular",
+        "keys": 64,
+        "cpuMs": 180.47300000000007,
+        "frees": 208,
+        "trial": 0,
+        "size": 12,
+        "changedSmall": 112,
+        "changedLarge": 0,
+        "mallocs": 112,
+        "maximumBatch": 64,
+        "dispatchMs": 225.257293
+      }
+    ],
+    "checks": 133
+  },
+  "final": {
+    "sha256": "55f97d1af69d120f385698b428a616e473be020200d3fe0ebcc6b626253459be",
+    "trials": [
+      {
+        "glyphCalls": 128,
+        "mallocBytes": 0,
+        "font": "Menlo-Regular",
+        "keys": 64,
+        "cpuMs": 194.06000000000006,
+        "frees": 96,
+        "trial": 0,
+        "size": 12,
+        "changedSmall": 112,
+        "changedLarge": 0,
+        "mallocs": 0,
+        "maximumBatch": 64,
+        "dispatchMs": 235.334544
+      }
+    ],
+    "checks": 133
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "reviewed_head": "4b725372670afd5f5ecadf512deba8498336b2f0",
+  "head": "4b725372670afd5f5ecadf512deba8498336b2f0",
+  "glyph_method_sha256": "8c48b1b0ebf94eda1b8b973b5c6aeb722ba78c0d67117bcef00c291d2d5a6e9f",
+  "style_block_sha256": "f9263d1675de92fde351aa09cc48fd9f7ff6a654332fa5df9644ff40d82fa993",
+  "macOS": "26.5.2",
+  "runs": [
+    {
+      "checks": 8843,
+      "guarded_cases": 361,
+      "deterministic_fuzz_cases": 256,
+      "stack_stores": 100,
+      "heap_stores": 199,
+      "native_stack_stores": 18,
+      "native_heap_stores": 6,
+      "native_compared_glyphs": 1416,
+      "passed": true,
+      "architecture": "arm64",
+      "sanitizers": [
+        "ASan (stack use after return enabled)",
+        "UBSan"
+      ]
+    },
+    {
+      "checks": 8843,
+      "guarded_cases": 361,
+      "deterministic_fuzz_cases": 256,
+      "stack_stores": 100,
+      "heap_stores": 199,
+      "native_stack_stores": 18,
+      "native_heap_stores": 6,
+      "native_compared_glyphs": 1416,
+      "passed": true,
+      "architecture": "x86_64",
+      "sanitizers": [
+        "ASan (stack use after return enabled)",
+        "UBSan"
+      ]
+    }
+  ]
+}

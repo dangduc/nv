@@ -49,8 +49,27 @@ Measured scoped malloc calls fell from 2,064,738 to 1,161, and resize work fell 
 The large-note resize path remains slow; that residual cost is documented rather than reported as eliminated.
 The buffer-equivalence suite passed 465 guarded checks and 271 native-layout checks under ASan/UBSan.
 The original round-two results remain unchanged.
+[Posted mitigation and limit](https://github.com/dangduc/nv/pull/25#issuecomment-5627957999).
 [Posted findings](https://github.com/dangduc/nv/pull/25#issuecomment-5627833420).
 
 ## Round 3
 
-Ready to review the optimized glyph-buffer implementation.
+Reviewed production commit: `4b72537`.
+All six perspectives wrote and ran new evidence against the final implementation.
+No new actionable findings were reported.
+
+| Perspective | Result |
+| --- | --- |
+| Ousterhout | 117 copied-app checks passed across shared-editor attachment, font changes, and buffer regeneration. |
+| Luu | Short-note timing runs passed 1,552 checks per app; separate allocation runs passed 134 each. Small-batch heap allocations fell from 112 to zero. |
+| Torvalds | 8,843 assertions per architecture passed with ASan/UBSan and stack-lifetime checks. |
+| Kingsbury | Both copied apps passed 874 composition-owner closure checks; all 84 source/model/selection states matched. |
+| Contrarian UX | 2,802 checks and 1,644 native key events passed; Backspace retraced nine observed space-wrap boundaries. |
+| Contrarian platform | 56,330 assertions across 28 live edit phases passed; 12,298 sampled hit-test results matched the prior implementation. |
+
+Each perspective's code, results, and limits are under [round3](round3/).
+All three rounds are complete, with corrections between rounds.
+These are subagent engineering perspectives, not reviews or endorsements from the named people.
+The round-two large-note resize cost remains documented as mitigated, not eliminated.
+Short-note timing samples do not establish a regression or improvement.
+Automated geometry checks do not verify every painted caret frame or behavior on macOS 13.
