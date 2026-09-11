@@ -1,0 +1,940 @@
+{
+  "revision": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "host": "26.5.2",
+  "glyph_hook_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+  "typesetter_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "runs": [
+    {
+      "checks": 164,
+      "trailingToSeparatorTransitions": 2,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshGeometryComparisons": 20,
+      "failures": 0,
+      "nativeGeometryComparisons": 18,
+      "editCases": 18,
+      "records": [
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Backspace on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Forward Delete on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Backspace before collapsed separator"
+          },
+          "source": "abcdefghi nextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Forward Delete at wrapped word start"
+          },
+          "source": "abcdefghij extword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete selection spanning the separator"
+          },
+          "source": "abcdefghiextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              6,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete following word then type again"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": true,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              1,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{18, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "operation": "trailing space becomes separator after insertion"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{0, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete previous word from wrapped word start"
+          },
+          "source": "nextword",
+          "affinity": 1,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              8,
+              "{{0, 0}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Replace selection across soft wrap"
+          },
+          "source": "abcdefghiJ Kextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Replace separator and first letter with Unicode"
+          },
+          "source": "abcdefghij \u96eaextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 21}, {118.619140625, 25}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Backspace on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Forward Delete on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Backspace before collapsed separator"
+          },
+          "source": "abcdefghi nextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Forward Delete at wrapped word start"
+          },
+          "source": "abcdefghij extword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete selection spanning the separator"
+          },
+          "source": "abcdefghiextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              9,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              9,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete following word then type again"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": true,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              1,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{18, 0}",
+          "case": {
+            "font": "Helvetica",
+            "operation": "trailing space becomes separator after insertion"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{0, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete previous word from wrapped word start"
+          },
+          "source": "nextword",
+          "affinity": 1,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              8,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Replace selection across soft wrap"
+          },
+          "source": "abcdefghiJ Kextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              9,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              9,
+              2,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 44}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Replace separator and first letter with Unicode"
+          },
+          "source": "abcdefghij \u96eaextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 22}, {92.3134765625, 25}}"
+            ]
+          ]
+        }
+      ],
+      "architecture": "arm64"
+    },
+    {
+      "checks": 164,
+      "trailingToSeparatorTransitions": 2,
+      "failureKinds": {},
+      "firstFailure": {},
+      "freshGeometryComparisons": 20,
+      "failures": 0,
+      "nativeGeometryComparisons": 18,
+      "editCases": 18,
+      "records": [
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Backspace on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Forward Delete on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Backspace before collapsed separator"
+          },
+          "source": "abcdefghi nextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Forward Delete at wrapped word start"
+          },
+          "source": "abcdefghij extword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete selection spanning the separator"
+          },
+          "source": "abcdefghiextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              6,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete following word then type again"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": true,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              10,
+              1,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{18, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "operation": "trailing space becomes separator after insertion"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{0, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Delete previous word from wrapped word start"
+          },
+          "source": "nextword",
+          "affinity": 1,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              8,
+              "{{0, 0}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Replace selection across soft wrap"
+          },
+          "source": "abcdefghiJ Kextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 21}, {118.619140625, 21}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Menlo-Regular",
+            "width": 118.619140625,
+            "operation": "Replace separator and first letter with Unicode"
+          },
+          "source": "abcdefghij \u96eaextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {118.619140625, 21}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 21}, {118.619140625, 25}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Backspace on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{10, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Forward Delete on collapsed separator"
+          },
+          "source": "abcdefghijnextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Backspace before collapsed separator"
+          },
+          "source": "abcdefghi nextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              8,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Forward Delete at wrapped word start"
+          },
+          "source": "abcdefghij extword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{9, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete selection spanning the separator"
+          },
+          "source": "abcdefghiextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              9,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              9,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{11, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete following word then type again"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": true,
+          "lineRanges": [
+            [
+              0,
+              10,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              10,
+              1,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{18, 0}",
+          "case": {
+            "font": "Helvetica",
+            "operation": "trailing space becomes separator after insertion"
+          },
+          "source": "abcdefghij newword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              7,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{0, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Delete previous word from wrapped word start"
+          },
+          "source": "nextword",
+          "affinity": 1,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              8,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Replace selection across soft wrap"
+          },
+          "source": "abcdefghiJ Kextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              9,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              9,
+              2,
+              "{{0, 22}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 44}, {92.3134765625, 22}}"
+            ]
+          ]
+        },
+        {
+          "selection": "{12, 0}",
+          "case": {
+            "font": "Helvetica",
+            "width": 92.3134765625,
+            "operation": "Replace separator and first letter with Unicode"
+          },
+          "source": "abcdefghij \u96eaextword",
+          "affinity": 0,
+          "literalTrailingSpace": false,
+          "lineRanges": [
+            [
+              0,
+              11,
+              "{{0, 0}, {92.3134765625, 22}}"
+            ],
+            [
+              11,
+              8,
+              "{{0, 22}, {92.3134765625, 25}}"
+            ]
+          ]
+        }
+      ],
+      "architecture": "x86_64"
+    }
+  ]
+}

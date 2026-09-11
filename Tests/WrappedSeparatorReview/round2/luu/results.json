@@ -1,0 +1,916 @@
+{
+  "head": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "base": "75d6f4269d5c3f0ff2d3df392659ccf95bc1482b",
+  "macos": "26.5.2",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "host_architecture": "arm64",
+  "binary_architecture": "x86_64",
+  "typesetter_identical": true,
+  "production_unchanged_since_round1": true,
+  "compiler_flags": "-O2 -fno-objc-arc -fblocks -mmacosx-version-min=10.13",
+  "support_sha256": "25024b83fd5ee2d6244ca87be796a53bef74a308cff42e63f6e2a1e5bbcd4517",
+  "method": {
+    "timing_trials": 5,
+    "discarded_trials": 1,
+    "paired_order": "(trial + order) % 2",
+    "count_trials": 1,
+    "edits_per_pair": 2,
+    "short_paragraph_units": 256,
+    "container_width_points": 544,
+    "font": "Menlo-Regular 16"
+  },
+  "checks": {
+    "counts": 91120,
+    "timing": 455576
+  },
+  "cases": [
+    {
+      "fixture": "131072-single-paragraph",
+      "operation": "initial",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          30.289001,
+          28.545,
+          29.112,
+          28.835,
+          28.963
+        ],
+        "delegate_ms": [
+          1.282995,
+          1.263001,
+          1.304999,
+          1.404999,
+          1.361
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 128,
+          "glyphs_visited": 131072,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 128,
+          "explicit_buffer_bytes": 1048576,
+          "typesetter_creates": 1,
+          "snapshot_characters": 131072,
+          "cluster_suggestions": 2497,
+          "line_creates": 3744,
+          "token_advances": 22471
+        },
+        "median_wall_ms": 28.899,
+        "median_delegate_ms": 1.3329995000000001
+      },
+      "candidate": {
+        "wall_ms": [
+          32.649999,
+          33.797001,
+          33.549001,
+          33.992,
+          33.690999
+        ],
+        "delegate_ms": [
+          4.468,
+          4.739,
+          4.591999,
+          4.750996,
+          4.721002
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 128,
+          "glyphs_visited": 131072,
+          "composed_queries": 22469,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1,
+          "snapshot_characters": 131072,
+          "cluster_suggestions": 2497,
+          "line_creates": 3744,
+          "token_advances": 22471
+        },
+        "median_wall_ms": 33.744,
+        "median_delegate_ms": 4.730001
+      },
+      "added_wall_ms": 4.844999999999999,
+      "added_delegate_ms": 3.3970014999999996,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "131072-single-paragraph",
+      "operation": "start",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          55.513,
+          56.541,
+          55.076,
+          55.783999,
+          55.128001
+        ],
+        "delegate_ms": [
+          2.582998,
+          2.524997,
+          2.538995,
+          2.614,
+          2.539998
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 257,
+          "glyphs_visited": 262145,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 256,
+          "explicit_buffer_bytes": 2097152,
+          "typesetter_creates": 2,
+          "snapshot_characters": 262145,
+          "cluster_suggestions": 4994,
+          "line_creates": 7488,
+          "token_advances": 44942
+        },
+        "median_wall_ms": 55.456,
+        "median_delegate_ms": 2.5394965000000003
+      },
+      "candidate": {
+        "wall_ms": [
+          65.634,
+          64.189999,
+          65.117,
+          65.573,
+          65.411
+        ],
+        "delegate_ms": [
+          9.518019,
+          9.120011,
+          9.534007,
+          9.510995,
+          9.607007
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 257,
+          "glyphs_visited": 262145,
+          "composed_queries": 44937,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 2,
+          "snapshot_characters": 262145,
+          "cluster_suggestions": 4994,
+          "line_creates": 7488,
+          "token_advances": 44942
+        },
+        "median_wall_ms": 65.26400000000001,
+        "median_delegate_ms": 9.522501
+      },
+      "added_wall_ms": 9.808000000000007,
+      "added_delegate_ms": 6.9830045,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "131072-single-paragraph",
+      "operation": "end",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          0.376999,
+          0.34,
+          0.357999,
+          0.365,
+          0.328
+        ],
+        "delegate_ms": [
+          0.002999,
+          0.004001,
+          0.004999,
+          0.005,
+          0.003999
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 171,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 1368,
+          "typesetter_creates": 2,
+          "snapshot_characters": 171,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 32
+        },
+        "median_wall_ms": 0.3489995,
+        "median_delegate_ms": 0.0045000000000000005
+      },
+      "candidate": {
+        "wall_ms": [
+          0.322,
+          0.328001,
+          0.312001,
+          0.292,
+          0.388999
+        ],
+        "delegate_ms": [
+          0.01,
+          0.011,
+          0.010001,
+          0.010001,
+          0.014
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 171,
+          "composed_queries": 27,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 688,
+          "typesetter_creates": 2,
+          "snapshot_characters": 171,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 32
+        },
+        "median_wall_ms": 0.320001,
+        "median_delegate_ms": 0.0105005
+      },
+      "added_wall_ms": -0.028998500000000038,
+      "added_delegate_ms": 0.006000499999999999,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "131072-short-paragraphs",
+      "operation": "initial",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          44.801,
+          43.895,
+          43.550001,
+          43.086,
+          43.333001
+        ],
+        "delegate_ms": [
+          1.330999,
+          1.325006,
+          1.355006,
+          1.301997,
+          1.289999
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 128,
+          "glyphs_visited": 131072,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 128,
+          "explicit_buffer_bytes": 1048576,
+          "typesetter_creates": 512,
+          "snapshot_characters": 130560,
+          "cluster_suggestions": 2560,
+          "line_creates": 3072,
+          "token_advances": 23040
+        },
+        "median_wall_ms": 43.441501,
+        "median_delegate_ms": 1.3135015
+      },
+      "candidate": {
+        "wall_ms": [
+          47.634,
+          47.5,
+          48.379,
+          48.475,
+          48.728
+        ],
+        "delegate_ms": [
+          4.621004,
+          4.597006,
+          4.650997,
+          4.715004,
+          4.611005
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 128,
+          "glyphs_visited": 131072,
+          "composed_queries": 22016,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 512,
+          "snapshot_characters": 130560,
+          "cluster_suggestions": 2560,
+          "line_creates": 3072,
+          "token_advances": 23040
+        },
+        "median_wall_ms": 48.427,
+        "median_delegate_ms": 4.6310009999999995
+      },
+      "added_wall_ms": 4.985498999999997,
+      "added_delegate_ms": 3.3174994999999994,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "131072-short-paragraphs",
+      "operation": "start",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          0.38,
+          0.302001,
+          0.309,
+          0.384999,
+          0.305
+        ],
+        "delegate_ms": [
+          0.008,
+          0.007,
+          0.006,
+          0.009,
+          0.007001
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 513,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 4104,
+          "typesetter_creates": 2,
+          "snapshot_characters": 511,
+          "cluster_suggestions": 10,
+          "line_creates": 12,
+          "token_advances": 90
+        },
+        "median_wall_ms": 0.307,
+        "median_delegate_ms": 0.0070005
+      },
+      "candidate": {
+        "wall_ms": [
+          0.318999,
+          0.328,
+          0.347001,
+          0.352999,
+          0.321
+        ],
+        "delegate_ms": [
+          0.022,
+          0.022999,
+          0.024,
+          0.022,
+          0.022999
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 513,
+          "composed_queries": 85,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 2056,
+          "typesetter_creates": 2,
+          "snapshot_characters": 511,
+          "cluster_suggestions": 10,
+          "line_creates": 12,
+          "token_advances": 90
+        },
+        "median_wall_ms": 0.3375005,
+        "median_delegate_ms": 0.022999
+      },
+      "added_wall_ms": 0.030500499999999986,
+      "added_delegate_ms": 0.0159985,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "131072-short-paragraphs",
+      "operation": "end",
+      "characters": 131072,
+      "base": {
+        "wall_ms": [
+          0.305,
+          0.29,
+          0.317,
+          0.328,
+          0.275
+        ],
+        "delegate_ms": [
+          0.004001,
+          0.004001,
+          0.003999,
+          0.004001,
+          0.003
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 199,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 1592,
+          "typesetter_creates": 2,
+          "snapshot_characters": 197,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 36
+        },
+        "median_wall_ms": 0.3035,
+        "median_delegate_ms": 0.004
+      },
+      "candidate": {
+        "wall_ms": [
+          0.307,
+          0.28,
+          0.302,
+          0.298,
+          0.314
+        ],
+        "delegate_ms": [
+          0.008999,
+          0.01,
+          0.01,
+          0.01,
+          0.010001
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 199,
+          "composed_queries": 31,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 800,
+          "typesetter_creates": 2,
+          "snapshot_characters": 197,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 36
+        },
+        "median_wall_ms": 0.3,
+        "median_delegate_ms": 0.01
+      },
+      "added_wall_ms": -0.003500000000000003,
+      "added_delegate_ms": 0.006,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-single-paragraph",
+      "operation": "initial",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          61.618,
+          59.048,
+          60.586,
+          59.159,
+          59.216
+        ],
+        "delegate_ms": [
+          2.663992,
+          2.563003,
+          2.80001,
+          2.603011,
+          2.583007
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 256,
+          "explicit_buffer_bytes": 2097152,
+          "typesetter_creates": 1,
+          "snapshot_characters": 262144,
+          "cluster_suggestions": 4994,
+          "line_creates": 7490,
+          "token_advances": 44940
+        },
+        "median_wall_ms": 59.1875,
+        "median_delegate_ms": 2.593009
+      },
+      "candidate": {
+        "wall_ms": [
+          69.46,
+          69.386,
+          69.912001,
+          69.811,
+          69.459
+        ],
+        "delegate_ms": [
+          9.522006,
+          9.554998,
+          9.569,
+          9.406976,
+          9.480993
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 44938,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 8192,
+          "typesetter_creates": 1,
+          "snapshot_characters": 262144,
+          "cluster_suggestions": 4994,
+          "line_creates": 7490,
+          "token_advances": 44940
+        },
+        "median_wall_ms": 69.635,
+        "median_delegate_ms": 9.5179955
+      },
+      "added_wall_ms": 10.447500000000005,
+      "added_delegate_ms": 6.924986499999999,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-single-paragraph",
+      "operation": "start",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          118.005,
+          111.721,
+          112.811999,
+          114.011,
+          114.642
+        ],
+        "delegate_ms": [
+          5.049993,
+          5.195015,
+          5.363003,
+          5.111005,
+          5.434014
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 513,
+          "glyphs_visited": 524289,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 512,
+          "explicit_buffer_bytes": 4194304,
+          "typesetter_creates": 2,
+          "snapshot_characters": 524289,
+          "cluster_suggestions": 9988,
+          "line_creates": 14980,
+          "token_advances": 89880
+        },
+        "median_wall_ms": 113.41149949999999,
+        "median_delegate_ms": 5.279009
+      },
+      "candidate": {
+        "wall_ms": [
+          131.875,
+          132.422999,
+          131.623,
+          131.771999,
+          131.552001
+        ],
+        "delegate_ms": [
+          18.756015,
+          19.006001,
+          18.887,
+          18.843008,
+          18.823008
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 513,
+          "glyphs_visited": 524289,
+          "composed_queries": 89875,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 16384,
+          "typesetter_creates": 2,
+          "snapshot_characters": 524289,
+          "cluster_suggestions": 9988,
+          "line_creates": 14980,
+          "token_advances": 89880
+        },
+        "median_wall_ms": 131.6974995,
+        "median_delegate_ms": 18.865004
+      },
+      "added_wall_ms": 18.286,
+      "added_delegate_ms": 13.585994999999999,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-single-paragraph",
+      "operation": "end",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          0.461,
+          0.413001,
+          0.413,
+          0.411,
+          0.376
+        ],
+        "delegate_ms": [
+          0.004,
+          0.004,
+          0.003001,
+          0.004001,
+          0.003
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 129,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 520,
+          "typesetter_creates": 2,
+          "snapshot_characters": 129,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 24
+        },
+        "median_wall_ms": 0.412,
+        "median_delegate_ms": 0.0035005
+      },
+      "candidate": {
+        "wall_ms": [
+          0.465,
+          0.417,
+          0.551,
+          0.402,
+          0.454
+        ],
+        "delegate_ms": [
+          0.012,
+          0.01,
+          0.016,
+          0.008999,
+          0.013
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 129,
+          "composed_queries": 19,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 520,
+          "typesetter_creates": 2,
+          "snapshot_characters": 129,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 24
+        },
+        "median_wall_ms": 0.4355,
+        "median_delegate_ms": 0.0115
+      },
+      "added_wall_ms": 0.02350000000000002,
+      "added_delegate_ms": 0.0079995,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-short-paragraphs",
+      "operation": "initial",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          89.245,
+          89.164999,
+          88.424,
+          90.714,
+          88.779001
+        ],
+        "delegate_ms": [
+          2.646001,
+          2.674004,
+          2.653,
+          2.660997,
+          2.684996
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 256,
+          "explicit_buffer_bytes": 2097152,
+          "typesetter_creates": 1024,
+          "snapshot_characters": 261120,
+          "cluster_suggestions": 5120,
+          "line_creates": 6144,
+          "token_advances": 46080
+        },
+        "median_wall_ms": 88.972,
+        "median_delegate_ms": 2.6675005
+      },
+      "candidate": {
+        "wall_ms": [
+          97.113,
+          99.955999,
+          102.27,
+          99.917999,
+          98.735999
+        ],
+        "delegate_ms": [
+          9.225002,
+          9.465002,
+          9.307999,
+          9.500012,
+          9.495998
+        ],
+        "counts": {
+          "storage_edit_callbacks": 0,
+          "storage_invalidated_units": 0,
+          "storage_changed_units": 0,
+          "glyph_callbacks": 256,
+          "glyphs_visited": 262144,
+          "composed_queries": 44032,
+          "explicit_buffer_allocations": 0,
+          "explicit_buffer_bytes": 0,
+          "typesetter_creates": 1024,
+          "snapshot_characters": 261120,
+          "cluster_suggestions": 5120,
+          "line_creates": 6144,
+          "token_advances": 46080
+        },
+        "median_wall_ms": 99.936999,
+        "median_delegate_ms": 9.4805
+      },
+      "added_wall_ms": 10.964999000000006,
+      "added_delegate_ms": 6.812999499999999,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-short-paragraphs",
+      "operation": "start",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          0.403,
+          0.382,
+          0.409,
+          0.386,
+          0.39
+        ],
+        "delegate_ms": [
+          0.007,
+          0.007001,
+          0.006999,
+          0.007,
+          0.008
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 513,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 4104,
+          "typesetter_creates": 2,
+          "snapshot_characters": 511,
+          "cluster_suggestions": 10,
+          "line_creates": 12,
+          "token_advances": 90
+        },
+        "median_wall_ms": 0.388,
+        "median_delegate_ms": 0.0070005
+      },
+      "candidate": {
+        "wall_ms": [
+          0.397,
+          0.442,
+          0.57,
+          0.434,
+          0.538999
+        ],
+        "delegate_ms": [
+          0.022999,
+          0.024999,
+          0.03,
+          0.024001,
+          0.031
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 513,
+          "composed_queries": 85,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 2056,
+          "typesetter_creates": 2,
+          "snapshot_characters": 511,
+          "cluster_suggestions": 10,
+          "line_creates": 12,
+          "token_advances": 90
+        },
+        "median_wall_ms": 0.4904995,
+        "median_delegate_ms": 0.0274995
+      },
+      "added_wall_ms": 0.10249949999999997,
+      "added_delegate_ms": 0.020499,
+      "invalidation_and_typesetter_counts_equal": true
+    },
+    {
+      "fixture": "262144-short-paragraphs",
+      "operation": "end",
+      "characters": 262144,
+      "base": {
+        "wall_ms": [
+          0.434,
+          0.418,
+          0.417,
+          0.457,
+          0.449999
+        ],
+        "delegate_ms": [
+          0.002999,
+          0.004,
+          0.004001,
+          0.004999,
+          0.005001
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 199,
+          "composed_queries": 0,
+          "explicit_buffer_allocations": 2,
+          "explicit_buffer_bytes": 1592,
+          "typesetter_creates": 2,
+          "snapshot_characters": 197,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 36
+        },
+        "median_wall_ms": 0.4339995,
+        "median_delegate_ms": 0.0045000000000000005
+      },
+      "candidate": {
+        "wall_ms": [
+          0.521,
+          0.51,
+          0.512,
+          0.48,
+          0.45
+        ],
+        "delegate_ms": [
+          0.012,
+          0.015001,
+          0.012,
+          0.011,
+          0.011
+        ],
+        "counts": {
+          "storage_edit_callbacks": 2,
+          "storage_invalidated_units": 1,
+          "storage_changed_units": 1,
+          "glyph_callbacks": 2,
+          "glyphs_visited": 199,
+          "composed_queries": 31,
+          "explicit_buffer_allocations": 1,
+          "explicit_buffer_bytes": 800,
+          "typesetter_creates": 2,
+          "snapshot_characters": 197,
+          "cluster_suggestions": 4,
+          "line_creates": 4,
+          "token_advances": 36
+        },
+        "median_wall_ms": 0.495,
+        "median_delegate_ms": 0.0115
+      },
+      "added_wall_ms": 0.06100050000000001,
+      "added_delegate_ms": 0.006999999999999999,
+      "invalidation_and_typesetter_counts_equal": true
+    }
+  ]
+}

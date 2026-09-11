@@ -1,0 +1,2624 @@
+{
+  "commit": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "base": "75d6f42",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "production_hashes": {
+    "glyph_hook": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+    "typesetter": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9"
+  },
+  "runs": {
+    "arm64": {
+      "stdout": "PASS: 2670 checks; 162 comparisons across six request orders\n",
+      "stderr": "",
+      "rows": [
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        }
+      ],
+      "releasedAnalysisChecks": 162,
+      "checks": 2670,
+      "requestOrders": 6,
+      "layoutComparisons": 162
+    },
+    "x86_64": {
+      "stdout": "PASS: 2670 checks; 162 comparisons across six request orders\n",
+      "stderr": "",
+      "rows": [
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 0,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 0,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 1,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 1,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 2,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 2,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 3,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 3,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 4,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 4,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 4,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 7,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 56,
+          "lines": 9,
+          "stage": "initial"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 41,
+          "lines": 4,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 23,
+          "lines": 7,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "split-attribute-and-paragraph-invalidations"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 4,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 7,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 56,
+          "generated": 18,
+          "lines": 9,
+          "stage": "font-boundary-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 3,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 7,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 40,
+          "lines": 9,
+          "stage": "joined-paragraph-boundary"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 4,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 7,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 70,
+          "lines": 9,
+          "stage": "disjoint-composed-context-batch"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 27,
+          "generated": 27,
+          "lines": 4,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 55,
+          "generated": 0,
+          "lines": 9,
+          "stage": "middle-layout-other-note"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 26,
+          "generated": 28,
+          "lines": 4,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 38,
+          "lines": 10,
+          "stage": "two-note-independent-edits"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 4,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 7,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 0,
+          "lines": 10,
+          "stage": "middle-layout-returns"
+        },
+        {
+          "permutation": 5,
+          "layout": 2,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 3,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 1,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 6,
+          "stage": "independent-width-change"
+        },
+        {
+          "permutation": 5,
+          "layout": 0,
+          "glyphs": 59,
+          "generated": 59,
+          "lines": 10,
+          "stage": "independent-width-change"
+        }
+      ],
+      "releasedAnalysisChecks": 162,
+      "checks": 2670,
+      "requestOrders": 6,
+      "layoutComparisons": 162
+    }
+  }
+}

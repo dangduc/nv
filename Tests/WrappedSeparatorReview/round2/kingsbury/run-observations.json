@@ -1,0 +1,557 @@
+[
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "baseline",
+    "command" : 0,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "1 delete selection single -> trailing",
+    "command" : 1,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "1 Undo single -> trailing",
+    "command" : 2,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "1 Redo single -> trailing",
+    "command" : 3,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "2 insert trailing -> single",
+    "command" : 4,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "2 Undo trailing -> single",
+    "command" : 5,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "2 Redo trailing -> single",
+    "command" : 6,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "3 delete selection single -> trailing",
+    "command" : 7,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "3 Undo single -> trailing",
+    "command" : 8,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "3 Redo single -> trailing",
+    "command" : 9,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "4 insert trailing -> double",
+    "command" : 10,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "4 Undo trailing -> double",
+    "command" : 11,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "4 Redo trailing -> double",
+    "command" : 12,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "5 delete double -> single",
+    "command" : 13,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "5 Undo double -> single",
+    "command" : 14,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "5 Redo double -> single",
+    "command" : 15,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "6 insert single -> double",
+    "command" : 16,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "6 Undo single -> double",
+    "command" : 17,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "6 Redo single -> double",
+    "command" : 18,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "7 delete double -> single",
+    "command" : 19,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "7 Undo double -> single",
+    "command" : 20,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "7 Redo double -> single",
+    "command" : 21,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "8 delete selection single -> trailing",
+    "command" : 22,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "8 Undo single -> trailing",
+    "command" : 23,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "8 Redo single -> trailing",
+    "command" : 24,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "9 insert trailing -> single",
+    "command" : 25,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "9 Undo trailing -> single",
+    "command" : 26,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "9 Redo trailing -> single",
+    "command" : 27,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "10 insert single -> double",
+    "command" : 28,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "10 Undo single -> double",
+    "command" : 29,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "10 Redo single -> double",
+    "command" : 30,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "11 replace double -> trailing",
+    "command" : 31,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 58}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  tailword",
+    "label" : "11 Undo double -> trailing",
+    "command" : 32,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 10}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "11 Redo double -> trailing",
+    "command" : 33,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "12 insert trailing -> single",
+    "command" : 34,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 49}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+    "label" : "12 Undo trailing -> single",
+    "command" : 35,
+    "firstRanges" : [
+      "{0, 48}",
+      "{48, 1}"
+    ],
+    "sourceMatches" : true
+  },
+  {
+    "peerRanges" : [
+      "{0, 57}"
+    ],
+    "firstMatchesFresh" : true,
+    "peerMatchesFresh" : true,
+    "expectedSource" : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tailword",
+    "label" : "12 Redo trailing -> single",
+    "command" : 36,
+    "firstRanges" : [
+      "{0, 49}",
+      "{49, 8}"
+    ],
+    "sourceMatches" : true
+  }
+]
