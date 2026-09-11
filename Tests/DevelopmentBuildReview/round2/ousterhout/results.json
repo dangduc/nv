@@ -1,0 +1,27 @@
+{
+  "commit": "3a3dc4fb7194b5ea7189295a7bbd17393bb32038",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "architecture": "arm64 native",
+  "runs": [
+    {
+      "flavor": "development",
+      "exit_code": 0,
+      "stdout": "OBSERVED: default root before creation: snapshot-boundary=reached error=none\nOBSERVED: unavailable default support: snapshot-boundary=blocked error=The application support folder is unavailable.\nOBSERVED: existing custom parent before development child creation: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: custom parent after manual development child creation: snapshot-boundary=reached error=none\nOBSERVED: removed bookmarked parent: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: bookmark targets a file: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: invalid bookmark bytes: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nPASS: wiki negative/ranged/unicode checks; two scans resolved two prefixes\nPASS: development (122 assertions)\n",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "exit_code": 0,
+      "stdout": "OBSERVED: default root before creation: snapshot-boundary=reached error=none\nOBSERVED: unavailable default support: snapshot-boundary=blocked error=The application support folder is unavailable.\nOBSERVED: existing custom parent before development child creation: snapshot-boundary=reached error=none\nOBSERVED: removed bookmarked parent: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: bookmark targets a file: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: invalid bookmark bytes: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nPASS: wiki negative/ranged/unicode checks; two scans resolved two prefixes\nPASS: release (115 assertions)\n",
+      "stderr": ""
+    },
+    {
+      "flavor": "missing",
+      "exit_code": 0,
+      "stdout": "OBSERVED: default root before creation: snapshot-boundary=reached error=none\nOBSERVED: unavailable default support: snapshot-boundary=blocked error=The application support folder is unavailable.\nOBSERVED: existing custom parent before development child creation: snapshot-boundary=reached error=none\nOBSERVED: removed bookmarked parent: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: bookmark targets a file: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nOBSERVED: invalid bookmark bytes: snapshot-boundary=blocked error=The selected backup folder is unavailable. Connect its volume or choose another folder.\nPASS: wiki negative/ranged/unicode checks; two scans resolved two prefixes\nPASS: missing (115 assertions)\n",
+      "stderr": ""
+    }
+  ],
+  "result": "PASS: all observations matched; development custom-root first-backup regression reproduced"
+}

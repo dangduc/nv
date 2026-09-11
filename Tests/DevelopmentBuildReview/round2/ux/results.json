@@ -1,0 +1,251 @@
+{
+  "revision": "3a3dc4fb7194b5ea7189295a7bbd17393bb32038",
+  "architecture": "x86_64",
+  "runtime": [
+    {
+      "copiedTitleCases": 5,
+      "emptyWikiCases": 2,
+      "routes": [
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=caf%C3%A9%20%E9%9B%AA&txt=%5B%5Bcaf%C3%A9%20%E9%9B%AA%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt-dev://find/e%CC%81%20notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/e%CC%81%20notes"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt-dev://find/e%CC%81%20notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=e%CC%81%20notes&txt=%5B%5Be%CC%81%20notes%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas&txt=%5B%5B%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D&txt=%5B%5B%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D%5D%5D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt-dev://find//?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find//?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt-dev://find/e%CC%81%20notes/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/e%CC%81%20notes/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        }
+      ],
+      "checks": 72,
+      "flavor": "development",
+      "UnicodeTitles": [
+        {
+          "title": "caf\u00e9 \u96ea",
+          "wikiURL": "nvalt-dev://find/caf%C3%A9%20%E9%9B%AA",
+          "commandURL": "nvalt-dev://make/?title=caf%C3%A9%20%E9%9B%AA&txt=%5B%5Bcaf%C3%A9%20%E9%9B%AA%5D%5D"
+        },
+        {
+          "title": "e\u0301 notes",
+          "wikiURL": "nvalt-dev://find/e%CC%81%20notes",
+          "commandURL": "nvalt-dev://make/?title=e%CC%81%20notes&txt=%5B%5Be%CC%81%20notes%5D%5D"
+        },
+        {
+          "title": "\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb ideas",
+          "wikiURL": "nvalt-dev://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "commandURL": "nvalt-dev://make/?title=%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas&txt=%5B%5B%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas%5D%5D"
+        },
+        {
+          "title": "\u05e9\u05dc\u05d5\u05dd \u05e2\u05d5\u05dc\u05dd",
+          "wikiURL": "nvalt-dev://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "commandURL": "nvalt-dev://make/?title=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D&txt=%5B%5B%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D%5D%5D"
+        }
+      ]
+    },
+    {
+      "copiedTitleCases": 5,
+      "emptyWikiCases": 2,
+      "routes": [
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt://find/caf%C3%A9%20%E9%9B%AA",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/caf%C3%A9%20%E9%9B%AA"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt://find/caf%C3%A9%20%E9%9B%AA",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=caf%C3%A9%20%E9%9B%AA&txt=%5B%5Bcaf%C3%A9%20%E9%9B%AA%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt://find/e%CC%81%20notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/e%CC%81%20notes"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt://find/e%CC%81%20notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=e%CC%81%20notes&txt=%5B%5Be%CC%81%20notes%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas&txt=%5B%5B%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas%5D%5D"
+        },
+        {
+          "case": "Unicode wiki ordinary click",
+          "input": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D"
+        },
+        {
+          "case": "Unicode wiki Command-click",
+          "input": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D&txt=%5B%5B%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D%5D%5D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt://find//?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find//?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt://find/caf%C3%A9%20%E9%9B%AA/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/caf%C3%A9%20%E9%9B%AA/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt://find/e%CC%81%20notes/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/e%CC%81%20notes/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        },
+        {
+          "case": "empty or Unicode copied note ordinary click",
+          "input": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D/?NV=AAAAAAAAAAAAAAAAAAAAAA%3D%3D"
+        }
+      ],
+      "checks": 72,
+      "flavor": "release",
+      "UnicodeTitles": [
+        {
+          "title": "caf\u00e9 \u96ea",
+          "wikiURL": "nvalt://find/caf%C3%A9%20%E9%9B%AA",
+          "commandURL": "nvalt://make/?title=caf%C3%A9%20%E9%9B%AA&txt=%5B%5Bcaf%C3%A9%20%E9%9B%AA%5D%5D"
+        },
+        {
+          "title": "e\u0301 notes",
+          "wikiURL": "nvalt://find/e%CC%81%20notes",
+          "commandURL": "nvalt://make/?title=e%CC%81%20notes&txt=%5B%5Be%CC%81%20notes%5D%5D"
+        },
+        {
+          "title": "\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb ideas",
+          "wikiURL": "nvalt://find/%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas",
+          "commandURL": "nvalt://make/?title=%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas&txt=%5B%5B%F0%9F%91%A9%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%20ideas%5D%5D"
+        },
+        {
+          "title": "\u05e9\u05dc\u05d5\u05dd \u05e2\u05d5\u05dc\u05dd",
+          "wikiURL": "nvalt://find/%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D",
+          "commandURL": "nvalt://make/?title=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D&txt=%5B%5B%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%9C%D7%9D%5D%5D"
+        }
+      ]
+    }
+  ],
+  "documentation": "App names, preference domains, note-folder names, schemes, and quoted launch commands match current built metadata and documented identities.",
+  "backup_limit": "Both documents describe the intended Development subfolder. This review does not assert first-use creation; Ousterhout owns that defect.",
+  "harness_sha256": "e39c92df9cfd7952714ad08951ff9ecc639c36a12aa9c1c8950565c22333c2bc"
+}

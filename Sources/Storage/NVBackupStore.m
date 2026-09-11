@@ -105,16 +105,39 @@ static int NVOpenDirectory(NSURL *url, BOOL create, NSError **error) {
     return descriptor;
 }
 
+static int NVOpenBackupChild(int parent, NSString *name, BOOL create, NSError **error) {
+    const char *component = [name fileSystemRepresentation];
+    int child = openat(parent, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+    if (child < 0 && errno == ENOENT && create) {
+        if (mkdirat(parent, component, 0700) != 0 && errno != EEXIST) {
+            NVSystemError(error, @"Cannot create the backup folder"); return -1;
+        }
+        if (fsync(parent) != 0) {
+            NVSystemError(error, @"Cannot synchronize the backup folder"); return -1;
+        }
+        child = openat(parent, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+    }
+    if (child < 0) NVSystemError(error, @"Cannot open the backup folder");
+    return child;
+}
+
 static int NVOpenOperationDirectory(NSURL *directory, NSDictionary *metadata, BOOL create, NSError **error) {
     NSURL *existingRoot = [metadata objectForKey:@"existingRoot"];
+    NSString *subdirectory = [metadata objectForKey:@"directoryNamespace"];
+    if (subdirectory && (!existingRoot || ![subdirectory isEqual:@"nvALT Development"])) {
+        NVError(error, EINVAL, @"The backup directory namespace is invalid."); return -1;
+    }
     if (!existingRoot) return NVOpenDirectory(directory, create, error);
     NSString *identifier = [metadata objectForKey:@"libraryIdentifier"];
     NSString *expectedIdentity = [metadata objectForKey:@"existingRootIdentity"];
     if (![expectedIdentity isKindOfClass:[NSString class]] || ![expectedIdentity length]) {
         NVError(error, EINVAL, @"The selected backup folder has no captured filesystem identity."); return -1;
     }
-    if (![existingRoot isKindOfClass:[NSURL class]] || ![existingRoot isFileURL] || ![directory isFileURL] ||
-        ![[[directory URLByDeletingLastPathComponent] path] isEqual:[existingRoot path]] ||
+    if (![existingRoot isKindOfClass:[NSURL class]] || ![existingRoot isFileURL] || ![directory isFileURL]) {
+        NVError(error, EINVAL, @"The selected backup folder must be a file URL."); return -1;
+    }
+    NSURL *libraryParent = subdirectory ? [existingRoot URLByAppendingPathComponent:subdirectory isDirectory:YES] : existingRoot;
+    if (![[[directory URLByDeletingLastPathComponent] path] isEqual:[libraryParent path]] ||
         ![[directory lastPathComponent] isEqual:identifier]) {
         NVError(error, EINVAL, @"The backup destination must be the library folder inside the selected backup folder."); return -1;
     }
@@ -129,18 +152,13 @@ static int NVOpenOperationDirectory(NSURL *directory, NSDictionary *metadata, BO
         NVError(error, ESTALE, @"The selected backup folder changed before the backup could start. Try again after its volume is available.");
         close(parent); return -1;
     }
-    const char *name = [identifier fileSystemRepresentation];
-    int child = openat(parent, name, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
-    if (child < 0 && errno == ENOENT && create) {
-        if (mkdirat(parent, name, 0700) != 0 && errno != EEXIST) {
-            NVSystemError(error, @"Cannot create the library backup folder"); close(parent); return -1;
-        }
-        if (fsync(parent) != 0) {
-            NVSystemError(error, @"Cannot synchronize the library backup folder"); close(parent); return -1;
-        }
-        child = openat(parent, name, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+    if (subdirectory) {
+        int child = NVOpenBackupChild(parent, subdirectory, create, error);
+        close(parent);
+        if (child < 0) return -1;
+        parent = child;
     }
-    if (child < 0) NVSystemError(error, @"Cannot open the library backup folder");
+    int child = NVOpenBackupChild(parent, identifier, create, error);
     close(parent);
     return child;
 }

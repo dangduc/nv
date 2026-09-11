@@ -1,0 +1,87 @@
+{
+  "commit": "3a3dc4fb7194b5ea7189295a7bbd17393bb32038",
+  "original_commit": "2dbfd46",
+  "hypothesis_1": "PASS: separate custom destinations and flavor settings survive process relaunch; same-domain copy control renews UUID",
+  "hypothesis_2": "PASS: real backup-store pruning keeps the sibling flavor's snapshots and archive bytes unchanged",
+  "destinations": {
+    "release": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE",
+    "development": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/nvALT Development/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE"
+  },
+  "history": [
+    {
+      "flavor": "development",
+      "command": "seed",
+      "stdout": "PASS:development:seed",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "seed",
+      "stdout": "PASS:release:seed",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "read",
+      "stdout": "PASS:release:read",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "read",
+      "stdout": "PASS:development:read",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "destination",
+      "stdout": "DESTINATION:/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:release:destination",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "destination-relaunch",
+      "stdout": "DESTINATION:/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:release:destination-relaunch",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "destination",
+      "stdout": "DESTINATION:/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/nvALT Development/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:development:destination",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "destination-relaunch",
+      "stdout": "DESTINATION:/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/Tests/DevelopmentBuildReview/round2/kingsbury/nvalt-kingsbury-review-59q7fykw/shared-custom-backups/nvALT Development/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:development:destination-relaunch",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "copy-control",
+      "stdout": "PASS:release:copy-control",
+      "stderr": ""
+    }
+  ],
+  "retention": "PASS: retention separation (61 checks): release 5 -> 3, development 5 -> 3, sibling snapshots and bytes unchanged",
+  "source_hashes_before": {
+    "Sources/Storage/NVBackupController.m": "2db1149b8f3d7de986c83a094ade396900383510c2d9751ba5ea331cf12ca9e9",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7",
+    "Sources/Storage/NVBackupStore.m": "bf24d950957bb2b98efe40988459106edc5462bb6086c57428e7166d6ccc8499",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93"
+  },
+  "source_hashes_after": {
+    "Sources/Storage/NVBackupController.m": "2db1149b8f3d7de986c83a094ade396900383510c2d9751ba5ea331cf12ca9e9",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7",
+    "Sources/Storage/NVBackupStore.m": "bf24d950957bb2b98efe40988459106edc5462bb6086c57428e7166d6ccc8499",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93"
+  },
+  "frozen_source_hashes": {
+    "Sources/Storage/NVBackupController.m": "2db1149b8f3d7de986c83a094ade396900383510c2d9751ba5ea331cf12ca9e9",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7",
+    "Sources/Storage/NVBackupStore.m": "bf24d950957bb2b98efe40988459106edc5462bb6086c57428e7166d6ccc8499",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93"
+  },
+  "production_unchanged": true,
+  "limits": "Headless Foundation processes with selected verbatim controller methods and the full frozen backup store; prepared custom parents, opaque disposable archive bytes, no actual app startup, archive decoding, keychain, or first-backup creation. Claims/preferences use unique test domains; all fixture dirs and domains are deleted."
+}
