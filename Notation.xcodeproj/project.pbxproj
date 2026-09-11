@@ -238,6 +238,8 @@
 		AA52C58EDC5C895FCB4B7D97 /* NVTreeSitterOrg.c in Sources */ = {isa = PBXBuildFile; fileRef = A91E7C8353DD64719848DDD5 /* NVTreeSitterOrg.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		43B26080361940BD851AFC25 /* NVTreeSitterOrgScanner.c in Sources */ = {isa = PBXBuildFile; fileRef = E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */; settings = {COMPILER_FLAGS = "-std=c11"; }; };
 		BB1200000000000000000001 /* NVSourceAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1200000000000000000003 /* NVSourceAnalysis.m */; };
+		7C118888A8CE44C788C8A6CB /* NVSourceTypesetter.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1E22657AAF4BACB5C0A947 /* NVSourceTypesetter.m */; };
+		AEB63C3C3BEA4E989B83EB73 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6452E55F54EC4F008CBBA47B /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -886,6 +888,9 @@
 		E1E33FBF26E2878F9533BA33 /* NVTreeSitterOrgScanner.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NVTreeSitterOrgScanner.c; sourceTree = "<group>"; };
 		BB1200000000000000000002 /* NVSourceAnalysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVSourceAnalysis.h; sourceTree = "<group>"; };
 		BB1200000000000000000003 /* NVSourceAnalysis.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVSourceAnalysis.m; sourceTree = "<group>"; };
+		4CC6DC2D32954546A46B77C4 /* NVSourceTypesetter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVSourceTypesetter.h; sourceTree = "<group>"; };
+		AE1E22657AAF4BACB5C0A947 /* NVSourceTypesetter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVSourceTypesetter.m; sourceTree = "<group>"; };
+		6452E55F54EC4F008CBBA47B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -894,6 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				AEB63C3C3BEA4E989B83EB73 /* CoreText.framework in Frameworks */,
 				21F459AD0A92E01D00FB6FFE /* Carbon.framework in Frameworks */,
 				214493F60ADB892C00E2A2B6 /* CoreServices.framework in Frameworks */,
 				214495030ADC7C8D00E2A2B6 /* SecurityInterface.framework in Frameworks */,
@@ -916,6 +922,7 @@
 				21D5834D0B78F0CC00245E29 /* ApplicationServices.framework */,
 				21F4599B0A92E01C00FB6FFE /* Carbon.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				6452E55F54EC4F008CBBA47B /* CoreText.framework */,
 				214493E70ADB892C00E2A2B6 /* CoreServices.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				2191926609C52AA600586B15 /* libz.dylib */,
@@ -1565,6 +1572,8 @@
 				07C3BBCE52830B858E44329B /* TreeSitter */,
 				0ED6D7B34DFE3374203AED91 /* NVSourceHighlighter.h */,
 				188558DC589194DE7263CBC1 /* NVSourceHighlighter.m */,
+				4CC6DC2D32954546A46B77C4 /* NVSourceTypesetter.h */,
+				AE1E22657AAF4BACB5C0A947 /* NVSourceTypesetter.m */,
 				2155DF42097C992800163A10 /* AttributedPlainText.h */,
 				2155DF43097C992800163A10 /* AttributedPlainText.m */,
 				219588D00961D7F200972B8C /* LinkingEditor.h */,
@@ -2076,6 +2085,7 @@
 				0A7977E579800AE879D56249 /* NVTreeSitterMarkdownScanner.c in Sources */,
 				AD05B53839DA7B68BA6128DA /* NVTreeSitterRuntime.c in Sources */,
 				B57535EBAF97A45A970143D1 /* NVSourceHighlighter.m in Sources */,
+				7C118888A8CE44C788C8A6CB /* NVSourceTypesetter.m in Sources */,
 				7A63DE0EC837ACDA42F2C092 /* NVNoteContentSnapshot.m in Sources */,
 				7F7EA08F51D514ABC6540D02 /* NVMarkupRenderer.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,

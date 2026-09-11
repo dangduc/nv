@@ -2,6 +2,7 @@
 #import "NVNoteEditingSession.h"
 #import "NVSourceAnalysis.h"
 #import "NVSourceHighlighter.h"
+#import "NVSourceTypesetter.h"
 #import "NVSearchQuery.h"
 #import "NoteObject.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
@@ -60,6 +61,7 @@ CGFloat _perceptualDarkness(NSColor*a);
 	
 	didRenderFully = NO;
 	[[self layoutManager] setDelegate:self];
+    [[self layoutManager] setTypesetter:[[[NVSourceTypesetter alloc] init] autorelease]];
 
 
     [self setRichText:NO];
