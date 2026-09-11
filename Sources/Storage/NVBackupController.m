@@ -198,8 +198,10 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
         }
         // A copied library can retain its UUID in both apps. Keep their backup
         // histories separate even when the same custom parent folder is chosen.
+        // Resolve only the selected parent; the worker validates the namespace.
+        root = CanonicalURL(root);
         if (NVIsDevelopmentBuild()) root = [root URLByAppendingPathComponent:@"nvALT Development" isDirectory:YES];
-        return CanonicalURL(root);
+        return root;
     }
     NSString *support = [[NSFileManager defaultManager] applicationSupportDirectory];
     if (!support) { if (error) *error = BackupError(@"The application support folder is unavailable."); return nil; }
