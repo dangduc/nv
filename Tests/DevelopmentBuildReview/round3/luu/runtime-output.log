@@ -1,0 +1,69 @@
+{
+  "warm_open_syscalls" : {
+    "release" : {
+      "openat" : 13,
+      "mkdirat" : 0,
+      "open" : 1,
+      "fsync" : 0,
+      "fstat" : 1,
+      "close" : 14,
+      "main_thread_calls" : 0
+    },
+    "development" : {
+      "openat" : 14,
+      "mkdirat" : 0,
+      "open" : 1,
+      "fsync" : 0,
+      "fstat" : 1,
+      "close" : 15,
+      "main_thread_calls" : 0
+    }
+  },
+  "first_release_open_syscalls" : {
+    "openat" : 14,
+    "mkdirat" : 1,
+    "open" : 1,
+    "fsync" : 1,
+    "fstat" : 1,
+    "close" : 14,
+    "main_thread_calls" : 0
+  },
+  "main_timer_beats_while_worker_held" : 20,
+  "controller_entry_ms" : 1.0760007426142693,
+  "first_development_open_syscalls" : {
+    "openat" : 16,
+    "mkdirat" : 2,
+    "open" : 1,
+    "fsync" : 2,
+    "fstat" : 1,
+    "close" : 15,
+    "main_thread_calls" : 0
+  },
+  "warm_open_microseconds" : {
+    "release" : [
+      101.65000334382057,
+      94.919996336102486,
+      95.04999965429306,
+      88.579999282956123,
+      90.02000093460083,
+      87.630003690719604,
+      87.359994649887085,
+      89.010000228881836,
+      88.449995964765549
+    ],
+    "development" : [
+      102.31000371277332,
+      102.31999680399895,
+      102.76000015437603,
+      101.6599964350462,
+      100.87999515235424,
+      102.76000015437603,
+      100.73999874293804,
+      102.45000012218952,
+      103.56999933719635
+    ]
+  },
+  "result" : "PASS",
+  "completion_count" : 1,
+  "library_calls_on_main" : 2
+}

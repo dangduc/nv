@@ -1,0 +1,10 @@
+PASS: release seed checks=31 own=5 peer=0
+
+PASS: development seed checks=43 own=5 peer=5
+
+PASS: development prune checks=36 own=3 peer=5
+
+PASS: release delete-republish checks=36 own=1 peer=3
+
+PASS: development delete checks=23 own=0 peer=1
+

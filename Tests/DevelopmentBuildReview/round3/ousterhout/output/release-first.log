@@ -1,0 +1,100 @@
+2026-09-11 09:02:00.136 nvALT[81139:346617548] PASS: applicationDidFinishLaunching:
+2026-09-11 09:02:00.136 nvALT[81139:346617548] PASS: runDelayedUIActionsAfterLaunch
+2026-09-11 09:02:00.136 nvALT[81139:346617548] PASS: persistentDomainForName:
+2026-09-11 09:02:00.136 nvALT[81139:346617548] PASS: initializeDatabase:
+2026-09-11 09:02:00.598 nvALT[81139:346617548] load time: 0.0975419, 
+2026-09-11 09:02:00.598 nvALT[81139:346617548] Couldn't read old defaults--reverting to default location in prefs directory
+2026-09-11 09:02:00.599 nvALT[81139:346617548] trouble getting attributes at path:>Error Domain=NSCocoaErrorDomain Code=260 "The file “NotationalDatabase.blor” couldn’t be opened because there is no such file." UserInfo={NSFilePath=/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Preferences/NotationalDatabase.blor, NSURL=file:///Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Preferences/NotationalDatabase.blor, NSUnderlyingError=0x60000077c7e0 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}<
+dict:(null)
+2026-09-11 09:02:00.599 nvALT[81139:346617548] Couldn't get a valid pass-key to decrypt the blor!
+2026-09-11 09:02:00.752 nvALT[81139:346617548] verified 0 notes in 0.000274062 s
+2026-09-11 09:02:00.800 nvALT[81139:346617548] PASS: compiled bundle retains the expected build flavor
+2026-09-11 09:02:00.800 nvALT[81139:346617548] PASS: only the development app displays the DEV Dock badge
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: original startup selects the correct default notes folder
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: application support derives the build's executable name
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: journal cache derives the copied bundle's unique identifier
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: backup destination belongs to this build's support directory
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: development skips legacy BLOR preference reads; release retains first-launch import
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: initial backup worker finishes
+2026-09-11 09:02:00.801 nvALT[81139:346617548] PASS: fresh build starts with an empty disposable library
+2026-09-11 09:02:00.809 nvALT[81139:346617548] verified 1 notes in 0.000365019 s
+2026-09-11 09:02:00.810 nvALT[81139:346617548] PASS: new note reaches the real library checkpoint
+2026-09-11 09:02:00.811 nvALT[81139:346617548] PASS: independent backup settings save
+2026-09-11 09:02:01.000 nvALT[81139:346617548] PASS: manual backup finishes
+2026-09-11 09:02:01.000 nvALT[81139:346617548] PASS: default worker finishes
+2026-09-11 09:02:01.001 nvALT[81139:346617548] PASS: default reports no error: Last backup: 9/11/26, 9:02 AM
+Automatic backups are off.
+Backup storage: 6 KB
+Includes committed notes. Unfinished text composition and metadata edits are excluded.
+2026-09-11 09:02:01.001 nvALT[81139:346617548] PASS: default saves a snapshot path
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: default snapshot belongs to the selected destination
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: default package passes the real store reader
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: default actual snapshot payload decodes
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: the selected custom parent exists
+2026-09-11 09:02:01.002 nvALT[81139:346617548] PASS: the first custom backup starts without a UUID folder
+2026-09-11 09:02:01.004 nvALT[81139:346617548] PASS: Foundation creates a real selected-parent bookmark
+2026-09-11 09:02:01.006 nvALT[81139:346617548] PASS: manual custom destination has the expected flavor namespace
+2026-09-11 09:02:01.006 nvALT[81139:346617548] PASS: manual settings retain the real custom bookmark
+2026-09-11 09:02:01.006 nvALT[81139:346617548] PASS: manual bookmark retains the selected parent
+2026-09-11 09:02:01.006 nvALT[81139:346617548] PASS: the selected backup mode saves
+2026-09-11 09:02:01.057 nvALT[81139:346617548] PASS: manual worker finishes
+2026-09-11 09:02:01.057 nvALT[81139:346617548] PASS: manual reports no error: Last backup: 9/11/26, 9:02 AM
+Automatic backups are off.
+Backup storage: 3 KB
+Includes committed notes. Unfinished text composition and metadata edits are excluded.
+2026-09-11 09:02:01.057 nvALT[81139:346617548] PASS: manual saves a snapshot path
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: manual snapshot belongs to the selected destination
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: manual package passes the real store reader
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: manual actual snapshot payload decodes
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: the actual worker creates the custom UUID folder
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: disable further timer work before relaunch
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: the custom bookmark and snapshot settings persist
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: the selected custom parent exists
+2026-09-11 09:02:01.058 nvALT[81139:346617548] PASS: the first custom backup starts without a UUID folder
+2026-09-11 09:02:01.059 nvALT[81139:346617548] PASS: Foundation creates a real selected-parent bookmark
+2026-09-11 09:02:01.059 nvALT[81139:346617548] PASS: automatic custom destination has the expected flavor namespace
+2026-09-11 09:02:01.059 nvALT[81139:346617548] PASS: automatic settings retain the real custom bookmark
+2026-09-11 09:02:01.059 nvALT[81139:346617548] PASS: automatic bookmark retains the selected parent
+2026-09-11 09:02:01.060 nvALT[81139:346617548] PASS: the selected backup mode saves
+2026-09-11 09:02:01.110 nvALT[81139:346617548] PASS: automatic worker finishes
+2026-09-11 09:02:01.110 nvALT[81139:346617548] PASS: automatic reports no error: Last backup: 9/11/26, 9:02 AM
+Next check: 9/11/26, 9:06 AM
+Backup storage: 3 KB
+Includes committed notes. Unfinished text composition and metadata edits are excluded.
+2026-09-11 09:02:01.110 nvALT[81139:346617548] PASS: automatic saves a snapshot path
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: automatic snapshot belongs to the selected destination
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: automatic package passes the real store reader
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: automatic actual snapshot payload decodes
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: the actual worker creates the custom UUID folder
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: disable further timer work before relaunch
+2026-09-11 09:02:01.111 nvALT[81139:346617548] PASS: the custom bookmark and snapshot settings persist
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: native window bitmap saves
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: font preference retains this build's value
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: editor color preference retains this build's value
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.180 nvALT[81139:346617548] PASS: backup interval retains this build's value
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: this build's backup package validates
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: backup payload decodes successfully
+2026-09-11 09:02:01.181 nvALT[81139:346617548] Error finding keychain password for account 2BF67780-CBEA-4CD7-8E43-81B2F21BF750: -25300
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: keychain lookup selects this build's service
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: external editing uses this build's temporary directory
+2026-09-11 09:02:01.181 nvALT[81139:346617548] PASS: disposable preferences synchronize
+2026-09-11 09:02:01.182 nvALT[81139:346617548] PASS: concurrent-run report is ready
+2026-09-11 09:02:01.284 nvALT[81139:346617548] PASS: runner observed both app processes alive together
+2026-09-11 09:02:01.284 nvALT[81139:346617548] PASS: font preference retains this build's value
+2026-09-11 09:02:01.284 nvALT[81139:346617548] PASS: editor color preference retains this build's value
+2026-09-11 09:02:01.284 nvALT[81139:346617548] PASS: library contains exactly its own note
+2026-09-11 09:02:01.284 nvALT[81139:346617548] PASS: note title and body retain this build's content
+2026-09-11 09:02:01.285 nvALT[81139:346617548] verified 1 notes in 0.000301003 s
+2026-09-11 09:02:01.286 nvALT[81139:346617548] PASS: library flushes before normal application termination
+2026-09-11 09:02:01.286 nvALT[81139:346617548] PASS: completed probe report saves
+2026-09-11 09:02:01.286 nvALT[81139:346617548] ISOLATION release first PASSED (81 checks)

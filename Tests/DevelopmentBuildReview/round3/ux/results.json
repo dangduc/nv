@@ -1,0 +1,290 @@
+{
+  "revision": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "architecture": "x86_64 under Rosetta",
+  "harness_sha256": "75022616f26fb21e2029afad828e1124150edb02e9f160a0dd19988d8d119e64",
+  "processes": 10,
+  "checks": 74,
+  "history": [
+    {
+      "flavor": "release",
+      "phase": "seed",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "release query 0 original",
+          "note": "release-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "release query 1 original",
+          "note": "release-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 4
+    },
+    {
+      "flavor": "development",
+      "phase": "seed",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "development query 0 original",
+          "note": "development-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "development query 1 original",
+          "note": "development-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": false,
+      "URLsAreClickable": true,
+      "callbacks": 4
+    },
+    {
+      "flavor": "release",
+      "phase": "read",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "release query 0 original",
+          "note": "release-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "release query 1 original",
+          "note": "release-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 0
+    },
+    {
+      "flavor": "development",
+      "phase": "read",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "development query 0 original",
+          "note": "development-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "development query 1 original",
+          "note": "development-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": false,
+      "URLsAreClickable": true,
+      "callbacks": 0
+    },
+    {
+      "flavor": "development",
+      "phase": "update",
+      "checks": 5,
+      "windows": [
+        {
+          "search": "development query 0 changed",
+          "note": "development-fixture-0",
+          "selection": "{8, 3}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 4
+    },
+    {
+      "flavor": "release",
+      "phase": "read",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "release query 0 original",
+          "note": "release-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "release query 1 original",
+          "note": "release-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 0
+    },
+    {
+      "flavor": "development",
+      "phase": "read-updated",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "development query 0 changed",
+          "note": "development-fixture-0",
+          "selection": "{8, 3}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "fuzzy",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 0
+    },
+    {
+      "flavor": "development",
+      "phase": "reset",
+      "checks": 7,
+      "windows": [],
+      "showWordCount": true,
+      "URLsAreClickable": true,
+      "callbacks": 0
+    },
+    {
+      "flavor": "development",
+      "phase": "fresh",
+      "checks": 6,
+      "windows": [],
+      "showWordCount": true,
+      "URLsAreClickable": true,
+      "callbacks": 0
+    },
+    {
+      "flavor": "release",
+      "phase": "read",
+      "checks": 8,
+      "windows": [
+        {
+          "search": "release query 0 original",
+          "note": "release-fixture-0",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        },
+        {
+          "search": "release query 1 original",
+          "note": "release-fixture-1",
+          "selection": "{1, 2}",
+          "presentationVersion": 1,
+          "viewingNote": false,
+          "searchMode": "exact",
+          "bodyState": {
+            "sourceScroll": "{0, 40}"
+          },
+          "layoutVersion": 2,
+          "viewerIdentifier": "markdown"
+        }
+      ],
+      "showWordCount": true,
+      "URLsAreClickable": false,
+      "callbacks": 0
+    }
+  ],
+  "limits": "Verbatim preference setters/getters and coordinator save/restore methods; browser state production/consumption and UI callbacks use recording collaborators."
+}

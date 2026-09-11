@@ -1,0 +1,87 @@
+{
+  "commit": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "architecture": "x86_64 applications under Rosetta",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "executables_sha256": {
+    "development": "417f4e9d843b3af6d492359616cc54d30a92ac3100104e856ea405ebe5e862b5",
+    "release": "f0e161eb1c1ecd8d7836e3e3d02b51b41cc2b9685cd7f30fc4d0469a9482a4b6"
+  },
+  "first": {
+    "development": {
+      "backup": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/nvALT Development/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A",
+      "bundleIdentifier": "org.nvalt.ousterhout-round3.development.213ccb7faab949bdafceaece3e74df2f",
+      "cache": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Caches/org.nvalt.ousterhout-round3.development.213ccb7faab949bdafceaece3e74df2f",
+      "checks": 85,
+      "customPublication": {
+        "automaticSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/nvALT Development/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A/BAF4C759-8128-4554-964F-90430329045B.nvbackup",
+        "defaultSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT Development/Backups/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A/F5D042E1-F166-4C3E-81B0-B5816C13D127.nvbackup",
+        "manualSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-manual/nvALT Development/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A/5C0EF3CB-01DA-4F4B-B5AB-13D3293EAD48.nvbackup"
+      },
+      "editing": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Temp/NVPlainTextEditingSpace-Development",
+      "flavor": "development",
+      "keychainService": "Notational Velocity Development",
+      "legacyReads": 0,
+      "notes": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/Notational Data Development",
+      "phase": "first",
+      "pid": 81138,
+      "support": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT Development"
+    },
+    "release": {
+      "backup": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/836239F7-2A23-4CC3-9A94-F7D419843353",
+      "bundleIdentifier": "org.nvalt.ousterhout-round3.release.a74d5716076149e48a82ce19e4fcedc3",
+      "cache": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Caches/org.nvalt.ousterhout-round3.release.a74d5716076149e48a82ce19e4fcedc3",
+      "checks": 81,
+      "customPublication": {
+        "automaticSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/836239F7-2A23-4CC3-9A94-F7D419843353/D2F7D5A2-B5CD-4847-85AC-58660D2528D3.nvbackup",
+        "defaultSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT/Backups/836239F7-2A23-4CC3-9A94-F7D419843353/D25875E6-F807-4924-803F-EE682C340B4F.nvbackup",
+        "manualSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-manual/836239F7-2A23-4CC3-9A94-F7D419843353/BB7540D1-96E7-4D60-9C23-936B873B2D52.nvbackup"
+      },
+      "editing": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Temp/NVPlainTextEditingSpace",
+      "flavor": "release",
+      "keychainService": "Notational Velocity",
+      "legacyReads": 1,
+      "notes": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/Notational Data",
+      "phase": "first",
+      "pid": 81139,
+      "support": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT"
+    }
+  },
+  "relaunch": {
+    "development": {
+      "backup": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/nvALT Development/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A",
+      "bundleIdentifier": "org.nvalt.ousterhout-round3.development.213ccb7faab949bdafceaece3e74df2f",
+      "cache": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Caches/org.nvalt.ousterhout-round3.development.213ccb7faab949bdafceaece3e74df2f",
+      "checks": 43,
+      "customPublication": {
+        "relaunchSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/nvALT Development/AFFF98FA-DD38-4D0E-B805-3F2F0EE2DC7A/BAF4C759-8128-4554-964F-90430329045B.nvbackup"
+      },
+      "editing": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Temp/NVPlainTextEditingSpace-Development",
+      "flavor": "development",
+      "keychainService": "Notational Velocity Development",
+      "legacyReads": 0,
+      "notes": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/Notational Data Development",
+      "phase": "relaunch",
+      "pid": 81170,
+      "support": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT Development"
+    },
+    "release": {
+      "backup": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/836239F7-2A23-4CC3-9A94-F7D419843353",
+      "bundleIdentifier": "org.nvalt.ousterhout-round3.release.a74d5716076149e48a82ce19e4fcedc3",
+      "cache": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Caches/org.nvalt.ousterhout-round3.release.a74d5716076149e48a82ce19e4fcedc3",
+      "checks": 43,
+      "customPublication": {
+        "relaunchSnapshot": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Custom-automatic/836239F7-2A23-4CC3-9A94-F7D419843353/D2F7D5A2-B5CD-4847-85AC-58660D2528D3.nvbackup"
+      },
+      "editing": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Temp/NVPlainTextEditingSpace",
+      "flavor": "release",
+      "keychainService": "Notational Velocity",
+      "legacyReads": 0,
+      "notes": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/Notational Data",
+      "phase": "relaunch",
+      "pid": 81171,
+      "support": "/Users/duc/dev/nv/build/DevelopmentIsolationWorktree/build/nvalt-ousterhout-round3-3kvslmxv/Home/Library/Application Support/nvALT"
+    }
+  },
+  "result": "PASS: actual default, first manual custom, first automatic custom publication and relaunch payloads"
+}

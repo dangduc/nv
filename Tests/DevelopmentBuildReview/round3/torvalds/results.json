@@ -1,0 +1,42 @@
+{
+  "reviewedCommit": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "productionHashes": {
+    "Sources/Storage/NVBackupStore.m": "a6dd4c0c955e2b732048cb0e2eb5763cbcccad6781e1d3d3dbbbae6d16a257aa",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93",
+    "Sources/Storage/NVBackupController.m": "1b2423502f45ea855bd61def106018cbb5825e09a9e9a81ee3b0606908e41b72"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "architecture": "arm64",
+      "checks": 1603,
+      "descriptorSamples": 634,
+      "rejectedDirectoryOperations": 226,
+      "passed": true,
+      "injectedSyncFailures": 2,
+      "publicPublications": 6,
+      "successfulDirectoryOperations": 52,
+      "initialDescriptors": 3,
+      "publicMaintenanceRuns": 6,
+      "finalDescriptors": 3
+    },
+    {
+      "architecture": "x86_64",
+      "checks": 1603,
+      "descriptorSamples": 634,
+      "rejectedDirectoryOperations": 226,
+      "passed": true,
+      "injectedSyncFailures": 2,
+      "publicPublications": 6,
+      "successfulDirectoryOperations": 52,
+      "initialDescriptors": 3,
+      "publicMaintenanceRuns": 6,
+      "finalDescriptors": 3
+    }
+  ],
+  "probeHashes": {
+    "probe.m": "36c2b54c3d72d68ea47d04f6b2a18067ea4454f6984b1dfe2383ee400e60720a",
+    "run.py": "bdd020738b1b3cb5c4e097b6f5d1a6f58ef7174fec41b4fad33e642f0ede42a9"
+  }
+}

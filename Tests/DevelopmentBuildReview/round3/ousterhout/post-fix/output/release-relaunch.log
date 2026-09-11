@@ -1,0 +1,48 @@
+2026-09-11 09:14:43.559 nvALT[82408:346631948] PASS: applicationDidFinishLaunching:
+2026-09-11 09:14:43.559 nvALT[82408:346631948] PASS: runDelayedUIActionsAfterLaunch
+2026-09-11 09:14:43.559 nvALT[82408:346631948] PASS: persistentDomainForName:
+2026-09-11 09:14:43.559 nvALT[82408:346631948] PASS: initializeDatabase:
+2026-09-11 09:14:43.931 nvALT[82408:346631948] load time: 0.0909469, 
+2026-09-11 09:14:44.131 nvALT[82408:346631948] PASS: compiled bundle retains the expected build flavor
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: only the development app displays the DEV Dock badge
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: original startup selects the correct default notes folder
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: application support derives the build's executable name
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: journal cache derives the copied bundle's unique identifier
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: automatic custom destination has the expected flavor namespace
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: automatic settings retain the real custom bookmark
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: automatic bookmark retains the selected parent
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: development skips legacy BLOR preference reads; release retains first-launch import
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: initial backup worker finishes
+2026-09-11 09:14:44.132 nvALT[82408:346631948] PASS: relaunch worker finishes
+2026-09-11 09:14:44.133 nvALT[82408:346631948] PASS: relaunch reports no error: Last backup: 9/11/26, 9:14 AM
+Automatic backups are off.
+Backup storage: 3 KB
+2026-09-11 09:14:44.133 nvALT[82408:346631948] PASS: relaunch saves a snapshot path
+2026-09-11 09:14:44.133 nvALT[82408:346631948] PASS: relaunch snapshot belongs to the selected destination
+2026-09-11 09:14:44.133 nvALT[82408:346631948] PASS: relaunch package passes the real store reader
+2026-09-11 09:14:44.133 nvALT[82408:346631948] PASS: library contains exactly its own note
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: note title and body retain this build's content
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: relaunch actual snapshot payload decodes
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: relaunch retains the disabled timer setting
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: font preference retains this build's value
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: editor color preference retains this build's value
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: library contains exactly its own note
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: note title and body retain this build's content
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: backup interval retains this build's value
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: this build's backup package validates
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: library contains exactly its own note
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: note title and body retain this build's content
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: backup payload decodes successfully
+2026-09-11 09:14:44.134 nvALT[82408:346631948] Error finding keychain password for account 4A6A8B81-63D5-4F12-A437-81C53287CBE2: -25300
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: keychain lookup selects this build's service
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: external editing uses this build's temporary directory
+2026-09-11 09:14:44.134 nvALT[82408:346631948] PASS: disposable preferences synchronize
+2026-09-11 09:14:44.135 nvALT[82408:346631948] PASS: concurrent-run report is ready
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: runner observed both app processes alive together
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: font preference retains this build's value
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: editor color preference retains this build's value
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: library contains exactly its own note
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: note title and body retain this build's content
+2026-09-11 09:14:44.288 nvALT[82408:346631948] PASS: library flushes before normal application termination
+2026-09-11 09:14:44.289 nvALT[82408:346631948] PASS: completed probe report saves
+2026-09-11 09:14:44.289 nvALT[82408:346631948] ISOLATION release relaunch PASSED (43 checks)

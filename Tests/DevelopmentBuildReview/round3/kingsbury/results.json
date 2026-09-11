@@ -1,0 +1,61 @@
+{
+  "commit": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "passed": true,
+  "checks": 169,
+  "processes": 5,
+  "history": [
+    {
+      "flavor": "release",
+      "command": "seed",
+      "exit_code": 0,
+      "stdout": "PASS: release seed checks=31 own=5 peer=0",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "seed",
+      "exit_code": 0,
+      "stdout": "PASS: development seed checks=43 own=5 peer=5",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "prune",
+      "exit_code": 0,
+      "stdout": "PASS: development prune checks=36 own=3 peer=5",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "delete-republish",
+      "exit_code": 0,
+      "stdout": "PASS: release delete-republish checks=36 own=1 peer=3",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "delete",
+      "exit_code": 0,
+      "stdout": "PASS: development delete checks=23 own=0 peer=1",
+      "stderr": ""
+    }
+  ],
+  "hypothesis_1": "PASS: first development publication creates its absent namespace and UUID directory beneath the selected parent",
+  "hypothesis_2": "PASS: reopened interleaved pruning, plaintext deletion, and republication preserve every peer snapshot ID and archive byte",
+  "final_snapshot_counts": {
+    "release": 1,
+    "development": 0
+  },
+  "source_hashes_before": {
+    "Sources/Storage/NVBackupStore.m": "a6dd4c0c955e2b732048cb0e2eb5763cbcccad6781e1d3d3dbbbae6d16a257aa",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7"
+  },
+  "source_hashes_after": {
+    "Sources/Storage/NVBackupStore.m": "a6dd4c0c955e2b732048cb0e2eb5763cbcccad6781e1d3d3dbbbae6d16a257aa",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7"
+  },
+  "production_unchanged": true,
+  "limits": "Full frozen store with independently supplied caller metadata and frozen flavor helper. No full controller/app startup, archive decoding, defaults, user notes, keychain, GUI, root replacement, or concurrent failures. All fixture files are deleted."
+}
