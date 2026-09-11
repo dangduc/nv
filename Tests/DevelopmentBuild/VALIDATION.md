@@ -42,3 +42,27 @@ These AppKit bitmaps contain the content view. They do not capture the system Do
 After round 2, the backup store passed 390 assertions and the backup coordinator suite passed.
 New cases cover first publication under a custom Development namespace, private directory permissions,
 separate deletion for a copied UUID, invalid namespaces, and unavailable selected roots.
+
+Round 3 reviewed production commit `47d18f4`.
+The complete-app [custom-backup runner](../DevelopmentBuildReview/round3/ousterhout/run.py) passed 252 assertions across four processes.
+Development and release ran together during first launch and relaunch.
+Both published and decoded default, first manual custom, and first automatic custom snapshots.
+Each Development custom destination started without its namespace folder.
+The automatic case invokes the due-check entry point; it does not wait for the timer.
+
+The full store passed 169 checks across five reopened processes with the same library UUID in both flavors.
+First publication created the missing namespace, and each retention or deletion preserved the peer's snapshot identifiers and archive bytes.
+Separate native descriptor checks passed 1,603 assertions on each architecture, with unchanged descriptor counts after successful and rejected operations.
+The individual [review records](../DevelopmentBuildReview/README.md) distinguish complete-app checks from extracted-method and store-only evidence.
+
+The final correction is commit `9a69037`.
+It canonicalizes the bookmarked backup parent before appending the Development namespace.
+The reviewer verified the corrected publication and deletion data flow from source.
+Both Intel configurations rebuilt successfully, both identity checks passed, and the final release ZIP passed its archive check.
+The backup store again passed 390 assertions, and the backup coordinator suite passed.
+The complete-app custom-backup runner again passed all 252 assertions against these rebuilt apps.
+Its separate [post-fix results](../DevelopmentBuildReview/round3/ousterhout/post-fix/results.json) preserve the original round-three evidence.
+
+All three rounds and 18 subagent reviews are complete.
+The four P2 findings were corrected after their respective rounds.
+The documented aggregate desktop-suite failures remain unchanged; the focused passing checks do not supersede those limits.

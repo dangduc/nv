@@ -55,5 +55,6 @@ It suppresses ODB initialization and delayed global UI actions, including hotkey
 The runner disables automatic update checks through launch arguments.
 
 This test does not cover encrypted libraries, protected RAM disks, real keychain storage, custom backup destinations, Finder routing, or update delivery.
+The [round-three complete-app probe](../DevelopmentBuildReview/round3/ousterhout/REVIEW.md) adds first-use custom backups and checks their payloads after relaunch.
 It does not coordinate concurrent writes to a notes folder that the user deliberately shares between both builds.
 The window bitmaps show disposable notes and visual settings, rather than the system Dock.

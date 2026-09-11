@@ -1,0 +1,87 @@
+{
+  "commit": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "architecture": "x86_64 through Rosetta on arm64",
+  "observations": {
+    "warm_open_syscalls": {
+      "release": {
+        "openat": 13,
+        "mkdirat": 0,
+        "open": 1,
+        "fsync": 0,
+        "fstat": 1,
+        "close": 14,
+        "main_thread_calls": 0
+      },
+      "development": {
+        "openat": 14,
+        "mkdirat": 0,
+        "open": 1,
+        "fsync": 0,
+        "fstat": 1,
+        "close": 15,
+        "main_thread_calls": 0
+      }
+    },
+    "first_release_open_syscalls": {
+      "openat": 14,
+      "mkdirat": 1,
+      "open": 1,
+      "fsync": 1,
+      "fstat": 1,
+      "close": 14,
+      "main_thread_calls": 0
+    },
+    "main_timer_beats_while_worker_held": 20,
+    "controller_entry_ms": 1.0760007426142693,
+    "first_development_open_syscalls": {
+      "openat": 16,
+      "mkdirat": 2,
+      "open": 1,
+      "fsync": 2,
+      "fstat": 1,
+      "close": 15,
+      "main_thread_calls": 0
+    },
+    "warm_open_microseconds": {
+      "release": [
+        101.65000334382057,
+        94.91999633610249,
+        95.04999965429306,
+        88.57999928295612,
+        90.02000093460083,
+        87.6300036907196,
+        87.35999464988708,
+        89.01000022888184,
+        88.44999596476555
+      ],
+      "development": [
+        102.31000371277332,
+        102.31999680399895,
+        102.76000015437603,
+        101.6599964350462,
+        100.87999515235424,
+        102.76000015437603,
+        100.73999874293804,
+        102.45000012218952,
+        103.56999933719635
+      ]
+    },
+    "result": "PASS",
+    "completion_count": 1,
+    "library_calls_on_main": 2
+  },
+  "warm_summary_microseconds": {
+    "release": {
+      "median": 88.79499975591898,
+      "minimum": 87.35999464988708,
+      "maximum": 95.04999965429306
+    },
+    "development": {
+      "median": 102.38499846309423,
+      "minimum": 100.73999874293804,
+      "maximum": 103.56999933719635
+    }
+  }
+}

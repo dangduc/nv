@@ -1,0 +1,43 @@
+{
+  "commit": "47d18f43cadb1a2eeeed9c7fbe379795c76faae7",
+  "source_sha256": {
+    "Sources/Storage/NVBackupStore.m": "a6dd4c0c955e2b732048cb0e2eb5763cbcccad6781e1d3d3dbbbae6d16a257aa",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93"
+  },
+  "runs": [
+    {
+      "architecture": "arm64",
+      "flavor": "release",
+      "assertions": 106,
+      "output": "PASS: release before-first-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nPASS: release after-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nASSERTIONS:106\n",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "arm64",
+      "flavor": "development",
+      "assertions": 116,
+      "output": "PASS: development before-first-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nPASS: development after-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nASSERTIONS:116\n",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "x86_64",
+      "flavor": "release",
+      "assertions": 106,
+      "output": "PASS: release before-first-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nPASS: release after-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nASSERTIONS:106\n",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "x86_64",
+      "flavor": "development",
+      "assertions": 116,
+      "output": "PASS: development before-first-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nPASS: development after-publication absent parent ENOENT; replacement parent ESTALE; fresh identity succeeds\nASSERTIONS:116\n",
+      "stderr": "",
+      "exit_code": 0
+    }
+  ],
+  "assertions": 444,
+  "result": "PASS: absent and stale selected parents reject all three operations before child creation"
+}
