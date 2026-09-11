@@ -1,0 +1,42 @@
+{
+  "head": "83a73071881f2f2c3e3e927f33a16b98935bdb47",
+  "method_sha256": "7a3c15d7e02a071f3f1bab9018e360f6b92decc7c48bb7ecd49189c179a188ef",
+  "method_start_line": 286,
+  "macOS": "26.5.2",
+  "runs": [
+    {
+      "checks": 4755,
+      "native_batches": 772,
+      "changed_batches": 388,
+      "native_glyphs": 4220,
+      "changed_space_glyphs": 1524,
+      "repeated_character_indexes": 0,
+      "nonbase_glyphs": 382,
+      "fixtures_with_unequal_utf16_glyph_count": 0,
+      "passed": true,
+      "architecture": "arm64",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ],
+      "native_exit": 0
+    },
+    {
+      "checks": 4755,
+      "native_batches": 772,
+      "changed_batches": 388,
+      "native_glyphs": 4220,
+      "changed_space_glyphs": 1524,
+      "repeated_character_indexes": 0,
+      "nonbase_glyphs": 382,
+      "fixtures_with_unequal_utf16_glyph_count": 0,
+      "passed": true,
+      "architecture": "x86_64",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ],
+      "native_exit": 0
+    }
+  ]
+}

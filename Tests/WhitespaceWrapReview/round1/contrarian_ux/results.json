@@ -1,0 +1,234 @@
+{
+  "native_runs": {
+    "candidate": {
+      "app_sha256": "6682e85cff4069c18b65ef9989830de2b72c3513240302a197395551d53d7d0c",
+      "exit_code": 0,
+      "checks": 779,
+      "passed": true,
+      "failure": []
+    },
+    "baseline": {
+      "app_sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+      "exit_code": 0,
+      "checks": 779,
+      "passed": true,
+      "failure": []
+    }
+  },
+  "layout_cases_per_app": 141,
+  "ordinary_prose_reflows": 4,
+  "double_spaced_prose_reflows": 8,
+  "tabs_nbsp_cases_unchanged": 12,
+  "sampled_hit_tests_round_trip": true,
+  "premature_word_wrap": true,
+  "candidate_native_key": {
+    "beforeBeta": {
+      "x": 70.021484375,
+      "y": 0
+    },
+    "afterCaret": {
+      "x": 489.82421875,
+      "y": 29
+    },
+    "deletedBeta": {
+      "x": 70.021484375,
+      "y": 0
+    },
+    "deletedCaret": {
+      "x": 544.0087890625,
+      "y": 8
+    },
+    "fixture": "native-space-key",
+    "size": 18,
+    "afterBeta": {
+      "x": 5,
+      "y": 21
+    },
+    "width": 560,
+    "font": "Menlo-Regular",
+    "afterLines": [
+      {
+        "y": 0,
+        "length": 6,
+        "width": 75.021484375,
+        "location": 0,
+        "text": "alpha "
+      },
+      {
+        "y": 21,
+        "length": 44,
+        "width": 486.82421875,
+        "location": 6,
+        "text": "beta                                        "
+      }
+    ],
+    "beforeCaret": {
+      "x": 544.0087890625,
+      "y": 8
+    }
+  },
+  "baseline_native_key": {
+    "beforeBeta": {
+      "x": 70.021484375,
+      "y": 0
+    },
+    "afterCaret": {
+      "x": 547,
+      "y": 8
+    },
+    "deletedBeta": {
+      "x": 70.021484375,
+      "y": 0
+    },
+    "deletedCaret": {
+      "x": 544.0087890625,
+      "y": 8
+    },
+    "fixture": "native-space-key",
+    "size": 18,
+    "afterBeta": {
+      "x": 70.021484375,
+      "y": 0
+    },
+    "width": 560,
+    "font": "Menlo-Regular",
+    "afterLines": [
+      {
+        "y": 0,
+        "length": 50,
+        "width": 544,
+        "location": 0,
+        "text": "alpha beta                                        "
+      }
+    ],
+    "beforeCaret": {
+      "x": 544.0087890625,
+      "y": 8
+    }
+  },
+  "arrow_observation": {
+    "candidate": {
+      "containerWidth": 544,
+      "start": {
+        "x": 5,
+        "y": 0
+      },
+      "lines": [
+        {
+          "y": 0,
+          "length": 6,
+          "width": 75.021484375,
+          "location": 0,
+          "text": "Start "
+        },
+        {
+          "y": 21,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 6,
+          "text": "\u2192                                                "
+        },
+        {
+          "y": 42,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 55,
+          "text": "                                                 "
+        },
+        {
+          "y": 63,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 104,
+          "text": "                                                 "
+        },
+        {
+          "y": 84,
+          "length": 10,
+          "width": 118.369140625,
+          "location": 153,
+          "text": "     \u2190 End"
+        }
+      ],
+      "leftArrow": {
+        "x": 59.1845703125,
+        "y": 84
+      },
+      "fixture": "arrow-observation",
+      "size": 18,
+      "width": 560,
+      "hitTests": [
+        {
+          "index": 3,
+          "hit": 3
+        },
+        {
+          "index": 9,
+          "hit": 9
+        },
+        {
+          "index": 58,
+          "hit": 58
+        },
+        {
+          "index": 107,
+          "hit": 107
+        },
+        {
+          "index": 156,
+          "hit": 156
+        }
+      ],
+      "font": "Menlo-Regular",
+      "rightArrow": {
+        "x": 5,
+        "y": 21
+      }
+    },
+    "baseline": {
+      "containerWidth": 544,
+      "start": {
+        "x": 5,
+        "y": 0
+      },
+      "lines": [
+        {
+          "y": 0,
+          "length": 158,
+          "width": 544,
+          "location": 0,
+          "text": "Start \u2192                                                                                                                                                       "
+        },
+        {
+          "y": 21,
+          "length": 5,
+          "width": 64.1845703125,
+          "location": 158,
+          "text": "\u2190 End"
+        }
+      ],
+      "leftArrow": {
+        "x": 5,
+        "y": 21
+      },
+      "fixture": "arrow-observation",
+      "size": 18,
+      "width": 560,
+      "hitTests": [
+        {
+          "index": 3,
+          "hit": 3
+        },
+        {
+          "index": 161,
+          "hit": 161
+        }
+      ],
+      "font": "Menlo-Regular",
+      "rightArrow": {
+        "x": 70.021484375,
+        "y": 0
+      }
+    }
+  }
+}

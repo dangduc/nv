@@ -1,0 +1,646 @@
+{
+  "candidate": {
+    "glyphCallbacks": 133,
+    "wrapLines": 4,
+    "markedGlyphCallbacks": 40,
+    "checks": 491,
+    "history": [
+      {
+        "label": "plain-0/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/external-pending",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{133, 0}",
+          "{330, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/merged",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{204, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/redo",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-detached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-reattached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/committed",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/owner-detached",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/detached-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/reattached-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{198, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/external-pending",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{133, 0}",
+          "{330, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/merged",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{204, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/redo",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-detached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-reattached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/committed",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/owner-detached",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/detached-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/reattached-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{198, 0}",
+          "{296, 0}"
+        ]
+      }
+    ]
+  },
+  "baseline": {
+    "glyphCallbacks": 0,
+    "wrapLines": 1,
+    "markedGlyphCallbacks": 0,
+    "checks": 489,
+    "history": [
+      {
+        "label": "plain-0/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/external-pending",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{133, 0}",
+          "{330, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/merged",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{204, 0}"
+        ]
+      },
+      {
+        "label": "plain-0/redo",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-detached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-reattached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "plain-2/committed",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/owner-detached",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/detached-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "plain-3/reattached-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{198, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/external-pending",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{133, 0}",
+          "{330, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/merged",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{204, 0}"
+        ]
+      },
+      {
+        "label": "markdown-0/redo",
+        "model": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "live": "Vi\u1ec7t                                                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR remote",
+        "composing": false,
+        "selections": [
+          "{133, 0}",
+          "{337, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{0, 0}",
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-detached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-reattached",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{0, 0}"
+        ]
+      },
+      {
+        "label": "markdown-2/committed",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{99, 0}",
+          "{99, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/marked",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": true,
+        "selections": [
+          "{99, 0}",
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/owner-detached",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{296, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/detached-undo",
+        "model": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{197, 0}"
+        ]
+      },
+      {
+        "label": "markdown-3/reattached-redo",
+        "model": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "live": "\u00ea\u0302                                                                                                 HEAD                                                                                                                                                                                      TAIL\nANCHOR",
+        "composing": false,
+        "selections": [
+          "{198, 0}",
+          "{296, 0}"
+        ]
+      }
+    ]
+  }
+}

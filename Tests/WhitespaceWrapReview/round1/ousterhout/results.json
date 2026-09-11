@@ -1,0 +1,18 @@
+{
+  "candidate": {
+    "app_sha256": "6682e85cff4069c18b65ef9989830de2b72c3513240302a197395551d53d7d0c",
+    "exit_code": 0,
+    "checks": 163,
+    "passed": true,
+    "failure": []
+  },
+  "baseline": {
+    "app_sha256": "d2fc91aab87fbb3937073e11908832d177559761e46237ecd597a3bd9ca5ec80",
+    "exit_code": 1,
+    "checks": 5,
+    "passed": false,
+    "failure": [
+      "actual production delegate wraps the source spaces"
+    ]
+  }
+}
