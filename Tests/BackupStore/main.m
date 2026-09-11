@@ -378,6 +378,40 @@ static void Maintenance(void) {
     NVBackupStoreCurrentDate = nil;
 }
 
+static void DevelopmentNamespace(void) {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSURL *selected = Folder(@"development-selected-root");
+    Check([manager createDirectoryAtURL:selected withIntermediateDirectories:NO attributes:nil error:NULL], @"create custom parent for both apps");
+    struct stat identity;
+    Check(stat([[selected path] fileSystemRepresentation], &identity) == 0, @"capture shared custom parent identity");
+    NSMutableDictionary *metadata = [NSMutableDictionary dictionaryWithDictionary:Metadata(1, NO)];
+    [metadata setObject:selected forKey:@"existingRoot"];
+    [metadata setObject:[NSString stringWithFormat:@"%llu:%llu", (unsigned long long)identity.st_dev, (unsigned long long)identity.st_ino] forKey:@"existingRootIdentity"];
+    NSURL *releaseFolder = [selected URLByAppendingPathComponent:library isDirectory:YES];
+    NSError *error = nil;
+    NSDictionary *releaseSnapshot = [NVBackupStore publishArchiveData:payload metadata:metadata inDirectory:releaseFolder retention:unlimited error:&error];
+    Check(releaseSnapshot && !error, @"release retains its direct UUID folder");
+    NSURL *namespace = [selected URLByAppendingPathComponent:@"nvALT Development" isDirectory:YES];
+    NSURL *destination = [namespace URLByAppendingPathComponent:library isDirectory:YES];
+    [metadata setObject:@"nvALT Development" forKey:@"directoryNamespace"];
+    Check(![manager fileExistsAtPath:[namespace path]], @"development namespace starts absent");
+    NSDictionary *developmentSnapshot = [NVBackupStore publishArchiveData:payload metadata:metadata inDirectory:destination retention:unlimited error:&error];
+    Check(developmentSnapshot && !error, @"first development backup creates namespace and UUID folder");
+    Check(lstat([[namespace path] fileSystemRepresentation], &identity) == 0 && (identity.st_mode & 0777) == 0700, @"new namespace permissions are private");
+    Check([NVBackupStore deleteUnencryptedSnapshotsInDirectory:destination metadata:metadata error:&error] && !error, @"development deletion uses the captured selected parent");
+    Check([Snapshots(destination) count] == 0, @"development deletion removes its own snapshot");
+    Check([[NVBackupStore archiveDataAtSnapshotURL:[releaseSnapshot objectForKey:@"snapshotURL"] error:&error] isEqual:payload] && !error,
+        @"development deletion preserves release archive bytes for the same UUID");
+    [metadata setObject:@"unexpected" forKey:@"directoryNamespace"];
+    Check(![NVBackupStore publishArchiveData:payload metadata:metadata inDirectory:destination retention:unlimited error:&error] && [error code] == EINVAL,
+        @"unsupported namespace is rejected");
+    [metadata setObject:@"nvALT Development" forKey:@"directoryNamespace"];
+    Check([manager moveItemAtURL:selected toURL:Folder(@"development-unmounted-root") error:NULL], @"selected custom root becomes unavailable");
+    Check(![NVBackupStore publishArchiveData:payload metadata:metadata inDirectory:destination retention:unlimited error:&error] && [error code] == ENOENT,
+        @"development publication never recreates an unavailable custom parent");
+    Check(![manager fileExistsAtPath:[selected path]], @"unavailable parent remains absent");
+}
+
 int main(int argc, const char **argv) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     Check(argc == 2, @"test destination supplied");
@@ -386,7 +420,7 @@ int main(int argc, const char **argv) {
     for (NSUInteger index = 0; index < [bytes length]; index++) ((unsigned char *)[bytes mutableBytes])[index] = (unsigned char)(index * 17);
     payload = bytes;
     unlimited = @{ @"recent":@100000, @"daily":@0, @"weekly":@0, @"maxBytes":@(ULLONG_MAX) };
-    Basic(); Faults(); Interrupted(); Corruption(); UnsafePaths(); Retention(); RestoreWriter(); ExistingRoot(); Maintenance();
+    Basic(); Faults(); Interrupted(); Corruption(); UnsafePaths(); Retention(); RestoreWriter(); ExistingRoot(); Maintenance(); DevelopmentNamespace();
     printf("PASS: %lu backup store assertions\n", (unsigned long)checks);
     [pool drain];
     return 0;

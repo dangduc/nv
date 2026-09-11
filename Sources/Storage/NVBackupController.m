@@ -254,6 +254,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     NSString *existingRootIdentity = nil;
     if ([librarySettings objectForKey:@"destinationBookmark"]) {
         existingRoot = [destination URLByDeletingLastPathComponent];
+        if (NVIsDevelopmentBuild()) existingRoot = [existingRoot URLByDeletingLastPathComponent];
         struct stat rootInfo;
         if (stat([[existingRoot path] fileSystemRepresentation], &rootInfo) != 0 || !S_ISDIR(rootInfo.st_mode)) {
             [self scheduleNextAttemptAfterDelay:300 fromDate:date];
@@ -284,6 +285,7 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     if (existingRoot) {
         [metadata setObject:existingRoot forKey:@"existingRoot"];
         [metadata setObject:existingRootIdentity forKey:@"existingRootIdentity"];
+        if (NVIsDevelopmentBuild()) [metadata setObject:@"nvALT Development" forKey:@"directoryNamespace"];
     }
     if (previousSnapshot) [metadata setObject:[[previousSnapshot lastPathComponent] stringByDeletingPathExtension] forKey:@"protectedSnapshotIdentifier"];
     NSDictionary *retention = [self settings];
@@ -376,12 +378,14 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
     NSMutableDictionary *metadata = [NSMutableDictionary dictionaryWithObject:libraryIdentifier forKey:@"libraryIdentifier"];
     if ([librarySettings objectForKey:@"destinationBookmark"]) {
         NSURL *existingRoot = [destination URLByDeletingLastPathComponent];
+        if (NVIsDevelopmentBuild()) existingRoot = [existingRoot URLByDeletingLastPathComponent];
         struct stat rootInfo;
         if (stat([[existingRoot path] fileSystemRepresentation], &rootInfo) != 0 || !S_ISDIR(rootInfo.st_mode)) {
             [self setError:BackupError(@"The selected backup folder is unavailable. Connect its volume or choose another folder.")];
             return;
         }
         [metadata setObject:existingRoot forKey:@"existingRoot"];
+        if (NVIsDevelopmentBuild()) [metadata setObject:@"nvALT Development" forKey:@"directoryNamespace"];
         [metadata setObject:[NSString stringWithFormat:@"%llu:%llu", (unsigned long long)rootInfo.st_dev, (unsigned long long)rootInfo.st_ino]
                      forKey:@"existingRootIdentity"];
     }

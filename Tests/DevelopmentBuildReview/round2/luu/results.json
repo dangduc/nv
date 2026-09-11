@@ -1,0 +1,218 @@
+{
+  "refs": {
+    "base": "bd74bf3e9e655fc69b5724fb7638f23a2f971f54",
+    "buggy": "2dbfd4621077d6dec8b1195cb5002e29179cdfaa",
+    "fixed": "3a3dc4fb7194b5ea7189295a7bbd17393bb32038"
+  },
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "host_architecture": "arm64",
+  "executable_architecture": "x86_64",
+  "method": {
+    "repetitions": 13,
+    "discarded_initial_repetitions": 1,
+    "rotation": "(order + repetition) % 3",
+    "batches_by_size": {
+      "0": 200,
+      "10": 10,
+      "1000": 1,
+      "10000": 1
+    },
+    "shared_dependencies_identical": true,
+    "helper_microbenchmark": "omitted; helper source unchanged"
+  },
+  "flavors": {
+    "development": {
+      "identity": "flavor=development scheme=nvalt-dev",
+      "behavior_checks": "PASS,scans,8283,links,432918,semantic_cases,5",
+      "scans": {
+        "0": {
+          "median_ms": {
+            "buggy": 0.000125002,
+            "fixed": 0.000129999,
+            "base": 0.0001249995
+          },
+          "min_ms": {
+            "buggy": 0.000124997,
+            "fixed": 0.000124997,
+            "base": 0.000124997
+          },
+          "max_ms": {
+            "buggy": 0.000145002,
+            "fixed": 0.000145002,
+            "base": 0.000140001
+          },
+          "fixed_to_base_ratio": 1.03999615998464,
+          "buggy_to_base_ratio": 1.0000200000800004,
+          "fixed_minus_base_ms": 4.999500000000005e-06,
+          "saved_vs_buggy_ms": -4.996999999999993e-06
+        },
+        "10": {
+          "median_ms": {
+            "buggy": 0.044750003499999996,
+            "fixed": 0.025800057,
+            "base": 0.0228999645
+          },
+          "min_ms": {
+            "buggy": 0.044400059,
+            "fixed": 0.025600009,
+            "base": 0.022699963
+          },
+          "max_ms": {
+            "buggy": 0.050199963,
+            "fixed": 0.026299991,
+            "base": 0.02319999
+          },
+          "fixed_to_base_ratio": 1.1266417902088888,
+          "buggy_to_base_ratio": 1.9541516538158823,
+          "fixed_minus_base_ms": 0.0029000924999999997,
+          "saved_vs_buggy_ms": 0.018949946499999995
+        },
+        "1000": {
+          "median_ms": {
+            "buggy": 4.6749999745,
+            "fixed": 2.4980003945,
+            "base": 2.5100000205
+          },
+          "min_ms": {
+            "buggy": 4.552000202,
+            "fixed": 2.466999926,
+            "base": 2.460000105
+          },
+          "max_ms": {
+            "buggy": 4.906999879,
+            "fixed": 2.673000097,
+            "base": 2.759000286
+          },
+          "fixed_to_base_ratio": 0.9952192725490059,
+          "buggy_to_base_ratio": 1.8625497754253904,
+          "fixed_minus_base_ms": -0.011999626000000152,
+          "saved_vs_buggy_ms": 2.1769995800000004
+        },
+        "10000": {
+          "median_ms": {
+            "buggy": 48.381499946,
+            "fixed": 26.4850002715,
+            "base": 26.390499901
+          },
+          "min_ms": {
+            "buggy": 47.501999885,
+            "fixed": 25.956000201,
+            "base": 25.573000312
+          },
+          "max_ms": {
+            "buggy": 51.171000116,
+            "fixed": 27.312999591,
+            "base": 27.941999957
+          },
+          "fixed_to_base_ratio": 1.0035808480648152,
+          "buggy_to_base_ratio": 1.8332922880391027,
+          "fixed_minus_base_ms": 0.09450037050000049,
+          "saved_vs_buggy_ms": 21.8964996745
+        }
+      }
+    },
+    "release": {
+      "identity": "flavor=release scheme=nvalt",
+      "behavior_checks": "PASS,scans,8283,links,432918,semantic_cases,5",
+      "scans": {
+        "0": {
+          "median_ms": {
+            "buggy": 0.000129999,
+            "fixed": 0.000129999,
+            "base": 0.00012750050000000002
+          },
+          "min_ms": {
+            "buggy": 0.000124997,
+            "fixed": 0.000124997,
+            "base": 0.000124997
+          },
+          "max_ms": {
+            "buggy": 0.000135,
+            "fixed": 0.000130003,
+            "base": 0.000135
+          },
+          "fixed_to_base_ratio": 1.0195960015843073,
+          "buggy_to_base_ratio": 1.0195960015843073,
+          "fixed_minus_base_ms": 2.498499999999983e-06,
+          "saved_vs_buggy_ms": 0.0
+        },
+        "10": {
+          "median_ms": {
+            "buggy": 0.044300035,
+            "fixed": 0.025499985,
+            "base": 0.022900011
+          },
+          "min_ms": {
+            "buggy": 0.044199917,
+            "fixed": 0.025399961,
+            "base": 0.022700056
+          },
+          "max_ms": {
+            "buggy": 0.044899993,
+            "fixed": 0.027099997,
+            "base": 0.025200006
+          },
+          "fixed_to_base_ratio": 1.1135359279958423,
+          "buggy_to_base_ratio": 1.934498415743119,
+          "fixed_minus_base_ms": 0.002599973999999998,
+          "saved_vs_buggy_ms": 0.018800050000000002
+        },
+        "1000": {
+          "median_ms": {
+            "buggy": 4.815999884,
+            "fixed": 2.6054996995,
+            "base": 2.6095001955
+          },
+          "min_ms": {
+            "buggy": 4.646000452,
+            "fixed": 2.528999932,
+            "base": 2.534000203
+          },
+          "max_ms": {
+            "buggy": 4.997000098,
+            "fixed": 2.768999897,
+            "base": 2.809999511
+          },
+          "fixed_to_base_ratio": 0.9984669493388433,
+          "buggy_to_base_ratio": 1.8455641016256825,
+          "fixed_minus_base_ms": -0.0040004959999997425,
+          "saved_vs_buggy_ms": 2.2105001845
+        },
+        "10000": {
+          "median_ms": {
+            "buggy": 48.710000235500004,
+            "fixed": 26.3000000265,
+            "base": 26.390499901
+          },
+          "min_ms": {
+            "buggy": 47.622000799,
+            "fixed": 25.566000491,
+            "base": 25.919000618
+          },
+          "max_ms": {
+            "buggy": 49.716000445,
+            "fixed": 28.076999821,
+            "base": 27.611999772
+          },
+          "fixed_to_base_ratio": 0.9965707404240354,
+          "buggy_to_base_ratio": 1.84573996014582,
+          "fixed_minus_base_ms": -0.09049987449999719,
+          "saved_vs_buggy_ms": 22.410000209000003
+        }
+      }
+    }
+  },
+  "compiler_flags": [
+    "-arch",
+    "x86_64",
+    "-O2",
+    "-fno-objc-arc",
+    "-fblocks",
+    "-Wno-deprecated-declarations",
+    "-framework",
+    "Cocoa",
+    "-framework",
+    "CoreServices"
+  ]
+}

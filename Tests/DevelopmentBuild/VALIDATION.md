@@ -38,3 +38,7 @@ Native content snapshots show independent color and font settings in disposable 
 | ![Development test content](../../docs/images/development-build/development.png) | ![Release test content](../../docs/images/development-build/release.png) |
 
 These AppKit bitmaps contain the content view. They do not capture the system Dock or window frame.
+
+After round 2, the backup store passed 390 assertions and the backup coordinator suite passed.
+New cases cover first publication under a custom Development namespace, private directory permissions,
+separate deletion for a copied UUID, invalid namespaces, and unavailable selected roots.

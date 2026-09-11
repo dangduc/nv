@@ -1,0 +1,43 @@
+{
+  "commit": "3a3dc4fb7194b5ea7189295a7bbd17393bb32038",
+  "source_sha256": {
+    "Sources/Storage/NVBackupStore.m": "bf24d950957bb2b98efe40988459106edc5462bb6086c57428e7166d6ccc8499",
+    "Sources/Storage/NVBackupStore.h": "2e1f285a80bb6f33ce18fc27d61d713ac393c4b4f7a1f4642951fdeba214ab93",
+    "Sources/Application/NVAppIdentity.h": "e7d74b0c540960fd7d96b5d9d6c0759991b6d6dc5a20e97d822b9cc11ff561c7"
+  },
+  "metadata_sha256": {
+    "release": "9989ee0502d60e15cb9413e6b08936cdd2f107f8799296fd1ab88488f5df749a",
+    "development": "60d0c2e2cc7d40ddb44cc066f7fcc78a12c41e0bea748c9f575e1401b82743be"
+  },
+  "runs": [
+    {
+      "architecture": "arm64",
+      "flavor": "release",
+      "output": "PASS: release metadata/runtime alignment and unavailable-root store contract (20 assertions)",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "arm64",
+      "flavor": "development",
+      "output": "PASS: development metadata/runtime alignment and unavailable-root store contract (20 assertions)",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "x86_64",
+      "flavor": "release",
+      "output": "PASS: release metadata/runtime alignment and unavailable-root store contract (20 assertions)",
+      "stderr": "",
+      "exit_code": 0
+    },
+    {
+      "architecture": "x86_64",
+      "flavor": "development",
+      "output": "PASS: development metadata/runtime alignment and unavailable-root store contract (20 assertions)",
+      "stderr": "",
+      "exit_code": 0
+    }
+  ],
+  "result": "PASS: two hypotheses, both flavors, arm64 and x86_64, 80 native assertions"
+}
