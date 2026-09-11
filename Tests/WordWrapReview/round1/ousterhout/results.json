@@ -1,0 +1,482 @@
+{
+  "revision": "4b049709b2cecc6eac80514586ccacc119d12802",
+  "typesetter_sha256": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+  "runs": [
+    {
+      "checks": 148,
+      "cacheObservations": [
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        }
+      ],
+      "cases": 12,
+      "typesettersCreated": 109,
+      "retention": {
+        "paragraphLength": 65536,
+        "cachedGlyphsAfterEmptySwitchAndSourceClear": 65536,
+        "cacheAfterEmptySwitch": {
+          "hasMeasure": 1,
+          "cachedGlyphCount": 65536,
+          "breakBytes": 84568,
+          "paragraph": "{0, 65536}"
+        }
+      },
+      "paragraphBegins": 481,
+      "typesettersDestroyed": 109,
+      "paragraphEnds": 481,
+      "endParagraphCleanupExperiment": false,
+      "narrowedLines": 4497,
+      "architecture": "arm64"
+    },
+    {
+      "checks": 148,
+      "cacheObservations": [
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        }
+      ],
+      "cases": 12,
+      "typesettersCreated": 109,
+      "retention": {
+        "paragraphLength": 65536,
+        "cachedGlyphsAfterEmptySwitchAndSourceClear": 0,
+        "cacheAfterEmptySwitch": {
+          "hasMeasure": 0,
+          "cachedGlyphCount": 0,
+          "breakBytes": 0,
+          "paragraph": "{0, 65536}"
+        }
+      },
+      "paragraphBegins": 481,
+      "typesettersDestroyed": 109,
+      "paragraphEnds": 481,
+      "endParagraphCleanupExperiment": true,
+      "narrowedLines": 4497,
+      "architecture": "arm64"
+    },
+    {
+      "checks": 148,
+      "cacheObservations": [
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 24,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 21,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 1,
+            "cachedGlyphCount": 20,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        }
+      ],
+      "cases": 12,
+      "typesettersCreated": 109,
+      "retention": {
+        "paragraphLength": 65536,
+        "cachedGlyphsAfterEmptySwitchAndSourceClear": 65536,
+        "cacheAfterEmptySwitch": {
+          "hasMeasure": 1,
+          "cachedGlyphCount": 65536,
+          "breakBytes": 84568,
+          "paragraph": "{0, 65536}"
+        }
+      },
+      "paragraphBegins": 481,
+      "typesettersDestroyed": 109,
+      "paragraphEnds": 481,
+      "endParagraphCleanupExperiment": false,
+      "narrowedLines": 4497,
+      "architecture": "x86_64"
+    },
+    {
+      "checks": 148,
+      "cacheObservations": [
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        },
+        {
+          "afterEmptySwitch": {
+            "hasMeasure": 0,
+            "cachedGlyphCount": 0,
+            "breakBytes": 0,
+            "paragraph": "{745, 21}"
+          }
+        }
+      ],
+      "cases": 12,
+      "typesettersCreated": 109,
+      "retention": {
+        "paragraphLength": 65536,
+        "cachedGlyphsAfterEmptySwitchAndSourceClear": 0,
+        "cacheAfterEmptySwitch": {
+          "hasMeasure": 0,
+          "cachedGlyphCount": 0,
+          "breakBytes": 0,
+          "paragraph": "{0, 65536}"
+        }
+      },
+      "paragraphBegins": 481,
+      "typesettersDestroyed": 109,
+      "paragraphEnds": 481,
+      "endParagraphCleanupExperiment": true,
+      "narrowedLines": 4497,
+      "architecture": "x86_64"
+    }
+  ]
+}
