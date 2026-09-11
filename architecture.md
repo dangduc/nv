@@ -64,6 +64,25 @@ One compatibility detail matters when reading older code: `AppController`'s `not
 Use `browserSession` for window state and `sharedNotationController` for the library.
 The session forwards remaining library methods through `performLibraryInvocation:fromBrowser:`.
 
+## Development and release installations
+
+The Development configuration builds `nvALT Development.app` with bundle identifier `net.elasticthreads.nv.development`.
+The ForBuilding configuration retains the release app name and identifier.
+`NVBuildFlavor` selects the few legacy locations that do not derive from bundle metadata.
+`NVAppIdentity.h` exposes that choice and the exported note-link scheme.
+
+Each app uses its own defaults domain for notes-folder aliases, colors, browser restoration, and backup settings.
+The default development notes folder is `~/Library/Application Support/Notational Data Development`.
+Application support and default backups derive from the executable name, so development uses `~/Library/Application Support/nvALT Development`.
+Caches derive from the bundle identifier. External-editing temporary folders and the encryption keychain service also differ.
+Development startup skips automatic legacy database import. Explicit imports remain available.
+
+Development registers separate URL schemes and Services names, with no default document-handler rank or Services shortcut.
+A DEV Dock badge identifies the development process.
+Copied note links use the current app's scheme. Wiki links continue to route inside their owning browser.
+Each process still owns one shared library across its windows.
+Explicitly choosing the same custom notes folder in both processes does not coordinate their storage transactions.
+
 ## Search and window state
 
 Each browser owns its query and Fuzzy/Exact mode. New sessions use Fuzzy; mode-less saved state restores as Exact.

@@ -1,6 +1,5 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Notational Velocity";
 NSHumanReadableCopyright = "© Zachary Schneirov, 2011
 
 Localizzazione italiana: Paolo Tramannoni";

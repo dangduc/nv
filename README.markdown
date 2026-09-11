@@ -99,7 +99,7 @@ It uses an Intel macOS 15 runner with Xcode 16.4.
 3. Extract `nvALT.app` from the ZIP file.
 
 Downloads require a GitHub login. App archives expire after 30 days.
-These are unsigned Development builds without notarization. Apple Silicon Macs require Rosetta.
+These are unsigned release-identity builds without notarization. Apple Silicon Macs require Rosetta.
 
 Successful `master` builds create a `build-<run number>` tag at the built commit.
 A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
@@ -141,14 +141,31 @@ The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK.
      GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
    ```
 
-3. Quit any other nvALT build before the first run.
-4. Run the app:
+3. Run the app beside your release copy:
 
    ```sh
-   open build/DerivedData/Build/Products/Development/nvALT.app
+   open "build/DerivedData/Build/Products/Development/nvALT Development.app"
    ```
 
-The build retains the upstream application identifier and can use existing nvALT settings and notes. The built-in updater is disabled. Updates to this fork require a new local build or CI artifact.
+The Development app has a separate name, a DEV Dock badge, and its own settings and default notes library.
+It does not copy release preferences or automatically import the legacy database.
+You can change its notes folder, colors, and backup settings independently.
+
+| Location or identity | Release | Development |
+| --- | --- | --- |
+| App | `nvALT.app` | `nvALT Development.app` |
+| Preferences domain | `net.elasticthreads.nv` | `net.elasticthreads.nv.development` |
+| Default notes folder under `~/Library/Application Support/` | `Notational Data` | `Notational Data Development` |
+| Support and backup folder under `~/Library/Application Support/` | `nvALT` | `nvALT Development` |
+| Note link scheme | `nvalt://` | `nvalt-dev://` |
+
+Custom locations remain your choice. Use separate notes folders while both apps run.
+To try existing notes, import source files or restore a backup into a separate development folder.
+Opening the same notes folder in both apps does not provide coordinated editing between processes.
+
+For a release build, use the same command with `-scheme 'Notation Release'`.
+The release app is `build/DerivedData/Build/Products/ForBuilding/nvALT.app` and uses existing release settings and notes.
+The built-in updater is disabled. Updates require a new local build or CI artifact.
 
 ## Development checks
 

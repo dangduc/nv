@@ -675,6 +675,7 @@
 		B69E26EE16F0B523001C6E4B /* Pencil@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pencil@2x.png"; path = "Pencil@2x.png"; sourceTree = "<group>"; };
 		B69E26EF16F0B523001C6E4B /* Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Search@2x.png"; path = "Search@2x.png"; sourceTree = "<group>"; };
 		1812F2B568444172B0960021 /* NVApplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVApplicationController.h; sourceTree = "<group>"; };
+		B017FC82F0EA4BAEB8D8C133 /* NVAppIdentity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVAppIdentity.h; sourceTree = "<group>"; };
 		6D669932DCF1684BC0183288 /* NVApplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVApplicationController.m; sourceTree = "<group>"; };
 		42687BEEE57B81B142B0EFAB /* NVBrowserSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVBrowserSession.h; sourceTree = "<group>"; };
 		E387F74E0DDC78720615A1D3 /* NVBrowserSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVBrowserSession.m; sourceTree = "<group>"; };
@@ -1334,6 +1335,7 @@
 			isa = PBXGroup;
 			children = (
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				B017FC82F0EA4BAEB8D8C133 /* NVAppIdentity.h */,
 				1812F2B568444172B0960021 /* NVApplicationController.h */,
 				6D669932DCF1684BC0183288 /* NVApplicationController.m */,
 				57F27FB71197407400C63ACF /* SearchCommand.h */,
@@ -2525,7 +2527,13 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ThirdParty/OpenSSL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = net.elasticthreads.nv;
+				NV_BUILD_FLAVOR = development;
+				NV_BUNDLE_SIGNATURE = NvDv;
+				NV_DOCUMENT_HANDLER_RANK = None;
+				NV_LEGACY_URL_SCHEME = "nv-dev";
+				NV_SERVICE_KEY_EQUIVALENT = "";
+				NV_URL_SCHEME = "nvalt-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = net.elasticthreads.nv.development;
 			};
 			name = Development;
 		};
@@ -2617,7 +2625,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-pg";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
-				PRODUCT_NAME = nvALT;
+				PRODUCT_NAME = "nvALT Development";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -2734,6 +2742,12 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ThirdParty/OpenSSL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
+				NV_BUILD_FLAVOR = release;
+				NV_BUNDLE_SIGNATURE = "N†l√";
+				NV_DOCUMENT_HANDLER_RANK = Default;
+				NV_LEGACY_URL_SCHEME = nv;
+				NV_SERVICE_KEY_EQUIVALENT = V;
+				NV_URL_SCHEME = nvalt;
 				PRODUCT_BUNDLE_IDENTIFIER = net.elasticthreads.nv;
 			};
 			name = ForBuilding;

@@ -28,7 +28,7 @@ xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
   GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
 ```
 
-Run `open build/DerivedData/Build/Products/Development/nvALT.app` to open the app. Replace `build` with `analyze` for Clang static analysis.
+Run `open "build/DerivedData/Build/Products/Development/nvALT Development.app"` to open the app. Replace `build` with `analyze` for Clang static analysis.
 
 ## Coding Style & Naming Conventions
 

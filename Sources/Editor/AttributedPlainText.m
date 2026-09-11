@@ -16,6 +16,7 @@
      or promote products derived from this software without specific prior written permission. */
 
 
+#import "NVAppIdentity.h"
 #import "AttributedPlainText.h"
 #import "NSCollection_utils.h"
 #import "GlobalPrefs.h"
@@ -325,7 +326,7 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 		if (![antiInteriorSet characterIsMember:[string characterAtIndex:NSMaxRange(blockRange) - 1]] && !_StringWithRangeIsProbablyObjC(string, blockRange)) {
 			
 			[self addAttribute:NSLinkAttributeName value:
-			 [NSURL URLWithString:[@"nvalt://find/" stringByAppendingString:[[string substringWithRange:blockRange] stringWithPercentEscapes]]] range:blockRange];
+			 [NSURL URLWithString:[[NVNoteURLScheme() stringByAppendingString:@"://find/"] stringByAppendingString:[[string substringWithRange:blockRange] stringWithPercentEscapes]]] range:blockRange];
 		}
 		//continue the scan starting at the end of the current block
 		nextScanLoc = NSMaxRange(blockRange) + 2;

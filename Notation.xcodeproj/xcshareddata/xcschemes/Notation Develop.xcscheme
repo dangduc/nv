@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D1107260486CEB800E47090"
-               BuildableName = "nvALT.app"
+               BuildableName = "nvALT Development.app"
                BlueprintName = "Notation"
                ReferencedContainer = "container:Notation.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
-            BuildableName = "nvALT.app"
+            BuildableName = "nvALT Development.app"
             BlueprintName = "Notation"
             ReferencedContainer = "container:Notation.xcodeproj">
          </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
-            BuildableName = "nvALT.app"
+            BuildableName = "nvALT Development.app"
             BlueprintName = "Notation"
             ReferencedContainer = "container:Notation.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
       buildConfiguration = "Development">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Deployment"
+      buildConfiguration = "Development"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

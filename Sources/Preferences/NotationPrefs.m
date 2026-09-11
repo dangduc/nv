@@ -17,6 +17,7 @@
 
 #import "AppController.h"
 #import "NotationPrefs.h"
+#import "NVAppIdentity.h"
 #import "GlobalPrefs.h"
 #import "NSString_NV.h"
 #import "NSCollection_utils.h"
@@ -32,7 +33,7 @@
 #define DEFAULT_HASH_ITERATIONS 8000
 #define DEFAULT_KEY_LENGTH 256
 
-#define KEYCHAIN_SERVICENAME "Notational Velocity"
+#define KEYCHAIN_SERVICENAME (NVIsDevelopmentBuild() ? "Notational Velocity Development" : "Notational Velocity")
 
 NSString *NotationPrefsDidChangeNotification = @"NotationPrefsDidChangeNotification";
 

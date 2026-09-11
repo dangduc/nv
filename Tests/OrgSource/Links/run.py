@@ -13,6 +13,7 @@ escape = strings[strings.index('- (NSString*)stringWithPercentEscapes {'):string
 code = '''#import <Cocoa/Cocoa.h>
 #import <CoreServices/CoreServices.h>
 #import "AttributedPlainText.h"
+#import "../Application/NVAppIdentity.h"
 @interface NSString (ProbeEscape)
 - (NSString *)stringWithPercentEscapes;
 @end

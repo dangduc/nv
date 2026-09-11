@@ -21,6 +21,7 @@
 
 
 #import "TemporaryFileCachePreparer.h"
+#import "NVAppIdentity.h"
 #import "NotationPrefs.h"
 #include <sys/mount.h>
 
@@ -70,11 +71,13 @@ static BOOL MountPointExists(const char *expectedMountPath) {
 }
 
 static NSString *RAMDiskMountPath() {
-	return [NSTemporaryDirectory() stringByAppendingPathComponent:@"NVProtectedEditingSpace"];
+	return [NSTemporaryDirectory() stringByAppendingPathComponent:
+		NVIsDevelopmentBuild() ? @"NVProtectedEditingSpace-Development" : @"NVProtectedEditingSpace"];
 }
 
 static NSString *TempDirectoryPathForEditing() {
-	return [NSTemporaryDirectory() stringByAppendingPathComponent:@"NVPlainTextEditingSpace"];
+	return [NSTemporaryDirectory() stringByAppendingPathComponent:
+		NVIsDevelopmentBuild() ? @"NVPlainTextEditingSpace-Development" : @"NVPlainTextEditingSpace"];
 }
 
 - (void)prepEditingSpaceIfNecessaryForNotationPrefs:(NotationPrefs*)prefs {

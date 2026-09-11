@@ -34,7 +34,7 @@ subprocess.run(['xcrun', 'clang', '-arch', 'x86_64', '-mmacosx-version-min=10.13
 print(f'BUILT: {dylib}', flush=True)
 if a.build_only:
     raise SystemExit(0)
-source = ROOT / 'build/DerivedData/Build/Products/Development/nvALT.app'
+source = ROOT / 'build/DerivedData/Build/Products/Development/nvALT Development.app'
 if not source.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')
 lock_path = ROOT / 'build/pr-review/gui.lock'

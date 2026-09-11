@@ -42,24 +42,35 @@ jobs:
           python3 Tests/FuzzySearch/Lifecycle/run.py --arch x86_64
           python3 Tests/FuzzySearch/PositionMapping/run.py --arch x86_64
 
-      - name: Build without signing
+      - name: Build both configurations without signing
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build
           xcodebuild -version
-          xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
-            -derivedDataPath build/DerivedData ARCHS=x86_64 \
-            MACOSX_DEPLOYMENT_TARGET=10.13 CODE_SIGNING_ALLOWED=NO \
-            GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build \
-            2>&1 | tee build/macos-build.log
+          for scheme in 'Notation Release' 'Notation Develop'; do
+            xcodebuild -project Notation.xcodeproj -scheme "$scheme" \
+              -derivedDataPath build/DerivedData ARCHS=x86_64 \
+              MACOSX_DEPLOYMENT_TARGET=10.13 CODE_SIGNING_ALLOWED=NO \
+              GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
+          done 2>&1 | tee build/macos-build.log
+
+      - name: Check application identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/check-app-identity.py \
+            build/DerivedData/Build/Products/ForBuilding/nvALT.app release
+          python3 .github/scripts/check-app-identity.py \
+            'build/DerivedData/Build/Products/Development/nvALT Development.app' development
+          lipo 'build/DerivedData/Build/Products/Development/nvALT Development.app/Contents/MacOS/nvALT Development' -verify_arch x86_64
 
       - name: Package the app
         id: package
         shell: bash
         run: |
           set -euo pipefail
-          app=build/DerivedData/Build/Products/Development/nvALT.app
+          app=build/DerivedData/Build/Products/ForBuilding/nvALT.app
           archive="build/nvALT-macos-x86_64-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}.zip"
           test -x "$app/Contents/MacOS/nvALT"
           lipo "$app/Contents/MacOS/nvALT" -verify_arch x86_64
@@ -80,7 +91,7 @@ jobs:
         env:
           ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
         run: |
-          printf 'Commit: `%s`\n\n[Download the Intel app](%s)\n\nUnsigned Development build. Apple Silicon requires Rosetta.\n' \
+          printf 'Commit: `%s`\n\n[Download the Intel app](%s)\n\nUnsigned release build. The separate Development app also passed build and identity checks. Apple Silicon requires Rosetta.\n' \
             "$GITHUB_SHA" "$ARTIFACT_URL" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the build log

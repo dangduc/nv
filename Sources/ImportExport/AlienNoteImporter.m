@@ -17,6 +17,7 @@
 
 
 #import "AlienNoteImporter.h"
+#import "NVAppIdentity.h"
 #import "BlorPasswordRetriever.h"
 #import "GlobalPrefs.h"
 #import "AttributedPlainText.h"
@@ -48,6 +49,7 @@ NSString *ShouldImportCreationDates = @"ShouldImportCreationDates";
 }
 
 + (void)importBlorOrHelpFilesIfNecessaryIntoNotation:(NotationController*)notation {
+	if (NVIsDevelopmentBuild()) return;
 	GlobalPrefs *prefsController = [GlobalPrefs defaultPrefs];
 	NotationPrefs *prefs = [prefsController notationPrefs];
 	if (![prefsController triedToImportBlor] && [prefs firstTimeUsed]) {
