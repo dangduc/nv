@@ -17,6 +17,7 @@
 
 
 #import "NotationFileManager.h"
+#import "NVAppIdentity.h"
 #import "NotationPrefs.h"
 #import "NSString_NV.h"
 #import "NSFileManager_NV.h"
@@ -396,7 +397,8 @@ terminate:
 	return err;
     } else {
 	//now try to get Notational Database directory
-	if ((err = CreateDirectoryIfNotPresent(&appSupportFoundRef, (CFStringRef)@"Notational Data", notesDir)) != noErr) {
+	NSString *directoryName = NVIsDevelopmentBuild() ? @"Notational Data Development" : @"Notational Data";
+	if ((err = CreateDirectoryIfNotPresent(&appSupportFoundRef, (CFStringRef)directoryName, notesDir)) != noErr) {
 	    
 	    return err;
 	}

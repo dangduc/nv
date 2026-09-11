@@ -14,7 +14,7 @@ repo = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(repo / 'Tests'))
 from compiler_support import include_flags
 
-source = Path(os.environ.get('NV_ORG_TEST_APP', repo / 'build/DerivedData/Build/Products/Development/nvALT.app'))
+source = Path(os.environ.get('NV_ORG_TEST_APP', repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app'))
 if not source.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')
 info = plistlib.loads((source / 'Contents/Info.plist').read_bytes())

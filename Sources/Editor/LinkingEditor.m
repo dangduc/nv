@@ -1,3 +1,4 @@
+#import "NVAppIdentity.h"
 #import "NVApplicationController.h"
 #import "NVNoteEditingSession.h"
 #import "NVSourceAnalysis.h"
@@ -507,12 +508,12 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 		return;
 	}
 	
-	if ([aLink isKindOfClass:[NSURL class]] && [[aLink scheme] isEqualToString:@"nvalt"]) {
+	if ([aLink isKindOfClass:[NSURL class]] && ([[aLink scheme] isEqualToString:@"nvalt"] || [[aLink scheme] isEqualToString:NVNoteURLScheme()])) {
         NSUInteger flags=[currentEvent modifierFlags];
         if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSCommandKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) {
             NSString *newURLString=[[aLink lastPathComponent]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSString *txtString=[[NSString stringWithFormat:@"[[%@]]",[aLink lastPathComponent]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            newURLString=[NSString stringWithFormat:@"nvalt://make/?title=%@&txt=%@",newURLString,txtString];
+            newURLString=[NSString stringWithFormat:@"%@://make/?title=%@&txt=%@",NVNoteURLScheme(),newURLString,txtString];
 //            NSLog(@"newurlstring:%@",newURLString);
             NSURL *newURL=[NSURL URLWithString:newURLString];
 //            NSLog(@"interpret from cmd-keydown OLD URL:||%@||  AND NEW URL:|%@|",[aLink absoluteString],[newURL absoluteString]);

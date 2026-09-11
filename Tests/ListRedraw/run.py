@@ -19,7 +19,7 @@ sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--app", type=Path, default=repo / "build/DerivedData/Build/Products/Development/nvALT.app")
+parser.add_argument("--app", type=Path, default=repo / "build/DerivedData/Build/Products/Development/nvALT Development.app")
 parser.add_argument("--label", default="candidate")
 parser.add_argument("--negative-control", action="store_true", help="restore the false opacity declaration and require pixel drift")
 args = parser.parse_args()

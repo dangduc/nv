@@ -1,6 +1,7 @@
 # CI checks
 
-The [macOS workflow](../../.github/workflows/macos.yml) builds an Intel Development app with Xcode 16.4 on `macos-15-intel`.
+The [macOS workflow](../../.github/workflows/macos.yml) builds both Intel app configurations with Xcode 16.4 on `macos-15-intel`.
+It builds `Notation Release` (`ForBuilding`), then `Notation Develop` (`Development`).
 CI disables code signing. It does not require repository secrets.
 Before the app build, CI runs the [native search suites](../FuzzySearch/README.md) on Intel.
 These checks cover native order, the search service, duplicate rows, persistence, and shared-source invalidation.
@@ -11,8 +12,14 @@ The build job has read access to the repository. A separate tag job has write ac
 ## Artifacts
 
 Each successful build uploads `nvALT-macos-x86_64-<run number>-<attempt>.zip` for 30 days.
+The archive contains the stable `nvALT.app` from `ForBuilding`.
+CI also builds and checks `nvALT Development.app` as a separate product.
 The build log remains available for seven days, including failed builds.
 The ZIP file preserves app permissions.
+
+Before packaging, CI checks each app's name, executable, bundle identifier, build flavor, and creator signature.
+It also checks URL registrations, document handler ranks, service names and shortcuts, and localized application names.
+Development must use its own identity and URL schemes. Its document handler rank is `None`, and its service has no default shortcut.
 
 The archive check reads the ZIP file and checks these properties.
 Its tests reject archives with lost executable permissions for the app or MultiMarkdown.
@@ -48,8 +55,17 @@ After a local build, create an app archive:
 
 ```sh
 ditto -c -k --sequesterRsrc --keepParent \
-  build/DerivedData/Build/Products/Development/nvALT.app build/nvALT-ci-check.zip
+  build/DerivedData/Build/Products/ForBuilding/nvALT.app build/nvALT-ci-check.zip
 python3 .github/scripts/check-app-archive.py build/nvALT-ci-check.zip
+```
+
+After building both schemes, check their application identities:
+
+```sh
+python3 .github/scripts/check-app-identity.py \
+  build/DerivedData/Build/Products/ForBuilding/nvALT.app release
+python3 .github/scripts/check-app-identity.py \
+  'build/DerivedData/Build/Products/Development/nvALT Development.app' development
 ```
 
 The [desktop integration suites](../README.md) require a separate run in an active desktop session.

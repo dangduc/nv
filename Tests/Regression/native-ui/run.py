@@ -20,7 +20,7 @@ lock_path.parent.mkdir(parents=True, exist_ok=True)
 lock = lock_path.open('w')
 fcntl.flock(lock, fcntl.LOCK_EX)
 parser = argparse.ArgumentParser()
-parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
+parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app')
 parser.add_argument('--benchmark', action='store_true')
 arguments = parser.parse_args()
 source = arguments.app

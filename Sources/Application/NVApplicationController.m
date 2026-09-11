@@ -1,3 +1,4 @@
+#import "NVAppIdentity.h"
 #import "NVApplicationController.h"
 #import "AppController.h"
 #import "AppController_Importing.h"
@@ -206,6 +207,7 @@ AppController *NVControllerForView(NSView *view) {
     }
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    if (NVIsDevelopmentBuild()) [[NSApp dockTile] setBadgeLabel:@"DEV"];
     [initialBrowser applicationDidFinishLaunching:notification];
     [self performSelector:@selector(finishLaunching) withObject:nil afterDelay:0.0];
 }

@@ -18,7 +18,7 @@ from compiler_support import include_flags
 parser = argparse.ArgumentParser()
 parser.add_argument('--probe', type=Path, required=True)
 parser.add_argument('--prefix', type=Path)
-parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
+parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app')
 parser.add_argument('--launches', type=int, default=1)
 parser.add_argument('--timeout', type=float, default=120)
 parser.add_argument('--launch-arg', action='append', default=[])

@@ -36,6 +36,8 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>$(NV_DOCUMENT_HANDLER_RANK)</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.plain-text</string>
@@ -52,6 +54,8 @@
 			<string>Notational Velocity BLOR</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>$(NV_DOCUMENT_HANDLER_RANK)</string>
 		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
@@ -76,6 +80,8 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string>nvALT by David Halter and Brett Terpstra, based on NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
 	<key>CFBundleIconFile</key>
@@ -91,7 +97,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.2.8</string>
 	<key>CFBundleSignature</key>
-	<string>N†l√</string>
+	<string>$(NV_BUNDLE_SIGNATURE)</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>MacOSX</string>
@@ -100,13 +106,11 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>net.elasticthreads.nv</string>
-		</dict>
-		<dict>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>nvalt</string>
-				<string>nv</string>
+				<string>$(NV_URL_SCHEME)</string>
+				<string>$(NV_LEGACY_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>
@@ -140,17 +144,17 @@
 			<key>NSKeyEquivalent</key>
 			<dict>
 				<key>default</key>
-				<string>V</string>
+				<string>$(NV_SERVICE_KEY_EQUIVALENT)</string>
 			</dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>nvALT: New Note from Selection</string>
+				<string>$(PRODUCT_NAME): New Note from Selection</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>createFromSelection</string>
 			<key>NSPortName</key>
-			<string>nvALT</string>
+			<string>$(PRODUCT_NAME)</string>
 			<key>NSSendFileTypes</key>
 			<array>
 				<string>public.plain-text</string>
@@ -163,6 +167,8 @@
 	</array>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>NVBuildFlavor</key>
+	<string>$(NV_BUILD_FLAVOR)</string>
 	<key>OSAScriptingDefinition</key>
 	<string>Notation.sdef</string>
 	<key>SmartCrashReports_CompanyName</key>

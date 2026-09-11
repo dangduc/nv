@@ -21,7 +21,7 @@ lock_path = common_git.parent / 'build/pr-review/gui.lock'
 lock_path.parent.mkdir(parents=True, exist_ok=True)
 lock = lock_path.open('w')
 fcntl.flock(lock, fcntl.LOCK_EX)
-source = repo / 'build/DerivedData/Build/Products/Development/nvALT.app'
+source = repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app'
 if not source.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')
 with tempfile.TemporaryDirectory(prefix='nvalt-org-preview-ui-') as root:

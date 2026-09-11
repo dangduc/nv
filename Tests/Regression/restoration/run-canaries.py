@@ -19,7 +19,7 @@ REPO = HERE.parents[2]
 sys.path.insert(0, str(REPO / "Tests"))
 from compiler_support import include_flags
 
-SOURCE = REPO / 'build/DerivedData/Build/Products/Development/nvALT.app'
+SOURCE = REPO / 'build/DerivedData/Build/Products/Development/nvALT Development.app'
 LOCK_PATH = REPO / 'build/pr-review/gui.lock'
 LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
 

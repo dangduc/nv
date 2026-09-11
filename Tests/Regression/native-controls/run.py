@@ -16,7 +16,7 @@ sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT.app')
+parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app')
 parser.add_argument('--probe', choices=['all', 'search', 'tab', 'tags', 'view', 'new-note'], default='all')
 arguments = parser.parse_args()
 if not arguments.app.exists():

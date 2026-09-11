@@ -19,7 +19,7 @@ sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--app", type=Path, default=repo / "build/DerivedData/Build/Products/Development/nvALT.app")
+parser.add_argument("--app", type=Path, default=repo / "build/DerivedData/Build/Products/Development/nvALT Development.app")
 parser.add_argument("--compile-only", action="store_true")
 parser.add_argument("--expect-original-crash", action="store_true",
                     help="Require the first native deletion to raise the original range exception")
