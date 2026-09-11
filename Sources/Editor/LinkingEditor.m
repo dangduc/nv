@@ -309,10 +309,14 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
             // collapse at the right margin instead of indenting the next line.
             // Repeated spaces and paragraph indentation remain literal.
             NSUInteger index = indexes[i];
-            if (index > 0 && index < sourceLength - 1 &&
-                ![whitespace characterIsMember:[source characterAtIndex:index - 1]] &&
-                ![whitespace characterIsMember:[source characterAtIndex:index + 1]] &&
-                [source rangeOfComposedCharacterSequenceAtIndex:index].length == 1) continue;
+            if (index > 0 && index < sourceLength - 1) {
+                unichar previous = [source characterAtIndex:index - 1];
+                unichar next = [source characterAtIndex:index + 1];
+                // With printable ASCII on both sides, the space is its own composed character.
+                BOOL asciiNeighbors = previous >= '!' && previous <= '~' && next >= '!' && next <= '~';
+                if (![whitespace characterIsMember:previous] && ![whitespace characterIsMember:next] &&
+                    (asciiNeighbors || [source rangeOfComposedCharacterSequenceAtIndex:index].length == 1)) continue;
+            }
             if (!adjusted) {
                 adjusted = range.length <= sizeof(stackProperties) / sizeof(stackProperties[0]) ?
                     stackProperties : malloc(range.length * sizeof(NSGlyphProperty));

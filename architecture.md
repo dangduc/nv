@@ -195,6 +195,8 @@ These spaces occupy their font width and wrap onto subsequent visual lines.
 An isolated U+0020 between non-whitespace characters retains native elasticity.
 At a wrap boundary, that separator can collapse at the previous line's edge instead of indenting the next line.
 The context check reads adjacent characters and preserves spaces with attached combining characters.
+Printable ASCII neighbors establish a separate space character without a composed-range query.
+Other neighbors retain the full composed-character check.
 Native text-storage edit processing refreshes the glyphs in each attached layout manager.
 Glyph IDs and source characters remain unchanged.
 The delegate preserves glyph properties for tabs, nonbreaking spaces, and other characters.
