@@ -1,0 +1,20 @@
+{
+  "development": {
+    "commands": {
+      "CompileXIB": 42,
+      "CompileC": 115,
+      "Ld": 1
+    },
+    "succeeded": true,
+    "source_log": "/tmp/nv-dev-isolation-build.log"
+  },
+  "release": {
+    "commands": {
+      "CompileXIB": 42,
+      "CompileC": 115,
+      "Ld": 1
+    },
+    "succeeded": true,
+    "source_log": "/tmp/nv-release-isolation-build.log"
+  }
+}

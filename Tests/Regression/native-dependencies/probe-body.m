@@ -40,7 +40,7 @@
         url = [linked attribute:NSLinkAttributeName atIndex:[text rangeOfString:@"person@"].location effectiveRange:NULL];
         Check([[url scheme] isEqualToString:@"mailto"], @"email addresses become mail links");
         url = [linked attribute:NSLinkAttributeName atIndex:[text rangeOfString:@"Other note"].location effectiveRange:NULL];
-        Check([[url scheme] isEqualToString:@"nvalt"], @"wiki links retain nvALT navigation");
+        Check([[url scheme] isEqualToString:([[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NVBuildFlavor"] isEqualToString:@"development"] ? @"nvalt-dev" : @"nvalt")], @"wiki links retain navigation in their app");
         [linked removeAttribute:NSLinkAttributeName range:changed];
         [linked replaceCharactersInRange:[text rangeOfString:@"https://example.com/a?q=1"] withString:@"ordinary words"];
         [linked addLinkAttributesForRange:NSMakeRange(0, [linked length])];

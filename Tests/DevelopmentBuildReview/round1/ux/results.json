@@ -1,0 +1,179 @@
+{
+  "commit": "2dbfd4621077d6dec8b1195cb5002e29179cdfaa",
+  "runtime": [
+    {
+      "flavor": "development",
+      "checks": 17,
+      "routes": [
+        {
+          "case": "generated note link",
+          "input": "nvalt-dev://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA==",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA=="
+        },
+        {
+          "case": "generated wiki link",
+          "input": "nvalt-dev://find/Copied%20Notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt-dev://find/Copied%20Notes"
+        },
+        {
+          "case": "copied release nvalt link retains local handling",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/Copied%20Notes"
+        },
+        {
+          "case": "generated note link",
+          "input": "nvalt-dev://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA==",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "generated wiki link",
+          "input": "nvalt-dev://find/Copied%20Notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "copied release nvalt link retains local handling",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt-dev://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "explicit stable alias",
+          "input": "nv://find/Copied%20Notes",
+          "route": "superclass",
+          "command": false,
+          "output": "nv://find/Copied%20Notes"
+        },
+        {
+          "case": "explicit development alias",
+          "input": "nv-dev://find/Copied%20Notes",
+          "route": "superclass",
+          "command": false,
+          "output": "nv-dev://find/Copied%20Notes"
+        }
+      ]
+    },
+    {
+      "flavor": "release",
+      "checks": 17,
+      "routes": [
+        {
+          "case": "generated note link",
+          "input": "nvalt://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA==",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA=="
+        },
+        {
+          "case": "generated wiki link",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/Copied%20Notes"
+        },
+        {
+          "case": "copied release nvalt link retains local handling",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": false,
+          "output": "nvalt://find/Copied%20Notes"
+        },
+        {
+          "case": "generated note link",
+          "input": "nvalt://find/Copied%20Notes/?NV=AAAAAAAAAAAAAAAAAAAAAA==",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "generated wiki link",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "copied release nvalt link retains local handling",
+          "input": "nvalt://find/Copied%20Notes",
+          "route": "local",
+          "command": true,
+          "output": "nvalt://make/?title=Copied%20Notes&txt=%5B%5BCopied%20Notes%5D%5D"
+        },
+        {
+          "case": "explicit stable alias",
+          "input": "nv://find/Copied%20Notes",
+          "route": "superclass",
+          "command": false,
+          "output": "nv://find/Copied%20Notes"
+        },
+        {
+          "case": "explicit development alias",
+          "input": "nv-dev://find/Copied%20Notes",
+          "route": "superclass",
+          "command": false,
+          "output": "nv-dev://find/Copied%20Notes"
+        }
+      ]
+    }
+  ],
+  "documented_launch": {
+    "README.markdown": "matches built app",
+    "AGENTS.md": "matches built app"
+  },
+  "authored_menu_labels": {
+    "de.lproj": [
+      "\u00dcber nvALT",
+      "nvALT ausblenden",
+      "nvALT beenden",
+      "\u00dcber nvALT",
+      "nvALT beenden"
+    ],
+    "en.lproj": [
+      "About nvALT",
+      "Hide nvALT",
+      "Quit nvALT",
+      "About nvALT",
+      "Quit nvALT"
+    ],
+    "fr.lproj": [
+      "A propos de nvALT",
+      "Masquer nvALT",
+      "Quitter nvALT",
+      "A propos de nvALT",
+      "Quitter nvALT"
+    ],
+    "it.lproj": [
+      "Info su nvALT",
+      "Nascondi nvALT",
+      "Esci da nvALT",
+      "Info su nvALT",
+      "Esci da nvALT"
+    ],
+    "pt-PT.lproj": [
+      "Sobre o nvALT",
+      "Ocultar nvALT",
+      "Encerrar nvALT",
+      "Sobre o nvALT",
+      "Encerrar nvALT"
+    ],
+    "zh.lproj": [
+      "\u5173\u4e8e nvALT",
+      "\u9690\u85cf nvALT",
+      "\u9000\u51fa nvALT",
+      "\u5173\u4e8e nvALT",
+      "\u9000\u51fa nvALT"
+    ]
+  },
+  "browser_title_method": "- (void)updateNoteHeader {\n    if (metadataControl != noteTitleField) [noteTitleField setStringValue:currentNote ? titleOfNote(currentNote) : @\"\"];\n    if (metadataControl != noteTagsField) [noteTagsField setStringValue:currentNote ? labelsOfNote(currentNote) ?: @\"\" : @\"\"];\n    [noteTitleField setEnabled:currentNote != nil];\n    [noteTagsField setEnabled:currentNote != nil];\n    [window setTitle:currentNote ? titleOfNote(currentNote) : @\"nvALT\"];\n    [toolbar validateVisibleItems];\n}",
+  "identity_limits": "No NSApplication or nib instantiation: runtime menu substitution and status-item distinction remain unverified."
+}

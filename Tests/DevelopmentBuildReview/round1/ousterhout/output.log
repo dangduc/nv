@@ -1,0 +1,11 @@
+PASS: built development identity, executable, and localized names
+2026-09-11 08:20:55.393 Probe[77315:346574964] Unable to locate or create an Application Support directory: -123
+PASS: development, identifier=net.elasticthreads.nv.development, scheme=nvalt-dev, folder=Notational Data Development
+2026-09-11 08:20:55.522 Probe[77316:346574977] Unable to locate or create an Application Support directory: -123
+PASS: development, identifier=org.nvalt.review.copied.development, scheme=nvalt-dev, folder=Notational Data Development
+PASS: built release identity, executable, and localized names
+2026-09-11 08:20:55.685 Probe[77324:346575015] Unable to locate or create an Application Support directory: -123
+PASS: release, identifier=net.elasticthreads.nv, scheme=nvalt, folder=Notational Data
+2026-09-11 08:20:55.812 Probe[77326:346575026] Unable to locate or create an Application Support directory: -123
+PASS: release, identifier=org.nvalt.review.copied.release, scheme=nvalt, folder=Notational Data
+PASS: built registration/runtime agreement, copied-bundle flavor, and default-directory dispatch

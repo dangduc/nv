@@ -1,0 +1,15 @@
+PASS:development:seed
+PASS:release:seed
+PASS:release:read
+PASS:development:read
+DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE
+PASS:release:destination
+DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE
+PASS:release:destination-relaunch
+DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE
+PASS:development:destination
+DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE
+PASS:development:destination-relaunch
+PASS:release:copy-control
+PASS: independent backup settings/claims and alias bytes survive process relaunch
+COLLISION CONFIRMED: separate physical note copies, same UUID, same custom backup root resolve to the same destination across domains

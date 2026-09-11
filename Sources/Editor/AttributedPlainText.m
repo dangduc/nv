@@ -296,6 +296,7 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 	NSString *string = [self string];
 	NSUInteger nextScanLoc = 0;
 	NSRange scanRange = changedRange;
+	NSString *noteLinkPrefix = nil;
 	
 	while (NSMaxRange(scanRange) <= NSMaxRange(changedRange)) {
 		
@@ -324,9 +325,9 @@ static BOOL _StringWithRangeIsProbablyObjC(NSString *string, NSRange blockRange)
 		}
 
 		if (![antiInteriorSet characterIsMember:[string characterAtIndex:NSMaxRange(blockRange) - 1]] && !_StringWithRangeIsProbablyObjC(string, blockRange)) {
-			
+			if (!noteLinkPrefix) noteLinkPrefix = [NVNoteURLScheme() stringByAppendingString:@"://find/"];
 			[self addAttribute:NSLinkAttributeName value:
-			 [NSURL URLWithString:[[NVNoteURLScheme() stringByAppendingString:@"://find/"] stringByAppendingString:[[string substringWithRange:blockRange] stringWithPercentEscapes]]] range:blockRange];
+			 [NSURL URLWithString:[noteLinkPrefix stringByAppendingString:[[string substringWithRange:blockRange] stringWithPercentEscapes]]] range:blockRange];
 		}
 		//continue the scan starting at the end of the current block
 		nextScanLoc = NSMaxRange(blockRange) + 2;

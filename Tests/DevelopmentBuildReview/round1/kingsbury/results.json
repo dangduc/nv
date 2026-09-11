@@ -1,0 +1,66 @@
+{
+  "commit": "2dbfd4621077d6dec8b1195cb5002e29179cdfaa",
+  "hypothesis_1": "PASS: independent backup settings/claims and alias bytes survive process relaunch",
+  "hypothesis_2": "COLLISION CONFIRMED: separate physical note copies, same UUID, same custom backup root resolve to the same destination across domains",
+  "destinations": {
+    "release": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE",
+    "development": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE"
+  },
+  "history": [
+    {
+      "flavor": "development",
+      "command": "seed",
+      "stdout": "PASS:development:seed",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "seed",
+      "stdout": "PASS:release:seed",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "read",
+      "stdout": "PASS:release:read",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "read",
+      "stdout": "PASS:development:read",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "destination",
+      "stdout": "DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:release:destination",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "destination-relaunch",
+      "stdout": "DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:release:destination-relaunch",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "destination",
+      "stdout": "DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:development:destination",
+      "stderr": ""
+    },
+    {
+      "flavor": "development",
+      "command": "destination-relaunch",
+      "stdout": "DESTINATION:/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-kingsbury-review-cgbbvyqk/shared-custom-backups/AAAAAAAA-BBBB-4CCC-8DDD-EEEEEEEEEEEE\nPASS:development:destination-relaunch",
+      "stderr": ""
+    },
+    {
+      "flavor": "release",
+      "command": "copy-control",
+      "stdout": "PASS:release:copy-control",
+      "stderr": ""
+    }
+  ],
+  "limits": "Foundation processes and verbatim extracted production backup methods; no actual app startup, encrypted archive, real keychain, or retention mutation. Claims and preferences are only unique test domains. Temporary filesystem paths are removed."
+}

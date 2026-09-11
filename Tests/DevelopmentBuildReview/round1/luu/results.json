@@ -1,0 +1,97 @@
+{
+  "base": "bd74bf3",
+  "head": "2dbfd46",
+  "architecture": "x86_64 (Rosetta on arm64)",
+  "environment": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "flavors": {
+    "development": {
+      "helper_ns_median": 1794.055,
+      "scans": {
+        "0": {
+          "median_ms": {
+            "new": 0.0,
+            "old": 0.0
+          },
+          "new_to_old_ratio": null,
+          "added_ms": 0.0
+        },
+        "10": {
+          "median_ms": {
+            "new": 0.0525,
+            "old": 0.026000000000000002
+          },
+          "new_to_old_ratio": 2.019230769230769,
+          "added_ms": 0.026499999999999996
+        },
+        "1000": {
+          "median_ms": {
+            "new": 5.009999,
+            "old": 2.7039995
+          },
+          "new_to_old_ratio": 1.8528106236706032,
+          "added_ms": 2.3059994999999995
+        },
+        "10000": {
+          "median_ms": {
+            "new": 51.6555005,
+            "old": 27.404001
+          },
+          "new_to_old_ratio": 1.8849619987971828,
+          "added_ms": 24.2514995
+        }
+      }
+    },
+    "release": {
+      "helper_ns_median": 1849.3450005,
+      "scans": {
+        "0": {
+          "median_ms": {
+            "new": 0.0,
+            "old": 0.0
+          },
+          "new_to_old_ratio": null,
+          "added_ms": 0.0
+        },
+        "10": {
+          "median_ms": {
+            "new": 0.049,
+            "old": 0.025500000000000002
+          },
+          "new_to_old_ratio": 1.9215686274509802,
+          "added_ms": 0.0235
+        },
+        "1000": {
+          "median_ms": {
+            "new": 5.1105,
+            "old": 2.746
+          },
+          "new_to_old_ratio": 1.8610706482155863,
+          "added_ms": 2.3645
+        },
+        "10000": {
+          "median_ms": {
+            "new": 51.511,
+            "old": 27.4825
+          },
+          "new_to_old_ratio": 1.874320021832075,
+          "added_ms": 24.0285
+        }
+      }
+    }
+  },
+  "artifacts": {
+    "development": {
+      "bytes": 11375249,
+      "identity_check": "Development application identity checks passed."
+    },
+    "release": {
+      "bytes": 7796748,
+      "identity_check": "Release application identity checks passed."
+    }
+  },
+  "compile_objects": {
+    "Development": 115,
+    "ForBuilding": 115
+  }
+}
