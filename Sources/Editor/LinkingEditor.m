@@ -283,6 +283,34 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 	didRenderFully = NO;
 }
 
+- (NSUInteger)layoutManager:(NSLayoutManager *)manager shouldGenerateGlyphs:(const CGGlyph *)glyphs
+                 properties:(const NSGlyphProperty *)properties characterIndexes:(const NSUInteger *)indexes
+                       font:(NSFont *)font forGlyphRange:(NSRange)range {
+    if (!range.length || range.length > SIZE_MAX / sizeof(NSGlyphProperty)) return 0;
+    NSString *source = [[manager textStorage] string];
+    NSUInteger sourceLength = [source length];
+    NSGlyphProperty *adjusted = NULL;
+    for (NSUInteger i = 0; i < range.length; i++) {
+        if ((properties[i] & NSGlyphPropertyElastic) &&
+            !(properties[i] & NSGlyphPropertyControlCharacter) && indexes[i] < sourceLength &&
+            [source characterAtIndex:indexes[i]] == ' ') {
+            if (!adjusted) {
+                adjusted = malloc(range.length * sizeof(NSGlyphProperty));
+                if (!adjusted) return 0;
+                memcpy(adjusted, properties, range.length * sizeof(NSGlyphProperty));
+            }
+            // Elastic spaces collect at the right margin instead of wrapping.
+            // Give ordinary spaces their font width without changing the source,
+            // glyph IDs, or native editing and insertion-point behavior.
+            adjusted[i] &= ~NSGlyphPropertyElastic;
+        }
+    }
+    if (!adjusted) return 0;
+    [manager setGlyphs:glyphs properties:adjusted characterIndexes:indexes font:font forGlyphRange:range];
+    free(adjusted);
+    return range.length;
+}
+
 - (NSColor *)sourceColorForCapture:(NSString *)capture {
     if (!capture || [capture isEqualToString:@"none"]) return nil;
     CGFloat hue = 0.61, saturation = 0.72;
