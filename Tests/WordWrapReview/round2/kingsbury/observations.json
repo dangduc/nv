@@ -1,0 +1,1791 @@
+[
+  {
+    "length" : 799,
+    "endsWithMeasure" : 13,
+    "observedEndCalls" : 13,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source ",
+        "glyphs" : "{0, 38}",
+        "characters" : "{0, 38}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "editor wraps a paragraph across several ",
+        "glyphs" : "{38, 40}",
+        "characters" : "{38, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{78, 37}",
+        "characters" : "{78, 37}",
+        "rect" : "{{0, 42}, {469, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda ",
+        "glyphs" : "{115, 41}",
+        "characters" : "{115, 41}",
+        "rect" : "{{0, 63}, {469, 21}}",
+        "used" : "{{0, 63}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 84}, {469, 28}}",
+        "used" : "{{0, 84}, {447.2919921875, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 112}, {469, 21}}",
+        "used" : "{{0, 112}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 133}, {469, 21}}",
+        "used" : "{{0, 133}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete ",
+        "glyphs" : "{255, 40}",
+        "characters" : "{255, 40}",
+        "rect" : "{{0, 154}, {469, 21}}",
+        "used" : "{{0, 154}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{295, 41}",
+        "characters" : "{295, 41}",
+        "rect" : "{{0, 175}, {469, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{336, 40}",
+        "characters" : "{336, 40}",
+        "rect" : "{{0, 196}, {469, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{376, 40}",
+        "characters" : "{376, 40}",
+        "rect" : "{{0, 217}, {469, 21}}",
+        "used" : "{{0, 217}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{416, 41}",
+        "characters" : "{416, 41}",
+        "rect" : "{{0, 238}, {469, 25}}",
+        "used" : "{{0, 238}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{457, 47}",
+        "characters" : "{457, 47}",
+        "rect" : "{{0, 263}, {469, 28}}",
+        "used" : "{{0, 263}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.\n",
+        "glyphs" : "{504, 24}",
+        "characters" : "{504, 24}",
+        "rect" : "{{0, 291}, {469, 21}}",
+        "used" : "{{0, 291}, {273.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete ",
+        "glyphs" : "{528, 39}",
+        "characters" : "{528, 39}",
+        "rect" : "{{0, 312}, {469, 21}}",
+        "used" : "{{0, 312}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{567, 41}",
+        "characters" : "{567, 41}",
+        "rect" : "{{0, 333}, {469, 21}}",
+        "used" : "{{0, 333}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{608, 40}",
+        "characters" : "{608, 40}",
+        "rect" : "{{0, 354}, {469, 21}}",
+        "used" : "{{0, 354}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{648, 40}",
+        "characters" : "{648, 40}",
+        "rect" : "{{0, 375}, {469, 21}}",
+        "used" : "{{0, 375}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{688, 41}",
+        "characters" : "{688, 41}",
+        "rect" : "{{0, 396}, {469, 25}}",
+        "used" : "{{0, 396}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{729, 47}",
+        "characters" : "{729, 47}",
+        "rect" : "{{0, 421}, {469, 28}}",
+        "used" : "{{0, 421}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.",
+        "glyphs" : "{776, 23}",
+        "characters" : "{776, 23}",
+        "rect" : "{{0, 449}, {469, 21}}",
+        "used" : "{{0, 449}, {273.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 13,
+    "step" : "L1 original paragraphs \/ first",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 799,
+    "endsWithMeasure" : 13,
+    "observedEndCalls" : 13,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {749, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta gamma delta epsilon zeta eta",
+        "glyphs" : "{63, 68}",
+        "characters" : "{63, 68}",
+        "rect" : "{{0, 21}, {749, 21}}",
+        "used" : "{{0, 21}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " theta iota kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{131, 70}",
+        "characters" : "{131, 70}",
+        "rect" : "{{0, 42}, {749, 28}}",
+        "used" : "{{0, 42}, {718.21484375, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 70}, {749, 21}}",
+        "used" : "{{0, 70}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 91}, {749, 21}}",
+        "used" : "{{0, 91}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor wraps",
+        "glyphs" : "{255, 68}",
+        "characters" : "{255, 68}",
+        "rect" : "{{0, 112}, {749, 21}}",
+        "used" : "{{0, 112}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{323, 65}",
+        "characters" : "{323, 65}",
+        "rect" : "{{0, 133}, {749, 21}}",
+        "used" : "{{0, 133}, {714.3994140625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{388, 68}",
+        "characters" : "{388, 68}",
+        "rect" : "{{0, 154}, {749, 21}}",
+        "used" : "{{0, 154}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{456, 56}",
+        "characters" : "{456, 56}",
+        "rect" : "{{0, 175}, {749, 28}}",
+        "used" : "{{0, 175}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{512, 16}",
+        "characters" : "{512, 16}",
+        "rect" : "{{0, 203}, {749, 21}}",
+        "used" : "{{0, 203}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor wraps ",
+        "glyphs" : "{528, 68}",
+        "characters" : "{528, 68}",
+        "rect" : "{{0, 224}, {749, 21}}",
+        "used" : "{{0, 224}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{596, 64}",
+        "characters" : "{596, 64}",
+        "rect" : "{{0, 245}, {749, 21}}",
+        "used" : "{{0, 245}, {703.5625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{660, 68}",
+        "characters" : "{660, 68}",
+        "rect" : "{{0, 266}, {749, 21}}",
+        "used" : "{{0, 266}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{728, 56}",
+        "characters" : "{728, 56}",
+        "rect" : "{{0, 287}, {749, 28}}",
+        "used" : "{{0, 287}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{784, 15}",
+        "characters" : "{784, 15}",
+        "rect" : "{{0, 315}, {749, 21}}",
+        "used" : "{{0, 315}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 13,
+    "step" : "L1 original paragraphs \/ peer",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 0,
+    "endsWithMeasure" : 13,
+    "observedEndCalls" : 13,
+    "lines" : [
+
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 13,
+    "step" : "L1 native delete-all to empty \/ first",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 0,
+    "endsWithMeasure" : 13,
+    "observedEndCalls" : 13,
+    "lines" : [
+
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 13,
+    "step" : "L1 native delete-all to empty \/ peer",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 799,
+    "endsWithMeasure" : 19,
+    "observedEndCalls" : 19,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source ",
+        "glyphs" : "{0, 38}",
+        "characters" : "{0, 38}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "editor wraps a paragraph across several ",
+        "glyphs" : "{38, 40}",
+        "characters" : "{38, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{78, 37}",
+        "characters" : "{78, 37}",
+        "rect" : "{{0, 42}, {469, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda ",
+        "glyphs" : "{115, 41}",
+        "characters" : "{115, 41}",
+        "rect" : "{{0, 63}, {469, 21}}",
+        "used" : "{{0, 63}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 84}, {469, 28}}",
+        "used" : "{{0, 84}, {447.2919921875, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 112}, {469, 21}}",
+        "used" : "{{0, 112}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 133}, {469, 21}}",
+        "used" : "{{0, 133}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete ",
+        "glyphs" : "{255, 40}",
+        "characters" : "{255, 40}",
+        "rect" : "{{0, 154}, {469, 21}}",
+        "used" : "{{0, 154}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{295, 41}",
+        "characters" : "{295, 41}",
+        "rect" : "{{0, 175}, {469, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{336, 40}",
+        "characters" : "{336, 40}",
+        "rect" : "{{0, 196}, {469, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{376, 40}",
+        "characters" : "{376, 40}",
+        "rect" : "{{0, 217}, {469, 21}}",
+        "used" : "{{0, 217}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{416, 41}",
+        "characters" : "{416, 41}",
+        "rect" : "{{0, 238}, {469, 25}}",
+        "used" : "{{0, 238}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{457, 47}",
+        "characters" : "{457, 47}",
+        "rect" : "{{0, 263}, {469, 28}}",
+        "used" : "{{0, 263}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.\n",
+        "glyphs" : "{504, 24}",
+        "characters" : "{504, 24}",
+        "rect" : "{{0, 291}, {469, 21}}",
+        "used" : "{{0, 291}, {273.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete ",
+        "glyphs" : "{528, 39}",
+        "characters" : "{528, 39}",
+        "rect" : "{{0, 312}, {469, 21}}",
+        "used" : "{{0, 312}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{567, 41}",
+        "characters" : "{567, 41}",
+        "rect" : "{{0, 333}, {469, 21}}",
+        "used" : "{{0, 333}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{608, 40}",
+        "characters" : "{608, 40}",
+        "rect" : "{{0, 354}, {469, 21}}",
+        "used" : "{{0, 354}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{648, 40}",
+        "characters" : "{648, 40}",
+        "rect" : "{{0, 375}, {469, 21}}",
+        "used" : "{{0, 375}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{688, 41}",
+        "characters" : "{688, 41}",
+        "rect" : "{{0, 396}, {469, 25}}",
+        "used" : "{{0, 396}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{729, 47}",
+        "characters" : "{729, 47}",
+        "rect" : "{{0, 421}, {469, 28}}",
+        "used" : "{{0, 421}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.",
+        "glyphs" : "{776, 23}",
+        "characters" : "{776, 23}",
+        "rect" : "{{0, 449}, {469, 21}}",
+        "used" : "{{0, 449}, {273.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 19,
+    "step" : "L1 Undo empty replacement \/ first",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 799,
+    "endsWithMeasure" : 19,
+    "observedEndCalls" : 19,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {749, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta gamma delta epsilon zeta eta",
+        "glyphs" : "{63, 68}",
+        "characters" : "{63, 68}",
+        "rect" : "{{0, 21}, {749, 21}}",
+        "used" : "{{0, 21}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " theta iota kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{131, 70}",
+        "characters" : "{131, 70}",
+        "rect" : "{{0, 42}, {749, 28}}",
+        "used" : "{{0, 42}, {718.21484375, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 70}, {749, 21}}",
+        "used" : "{{0, 70}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 91}, {749, 21}}",
+        "used" : "{{0, 91}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor wraps",
+        "glyphs" : "{255, 68}",
+        "characters" : "{255, 68}",
+        "rect" : "{{0, 112}, {749, 21}}",
+        "used" : "{{0, 112}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{323, 65}",
+        "characters" : "{323, 65}",
+        "rect" : "{{0, 133}, {749, 21}}",
+        "used" : "{{0, 133}, {714.3994140625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{388, 68}",
+        "characters" : "{388, 68}",
+        "rect" : "{{0, 154}, {749, 21}}",
+        "used" : "{{0, 154}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{456, 56}",
+        "characters" : "{456, 56}",
+        "rect" : "{{0, 175}, {749, 28}}",
+        "used" : "{{0, 175}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{512, 16}",
+        "characters" : "{512, 16}",
+        "rect" : "{{0, 203}, {749, 21}}",
+        "used" : "{{0, 203}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor wraps ",
+        "glyphs" : "{528, 68}",
+        "characters" : "{528, 68}",
+        "rect" : "{{0, 224}, {749, 21}}",
+        "used" : "{{0, 224}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{596, 64}",
+        "characters" : "{596, 64}",
+        "rect" : "{{0, 245}, {749, 21}}",
+        "used" : "{{0, 245}, {703.5625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{660, 68}",
+        "characters" : "{660, 68}",
+        "rect" : "{{0, 266}, {749, 21}}",
+        "used" : "{{0, 266}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{728, 56}",
+        "characters" : "{728, 56}",
+        "rect" : "{{0, 287}, {749, 28}}",
+        "used" : "{{0, 287}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{784, 15}",
+        "characters" : "{784, 15}",
+        "rect" : "{{0, 315}, {749, 21}}",
+        "used" : "{{0, 315}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 19,
+    "step" : "L1 Undo empty replacement \/ peer",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 0,
+    "endsWithMeasure" : 19,
+    "observedEndCalls" : 19,
+    "lines" : [
+
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 19,
+    "step" : "L1 first editor immediately after note deletion",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 0,
+    "endsWithMeasure" : 19,
+    "observedEndCalls" : 19,
+    "lines" : [
+
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 19,
+    "step" : "L1 peer immediately after note deletion",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 254,
+    "endsWithMeasure" : 21,
+    "observedEndCalls" : 21,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source ",
+        "glyphs" : "{0, 38}",
+        "characters" : "{0, 38}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "editor wraps a paragraph across several ",
+        "glyphs" : "{38, 40}",
+        "characters" : "{38, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{78, 37}",
+        "characters" : "{78, 37}",
+        "rect" : "{{0, 42}, {469, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda ",
+        "glyphs" : "{115, 41}",
+        "characters" : "{115, 41}",
+        "rect" : "{{0, 63}, {469, 21}}",
+        "used" : "{{0, 63}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 84}, {469, 28}}",
+        "used" : "{{0, 84}, {447.2919921875, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 112}, {469, 21}}",
+        "used" : "{{0, 112}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{239, 15}",
+        "characters" : "{239, 15}",
+        "rect" : "{{0, 133}, {469, 21}}",
+        "used" : "{{0, 133}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 21,
+    "step" : "L1 replacement note after deletion \/ first",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 254,
+    "endsWithMeasure" : 21,
+    "observedEndCalls" : 21,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {749, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta gamma delta epsilon zeta eta",
+        "glyphs" : "{63, 68}",
+        "characters" : "{63, 68}",
+        "rect" : "{{0, 21}, {749, 21}}",
+        "used" : "{{0, 21}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " theta iota kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{131, 70}",
+        "characters" : "{131, 70}",
+        "rect" : "{{0, 42}, {749, 28}}",
+        "used" : "{{0, 42}, {718.21484375, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 70}, {749, 21}}",
+        "used" : "{{0, 70}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{239, 15}",
+        "characters" : "{239, 15}",
+        "rect" : "{{0, 91}, {749, 21}}",
+        "used" : "{{0, 91}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 21,
+    "step" : "L1 replacement note after deletion \/ peer",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 799,
+    "endsWithMeasure" : 27,
+    "observedEndCalls" : 27,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source ",
+        "glyphs" : "{0, 38}",
+        "characters" : "{0, 38}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "editor wraps a paragraph across several ",
+        "glyphs" : "{38, 40}",
+        "characters" : "{38, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{78, 37}",
+        "characters" : "{78, 37}",
+        "rect" : "{{0, 42}, {469, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda ",
+        "glyphs" : "{115, 41}",
+        "characters" : "{115, 41}",
+        "rect" : "{{0, 63}, {469, 21}}",
+        "used" : "{{0, 63}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{156, 45}",
+        "characters" : "{156, 45}",
+        "rect" : "{{0, 84}, {469, 28}}",
+        "used" : "{{0, 84}, {447.2919921875, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 112}, {469, 21}}",
+        "used" : "{{0, 112}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 133}, {469, 21}}",
+        "used" : "{{0, 133}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete ",
+        "glyphs" : "{255, 40}",
+        "characters" : "{255, 40}",
+        "rect" : "{{0, 154}, {469, 21}}",
+        "used" : "{{0, 154}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{295, 41}",
+        "characters" : "{295, 41}",
+        "rect" : "{{0, 175}, {469, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{336, 40}",
+        "characters" : "{336, 40}",
+        "rect" : "{{0, 196}, {469, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{376, 40}",
+        "characters" : "{376, 40}",
+        "rect" : "{{0, 217}, {469, 21}}",
+        "used" : "{{0, 217}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{416, 41}",
+        "characters" : "{416, 41}",
+        "rect" : "{{0, 238}, {469, 25}}",
+        "used" : "{{0, 238}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{457, 47}",
+        "characters" : "{457, 47}",
+        "rect" : "{{0, 263}, {469, 28}}",
+        "used" : "{{0, 263}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.\n",
+        "glyphs" : "{504, 24}",
+        "characters" : "{504, 24}",
+        "rect" : "{{0, 291}, {469, 21}}",
+        "used" : "{{0, 291}, {273.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete ",
+        "glyphs" : "{528, 39}",
+        "characters" : "{528, 39}",
+        "rect" : "{{0, 312}, {469, 21}}",
+        "used" : "{{0, 312}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{567, 41}",
+        "characters" : "{567, 41}",
+        "rect" : "{{0, 333}, {469, 21}}",
+        "used" : "{{0, 333}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{608, 40}",
+        "characters" : "{608, 40}",
+        "rect" : "{{0, 354}, {469, 21}}",
+        "used" : "{{0, 354}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{648, 40}",
+        "characters" : "{648, 40}",
+        "rect" : "{{0, 375}, {469, 21}}",
+        "used" : "{{0, 375}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{688, 41}",
+        "characters" : "{688, 41}",
+        "rect" : "{{0, 396}, {469, 25}}",
+        "used" : "{{0, 396}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{729, 47}",
+        "characters" : "{729, 47}",
+        "rect" : "{{0, 421}, {469, 28}}",
+        "used" : "{{0, 421}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.",
+        "glyphs" : "{776, 23}",
+        "characters" : "{776, 23}",
+        "rect" : "{{0, 449}, {469, 21}}",
+        "used" : "{{0, 449}, {273.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 27,
+    "step" : "L2 initial shared source \/ first",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 799,
+    "endsWithMeasure" : 27,
+    "observedEndCalls" : 27,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {749, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta gamma delta epsilon zeta eta",
+        "glyphs" : "{63, 68}",
+        "characters" : "{63, 68}",
+        "rect" : "{{0, 21}, {749, 21}}",
+        "used" : "{{0, 21}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " theta iota kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{131, 70}",
+        "characters" : "{131, 70}",
+        "rect" : "{{0, 42}, {749, 28}}",
+        "used" : "{{0, 42}, {718.21484375, 28}}"
+      },
+      {
+        "text" : "alongside ordinary spaces     and tabs",
+        "glyphs" : "{201, 38}",
+        "characters" : "{201, 38}",
+        "rect" : "{{0, 70}, {749, 21}}",
+        "used" : "{{0, 70}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 91}, {749, 21}}",
+        "used" : "{{0, 91}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor wraps",
+        "glyphs" : "{255, 68}",
+        "characters" : "{255, 68}",
+        "rect" : "{{0, 112}, {749, 21}}",
+        "used" : "{{0, 112}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{323, 65}",
+        "characters" : "{323, 65}",
+        "rect" : "{{0, 133}, {749, 21}}",
+        "used" : "{{0, 133}, {714.3994140625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{388, 68}",
+        "characters" : "{388, 68}",
+        "rect" : "{{0, 154}, {749, 21}}",
+        "used" : "{{0, 154}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{456, 56}",
+        "characters" : "{456, 56}",
+        "rect" : "{{0, 175}, {749, 28}}",
+        "used" : "{{0, 175}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{512, 16}",
+        "characters" : "{512, 16}",
+        "rect" : "{{0, 203}, {749, 21}}",
+        "used" : "{{0, 203}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor wraps ",
+        "glyphs" : "{528, 68}",
+        "characters" : "{528, 68}",
+        "rect" : "{{0, 224}, {749, 21}}",
+        "used" : "{{0, 224}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{596, 64}",
+        "characters" : "{596, 64}",
+        "rect" : "{{0, 245}, {749, 21}}",
+        "used" : "{{0, 245}, {703.5625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{660, 68}",
+        "characters" : "{660, 68}",
+        "rect" : "{{0, 266}, {749, 21}}",
+        "used" : "{{0, 266}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{728, 56}",
+        "characters" : "{728, 56}",
+        "rect" : "{{0, 287}, {749, 28}}",
+        "used" : "{{0, 287}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{784, 15}",
+        "characters" : "{784, 15}",
+        "rect" : "{{0, 315}, {749, 21}}",
+        "used" : "{{0, 315}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 27,
+    "step" : "L2 initial shared source \/ peer",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 816,
+    "endsWithMeasure" : 30,
+    "observedEndCalls" : 30,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source ",
+        "glyphs" : "{0, 38}",
+        "characters" : "{0, 38}",
+        "rect" : "{{0, 0}, {469, 21}}",
+        "used" : "{{0, 0}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "editor wraps a paragraph across several ",
+        "glyphs" : "{38, 40}",
+        "characters" : "{38, 40}",
+        "rect" : "{{0, 21}, {469, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "visual lines. 日本語 local choice with ",
+        "glyphs" : "{78, 36}",
+        "characters" : "{78, 36}",
+        "rect" : "{{0, 42}, {469, 25}}",
+        "used" : "{{0, 42}, {421.6181640625, 25}}"
+      },
+      {
+        "text" : "short words delta epsilon zeta eta theta ",
+        "glyphs" : "{114, 41}",
+        "characters" : "{114, 41}",
+        "rect" : "{{0, 67}, {469, 21}}",
+        "used" : "{{0, 67}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "iota kappa lambda mu. Unicode preserves ",
+        "glyphs" : "{155, 40}",
+        "characters" : "{155, 40}",
+        "rect" : "{{0, 88}, {469, 21}}",
+        "used" : "{{0, 88}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "Việt 中文 👩🏽‍💻 and á alongside ordinary ",
+        "glyphs" : "{195, 42}",
+        "characters" : "{195, 42}",
+        "rect" : "{{0, 109}, {469, 28}}",
+        "used" : "{{0, 109}, {414.78125, 28}}"
+      },
+      {
+        "text" : "spaces     and tabs\tbetween words.\n",
+        "glyphs" : "{237, 35}",
+        "characters" : "{237, 35}",
+        "rect" : "{{0, 137}, {469, 21}}",
+        "used" : "{{0, 137}, {385.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete ",
+        "glyphs" : "{272, 40}",
+        "characters" : "{272, 40}",
+        "rect" : "{{0, 158}, {469, 21}}",
+        "used" : "{{0, 158}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{312, 41}",
+        "characters" : "{312, 41}",
+        "rect" : "{{0, 179}, {469, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{353, 40}",
+        "characters" : "{353, 40}",
+        "rect" : "{{0, 200}, {469, 21}}",
+        "used" : "{{0, 200}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{393, 40}",
+        "characters" : "{393, 40}",
+        "rect" : "{{0, 221}, {469, 21}}",
+        "used" : "{{0, 221}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{433, 41}",
+        "characters" : "{433, 41}",
+        "rect" : "{{0, 242}, {469, 25}}",
+        "used" : "{{0, 242}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{474, 47}",
+        "characters" : "{474, 47}",
+        "rect" : "{{0, 267}, {469, 28}}",
+        "used" : "{{0, 267}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.\n",
+        "glyphs" : "{521, 24}",
+        "characters" : "{521, 24}",
+        "rect" : "{{0, 295}, {469, 21}}",
+        "used" : "{{0, 295}, {273.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete ",
+        "glyphs" : "{545, 39}",
+        "characters" : "{545, 39}",
+        "rect" : "{{0, 316}, {469, 21}}",
+        "used" : "{{0, 316}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "when the source editor wraps a paragraph ",
+        "glyphs" : "{584, 41}",
+        "characters" : "{584, 41}",
+        "rect" : "{{0, 337}, {469, 21}}",
+        "used" : "{{0, 337}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : "across several visual lines. Alpha beta ",
+        "glyphs" : "{625, 40}",
+        "characters" : "{625, 40}",
+        "rect" : "{{0, 358}, {469, 21}}",
+        "used" : "{{0, 358}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota ",
+        "glyphs" : "{665, 40}",
+        "characters" : "{665, 40}",
+        "rect" : "{{0, 379}, {469, 21}}",
+        "used" : "{{0, 379}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{705, 41}",
+        "characters" : "{705, 41}",
+        "rect" : "{{0, 400}, {469, 25}}",
+        "used" : "{{0, 400}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     ",
+        "glyphs" : "{746, 47}",
+        "characters" : "{746, 47}",
+        "rect" : "{{0, 425}, {469, 28}}",
+        "used" : "{{0, 425}, {461.802734375, 28}}"
+      },
+      {
+        "text" : "and tabs\tbetween words.",
+        "glyphs" : "{793, 23}",
+        "characters" : "{793, 23}",
+        "rect" : "{{0, 453}, {469, 21}}",
+        "used" : "{{0, 453}, {273.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{469, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 30,
+    "step" : "L2 composing editor with deferred external source",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 816,
+    "endsWithMeasure" : 33,
+    "observedEndCalls" : 33,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {749, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "across several visual lines. 日本語 local choice with short words ",
+        "glyphs" : "{63, 63}",
+        "characters" : "{63, 63}",
+        "rect" : "{{0, 21}, {749, 25}}",
+        "used" : "{{0, 21}, {714.21484375, 25}}"
+      },
+      {
+        "text" : "delta epsilon zeta eta theta iota kappa lambda mu. Unicode preserves",
+        "glyphs" : "{126, 68}",
+        "characters" : "{126, 68}",
+        "rect" : "{{0, 46}, {749, 21}}",
+        "used" : "{{0, 46}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " Việt 中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{194, 62}",
+        "characters" : "{194, 62}",
+        "rect" : "{{0, 67}, {749, 28}}",
+        "used" : "{{0, 67}, {631.51953125, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{256, 16}",
+        "characters" : "{256, 16}",
+        "rect" : "{{0, 95}, {749, 21}}",
+        "used" : "{{0, 95}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor wraps",
+        "glyphs" : "{272, 68}",
+        "characters" : "{272, 68}",
+        "rect" : "{{0, 116}, {749, 21}}",
+        "used" : "{{0, 116}, {746.91015625, 21}}"
+      },
+      {
+        "text" : " a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{340, 65}",
+        "characters" : "{340, 65}",
+        "rect" : "{{0, 137}, {749, 21}}",
+        "used" : "{{0, 137}, {714.3994140625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{405, 68}",
+        "characters" : "{405, 68}",
+        "rect" : "{{0, 158}, {749, 21}}",
+        "used" : "{{0, 158}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{473, 56}",
+        "characters" : "{473, 56}",
+        "rect" : "{{0, 179}, {749, 28}}",
+        "used" : "{{0, 179}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{529, 16}",
+        "characters" : "{529, 16}",
+        "rect" : "{{0, 207}, {749, 21}}",
+        "used" : "{{0, 207}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor wraps ",
+        "glyphs" : "{545, 68}",
+        "characters" : "{545, 68}",
+        "rect" : "{{0, 228}, {749, 21}}",
+        "used" : "{{0, 228}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "a paragraph across several visual lines. Alpha beta gamma delta ",
+        "glyphs" : "{613, 64}",
+        "characters" : "{613, 64}",
+        "rect" : "{{0, 249}, {749, 21}}",
+        "used" : "{{0, 249}, {703.5625, 21}}"
+      },
+      {
+        "text" : "epsilon zeta eta theta iota kappa lambda mu. Unicode preserves Việt ",
+        "glyphs" : "{677, 68}",
+        "characters" : "{677, 68}",
+        "rect" : "{{0, 270}, {749, 21}}",
+        "used" : "{{0, 270}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "中文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{745, 56}",
+        "characters" : "{745, 56}",
+        "rect" : "{{0, 291}, {749, 28}}",
+        "used" : "{{0, 291}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.",
+        "glyphs" : "{801, 15}",
+        "characters" : "{801, 15}",
+        "rect" : "{{0, 319}, {749, 21}}",
+        "used" : "{{0, 319}, {189.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{749, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 33,
+    "step" : "L2 peer with deferred external source",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 816,
+    "endsWithMeasure" : 36,
+    "observedEndCalls" : 36,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph",
+        "glyphs" : "{0, 62}",
+        "characters" : "{0, 62}",
+        "rect" : "{{0, 0}, {689, 21}}",
+        "used" : "{{0, 0}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " across several visual lines. 日本語 local choice with short ",
+        "glyphs" : "{62, 58}",
+        "characters" : "{62, 58}",
+        "rect" : "{{0, 21}, {689, 25}}",
+        "used" : "{{0, 21}, {660.0302734375, 25}}"
+      },
+      {
+        "text" : "words delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{120, 57}",
+        "characters" : "{120, 57}",
+        "rect" : "{{0, 46}, {689, 21}}",
+        "used" : "{{0, 46}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{177, 67}",
+        "characters" : "{177, 67}",
+        "rect" : "{{0, 67}, {689, 28}}",
+        "used" : "{{0, 67}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{244, 28}",
+        "characters" : "{244, 28}",
+        "rect" : "{{0, 95}, {689, 21}}",
+        "used" : "{{0, 95}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor",
+        "glyphs" : "{272, 62}",
+        "characters" : "{272, 62}",
+        "rect" : "{{0, 116}, {689, 21}}",
+        "used" : "{{0, 116}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{334, 59}",
+        "characters" : "{334, 59}",
+        "rect" : "{{0, 137}, {689, 21}}",
+        "used" : "{{0, 137}, {649.3779296875, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{393, 57}",
+        "characters" : "{393, 57}",
+        "rect" : "{{0, 158}, {689, 21}}",
+        "used" : "{{0, 158}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{450, 67}",
+        "characters" : "{450, 67}",
+        "rect" : "{{0, 179}, {689, 28}}",
+        "used" : "{{0, 179}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{517, 28}",
+        "characters" : "{517, 28}",
+        "rect" : "{{0, 207}, {689, 21}}",
+        "used" : "{{0, 207}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor ",
+        "glyphs" : "{545, 62}",
+        "characters" : "{545, 62}",
+        "rect" : "{{0, 228}, {689, 21}}",
+        "used" : "{{0, 228}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{607, 58}",
+        "characters" : "{607, 58}",
+        "rect" : "{{0, 249}, {689, 21}}",
+        "used" : "{{0, 249}, {638.541015625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{665, 57}",
+        "characters" : "{665, 57}",
+        "rect" : "{{0, 270}, {689, 21}}",
+        "used" : "{{0, 270}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{722, 67}",
+        "characters" : "{722, 67}",
+        "rect" : "{{0, 291}, {689, 28}}",
+        "used" : "{{0, 291}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.",
+        "glyphs" : "{789, 27}",
+        "characters" : "{789, 27}",
+        "rect" : "{{0, 319}, {689, 21}}",
+        "used" : "{{0, 319}, {301.716796875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{689, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 36,
+    "step" : "L2 surviving composition after peer closure and resize",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 870,
+    "endsWithMeasure" : 42,
+    "observedEndCalls" : 42,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph",
+        "glyphs" : "{0, 62}",
+        "characters" : "{0, 62}",
+        "rect" : "{{0, 0}, {689, 21}}",
+        "used" : "{{0, 0}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " across several visual lines. 日本語 local choice with short ",
+        "glyphs" : "{62, 58}",
+        "characters" : "{62, 58}",
+        "rect" : "{{0, 21}, {689, 25}}",
+        "used" : "{{0, 21}, {660.0302734375, 25}}"
+      },
+      {
+        "text" : "words delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{120, 57}",
+        "characters" : "{120, 57}",
+        "rect" : "{{0, 46}, {689, 21}}",
+        "used" : "{{0, 46}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{177, 67}",
+        "characters" : "{177, 67}",
+        "rect" : "{{0, 67}, {689, 28}}",
+        "used" : "{{0, 67}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{244, 28}",
+        "characters" : "{244, 28}",
+        "rect" : "{{0, 95}, {689, 21}}",
+        "used" : "{{0, 95}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor",
+        "glyphs" : "{272, 62}",
+        "characters" : "{272, 62}",
+        "rect" : "{{0, 116}, {689, 21}}",
+        "used" : "{{0, 116}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{334, 59}",
+        "characters" : "{334, 59}",
+        "rect" : "{{0, 137}, {689, 21}}",
+        "used" : "{{0, 137}, {649.3779296875, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{393, 57}",
+        "characters" : "{393, 57}",
+        "rect" : "{{0, 158}, {689, 21}}",
+        "used" : "{{0, 158}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{450, 67}",
+        "characters" : "{450, 67}",
+        "rect" : "{{0, 179}, {689, 28}}",
+        "used" : "{{0, 179}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{517, 28}",
+        "characters" : "{517, 28}",
+        "rect" : "{{0, 207}, {689, 21}}",
+        "used" : "{{0, 207}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor ",
+        "glyphs" : "{545, 62}",
+        "characters" : "{545, 62}",
+        "rect" : "{{0, 228}, {689, 21}}",
+        "used" : "{{0, 228}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{607, 58}",
+        "characters" : "{607, 58}",
+        "rect" : "{{0, 249}, {689, 21}}",
+        "used" : "{{0, 249}, {638.541015625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{665, 57}",
+        "characters" : "{665, 57}",
+        "rect" : "{{0, 270}, {689, 21}}",
+        "used" : "{{0, 270}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{722, 67}",
+        "characters" : "{722, 67}",
+        "rect" : "{{0, 291}, {689, 28}}",
+        "used" : "{{0, 291}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{789, 28}",
+        "characters" : "{789, 28}",
+        "rect" : "{{0, 319}, {689, 21}}",
+        "used" : "{{0, 319}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "External appended words remain after history changes.",
+        "glyphs" : "{817, 53}",
+        "characters" : "{817, 53}",
+        "rect" : "{{0, 340}, {689, 21}}",
+        "used" : "{{0, 340}, {584.3564453125, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{689, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 41,
+    "step" : "L2 merged source after peer closure",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 853,
+    "endsWithMeasure" : 46,
+    "observedEndCalls" : 46,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph",
+        "glyphs" : "{0, 62}",
+        "characters" : "{0, 62}",
+        "rect" : "{{0, 0}, {689, 21}}",
+        "used" : "{{0, 0}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " across several visual lines. Alpha beta gamma delta epsilon ",
+        "glyphs" : "{62, 61}",
+        "characters" : "{62, 61}",
+        "rect" : "{{0, 21}, {689, 21}}",
+        "used" : "{{0, 21}, {671.0517578125, 21}}"
+      },
+      {
+        "text" : "zeta eta theta iota kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{123, 61}",
+        "characters" : "{123, 61}",
+        "rect" : "{{0, 42}, {689, 25}}",
+        "used" : "{{0, 42}, {678.21484375, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á alongside ordinary spaces     and tabs",
+        "glyphs" : "{184, 55}",
+        "characters" : "{184, 55}",
+        "rect" : "{{0, 67}, {689, 28}}",
+        "used" : "{{0, 67}, {548.498046875, 28}}"
+      },
+      {
+        "text" : "\tbetween words.\n",
+        "glyphs" : "{239, 16}",
+        "characters" : "{239, 16}",
+        "rect" : "{{0, 95}, {689, 21}}",
+        "used" : "{{0, 95}, {189.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor",
+        "glyphs" : "{255, 62}",
+        "characters" : "{255, 62}",
+        "rect" : "{{0, 116}, {689, 21}}",
+        "used" : "{{0, 116}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{317, 59}",
+        "characters" : "{317, 59}",
+        "rect" : "{{0, 137}, {689, 21}}",
+        "used" : "{{0, 137}, {649.3779296875, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{376, 57}",
+        "characters" : "{376, 57}",
+        "rect" : "{{0, 158}, {689, 21}}",
+        "used" : "{{0, 158}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{433, 67}",
+        "characters" : "{433, 67}",
+        "rect" : "{{0, 179}, {689, 28}}",
+        "used" : "{{0, 179}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{500, 28}",
+        "characters" : "{500, 28}",
+        "rect" : "{{0, 207}, {689, 21}}",
+        "used" : "{{0, 207}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor ",
+        "glyphs" : "{528, 62}",
+        "characters" : "{528, 62}",
+        "rect" : "{{0, 228}, {689, 21}}",
+        "used" : "{{0, 228}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{590, 58}",
+        "characters" : "{590, 58}",
+        "rect" : "{{0, 249}, {689, 21}}",
+        "used" : "{{0, 249}, {638.541015625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{648, 57}",
+        "characters" : "{648, 57}",
+        "rect" : "{{0, 270}, {689, 21}}",
+        "used" : "{{0, 270}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{705, 67}",
+        "characters" : "{705, 67}",
+        "rect" : "{{0, 291}, {689, 28}}",
+        "used" : "{{0, 291}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{772, 28}",
+        "characters" : "{772, 28}",
+        "rect" : "{{0, 319}, {689, 21}}",
+        "used" : "{{0, 319}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "External appended words remain after history changes.",
+        "glyphs" : "{800, 53}",
+        "characters" : "{800, 53}",
+        "rect" : "{{0, 340}, {689, 21}}",
+        "used" : "{{0, 340}, {584.3564453125, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{689, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 44,
+    "step" : "L2 Undo after deferred external merge",
+    "endsRetainingAnalysis" : 0
+  },
+  {
+    "length" : 870,
+    "endsWithMeasure" : 50,
+    "observedEndCalls" : 50,
+    "lines" : [
+      {
+        "text" : "Words remain complete when the source editor wraps a paragraph",
+        "glyphs" : "{0, 62}",
+        "characters" : "{0, 62}",
+        "rect" : "{{0, 0}, {689, 21}}",
+        "used" : "{{0, 0}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " across several visual lines. 日本語 local choice with short ",
+        "glyphs" : "{62, 58}",
+        "characters" : "{62, 58}",
+        "rect" : "{{0, 21}, {689, 25}}",
+        "used" : "{{0, 21}, {660.0302734375, 25}}"
+      },
+      {
+        "text" : "words delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{120, 57}",
+        "characters" : "{120, 57}",
+        "rect" : "{{0, 46}, {689, 21}}",
+        "used" : "{{0, 46}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{177, 67}",
+        "characters" : "{177, 67}",
+        "rect" : "{{0, 67}, {689, 28}}",
+        "used" : "{{0, 67}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{244, 28}",
+        "characters" : "{244, 28}",
+        "rect" : "{{0, 95}, {689, 21}}",
+        "used" : "{{0, 95}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Second paragraph: Words remain complete when the source editor",
+        "glyphs" : "{272, 62}",
+        "characters" : "{272, 62}",
+        "rect" : "{{0, 116}, {689, 21}}",
+        "used" : "{{0, 116}, {681.888671875, 21}}"
+      },
+      {
+        "text" : " wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{334, 59}",
+        "characters" : "{334, 59}",
+        "rect" : "{{0, 137}, {689, 21}}",
+        "used" : "{{0, 137}, {649.3779296875, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{393, 57}",
+        "characters" : "{393, 57}",
+        "rect" : "{{0, 158}, {689, 21}}",
+        "used" : "{{0, 158}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{450, 67}",
+        "characters" : "{450, 67}",
+        "rect" : "{{0, 179}, {689, 28}}",
+        "used" : "{{0, 179}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{517, 28}",
+        "characters" : "{517, 28}",
+        "rect" : "{{0, 207}, {689, 21}}",
+        "used" : "{{0, 207}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "Final paragraph: Words remain complete when the source editor ",
+        "glyphs" : "{545, 62}",
+        "characters" : "{545, 62}",
+        "rect" : "{{0, 228}, {689, 21}}",
+        "used" : "{{0, 228}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "wraps a paragraph across several visual lines. Alpha beta ",
+        "glyphs" : "{607, 58}",
+        "characters" : "{607, 58}",
+        "rect" : "{{0, 249}, {689, 21}}",
+        "used" : "{{0, 249}, {638.541015625, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{665, 57}",
+        "characters" : "{665, 57}",
+        "rect" : "{{0, 270}, {689, 21}}",
+        "used" : "{{0, 270}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á alongside ordinary spaces ",
+        "glyphs" : "{722, 67}",
+        "characters" : "{722, 67}",
+        "rect" : "{{0, 291}, {689, 28}}",
+        "used" : "{{0, 291}, {685.7041015625, 28}}"
+      },
+      {
+        "text" : "    and tabs\tbetween words.\n",
+        "glyphs" : "{789, 28}",
+        "characters" : "{789, 28}",
+        "rect" : "{{0, 319}, {689, 21}}",
+        "used" : "{{0, 319}, {301.716796875, 21}}"
+      },
+      {
+        "text" : "External appended words remain after history changes.",
+        "glyphs" : "{817, 53}",
+        "characters" : "{817, 53}",
+        "rect" : "{{0, 340}, {689, 21}}",
+        "used" : "{{0, 340}, {584.3564453125, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{689, 10000000}",
+    "matchesCold" : true,
+    "endsWithBreaks" : 47,
+    "step" : "L2 Redo after deferred external merge",
+    "endsRetainingAnalysis" : 0
+  }
+]

@@ -1,0 +1,392 @@
+{
+  "reviewedCommit": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+  "productionHashes": {
+    "Sources/Editor/NVSourceTypesetter.m": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+    "Sources/Editor/NVSourceTypesetter.h": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+    "Sources/Editor/LinkingEditor.m": "6473ccff32374d60031b4cf6b17c1344ee57d7b312ab16921bf15cb873d689b9"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "architectures": {
+    "arm64": {
+      "checks": 1764,
+      "narrowedLines": 448,
+      "activeAnalysisEnds": 144,
+      "passed": true,
+      "paragraphBegins": 144,
+      "paragraphEnds": 144,
+      "interrupted": {
+        "cases": [
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 10,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 387,
+            "width": 100,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              186,
+              372,
+              387
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 133,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 8232,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 8233,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 10,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 387,
+            "width": 190,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              186,
+              372,
+              387
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 133,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 8232,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 8233,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          }
+        ]
+      },
+      "emptyTransitions": {
+        "phases": 20,
+        "cycles": [
+          {
+            "cycle": 0,
+            "replacementFont": "TimesNewRomanPS-ItalicMT",
+            "replacementSource": "\u05d0\u05d1\u05d2 \u0645\u0631\u062d\u0628\u0627 hello\u2029office e\u0301clair\u2028tail"
+          },
+          {
+            "cycle": 1,
+            "replacementFont": "Cochin",
+            "replacementSource": "alpha\u00a0beta\u0085\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 tail\rlast line"
+          },
+          {
+            "cycle": 2,
+            "replacementFont": "Menlo-Regular",
+            "replacementSource": "first e\u0301clair \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb affinity\r\nsecond \u0928\u092e\u0938\u094d\u0924\u0947 line"
+          }
+        ]
+      }
+    },
+    "x86_64": {
+      "checks": 1764,
+      "narrowedLines": 448,
+      "activeAnalysisEnds": 144,
+      "passed": true,
+      "paragraphBegins": 144,
+      "paragraphEnds": 144,
+      "interrupted": {
+        "cases": [
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 10,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 387,
+            "width": 100,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              186,
+              372,
+              387
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 133,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 8232,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 100,
+            "separatorUTF16": 8233,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 10,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 387,
+            "width": 190,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              186,
+              372,
+              387
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 13,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 133,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 8232,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          },
+          {
+            "sourceLength": 384,
+            "width": 190,
+            "separatorUTF16": 8233,
+            "resumes": 2,
+            "partialReturns": 2,
+            "batches": 3,
+            "glyphReturnIndexes": [
+              185,
+              370,
+              384
+            ]
+          }
+        ]
+      },
+      "emptyTransitions": {
+        "phases": 20,
+        "cycles": [
+          {
+            "cycle": 0,
+            "replacementFont": "TimesNewRomanPS-ItalicMT",
+            "replacementSource": "\u05d0\u05d1\u05d2 \u0645\u0631\u062d\u0628\u0627 hello\u2029office e\u0301clair\u2028tail"
+          },
+          {
+            "cycle": 1,
+            "replacementFont": "Cochin",
+            "replacementSource": "alpha\u00a0beta\u0085\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 tail\rlast line"
+          },
+          {
+            "cycle": 2,
+            "replacementFont": "Menlo-Regular",
+            "replacementSource": "first e\u0301clair \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb affinity\r\nsecond \u0928\u092e\u0938\u094d\u0924\u0947 line"
+          }
+        ]
+      }
+    }
+  },
+  "probeHashes": {
+    "run.py": "20cebb596281cb9de3470d468eee9a0502964a1cd347c396ec2a85db7223bf10",
+    "probe.m": "221ac6575d02f33d5052212c6a525619d582094a5f8e22ef8608cd6af422bf8a"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "old" : [
+    {
+      "breakBytes" : 25600,
+      "releases" : 0,
+      "measurePresent" : 1,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 16000,
+      "snapshotChars" : 16000,
+      "state" : "initial"
+    },
+    {
+      "breakBytes" : 25600,
+      "releases" : 0,
+      "measurePresent" : 1,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 16000,
+      "snapshotChars" : 16000,
+      "state" : "twenty-cached-queries"
+    },
+    {
+      "breakBytes" : 25600,
+      "releases" : 0,
+      "measurePresent" : 1,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 16000,
+      "snapshotChars" : 16000,
+      "state" : "empty-storage-attached"
+    },
+    {
+      "breakBytes" : 25600,
+      "releases" : 1,
+      "measurePresent" : 1,
+      "creates" : 2,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 16000,
+      "snapshotChars" : 32000,
+      "state" : "source-reattached"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 54,
+      "measurePresent" : 1,
+      "creates" : 55,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 49,
+      "snapshotChars" : 34597,
+      "state" : "twelve-incremental-viewports"
+    },
+    {
+      "breakBytes" : 25600,
+      "releases" : 63,
+      "measurePresent" : 1,
+      "creates" : 64,
+      "peakSnapshotChars" : 16008,
+      "liveSnapshotChars" : 16008,
+      "snapshotChars" : 178633,
+      "state" : "eight-edits"
+    },
+    {
+      "liveSnapshotChars" : 0,
+      "state" : "editor-destroyed",
+      "releases" : 64,
+      "creates" : 64,
+      "peakSnapshotChars" : 16008,
+      "snapshotChars" : 178633
+    },
+    {
+      "breakBytes" : 25600,
+      "releases" : 64,
+      "measurePresent" : 1,
+      "creates" : 76,
+      "peakSnapshotChars" : 192000,
+      "liveSnapshotChars" : 192000,
+      "snapshotChars" : 370633,
+      "state" : "twelve-idle-editors"
+    },
+    {
+      "liveSnapshotChars" : 0,
+      "state" : "all-editors-destroyed",
+      "releases" : 76,
+      "creates" : 76,
+      "peakSnapshotChars" : 192000,
+      "snapshotChars" : 370633
+    }
+  ],
+  "new" : [
+    {
+      "breakBytes" : 0,
+      "releases" : 1,
+      "measurePresent" : 0,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 16000,
+      "state" : "initial"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 1,
+      "measurePresent" : 0,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 16000,
+      "state" : "twenty-cached-queries"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 1,
+      "measurePresent" : 0,
+      "creates" : 1,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 16000,
+      "state" : "empty-storage-attached"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 2,
+      "measurePresent" : 0,
+      "creates" : 2,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 32000,
+      "state" : "source-reattached"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 55,
+      "measurePresent" : 0,
+      "creates" : 55,
+      "peakSnapshotChars" : 16000,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 34597,
+      "state" : "twelve-incremental-viewports"
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 64,
+      "measurePresent" : 0,
+      "creates" : 64,
+      "peakSnapshotChars" : 16008,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 178633,
+      "state" : "eight-edits"
+    },
+    {
+      "liveSnapshotChars" : 0,
+      "state" : "editor-destroyed",
+      "releases" : 64,
+      "creates" : 64,
+      "peakSnapshotChars" : 16008,
+      "snapshotChars" : 178633
+    },
+    {
+      "breakBytes" : 0,
+      "releases" : 76,
+      "measurePresent" : 0,
+      "creates" : 76,
+      "peakSnapshotChars" : 16008,
+      "liveSnapshotChars" : 0,
+      "snapshotChars" : 370633,
+      "state" : "twelve-idle-editors"
+    },
+    {
+      "liveSnapshotChars" : 0,
+      "state" : "all-editors-destroyed",
+      "releases" : 76,
+      "creates" : 76,
+      "peakSnapshotChars" : 16008,
+      "snapshotChars" : 370633
+    }
+  ],
+  "checks" : 13
+}

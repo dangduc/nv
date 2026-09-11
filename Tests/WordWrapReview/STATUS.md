@@ -10,7 +10,7 @@ Findings and corrections are published as PR comments before the next round.
 | Round | Reviewed commit | Status |
 | --- | --- | --- |
 | 1 | `4b04970` | Complete; cache correction applied |
-| 2 | Pending | Pending |
+| 2 | `4c8f6b4` | Complete; no new revisions required |
 | 3 | Pending | Pending |
 
 ## Initial validation
@@ -41,3 +41,19 @@ The long-paragraph performance finding remains a measured limitation, documented
 The [caret-offset experiment](experiments/one-line-measurement.md) was rejected after geometry differences and slower measurements.
 The unsupported paragraph-style combinations are documented with their source-app reachability limits.
 Further optimization requires evidence that it preserves native layout semantics.
+
+The [round-one resolution comment](https://github.com/dangduc/nv/pull/28#issuecomment-5631903465) identifies the corrected commit.
+The corrected Intel Development build passed.
+
+The corrected build passed 74,358 standalone checks per architecture, 1,305 copied-app word checks, and 843 prior space checks.
+Its executable SHA-256 is `62c09640835e03f1fcf5bb559565f220801685c0f5241187f078943cf6fc5f8e`.
+The required runners repeated the same library-replacement crash and Fuzzy UI activation failure after the correction.
+Their individual exit codes were 245 and 1. The prior space suite exited 0.
+
+## Round-two resolution
+
+All six reviewers wrote and ran new evidence against `4c8f6b4`.
+No new actionable finding was identified. No further production correction was required before round three.
+The cache correction preserved geometry, source histories, native selection, and measurement creation counts in the tested cases.
+ASan and UBSan checks passed on both architectures.
+The [round-two reports](round2/) record each probe, result, negative control, and coverage limit.
