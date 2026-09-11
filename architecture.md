@@ -74,6 +74,8 @@ The ForBuilding configuration retains the release app name and identifier.
 Each app uses its own defaults domain for notes-folder aliases, colors, browser restoration, and backup settings.
 The default development notes folder is `~/Library/Application Support/Notational Data Development`.
 Application support and default backups derive from the executable name, so development uses `~/Library/Application Support/nvALT Development`.
+Development also adds an `nvALT Development` subfolder inside a custom backup root.
+This separates backup histories when copied libraries retain the same UUID.
 Caches derive from the bundle identifier. External-editing temporary folders and the encryption keychain service also differ.
 Development startup skips automatic legacy database import. Explicit imports remain available.
 

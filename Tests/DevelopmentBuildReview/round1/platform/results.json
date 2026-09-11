@@ -1,0 +1,89 @@
+{
+  "scheme_actions": {
+    "Notation Release:build": {
+      "CONFIGURATION": "ForBuilding",
+      "PRODUCT_NAME": "nvALT",
+      "EXECUTABLE_NAME": "nvALT",
+      "FULL_PRODUCT_NAME": "nvALT.app",
+      "PRODUCT_BUNDLE_IDENTIFIER": "net.elasticthreads.nv",
+      "NV_BUILD_FLAVOR": "release",
+      "NV_URL_SCHEME": "nvalt",
+      "MACOSX_DEPLOYMENT_TARGET": "10.13",
+      "TARGET_BUILD_DIR": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-platform-review-vv7_mdk3/release-build/Build/Products/ForBuilding",
+      "INSTALL_PATH": "/Applications"
+    },
+    "Notation Release:archive": {
+      "CONFIGURATION": "ForBuilding",
+      "PRODUCT_NAME": "nvALT",
+      "EXECUTABLE_NAME": "nvALT",
+      "FULL_PRODUCT_NAME": "nvALT.app",
+      "PRODUCT_BUNDLE_IDENTIFIER": "net.elasticthreads.nv",
+      "NV_BUILD_FLAVOR": "release",
+      "NV_URL_SCHEME": "nvalt",
+      "MACOSX_DEPLOYMENT_TARGET": "10.13",
+      "TARGET_BUILD_DIR": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-platform-review-vv7_mdk3/release-archive/Build/Intermediates.noindex/ArchiveIntermediates/Notation Release/InstallationBuildProductsLocation/Applications",
+      "INSTALL_PATH": "/Applications"
+    },
+    "Notation Develop:build": {
+      "CONFIGURATION": "Development",
+      "PRODUCT_NAME": "nvALT Development",
+      "EXECUTABLE_NAME": "nvALT Development",
+      "FULL_PRODUCT_NAME": "nvALT Development.app",
+      "PRODUCT_BUNDLE_IDENTIFIER": "net.elasticthreads.nv.development",
+      "NV_BUILD_FLAVOR": "development",
+      "NV_URL_SCHEME": "nvalt-dev",
+      "MACOSX_DEPLOYMENT_TARGET": "10.13",
+      "TARGET_BUILD_DIR": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-platform-review-vv7_mdk3/development-build/Build/Products/Development",
+      "INSTALL_PATH": "/Applications"
+    },
+    "Notation Develop:archive": {
+      "CONFIGURATION": "Development",
+      "PRODUCT_NAME": "nvALT Development",
+      "EXECUTABLE_NAME": "nvALT Development",
+      "FULL_PRODUCT_NAME": "nvALT Development.app",
+      "PRODUCT_BUNDLE_IDENTIFIER": "net.elasticthreads.nv.development",
+      "NV_BUILD_FLAVOR": "development",
+      "NV_URL_SCHEME": "nvalt-dev",
+      "MACOSX_DEPLOYMENT_TARGET": "10.13",
+      "TARGET_BUILD_DIR": "/var/folders/jh/c2vjb10j3zxdch0frlyr3z5c0000gn/T/nvalt-platform-review-vv7_mdk3/development-archive/Build/Intermediates.noindex/ArchiveIntermediates/Notation Develop/InstallationBuildProductsLocation/Applications",
+      "INSTALL_PATH": "/Applications"
+    }
+  },
+  "pipeline_failure_controls": [
+    {
+      "failure": "Notation Release",
+      "exit": 71,
+      "build_calls": [
+        "Notation Release"
+      ]
+    },
+    {
+      "failure": "Notation Develop",
+      "exit": 71,
+      "build_calls": [
+        "Notation Release",
+        "Notation Develop"
+      ]
+    },
+    {
+      "failure": "none",
+      "exit": 0,
+      "build_calls": [
+        "Notation Release",
+        "Notation Develop"
+      ]
+    }
+  ],
+  "release_package": {
+    "workflow_output": "App archive checks passed.",
+    "archive_bytes": 2590547,
+    "app_roots": [
+      "nvALT.app"
+    ],
+    "identity": "net.elasticthreads.nv",
+    "flavor": "release",
+    "minimum_os": "10.13",
+    "baseline_versions_retained": true,
+    "mismatched_flavor_rejected": "release NVBuildFlavor must be 'release'; found 'development'."
+  }
+}

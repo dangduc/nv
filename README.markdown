@@ -99,7 +99,7 @@ It uses an Intel macOS 15 runner with Xcode 16.4.
 3. Extract `nvALT.app` from the ZIP file.
 
 Downloads require a GitHub login. App archives expire after 30 days.
-These are unsigned release-identity builds without notarization. Apple Silicon Macs require Rosetta.
+These are unsigned builds with the release identity without notarization. Apple Silicon Macs require Rosetta.
 
 Successful `master` builds create a `build-<run number>` tag at the built commit.
 A rerun keeps the same tag. Pull requests and manual runs on other branches do not create tags.
@@ -159,7 +159,8 @@ You can change its notes folder, colors, and backup settings independently.
 | Support and backup folder under `~/Library/Application Support/` | `nvALT` | `nvALT Development` |
 | Note link scheme | `nvalt://` | `nvalt-dev://` |
 
-Custom locations remain your choice. Use separate notes folders while both apps run.
+Development adds an `nvALT Development` subfolder inside a custom backup destination, so copied libraries retain separate backup histories.
+Custom notes locations remain your choice. Use separate notes folders while both apps run.
 To try existing notes, import source files or restore a backup into a separate development folder.
 Opening the same notes folder in both apps does not provide coordinated editing between processes.
 

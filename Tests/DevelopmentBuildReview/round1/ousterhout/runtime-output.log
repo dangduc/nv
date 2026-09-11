@@ -1,0 +1,4 @@
+PASS: runtime flavor development
+PASS: runtime flavor release
+PASS: runtime flavor missing
+PASS: temporary paths, keychain dispatch, and automatic legacy import are isolated

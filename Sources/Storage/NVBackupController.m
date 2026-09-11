@@ -1,3 +1,4 @@
+#import "NVAppIdentity.h"
 #import "NVBackupController.h"
 #import "NVBackupStore.h"
 #import "NVBackupArchive.h"
@@ -195,6 +196,9 @@ static NSDictionary *ValidatedSavedBackupSettings(id saved, NSString *identifier
             if (error) *error = BackupError(@"The selected backup folder is unavailable. Connect its volume or choose another folder.");
             return nil;
         }
+        // A copied library can retain its UUID in both apps. Keep their backup
+        // histories separate even when the same custom parent folder is chosen.
+        if (NVIsDevelopmentBuild()) root = [root URLByAppendingPathComponent:@"nvALT Development" isDirectory:YES];
         return CanonicalURL(root);
     }
     NSString *support = [[NSFileManager defaultManager] applicationSupportDirectory];

@@ -1,0 +1,40 @@
+ARCHITECTURE: arm64
+PASS: development en native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release en native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development de native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release de native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development fr native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release fr native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development it native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release it native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development pt-PT native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release pt-PT native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development zh native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release zh native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+ARCHITECTURE: x86_64
+PASS: development en native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release en native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development de native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release de native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development fr native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release fr native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development it native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release it native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development pt-PT native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release pt-PT native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: development zh native bundle/config, locale resources, signature=4e764476, URL parsing
+PASS: release zh native bundle/config, locale resources, signature=4ea06cc3, URL parsing
+PASS: release baseline native signature and external registration compatibility
+PASS: stale localized-name negative control was rejected
+PASS: 24 built-bundle native checks, 12 baseline comparisons, and one negative control
