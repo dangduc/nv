@@ -70,6 +70,10 @@ Clipboard writes use a private test pasteboard.
 
 ## Source and viewer checks
 
+The [word-wrapping checks](WordWrapping/README.md) exercise the production typesetter on Intel and Apple Silicon.
+The [copied-app checks](WordWrappingApp/README.md) cover whole words, overflowing spaces, shared windows, resizing, and native editing commands.
+The aggregate runner includes both suites.
+
 The [source backspace checks](SourceBackspace/README.md) exercise deletion in a copied app with disposable notes.
 They cover cached search backgrounds, Undo, shared editors, composition, and pending cleanup during note switches.
 Run `python3 Tests/SourceBackspace/run.py` after a Development build.

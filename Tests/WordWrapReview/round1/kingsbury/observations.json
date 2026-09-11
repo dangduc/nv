@@ -1,0 +1,2428 @@
+[
+  {
+    "size" : "{464, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H1 baseline \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{40, 36}",
+        "characters" : "{40, 36}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{76, 41}",
+        "characters" : "{76, 41}",
+        "rect" : "{{0, 42}, {464, 28}}",
+        "used" : "{{0, 42}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{117, 14}",
+        "characters" : "{117, 14}",
+        "rect" : "{{0, 70}, {464, 21}}",
+        "used" : "{{0, 70}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{131, 41}",
+        "characters" : "{131, 41}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{213, 7}",
+        "characters" : "{213, 7}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{220, 41}",
+        "characters" : "{220, 41}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{261, 40}",
+        "characters" : "{261, 40}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{301, 6}",
+        "characters" : "{301, 6}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{809, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H1 baseline \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{0, 68}",
+        "characters" : "{0, 68}",
+        "rect" : "{{0, 0}, {809, 21}}",
+        "used" : "{{0, 0}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{68, 63}",
+        "characters" : "{68, 63}",
+        "rect" : "{{0, 21}, {809, 28}}",
+        "used" : "{{0, 21}, {631.51953125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{131, 45}",
+        "characters" : "{131, 45}",
+        "rect" : "{{0, 49}, {809, 21}}",
+        "used" : "{{0, 49}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{176, 44}",
+        "characters" : "{176, 44}",
+        "rect" : "{{0, 70}, {809, 21}}",
+        "used" : "{{0, 70}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{220, 72}",
+        "characters" : "{220, 72}",
+        "rect" : "{{0, 91}, {809, 21}}",
+        "used" : "{{0, 91}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{292, 15}",
+        "characters" : "{292, 15}",
+        "rect" : "{{0, 112}, {809, 21}}",
+        "used" : "{{0, 112}, {172.5537109375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 prefix insertion \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{41, 40}",
+        "characters" : "{41, 40}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{81, 36}",
+        "characters" : "{81, 36}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{117, 41}",
+        "characters" : "{117, 41}",
+        "rect" : "{{0, 63}, {464, 28}}",
+        "used" : "{{0, 63}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{158, 14}",
+        "characters" : "{158, 14}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{213, 41}",
+        "characters" : "{213, 41}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{254, 7}",
+        "characters" : "{254, 7}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{261, 41}",
+        "characters" : "{261, 41}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{302, 40}",
+        "characters" : "{302, 40}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{342, 6}",
+        "characters" : "{342, 6}",
+        "rect" : "{{0, 217}, {464, 21}}",
+        "used" : "{{0, 217}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{809, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 prefix insertion \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {809, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{41, 68}",
+        "characters" : "{41, 68}",
+        "rect" : "{{0, 21}, {809, 21}}",
+        "used" : "{{0, 21}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{109, 63}",
+        "characters" : "{109, 63}",
+        "rect" : "{{0, 42}, {809, 28}}",
+        "used" : "{{0, 42}, {631.51953125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{172, 45}",
+        "characters" : "{172, 45}",
+        "rect" : "{{0, 70}, {809, 21}}",
+        "used" : "{{0, 70}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{217, 44}",
+        "characters" : "{217, 44}",
+        "rect" : "{{0, 91}, {809, 21}}",
+        "used" : "{{0, 91}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{261, 72}",
+        "characters" : "{261, 72}",
+        "rect" : "{{0, 112}, {809, 21}}",
+        "used" : "{{0, 112}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{333, 15}",
+        "characters" : "{333, 15}",
+        "rect" : "{{0, 133}, {809, 21}}",
+        "used" : "{{0, 133}, {172.5537109375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 split plus crossed widths \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{58, 54}",
+        "characters" : "{58, 54}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{112, 56}",
+        "characters" : "{112, 56}",
+        "rect" : "{{0, 63}, {629, 28}}",
+        "used" : "{{0, 63}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{168, 7}",
+        "characters" : "{168, 7}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{175, 45}",
+        "characters" : "{175, 45}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{220, 44}",
+        "characters" : "{220, 44}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{264, 56}",
+        "characters" : "{264, 56}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{320, 31}",
+        "characters" : "{320, 31}",
+        "rect" : "{{0, 175}, {629, 21}}",
+        "used" : "{{0, 175}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 split plus crossed widths \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota ",
+        "glyphs" : "{58, 37}",
+        "characters" : "{58, 37}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{95, 41}",
+        "characters" : "{95, 41}",
+        "rect" : "{{0, 63}, {464, 25}}",
+        "used" : "{{0, 63}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{136, 39}",
+        "characters" : "{136, 39}",
+        "rect" : "{{0, 88}, {464, 28}}",
+        "used" : "{{0, 88}, {364.2705078125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{175, 41}",
+        "characters" : "{175, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{216, 41}",
+        "characters" : "{216, 41}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{257, 7}",
+        "characters" : "{257, 7}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{264, 41}",
+        "characters" : "{264, 41}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{305, 40}",
+        "characters" : "{305, 40}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{345, 6}",
+        "characters" : "{345, 6}",
+        "rect" : "{{0, 221}, {464, 21}}",
+        "used" : "{{0, 221}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 369,
+    "contiguous" : 1,
+    "step" : "H1 distant edit \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{58, 54}",
+        "characters" : "{58, 54}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{112, 56}",
+        "characters" : "{112, 56}",
+        "rect" : "{{0, 63}, {629, 28}}",
+        "used" : "{{0, 63}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{168, 7}",
+        "characters" : "{168, 7}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{175, 45}",
+        "characters" : "{175, 45}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{220, 44}",
+        "characters" : "{220, 44}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes new words that alter the distant ",
+        "glyphs" : "{264, 54}",
+        "characters" : "{264, 54}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "cache visible while the caret stays near the start.",
+        "glyphs" : "{318, 51}",
+        "characters" : "{318, 51}",
+        "rect" : "{{0, 175}, {629, 21}}",
+        "used" : "{{0, 175}, {562.6826171875, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 369,
+    "contiguous" : 1,
+    "step" : "H1 distant edit \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota ",
+        "glyphs" : "{58, 37}",
+        "characters" : "{58, 37}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{95, 41}",
+        "characters" : "{95, 41}",
+        "rect" : "{{0, 63}, {464, 25}}",
+        "used" : "{{0, 63}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{136, 39}",
+        "characters" : "{136, 39}",
+        "rect" : "{{0, 88}, {464, 28}}",
+        "used" : "{{0, 88}, {364.2705078125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{175, 41}",
+        "characters" : "{175, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{216, 41}",
+        "characters" : "{216, 41}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{257, 7}",
+        "characters" : "{257, 7}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes new words that alter",
+        "glyphs" : "{264, 41}",
+        "characters" : "{264, 41}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " the distant cache visible while the ",
+        "glyphs" : "{305, 37}",
+        "characters" : "{305, 37}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "caret stays near the start.",
+        "glyphs" : "{342, 27}",
+        "characters" : "{342, 27}",
+        "rect" : "{{0, 221}, {464, 21}}",
+        "used" : "{{0, 221}, {302.5966796875, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 Undo 1 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{58, 54}",
+        "characters" : "{58, 54}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{112, 56}",
+        "characters" : "{112, 56}",
+        "rect" : "{{0, 63}, {629, 28}}",
+        "used" : "{{0, 63}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{168, 7}",
+        "characters" : "{168, 7}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{175, 45}",
+        "characters" : "{175, 45}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{220, 44}",
+        "characters" : "{220, 44}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{264, 56}",
+        "characters" : "{264, 56}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{320, 31}",
+        "characters" : "{320, 31}",
+        "rect" : "{{0, 175}, {629, 21}}",
+        "used" : "{{0, 175}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 Undo 1 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota ",
+        "glyphs" : "{58, 37}",
+        "characters" : "{58, 37}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{95, 41}",
+        "characters" : "{95, 41}",
+        "rect" : "{{0, 63}, {464, 25}}",
+        "used" : "{{0, 63}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{136, 39}",
+        "characters" : "{136, 39}",
+        "rect" : "{{0, 88}, {464, 28}}",
+        "used" : "{{0, 88}, {364.2705078125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{175, 41}",
+        "characters" : "{175, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{216, 41}",
+        "characters" : "{216, 41}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{257, 7}",
+        "characters" : "{257, 7}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{264, 41}",
+        "characters" : "{264, 41}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{305, 40}",
+        "characters" : "{305, 40}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{345, 6}",
+        "characters" : "{345, 6}",
+        "rect" : "{{0, 221}, {464, 21}}",
+        "used" : "{{0, 221}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 Undo 2 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{41, 57}",
+        "characters" : "{41, 57}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{98, 60}",
+        "characters" : "{98, 60}",
+        "rect" : "{{0, 42}, {629, 28}}",
+        "used" : "{{0, 42}, {609.845703125, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{158, 14}",
+        "characters" : "{158, 14}",
+        "rect" : "{{0, 70}, {629, 21}}",
+        "used" : "{{0, 70}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{172, 45}",
+        "characters" : "{172, 45}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{217, 44}",
+        "characters" : "{217, 44}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{261, 56}",
+        "characters" : "{261, 56}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{317, 31}",
+        "characters" : "{317, 31}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 Undo 2 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{41, 40}",
+        "characters" : "{41, 40}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{81, 36}",
+        "characters" : "{81, 36}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{117, 41}",
+        "characters" : "{117, 41}",
+        "rect" : "{{0, 63}, {464, 28}}",
+        "used" : "{{0, 63}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{158, 14}",
+        "characters" : "{158, 14}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{213, 41}",
+        "characters" : "{213, 41}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{254, 7}",
+        "characters" : "{254, 7}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{261, 41}",
+        "characters" : "{261, 41}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{302, 40}",
+        "characters" : "{302, 40}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{342, 6}",
+        "characters" : "{342, 6}",
+        "rect" : "{{0, 217}, {464, 21}}",
+        "used" : "{{0, 217}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H1 Undo 3 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{57, 60}",
+        "characters" : "{57, 60}",
+        "rect" : "{{0, 21}, {629, 28}}",
+        "used" : "{{0, 21}, {609.845703125, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{117, 14}",
+        "characters" : "{117, 14}",
+        "rect" : "{{0, 49}, {629, 21}}",
+        "used" : "{{0, 49}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{131, 45}",
+        "characters" : "{131, 45}",
+        "rect" : "{{0, 70}, {629, 21}}",
+        "used" : "{{0, 70}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{176, 44}",
+        "characters" : "{176, 44}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{220, 56}",
+        "characters" : "{220, 56}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{276, 31}",
+        "characters" : "{276, 31}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H1 Undo 3 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{40, 36}",
+        "characters" : "{40, 36}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{76, 41}",
+        "characters" : "{76, 41}",
+        "rect" : "{{0, 42}, {464, 28}}",
+        "used" : "{{0, 42}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{117, 14}",
+        "characters" : "{117, 14}",
+        "rect" : "{{0, 70}, {464, 21}}",
+        "used" : "{{0, 70}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{131, 41}",
+        "characters" : "{131, 41}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{213, 7}",
+        "characters" : "{213, 7}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{220, 41}",
+        "characters" : "{220, 41}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{261, 40}",
+        "characters" : "{261, 40}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{301, 6}",
+        "characters" : "{301, 6}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 Redo 1 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{41, 57}",
+        "characters" : "{41, 57}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{98, 60}",
+        "characters" : "{98, 60}",
+        "rect" : "{{0, 42}, {629, 28}}",
+        "used" : "{{0, 42}, {609.845703125, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{158, 14}",
+        "characters" : "{158, 14}",
+        "rect" : "{{0, 70}, {629, 21}}",
+        "used" : "{{0, 70}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{172, 45}",
+        "characters" : "{172, 45}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{217, 44}",
+        "characters" : "{217, 44}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{261, 56}",
+        "characters" : "{261, 56}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{317, 31}",
+        "characters" : "{317, 31}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 348,
+    "contiguous" : 1,
+    "step" : "H1 Redo 1 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{41, 40}",
+        "characters" : "{41, 40}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{81, 36}",
+        "characters" : "{81, 36}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{117, 41}",
+        "characters" : "{117, 41}",
+        "rect" : "{{0, 63}, {464, 28}}",
+        "used" : "{{0, 63}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{158, 14}",
+        "characters" : "{158, 14}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{213, 41}",
+        "characters" : "{213, 41}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{254, 7}",
+        "characters" : "{254, 7}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{261, 41}",
+        "characters" : "{261, 41}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{302, 40}",
+        "characters" : "{302, 40}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{342, 6}",
+        "characters" : "{342, 6}",
+        "rect" : "{{0, 217}, {464, 21}}",
+        "used" : "{{0, 217}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 Redo 2 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{58, 54}",
+        "characters" : "{58, 54}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{112, 56}",
+        "characters" : "{112, 56}",
+        "rect" : "{{0, 63}, {629, 28}}",
+        "used" : "{{0, 63}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{168, 7}",
+        "characters" : "{168, 7}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{175, 45}",
+        "characters" : "{175, 45}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{220, 44}",
+        "characters" : "{220, 44}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{264, 56}",
+        "characters" : "{264, 56}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{320, 31}",
+        "characters" : "{320, 31}",
+        "rect" : "{{0, 175}, {629, 21}}",
+        "used" : "{{0, 175}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 351,
+    "contiguous" : 1,
+    "step" : "H1 Redo 2 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota ",
+        "glyphs" : "{58, 37}",
+        "characters" : "{58, 37}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{95, 41}",
+        "characters" : "{95, 41}",
+        "rect" : "{{0, 63}, {464, 25}}",
+        "used" : "{{0, 63}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{136, 39}",
+        "characters" : "{136, 39}",
+        "rect" : "{{0, 88}, {464, 28}}",
+        "used" : "{{0, 88}, {364.2705078125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{175, 41}",
+        "characters" : "{175, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{216, 41}",
+        "characters" : "{216, 41}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{257, 7}",
+        "characters" : "{257, 7}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{264, 41}",
+        "characters" : "{264, 41}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{305, 40}",
+        "characters" : "{305, 40}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{345, 6}",
+        "characters" : "{345, 6}",
+        "rect" : "{{0, 221}, {464, 21}}",
+        "used" : "{{0, 221}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 369,
+    "contiguous" : 1,
+    "step" : "H1 Redo 3 \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{58, 54}",
+        "characters" : "{58, 54}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{112, 56}",
+        "characters" : "{112, 56}",
+        "rect" : "{{0, 63}, {629, 28}}",
+        "used" : "{{0, 63}, {566.498046875, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{168, 7}",
+        "characters" : "{168, 7}",
+        "rect" : "{{0, 91}, {629, 21}}",
+        "used" : "{{0, 91}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{175, 45}",
+        "characters" : "{175, 45}",
+        "rect" : "{{0, 112}, {629, 21}}",
+        "used" : "{{0, 112}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{220, 44}",
+        "characters" : "{220, 44}",
+        "rect" : "{{0, 133}, {629, 21}}",
+        "used" : "{{0, 133}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes new words that alter the distant ",
+        "glyphs" : "{264, 54}",
+        "characters" : "{264, 54}",
+        "rect" : "{{0, 154}, {629, 21}}",
+        "used" : "{{0, 154}, {595.193359375, 21}}"
+      },
+      {
+        "text" : "cache visible while the caret stays near the start.",
+        "glyphs" : "{318, 51}",
+        "characters" : "{318, 51}",
+        "rect" : "{{0, 175}, {629, 21}}",
+        "used" : "{{0, 175}, {562.6826171875, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 369,
+    "contiguous" : 1,
+    "step" : "H1 Redo 3 \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "prefix words shift each cached paragraph\n",
+        "glyphs" : "{0, 41}",
+        "characters" : "{0, 41}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "alpha beta short\n",
+        "glyphs" : "{41, 17}",
+        "characters" : "{41, 17}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {183.390625, 21}}"
+      },
+      {
+        "text" : "new middle words zeta eta theta iota ",
+        "glyphs" : "{58, 37}",
+        "characters" : "{58, 37}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中",
+        "glyphs" : "{95, 41}",
+        "characters" : "{95, 41}",
+        "rect" : "{{0, 63}, {464, 25}}",
+        "used" : "{{0, 63}, {461.4765625, 25}}"
+      },
+      {
+        "text" : "文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{136, 39}",
+        "characters" : "{136, 39}",
+        "rect" : "{{0, 88}, {464, 28}}",
+        "used" : "{{0, 88}, {364.2705078125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{175, 41}",
+        "characters" : "{175, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{216, 41}",
+        "characters" : "{216, 41}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{257, 7}",
+        "characters" : "{257, 7}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes new words that alter",
+        "glyphs" : "{264, 41}",
+        "characters" : "{264, 41}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " the distant cache visible while the ",
+        "glyphs" : "{305, 37}",
+        "characters" : "{305, 37}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {410.9658203125, 21}}"
+      },
+      {
+        "text" : "caret stays near the start.",
+        "glyphs" : "{342, 27}",
+        "characters" : "{342, 27}",
+        "rect" : "{{0, 221}, {464, 21}}",
+        "used" : "{{0, 221}, {302.5966796875, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 original attachment \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu alpha beta gamma delta epsilon zeta",
+        "glyphs" : "{57, 45}",
+        "characters" : "{57, 45}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {497.6611328125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 original attachment \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu alpha beta ",
+        "glyphs" : "{40, 38}",
+        "characters" : "{40, 38}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta",
+        "glyphs" : "{78, 24}",
+        "characters" : "{78, 24}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {270.0859375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 switch to Equal length B",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha-beta-gamma-delta-epsilon-zeta-eta-theta-iota-kappa-",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda-mu-alpha-beta-gamma-delta-epsilon-zeta",
+        "glyphs" : "{57, 45}",
+        "characters" : "{57, 45}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {497.6611328125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 0,
+    "contiguous" : 1,
+    "step" : "H2 switch to Empty interlude",
+    "matchesCold" : true,
+    "lines" : [
+
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 switch to Equal length B",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha-beta-gamma-delta-epsilon-zeta-eta-theta-iota-kappa-",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda-mu-alpha-beta-gamma-delta-epsilon-zeta",
+        "glyphs" : "{57, 45}",
+        "characters" : "{57, 45}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {497.6611328125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 switch to Equal length A",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu alpha beta gamma delta epsilon zeta",
+        "glyphs" : "{57, 45}",
+        "characters" : "{57, 45}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {497.6611328125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 return after detached Undo \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu alpha beta gamma delta epsilon zeta",
+        "glyphs" : "{57, 45}",
+        "characters" : "{57, 45}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {497.6611328125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 102,
+    "contiguous" : 1,
+    "step" : "H2 return after detached Undo \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu alpha beta ",
+        "glyphs" : "{40, 38}",
+        "characters" : "{40, 38}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta",
+        "glyphs" : "{78, 24}",
+        "characters" : "{78, 24}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {270.0859375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 117,
+    "contiguous" : 1,
+    "step" : "H2 Redo after return \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa ",
+        "glyphs" : "{0, 57}",
+        "characters" : "{0, 57}",
+        "rect" : "{{0, 0}, {629, 21}}",
+        "used" : "{{0, 0}, {627.7041015625, 21}}"
+      },
+      {
+        "text" : "lambda mu alpha beta gamma delta epsilon zeta appended ",
+        "glyphs" : "{57, 55}",
+        "characters" : "{57, 55}",
+        "rect" : "{{0, 21}, {629, 21}}",
+        "used" : "{{0, 21}, {606.0302734375, 21}}"
+      },
+      {
+        "text" : "words",
+        "glyphs" : "{112, 5}",
+        "characters" : "{112, 5}",
+        "rect" : "{{0, 42}, {629, 21}}",
+        "used" : "{{0, 42}, {64.1845703125, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 117,
+    "contiguous" : 1,
+    "step" : "H2 Redo after return \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu alpha beta ",
+        "glyphs" : "{40, 38}",
+        "characters" : "{40, 38}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "gamma delta epsilon zeta appended words",
+        "glyphs" : "{78, 39}",
+        "characters" : "{78, 39}",
+        "rect" : "{{0, 42}, {464, 21}}",
+        "used" : "{{0, 42}, {432.6396484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{629, 10000000}",
+    "length" : 317,
+    "contiguous" : 1,
+    "step" : "H3 first marked value \/ composing editor",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 alpha beta composed words zeta eta theta",
+        "glyphs" : "{0, 55}",
+        "characters" : "{0, 55}",
+        "rect" : "{{0, 0}, {629, 25}}",
+        "used" : "{{0, 0}, {627.51953125, 25}}"
+      },
+      {
+        "text" : " iota kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and",
+        "glyphs" : "{55, 60}",
+        "characters" : "{55, 60}",
+        "rect" : "{{0, 25}, {629, 28}}",
+        "used" : "{{0, 25}, {620.6826171875, 28}}"
+      },
+      {
+        "text" : " á through shared edits.\n",
+        "glyphs" : "{115, 26}",
+        "characters" : "{115, 26}",
+        "rect" : "{{0, 53}, {629, 21}}",
+        "used" : "{{0, 53}, {270.0859375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{141, 45}",
+        "characters" : "{141, 45}",
+        "rect" : "{{0, 74}, {629, 21}}",
+        "used" : "{{0, 74}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{186, 44}",
+        "characters" : "{186, 44}",
+        "rect" : "{{0, 95}, {629, 21}}",
+        "used" : "{{0, 95}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while ",
+        "glyphs" : "{230, 56}",
+        "characters" : "{230, 56}",
+        "rect" : "{{0, 116}, {629, 21}}",
+        "used" : "{{0, 116}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "the caret stays near the start.",
+        "glyphs" : "{286, 31}",
+        "characters" : "{286, 31}",
+        "rect" : "{{0, 137}, {629, 21}}",
+        "used" : "{{0, 137}, {345.9443359375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 317,
+    "contiguous" : 1,
+    "step" : "H3 first marked value \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 alpha beta composed ",
+        "glyphs" : "{0, 35}",
+        "characters" : "{0, 35}",
+        "rect" : "{{0, 0}, {464, 25}}",
+        "used" : "{{0, 0}, {410.78125, 25}}"
+      },
+      {
+        "text" : "words zeta eta theta iota kappa lambda ",
+        "glyphs" : "{35, 39}",
+        "characters" : "{35, 39}",
+        "rect" : "{{0, 25}, {464, 21}}",
+        "used" : "{{0, 25}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{74, 45}",
+        "characters" : "{74, 45}",
+        "rect" : "{{0, 46}, {464, 28}}",
+        "used" : "{{0, 46}, {447.2919921875, 28}}"
+      },
+      {
+        "text" : "through shared edits.\n",
+        "glyphs" : "{119, 22}",
+        "characters" : "{119, 22}",
+        "rect" : "{{0, 74}, {464, 21}}",
+        "used" : "{{0, 74}, {237.5751953125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{141, 41}",
+        "characters" : "{141, 41}",
+        "rect" : "{{0, 95}, {464, 21}}",
+        "used" : "{{0, 95}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{182, 41}",
+        "characters" : "{182, 41}",
+        "rect" : "{{0, 116}, {464, 21}}",
+        "used" : "{{0, 116}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{223, 7}",
+        "characters" : "{223, 7}",
+        "rect" : "{{0, 137}, {464, 21}}",
+        "used" : "{{0, 137}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{230, 41}",
+        "characters" : "{230, 41}",
+        "rect" : "{{0, 158}, {464, 21}}",
+        "used" : "{{0, 158}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{271, 40}",
+        "characters" : "{271, 40}",
+        "rect" : "{{0, 179}, {464, 21}}",
+        "used" : "{{0, 179}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{311, 6}",
+        "characters" : "{311, 6}",
+        "rect" : "{{0, 200}, {464, 21}}",
+        "used" : "{{0, 200}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 second marked value \/ resized editor",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more ",
+        "glyphs" : "{0, 39}",
+        "characters" : "{0, 39}",
+        "rect" : "{{0, 0}, {464, 25}}",
+        "used" : "{{0, 0}, {454.12890625, 25}}"
+      },
+      {
+        "text" : "words 👩🏽‍💻 zeta eta theta iota kappa lambda",
+        "glyphs" : "{39, 46}",
+        "characters" : "{39, 46}",
+        "rect" : "{{0, 25}, {464, 28}}",
+        "used" : "{{0, 25}, {454.6396484375, 28}}"
+      },
+      {
+        "text" : " mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{85, 46}",
+        "characters" : "{85, 46}",
+        "rect" : "{{0, 53}, {464, 28}}",
+        "used" : "{{0, 53}, {458.12890625, 28}}"
+      },
+      {
+        "text" : "through shared edits.\n",
+        "glyphs" : "{131, 22}",
+        "characters" : "{131, 22}",
+        "rect" : "{{0, 81}, {464, 21}}",
+        "used" : "{{0, 81}, {237.5751953125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{153, 41}",
+        "characters" : "{153, 41}",
+        "rect" : "{{0, 102}, {464, 21}}",
+        "used" : "{{0, 102}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{194, 41}",
+        "characters" : "{194, 41}",
+        "rect" : "{{0, 123}, {464, 21}}",
+        "used" : "{{0, 123}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{235, 7}",
+        "characters" : "{235, 7}",
+        "rect" : "{{0, 144}, {464, 21}}",
+        "used" : "{{0, 144}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{242, 41}",
+        "characters" : "{242, 41}",
+        "rect" : "{{0, 165}, {464, 21}}",
+        "used" : "{{0, 165}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{283, 40}",
+        "characters" : "{283, 40}",
+        "rect" : "{{0, 186}, {464, 21}}",
+        "used" : "{{0, 186}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{323, 6}",
+        "characters" : "{323, 6}",
+        "rect" : "{{0, 207}, {464, 21}}",
+        "used" : "{{0, 207}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{799, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 second marked value \/ reattached peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more words 👩🏽‍💻 zeta eta theta iota ",
+        "glyphs" : "{0, 73}",
+        "characters" : "{0, 73}",
+        "rect" : "{{0, 0}, {799, 28}}",
+        "used" : "{{0, 0}, {768.7255859375, 28}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{73, 73}",
+        "characters" : "{73, 73}",
+        "rect" : "{{0, 28}, {799, 28}}",
+        "used" : "{{0, 28}, {750.7255859375, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{146, 7}",
+        "characters" : "{146, 7}",
+        "rect" : "{{0, 56}, {799, 21}}",
+        "used" : "{{0, 56}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{153, 45}",
+        "characters" : "{153, 45}",
+        "rect" : "{{0, 77}, {799, 21}}",
+        "used" : "{{0, 77}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{198, 44}",
+        "characters" : "{198, 44}",
+        "rect" : "{{0, 98}, {799, 21}}",
+        "used" : "{{0, 98}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{242, 72}",
+        "characters" : "{242, 72}",
+        "rect" : "{{0, 119}, {799, 21}}",
+        "used" : "{{0, 119}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{314, 15}",
+        "characters" : "{314, 15}",
+        "rect" : "{{0, 140}, {799, 21}}",
+        "used" : "{{0, 140}, {172.5537109375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 composition commit \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more ",
+        "glyphs" : "{0, 39}",
+        "characters" : "{0, 39}",
+        "rect" : "{{0, 0}, {464, 25}}",
+        "used" : "{{0, 0}, {454.12890625, 25}}"
+      },
+      {
+        "text" : "words 👩🏽‍💻 zeta eta theta iota kappa lambda",
+        "glyphs" : "{39, 46}",
+        "characters" : "{39, 46}",
+        "rect" : "{{0, 25}, {464, 28}}",
+        "used" : "{{0, 25}, {454.6396484375, 28}}"
+      },
+      {
+        "text" : " mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{85, 46}",
+        "characters" : "{85, 46}",
+        "rect" : "{{0, 53}, {464, 28}}",
+        "used" : "{{0, 53}, {458.12890625, 28}}"
+      },
+      {
+        "text" : "through shared edits.\n",
+        "glyphs" : "{131, 22}",
+        "characters" : "{131, 22}",
+        "rect" : "{{0, 81}, {464, 21}}",
+        "used" : "{{0, 81}, {237.5751953125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{153, 41}",
+        "characters" : "{153, 41}",
+        "rect" : "{{0, 102}, {464, 21}}",
+        "used" : "{{0, 102}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{194, 41}",
+        "characters" : "{194, 41}",
+        "rect" : "{{0, 123}, {464, 21}}",
+        "used" : "{{0, 123}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{235, 7}",
+        "characters" : "{235, 7}",
+        "rect" : "{{0, 144}, {464, 21}}",
+        "used" : "{{0, 144}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{242, 41}",
+        "characters" : "{242, 41}",
+        "rect" : "{{0, 165}, {464, 21}}",
+        "used" : "{{0, 165}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{283, 40}",
+        "characters" : "{283, 40}",
+        "rect" : "{{0, 186}, {464, 21}}",
+        "used" : "{{0, 186}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{323, 6}",
+        "characters" : "{323, 6}",
+        "rect" : "{{0, 207}, {464, 21}}",
+        "used" : "{{0, 207}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{799, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 composition commit \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more words 👩🏽‍💻 zeta eta theta iota ",
+        "glyphs" : "{0, 73}",
+        "characters" : "{0, 73}",
+        "rect" : "{{0, 0}, {799, 28}}",
+        "used" : "{{0, 0}, {768.7255859375, 28}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{73, 73}",
+        "characters" : "{73, 73}",
+        "rect" : "{{0, 28}, {799, 28}}",
+        "used" : "{{0, 28}, {750.7255859375, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{146, 7}",
+        "characters" : "{146, 7}",
+        "rect" : "{{0, 56}, {799, 21}}",
+        "used" : "{{0, 56}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{153, 45}",
+        "characters" : "{153, 45}",
+        "rect" : "{{0, 77}, {799, 21}}",
+        "used" : "{{0, 77}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{198, 44}",
+        "characters" : "{198, 44}",
+        "rect" : "{{0, 98}, {799, 21}}",
+        "used" : "{{0, 98}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{242, 72}",
+        "characters" : "{242, 72}",
+        "rect" : "{{0, 119}, {799, 21}}",
+        "used" : "{{0, 119}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{314, 15}",
+        "characters" : "{314, 15}",
+        "rect" : "{{0, 140}, {799, 21}}",
+        "used" : "{{0, 140}, {172.5537109375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H3 composition Undo from peer \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta ",
+        "glyphs" : "{0, 40}",
+        "characters" : "{0, 40}",
+        "rect" : "{{0, 0}, {464, 21}}",
+        "used" : "{{0, 0}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "theta iota kappa lambda mu. Unicode ",
+        "glyphs" : "{40, 36}",
+        "characters" : "{40, 36}",
+        "rect" : "{{0, 21}, {464, 21}}",
+        "used" : "{{0, 21}, {400.12890625, 21}}"
+      },
+      {
+        "text" : "preserves Việt 中文 👩🏽‍💻 and á through ",
+        "glyphs" : "{76, 41}",
+        "characters" : "{76, 41}",
+        "rect" : "{{0, 42}, {464, 28}}",
+        "used" : "{{0, 42}, {403.9443359375, 28}}"
+      },
+      {
+        "text" : "shared edits.\n",
+        "glyphs" : "{117, 14}",
+        "characters" : "{117, 14}",
+        "rect" : "{{0, 70}, {464, 21}}",
+        "used" : "{{0, 70}, {150.8798828125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{131, 41}",
+        "characters" : "{131, 41}",
+        "rect" : "{{0, 91}, {464, 21}}",
+        "used" : "{{0, 91}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{172, 41}",
+        "characters" : "{172, 41}",
+        "rect" : "{{0, 112}, {464, 21}}",
+        "used" : "{{0, 112}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{213, 7}",
+        "characters" : "{213, 7}",
+        "rect" : "{{0, 133}, {464, 21}}",
+        "used" : "{{0, 133}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{220, 41}",
+        "characters" : "{220, 41}",
+        "rect" : "{{0, 154}, {464, 21}}",
+        "used" : "{{0, 154}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{261, 40}",
+        "characters" : "{261, 40}",
+        "rect" : "{{0, 175}, {464, 21}}",
+        "used" : "{{0, 175}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{301, 6}",
+        "characters" : "{301, 6}",
+        "rect" : "{{0, 196}, {464, 21}}",
+        "used" : "{{0, 196}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{799, 10000000}",
+    "length" : 307,
+    "contiguous" : 1,
+    "step" : "H3 composition Undo from peer \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu. ",
+        "glyphs" : "{0, 68}",
+        "characters" : "{0, 68}",
+        "rect" : "{{0, 0}, {799, 21}}",
+        "used" : "{{0, 0}, {746.91015625, 21}}"
+      },
+      {
+        "text" : "Unicode preserves Việt 中文 👩🏽‍💻 and á through shared edits.\n",
+        "glyphs" : "{68, 63}",
+        "characters" : "{68, 63}",
+        "rect" : "{{0, 21}, {799, 28}}",
+        "used" : "{{0, 21}, {631.51953125, 28}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{131, 45}",
+        "characters" : "{131, 45}",
+        "rect" : "{{0, 49}, {799, 21}}",
+        "used" : "{{0, 49}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{176, 44}",
+        "characters" : "{176, 44}",
+        "rect" : "{{0, 70}, {799, 21}}",
+        "used" : "{{0, 70}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{220, 72}",
+        "characters" : "{220, 72}",
+        "rect" : "{{0, 91}, {799, 21}}",
+        "used" : "{{0, 91}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{292, 15}",
+        "characters" : "{292, 15}",
+        "rect" : "{{0, 112}, {799, 21}}",
+        "used" : "{{0, 112}, {172.5537109375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{464, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 composition Redo \/ first",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more ",
+        "glyphs" : "{0, 39}",
+        "characters" : "{0, 39}",
+        "rect" : "{{0, 0}, {464, 25}}",
+        "used" : "{{0, 0}, {454.12890625, 25}}"
+      },
+      {
+        "text" : "words 👩🏽‍💻 zeta eta theta iota kappa lambda",
+        "glyphs" : "{39, 46}",
+        "characters" : "{39, 46}",
+        "rect" : "{{0, 25}, {464, 28}}",
+        "used" : "{{0, 25}, {454.6396484375, 28}}"
+      },
+      {
+        "text" : " mu. Unicode preserves Việt 中文 👩🏽‍💻 and á ",
+        "glyphs" : "{85, 46}",
+        "characters" : "{85, 46}",
+        "rect" : "{{0, 53}, {464, 28}}",
+        "used" : "{{0, 53}, {458.12890625, 28}}"
+      },
+      {
+        "text" : "through shared edits.\n",
+        "glyphs" : "{131, 22}",
+        "characters" : "{131, 22}",
+        "rect" : "{{0, 81}, {464, 21}}",
+        "used" : "{{0, 81}, {237.5751953125, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a",
+        "glyphs" : "{153, 41}",
+        "characters" : "{153, 41}",
+        "rect" : "{{0, 102}, {464, 21}}",
+        "used" : "{{0, 102}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " tab\tthen ordinary spaces     and a final",
+        "glyphs" : "{194, 41}",
+        "characters" : "{194, 41}",
+        "rect" : "{{0, 123}, {464, 21}}",
+        "used" : "{{0, 123}, {456.12890625, 21}}"
+      },
+      {
+        "text" : " word.\n",
+        "glyphs" : "{235, 7}",
+        "characters" : "{235, 7}",
+        "rect" : "{{0, 144}, {464, 21}}",
+        "used" : "{{0, 144}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation",
+        "glyphs" : "{242, 41}",
+        "characters" : "{242, 41}",
+        "rect" : "{{0, 165}, {464, 21}}",
+        "used" : "{{0, 165}, {454.3134765625, 21}}"
+      },
+      {
+        "text" : " visible while the caret stays near the ",
+        "glyphs" : "{283, 40}",
+        "characters" : "{283, 40}",
+        "rect" : "{{0, 186}, {464, 21}}",
+        "used" : "{{0, 186}, {443.4765625, 21}}"
+      },
+      {
+        "text" : "start.",
+        "glyphs" : "{323, 6}",
+        "characters" : "{323, 6}",
+        "rect" : "{{0, 207}, {464, 21}}",
+        "used" : "{{0, 207}, {75.021484375, 21}}"
+      }
+    ]
+  },
+  {
+    "size" : "{799, 10000000}",
+    "length" : 329,
+    "contiguous" : 1,
+    "step" : "H3 composition Redo \/ peer",
+    "matchesCold" : true,
+    "lines" : [
+      {
+        "text" : "alpha beta 日本語 second choice with more words 👩🏽‍💻 zeta eta theta iota ",
+        "glyphs" : "{0, 73}",
+        "characters" : "{0, 73}",
+        "rect" : "{{0, 0}, {799, 28}}",
+        "used" : "{{0, 0}, {768.7255859375, 28}}"
+      },
+      {
+        "text" : "kappa lambda mu. Unicode preserves Việt 中文 👩🏽‍💻 and á through shared ",
+        "glyphs" : "{73, 73}",
+        "characters" : "{73, 73}",
+        "rect" : "{{0, 28}, {799, 28}}",
+        "used" : "{{0, 28}, {750.7255859375, 28}}"
+      },
+      {
+        "text" : "edits.\n",
+        "glyphs" : "{146, 7}",
+        "characters" : "{146, 7}",
+        "rect" : "{{0, 56}, {799, 21}}",
+        "used" : "{{0, 56}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Second paragraph has short words beside a tab",
+        "glyphs" : "{153, 45}",
+        "characters" : "{153, 45}",
+        "rect" : "{{0, 77}, {799, 21}}",
+        "used" : "{{0, 77}, {497.6611328125, 21}}"
+      },
+      {
+        "text" : "\tthen ordinary spaces     and a final word.\n",
+        "glyphs" : "{198, 44}",
+        "characters" : "{198, 44}",
+        "rect" : "{{0, 98}, {799, 21}}",
+        "used" : "{{0, 98}, {493.150390625, 21}}"
+      },
+      {
+        "text" : "Last paragraph makes distant invalidation visible while the caret stays ",
+        "glyphs" : "{242, 72}",
+        "characters" : "{242, 72}",
+        "rect" : "{{0, 119}, {799, 21}}",
+        "used" : "{{0, 119}, {790.2578125, 21}}"
+      },
+      {
+        "text" : "near the start.",
+        "glyphs" : "{314, 15}",
+        "characters" : "{314, 15}",
+        "rect" : "{{0, 140}, {799, 21}}",
+        "used" : "{{0, 140}, {172.5537109375, 21}}"
+      }
+    ]
+  }
+]

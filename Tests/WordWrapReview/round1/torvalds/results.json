@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-11",
+  "macOS": "26.5.2 (25F84)",
+  "Xcode": "26.6 (17F113)",
+  "base": "b6a5696",
+  "shippingFindings": [],
+  "runs": {
+    "arm64": {
+      "cases": 315,
+      "matching_glyph_comparisons": 9525,
+      "previous_split_words": 300,
+      "source_geometry_differences": 0,
+      "source_split_words": 0,
+      "commit": "4b049709b2cecc6eac80514586ccacc119d12802",
+      "productionSHA256": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+      "extendedGeometryDifferences": 85,
+      "extendedSplitWordRecords": 45,
+      "nativeActions": {
+        "source": "שלום עולם שלום עולם שלום עולם",
+        "justifiedLineBreakMode": 1,
+        "richText": false,
+        "justifiedAlignment": 2,
+        "rtlAlignment": 2,
+        "rtlLineBreakMode": 1,
+        "rtlDirection": 1
+      },
+      "status": "passed"
+    },
+    "x86_64": {
+      "cases": 315,
+      "matching_glyph_comparisons": 9525,
+      "previous_split_words": 300,
+      "source_geometry_differences": 0,
+      "source_split_words": 0,
+      "commit": "4b049709b2cecc6eac80514586ccacc119d12802",
+      "productionSHA256": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+      "extendedGeometryDifferences": 85,
+      "extendedSplitWordRecords": 45,
+      "nativeActions": {
+        "source": "שלום עולם שלום עולם שלום עולם",
+        "justifiedLineBreakMode": 1,
+        "richText": false,
+        "justifiedAlignment": 1,
+        "rtlAlignment": 1,
+        "rtlLineBreakMode": 1,
+        "rtlDirection": 1
+      },
+      "status": "passed"
+    },
+    "arm64-negative": {
+      "cases": 315,
+      "matching_glyph_comparisons": 610,
+      "previous_split_words": 300,
+      "source_geometry_differences": 0,
+      "source_split_words": 36,
+      "commit": "4b049709b2cecc6eac80514586ccacc119d12802",
+      "productionSHA256": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+      "extendedGeometryDifferences": 0,
+      "extendedSplitWordRecords": 300,
+      "nativeActions": {
+        "source": "שלום עולם שלום עולם שלום עולם",
+        "justifiedLineBreakMode": 1,
+        "richText": false,
+        "justifiedAlignment": 2,
+        "rtlAlignment": 2,
+        "rtlLineBreakMode": 1,
+        "rtlDirection": 1
+      },
+      "status": "passed"
+    }
+  },
+  "limitations": [
+    "Single current macOS host. Intel used Rosetta.",
+    "Windowless Cocoa text systems, without full application event loop.",
+    "Extended style observations lack verified source-app reachability."
+  ],
+  "commands": [
+    "python3 Tests/WordWrapReview/round1/torvalds/run.py --arch arm64",
+    "python3 Tests/WordWrapReview/round1/torvalds/run.py --arch x86_64",
+    "python3 Tests/WordWrapReview/round1/torvalds/run.py --negative-control"
+  ]
+}

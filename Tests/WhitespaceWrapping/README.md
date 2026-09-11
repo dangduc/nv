@@ -1,5 +1,8 @@
 # Trailing-space wrapping investigation
 
+This document records the earlier whitespace change.
+The [word-wrapping refinement](../WordWrapping/README.md) now preserves fitting words while retaining the ordinary-space adjustment described here.
+
 A small layout delegate adjustment makes ordinary spaces wrap in a native `NSTextView`.
 The usual text-view settings did not produce this result.
 This directory contains an isolated prototype and a copied-app integration check.

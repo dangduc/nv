@@ -1,0 +1,79 @@
+{
+  "reviewedCommit": "4b049709b2cecc6eac80514586ccacc119d12802",
+  "hashes": {
+    "Sources/Editor/NVSourceTypesetter.m": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+    "Sources/Editor/NVSourceTypesetter.h": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+    "Sources/Editor/LinkingEditor.m": "6473ccff32374d60031b4cf6b17c1344ee57d7b312ab16921bf15cb873d689b9"
+  },
+  "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "findingCount": 0,
+  "probeHashes": {
+    "probe.m": "aa519a658bc3a619955783010f63b208ae328b4bb8a810a5c7b092f84b039dce",
+    "run.py": "08fc55af574d6fc0bfa1708813bbe19dd4c71dc109c7d77a6d864ddaded583ee"
+  },
+  "architectures": {
+    "arm64": {
+      "unicode": {
+        "checks": 4402,
+        "splitRows": [],
+        "cases": 320,
+        "clusterSplits": 0,
+        "failures": [],
+        "narrowedLines": 234,
+        "postLayoutShapeDifferenceCount": 12
+      },
+      "words": {
+        "failures": [],
+        "narrowedLines": 1538,
+        "fittingConfigurations": 651,
+        "checks": 4771,
+        "cases": 1953,
+        "nativeWholeCandidateSplitCount": 0
+      },
+      "invalidation": {
+        "narrowedLines": 1062,
+        "phases": 99,
+        "checks": 672,
+        "failures": []
+      },
+      "negativeControl": {
+        "cases": 1953,
+        "fittingTokenSplits": 555,
+        "checks": 4771,
+        "failures": []
+      }
+    },
+    "x86_64": {
+      "unicode": {
+        "checks": 4402,
+        "splitRows": [],
+        "cases": 320,
+        "clusterSplits": 0,
+        "failures": [],
+        "narrowedLines": 234,
+        "postLayoutShapeDifferenceCount": 12
+      },
+      "words": {
+        "failures": [],
+        "narrowedLines": 1538,
+        "fittingConfigurations": 651,
+        "checks": 4771,
+        "cases": 1953,
+        "nativeWholeCandidateSplitCount": 0
+      },
+      "invalidation": {
+        "narrowedLines": 1062,
+        "phases": 99,
+        "checks": 672,
+        "failures": []
+      },
+      "negativeControl": {
+        "cases": 1953,
+        "fittingTokenSplits": 555,
+        "checks": 4771,
+        "failures": []
+      }
+    }
+  }
+}

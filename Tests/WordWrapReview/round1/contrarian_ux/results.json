@@ -1,0 +1,523 @@
+{
+  "revision": "4b049709b2cecc6eac80514586ccacc119d12802",
+  "typesetter_sha256": "5ede851266347177b9e91d0e07a8f3ca96193b0db0f6dfd597a0d6139aaee649",
+  "host": "26.5.2",
+  "runs": [
+    {
+      "editedSnapshots": 324,
+      "hitPairs": 66546,
+      "initialCases": 108,
+      "blankRemainderHits": 1226,
+      "checks": 271975,
+      "firstFailure": {},
+      "failures": 0,
+      "fittingWords": 657,
+      "longTokenSplits": 51,
+      "failureKinds": {},
+      "examples": [],
+      "nativeSelectionCommands": 99765,
+      "architecture": "arm64",
+      "mode": "production"
+    },
+    {
+      "editedSnapshots": 324,
+      "hitPairs": 66546,
+      "initialCases": 108,
+      "blankRemainderHits": 83,
+      "checks": 270447,
+      "firstFailure": {
+        "fitting ordinary word remains whole": {
+          "word": "gamma",
+          "source": "alpha beta gamma delta epsilon zeta eta theta",
+          "font": "Menlo-Regular",
+          "width": 73.9
+        }
+      },
+      "failures": 204,
+      "fittingWords": 657,
+      "longTokenSplits": 51,
+      "failureKinds": {
+        "fitting ordinary word remains whole": 204
+      },
+      "examples": [
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "five",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "alpha",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "five",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "alpha",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "epsilon",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "theta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        }
+      ],
+      "nativeSelectionCommands": 99765,
+      "architecture": "arm64",
+      "mode": "previous-character-control"
+    },
+    {
+      "editedSnapshots": 324,
+      "hitPairs": 66546,
+      "initialCases": 108,
+      "blankRemainderHits": 1226,
+      "checks": 271975,
+      "firstFailure": {},
+      "failures": 0,
+      "fittingWords": 657,
+      "longTokenSplits": 51,
+      "failureKinds": {},
+      "examples": [],
+      "nativeSelectionCommands": 99765,
+      "architecture": "x86_64",
+      "mode": "production"
+    },
+    {
+      "editedSnapshots": 324,
+      "hitPairs": 66546,
+      "initialCases": 108,
+      "blankRemainderHits": 83,
+      "checks": 270447,
+      "firstFailure": {
+        "fitting ordinary word remains whole": {
+          "word": "gamma",
+          "source": "alpha beta gamma delta epsilon zeta eta theta",
+          "font": "Menlo-Regular",
+          "width": 73.9
+        }
+      },
+      "failures": 204,
+      "fittingWords": 657,
+      "longTokenSplits": 51,
+      "failureKinds": {
+        "fitting ordinary word remains whole": 204
+      },
+      "examples": [
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "five",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "alpha",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 73.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "five",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "alpha",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "office affine efficient five AVATAR WAVE alpha beta gamma",
+            "font": "Menlo-Regular",
+            "width": 74.1
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "gamma",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "delta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "epsilon",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "theta",
+            "source": "alpha beta gamma delta epsilon zeta eta theta",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        },
+        {
+          "kind": "fitting ordinary word remains whole",
+          "context": {
+            "word": "beta",
+            "source": "alpha       beta\t gamma   delta\n  epsilon zeta ",
+            "font": "Menlo-Regular",
+            "width": 95.9
+          }
+        }
+      ],
+      "nativeSelectionCommands": 99765,
+      "architecture": "x86_64",
+      "mode": "previous-character-control"
+    }
+  ]
+}
