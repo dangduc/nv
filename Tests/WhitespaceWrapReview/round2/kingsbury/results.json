@@ -1,0 +1,1442 @@
+{
+  "candidate": {
+    "glyphCallbacks": 625,
+    "wrapLines": 5,
+    "markedGlyphCallbacks": 184,
+    "checks": 973,
+    "history": [
+      {
+        "label": "plain-0/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/insert-committed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-restored",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/pending-peer-undo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "composing": false,
+        "selections": [
+          "{158, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/pending-peer-redo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/insert-committed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-restored",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/pending-peer-undo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "composing": false,
+        "selections": [
+          "{158, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/pending-peer-redo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      }
+    ]
+  },
+  "baseline": {
+    "glyphCallbacks": 0,
+    "wrapLines": 1,
+    "markedGlyphCallbacks": 0,
+    "checks": 971,
+    "history": [
+      {
+        "label": "plain-0/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-0/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/insert-committed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-1/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-restored",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-2/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/pending-peer-undo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "composing": false,
+        "selections": [
+          "{158, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/pending-peer-redo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "plain-3/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-0/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/insert-committed",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-1/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-restored",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/insert-committed",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/deleted-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-restores-grapheme",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/peer-redoes-delete",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{233, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-2/owner-detached-history",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-e\u0302",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 e\u0302                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{235, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-Vi\u1ec7t",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 Vi\u1ec7t                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{237, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/candidate-\ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "model": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/external-prefix-pending",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "HEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": true,
+        "selections": [
+          "{240, 0}",
+          "{7, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/pending-peer-undo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 END",
+        "composing": false,
+        "selections": [
+          "{158, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/pending-peer-redo",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/deleted-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/peer-restores-grapheme",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{249, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/peer-redoes-delete",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                ",
+        "composing": false,
+        "selections": [
+          "{242, 0}",
+          "{16, 5}"
+        ]
+      },
+      {
+        "label": "markdown-3/owner-detached-history",
+        "model": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "live": "remote \u2192\nHEADER\nalpha beta                                                                                                                         Vi\u1ec7t e\u0302 \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb                                                                                \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
+        "composing": false,
+        "selections": [
+          "{16, 5}"
+        ]
+      }
+    ]
+  }
+}

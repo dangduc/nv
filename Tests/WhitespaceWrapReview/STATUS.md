@@ -26,10 +26,25 @@ The copied-app reflow measurement fell from 64.00 ms to 10.30 ms for 32,768 spac
 Each of the three compared app variants passed 586 checks.
 A follow-up allocation probe confirmed that 10,000 attribute requests now share one immutable paragraph style.
 The corrected native-editing contract checks character wrapping and preserves all other native paragraph values.
+[Posted correction](https://github.com/dangduc/nv/pull/25#issuecomment-5627675301).
 
 ## Round 2
 
-Ready to review the corrected character-wrapping implementation.
+Reviewed production commit: `072a6bc`.
+All six perspectives wrote and ran code against the corrected character-wrapping implementation.
+
+| Perspective | Result |
+| --- | --- |
+| Ousterhout | 42 copied-app ownership, normalization, and state checks passed; no finding. |
+| Luu | Four app runs passed 826 checks each; P3 approximately 10% extra resize work for 1,024 mixed paragraphs. |
+| Torvalds | 4,894 assertions per architecture with ASan/UBSan passed; no finding. |
+| Kingsbury | Candidate/base passed 974/972 composition-history checks; all 72 recorded states matched. |
+| Contrarian UX | 2,881 checks and 1,440 native key events passed; no finding. |
+| Contrarian platform | 19,193 assertions across 48 narrow-width matrices passed; no introduced finding. |
+
+The P3 many-paragraph cost is under attribution and correction before round three.
+A same-app control keeps character wrapping active and disables only the glyph adjustment.
+The original round-two results remain unchanged.
 
 ## Round 3
 
