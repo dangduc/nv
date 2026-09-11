@@ -71,6 +71,9 @@
     [notesScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [notesScrollView setBackgroundColor:[NSColor textBackgroundColor]];
     [[notesScrollView contentView] setBackgroundColor:[NSColor textBackgroundColor]];
+    // Native table rows can be translucent; repaint their backing color on resize.
+    [notesScrollView setDrawsBackground:YES];
+    [[notesScrollView contentView] setDrawsBackground:YES];
     [notesSubview addSubview:notesScrollView];
     createNoteButton = [[NSButton alloc] initWithFrame:NSMakeRect(12, 60, NSWidth([notesSubview bounds]) - 24, 32)];
     [createNoteButton setBezelStyle:NSBezelStyleRounded];

@@ -332,11 +332,6 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	
 	[center addObserver:self selector:@selector(windowDidResignMain:)
 				   name:NSWindowDidResignMainNotification object:[self window]];	
-	//[self setb]
-    
-    [[self enclosingScrollView] setDrawsBackground:NO];
-
-   // [self setBackgroundColor:[NSColor clearColor]];
 	outletObjectAwoke(self);
 }
 
@@ -1503,10 +1498,6 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 
 
 #pragma mark - nvALT work
-
-- (BOOL)isOpaque{
-    return YES;
-}
 
 - (void)flagsChanged:(NSEvent *)theEvent{
 	[NVControllerForView(self) flagsChanged:theEvent];

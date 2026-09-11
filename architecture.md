@@ -293,6 +293,8 @@ The split view uses `setVertical:NO`: its horizontal divider keeps the list abov
 Automatic macOS window tabbing is disabled.
 
 The notes list inherits the window appearance and uses system colors for backgrounds, text, and selection.
+The table inherits AppKit's opacity behavior because native row fills can be translucent.
+The scroll and clip views paint their background so partial redraws replace old pixels before drawing the rows.
 Cached previews retain dynamic text colors. Cached tag images use the resolved drawing color as part of their key.
 The editor can follow system appearance or use configured colors.
 User Scheme keeps separate light and dark palettes for foreground, background, and search highlights.
