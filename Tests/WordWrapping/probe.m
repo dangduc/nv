@@ -284,6 +284,36 @@ static NSDictionary *Editing(void) {
     return @{@"cases":records};
 }
 
+// Observe analysis ownership without replacing any production layout method.
+@interface CacheObserver : NVSourceTypesetter
+- (BOOL)hasParagraphAnalysis;
+@end
+@implementation CacheObserver
+- (BOOL)hasParagraphAnalysis { return paragraphMeasure != NULL || lineBreaks != nil; }
+@end
+
+static NSDictionary *Lifetime(void) {
+    for (NSUInteger pass = 0; pass < 4; pass++) {
+        @autoreleasepool {
+            TextSystem *system = [[[TextSystem alloc] initWithWidth:344 + pass * 50 refined:YES] autorelease];
+            CacheObserver *observer = [[[CacheObserver alloc] init] autorelease];
+            system->layout.typesetter = observer;
+            NSString *source = [@"" stringByPaddingToLength:65536 withString:@"alpha beta gamma delta epsilon " startingAtIndex:0];
+            [system setSource:source font:[NSFont fontWithName:@"Menlo" size:18] style:ParagraphStyle(@"default")];
+            [system->layout ensureLayoutForTextContainer:system->container];
+            Check(system->layout.firstUnlaidCharacterIndex == source.length, @"large paragraph layout completes");
+            Check(![observer hasParagraphAnalysis], @"completed paragraph releases its analysis before another paragraph begins");
+            [system->storage replaceCharactersInRange:NSMakeRange(0, source.length) withString:@""];
+            [system->layout ensureLayoutForTextContainer:system->container];
+            Check(![observer hasParagraphAnalysis], @"empty note does not retain the previous paragraph analysis");
+            [system->storage replaceCharactersInRange:NSMakeRange(0, 0) withString:@"fresh words after an empty note"];
+            CheckFreshLayout(system);
+            Check(![observer hasParagraphAnalysis], @"reused typesetter releases its new completed paragraph");
+        }
+    }
+    return @{@"cases":@4};
+}
+
 static NSDictionary *Performance(void) {
     NSMutableArray *records = [NSMutableArray array];
     for (NSString *fixture in @[@"spaces", @"letters", @"prose"])
@@ -325,6 +355,7 @@ int main(int argc, const char **argv) {
         else if ([suite isEqual:@"geometry"]) evidence = Geometry();
         else if ([suite isEqual:@"editing"]) evidence = Editing();
         else if ([suite isEqual:@"performance"]) evidence = Performance();
+        else if ([suite isEqual:@"lifetime"]) evidence = Lifetime();
         else return 2;
         NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:evidence];
         result[@"checks"] = @(Checks);

@@ -23,7 +23,7 @@ def glyph_delegate(source):
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--arch", action="append", choices=("arm64", "x86_64"))
-parser.add_argument("--suite", choices=("matrix", "geometry", "editing", "performance"), action="append")
+parser.add_argument("--suite", choices=("matrix", "geometry", "editing", "performance", "lifetime"), action="append")
 parser.add_argument("--negative-control", action="store_true",
                     help="Verify that the previous character wrapping fails the prose check.")
 args = parser.parse_args()
@@ -35,7 +35,7 @@ implementation = (repo / "Sources/Editor/LinkingEditor.m").read_text()
     "@interface SpaceDelegate : NSObject <NSLayoutManagerDelegate>\n@end\n"
     "@implementation SpaceDelegate\n" + glyph_delegate(implementation) + "\n@end\n")
 architectures = args.arch or (["arm64", "x86_64"] if platform.machine() == "arm64" else ["x86_64"])
-suites = ["matrix"] if args.negative_control else args.suite or ["matrix", "geometry", "editing", "performance"]
+suites = ["matrix"] if args.negative_control else args.suite or ["matrix", "geometry", "editing", "lifetime", "performance"]
 common = Path(subprocess.check_output(
     ["git", "rev-parse", "--git-common-dir"], cwd=repo, text=True).strip())
 if not common.is_absolute():

@@ -34,6 +34,7 @@ The suites cover these behaviors:
 - `editing`: native Space events, Backspace, and marked text preserve source and selection. Space overflow advances the caret.
 - `editing`: interior edits and width changes produce the same glyph positions and line boundaries as a fresh text system.
 - `performance`: initial layout of 4,096 to 32,768 characters, for spaces, unbroken letters, and prose.
+- `lifetime`: completed 65,536-character paragraphs release their analysis before an empty-note switch and subsequent reuse.
 
 Geometry comparisons exclude lines with different native boundaries.
 These exclusions reflect the two wrapping modes. They do not establish geometry equivalence for those lines.
@@ -62,3 +63,17 @@ The Intel samples showed substantial variation. These observations do not establ
 
 The runner writes JSON evidence to `build/WordWrapping/`.
 The current evidence does not include macOS 13.7.8, physical key input, or the complete nvALT event loop.
+
+## Measured limits
+
+The [first performance review](../WordWrapReview/round1/luu/findings.md) found additional synchronous work for long paragraph invalidations.
+Beginning edits in a 131,050-character paragraph measured 19.4 ms with previous character layout and 28.1 ms with this refinement.
+Short-note edits measured 0.031 ms and 0.059 ms respectively.
+These standalone layout measurements do not establish application frame latency.
+
+The current source editor does not expose positive tail indents, justification, or natural alignment with explicit RTL direction.
+Those combinations have [documented geometry limits](../WordWrapReview/round1/torvalds/findings.md).
+This class is not a general typesetter for arbitrary rich-text paragraph styles.
+
+The round-one lifetime correction passed 144 additional checks per architecture.
+The same new check rejected the exact pre-correction implementation at `4b04970`.

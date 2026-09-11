@@ -9,7 +9,7 @@ Findings and corrections are published as PR comments before the next round.
 
 | Round | Reviewed commit | Status |
 | --- | --- | --- |
-| 1 | `4b04970` | Six reviews complete; corrections next |
+| 1 | `4b04970` | Complete; cache correction applied |
 | 2 | Pending | Pending |
 | 3 | Pending | Pending |
 
@@ -28,3 +28,16 @@ These runners did not pass. Later aggregate entries did not run in this invocati
 The test host does not establish runtime compatibility with macOS 13.7.8.
 The app screenshot uses native view drawing with disposable notes.
 It does not test the final display compositor.
+
+## Round-one resolution
+
+[All six findings](https://github.com/dangduc/nv/pull/28#issuecomment-5631862180) are posted on PR 28.
+The typesetter now releases completed paragraph analysis in `endParagraph`.
+Defensive cleanup remains in `beginParagraph` and `dealloc`.
+The new lifetime suite passed 144 checks on both architectures.
+The exact previous implementation failed the completed-paragraph release assertion, as expected.
+
+The long-paragraph performance finding remains a measured limitation, documented in the architecture and test guide.
+The [caret-offset experiment](experiments/one-line-measurement.md) was rejected after geometry differences and slower measurements.
+The unsupported paragraph-style combinations are documented with their source-app reachability limits.
+Further optimization requires evidence that it preserves native layout semantics.
