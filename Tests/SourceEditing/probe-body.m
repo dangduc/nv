@@ -72,17 +72,21 @@
         NSDictionary *bodyAttributes = [prefsController noteBodyAttributes];
         Check([bodyAttributes objectForKey:NSFontAttributeName] != nil,
               @"source presentation retains the configured body font");
-        Check([bodyAttributes objectForKey:NSParagraphStyleAttributeName] == nil,
-              @"source attributes leave paragraph and tab layout to AppKit");
+        NSMutableParagraphStyle *expectedParagraph = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+        [expectedParagraph setLineBreakMode:NSLineBreakByCharWrapping];
+        Check([[bodyAttributes objectForKey:NSParagraphStyleAttributeName] isEqual:expectedParagraph],
+              @"source attributes use character wrapping with otherwise native paragraph layout");
 
         Prepare(@"\tvalue");
         NSDictionary *sourceAttributes = [[editor textStorage] attributesAtIndex:0 effectiveRange:NULL];
         NSParagraphStyle *nativeParagraph = [NSParagraphStyle defaultParagraphStyle];
         Check([sourceAttributes objectForKey:NSFontAttributeName] != nil &&
-              [sourceAttributes objectForKey:NSParagraphStyleAttributeName] == nil,
-              @"stored source text retains font presentation without a paragraph override");
-        Check([[nativeParagraph tabStops] count] > 0 && [nativeParagraph defaultTabInterval] == 0.0,
-              @"AppKit supplies the source editor's native tab-stop layout");
+              [[sourceAttributes objectForKey:NSParagraphStyleAttributeName] isEqual:expectedParagraph],
+              @"stored source text retains the configured font and character wrapping");
+        NSParagraphStyle *sourceParagraph = [sourceAttributes objectForKey:NSParagraphStyleAttributeName];
+        Check([[sourceParagraph tabStops] isEqual:[nativeParagraph tabStops]] &&
+              [sourceParagraph defaultTabInterval] == [nativeParagraph defaultTabInterval],
+              @"source paragraph retains AppKit's native tab-stop layout");
 
         Prepare(@"    alpha");
         [editor setSelectedRange:NSMakeRange(9, 0)];

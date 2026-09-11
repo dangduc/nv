@@ -170,6 +170,9 @@ The editor's layout delegate clears the elastic glyph flag for ordinary U+0020 s
 This makes trailing spaces occupy their font width and wrap onto subsequent visual lines.
 Glyph IDs, source characters, tabs, nonbreaking spaces, and other glyph properties remain unchanged.
 The adjustment runs during native glyph generation and does not query layout or change selection.
+The common note-body attributes use native character wrapping.
+Spaces and words break at the character that does not fit the available width.
+This avoids moving an already-fitting word when its trailing spaces overflow.
 
 Input-method composition requires special handling.
 While any attached editor has marked text, the session defers body commits and holds incoming model snapshots.

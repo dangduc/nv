@@ -1,4 +1,4 @@
-# Space-wrapping Development build
+# Space-wrapping Development builds
 
 Built on macOS 26.5.2 (25F84) with Xcode 26.6 (17F113).
 The application is Intel x86_64 with a macOS 10.13 deployment target.
@@ -8,7 +8,17 @@ The build uses merged master `f772c4b` plus the layout adjustment in `LinkingEdi
 The adjustment clears the elastic glyph flag for ordinary spaces during native glyph generation.
 It changes display layout without changing stored characters or keyboard commands.
 
-## Artifacts
+## Current review build
+
+The review correction combines the glyph adjustment with native character wrapping.
+Words can split at the window edge, and overflowing spaces leave an already-fitting word in place.
+One immutable paragraph style is shared across note-body attribute requests.
+
+The current executable SHA-256 is `be02dd1fe33a39c74b8961441be55f4f91378d46935bdba99fd610d405c3e09b`.
+The [review record](../WhitespaceWrapReview/STATUS.md) links correction evidence and later review rounds.
+The results and ZIP listed below describe the initial glyph-only build.
+
+## Initial test-build artifacts
 
 - Application: `build/DerivedData/Build/Products/Development/nvALT.app`
 - ZIP: `build/WhitespaceWrapping/nvALT-Space-Wrap.zip`

@@ -1,0 +1,122 @@
+{
+  "run": {
+    "app_sha256": "ce1abfa2bcda08415d726352a2575412bfabb2e9f4c640a5519db7e1276beacc",
+    "exit_code": 0,
+    "checks": 223,
+    "passed": true,
+    "failure": []
+  },
+  "geometry": [
+    {
+      "prefix": "alpha beta",
+      "wordBefore": {
+        "x": 70.021484375,
+        "y": 0
+      },
+      "caretBefore": {
+        "x": 544.0087890625,
+        "y": 8
+      },
+      "caretDeleted": {
+        "x": 544.0087890625,
+        "y": 8
+      },
+      "caretAfter": {
+        "x": 23.8369140625,
+        "y": 29
+      },
+      "spacesBeforeKey": 39,
+      "wordAfter": {
+        "x": 70.021484375,
+        "y": 0
+      }
+    },
+    {
+      "prefix": "one two three four alpha beta",
+      "wordBefore": {
+        "x": 275.9228515625,
+        "y": 0
+      },
+      "caretBefore": {
+        "x": 544.0087890625,
+        "y": 8
+      },
+      "caretDeleted": {
+        "x": 544.0087890625,
+        "y": 8
+      },
+      "caretAfter": {
+        "x": 23.8369140625,
+        "y": 29
+      },
+      "spacesBeforeKey": 20,
+      "wordAfter": {
+        "x": 275.9228515625,
+        "y": 0
+      }
+    },
+    {
+      "fixture": "201 spaces",
+      "lines": [
+        {
+          "y": 0,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 0,
+          "text": "                                                 "
+        },
+        {
+          "y": 21,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 49,
+          "text": "                                                 "
+        },
+        {
+          "y": 42,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 98,
+          "text": "                                                 "
+        },
+        {
+          "y": 63,
+          "length": 49,
+          "width": 541.0087890625,
+          "location": 147,
+          "text": "                                                 "
+        },
+        {
+          "y": 84,
+          "length": 5,
+          "width": 64.1845703125,
+          "location": 196,
+          "text": "     "
+        }
+      ],
+      "caret": {
+        "x": 67.1845703125,
+        "y": 92
+      }
+    },
+    {
+      "fixture": "Helvetica 14",
+      "lines": [
+        {
+          "y": 0,
+          "length": 130,
+          "width": 542.150390625,
+          "location": 0,
+          "text": "alpha beta                                                                                                                        "
+        },
+        {
+          "y": 17,
+          "length": 81,
+          "width": 325.0615234375,
+          "location": 130,
+          "text": "                                                                                 "
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,7 @@ PR: https://github.com/dangduc/nv/pull/25
 
 Reviewed commit: `83a7307`, based on merged master `f772c4b`.
 All six perspectives wrote and ran independent evidence.
+[Posted findings](https://github.com/dangduc/nv/pull/25#issuecomment-5627522767).
 
 | Perspective | Result |
 | --- | --- |
@@ -16,12 +17,19 @@ All six perspectives wrote and ran independent evidence.
 | Contrarian UX | P2: the 40th space after `alpha beta` moves an already-fitting word to the next line. |
 | Contrarian platform | 12,693 native font, glyph, bidi, and protected-whitespace assertions passed; no additional finding. |
 
-The P2 word-break regression is under correction before round two.
-The P3 large-space-paragraph cost will receive a documented disposition with the correction results.
+The correction adds native character wrapping to the common source paragraph style.
+Words can split at the window edge. This avoids a custom typesetter.
+The rebuilt app passed all 843 original wrapping checks.
+Both findings are addressed in the [round-one correction](fixes/round1/README.md).
+The fitting-word probe passed 223 checks.
+The copied-app reflow measurement fell from 64.00 ms to 10.30 ms for 32,768 spaces at a 464-point container width.
+Each of the three compared app variants passed 586 checks.
+A follow-up allocation probe confirmed that 10,000 attribute requests now share one immutable paragraph style.
+The corrected native-editing contract checks character wrapping and preserves all other native paragraph values.
 
 ## Round 2
 
-Pending the round-one findings and dispositions.
+Ready to review the corrected character-wrapping implementation.
 
 ## Round 3
 
