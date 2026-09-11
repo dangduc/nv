@@ -1,0 +1,798 @@
+{
+  "commit": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "base": "75d6f4269d5c3f0ff2d3df392659ccf95bc1482b",
+  "host": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84\n",
+  "xcode": "Xcode 26.6\nBuild version 17F113\n",
+  "runs": [
+    {
+      "baselineControls": 10,
+      "records": [
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 5,
+          "nativeWordX": 5,
+          "settings": [
+            10,
+            5,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 5,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 9,
+          "nativeWordX": 9,
+          "settings": [
+            22,
+            9,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 9,
+              "sourceIndex": 21,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 24,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 27,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 30,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 17,
+          "nativeWordX": 17,
+          "settings": [
+            22,
+            5,
+            8,
+            12
+          ],
+          "indents": [
+            {
+              "x": 13,
+              "sourceIndex": 21,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 24,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 27,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 17,
+              "sourceIndex": 30,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 5,
+          "nativeWordX": 5,
+          "settings": [
+            10,
+            5,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 5,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 9,
+          "nativeWordX": 9,
+          "settings": [
+            22,
+            9,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 9,
+              "sourceIndex": 20,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 23,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 26,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 29,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 17,
+          "nativeWordX": 17,
+          "settings": [
+            22,
+            5,
+            8,
+            12
+          ],
+          "indents": [
+            {
+              "x": 13,
+              "sourceIndex": 20,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 17,
+              "sourceIndex": 23,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 26,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 29,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        }
+      ],
+      "failures": [],
+      "checks": 252,
+      "cases": 10,
+      "architecture": "arm64",
+      "minimum_os": "11.0",
+      "exit_code": 0,
+      "stdout": "252 checks; 10 cases; 10 baseline controls; 0 failures\n",
+      "stderr": ""
+    },
+    {
+      "baselineControls": 10,
+      "records": [
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 5,
+          "nativeWordX": 5,
+          "settings": [
+            10,
+            5,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 5,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 9,
+          "nativeWordX": 9,
+          "settings": [
+            22,
+            9,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 9,
+              "sourceIndex": 21,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 24,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 27,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 30,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 17,
+          "nativeWordX": 17,
+          "settings": [
+            22,
+            5,
+            8,
+            12
+          ],
+          "indents": [
+            {
+              "x": 13,
+              "sourceIndex": 21,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 24,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 27,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 17,
+              "sourceIndex": 30,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "forward-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 21,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 24,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 27,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 30,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 5,
+          "nativeWordX": 5,
+          "settings": [
+            10,
+            5,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 5,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 5,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 9,
+          "nativeWordX": 9,
+          "settings": [
+            22,
+            9,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 9,
+              "sourceIndex": 20,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 23,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 26,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 29,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 9,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 17,
+          "nativeWordX": 17,
+          "settings": [
+            22,
+            5,
+            8,
+            12
+          ],
+          "indents": [
+            {
+              "x": 13,
+              "sourceIndex": 20,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 17,
+              "sourceIndex": 23,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 26,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 29,
+              "advance": 13.2451171875
+            },
+            {
+              "x": 13,
+              "sourceIndex": 33,
+              "advance": 13.2451171875
+            }
+          ]
+        },
+        {
+          "fixture": "reverse-hardbreaks",
+          "wrappedWordX": 0,
+          "nativeWordX": 0,
+          "settings": [
+            10,
+            0,
+            0,
+            0
+          ],
+          "indents": [
+            {
+              "x": 0,
+              "sourceIndex": 20,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 23,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 26,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 29,
+              "advance": 6.0205078125
+            },
+            {
+              "x": 0,
+              "sourceIndex": 33,
+              "advance": 6.0205078125
+            }
+          ]
+        }
+      ],
+      "failures": [],
+      "checks": 252,
+      "cases": 10,
+      "architecture": "x86_64",
+      "minimum_os": "10.13",
+      "exit_code": 0,
+      "stdout": "252 checks; 10 cases; 10 baseline controls; 0 failures\n",
+      "stderr": ""
+    }
+  ],
+  "CurrentDelegate_sha256": "7041b11075a6a8d51fdac388718b4a0c7bd67cb25c45d4a34cd555f562f03da4",
+  "BaseDelegate_sha256": "8c48b1b0ebf94eda1b8b973b5c6aeb722ba78c0d67117bcef00c291d2d5a6e9f",
+  "NVSourceTypesetter.h_sha256": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+  "NVSourceTypesetter.m_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9"
+}

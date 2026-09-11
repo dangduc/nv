@@ -10,7 +10,7 @@ Findings are posted on the PR and corrected before the next round.
 | Round | Reviewed commit | Status |
 | --- | --- | --- |
 | 1 | `9e6c8dd6adc058e7044f2c562532af97dd4e63d4` | Six reviews complete; no actionable findings |
-| 2 | Pending | Not started |
+| 2 | `2ea92180939a3e51df8fe867ad548140ed455868` | Six reviews complete; P3 ASCII query optimization pending |
 | 3 | Pending | Not started |
 
 The six perspectives are John Ousterhout, Dan Luu, Linus Torvalds, Kyle Kingsbury, contrarian UX, and contrarian platform compatibility.
@@ -23,3 +23,5 @@ The broader rule that collapses entire space runs is outside this implementation
 The implementation-stage invalidation research is separate from these review rounds.
 It tested native AppKit with an instrumented classifier and found no need for another invalidation hook.
 It does not establish behavior on macOS 13.7.8.
+
+[Round 1 PR comment](https://github.com/dangduc/nv/pull/30#issuecomment-5639941946).

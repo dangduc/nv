@@ -1,0 +1,170 @@
+{
+  "records": [
+    {
+      "delegate_ms": 9.218992665410042,
+      "variant": "current",
+      "operation": "initial",
+      "trial": 0,
+      "composed_queries": 44938,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 71.22499961405993,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 18.039004877209663,
+      "variant": "current",
+      "operation": "start",
+      "trial": 0,
+      "composed_queries": 89875,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 125.96300058066845,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    },
+    {
+      "delegate_ms": 4.631005227565765,
+      "variant": "ascii-experiment",
+      "operation": "initial",
+      "trial": 0,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 61.628999188542366,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 9.469994343817234,
+      "variant": "ascii-experiment",
+      "operation": "start",
+      "trial": 0,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 116.96600075811148,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    },
+    {
+      "delegate_ms": 4.701004363596439,
+      "variant": "ascii-experiment",
+      "operation": "initial",
+      "trial": 1,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 61.97899952530861,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 9.419996291399002,
+      "variant": "ascii-experiment",
+      "operation": "start",
+      "trial": 1,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 117.73000005632639,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    },
+    {
+      "delegate_ms": 9.024991653859615,
+      "variant": "current",
+      "operation": "initial",
+      "trial": 1,
+      "composed_queries": 44938,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 66.38400070369244,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 18.118002451956272,
+      "variant": "current",
+      "operation": "start",
+      "trial": 1,
+      "composed_queries": 89875,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 128.5640001296997,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    },
+    {
+      "delegate_ms": 9.170996025204659,
+      "variant": "current",
+      "operation": "initial",
+      "trial": 2,
+      "composed_queries": 44938,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 67.26799998432398,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 18.511006608605385,
+      "variant": "current",
+      "operation": "start",
+      "trial": 2,
+      "composed_queries": 89875,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 127.8269998729229,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    },
+    {
+      "delegate_ms": 4.809005185961723,
+      "variant": "ascii-experiment",
+      "operation": "initial",
+      "trial": 2,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 1,
+      "wall_ms": 62.85800039768219,
+      "glyphs_visited": 262144,
+      "snapshot_characters": 262144
+    },
+    {
+      "delegate_ms": 9.45201050490141,
+      "variant": "ascii-experiment",
+      "operation": "start",
+      "trial": 2,
+      "composed_queries": 0,
+      "explicit_buffer_allocations": 2,
+      "wall_ms": 119.79799997061491,
+      "glyphs_visited": 524289,
+      "snapshot_characters": 524289
+    }
+  ],
+  "fallback_queries_in_controls": 9,
+  "result": "PASS",
+  "controls": 14,
+  "checks": 60087,
+  "head": "2ea92180939a3e51df8fe867ad548140ed455868",
+  "status": "experimental probe only; not shipped",
+  "instrumented_timing": true,
+  "ascii_guard": "Both neighbors must be U+0021 through U+007E; all other cases retain the composed query.",
+  "summary": {
+    "initial": {
+      "current": {
+        "wall_ms": 66.82600034400821,
+        "delegate_ms": 9.097993839532137,
+        "composed_queries": 44938.0
+      },
+      "ascii-experiment": {
+        "wall_ms": 62.4184999614954,
+        "delegate_ms": 4.755004774779081,
+        "composed_queries": 0.0
+      }
+    },
+    "start": {
+      "current": {
+        "wall_ms": 128.1955000013113,
+        "delegate_ms": 18.31450453028083,
+        "composed_queries": 89875.0
+      },
+      "ascii-experiment": {
+        "wall_ms": 118.76400001347065,
+        "delegate_ms": 9.436003398150206,
+        "composed_queries": 0.0
+      }
+    }
+  }
+}
