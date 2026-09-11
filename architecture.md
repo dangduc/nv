@@ -76,7 +76,7 @@ The default development notes folder is `~/Library/Application Support/Notationa
 Application support and default backups derive from the executable name, so development uses `~/Library/Application Support/nvALT Development`.
 Development also adds an `nvALT Development` subfolder inside a custom backup root.
 This separates backup histories when copied libraries retain the same UUID.
-The coordinator captures the selected parent's filesystem identity.
+The coordinator canonicalizes the selected parent before appending the namespace and captures that parent's filesystem identity.
 The backup worker creates the development namespace below that pinned parent before opening the library UUID folder.
 Publication, retention, and deletion retain the same parent-identity checks.
 Caches derive from the bundle identifier. External-editing temporary folders and the encryption keychain service also differ.
