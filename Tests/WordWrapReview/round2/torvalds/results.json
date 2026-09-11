@@ -1,0 +1,74 @@
+{
+  "commit": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+  "date": "2026-09-11",
+  "macOS": "26.5.2 (25F84)",
+  "Xcode": "26.6 (17F113)",
+  "actionableFindings": [],
+  "runs": {
+    "arm64": {
+      "checks": 8857,
+      "repeatedCleanupCycles": 40,
+      "cleanupDuringEnd": 490,
+      "sequences": 40,
+      "nativeEnds": 490,
+      "paragraphBegins": 490,
+      "status": "passed",
+      "paragraphEnds": 490,
+      "commit": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "arm64",
+      "attributedMarkerControls": [
+        {
+          "coreTextControl": false,
+          "markersAliveAfterPool": 0
+        },
+        {
+          "coreTextControl": true,
+          "markersAliveAfterPool": 1
+        }
+      ]
+    },
+    "x86_64": {
+      "checks": 8857,
+      "repeatedCleanupCycles": 40,
+      "cleanupDuringEnd": 490,
+      "sequences": 40,
+      "nativeEnds": 490,
+      "paragraphBegins": 490,
+      "status": "passed",
+      "paragraphEnds": 490,
+      "commit": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "x86_64",
+      "attributedMarkerControls": [
+        {
+          "coreTextControl": false,
+          "markersAliveAfterPool": 0
+        },
+        {
+          "coreTextControl": true,
+          "markersAliveAfterPool": 1
+        }
+      ]
+    },
+    "arm64-negative": {
+      "status": "expected assertion failure",
+      "returncode": 1,
+      "commit": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+      "productionSHA256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "architecture": "arm64"
+    }
+  }
+}

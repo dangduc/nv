@@ -1,0 +1,36 @@
+{
+  "revision": "4c8f6b449504a50caa460d78efebd42b94beaba6",
+  "production_sha256": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+  "runs": [
+    {
+      "checks": 230,
+      "paragraphCompletionCallbacks": 156,
+      "partialEnds": 6,
+      "typesettersCreated": 72,
+      "partialContainerCases": 6,
+      "typesettersDestroyed": 72,
+      "reuseCycles": 24,
+      "measuredEnds": 78,
+      "architecture": "arm64",
+      "negativeControl": {
+        "exitCode": 1,
+        "failure": "CALLBACK last=36 paragraph={0, 1177} measure=1\nFAIL 1: paragraph completion releases analysis before returning to the native layout caller"
+      }
+    },
+    {
+      "checks": 230,
+      "paragraphCompletionCallbacks": 156,
+      "partialEnds": 6,
+      "typesettersCreated": 72,
+      "partialContainerCases": 6,
+      "typesettersDestroyed": 72,
+      "reuseCycles": 24,
+      "measuredEnds": 78,
+      "architecture": "x86_64",
+      "negativeControl": {
+        "exitCode": 1,
+        "failure": "CALLBACK last=36 paragraph={0, 1177} measure=1\nFAIL 1: paragraph completion releases analysis before returning to the native layout caller"
+      }
+    }
+  ]
+}
