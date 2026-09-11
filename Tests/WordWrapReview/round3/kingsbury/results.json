@@ -1,0 +1,41 @@
+{
+  "reviewed_head": "63911bf2c66d438f178b43a8b9e996787e29acc9",
+  "app_sha256": "62c09640835e03f1fcf5bb559565f220801685c0f5241187f078943cf6fc5f8e",
+  "exit_code": 0,
+  "passed": true,
+  "checks": 53,
+  "phases": [
+    {
+      "phase": "save",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 41,
+      "failures": []
+    },
+    {
+      "phase": "reopen",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 12,
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "source_hashes_before": {
+    "Sources/Editor/NVSourceTypesetter.m": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+    "Sources/Editor/NVSourceTypesetter.h": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+    "Sources/Editor/LinkingEditor.m": "6473ccff32374d60031b4cf6b17c1344ee57d7b312ab16921bf15cb873d689b9",
+    "Sources/Editor/NVNoteEditingSession.m": "84d8d3927ea911d8b20d2c295134456e73cb58cee6c42412ba33d7663c0818de"
+  },
+  "source_hashes_after": {
+    "Sources/Editor/NVSourceTypesetter.m": "c8045359e5d821a3c8ae55abb454de4a979cfa15273b25380152847bfe7b71f9",
+    "Sources/Editor/NVSourceTypesetter.h": "2de060bd72a35cba2880ba1518e7e002e337b713b801b5e75bd12918b05b9e92",
+    "Sources/Editor/LinkingEditor.m": "6473ccff32374d60031b4cf6b17c1344ee57d7b312ab16921bf15cb873d689b9",
+    "Sources/Editor/NVNoteEditingSession.m": "84d8d3927ea911d8b20d2c295134456e73cb58cee6c42412ba33d7663c0818de"
+  },
+  "production_unchanged": true,
+  "platform": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.2\nBuildVersion:\t\t25F84",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "gui_lock": "/Users/duc/dev/nv/build/pr-review/gui.lock",
+  "architecture": "x86_64 through Rosetta"
+}

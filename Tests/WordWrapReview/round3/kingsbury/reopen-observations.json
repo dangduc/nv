@@ -1,0 +1,82 @@
+[
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns",
+        "glyphs" : "{0, 46}",
+        "characters" : "{0, 46}",
+        "rect" : "{{0, 0}, {519, 21}}",
+        "used" : "{{0, 0}, {508.498046875, 21}}"
+      },
+      {
+        "text" : " shared history. Words must remain complete as",
+        "glyphs" : "{46, 46}",
+        "characters" : "{46, 46}",
+        "rect" : "{{0, 21}, {519, 21}}",
+        "used" : "{{0, 21}, {508.498046875, 21}}"
+      },
+      {
+        "text" : " the source window changes width.\n",
+        "glyphs" : "{92, 34}",
+        "characters" : "{92, 34}",
+        "rect" : "{{0, 42}, {519, 21}}",
+        "used" : "{{0, 42}, {367.6181640625, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 63}, {519, 28}}",
+        "used" : "{{0, 63}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part ",
+        "glyphs" : "{173, 44}",
+        "characters" : "{173, 44}",
+        "rect" : "{{0, 91}, {519, 21}}",
+        "used" : "{{0, 91}, {503.9873046875, 21}}"
+      },
+      {
+        "text" : "of the source.\n",
+        "glyphs" : "{217, 15}",
+        "characters" : "{217, 15}",
+        "rect" : "{{0, 112}, {519, 21}}",
+        "used" : "{{0, 112}, {161.716796875, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph ",
+        "glyphs" : "{232, 44}",
+        "characters" : "{232, 44}",
+        "rect" : "{{0, 133}, {519, 21}}",
+        "used" : "{{0, 133}, {486.82421875, 21}}"
+      },
+      {
+        "text" : "before it closed.\n",
+        "glyphs" : "{276, 18}",
+        "characters" : "{276, 18}",
+        "rect" : "{{0, 154}, {519, 21}}",
+        "used" : "{{0, 154}, {194.2275390625, 21}}"
+      },
+      {
+        "text" : "                                              ",
+        "glyphs" : "{294, 46}",
+        "characters" : "{294, 46}",
+        "rect" : "{{0, 175}, {519, 21}}",
+        "used" : "{{0, 175}, {508.498046875, 21}}"
+      },
+      {
+        "text" : "                          ",
+        "glyphs" : "{340, 26}",
+        "characters" : "{340, 26}",
+        "rect" : "{{0, 196}, {519, 21}}",
+        "used" : "{{0, 196}, {291.759765625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{519, 10000000}",
+    "matchesCold" : true,
+    "step" : "P2 fresh process after reopening saved source"
+  }
+]

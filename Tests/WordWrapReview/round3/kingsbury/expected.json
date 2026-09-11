@@ -1,0 +1,5 @@
+{
+  "uuid" : "BlojIo8jQ2e4FxCCoBH2CQ==",
+  "title" : "Origin closed before Undo",
+  "source" : "The editor owns its layout while the note owns shared history. Words must remain complete as the source window changes width.\nUnicode source stays exact: Việt 中文 👩🏽‍💻 á.\tThe tab and ordinary spaces    remain part of the source.\nOrigin window appended this final paragraph before it closed.\n                                                                        "
+}

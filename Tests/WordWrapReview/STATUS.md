@@ -11,7 +11,7 @@ Findings and corrections are published as PR comments before the next round.
 | --- | --- | --- |
 | 1 | `4b04970` | Complete; cache correction applied |
 | 2 | `4c8f6b4` | Complete; no new revisions required |
-| 3 | Pending | Pending |
+| 3 | `63911bf` | Complete; no new revisions required |
 
 ## Initial validation
 
@@ -57,3 +57,22 @@ No new actionable finding was identified. No further production correction was r
 The cache correction preserved geometry, source histories, native selection, and measurement creation counts in the tested cases.
 ASan and UBSan checks passed on both architectures.
 The [round-two reports](round2/) record each probe, result, negative control, and coverage limit.
+
+The [round-two comment and resolution](https://github.com/dangduc/nv/pull/28#issuecomment-5632114868) precede the final review round.
+
+## Final resolution
+
+All 18 code-writing reviews are complete across three rounds.
+Each round contains Ousterhout, Luu, Torvalds, Kingsbury, contrarian UX, and contrarian platform perspectives.
+The [round-three reports](round3/) contain the final executable probes and results.
+No new actionable finding was identified in round three. No additional production correction was required.
+
+The final production code matches the corrected build at `4c8f6b4`.
+Its successful build, focused suites, and binary hash remain applicable after the review-only commits.
+Round-three app checks also preserved exact source and note identity across a fresh process restart.
+Core Text creation-failure probes passed under sanitizers and recovered through native character layout.
+
+The measured long-paragraph cost and unsupported paragraph-style combinations remain documented limits.
+Physical input and macOS 13.7.8 require testing on the user's host.
+The required broad-runner failures remain as recorded above.
+All review findings and resolutions appear in the [PR conversation](https://github.com/dangduc/nv/pull/28).

@@ -1,0 +1,436 @@
+[
+  {
+    "length" : 231,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note ",
+        "glyphs" : "{0, 42}",
+        "characters" : "{0, 42}",
+        "rect" : "{{0, 0}, {474, 21}}",
+        "used" : "{{0, 0}, {465.150390625, 21}}"
+      },
+      {
+        "text" : "owns shared history. Words must remain ",
+        "glyphs" : "{42, 39}",
+        "characters" : "{42, 39}",
+        "rect" : "{{0, 21}, {474, 21}}",
+        "used" : "{{0, 21}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "complete as the source window changes ",
+        "glyphs" : "{81, 38}",
+        "characters" : "{81, 38}",
+        "rect" : "{{0, 42}, {474, 21}}",
+        "used" : "{{0, 42}, {421.802734375, 21}}"
+      },
+      {
+        "text" : "width.\n",
+        "glyphs" : "{119, 7}",
+        "characters" : "{119, 7}",
+        "rect" : "{{0, 63}, {474, 21}}",
+        "used" : "{{0, 63}, {75.021484375, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 84}, {474, 28}}",
+        "used" : "{{0, 84}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain ",
+        "glyphs" : "{173, 39}",
+        "characters" : "{173, 39}",
+        "rect" : "{{0, 112}, {474, 21}}",
+        "used" : "{{0, 112}, {449.802734375, 21}}"
+      },
+      {
+        "text" : "part of the source.",
+        "glyphs" : "{212, 19}",
+        "characters" : "{212, 19}",
+        "rect" : "{{0, 133}, {474, 21}}",
+        "used" : "{{0, 133}, {215.9013671875, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{474, 10000000}",
+    "matchesCold" : true,
+    "step" : "P1 original source in surviving editor"
+  },
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns shared history. Words ",
+        "glyphs" : "{0, 69}",
+        "characters" : "{0, 69}",
+        "rect" : "{{0, 0}, {789, 21}}",
+        "used" : "{{0, 0}, {757.7470703125, 21}}"
+      },
+      {
+        "text" : "must remain complete as the source window changes width.\n",
+        "glyphs" : "{69, 57}",
+        "characters" : "{69, 57}",
+        "rect" : "{{0, 21}, {789, 21}}",
+        "used" : "{{0, 21}, {616.8671875, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 42}, {789, 28}}",
+        "used" : "{{0, 42}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part of the source.\n",
+        "glyphs" : "{173, 59}",
+        "characters" : "{173, 59}",
+        "rect" : "{{0, 70}, {789, 21}}",
+        "used" : "{{0, 70}, {655.7041015625, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph before it closed.\n",
+        "glyphs" : "{232, 62}",
+        "characters" : "{232, 62}",
+        "rect" : "{{0, 91}, {789, 21}}",
+        "used" : "{{0, 91}, {671.0517578125, 21}}"
+      },
+      {
+        "text" : "                                                                       ",
+        "glyphs" : "{294, 71}",
+        "characters" : "{294, 71}",
+        "rect" : "{{0, 112}, {789, 21}}",
+        "used" : "{{0, 112}, {779.4208984375, 21}}"
+      },
+      {
+        "text" : " ",
+        "glyphs" : "{365, 1}",
+        "characters" : "{365, 1}",
+        "rect" : "{{0, 133}, {789, 21}}",
+        "used" : "{{0, 133}, {20.8369140625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{789, 10000000}",
+    "matchesCold" : true,
+    "step" : "P1 originating editor before closure"
+  },
+  {
+    "length" : 231,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns shared history. ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {699, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "Words must remain complete as the source window changes width.\n",
+        "glyphs" : "{63, 63}",
+        "characters" : "{63, 63}",
+        "rect" : "{{0, 21}, {699, 21}}",
+        "used" : "{{0, 21}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 42}, {699, 28}}",
+        "used" : "{{0, 42}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part of the source.",
+        "glyphs" : "{173, 58}",
+        "characters" : "{173, 58}",
+        "rect" : "{{0, 70}, {699, 21}}",
+        "used" : "{{0, 70}, {655.7041015625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{699, 10000000}",
+    "matchesCold" : true,
+    "step" : "P1 Undo after originating window closes"
+  },
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns shared history. ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {699, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "Words must remain complete as the source window changes width.\n",
+        "glyphs" : "{63, 63}",
+        "characters" : "{63, 63}",
+        "rect" : "{{0, 21}, {699, 21}}",
+        "used" : "{{0, 21}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 42}, {699, 28}}",
+        "used" : "{{0, 42}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part of the source.\n",
+        "glyphs" : "{173, 59}",
+        "characters" : "{173, 59}",
+        "rect" : "{{0, 70}, {699, 21}}",
+        "used" : "{{0, 70}, {655.7041015625, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph before it closed.\n",
+        "glyphs" : "{232, 62}",
+        "characters" : "{232, 62}",
+        "rect" : "{{0, 91}, {699, 21}}",
+        "used" : "{{0, 91}, {671.0517578125, 21}}"
+      },
+      {
+        "text" : "                                                               ",
+        "glyphs" : "{294, 63}",
+        "characters" : "{294, 63}",
+        "rect" : "{{0, 112}, {699, 21}}",
+        "used" : "{{0, 112}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "         ",
+        "glyphs" : "{357, 9}",
+        "characters" : "{357, 9}",
+        "rect" : "{{0, 133}, {699, 21}}",
+        "used" : "{{0, 133}, {107.5322265625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{699, 10000000}",
+    "matchesCold" : true,
+    "step" : "P1 Redo after originating window closes"
+  },
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note ",
+        "glyphs" : "{0, 42}",
+        "characters" : "{0, 42}",
+        "rect" : "{{0, 0}, {494, 21}}",
+        "used" : "{{0, 0}, {465.150390625, 21}}"
+      },
+      {
+        "text" : "owns shared history. Words must remain ",
+        "glyphs" : "{42, 39}",
+        "characters" : "{42, 39}",
+        "rect" : "{{0, 21}, {494, 21}}",
+        "used" : "{{0, 21}, {432.6396484375, 21}}"
+      },
+      {
+        "text" : "complete as the source window changes width.\n",
+        "glyphs" : "{81, 45}",
+        "characters" : "{81, 45}",
+        "rect" : "{{0, 42}, {494, 21}}",
+        "used" : "{{0, 42}, {486.82421875, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 63}, {494, 28}}",
+        "used" : "{{0, 63}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part",
+        "glyphs" : "{173, 43}",
+        "characters" : "{173, 43}",
+        "rect" : "{{0, 91}, {494, 21}}",
+        "used" : "{{0, 91}, {493.150390625, 21}}"
+      },
+      {
+        "text" : " of the source.\n",
+        "glyphs" : "{216, 16}",
+        "characters" : "{216, 16}",
+        "rect" : "{{0, 112}, {494, 21}}",
+        "used" : "{{0, 112}, {172.5537109375, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph ",
+        "glyphs" : "{232, 44}",
+        "characters" : "{232, 44}",
+        "rect" : "{{0, 133}, {494, 21}}",
+        "used" : "{{0, 133}, {486.82421875, 21}}"
+      },
+      {
+        "text" : "before it closed.\n",
+        "glyphs" : "{276, 18}",
+        "characters" : "{276, 18}",
+        "rect" : "{{0, 154}, {494, 21}}",
+        "used" : "{{0, 154}, {194.2275390625, 21}}"
+      },
+      {
+        "text" : "                                            ",
+        "glyphs" : "{294, 44}",
+        "characters" : "{294, 44}",
+        "rect" : "{{0, 175}, {494, 21}}",
+        "used" : "{{0, 175}, {486.82421875, 21}}"
+      },
+      {
+        "text" : "                            ",
+        "glyphs" : "{338, 28}",
+        "characters" : "{338, 28}",
+        "rect" : "{{0, 196}, {494, 21}}",
+        "used" : "{{0, 196}, {313.43359375, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{494, 10000000}",
+    "matchesCold" : true,
+    "step" : "P2 resize and full invalidation at 510"
+  },
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns shared history. ",
+        "glyphs" : "{0, 63}",
+        "characters" : "{0, 63}",
+        "rect" : "{{0, 0}, {729, 21}}",
+        "used" : "{{0, 0}, {692.7255859375, 21}}"
+      },
+      {
+        "text" : "Words must remain complete as the source window changes width.\n",
+        "glyphs" : "{63, 63}",
+        "characters" : "{63, 63}",
+        "rect" : "{{0, 21}, {729, 21}}",
+        "used" : "{{0, 21}, {681.888671875, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 42}, {729, 28}}",
+        "used" : "{{0, 42}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part of the source.\n",
+        "glyphs" : "{173, 59}",
+        "characters" : "{173, 59}",
+        "rect" : "{{0, 70}, {729, 21}}",
+        "used" : "{{0, 70}, {655.7041015625, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph before it closed.\n",
+        "glyphs" : "{232, 62}",
+        "characters" : "{232, 62}",
+        "rect" : "{{0, 91}, {729, 21}}",
+        "used" : "{{0, 91}, {671.0517578125, 21}}"
+      },
+      {
+        "text" : "                                                                  ",
+        "glyphs" : "{294, 66}",
+        "characters" : "{294, 66}",
+        "rect" : "{{0, 112}, {729, 21}}",
+        "used" : "{{0, 112}, {725.236328125, 21}}"
+      },
+      {
+        "text" : "      ",
+        "glyphs" : "{360, 6}",
+        "characters" : "{360, 6}",
+        "rect" : "{{0, 133}, {729, 21}}",
+        "used" : "{{0, 133}, {75.021484375, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{729, 10000000}",
+    "matchesCold" : true,
+    "step" : "P2 resize and full invalidation at 745"
+  },
+  {
+    "length" : 366,
+    "lines" : [
+      {
+        "text" : "The editor owns its layout while the note owns",
+        "glyphs" : "{0, 46}",
+        "characters" : "{0, 46}",
+        "rect" : "{{0, 0}, {519, 21}}",
+        "used" : "{{0, 0}, {508.498046875, 21}}"
+      },
+      {
+        "text" : " shared history. Words must remain complete as",
+        "glyphs" : "{46, 46}",
+        "characters" : "{46, 46}",
+        "rect" : "{{0, 21}, {519, 21}}",
+        "used" : "{{0, 21}, {508.498046875, 21}}"
+      },
+      {
+        "text" : " the source window changes width.\n",
+        "glyphs" : "{92, 34}",
+        "characters" : "{92, 34}",
+        "rect" : "{{0, 42}, {519, 21}}",
+        "used" : "{{0, 42}, {367.6181640625, 21}}"
+      },
+      {
+        "text" : "Unicode source stays exact: Việt 中文 👩🏽‍💻 á.",
+        "glyphs" : "{126, 47}",
+        "characters" : "{126, 47}",
+        "rect" : "{{0, 63}, {519, 28}}",
+        "used" : "{{0, 63}, {468.9658203125, 28}}"
+      },
+      {
+        "text" : "\tThe tab and ordinary spaces    remain part ",
+        "glyphs" : "{173, 44}",
+        "characters" : "{173, 44}",
+        "rect" : "{{0, 91}, {519, 21}}",
+        "used" : "{{0, 91}, {503.9873046875, 21}}"
+      },
+      {
+        "text" : "of the source.\n",
+        "glyphs" : "{217, 15}",
+        "characters" : "{217, 15}",
+        "rect" : "{{0, 112}, {519, 21}}",
+        "used" : "{{0, 112}, {161.716796875, 21}}"
+      },
+      {
+        "text" : "Origin window appended this final paragraph ",
+        "glyphs" : "{232, 44}",
+        "characters" : "{232, 44}",
+        "rect" : "{{0, 133}, {519, 21}}",
+        "used" : "{{0, 133}, {486.82421875, 21}}"
+      },
+      {
+        "text" : "before it closed.\n",
+        "glyphs" : "{276, 18}",
+        "characters" : "{276, 18}",
+        "rect" : "{{0, 154}, {519, 21}}",
+        "used" : "{{0, 154}, {194.2275390625, 21}}"
+      },
+      {
+        "text" : "                                              ",
+        "glyphs" : "{294, 46}",
+        "characters" : "{294, 46}",
+        "rect" : "{{0, 175}, {519, 21}}",
+        "used" : "{{0, 175}, {508.498046875, 21}}"
+      },
+      {
+        "text" : "                          ",
+        "glyphs" : "{340, 26}",
+        "characters" : "{340, 26}",
+        "rect" : "{{0, 196}, {519, 21}}",
+        "used" : "{{0, 196}, {291.759765625, 21}}"
+      }
+    ],
+    "contiguous" : 1,
+    "cacheEmptyAfterLayout" : true,
+    "size" : "{519, 10000000}",
+    "matchesCold" : true,
+    "step" : "P2 resize and full invalidation at 535"
+  }
+]
