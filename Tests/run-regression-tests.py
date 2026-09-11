@@ -31,7 +31,8 @@ checks = [
 ]
 paths = [repo / 'Tests' / check for check in [
     'SourceAnalysis/run.py', 'TypingRefresh/run.py', 'SourceBackspace/run.py', 'SourceEditing/run.py',
-    'WordWrapping/run.py', 'WordWrappingApp/run.py', 'ListRedraw/run.py',
+    'WordWrapping/run.py', 'WordWrappingApp/run.py',
+    'WrappedSeparators/run.py', 'WrappedSeparatorsApp/run.py', 'ListRedraw/run.py',
     'OrgSource/run.py', 'OrgSource/Links/run.py', 'OrgSource/Integration/run.py',
     'FuzzySearch/Core/run.py', 'FuzzySearch/run-service-tests.py', 'FuzzySearch/Browser/run.py',
     'FuzzySearch/Persistence/run.py', 'FuzzySearch/Highlights/run.py', 'FuzzySearch/HighlightBounds/run.py', 'FuzzySearch/Lifecycle/run.py', 'FuzzySearch/PositionMapping/run.py', 'FuzzySearch/UI/run.py',

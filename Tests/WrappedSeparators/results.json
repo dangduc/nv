@@ -1,0 +1,43 @@
+{
+  "commit": "9e6c8dd6adc058e7044f2c562532af97dd4e63d4",
+  "macOS": "26.5.2 (25F84)",
+  "Xcode": "26.6 (17F113)",
+  "focused": {
+    "transitions-x86_64": {
+      "checks": 7952,
+      "sharedHistories": 14
+    },
+    "preservation-x86_64": {
+      "cases": 15,
+      "checks": 200
+    },
+    "preservation-arm64": {
+      "cases": 15,
+      "checks": 200
+    },
+    "transitions-arm64": {
+      "checks": 7952,
+      "sharedHistories": 14
+    },
+    "separators-x86_64": {
+      "cases": 684,
+      "checks": 2164,
+      "wrappedLines": 795
+    },
+    "separators-arm64": {
+      "cases": 684,
+      "checks": 2164,
+      "wrappedLines": 795
+    }
+  },
+  "app": {
+    "app_sha256": "f1918d1d728fe257fe76368cebaadee2625ac3bc8688ab7c3b3cef977ec22384",
+    "exit_code": 0,
+    "passed": true,
+    "checks": 32,
+    "failures": []
+  },
+  "negativeControls": "arm64 and x86_64 rejected former fixed-width separators at expected leading-gap assertion",
+  "multiwindow": "exit245 after replacement library opens; initial and restoration checks pass",
+  "aggregate": "stopped at recorded FuzzySearch/UI activation failure; later entries did not run"
+}

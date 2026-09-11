@@ -74,6 +74,9 @@ The [word-wrapping checks](WordWrapping/README.md) exercise the production types
 The [copied-app checks](WordWrappingApp/README.md) cover whole words, overflowing spaces, shared windows, resizing, and native editing commands.
 The aggregate runner includes both suites.
 
+The [wrapped-separator checks](WrappedSeparators/README.md) cover collapsed single-space separators and literal whitespace.
+The [copied-app separator checks](WrappedSeparatorsApp/README.md) cover shared windows, native edits, and Undo.
+
 The [source backspace checks](SourceBackspace/README.md) exercise deletion in a copied app with disposable notes.
 They cover cached search backgrounds, Undo, shared editors, composition, and pending cleanup during note switches.
 Run `python3 Tests/SourceBackspace/run.py` after a Development build.
