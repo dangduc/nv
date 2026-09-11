@@ -213,9 +213,10 @@
     CGFloat width = NSWidth(bounds), height = NSHeight(bounds), used = 8;
     BOOL hasRow = showTitle || ![wordCounter isHidden];
     if (hasRow) {
-        used += 24;
-        [noteTitleField setFrame:NSMakeRect(14, height - used, width - ([wordCounter isHidden] ? 28 : 150), 24)];
-        [wordCounter setFrame:NSMakeRect(width - 130, height - used, 116, 24)];
+        CGFloat rowHeight = ceil([noteTitleField intrinsicContentSize].height);
+        used += rowHeight;
+        [noteTitleField setFrame:NSMakeRect(14, height - used, width - ([wordCounter isHidden] ? 28 : 150), rowHeight)];
+        [wordCounter setFrame:NSMakeRect(width - 130, height - used, 116, rowHeight)];
     }
     if (showTags) {
         used += (hasRow ? 5 : 0) + 20;
