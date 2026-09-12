@@ -50,7 +50,9 @@ The suites use temporary notes and a copied app. See [Tests/README.md](Tests/REA
 Use disposable notes for manual checks of affected preview and import/export paths.
 
 For CI changes, run `python3 -B -m unittest discover -s Tests/CI -v`.
-CI builds an unsigned Intel app and tags successful builds on `master`. It does not run the desktop suites.
+CI builds an unsigned Intel app and tags successful builds on `master`.
+Successful builds on top-level `*-release` branches also publish a GitHub Release with the app ZIP.
+CI does not run the desktop suites.
 See [Tests/CI/README.md](Tests/CI/README.md) for artifact and tag rules.
 
 ## Commit & Pull Request Guidelines

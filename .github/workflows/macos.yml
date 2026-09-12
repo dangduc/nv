@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [master]
+    branches: [master, '*-release']
   workflow_dispatch:
 
 permissions:
@@ -19,6 +19,9 @@ jobs:
     name: Build Intel app
     runs-on: macos-15-intel
     timeout-minutes: 30
+    outputs:
+      archive: ${{ steps.package.outputs.archive }}
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
     env:
       DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
     steps:
@@ -26,7 +29,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check automatic tagging
+      - name: Check CI scripts
         run: python3 -m unittest discover -s Tests/CI -v
 
       - name: Check native fuzzy search
@@ -122,3 +125,36 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 .github/scripts/tag-build.py
+
+  release:
+    name: Publish unsigned release
+    needs: build
+    if: >-
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      startsWith(github.ref, 'refs/heads/') &&
+      endsWith(github.ref_name, '-release') &&
+      !contains(github.ref_name, '/') &&
+      github.event.deleted != true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Download the built app archive
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+          path: build
+          skip-decompress: true
+
+      - name: Publish the release with its app archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APP_ARCHIVE: ${{ needs.build.outputs.archive }}
+        run: |
+          python3 .github/scripts/check-app-archive.py "$APP_ARCHIVE"
+          python3 .github/scripts/publish-release.py "$APP_ARCHIVE"
