@@ -501,7 +501,9 @@ OSStatus FSRefWriteData(FSRef *fsRef, size_t maximumWriteSize, UInt64 bufferSize
     FSIORefNum refNum;
     ByteCount writeActualCount = 0, totalWrittenBytes = 0;
 	
-	if (!buffer || !fsRef) {
+	//a zero-length write is legitimate (an empty note body), and Foundation hands back a NULL
+	//pointer for zero-length data, so only a missing buffer with bytes to write is an error
+	if ((!buffer && bufferSize) || !fsRef) {
 		printf("FSRefWriteData: NULL buffers or fsRef\n");
 		return paramErr;
 	}
