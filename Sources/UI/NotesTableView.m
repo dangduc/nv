@@ -508,10 +508,14 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	ctx.nonRetainedPivotObject = nil;
 	ctx.verticalDistanceToPivotRow = 0;
 	
-    if (pivotRow < nRows) {
+	//the table's row count is cached and can still describe the previous library while a new,
+	//empty data source is attached, so bound the lookup by the data source's own contents
+	FastListDataSource *source = (FastListDataSource*)[self dataSource];
+	const id *pivotObjects = [source immutableObjects];
+    if (pivotObjects && pivotRow < [source count]) {
         NSString *key = [[NVControllerForView(self) browserSession] rowKeyAtIndex:pivotRow];
         if (key) strlcpy(ctx.pivotRowKey, [key UTF8String], sizeof(ctx.pivotRowKey));
-		if ((ctx.nonRetainedPivotObject = [(FastListDataSource*)[self dataSource] immutableObjects][pivotRow])) {
+		if ((ctx.nonRetainedPivotObject = pivotObjects[pivotRow])) {
 			ctx.verticalDistanceToPivotRow = [self distanceFromRow:pivotRow forVisibleArea:visibleRect];
 		}
 	}
