@@ -6,8 +6,10 @@ CI disables code signing. It does not require repository secrets.
 Before the app build, CI runs the [native search suites](../FuzzySearch/README.md) on Intel.
 These checks cover native order, the search service, duplicate rows, persistence, and shared-source invalidation.
 
-The workflow runs for pull requests to `master`, pushes to `master`, and manual runs.
-The build job has read access to the repository. A separate tag job has write access after a successful build and artifact upload.
+The workflow runs for pull requests to `master`, pushes to `master` or `*-release`, and manual runs.
+The `*-release` pattern matches top-level branches such as `2026.09-release`. It does not match `codex/example-release` or `example-release-candidate`.
+The build job has read access to the repository.
+Separate tag and release jobs have write access after a successful build and artifact upload.
 
 ## Artifacts
 
@@ -41,6 +43,30 @@ Build tags do not change `CFBundleVersion` or `CFBundleShortVersionString`.
 Tag creation does not create a GitHub Release or start another build.
 No personal access token is necessary.
 
+## Automatic releases
+
+Successful pushes and manual runs on `*-release` branches publish a GitHub Release in the current repository.
+In `dangduc/nv`, releases appear on the [Releases page](https://github.com/dangduc/nv/releases).
+Forks publish in their own repository. Pull requests, tags, branch deletions, and other branches cannot publish releases.
+
+Each release uses `release-<run number>-<attempt>` as its tag.
+The tag points directly to `GITHUB_SHA`, which identifies the source commit for the app.
+A conflicting tag stops publication. Existing tags never move.
+Each workflow rerun uses a new attempt number and release tag.
+These tags do not change the application version fields.
+
+The release contains the unsigned Intel `nvALT.app` ZIP from the build job.
+The download step selects its artifact ID and preserves the ZIP without extraction.
+The release job repeats the archive check, uploads the ZIP into a draft, then publishes the release.
+A failed upload leaves an unpublished draft. A workflow rerun creates a new release instead of replacing an existing download.
+If only the release job needs a rerun, it uses the artifact from the successful build job.
+
+The release title identifies the branch and build attempt. The description records the commit and links to the workflow run.
+It also states that the app is unsigned, lacks notarization, and requires Rosetta on Apple Silicon.
+Automatic releases do not replace the repository's explicit `Latest` selection.
+They use the built-in `GITHUB_TOKEN` and require no additional secrets.
+Branch protection remains a separate repository configuration.
+
 ## Run the checks locally
 
 Run the tests from the repository root:
@@ -49,7 +75,7 @@ Run the tests from the repository root:
 python3 -B -m unittest discover -s Tests/CI -v
 ```
 
-The tag tests use a simulated API. They do not create remote tags.
+The tag and release tests use a simulated API or CLI. They do not create remote tags or releases.
 
 After a local build, create an app archive:
 
