@@ -1,6 +1,7 @@
 # nvALT
 
-nvALT is a macOS notes app with editable syntax-highlighted source and read-only Markdown, Textile, HTML, and Org previews.
+nvALT is a macOS notes app with lightweight support for editing raw notes with additional support for previewing Markdown, Textile, HTML, and Org notes.
+
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
 ![Full nvALT window with editable note source, hidden header rows, and its shadow against a neutral background](docs/screenshots/readme-source.png)
@@ -8,6 +9,8 @@ This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, 
 ## What changes in this fork
 
 **Importantly**, this fork makes the source code of notes editable while also making the rich-text un-editable. This is a big breaking change between upstream.
+
+**Caution**, please make sure to backup existing notes if migrating to this fork from [ttscoff/nv](https://github.com/ttscoff/nv).
 
 | Area | Upstream nvALT | This fork |
 | --- | --- | --- |
