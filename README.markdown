@@ -1,6 +1,6 @@
 # nvALT
 
-nvALT is a macOS notes app with lightweight support for editing raw notes with additional support for previewing Markdown, Textile, HTML, and Org notes.
+nvALT is a macOS notes app with lightweight support for editing raw source texts with additional support for previewing Markdown, Textile, HTML, and Org notes.
 
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
