@@ -22,6 +22,7 @@
 @public
     SearchEditor *textView;
     NSUInteger searchHighlightGeneration;
+    BOOL searchScrollPending;
 }
 - (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
 @end
@@ -45,7 +46,9 @@ int main(void) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         for (SearchBrowser *browser in @[first, peer])
             [center addObserver:browser selector:@selector(searchSourceStorageWillProcessEditing:) name:NSTextStorageWillProcessEditingNotification object:shared];
+        first->searchScrollPending = peer->searchScrollPending = YES;
         [shared replaceCharactersInRange:NSMakeRange(0, 0) withString:@"x"];
+        Check(!first->searchScrollPending && !peer->searchScrollPending, "shared edits cancel pending scroll intents in both browsers");
         Check(first->textView.invalidations == 1, "origin invalidates before a model commit");
         Check(peer->textView.invalidations == 1, "peer invalidates before a model commit");
         Check(first->searchHighlightGeneration == 1 && peer->searchHighlightGeneration == 1, "both reject old position callbacks");

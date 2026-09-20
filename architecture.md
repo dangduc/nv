@@ -95,14 +95,19 @@ Both modes retain nv's separators and quoted phrases. Punctuation does not enabl
 Exact uses the existing case-insensitive Cocoa substring filter over titles, tags, and bodies.
 It can reuse prior candidates when a query becomes more restrictive.
 
-Fuzzy results contain two groups. Literal title matches appear first in the configured column order.
-The complete native result follows in native order, including notes already shown in the title group.
-The engine searches one NFC-normalized candidate per note: title, tags, and complete committed source, separated by newlines.
-It ignores case and preserves accents. Candidate input order is stable UUID byte order.
-Column sorting affects only title matches while a Fuzzy query has terms.
+Fuzzy search uses one candidate per nonempty line in each title, tag field, and committed source.
+Each matching line supplies one result row, even when several lines belong to the same note.
+Repeated matches on one line supply one row. All query terms must match within that line.
+Matches cannot cross line endings or field boundaries. There is no separate literal title group.
+The native matcher ranks all line candidates together. Title matches receive no automatic priority.
+Candidate input order is UUID byte order, then title, tags, and source line order.
+Line text uses NFC normalization. Matching ignores case and preserves accents.
+Column sorting does not change a Fuzzy result with query terms.
 Empty and separator-only queries show one row per note in the configured column order.
 
-Result rows use `(match kind, UUID)` identity. Editing sessions, Undo, and storage still use note UUIDs.
+Fuzzy row keys contain the note UUID, field, and original line number.
+Older keys with only a match kind and UUID resolve to the first matching row for that note.
+Editing sessions, Undo, and storage still use note UUIDs.
 Selection and list scroll preserve occurrences; note commands resolve unique UUIDs before acting.
 An active inline edit retains its original note and library instead of reusing its old row index.
 The notes table continues to expose NoteObject projections to legacy drawing callbacks.
@@ -111,6 +116,8 @@ Row metadata, excerpts, and native positions stay in the browser session.
 The coordinator copies committed title, tags, and source into immutable search snapshots.
 Model mutation hooks update these snapshots and invalidate browser requests synchronously.
 Workers never read live NoteObjects or shared text storage. Library replacement invalidates the old service.
+Each snapshot caches its lines and normalized bytes. Preparation resumes in bounded batches on the serial worker.
+Result records retain the snapshot and line metadata. They do not retain live model objects.
 One serial worker schedules bounded candidate batches and publishes only complete results.
 Browser identity, request identity, and corpus revision reject obsolete callbacks.
 Cancellation detaches registry entries before releasing callback captures on main. Successful completion also releases captures on main.
@@ -120,15 +127,22 @@ Large individual native calls still require separate latency measurements.
 
 Pending or failed results cannot drive row actions or zero-result creation.
 Return while pending records an intent bound to the query, request, and search-field focus.
-Only a current completion can open a result or create a note after both groups report zero matches.
+Only a current completion can open a result or create a note after line matching completes with zero matches.
 Query changes, selection changes, composition, and focus changes cancel that intent.
 Reveal and restoration wait for current results before resolving row keys.
 Each accepted Reveal or restoration replaces older pending selection intents. Invalid Reveal targets preserve the current intent.
 If a completed query excludes the requested note, Reveal clears that browser's query.
 An edited open note can remain as one retained row after the matches, without increasing result counts.
 
-Visible fuzzy rows request native positions for excerpts. The primary selected row has an independent source-position channel.
-NFC positions map back to original UTF-16 composed-character ranges.
+Visible fuzzy rows request native positions for their specific line. Excerpts show text from that line.
+Title matches have no preamble. Body matches use `line:N`; tag matches retain their field and line label.
+The primary selected row has an independent source-position channel.
+Only a source match adds body highlights. Title and tag matches do not highlight unrelated body text.
+NFC positions map back to original UTF-16 composed-character ranges, with the original field offset for that line.
+Selecting a body result reveals its matched segment in the source editor, even when search highlighting is disabled.
+This scroll preserves the caret and Undo history. Selection while Preview is active defers the scroll until Source is shown.
+Ordinary highlight refreshes preserve manual scrolling. Window restoration preserves the saved viewport.
+Selection changes and source edits invalidate pending scroll completions with the same guards used for highlights.
 Mapping resumes between complete composed sequences in batches of at most 4,096 sequences, with a 4 ms time target.
 Each continuation joins the back of the worker queue so another browser can search while mapping continues.
 Native position extraction and individual composed-sequence operations remain indivisible.

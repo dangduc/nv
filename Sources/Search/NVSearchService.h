@@ -3,18 +3,31 @@
 #import "NVSearchCorpus.h"
 #import <dispatch/dispatch.h>
 
+/* One ranked line occurrence. A note can own any number of matches. */
+@interface NVSearchMatch : NSObject {
+    NVSearchNoteSnapshot *_snapshot;
+    NVSearchLine *_line;
+    NSString *_rowKey;
+}
+- (id)initWithSnapshot:(NVSearchNoteSnapshot *)snapshot line:(NVSearchLine *)line;
+@property(nonatomic, readonly) NVSearchNoteSnapshot *snapshot;
+@property(nonatomic, readonly) NVSearchLine *line;
+@property(nonatomic, readonly) NSString *rowKey;
+@end
+
 @interface NVSearchResult : NSObject {
     NSUInteger _requestID, _corpusRevision;
     NVSearchQuery *_query;
-    NSArray *_titleNoteUUIDs, *_fuzzyNoteUUIDs;
+    NSArray *_matches, *_fuzzyNoteUUIDs;
+    NSDictionary *_matchesByKey;
     NSDictionary *_snapshotsByUUID;
 }
 @property(nonatomic, readonly) NSUInteger requestID;
 @property(nonatomic, readonly) NSUInteger corpusRevision;
 @property(nonatomic, readonly) NVSearchQuery *query;
-/* Title membership is in UUID order for the browser's column comparator.
-   Fuzzy membership is the complete, unchanged native order. Keep overlap. */
-@property(nonatomic, readonly) NSArray *titleNoteUUIDs;
+/* Complete native line ranking; UUID projection deliberately keeps duplicates. */
+@property(nonatomic, readonly) NSArray *matches;
+- (NVSearchMatch *)matchForRowKey:(NSString *)key;
 @property(nonatomic, readonly) NSArray *fuzzyNoteUUIDs;
 - (NVSearchNoteSnapshot *)snapshotForUUID:(NSData *)uuid;
 - (NSUInteger)distinctNoteCount;
@@ -61,6 +74,8 @@ typedef void (^NVSearchPositionsCompletion)(NVSearchPositions *positions, NSErro
 - (void)cancelRequestsForOwner:(id)owner;
 /* One position request per positionOwner. Search identity still belongs to
    owner; use a separate token for visible-row work and source highlights. */
+- (void)requestPositionsForRowKey:(NSString *)rowKey requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion;
+/* Note-only callers receive the first ranked line for that note. */
 - (void)requestPositionsForNoteUUID:(NSData *)uuid requestID:(NSUInteger)requestID owner:(id)owner completion:(NVSearchPositionsCompletion)completion;
 - (void)requestPositionsForNoteUUID:(NSData *)uuid requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion;
 - (void)cancelPositionRequestsForOwner:(id)positionOwner;

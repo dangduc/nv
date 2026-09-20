@@ -109,8 +109,8 @@ int main(void) {
         NSDictionary *legacy=@{@"SearchString":@"Road",@"NoteUUIDString":uuid};
         NoteBookmark *old=[[[NoteBookmark alloc] initWithDictionary:legacy] autorelease];
         CHECK([[old searchMode] isEqual:@"exact"] && ![old resultRowKey], "legacy bookmark decodes Exact without occurrence");
-        NoteBookmark *title=[[[NoteBookmark alloc] initWithNoteObject:note searchString:@"Road" searchMode:@"fuzzy" resultRowKey:@"title:01000000-0000-0000-0000-000000000000"] autorelease];
-        NoteBookmark *fuzzy=[[[NoteBookmark alloc] initWithNoteObject:note searchString:@"Road" searchMode:@"fuzzy" resultRowKey:@"fuzzy:01000000-0000-0000-0000-000000000000"] autorelease];
+        NoteBookmark *title=[[[NoteBookmark alloc] initWithNoteObject:note searchString:@"Road" searchMode:@"fuzzy" resultRowKey:@"fuzzy:01000000000000000000000000000000:title:1"] autorelease];
+        NoteBookmark *fuzzy=[[[NoteBookmark alloc] initWithNoteObject:note searchString:@"Road" searchMode:@"fuzzy" resultRowKey:@"fuzzy:01000000000000000000000000000000:source:3"] autorelease];
         NoteBookmark *round=[[[NoteBookmark alloc] initWithDictionary:[fuzzy dictionaryRep]] autorelease];
         CHECK([fuzzy isEqual:round] && [fuzzy hash]==[round hash], "bookmark round trip retains mode and occurrence identity");
         CHECK(![title isEqual:fuzzy] && ![old isEqual:title], "same note can have distinct saved occurrences and modes");

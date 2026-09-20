@@ -1,6 +1,36 @@
 # Fuzzy search in nv
 
-Implementation design, updated September 9, 2026. The application implements this workflow. Three review rounds are complete; full desktop validation remains unavailable on the local host.
+Historical implementation design, updated September 9, 2026.
+The line-candidate revision described below supersedes the original grouping and complete-note matching design. The original design completed three review rounds. Its validation records describe the earlier matching behavior.
+
+## Line candidates (September 19, 2026)
+
+Fuzzy mode uses one candidate per nonempty line in the title, tags, or body.
+All candidates use native ranking. There is no separate literal title group or application title bonus.
+One note can supply several result rows. Each line supplies at most one row, including lines with repeated matches.
+All query terms must match that line. Matching cannot cross lines or fields.
+Exact mode retains its existing substring search and one row per note.
+
+Each result retains its immutable snapshot, field, original UTF-16 range, and line number.
+The snapshot caches normalized line bytes. Worker preparation resumes between bounded batches.
+Native position extraction operates on the selected line. Mapping restores the original field offsets.
+Title excerpts have no preamble. Body excerpts use `line:N`; tag excerpts retain their field and line label.
+Body highlights stay within the selected body line.
+Title and tag results do not add body highlights.
+Selecting a body result scrolls its matched segment into view, including when highlighting is disabled.
+This preserves the caret and Undo history. Ordinary refreshes and window restoration preserve the current or saved viewport.
+
+Row keys contain the note UUID, field, and line number.
+Selection and restoration preserve that key when it still exists. Missing keys fall back to another result for the same note.
+Older title and fuzzy keys also resolve by note UUID.
+Note commands still deduplicate UUIDs. Multiple rows share one document, editing session, and Undo history.
+
+The service tests cover native line order, repeated matches, duplicate lines, mixed line endings, Unicode offsets, and field boundaries.
+The browser tests cover row selection, old keys, native ordering after column changes, unique command targets, and excerpts.
+The persistence tests use title and body line keys. Historical results in this document describe the earlier complete-note design.
+
+## Original design
+
 The application baseline is `a9539cca76e260546310caa4918d018f802b064b`.
 The dependency is [`fzf-native` main at `4b9236e`](https://github.com/dangduc/fzf-native/tree/4b9236e8cd1e9f9f3aaf5f2ebf83f1fc5995d38d), downloaded for the prototype.
 The [fzfa audit](fzfa-async-search-audit.md) supplies the request, cancellation, and publication design.

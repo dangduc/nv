@@ -63,6 +63,7 @@
     if (session != [self browserSession]) return;
     if (![session searchResultsAreCurrent]) {
         searchHighlightGeneration++;
+        searchScrollPending = NO;
         [textView removeHighlightedTerms];
     }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showSearchProgress) object:nil];
@@ -112,6 +113,7 @@
     } else if (searchAutocompletePending && searchIntentGeneration == [session searchGeneration] && [self searchFieldHasFocus]) {
         NSUInteger preferred = [session preferredSelectedNoteIndex];
         if ([prefsController autoCompleteSearches] && preferred != NSNotFound) {
+            searchScrollPending = YES;
             [notesTableView selectRowAndScroll:preferred];
             [self displayContentsForNoteAtIndex:preferred];
         } else {
@@ -142,6 +144,7 @@
         if ([session resultCount]) {
             NSInteger row = [notesTableView primarySelectedRow];
             if (row < 0 || [[session matchKindAtIndex:row] isEqual:@"retained"]) row = 0;
+            searchScrollPending = YES;
             [notesTableView selectRowAndScroll:row];
             [self displayContentsForNoteAtIndex:row];
         } else {
@@ -160,6 +163,7 @@
     if (storage != [textView textStorage] || !([storage editedMask] & NSTextStorageEditedCharacters)) return;
     // Every attached editor observes shared characters, including uncommitted composition.
     ++searchHighlightGeneration;
+    searchScrollPending = NO;
     [textView invalidateSearchHighlights];
 }
 - (void)refreshSearchHighlights {
@@ -168,7 +172,7 @@
     NVBrowserSession *session = [self browserSession];
     NVSearchService *service = [[NVApplicationController sharedController] searchService];
     [service cancelLiteralRangesForOwner:session];
-    if (![session hasSearchTerms] || !currentNote || ![prefsController highlightSearchTerms] || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
+    if (![session hasSearchTerms] || !currentNote || (![prefsController highlightSearchTerms] && !searchScrollPending) || ![session searchResultsAreCurrent] || searchHasPendingComposition) return;
     NSInteger row = [notesTableView primarySelectedRow];
     if (row < 0) return;
     NSString *kind = [session matchKindAtIndex:row];
@@ -182,7 +186,19 @@
     NVSearchLiteralRangesCompletion apply = ^(NSArray *ranges, NSString *source, NSError *error) {
         // Shared character notifications advance this generation immediately.
         // The worker compared immutable source copies before returning ranges.
-        if (!error && isCurrent()) [textView setSearchHighlightRanges:ranges];
+        if (!error && isCurrent()) {
+            if ([prefsController highlightSearchTerms]) [textView setSearchHighlightRanges:ranges];
+            if (searchScrollPending && !viewingNote) {
+                searchScrollPending = NO;
+                if ([ranges count]) {
+                    NSRange match = [[ranges firstObject] rangeValue];
+                    for (NSValue *value in ranges) match = NSUnionRange(match, [value rangeValue]);
+                    // Reveal the selected occurrence without moving the caret or
+                    // adding an Undo operation. Refreshes alone never re-arm this.
+                    [textView scrollRangeToVisible:match];
+                }
+            }
+        }
     };
     if ([kind isEqual:@"fuzzy"]) [session requestSourceHighlightsForRow:row completion:^(NSArray *ranges, NSString *source) {
         if (isCurrent()) [service validateSourceRanges:ranges source:source matchingSource:displayedSource owner:session completion:apply];

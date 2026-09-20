@@ -4,7 +4,7 @@
 #import <sys/resource.h>
 #import "NVSearchService.h"
 
-static double PrepareMS, TitleMS, ResultMS;
+static double PrepareMS, ResultMS;
 static NSData *UUID(NSUInteger index) {
     // Production UUIDs contain entropy in all bytes. Sequential big-endian
     // integer NSData keys cluster in Foundation's dictionary implementation.
@@ -23,17 +23,17 @@ static BOOL Wait(BOOL (^condition)(void), NSTimeInterval seconds) {
 }
 static double Search(NVSearchService *service, id owner, NSString *query, const char *kind) {
     __block BOOL done = NO; __block NSUInteger rows = 0;
-    PrepareMS = TitleMS = ResultMS = 0;
+    PrepareMS = ResultMS = 0;
     CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
     [service requestForOwner:owner query:query completion:^(NVSearchResult *result, NSError *error) {
         if (error) { fprintf(stderr, "benchmark search error: %s\n", [[error description] UTF8String]); exit(1); }
-        rows = [[result titleNoteUUIDs] count] + [[result fuzzyNoteUUIDs] count]; done = YES;
+        rows = [[result matches] count]; done = YES;
     }];
     double submit = (CFAbsoluteTimeGetCurrent() - start) * 1000;
     Wait(^BOOL { return done; }, 60);
     double elapsed = (CFAbsoluteTimeGetCurrent() - start) * 1000;
     printf("query,%s,%s,%.3f,%.3f,%lu\n", kind, [query UTF8String], submit, elapsed, (unsigned long)rows);
-    printf("components,%s,prepare_ms,%.3f,title_ms,%.3f,result_ms,%.3f\n", [query UTF8String], PrepareMS, TitleMS, ResultMS);
+    printf("components,%s,prepare_ms,%.3f,result_ms,%.3f\n", [query UTF8String], PrepareMS, ResultMS);
     return elapsed;
 }
 static void Cancel(NVSearchService *service, id owner, NSString *query, const char *label, NSUInteger bytes, NSTimeInterval delay) {
@@ -61,26 +61,19 @@ int main(int argc, char **argv) { setvbuf(stdout, NULL, _IOLBF, 0); @autorelease
 #endif
         : "other");
     printf("environment,os,%s\n", [[[NSProcessInfo processInfo] operatingSystemVersionString] UTF8String]);
-    Method prepareMethod = class_getInstanceMethod([NVSearchNoteSnapshot class], @selector(preparedUTF8WithCancellation:status:));
+    Method prepareMethod = class_getInstanceMethod([NVSearchNoteSnapshot class], @selector(prepareLinesWithCancellation:status:));
     IMP prepareIMP = method_getImplementation(prepareMethod);
-    method_setImplementation(prepareMethod, imp_implementationWithBlock(^id(id object, NVFZFCancel *cancel, NVFZFStatus *status) {
+    method_setImplementation(prepareMethod, imp_implementationWithBlock(^BOOL(id object, NVFZFCancel *cancel, NVFZFStatus *status) {
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-        id result = ((id(*)(id, SEL, NVFZFCancel *, NVFZFStatus *))prepareIMP)(object, @selector(preparedUTF8WithCancellation:status:), cancel, status);
+        BOOL result = ((BOOL(*)(id, SEL, NVFZFCancel *, NVFZFStatus *))prepareIMP)(object, @selector(prepareLinesWithCancellation:status:), cancel, status);
         PrepareMS += (CFAbsoluteTimeGetCurrent()-start)*1000; return result;
     }));
-    Method titleMethod = class_getInstanceMethod([NVSearchQuery class], @selector(matchesTitle:));
-    IMP titleIMP = method_getImplementation(titleMethod);
-    method_setImplementation(titleMethod, imp_implementationWithBlock(^BOOL(id object, NSString *title) {
-        CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-        BOOL result = ((BOOL(*)(id, SEL, id))titleIMP)(object, @selector(matchesTitle:), title);
-        TitleMS += (CFAbsoluteTimeGetCurrent()-start)*1000; return result;
-    }));
-    SEL resultSelector = NSSelectorFromString(@"initWithRequestID:revision:query:snapshots:titles:fuzzy:");
+    SEL resultSelector = NSSelectorFromString(@"initWithRequestID:revision:query:snapshots:matches:");
     Method resultMethod = class_getInstanceMethod([NVSearchResult class], resultSelector);
     IMP resultIMP = method_getImplementation(resultMethod);
-    method_setImplementation(resultMethod, imp_implementationWithBlock(^id(id object, NSUInteger request, NSUInteger revision, id query, id snapshots, id titles, id fuzzy) {
+    method_setImplementation(resultMethod, imp_implementationWithBlock(^id(id object, NSUInteger request, NSUInteger revision, id query, id snapshots, id matches) {
         CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-        id result = ((id(*)(id, SEL, NSUInteger, NSUInteger, id, id, id, id))resultIMP)(object, resultSelector, request, revision, query, snapshots, titles, fuzzy);
+        id result = ((id(*)(id, SEL, NSUInteger, NSUInteger, id, id, id))resultIMP)(object, resultSelector, request, revision, query, snapshots, matches);
         ResultMS += (CFAbsoluteTimeGetCurrent()-start)*1000; return result;
     }));
     NVSearchService *service = [[[NVSearchService alloc] init] autorelease]; NSObject *owner = [[[NSObject alloc] init] autorelease];

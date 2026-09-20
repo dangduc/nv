@@ -54,7 +54,7 @@
 - (NVSearchResult *)searchResult;
 - (void)invalidateSearch;
 - (void)suspendSearchForComposition:(BOOL)suspended;
-// Keys identify the occurrence (kind + UUID), not the request that produced it.
+// Fuzzy keys identify UUID, field and line; legacy kind + UUID keys still resolve.
 - (NSString *)rowKeyAtIndex:(NSUInteger)index;
 - (NSArray *)rowKeysAtIndexes:(NSIndexSet *)indexes;
 - (NSUInteger)indexForRowKey:(NSString *)key;

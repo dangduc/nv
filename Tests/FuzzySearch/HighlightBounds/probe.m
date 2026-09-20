@@ -30,6 +30,7 @@ static BOOL LeaseReleasedOnMain;
 }
 @end
 @interface Editor : NSObject { @public NSTextStorage *storage; NSLayoutManager *layout; Prefs *prefsController; BOOL searchHighlightsInvalidated, hasSearchHighlights; }
+- (void)scrollRangeToVisible:(NSRange)range;
 - (NSString *)string;
 - (NSLayoutManager *)layoutManager;
 - (NSTextStorage *)textStorage;
@@ -40,6 +41,7 @@ static BOOL LeaseReleasedOnMain;
 @end
 @implementation Editor
 - (id)init { if((self=[super init])){storage=[[NSTextStorage alloc]init];layout=[[TrackingLayout alloc]init];[storage addLayoutManager:layout];prefsController=[[Prefs alloc]init];} return self; }
+- (void)scrollRangeToVisible:(NSRange)range { }
 - (NSString *)string { return [storage string]; }
 - (NSLayoutManager *)layoutManager { return layout; }
 - (NSTextStorage *)textStorage { return storage; }
@@ -107,7 +109,7 @@ static BOOL LeaseReleasedOnMain;
 + (id)sharedController { static id app; if(!app)app=[[self alloc]init];return app; }
 - (NVSearchService *)searchService { return service; }
 @end
-@interface Controller : NSObject { @public NSUInteger searchHighlightGeneration; Editor *textView;Note *currentNote;Prefs *prefsController; BOOL searchHasPendingComposition;Table *notesTableView;NVBrowserSession *browser; }
+@interface Controller : NSObject { @public NSUInteger searchHighlightGeneration; Editor *textView;Note *currentNote;Prefs *prefsController; BOOL searchHasPendingComposition, searchScrollPending, viewingNote;Table *notesTableView;NVBrowserSession *browser; }
 - (NVBrowserSession *)browserSession;
 - (void)refreshSearchHighlights;
 - (void)searchSourceStorageWillProcessEditing:(NSNotification *)notification;
