@@ -215,11 +215,14 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     }
     [centerStyle setMaximumLineHeight:lh];
 	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font ? font : [NSFont systemFontOfSize:12.0],
-		NSFontAttributeName, [NSColor labelColor], NSForegroundColorAttributeName, centerStyle, NSParagraphStyleAttributeName, nil];
+		NSFontAttributeName, [NSColor blackColor], NSForegroundColorAttributeName, centerStyle, NSParagraphStyleAttributeName, nil];
 
 	NSString *fontNameAndSize = font ? [NSString stringWithFormat:@"%@ %g", [font fontName], [font pointSize]] : @"Unknown";
 	NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:fontNameAndSize attributes:attributes];
 	
+    [bodyTextFontField setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
+    [bodyTextFontField setBackgroundColor:[NSColor whiteColor]];
+    [bodyTextFontField setDrawsBackground:YES];
 	[[bodyTextFontField cell] setAttributedStringValue:attributedString];
     [bodyTextFontField updateCell:[bodyTextFontField cell]];
 	
