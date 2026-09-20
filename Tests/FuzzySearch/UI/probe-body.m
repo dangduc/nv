@@ -27,6 +27,13 @@
             }
             return YES;
         }, 5), @"all visible title and body result previews receive native match highlights");
+        NSAttributedString *titlePreview = [sa previewForRow:titleRow inTable:resultTable];
+        Check([[titlePreview string] isEqual:[[sa previewForNote:road inTable:resultTable] string]] &&
+            [[titlePreview string] containsString:@"road planning committed source"], @"title match shows the normal body preview");
+        NSUInteger bodyStart = [[titlePreview string] rangeOfString:@"road planning"].location;
+        Check([titlePreview attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL] != nil &&
+            [titlePreview attribute:NSBackgroundColorAttributeName atIndex:bodyStart effectiveRange:NULL] == nil,
+            @"title occurrence highlights only the title even when the body contains the query");
         NSUInteger gapsRow = FuzzyFieldRow(sa, gaps, @"source");
         FuzzySelect(a, gapsRow); [[a window] makeFirstResponder:resultTable];
         NSAttributedString *selectedResult = [[resultTable dataSource] tableView:resultTable

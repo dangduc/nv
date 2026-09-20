@@ -452,8 +452,17 @@ int main(void) {
                     [value enumerateAttribute:NSBackgroundColorAttributeName inRange:NSMakeRange(0, [value length]) options:0 usingBlock:^(id color, NSRange range, BOOL *stop) {
                         if (color) highlightedCount += range.length;
                     }];
-                    Check(highlightedCount == (titleMatch ? (HidePreview ? 4 : 8) : (HidePreview ? 0 : 5)),
+                    Check(highlightedCount == (titleMatch ? 4 : (HidePreview ? 0 : 5)),
                         "Unicode title and second-line body highlights retain original UTF-16 ranges in both layouts");
+                    if (titleMatch) {
+                        Check([[value string] isEqual:[[session previewForNote:unicodeNote inTable:(id)table] string]],
+                            "title matches use the normal body preview in both layouts and preview settings");
+                        Check([[value string] containsString:@"unmatched first line"] == !HidePreview,
+                            "title result previews show the body start instead of repeating the matching title");
+                        [value enumerateAttribute:NSBackgroundColorAttributeName inRange:NSMakeRange([unicodeNote->titleString length], [value length] - [unicodeNote->titleString length]) options:0 usingBlock:^(id color, NSRange range, BOOL *stop) {
+                            Check(color == nil, "title match highlights never leak into the normal body preview");
+                        }];
+                    }
                 }
             }
         }
@@ -481,7 +490,8 @@ int main(void) {
             NSUInteger reloadsBeforeScroll = table->reloads;
             for (NSUInteger row = first; row < first + 12; row++) {
                 NSAttributedString *value = [session previewForRow:row inTable:(id)table];
-                NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+                NSUInteger at = [[session rowKeyAtIndex:row] containsString:@":title:"] ? 0 :
+                    [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
                 BOOL highlighted = [value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil;
                 Check(highlighted == [preparedRows containsIndex:row], "prepared rows highlight on their first draw");
             }
@@ -492,7 +502,8 @@ int main(void) {
             Check(table->reloads - reloadsBeforeScroll == newPreparedRows, "every completed row notifies the table, including offscreen rows");
             for (NSUInteger row = first; row < first + 12; row++) {
                 NSAttributedString *value = [session previewForRow:row inTable:(id)table];
-                NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+                NSUInteger at = [[session rowKeyAtIndex:row] containsString:@":title:"] ? 0 :
+                    [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
                 Check([value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil,
                     "visible title and body matches remain highlighted after scrolling settles");
             }
@@ -511,7 +522,8 @@ int main(void) {
         Check(Spin(^BOOL { return [[session valueForKey:@"excerptPositions"] count] == 2; }), "edited source receives fresh title and body positions");
         for (NSUInteger row = 0; row < [session resultCount]; row++) {
             NSAttributedString *value = [session previewForRow:row inTable:(id)table];
-            NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+            NSUInteger at = [[session rowKeyAtIndex:row] containsString:@":title:"] ? 0 :
+                [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
             Check([value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil,
                 "edited source highlights its new match location instead of cached offsets");
         }
