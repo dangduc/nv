@@ -146,6 +146,8 @@ The primary selected row has an independent source-position channel.
 Only a source match adds body highlights. Title and tag matches do not highlight unrelated body text.
 NFC positions map back to original UTF-16 composed-character ranges, with the original field offset for that line.
 Selecting a body result reveals its matched segment in the source editor, even when search highlighting is disabled.
+For a source-visible body match, the browser permits noncontiguous text layout and skips restoring the old caret viewport first.
+This lets TextKit lay out the selected segment without laying out every preceding line. Other occurrence selections restore contiguous layout.
 This scroll preserves the caret and Undo history. Selection while Preview is active defers the scroll until Source is shown.
 Ordinary highlight refreshes preserve manual scrolling. Window restoration preserves the saved viewport.
 Selection changes and source edits invalidate pending scroll completions with the same guards used for highlights.

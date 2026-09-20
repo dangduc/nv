@@ -461,6 +461,41 @@
             }
         }
         method_setImplementation(listMethod, listOriginal); imp_removeBlock(listHeld);
+
+        // Switching documents used to lay out every preceding line while restoring
+        // the old viewport, before revealing the chosen fuzzy occurrence anyway.
+        NSMutableString *longSource = [NSMutableString string];
+        for (NSUInteger line = 0; line < 4000; line++)
+            [longSource appendFormat:@"line %lu: ordinary words that need to be laid out in the text container to show this note correctly.\n", (unsigned long)line];
+        NSRange endMatch = NSMakeRange([longSource length], [@"selectionlatency" length]);
+        [longSource appendString:@"selectionlatency near the end\n"];
+        NoteObject *longFirst = MakeNote(library, @"Long first", longSource);
+        NoteObject *longSecond = MakeNote(library, @"Long second", longSource);
+        [a searchForString:@"selectionlatency" mode:@"fuzzy"];
+        Check(FuzzyAwait(^BOOL { return [sa searchResultsAreCurrent]; }, 10), @"long-note search completes");
+        NSUInteger longRows[] = {FuzzyFieldRow(sa, longFirst, @"source"), FuzzyFieldRow(sa, longSecond, @"source")};
+        __block NSUInteger oldViewportRestores = 0;
+        Method restoreMethod = class_getInstanceMethod([AppController class], @selector(restoreSourceScroll));
+        IMP originalRestore = method_getImplementation(restoreMethod);
+        IMP countRestores = imp_implementationWithBlock(^(AppController *browser) {
+            if (browser == a) oldViewportRestores++;
+            ((void(*)(id, SEL))originalRestore)(browser, @selector(restoreSourceScroll));
+        });
+        method_setImplementation(restoreMethod, countRestores);
+        for (NSUInteger iteration = 0; iteration < 8; iteration++) {
+            CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+            FuzzySelect(a, longRows[iteration % 2]);
+            Check(FuzzyAwait(^BOOL { return ![[a valueForKey:@"searchScrollPending"] boolValue]; }, 10), @"cross-note match reveal completes");
+            NSTimeInterval elapsed = CFAbsoluteTimeGetCurrent() - start;
+            Check(FuzzyRangeIsVerticallyVisible(editor, endMatch), @"long-note matched segment is in frame");
+            Check([[editor layoutManager] firstUnlaidCharacterIndex] < endMatch.location / 2,
+                @"revealing the match leaves the distant preceding text unlaid");
+            Check(oldViewportRestores == 0, @"cross-note match selection skips the obsolete saved viewport");
+            NSLog(@"FUZZY_SELECTION_LATENCY iteration=%lu milliseconds=%.2f", (unsigned long)iteration, elapsed * 1000);
+        }
+        method_setImplementation(restoreMethod, originalRestore); imp_removeBlock(countRestores);
+        [a searchForString:@"selectionlatency" mode:@"exact"];
+        Check(![[editor layoutManager] allowsNonContiguousLayout], @"Exact selection retains contiguous layout for saved scroll restoration");
         NSLog(@"FUZZY APP WORKFLOW PASSED (%lu checks)", (unsigned long)Checks);
         [library flushAllNoteChanges]; [library closeJournal];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
