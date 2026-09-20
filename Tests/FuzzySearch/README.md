@@ -38,6 +38,15 @@ python3 Tests/FuzzySearch/UI/run.py --launch-services
 The probe uses a copied app, disposable notes, isolated defaults, and a shared desktop-test lock.
 Its held-completion gate delays publication while retaining production matching and controller methods.
 It covers Return during pending work, supersession, mutation, Reveal, restoration, closure, and duplicate-row editing.
+It also compares WindowServer pixels before and after a 120-row highlight pass without user interaction.
+Run repeatable list-highlight fuzzing with an explicit seed and timeout:
+
+```sh
+NV_FUZZ_LIST_HIGHLIGHTS=1 NV_FUZZ_NATURAL=1 NV_FUZZ_SEED=3134984190 \
+  NV_FUZZ_ITERATIONS=20 python3 Tests/FuzzySearch/UI/run.py --launch-services --timeout 240
+```
+
+Set `NV_FUZZ_DROP_REPAINTS=1` to verify that the compositor regression rejects missing repaint notifications.
 `--build-only` compiles the probe without launching the app. Compilation does not establish UI behavior.
 
 Run `python3 Tests/FuzzySearch/run-service-tests.py --benchmark` for generated-corpus measurements.
@@ -52,7 +61,7 @@ The Intel Development build succeeds on macOS 13.7.8 with Xcode 15.2.
 The native service, browser, persistence, lifecycle, and position-mapping suites pass.
 The service and browser suites also pass with ASan/UBSan.
 The highlight-bound suite rejects its negative controls.
-The foreground application probe passes 78 checks through Launch Services, including two optional screenshot checks.
+The foreground application probe passes 104 checks through Launch Services, including two optional screenshot checks.
 The probe covers five matching lines from three notes, shared editing, Undo, restoration, highlights, and pending searches.
 Long-note fixtures check that each selected body match enters the viewport, with highlighting enabled or disabled.
 They also check stale scroll completions, saved viewport restoration, manual scrolling, selection across notes, and transitions from Preview to Source.

@@ -269,6 +269,198 @@
         Check(FuzzyAwait(^BOOL { return [a selectedNoteObject] == secondScrollNote && FuzzyRangeIsVerticallyVisible(editor, latestMatch); }, 3),
             @"selecting a different note also reveals its selected match");
         [prefsController setShouldHighlightSearchTerms:savedHighlightPreference sender:nil];
+
+        NSMutableString *listSource = [NSMutableString string];
+        for (NSUInteger i = 0; i < 120; i++) [listSource appendFormat:@"scrollpreview row %03lu\n", (unsigned long)i];
+        MakeNote(library, @"List scroll fixture", listSource);
+        NSMutableArray *listDeliveries = [NSMutableArray array];
+        __block BOOL holdListPositions = YES;
+        SEL listSelector = @selector(requestPositionsForRowKey:requestID:owner:positionOwner:completion:);
+        Method listMethod = class_getInstanceMethod([NVSearchService class], listSelector);
+        IMP listOriginal = method_getImplementation(listMethod);
+        __block BOOL dropListRepaints = NO;
+        IMP listHeld = imp_implementationWithBlock(^(NVSearchService *service, NSString *key, NSUInteger requestID, id owner, id positionOwner, NVSearchPositionsCompletion completion) {
+            ((void(*)(id, SEL, id, NSUInteger, id, id, id))listOriginal)(service, listSelector, key, requestID, owner, positionOwner,
+                ^(NVSearchPositions *positions, NSError *error) {
+                    if (holdListPositions && owner == sa && positionOwner == [sa valueForKey:@"excerptOwner"])
+                        [listDeliveries addObject:[[^{ completion(positions, error); } copy] autorelease]];
+                    else completion(positions, error);
+                });
+        });
+        method_setImplementation(listMethod, listHeld);
+        if (getenv("NV_FUZZ_DROP_REPAINTS")) {
+            SEL rowReloadSelector = @selector(reloadDataForRowIndexes:columnIndexes:);
+            Method rowReloadMethod = class_getInstanceMethod([NSTableView class], rowReloadSelector);
+            IMP rowReloadOriginal = method_getImplementation(rowReloadMethod);
+            IMP rowReloadDropped = imp_implementationWithBlock(^(NSTableView *table, NSIndexSet *rows, NSIndexSet *columns) {
+                if (table != resultTable || !dropListRepaints)
+                    ((void(*)(id, SEL, id, id))rowReloadOriginal)(table, rowReloadSelector, rows, columns);
+            });
+            Check(class_addMethod([NotesTableView class], rowReloadSelector, rowReloadDropped, method_getTypeEncoding(rowReloadMethod)),
+                @"negative control intercepts row reloads");
+            SEL fullReloadSelector = @selector(reloadData);
+            Method fullReloadMethod = class_getInstanceMethod([NotesTableView class], fullReloadSelector);
+            IMP fullReloadOriginal = method_getImplementation(fullReloadMethod);
+            IMP fullReloadDropped = imp_implementationWithBlock(^(NSTableView *table) {
+                if (table != resultTable || !dropListRepaints)
+                    ((void(*)(id, SEL))fullReloadOriginal)(table, fullReloadSelector);
+            });
+            method_setImplementation(fullReloadMethod, fullReloadDropped);
+            SEL displaySelector = @selector(displayRectIgnoringOpacity:);
+            Method displayMethod = class_getInstanceMethod([NSView class], displaySelector);
+            IMP displayOriginal = method_getImplementation(displayMethod);
+            IMP displayDropped = imp_implementationWithBlock(^(NSView *view, NSRect rect) {
+                if (view != resultTable || !dropListRepaints)
+                    ((void(*)(id, SEL, NSRect))displayOriginal)(view, displaySelector, rect);
+            });
+            Check(class_addMethod([NotesTableView class], displaySelector, displayDropped, method_getTypeEncoding(displayMethod)),
+                @"negative control intercepts forced visible draws");
+        }
+        [a searchForString:@"scrollpreview" mode:@"fuzzy"];
+        Check(FuzzyAwait(^BOOL { return [sa searchResultsAreCurrent] && [sa resultCount] == 120; }, 10),
+            @"long result list supplies multiple viewports of body matches");
+        [resultTable scrollRowToVisible:0 withVerticalOffset:0];
+        NSRange firstViewport = [resultTable rowsInRect:[resultTable visibleRect]];
+        Check(firstViewport.length > 0 && NSMaxRange(firstViewport) < 60, @"scroll fixture spans separate viewports");
+        NSInteger titleColumn = [resultTable columnWithIdentifier:NoteTitleColumnString];
+        BOOL (^rowsHighlighted)(NSRange) = ^BOOL(NSRange rows) {
+            for (NSUInteger row = rows.location; row < NSMaxRange(rows); row++) {
+                NSAttributedString *value = [[resultTable preparedCellAtColumn:titleColumn row:row] attributedStringValue];
+                NSUInteger at = [[value string] rangeOfString:@"scrollpreview"].location;
+                if (at == NSNotFound || ![value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL]) return NO;
+            }
+            return YES;
+        };
+        Check(!rowsHighlighted(NSMakeRange(60, 1)), @"offscreen native cell is prepared before its highlights arrive");
+        Check(FuzzyAwait(^BOOL { return [listDeliveries count] > 0; }, 5), @"position completion waits while the table caches an unhighlighted cell");
+        NSUInteger windowPixelsBeforePositions = FuzzyCompositedHighlightPixelsInWindow([resultTable window]);
+        Check(windowPixelsBeforePositions != NSNotFound, @"compositor snapshot is available while native positions are held");
+        dropListRepaints = getenv("NV_FUZZ_DROP_REPAINTS") != NULL;
+        holdListPositions = NO;
+        for (void (^delivery)(void) in [[listDeliveries copy] autorelease]) delivery();
+        [listDeliveries removeAllObjects];
+        Check(FuzzyAwait(^BOOL { return [[sa valueForKey:@"excerptPositions"] count] == [sa resultCount]; }, 10),
+            @"held native positions finish before compositor validation");
+        NSUInteger windowPixelsAfterPositions = FuzzyCompositedHighlightPixelsInWindow([resultTable window]);
+        NSLog(@"COMPOSITOR_HIGHLIGHT before=%lu after_positions=%lu", (unsigned long)windowPixelsBeforePositions,
+            (unsigned long)windowPixelsAfterPositions);
+        Check(windowPixelsBeforePositions != NSNotFound && windowPixelsAfterPositions > windowPixelsBeforePositions + 100,
+            @"completed position pass updates existing compositor pixels without user interaction");
+        Check(FuzzyAwait(^BOOL { return rowsHighlighted(firstViewport); }, 5), @"first viewport receives match highlights");
+        Check([[sa valueForKey:@"excerptPositions"] count] == [sa resultCount],
+            @"idle browser prepares all result highlights without scrolling");
+        [resultTable scrollRowToVisible:60 withVerticalOffset:0];
+        NSRange distantViewport = [resultTable rowsInRect:[resultTable visibleRect]];
+        Check(distantViewport.location >= NSMaxRange(firstViewport), @"native table scroll moves every original row out of view");
+        Check(rowsHighlighted(distantViewport), @"previously unseen distant rows highlight on their first draw after idle preparation");
+        [resultTable scrollRowToVisible:0 withVerticalOffset:0];
+        Check(rowsHighlighted(firstViewport), @"returning native table rows retain highlights without waiting for another lookup");
+
+        if (getenv("NV_FUZZ_LIST_HIGHLIGHTS")) {
+            const char *seedText = getenv("NV_FUZZ_SEED");
+            const char *iterationText = getenv("NV_FUZZ_ITERATIONS");
+            __block uint32_t fuzzState = seedText ? (uint32_t)strtoul(seedText, NULL, 10) : 0x4e56414c;
+            NSUInteger fuzzSeed = fuzzState;
+            NSUInteger fuzzIterations = iterationText ? strtoul(iterationText, NULL, 10) : 40;
+            BOOL naturalTiming = getenv("NV_FUZZ_NATURAL") != NULL;
+            uint32_t (^nextRandom)(void) = ^uint32_t {
+                fuzzState = fuzzState * 1664525u + 1013904223u;
+                return fuzzState;
+            };
+            [[a window] setContentSize:NSMakeSize(1160, 980)];
+            [a setNotesListHeight:760];
+            [[a window] makeFirstResponder:[a valueForKey:@"field"]];
+            [resultTable deselectAll:self];
+            NSLog(@"FUZZ_LIST_HIGHLIGHTS seed=%lu iterations=%lu natural=%d", (unsigned long)fuzzSeed,
+                (unsigned long)fuzzIterations, naturalTiming);
+            for (NSUInteger iteration = 0; iteration < fuzzIterations; iteration++) {
+                holdListPositions = NO;
+                for (NSString *prefix in @[@"scl", @"scrlp", @"scrollprev"]) {
+                    [a searchForString:prefix mode:@"fuzzy"];
+                    if (nextRandom() % 3 == 0)
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.002]];
+                }
+                holdListPositions = !naturalTiming;
+                NSString *query = iteration % 2 ? @"SCROLLPREVIEW" : @"scrollpreview";
+                [a searchForString:query mode:@"fuzzy"];
+                Check(FuzzyAwait(^BOOL { return [sa searchResultsAreCurrent] && [sa resultCount] == 120; }, 10),
+                    @"fuzz iteration publishes the complete result list");
+                NSMutableArray *trace = [NSMutableArray array];
+                NSUInteger initialRow = nextRandom() % [sa resultCount];
+                [resultTable scrollRowToVisible:initialRow withVerticalOffset:0];
+                [trace addObject:@(initialRow)];
+                NSDate *positionDeadline = [NSDate dateWithTimeIntervalSinceNow:10];
+                while ([[sa valueForKey:@"excerptPositions"] count] < [sa resultCount]) {
+                    if (naturalTiming) {
+                        if ([positionDeadline timeIntervalSinceNow] <= 0) {
+                            NSLog(@"FUZZ_SCHEDULER_STALL seed=%lu iteration=%lu active=%@ next=%@ positions=%lu trace=%@",
+                                (unsigned long)fuzzSeed, (unsigned long)iteration, [sa valueForKey:@"activeExcerptKey"],
+                                [sa valueForKey:@"nextExcerptRow"], (unsigned long)[[sa valueForKey:@"excerptPositions"] count], trace);
+                            Check(NO, @"natural fuzz scheduler completes every position request");
+                        }
+                        if (nextRandom() % 4 == 0) {
+                            NSUInteger row = nextRandom() % [sa resultCount];
+                            [resultTable scrollRowToVisible:row withVerticalOffset:0];
+                            [trace addObject:@(row)];
+                        }
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
+                        continue;
+                    }
+                    if (!FuzzyAwait(^BOOL { return [listDeliveries count] > 0; }, 5)) {
+                        NSLog(@"FUZZ_SCHEDULER_STALL seed=%lu iteration=%lu active=%@ next=%@ positions=%lu trace=%@",
+                            (unsigned long)fuzzSeed, (unsigned long)iteration, [sa valueForKey:@"activeExcerptKey"],
+                            [sa valueForKey:@"nextExcerptRow"], (unsigned long)[[sa valueForKey:@"excerptPositions"] count], trace);
+                        Check(NO, @"fuzz scheduler produces the next held position completion");
+                    }
+                    NSUInteger actions = nextRandom() % 3;
+                    for (NSUInteger action = 0; action < actions; action++) {
+                        NSUInteger row = nextRandom() % [sa resultCount];
+                        [resultTable scrollRowToVisible:row withVerticalOffset:0];
+                        [trace addObject:@(row)];
+                        if (nextRandom() % 8 == 0)
+                            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
+                    }
+                    void (^delivery)(void) = [[[listDeliveries objectAtIndex:0] retain] autorelease];
+                    [listDeliveries removeObjectAtIndex:0];
+                    delivery();
+                    if (nextRandom() % 8 == 0)
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
+                }
+                holdListPositions = NO;
+                Check(![[[sa valueForKey:@"excerptPositions"] allValues] containsObject:[NSNull null]],
+                    @"generation churn produces positions for every final result");
+                [resultTable scrollRowToVisible:0 withVerticalOffset:0];
+                Pump(); [[a window] displayIfNeeded];
+                BOOL failed = NO;
+                NSUInteger viewportStride = iteration % 10 == 0 ? 7 : 29;
+                for (NSUInteger start = 0; start < [sa resultCount] && !failed; start += viewportStride) {
+                    [resultTable scrollRowToVisible:start withVerticalOffset:0];
+                    Pump(); [[a window] displayIfNeeded];
+                    NSRange visible = [resultTable rowsInRect:[resultTable visibleRect]];
+                    NSUInteger last = iteration % 10 == 0 ? NSMaxRange(visible) : MIN(NSMaxRange(visible), visible.location + 1);
+                    for (NSUInteger row = visible.location; row < last; row++) {
+                        NSUInteger pixels = FuzzyDrawnHighlightPixelsForRow(resultTable, row);
+                        if (pixels == NSNotFound) continue;
+                        if (!pixels) {
+                            Pump(); [[a window] displayIfNeeded];
+                            NSUInteger repeated = FuzzyDrawnHighlightPixelsForRow(resultTable, row);
+                            NSAttributedString *value = [sa previewForRow:row inTable:resultTable];
+                            NSUInteger at = [[value string] rangeOfString:@"scrollpreview" options:NSCaseInsensitiveSearch].location;
+                            BOOL cached = at != NSNotFound && [value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil;
+                            NSLog(@"FUZZ_LIST_FAILURE seed=%lu iteration=%lu row=%lu pixels=%lu repeated=%lu cached=%d positions=%lu trace=%@",
+                                (unsigned long)fuzzSeed, (unsigned long)iteration, (unsigned long)row, (unsigned long)pixels,
+                                (unsigned long)repeated, cached, (unsigned long)[[sa valueForKey:@"excerptPositions"] count], trace);
+                            failed = YES;
+                            break;
+                        }
+                    }
+                }
+                Check(!failed, @"every fuzzed result row paints its cached match highlight without another user action");
+                NSLog(@"FUZZ_LIST_ITERATION seed=%lu iteration=%lu actions=%lu PASSED", (unsigned long)fuzzSeed,
+                    (unsigned long)iteration, (unsigned long)[trace count]);
+            }
+        }
+        method_setImplementation(listMethod, listOriginal); imp_removeBlock(listHeld);
         NSLog(@"FUZZY APP WORKFLOW PASSED (%lu checks)", (unsigned long)Checks);
         [library flushAllNoteChanges]; [library closeJournal];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];

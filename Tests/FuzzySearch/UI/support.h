@@ -35,3 +35,38 @@ static BOOL FuzzyRangeIsVerticallyVisible(NSTextView *editor, NSRange range) {
     NSRect visible = [editor visibleRect];
     return NSHeight(rect) > 0 && NSMinY(rect) >= NSMinY(visible) - 1 && NSMaxY(rect) <= NSMaxY(visible) + 1;
 }
+
+static NSUInteger FuzzyDrawnHighlightPixelsForRow(NSTableView *table, NSInteger row) {
+    NSRect rect = [table rectOfRow:row];
+    if (NSIsEmptyRect(rect) || !NSContainsRect([table visibleRect], rect)) return NSNotFound;
+    NSBitmapImageRep *bitmap = [table bitmapImageRepForCachingDisplayInRect:rect];
+    [table cacheDisplayInRect:rect toBitmapImageRep:bitmap];
+    NSUInteger highlighted = 0;
+    for (NSInteger y = 0; y < [bitmap pixelsHigh]; y++) {
+        for (NSInteger x = 0; x < [bitmap pixelsWide]; x++) {
+            NSColor *pixel = [[bitmap colorAtX:x y:y] colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+            if (!pixel || [pixel alphaComponent] < .8) continue;
+            CGFloat red = [pixel redComponent], green = [pixel greenComponent], blue = [pixel blueComponent];
+            if (red > .65 && green > .55 && blue < .4 && red - blue > .35 && green - blue > .25) highlighted++;
+        }
+    }
+    return highlighted;
+}
+
+static NSUInteger FuzzyCompositedHighlightPixelsInWindow(NSWindow *window) {
+    CGImageRef image = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow,
+        (CGWindowID)[window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+    if (!image) return NSNotFound;
+    NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:image] autorelease];
+    CGImageRelease(image);
+    NSUInteger highlighted = 0;
+    for (NSInteger y = 0; y < [bitmap pixelsHigh]; y++) {
+        for (NSInteger x = 0; x < [bitmap pixelsWide]; x++) {
+            NSColor *pixel = [[bitmap colorAtX:x y:y] colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+            if (!pixel || [pixel alphaComponent] < .8) continue;
+            CGFloat red = [pixel redComponent], green = [pixel greenComponent], blue = [pixel blueComponent];
+            if (red > .65 && green > .55 && blue < .4 && red - blue > .35 && green - blue > .25) highlighted++;
+        }
+    }
+    return highlighted;
+}

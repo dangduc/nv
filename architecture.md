@@ -134,7 +134,13 @@ Each accepted Reveal or restoration replaces older pending selection intents. In
 If a completed query excludes the requested note, Reveal clears that browser's query.
 An edited open note can remain as one retained row after the matches, without increasing result counts.
 
-Visible fuzzy rows request native positions for their specific line. Excerpts show text from that line.
+Fuzzy rows use native positions for their specific line. Excerpts show text from that line.
+The browser prepares positions asynchronously in one pass from the first result to the last.
+Scrolling does not change the processing order or cancel pending work.
+Computed positions remain in the browser until query or corpus invalidation, so returning rows retain their highlights.
+Each completion updates the browser cache and notifies the table to reload that row, including offscreen rows.
+When the pass finishes, the browser reloads the table once and draws its visible rectangle so AppKit cannot leave stale cells on screen.
+Scrolling ahead of this work can still require asynchronous position requests.
 Title matches have no preamble. Body matches use `line:N`; tag matches retain their field and line label.
 The primary selected row has an independent source-position channel.
 Only a source match adds body highlights. Title and tag matches do not highlight unrelated body text.
