@@ -680,17 +680,26 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     if (preview) return preview;
     NVSearchMatch *match = [searchResult matchForRowKey:[self rowKeyAtIndex:index]];
     NVSearchLine *line = [match line];
-    if ([[line field] isEqual:@"title"]) context = @"";
-    else if ([[line field] isEqual:@"source"])
+    id cachedPositions = [excerptPositions objectForKey:[self rowKeyAtIndex:index]];
+    if ([[line field] isEqual:@"title"]) {
+        preview = [self previewForNote:note inTable:table];
+        if (![preview isKindOfClass:[NSAttributedString class]]) preview = [note->titleString attributedSingleLineTitle];
+        if (cachedPositions && cachedPositions != [NSNull null]) {
+            NSMutableAttributedString *highlighted = [[preview mutableCopy] autorelease];
+            NVHighlightPreviewRanges(highlighted, [cachedPositions titleRanges], NSMakeRange(0, [note->titleString length]), 0);
+            preview = highlighted;
+        }
+        if (preview) [previewCache setObject:preview forKey:key];
+        return preview ?: note->titleString;
+    }
+    if ([[line field] isEqual:@"source"])
         context = [NSString stringWithFormat:NSLocalizedString(@"line:%lu", nil), (unsigned long)[line lineNumber]];
     NSString *source = line ? [line text] : ([[note contentString] string] ?: @"");
-    id cachedPositions = [excerptPositions objectForKey:[self rowKeyAtIndex:index]];
     NSUInteger first = 0;
     NSArray *ranges = nil;
     if (cachedPositions && cachedPositions != [NSNull null] && line) {
         NVSearchPositions *positions = cachedPositions;
-        ranges = [[line field] isEqual:@"title"] ? [positions titleRanges] :
-            ([[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges]);
+        ranges = [[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges];
         if ([ranges count]) first = [[ranges objectAtIndex:0] rangeValue].location - [line range].location;
     }
     NSUInteger start = first > 45 ? first - 45 : 0;
@@ -713,8 +722,6 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     }
     if (preview && [ranges count]) {
         NSMutableAttributedString *highlighted = [[preview mutableCopy] autorelease];
-        if ([[line field] isEqual:@"title"])
-            NVHighlightPreviewRanges(highlighted, ranges, NSMakeRange(0, [note->titleString length]), 0);
         if ([prefs tableColumnsShowPreview]) {
             NSUInteger offset = [note->titleString length] + ([delegate horizontalLayout] ? 1 :
                 [NSLocalizedString(@" option-shift-dash ", @"title/description delimiter") length]);
