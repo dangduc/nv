@@ -13,11 +13,13 @@ import uuid
 repo = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(repo / "Tests"))
 from compiler_support import include_flags
+from desktop_test_support import require_clean_desktop, run_desktop_process
 
 lock_path = repo / 'build/pr-review/gui.lock'
 lock_path.parent.mkdir(parents=True, exist_ok=True)
 lock = lock_path.open('w')
 fcntl.flock(lock, fcntl.LOCK_EX)
+require_clean_desktop()
 source = repo / 'build/DerivedData/Build/Products/Development/nvALT Development.app'
 if not source.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')
@@ -44,12 +46,13 @@ with tempfile.TemporaryDirectory(prefix='nvalt-window-tests-') as root:
         '-QuitWhenClosingMainWindow', 'NO', '-SUEnableAutomaticChecks', 'NO']
     if os.environ.get('NV_WINDOW_TEST_DEBUG'):
         debug_env = ' '.join(key + '=' + str(environment[key]) for key in ['NV_WINDOW_TEST_DIRECTORY', 'DYLD_INSERT_LIBRARIES'])
-        raise SystemExit(subprocess.run(['xcrun', 'lldb', '--batch', '-o', 'settings set target.env-vars ' + debug_env,
-            '-o', 'run', '-k', 'thread backtrace', '-k', 'register read rdi rsi', '-o', 'quit', '--', *arguments], timeout=90).returncode)
-    result = subprocess.run(arguments, env=environment, timeout=90)
-    if result.returncode:
-        raise SystemExit(result.returncode)
+        raise SystemExit(run_desktop_process(['xcrun', 'lldb', '--batch', '-o', 'settings set target.env-vars ' + debug_env,
+            '-o', 'run', '-k', 'thread backtrace', '-k', 'register read rdi rsi', '-o', 'quit', '--', *arguments], timeout=90, app_binary=binary))
+    result = run_desktop_process(arguments, env=environment, timeout=90)
+    if result:
+        raise SystemExit(result)
+    require_clean_desktop()
     environment['NV_WINDOW_TEST_RELAUNCH'] = '1'
-    result = subprocess.run([str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO',
+    result = run_desktop_process([str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO',
         '-QuitWhenClosingMainWindow', 'NO', '-SUEnableAutomaticChecks', 'NO'], env=environment, timeout=90)
-    raise SystemExit(result.returncode)
+    raise SystemExit(result)

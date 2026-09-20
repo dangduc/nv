@@ -146,3 +146,19 @@ The benchmark reports median and p95 times for four queries and for table scroll
 `NVNoteEditingSession` owns shared text and up to 200 undo actions per note. Each browser attaches a separate layout manager. When switching notes, remove that layout manager from its old storage and add it to the new storage. `replaceTextStorage:` moves all attached layout managers.
 
 Keep library I/O in the application controller. Before opening another library, flush the current library and close its journal. Route view actions through their owning browser. Add a regression check when changing ownership or command routing.
+
+## Leftover desktop test apps
+
+The multiple-window runner, full regression runner, and fuzzy UI runner stop if a disposable nvALT test app remains alive.
+Close that app before retrying. This prevents repeated runs from adding more test windows.
+If the app survives force-quit, log out or restart before you run more desktop tests.
+The check excludes regular nvALT apps and builds outside disposable test directories.
+
+The multiple-window and fuzzy UI runners use bounded waits during timeout cleanup.
+Launch Services cleanup targets the copied app as well as its `open` process.
+Cleanup cannot force macOS to remove a process stuck in an uninterruptible exit state.
+Run these checks without opening any app windows:
+
+```sh
+python3 -B -m unittest discover -s Tests -p test_desktop_test_support.py -v
+```

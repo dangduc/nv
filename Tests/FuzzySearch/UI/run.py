@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'Tests'))
 from compiler_support import include_flags
+from desktop_test_support import require_clean_desktop, run_desktop_process
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--build-only', action='store_true', help='Compile the injected probe without starting an Intel process.')
@@ -45,6 +46,7 @@ try:
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
 except BlockingIOError:
     raise SystemExit('Another desktop test owns the GUI lock. The probe was built but not run.')
+require_clean_desktop()
 with tempfile.TemporaryDirectory(prefix='nvalt-fuzzy-ui-') as temporary:
     root = Path(temporary)
     app = root / 'Fuzzy Search Tests.app'
@@ -66,19 +68,15 @@ with tempfile.TemporaryDirectory(prefix='nvalt-fuzzy-ui-') as temporary:
             if key in environment:
                 launch.extend(['--env', key + '=' + environment[key]])
         try:
-            result = subprocess.run(launch + [str(app), '--args', *arguments], timeout=a.timeout)
+            result = run_desktop_process(launch + [str(app), '--args', *arguments], timeout=a.timeout, app_binary=binary)
         except subprocess.TimeoutExpired:
             print(log_path.read_text(), end='')
             raise SystemExit('Launch Services probe timed out; no completed result.')
         log = log_path.read_text()
         print(log, end='')
-        raise SystemExit(0 if result.returncode == 0 and 'FUZZY APP WORKFLOW PASSED' in log else 1)
-    process = subprocess.Popen([str(binary), *arguments], env=environment)
+        raise SystemExit(0 if result == 0 and 'FUZZY APP WORKFLOW PASSED' in log else 1)
     try:
-        code = process.wait(timeout=a.timeout)
+        code = run_desktop_process([str(binary), *arguments], env=environment, timeout=a.timeout)
     except subprocess.TimeoutExpired:
-        process.kill()
-        # A stalled Rosetta task can ignore SIGKILL in kernel U state. Never
-        # perform an unbounded reap while holding the shared desktop lock.
-        raise SystemExit(f'No completed app result within {a.timeout:g}s; kill sent to disposable PID {process.pid}.')
+        raise SystemExit(f'No completed app result within {a.timeout:g}s; bounded cleanup attempted.')
     raise SystemExit(code)
