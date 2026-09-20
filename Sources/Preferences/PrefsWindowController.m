@@ -602,6 +602,8 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 	[self addToolbarItemWithName:@"Fonts & Colors"];
 		
     toolbar = [[NSToolbar alloc] initWithIdentifier:@"preferencePanes"];
+    if (@available(macOS 11.0, *)) [window setToolbarStyle:NSWindowToolbarStyleExpanded];
+    [toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
     [toolbar setDelegate:self];
     [toolbar setAllowsUserCustomization:NO];
     [toolbar setAutosavesConfiguration:NO]; 
