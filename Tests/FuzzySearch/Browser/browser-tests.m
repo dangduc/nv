@@ -116,7 +116,7 @@ static NSArray *Visible(NVBrowserSession *session) {
 @implementation TestPreviewColumn
 - (CGFloat)width { return 600; }
 @end
-@interface TestTable : NSObject { @public NSRange visibleRows; NSUInteger reloads; NoteObject *inlineTarget; BOOL targetExists; }
+@interface TestTable : NSObject { @public NSRange visibleRows; NSUInteger reloads, fullReloads, forcedDisplays; NoteObject *inlineTarget; BOOL targetExists; }
 @end
 @implementation TestTable
 - (NoteObject *)noteForInlineEditAtRow:(NSInteger)row inSession:(NVBrowserSession *)session { return targetExists ? inlineTarget : nil; }
@@ -129,10 +129,22 @@ static NSArray *Visible(NVBrowserSession *session) {
 - (NSInteger)primarySelectedRow { return -1; }
 - (void)scrollRowToVisible:(NSInteger)row { }
 - (void)reloadDataForRowIndexes:(NSIndexSet *)rows columnIndexes:(NSIndexSet *)columns { reloads++; }
+- (void)reloadData { fullReloads++; }
+- (void)displayRectIgnoringOpacity:(NSRect)rect { forcedDisplays++; }
+- (id)window { return nil; }
 @end
 // Run the exact production occurrence-selection methods on a native NSTableView.
 // The small owner supplies only a browser and records delivered row context.
 #include "selected-preview.inc"
+@interface RecordingSearchService : NVSearchService { @public NSMutableArray *positionRequests; }
+@end
+@implementation RecordingSearchService
+- (void)requestPositionsForRowKey:(NSString *)key requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion {
+    [positionRequests addObject:key];
+    [super requestPositionsForRowKey:key requestID:requestID owner:owner positionOwner:positionOwner completion:completion];
+}
+- (void)dealloc { [positionRequests release]; [super dealloc]; }
+@end
 @interface PrimaryFixtureTable : NSTableView { NSString *primarySelectionRowKey; }
 - (NSInteger)primarySelectedRow;
 - (void)setPrimarySelectedRow:(NSInteger)row;
@@ -266,7 +278,7 @@ int main(void) {
         NoteObject *a = Note(@"qzr Zebra", @"first body\nqzr alternate zebra"), *b = Note(@"qzr Alpha", @"second body\nqzr alternate alpha");
         NoteObject *c = Note(@"Body only", @"q----z----r"), *d = Note(@"Empty", @"none");
         TestLibrary *library = [[[TestLibrary alloc] initWithNotes:@[a, b, c, d]] autorelease];
-        NVSearchService *service = [[[NVSearchService alloc] init] autorelease]; Capture(service, library);
+        RecordingSearchService *service = [[[RecordingSearchService alloc] init] autorelease]; Capture(service, library);
         NVBrowserSession *session = [[[NVBrowserSession alloc] initWithLibrary:(id)library] autorelease];
         TestOwner *owner = [[[TestOwner alloc] init] autorelease]; [session setDelegate:owner];
         [session setSearchService:service]; [session setSearchMode:@"fuzzy"];
@@ -422,7 +434,7 @@ int main(void) {
             "selected nonmatch uses the cell selection text color");
         table->visibleRows = NSMakeRange(NSNotFound, 0);
         [session previewForRow:0 inTable:(id)table];
-        Check([[session valueForKey:@"excerptPositions"] count] == 0, "excerpt positions are bounded to visible rows");
+        Check([[session valueForKey:@"excerptPositions"] count] == 1, "offscreen match positions remain cached for the current search");
         [library removeNote:longNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
         NoteObject *unicodeNote = Note(@"Café 🐈", @"unmatched first line\nCafe\u0301 🐈");
         [library addNote:unicodeNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
@@ -447,6 +459,63 @@ int main(void) {
         }
         HidePreview = MultiLinePreview = NO;
         [library removeNote:unicodeNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
+
+        NSMutableString *scrollBody = [NSMutableString string];
+        for (NSUInteger i = 0; i < 119; i++) [scrollBody appendFormat:@"row %03lu scrollprobe\n", (unsigned long)i];
+        NoteObject *scrollNote = Note(@"scrollprobe", scrollBody);
+        [library addNote:scrollNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
+        Search(session, @"scrollprobe");
+        Check([session resultCount] == 120, "scroll fixture has title and body candidates across many viewports");
+        NSUInteger fullReloadsBeforeScroll = table->fullReloads, forcedDisplaysBeforeScroll = table->forcedDisplays;
+        service->positionRequests = [[NSMutableArray alloc] init];
+        table->visibleRows = NSMakeRange(60, 12);
+        [session previewForRow:60 inTable:(id)table];
+        Check([service->positionRequests isEqual:@[[session rowKeyAtIndex:0]]], "first request starts at the top even when the viewport starts in the middle");
+        table->visibleRows = NSMakeRange(108, 12);
+        [session previewForRow:108 inTable:(id)table];
+        Check([service->positionRequests count] == 1, "scrolling during a pending request does not cancel or replace it");
+        NSMutableIndexSet *preparedRows = [NSMutableIndexSet indexSet];
+        for (NSNumber *startRow in @[@0, @12, @60, @0, @108, @0]) {
+            NSUInteger first = [startRow unsignedIntegerValue];
+            table->visibleRows = NSMakeRange(first, 12);
+            NSUInteger reloadsBeforeScroll = table->reloads;
+            for (NSUInteger row = first; row < first + 12; row++) {
+                NSAttributedString *value = [session previewForRow:row inTable:(id)table];
+                NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+                BOOL highlighted = [value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil;
+                Check(highlighted == [preparedRows containsIndex:row], "prepared rows highlight on their first draw");
+            }
+            NSUInteger newPreparedRows = [session resultCount] - [preparedRows count];
+            [preparedRows addIndexesInRange:NSMakeRange(0, [session resultCount])];
+            Check(Spin(^BOOL { return [[session valueForKey:@"excerptPositions"] count] == [preparedRows count]; }),
+                "all result positions finish without further drawing or scrolling");
+            Check(table->reloads - reloadsBeforeScroll == newPreparedRows, "every completed row notifies the table, including offscreen rows");
+            for (NSUInteger row = first; row < first + 12; row++) {
+                NSAttributedString *value = [session previewForRow:row inTable:(id)table];
+                NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+                Check([value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil,
+                    "visible title and body matches remain highlighted after scrolling settles");
+            }
+        }
+        Check([service->positionRequests isEqual:[session rowKeysAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 120)]]],
+            "every row is requested exactly once in top-to-bottom order despite scrolling");
+        Check(table->fullReloads - fullReloadsBeforeScroll == 1 && table->forcedDisplays - forcedDisplaysBeforeScroll == 1,
+            "the completed pass reloads the table once and forces one visible draw");
+        [service->positionRequests release]; service->positionRequests = nil;
+        [session invalidateSearch];
+        Check([[session valueForKey:@"excerptPositions"] count] == 0, "search invalidation discards positions from every visited viewport");
+        [scrollNote setContentString:[[[NSAttributedString alloc] initWithString:@"prefix scrollprobe"] autorelease]];
+        [service invalidate]; Capture(service, library); Search(session, @"scrollprobe");
+        table->visibleRows = NSMakeRange(0, [session resultCount]);
+        [session previewForRow:0 inTable:(id)table];
+        Check(Spin(^BOOL { return [[session valueForKey:@"excerptPositions"] count] == 2; }), "edited source receives fresh title and body positions");
+        for (NSUInteger row = 0; row < [session resultCount]; row++) {
+            NSAttributedString *value = [session previewForRow:row inTable:(id)table];
+            NSUInteger at = [[value string] rangeOfString:@"scrollprobe" options:NSBackwardsSearch].location;
+            Check([value attribute:NSBackgroundColorAttributeName atIndex:at effectiveRange:NULL] != nil,
+                "edited source highlights its new match location instead of cached offsets");
+        }
+        [library removeNote:scrollNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
         Search(session, @"Empty");
 
         TestTable *editingTable = [[[TestTable alloc] init] autorelease];

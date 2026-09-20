@@ -22,7 +22,6 @@
 - (void)beginFuzzySearchKeepingCurrentNote:(BOOL)keepCurrent;
 - (void)publishFuzzyResult:(NVSearchResult *)result;
 - (void)publishDeferredSearchResult;
-- (void)updateExcerptRowsInTable:(NSTableView *)table;
 - (void)startNextExcerpt;
 - (void)cancelBodyRefresh;
 - (void)refreshDirtyBodyRows;
@@ -144,9 +143,7 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         rowIndexesByKey = [[NSMutableDictionary alloc] init];
         firstRowIndexesByUUID = [[NSMutableDictionary alloc] init];
         excerptPositions = [[NSMutableDictionary alloc] init];
-        excerptQueue = [[NSMutableArray alloc] init];
         excerptOwner = [[NSObject alloc] init];
-        excerptVisibleRows = NSMakeRange(NSNotFound, 0);
         resultsCurrent = YES;
         reverseSorted = [[GlobalPrefs defaultPrefs] tableIsReverseSorted];
         [self refilterNotes];
@@ -165,7 +162,6 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     [rowIndexesByKey release];
     [firstRowIndexesByUUID release];
     [excerptPositions release];
-    [excerptQueue release];
     [excerptOwner release];
     [activeExcerptKey release];
     [library release];
@@ -208,7 +204,8 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     searchGeneration++;
     [searchService cancelRequestsForOwner:self];
     [excerptPositions removeAllObjects];
-    [excerptQueue removeAllObjects];
+    nextExcerptRow = 0;
+    excerptPassFinished = NO;
     [activeExcerptKey release]; activeExcerptKey = nil;
     serviceRequestID = 0;
     [searchResult release]; searchResult = nil;
@@ -629,36 +626,24 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
 - (void)regeneratePreviewsForColumn:(NSTableColumn *)column visibleFilteredRows:(NSRange)rows forceUpdate:(BOOL)force {
     [previewCache removeAllObjects];
 }
-- (void)updateExcerptRowsInTable:(NSTableView *)table {
-    if (![self searchResultsAreCurrent] || ![searchMode isEqualToString:@"fuzzy"] || ![self hasSearchTerms]) return;
-    NSRange range = [table rowsInRect:[table visibleRect]];
-    if (excerptTable != table || !NSEqualRanges(excerptVisibleRows, range)) [previewCache removeAllObjects];
-    excerptTable = table;
-    excerptVisibleRows = range;
-    NSUInteger end = range.location != NSNotFound ? MIN(NSMaxRange(range), [rowKeys count]) : 0;
-    NSMutableSet *wanted = [NSMutableSet set];
-    [excerptQueue removeAllObjects];
-    for (NSUInteger index = range.location; index < end; index++) {
-        if (![[self matchKindAtIndex:index] isEqualToString:@"fuzzy"]) continue;
-        NSString *key = [self rowKeyAtIndex:index];
-        [wanted addObject:key];
-        if (![excerptPositions objectForKey:key] && ![activeExcerptKey isEqualToString:key]) [excerptQueue addObject:key];
-    }
-    for (NSString *key in [[[excerptPositions allKeys] copy] autorelease])
-        if (![wanted containsObject:key]) [excerptPositions removeObjectForKey:key];
-    if (activeExcerptKey && ![wanted containsObject:activeExcerptKey]) {
-        [searchService cancelPositionRequestsForOwner:excerptOwner];
-        [activeExcerptKey release]; activeExcerptKey = nil;
-    }
-    [self startNextExcerpt];
-}
 - (void)startNextExcerpt {
-    if (activeExcerptKey || ![excerptQueue count] || !excerptTable || ![self searchResultsAreCurrent]) return;
-    activeExcerptKey = [[excerptQueue objectAtIndex:0] copy];
-    [excerptQueue removeObjectAtIndex:0];
-    NSUInteger index = [self indexForRowKey:activeExcerptKey];
-    NoteObject *note = [self noteObjectAtFilteredIndex:index];
-    if (!note) { [activeExcerptKey release]; activeExcerptKey = nil; [self startNextExcerpt]; return; }
+    if (activeExcerptKey || excerptPassFinished || !excerptTable || ![self searchResultsAreCurrent] ||
+        ![searchMode isEqualToString:@"fuzzy"] || ![self hasSearchTerms]) return;
+    // One pass in result order. Scrolling never changes or cancels this work.
+    while (nextExcerptRow < [rowKeys count]) {
+        NSUInteger row = nextExcerptRow++;
+        if (![[self matchKindAtIndex:row] isEqualToString:@"fuzzy"]) continue;
+        activeExcerptKey = [[self rowKeyAtIndex:row] copy];
+        break;
+    }
+    if (!activeExcerptKey) {
+        excerptPassFinished = YES;
+        [previewCache removeAllObjects];
+        [excerptTable reloadData];
+        [excerptTable displayRectIgnoringOpacity:[excerptTable visibleRect]];
+        [[excerptTable window] flushWindow];
+        return;
+    }
     NSUInteger generation = searchGeneration;
     NSString *key = activeExcerptKey;
     NSTableView *table = excerptTable;
@@ -666,13 +651,15 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         if (generation != searchGeneration || ![self searchResultsAreCurrent] || ![activeExcerptKey isEqualToString:key]) return;
         [activeExcerptKey release]; activeExcerptKey = nil;
         NSUInteger row = [self indexForRowKey:key];
-        NSRange visible = [table rowsInRect:[table visibleRect]];
-        if (row != NSNotFound && NSLocationInRange(row, visible)) {
+        if (row != NSNotFound) {
             // Mark a failed position lookup too, so repainting cannot start an endless retry loop.
             [excerptPositions setObject:positions ?: (id)[NSNull null] forKey:key];
             [previewCache removeAllObjects];
             NSInteger column = [table columnWithIdentifier:NoteTitleColumnString];
-            if (column >= 0) [table reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:row] columnIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)column]];
+            // Invalidate AppKit's row content even when it is outside the viewport.
+            // Clearing our preview cache alone does not notify the table.
+            if (column >= 0)
+                [table reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:row] columnIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)column]];
         }
         [self startNextExcerpt];
     }];
@@ -683,7 +670,8 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     NSString *context = [self accessibilityDescriptionForRow:index];
     if (![context length]) return [self previewForNote:note inTable:table];
     GlobalPrefs *prefs = [GlobalPrefs defaultPrefs];
-    [self updateExcerptRowsInTable:table];
+    excerptTable = table;
+    [self startNextExcerpt];
     NSTableColumn *column = [table tableColumnWithIdentifier:NoteTitleColumnString];
     CGFloat width = MAX(1.0, [column width] - [NSScroller scrollerWidth]);
     NSString *key = [NSString stringWithFormat:@"row:%@:%lu:%.1f:%d:%d", [self rowKeyAtIndex:index], (unsigned long)searchGeneration,

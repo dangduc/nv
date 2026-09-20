@@ -30,11 +30,11 @@
     NSUInteger resultCount, distinctResultNoteCount;
     BOOL searchPending, resultsCurrent, compositionSuspended, keepEditorForRequest, searchHasTerms;
     NSMutableDictionary *excerptPositions;
-    NSMutableArray *excerptQueue;
     NSObject *excerptOwner;
     NSString *activeExcerptKey;
     NSTableView *excerptTable; // non-owning; cleared when the browser detaches
-    NSRange excerptVisibleRows;
+    NSUInteger nextExcerptRow;
+    BOOL excerptPassFinished;
 }
 - (id)initWithLibrary:(NotationController *)aLibrary;
 - (NotationController *)library;

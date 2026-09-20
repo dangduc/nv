@@ -64,7 +64,9 @@ with tempfile.TemporaryDirectory(prefix='nvalt-fuzzy-ui-') as temporary:
         log_path = output / 'launch-services.log'
         log_path.write_text('')
         launch = ['open', '-W', '-n', '--stdout', str(log_path), '--stderr', str(log_path)]
-        for key in ['NV_WINDOW_TEST_DIRECTORY', 'DYLD_INSERT_LIBRARIES', 'TMPDIR', 'NV_UI_ARTIFACTS']:
+        for key in ['NV_WINDOW_TEST_DIRECTORY', 'DYLD_INSERT_LIBRARIES', 'TMPDIR', 'NV_UI_ARTIFACTS',
+                    'NV_FUZZ_LIST_HIGHLIGHTS', 'NV_FUZZ_SEED', 'NV_FUZZ_ITERATIONS',
+                    'NV_FUZZ_NATURAL', 'NV_FUZZ_DROP_REPAINTS']:
             if key in environment:
                 launch.extend(['--env', key + '=' + environment[key]])
         try:
