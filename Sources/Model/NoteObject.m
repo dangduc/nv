@@ -457,7 +457,7 @@ force_inline id tableTitleOfNote(NotesTableView *tv, NoteObject *note, NSInteger
 }
 force_inline id properlyHighlightingTableTitleOfNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
     id preview = tableTitleOfNote(tv, note, row);
-    return [tv isRowSelected:row] && [preview isKindOfClass:[NSAttributedString class]] ? [preview string] : preview;
+    return [tv isRowSelected:row] && [preview isKindOfClass:[NSAttributedString class]] ? AttributedStringForSelection(preview, NO) : preview;
 }
 
 force_inline id labelColumnCellForNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
@@ -470,7 +470,7 @@ force_inline id labelColumnCellForNote(NotesTableView *tv, NoteObject *note, NSI
 
 force_inline id unifiedCellSingleLineForNote(NotesTableView *tv, NoteObject *note, NSInteger row) {
 	
-	id obj = tableTitleOfNote(tv, note, row);
+	id obj = properlyHighlightingTableTitleOfNote(tv, note, row);
 	
 	UnifiedCell *cell = [[[tv tableColumns] objectAtIndex:0] dataCellForRow:row];
 	[cell setNoteObject:note];

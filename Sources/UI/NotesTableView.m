@@ -139,7 +139,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		
 		id (*titleReferencor)(id, id, NSInteger) = [self browserHorizontalLayout] ?
 		([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) :
-		([globalPrefs tableColumnsShowPreview] ? tableTitleOfNote : titleOfNote2);
+		tableTitleOfNote;
 		
 		NSString *colStrings[] = { NoteTitleColumnString, NoteLabelsColumnString, NoteDateModifiedColumnString, NoteDateCreatedColumnString };
 		SEL colMutators[] = { @selector(setTitleString:), @selector(setLabelString:), NULL, NULL };
@@ -378,7 +378,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 #endif
 	isActiveStyle = activeStyle;
 	[col setDereferencingFunction: [self browserHorizontalLayout] ? ([globalPrefs tableColumnsShowPreview] ? unifiedCellForNote : unifiedCellSingleLineForNote) :
-	 ([globalPrefs tableColumnsShowPreview] ? (activeStyle ? properlyHighlightingTableTitleOfNote : tableTitleOfNote) : titleOfNote2)];
+	 (activeStyle ? properlyHighlightingTableTitleOfNote : tableTitleOfNote)];
 }
 
 - (void)updateTitleDereferencorState {

@@ -16,6 +16,30 @@
         Check(FuzzyRow(sa, body, @"fuzzy") != NSNotFound && FuzzyRow(sa, gaps, @"fuzzy") != NSNotFound, @"complete source contributes native fuzzy matches");
         NSUInteger titleRow = FuzzyFieldRow(sa, road, @"title"), fuzzyRow = FuzzyFieldRow(sa, road, @"source");
         Check(titleRow != NSNotFound && fuzzyRow != NSNotFound, @"title and body matches have separate line rows");
+        NotesTableView *resultTable = [a valueForKey:@"notesTableView"];
+        Check(FuzzyAwait(^BOOL {
+            for (NSUInteger row = 0; row < [sa resultCount]; row++) {
+                NSAttributedString *preview = [sa previewForRow:row inTable:resultTable];
+                __block BOOL highlighted = NO;
+                [preview enumerateAttribute:NSBackgroundColorAttributeName inRange:NSMakeRange(0, [preview length]) options:0
+                    usingBlock:^(id color, NSRange range, BOOL *stop) { if (color) highlighted = YES; }];
+                if (!highlighted) return NO;
+            }
+            return YES;
+        }, 5), @"all visible title and body result previews receive native match highlights");
+        NSUInteger gapsRow = FuzzyFieldRow(sa, gaps, @"source");
+        FuzzySelect(a, gapsRow); [[a window] makeFirstResponder:resultTable];
+        NSAttributedString *selectedResult = [[resultTable dataSource] tableView:resultTable
+            objectValueForTableColumn:[resultTable tableColumnWithIdentifier:NoteTitleColumnString] row:gapsRow];
+        Check([selectedResult isKindOfClass:[NSAttributedString class]], @"selected table result preserves attributed match text");
+        NSUInteger gapStart = [[selectedResult string] rangeOfString:@"r---o---a---d"].location;
+        for (NSUInteger i = 0; i < 13; i++) {
+            BOOL matchCharacter = i % 4 == 0;
+            Check(([selectedResult attribute:NSBackgroundColorAttributeName atIndex:gapStart + i effectiveRange:NULL] != nil) == matchCharacter,
+                @"selected result highlights matching characters and leaves fuzzy gaps clear");
+        }
+        Check([[selectedResult attribute:NSForegroundColorAttributeName atIndex:gapStart effectiveRange:NULL] isEqual:[NSColor blackColor]],
+            @"selected match text remains readable on its highlight background");
         char *artifacts = getenv("NV_UI_ARTIFACTS");
         if (artifacts) {
             NSString *directory = [NSString stringWithUTF8String:artifacts];

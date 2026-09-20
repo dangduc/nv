@@ -156,6 +156,10 @@ NSAttributedString *AttributedStringForSelection(NSAttributedString *str, BOOL w
 	NSRange fullRange = NSMakeRange(0, [str length]);
 	NSMutableAttributedString *colorFreeStr = [str mutableCopy];
 	[colorFreeStr removeAttribute:NSForegroundColorAttributeName range:fullRange];
+    // Keep search matches legible against their background in selected rows.
+    [str enumerateAttribute:NSBackgroundColorAttributeName inRange:fullRange options:0 usingBlock:^(id color, NSRange range, BOOL *stop) {
+        if (color) [colorFreeStr addAttribute:NSForegroundColorAttributeName value:[NSColor blackColor] range:range];
+    }];
 	if (withShadow) {
 		//[colorFreeStr addAttribute:NSShadowAttributeName value:ShadowForSnowLeopard() range:NSMakeRange(0, [str length])];
 	}
