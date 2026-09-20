@@ -1,5 +1,6 @@
 #import "NVApplicationController.h"
 #import "NVBrowserSession.h"
+#import "NVSearchService.h"
 #import "NVNoteEditingSession.h"
 /*Copyright (c) 2010, Zachary Schneirov. All rights reserved.
  Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -1417,6 +1418,9 @@ terminateApp:
     NSString *nextRowKey = [[self browserSession] rowKeyAtIndex:noteIndex];
     BOOL changedOccurrence = note != currentNote || ![selectedSearchRowKey isEqual:nextRowKey];
     BOOL revealMatch = changedOccurrence && [[[self browserSession] matchKindAtIndex:noteIndex] isEqual:@"fuzzy"];
+    NVSearchMatch *match = [[[self browserSession] searchResult] matchForRowKey:nextRowKey];
+    BOOL revealSourceMatch = revealMatch && [[[match line] field] isEqual:@"source"] && !viewingNote;
+    if (changedOccurrence) [[textView layoutManager] setAllowsNonContiguousLayout:revealSourceMatch];
     if (changedOccurrence) searchScrollPending = NO;
     [selectedSearchRowKey release]; selectedSearchRowKey = [nextRowKey copy];
 	if (note != currentNote) {
@@ -1462,8 +1466,12 @@ terminateApp:
 		
 		//select and scroll
 		[textView setAutomaticallySelectedRange:noteSelectionRange];
-		[textView scrollRangeToVisible:noteSelectionRange];
-        [self restoreSourceScroll];
+        // The match will choose the viewport. Restoring the old viewport first
+        // forces layout through the old position, even near the end of a long note.
+        if (!revealSourceMatch) {
+            [textView scrollRangeToVisible:noteSelectionRange];
+            [self restoreSourceScroll];
+        }
 		
 		//NSString *words = noteIndex != [notationController preferredSelectedNoteIndex] ? typedString : nil;
 		//[textView setFutureSelectionRange:noteSelectionRange highlightingWords:words];

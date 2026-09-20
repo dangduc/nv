@@ -39,6 +39,8 @@ The probe uses a copied app, disposable notes, isolated defaults, and a shared d
 Its held-completion gate delays publication while retaining production matching and controller methods.
 It covers Return during pending work, supersession, mutation, Reveal, restoration, closure, and duplicate-row editing.
 It also compares WindowServer pixels before and after a 120-row highlight pass without user interaction.
+An eight-selection fixture alternates between two 4,001-line notes with matches near the end.
+It reports selection latency and checks that each match is visible without restoring the old viewport or laying out distant preceding text.
 Run repeatable list-highlight fuzzing with an explicit seed and timeout:
 
 ```sh
