@@ -3,8 +3,10 @@
 from pathlib import Path
 import subprocess
 import sys
+from desktop_test_support import require_clean_desktop
 
 repo = Path(__file__).resolve().parents[1]
+require_clean_desktop()
 checks = [
     'native-list/run-native.py',
     'source-highlighting/run.py',
@@ -42,6 +44,7 @@ paths = [repo / 'Tests' / check for check in [
     'BackupCoordinator/run.py', 'BackupPreferences/run.py', 'BackupArchive/native/run.py', 'BackupArchive/run.py',
 ]] + [repo / 'Tests/Regression' / check for check in checks]
 for path in paths:
+    require_clean_desktop()
     print('Running ' + str(path.relative_to(repo)), flush=True)
     subprocess.run([sys.executable, str(path)],
                    cwd=repo, check=True)
