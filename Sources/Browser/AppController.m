@@ -1414,7 +1414,11 @@ terminateApp:
 	NoteObject *note = [notationController noteObjectAtFilteredIndex:noteIndex];
     if (!note) return NO;
     [notesTableView setPrimarySelectedRow:(NSInteger)noteIndex];
-    [selectedSearchRowKey release]; selectedSearchRowKey = [[[self browserSession] rowKeyAtIndex:noteIndex] copy];
+    NSString *nextRowKey = [[self browserSession] rowKeyAtIndex:noteIndex];
+    BOOL changedOccurrence = note != currentNote || ![selectedSearchRowKey isEqual:nextRowKey];
+    BOOL revealMatch = changedOccurrence && [[[self browserSession] matchKindAtIndex:noteIndex] isEqual:@"fuzzy"];
+    if (changedOccurrence) searchScrollPending = NO;
+    [selectedSearchRowKey release]; selectedSearchRowKey = [nextRowKey copy];
 	if (note != currentNote) {
 		[self setEmptyViewState:NO];
 		
@@ -1464,11 +1468,13 @@ terminateApp:
 		//NSString *words = noteIndex != [notationController preferredSelectedNoteIndex] ? typedString : nil;
 		//[textView setFutureSelectionRange:noteSelectionRange highlightingWords:words];
 		
+        if (revealMatch) searchScrollPending = YES;
         [self refreshSearchHighlights];
         
 		return YES;
 	}
 	
+    if (revealMatch) searchScrollPending = YES;
 	[self refreshSearchHighlights];
 	return NO;
 }

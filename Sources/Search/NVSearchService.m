@@ -7,46 +7,64 @@ static NSError *NVSearchError(NVFZFStatus status) {
 static NSValue *NVSearchOwnerKey(id owner) { return [NSValue valueWithPointer:owner]; }
 static void NVSearchAssertMain(void) { NSCAssert([NSThread isMainThread], @"Search ownership belongs to main"); }
 
+@implementation NVSearchMatch
+@synthesize snapshot = _snapshot, line = _line, rowKey = _rowKey;
+- (id)initWithSnapshot:(NVSearchNoteSnapshot *)snapshot line:(NVSearchLine *)line {
+    if ((self = [super init])) {
+        _snapshot = [snapshot retain]; _line = [line retain];
+        const unsigned char *bytes = [[snapshot noteUUID] bytes];
+        NSMutableString *uuid = [NSMutableString stringWithCapacity:32];
+        for (NSUInteger i = 0; i < 16; ++i) [uuid appendFormat:@"%02x", bytes[i]];
+        _rowKey = [[NSString alloc] initWithFormat:@"fuzzy:%@:%@:%lu", uuid, [line field], (unsigned long)[line lineNumber]];
+    }
+    return self;
+}
+- (void)dealloc { [_snapshot release]; [_line release]; [_rowKey release]; [super dealloc]; }
+@end
+
 @interface NVSearchResult (Private)
-- (id)initWithRequestID:(NSUInteger)requestID revision:(NSUInteger)revision query:(NVSearchQuery *)query snapshots:(NSArray *)snapshots titles:(NSArray *)titles fuzzy:(NSArray *)fuzzy;
+- (id)initWithRequestID:(NSUInteger)requestID revision:(NSUInteger)revision query:(NVSearchQuery *)query snapshots:(NSArray *)snapshots matches:(NSArray *)matches;
 @end
 @implementation NVSearchResult
 @synthesize requestID = _requestID, corpusRevision = _corpusRevision, query = _query;
-@synthesize titleNoteUUIDs = _titleNoteUUIDs, fuzzyNoteUUIDs = _fuzzyNoteUUIDs;
-- (id)initWithRequestID:(NSUInteger)requestID revision:(NSUInteger)revision query:(NVSearchQuery *)query snapshots:(NSArray *)snapshots titles:(NSArray *)titles fuzzy:(NSArray *)fuzzy {
+@synthesize matches = _matches, fuzzyNoteUUIDs = _fuzzyNoteUUIDs;
+- (id)initWithRequestID:(NSUInteger)requestID revision:(NSUInteger)revision query:(NVSearchQuery *)query snapshots:(NSArray *)snapshots matches:(NSArray *)matches {
     if ((self = [super init])) {
-        _requestID = requestID; _corpusRevision = revision; _query = [query retain];
-        _titleNoteUUIDs = [titles copy]; _fuzzyNoteUUIDs = [fuzzy copy];
-        NSMutableDictionary *byUUID = [NSMutableDictionary dictionary];
+        _requestID = requestID; _corpusRevision = revision; _query = [query retain]; _matches = [matches copy];
+        NSMutableArray *ids = [NSMutableArray array];
+        NSMutableDictionary *byKey = [NSMutableDictionary dictionary], *byUUID = [NSMutableDictionary dictionary];
+        for (NVSearchMatch *match in matches) {
+            [ids addObject:[[match snapshot] noteUUID]]; [byKey setObject:match forKey:[match rowKey]];
+        }
+        _fuzzyNoteUUIDs = [ids copy]; _matchesByKey = [byKey copy];
         for (NVSearchNoteSnapshot *snapshot in snapshots) [byUUID setObject:snapshot forKey:[snapshot noteUUID]];
         _snapshotsByUUID = [byUUID copy];
     }
     return self;
 }
-- (void)dealloc { [_query release]; [_titleNoteUUIDs release]; [_fuzzyNoteUUIDs release]; [_snapshotsByUUID release]; [super dealloc]; }
+- (void)dealloc { [_query release]; [_matches release]; [_matchesByKey release]; [_fuzzyNoteUUIDs release]; [_snapshotsByUUID release]; [super dealloc]; }
 - (NVSearchNoteSnapshot *)snapshotForUUID:(NSData *)uuid { return [_snapshotsByUUID objectForKey:uuid]; }
-- (NSUInteger)distinctNoteCount { NSMutableSet *ids = [NSMutableSet setWithArray:_titleNoteUUIDs]; [ids addObjectsFromArray:_fuzzyNoteUUIDs]; return [ids count]; }
+- (NVSearchMatch *)matchForRowKey:(NSString *)key { return key ? [_matchesByKey objectForKey:key] : nil; }
+- (NSUInteger)distinctNoteCount { return [[NSSet setWithArray:_fuzzyNoteUUIDs] count]; }
 @end
 
-static NSArray *NVSearchRangesInField(NSArray *ranges, NSRange field) {
-    NSMutableArray *result = [NSMutableArray array];
-    for (NSValue *value in ranges) {
-        NSRange intersection = NSIntersectionRange([value rangeValue], field);
-        if (intersection.length) { intersection.location -= field.location; [result addObject:[NSValue valueWithRange:intersection]]; }
-    }
-    return result;
-}
 @interface NVSearchPositions (Private)
-- (id)initWithRanges:(NSArray *)ranges snapshot:(NVSearchNoteSnapshot *)snapshot;
+- (id)initWithRanges:(NSArray *)ranges match:(NVSearchMatch *)match;
 @end
 @implementation NVSearchPositions
 @synthesize titleRanges = _titleRanges, tagsRanges = _tagsRanges, sourceRanges = _sourceRanges, snapshot = _snapshot;
-- (id)initWithRanges:(NSArray *)ranges snapshot:(NVSearchNoteSnapshot *)snapshot {
+- (id)initWithRanges:(NSArray *)ranges match:(NVSearchMatch *)match {
     if ((self = [super init])) {
-        _snapshot = [snapshot retain];
-        _titleRanges = [NVSearchRangesInField(ranges, [snapshot titleRange]) copy];
-        _tagsRanges = [NVSearchRangesInField(ranges, [snapshot tagsRange]) copy];
-        _sourceRanges = [NVSearchRangesInField(ranges, [snapshot sourceRange]) copy];
+        _snapshot = [[match snapshot] retain];
+        NSMutableArray *translated = [NSMutableArray arrayWithCapacity:[ranges count]];
+        for (NSValue *value in ranges) {
+            NSRange range = [value rangeValue]; range.location += [[match line] range].location;
+            [translated addObject:[NSValue valueWithRange:range]];
+        }
+        NSString *field = [[match line] field];
+        _titleRanges = [([field isEqual:@"title"] ? translated : @[]) copy];
+        _tagsRanges = [([field isEqual:@"tags"] ? translated : @[]) copy];
+        _sourceRanges = [([field isEqual:@"source"] ? translated : @[]) copy];
     }
     return self;
 }
@@ -107,7 +125,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
    The completion/result fields are touched on main; scan state on the worker. */
 @interface NVSearchWork : NSObject {
 @public
-    NSUInteger requestID, revision, preparedCount;
+    NSUInteger requestID, revision, preparedCount, lineIndex;
     NSValue *ownerKey;
     NVSearchQuery *query;
     NSArray *snapshots;
@@ -115,7 +133,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
     NVFZFCancel *cancel;
     NVFZFCandidate *candidates;
     NVFZFJob *job;
-    NSMutableArray *titleIDs;
+    NSMutableArray *lineCandidates;
     NVSearchResult *result;
     NSError *error;
     BOOL completed;
@@ -123,7 +141,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
 - (void)cancel;
 @end
 @implementation NVSearchWork
-- (id)init { if ((self = [super init])) { cancel = nvfzf_cancel_create(); titleIDs = [[NSMutableArray alloc] init]; } return self; }
+- (id)init { if ((self = [super init])) { cancel = nvfzf_cancel_create(); lineCandidates = [[NSMutableArray alloc] init]; } return self; }
 - (void)cancel {
     nvfzf_cancel_set(cancel);
     NVSearchCompletion callback = completion; completion = nil;
@@ -131,7 +149,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
 }
 - (void)dealloc {
     nvfzf_job_free(job); free(candidates); nvfzf_cancel_free(cancel);
-    [ownerKey release]; [query release]; [snapshots release]; [completion release]; [titleIDs release]; [result release]; [error release]; [super dealloc];
+    [ownerKey release]; [query release]; [snapshots release]; [completion release]; [lineCandidates release]; [result release]; [error release]; [super dealloc];
 }
 @end
 @interface NVSearchPositionWork : NSObject {
@@ -141,7 +159,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
     NSValue *searchOwnerKey, *positionOwnerKey;
     NSUInteger requestID;
     NVSearchQuery *query;
-    NVSearchNoteSnapshot *snapshot;
+    NVSearchMatch *match;
     NVFZFPositions output;
     NVSearchRangeCursor cursor;
     NSMutableArray *ranges;
@@ -162,7 +180,7 @@ NSArray *NVSearchOriginalRanges(NSString *string, const uint32_t *offsets, NSUIn
 - (void)dealloc {
     nvfzf_positions_free(&output); nvfzf_cancel_free(cancel);
     [completion release]; [searchOwnerKey release]; [positionOwnerKey release];
-    [query release]; [snapshot release]; [ranges release]; [super dealloc];
+    [query release]; [match release]; [ranges release]; [super dealloc];
 }
 @end
 
@@ -308,7 +326,7 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
 }
 - (void)finishWork:(NVSearchWork *)work status:(NVFZFStatus)status fuzzy:(NSArray *)fuzzy {
     if (status == NVFZF_CANCELLED || nvfzf_cancel_is_set(work->cancel)) return;
-    NVSearchResult *result = status == NVFZF_OK ? [[[NVSearchResult alloc] initWithRequestID:work->requestID revision:work->revision query:work->query snapshots:work->snapshots titles:work->titleIDs fuzzy:fuzzy] autorelease] : nil;
+    NVSearchResult *result = status == NVFZF_OK ? [[[NVSearchResult alloc] initWithRequestID:work->requestID revision:work->revision query:work->query snapshots:work->snapshots matches:fuzzy] autorelease] : nil;
     NSError *error = status == NVFZF_OK ? nil : NVSearchError(status);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([_requests objectForKey:work->ownerKey] != work || work->revision != [_corpus revision] || nvfzf_cancel_is_set(work->cancel)) return;
@@ -323,26 +341,32 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
     if (!work->cancel) { [self finishWork:work status:NVFZF_OUT_OF_MEMORY fuzzy:nil]; return; }
     if (!_engine) _engine = nvfzf_engine_create();
     if (!_engine) { [self finishWork:work status:NVFZF_OUT_OF_MEMORY fuzzy:nil]; return; }
-    NSUInteger count = [work->snapshots count];
+    CFAbsoluteTime preparationDeadline = CFAbsoluteTimeGetCurrent() + 0.004;
+    for (NSUInteger batch = 0; work->preparedCount < [work->snapshots count] && batch < 64; ++batch) {
+        if (nvfzf_cancel_is_set(work->cancel)) return;
+        NVSearchNoteSnapshot *snapshot = [work->snapshots objectAtIndex:work->preparedCount];
+        NVFZFStatus preparationStatus;
+        BOOL ready = [snapshot prepareLinesWithCancellation:work->cancel status:&preparationStatus];
+        if (preparationStatus != NVFZF_OK) { [self finishWork:work status:preparationStatus fuzzy:nil]; return; }
+        if (!ready) break;
+        NSArray *lines = [snapshot lines];
+        if (work->lineIndex < [lines count]) {
+            if ([work->lineCandidates count] == UINT32_MAX) { [self finishWork:work status:NVFZF_INVALID_INPUT fuzzy:nil]; return; }
+            [work->lineCandidates addObject:[[[NVSearchMatch alloc] initWithSnapshot:snapshot line:[lines objectAtIndex:work->lineIndex++]] autorelease]];
+        } else { ++work->preparedCount; work->lineIndex = 0; }
+        if (CFAbsoluteTimeGetCurrent() >= preparationDeadline) break;
+    }
+    if (work->preparedCount < [work->snapshots count]) { dispatch_async(_worker, ^{ @autoreleasepool { [self runBatch:work]; } }); return; }
+    NSUInteger count = [work->lineCandidates count];
     if (!work->candidates && count) {
-        if (count > UINT32_MAX || count > SIZE_MAX / sizeof(NVFZFCandidate)) { [self finishWork:work status:NVFZF_INVALID_INPUT fuzzy:nil]; return; }
+        if (count > SIZE_MAX / sizeof(NVFZFCandidate)) { [self finishWork:work status:NVFZF_INVALID_INPUT fuzzy:nil]; return; }
         work->candidates = calloc(count, sizeof(NVFZFCandidate));
         if (!work->candidates) { [self finishWork:work status:NVFZF_OUT_OF_MEMORY fuzzy:nil]; return; }
-    }
-    if (work->preparedCount < count) {
-        NSUInteger end = MIN(count, work->preparedCount + 64);
-        CFAbsoluteTime deadline = CFAbsoluteTimeGetCurrent() + 0.004;
-        while (work->preparedCount < end) {
+        for (NSUInteger i = 0; i < count; ++i) {
             if (nvfzf_cancel_is_set(work->cancel)) return;
-            NVSearchNoteSnapshot *snapshot = [work->snapshots objectAtIndex:work->preparedCount];
-            NVFZFStatus preparationStatus;
-            NSData *bytes = [snapshot preparedUTF8WithCancellation:work->cancel status:&preparationStatus];
-            if (preparationStatus != NVFZF_OK) { [self finishWork:work status:preparationStatus fuzzy:nil]; return; }
-            work->candidates[work->preparedCount++] = (NVFZFCandidate){[bytes bytes], [bytes length]};
-            if ([work->query matchesTitle:[snapshot title]]) [work->titleIDs addObject:[snapshot noteUUID]];
-            if (CFAbsoluteTimeGetCurrent() >= deadline) break;
+            NSData *bytes = [[[work->lineCandidates objectAtIndex:i] line] preparedUTF8];
+            work->candidates[i] = (NVFZFCandidate){[bytes bytes], [bytes length]};
         }
-        if (work->preparedCount < count) { dispatch_async(_worker, ^{ @autoreleasepool { [self runBatch:work]; } }); return; }
     }
     NVFZFStatus status = NVFZF_OK;
     if (!work->job) {
@@ -363,11 +387,12 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
     NSMutableArray *fuzzy = [NSMutableArray arrayWithCapacity:output.count];
     if (status == NVFZF_OK) for (NSUInteger i = 0; i < output.count; ++i) {
         if (nvfzf_cancel_is_set(work->cancel)) { status = NVFZF_CANCELLED; break; }
-        [fuzzy addObject:[[work->snapshots objectAtIndex:output.matches[i].candidate_index] noteUUID]];
+        [fuzzy addObject:[work->lineCandidates objectAtIndex:output.matches[i].candidate_index]];
     }
     nvfzf_search_result_free(&output);
     nvfzf_job_free(work->job); work->job = NULL;
     free(work->candidates); work->candidates = NULL;
+    [work->lineCandidates removeAllObjects];
     [self finishWork:work status:status fuzzy:fuzzy];
 }
 - (void)cancelPositionRequestsForOwner:(id)positionOwner {
@@ -380,16 +405,27 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
     [self requestPositionsForNoteUUID:uuid requestID:requestID owner:owner positionOwner:owner completion:completion];
 }
 - (void)requestPositionsForNoteUUID:(NSData *)uuid requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion {
+    NVSearchAssertMain();
+    NVSearchWork *search = [_requests objectForKey:NVSearchOwnerKey(owner)];
+    if (!search) return;
+    for (NVSearchMatch *match in [search->result matches]) {
+        if ([[[match snapshot] noteUUID] isEqual:uuid]) {
+            [self requestPositionsForRowKey:[match rowKey] requestID:requestID owner:owner positionOwner:positionOwner completion:completion];
+            return;
+        }
+    }
+}
+- (void)requestPositionsForRowKey:(NSString *)rowKey requestID:(NSUInteger)requestID owner:(id)owner positionOwner:(id)positionOwner completion:(NVSearchPositionsCompletion)completion {
     NVSearchAssertMain(); NSParameterAssert(positionOwner);
     NSValue *key = NVSearchOwnerKey(owner), *positionKey = NVSearchOwnerKey(positionOwner);
     NVSearchWork *search = [_requests objectForKey:key];
     if (![self isRequestCurrent:requestID forOwner:owner] || !search->completed || !search->result) return;
-    NVSearchNoteSnapshot *snapshot = [search->result snapshotForUUID:uuid]; if (!snapshot) return;
+    NVSearchMatch *match = [search->result matchForRowKey:rowKey]; if (!match) return;
     NVSearchPositionWork *old = [[_positionRequests objectForKey:positionKey] retain];
     NVSearchPositionWork *work = [[[NVSearchPositionWork alloc] init] autorelease];
     work->completion = [completion copy]; work->searchOwnerKey = [key retain];
     work->positionOwnerKey = [positionKey retain]; work->requestID = requestID;
-    work->query = [search->query retain]; work->snapshot = [snapshot retain];
+    work->query = [search->query retain]; work->match = [match retain];
     [_positionRequests setObject:work forKey:positionKey];
     dispatch_async(_worker, ^{ @autoreleasepool { [self runPositionBatch:work]; } });
     [old cancel]; [old release];
@@ -400,11 +436,11 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
     if (status == NVFZF_OK && !work->hasPositions) {
         NVFZFTerm *terms = NULL; NSArray *dataOwner = nil;
         status = NVSearchBuildTerms(work->query, &terms, &dataOwner);
-        NSData *bytes = [work->snapshot preparedUTF8];
+        NSData *bytes = [[work->match line] preparedUTF8];
         if (status == NVFZF_OK) status = nvfzf_positions_terms(_engine, (NVFZFCandidate){[bytes bytes], [bytes length]}, terms, [[work->query terms] count], work->cancel, &work->output);
         (void)dataOwner; free(terms); work->hasPositions = YES;
     }
-    if (status == NVFZF_OK && !NVSearchMapRangesBatch([work->snapshot candidate], work->output.offsets, work->output.count, work->cancel, &status, &work->cursor, work->ranges)) {
+    if (status == NVFZF_OK && !NVSearchMapRangesBatch([[work->match line] text], work->output.offsets, work->output.count, work->cancel, &status, &work->cursor, work->ranges)) {
         // Preserve every native offset while letting another browser's queued
         // query run between complete composed-character mapping batches.
         dispatch_async(_worker, ^{ @autoreleasepool { [self runPositionBatch:work]; } });
@@ -412,7 +448,7 @@ static NVFZFStatus NVSearchBuildTerms(NVSearchQuery *query, NVFZFTerm **output, 
     }
     nvfzf_positions_free(&work->output);
     if (status == NVFZF_CANCELLED || nvfzf_cancel_is_set(work->cancel)) return;
-    NVSearchPositions *positions = status == NVFZF_OK ? [[[NVSearchPositions alloc] initWithRanges:work->ranges snapshot:work->snapshot] autorelease] : nil;
+    NVSearchPositions *positions = status == NVFZF_OK ? [[[NVSearchPositions alloc] initWithRanges:work->ranges match:work->match] autorelease] : nil;
     NSError *error = status == NVFZF_OK ? nil : NVSearchError(status);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([_positionRequests objectForKey:work->positionOwnerKey] != work || ![self isRequestCurrent:work->requestID ownerKey:work->searchOwnerKey] || nvfzf_cancel_is_set(work->cancel)) return;

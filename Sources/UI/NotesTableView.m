@@ -697,8 +697,9 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	NSMenu *theMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NVBrowserSession *session = [NVControllerForView(self) browserSession];
     if ([[session searchMode] isEqualToString:@"fuzzy"] && [session hasSearchTerms]) {
-        NSMenuItem *scope = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Sort title matches", nil) action:NULL keyEquivalent:@""] autorelease];
+        NSMenuItem *scope = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Fuzzy results are sorted by relevance", nil) action:NULL keyEquivalent:@""] autorelease];
         [scope setEnabled:NO]; [theMenu addItem:scope];
+        return theMenu;
     }
     
     NSEnumerator *theEnumerator = [allColumns objectEnumerator];

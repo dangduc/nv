@@ -232,6 +232,8 @@ static NSDictionary *ValidatedBodyState(id value) {
     [self setViewingNote:[version isKindOfClass:[NSNumber class]] && [version integerValue] == 1 &&
         [mode isKindOfClass:[NSNumber class]] && [mode boolValue]];
     [self updateBodyPresentation];
+    // Restoring a saved window restores its viewport, not a new row-selection intent.
+    searchScrollPending = NO;
     [self refreshSearchHighlights];
 }
 @end

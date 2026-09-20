@@ -29,6 +29,18 @@ static NSComparisonResult NVSearchCompareUUID(NSData *left, NSData *right) {
     return [left length] < [right length] ? NSOrderedAscending : ([left length] > [right length] ? NSOrderedDescending : NSOrderedSame);
 }
 
+@implementation NVSearchLine
+@synthesize text = _text, field = _field, range = _range, lineNumber = _lineNumber, preparedUTF8 = _preparedUTF8;
+- (id)initWithText:(NSString *)text field:(NSString *)field range:(NSRange)range lineNumber:(NSUInteger)lineNumber bytes:(NSData *)bytes {
+    if ((self = [super init])) {
+        _text = [text copy]; _field = [field copy]; _range = range;
+        _lineNumber = lineNumber; _preparedUTF8 = [bytes retain];
+    }
+    return self;
+}
+- (void)dealloc { [_text release]; [_field release]; [_preparedUTF8 release]; [super dealloc]; }
+@end
+
 @implementation NVSearchNoteSnapshot
 @synthesize noteUUID = _noteUUID, title = _title, tags = _tags, source = _source, revision = _revision;
 - (id)initWithNoteUUID:(NSData *)uuid title:(NSString *)title tags:(NSString *)tags source:(NSString *)source revision:(NSUInteger)revision {
@@ -41,29 +53,36 @@ static NSComparisonResult NVSearchCompareUUID(NSData *left, NSData *right) {
 }
 - (void)dealloc {
     [_noteUUID release]; [_title release]; [_tags release]; [_source release];
-    [_candidate release]; [_preparedUTF8 release]; [super dealloc];
+    [_lines release]; [super dealloc];
 }
 - (BOOL)hasSameContentAsSnapshot:(NVSearchNoteSnapshot *)other {
     return other && [_noteUUID isEqual:[other noteUUID]] && [_title isEqualToString:[other title]] &&
         [_tags isEqualToString:[other tags]] && [_source isEqualToString:[other source]];
 }
-- (NSString *)candidate {
-    if (!_candidate) _candidate = [[NSString alloc] initWithFormat:@"%@\n%@\n%@", _title, _tags, _source];
-    return _candidate;
-}
-- (NSData *)preparedUTF8 {
-    NVFZFStatus status;
-    return [self preparedUTF8WithCancellation:NULL status:&status];
-}
-- (NSData *)preparedUTF8WithCancellation:(NVFZFCancel *)cancel status:(NVFZFStatus *)status {
+- (NSArray *)lines { return _lines; }
+- (BOOL)prepareLinesWithCancellation:(NVFZFCancel *)cancel status:(NVFZFStatus *)status {
     *status = NVFZF_OK;
-    if (nvfzf_cancel_is_set(cancel)) { *status = NVFZF_CANCELLED; return nil; }
-    if (!_preparedUTF8) _preparedUTF8 = [NVSearchCanonicalUTF8([self candidate], cancel, status) retain];
-    return _preparedUTF8;
+    if (!_lines) _lines = [[NSMutableArray alloc] init];
+    CFAbsoluteTime deadline = CFAbsoluteTimeGetCurrent() + 0.004;
+    for (NSUInteger batch = 0; _lineField < 3 && batch < 64; ++batch) {
+        if (nvfzf_cancel_is_set(cancel)) { *status = NVFZF_CANCELLED; return YES; }
+        NSString *text = _lineField == 0 ? _title : (_lineField == 1 ? _tags : _source);
+        if (_lineOffset >= [text length]) { ++_lineField; _lineOffset = _lineNumber = 0; continue; }
+        NSUInteger end, contentsEnd;
+        [text getLineStart:NULL end:&end contentsEnd:&contentsEnd forRange:NSMakeRange(_lineOffset, 0)];
+        NSRange range = NSMakeRange(_lineOffset, contentsEnd - _lineOffset);
+        if (range.length) {
+            NSString *line = [text substringWithRange:range];
+            NSData *bytes = NVSearchCanonicalUTF8(line, cancel, status);
+            if (*status != NVFZF_OK) return YES;
+            NSString *field = _lineField == 0 ? @"title" : (_lineField == 1 ? @"tags" : @"source");
+            [_lines addObject:[[[NVSearchLine alloc] initWithText:line field:field range:range lineNumber:_lineNumber + 1 bytes:bytes] autorelease]];
+        }
+        _lineOffset = end; ++_lineNumber;
+        if (CFAbsoluteTimeGetCurrent() >= deadline) break;
+    }
+    return _lineField == 3;
 }
-- (NSRange)titleRange { return NSMakeRange(0, [_title length]); }
-- (NSRange)tagsRange { return NSMakeRange([_title length] + 1, [_tags length]); }
-- (NSRange)sourceRange { return NSMakeRange([_title length] + [_tags length] + 2, [_source length]); }
 @end
 
 @implementation NVSearchCorpus

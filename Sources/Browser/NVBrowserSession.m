@@ -240,7 +240,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     if (found) return [found unsignedIntegerValue];
     NSRange separator = [key rangeOfString:@":"];
     if (separator.location == NSNotFound) return NSNotFound;
-    NSString *suffix = [key substringFromIndex:separator.location];
+    NSString *suffix = [[key componentsSeparatedByString:@":"] objectAtIndex:1];
     found = [firstRowIndexesByUUID objectForKey:suffix];
     return found ? [found unsignedIntegerValue] : NSNotFound;
 }
@@ -259,8 +259,12 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
 }
 - (NSString *)accessibilityDescriptionForRow:(NSUInteger)index {
     NSString *kind = [self matchKindAtIndex:index];
-    if ([kind isEqualToString:@"title"]) return NSLocalizedString(@"Title match", nil);
-    if ([kind isEqualToString:@"fuzzy"]) return NSLocalizedString(@"Fuzzy match", nil);
+    if ([kind isEqualToString:@"fuzzy"]) {
+        NVSearchLine *line = [[searchResult matchForRowKey:[self rowKeyAtIndex:index]] line];
+        NSString *field = [[line field] isEqual:@"title"] ? NSLocalizedString(@"Title", nil) :
+            ([[line field] isEqual:@"tags"] ? NSLocalizedString(@"Tags", nil) : NSLocalizedString(@"Body", nil));
+        return [NSString stringWithFormat:NSLocalizedString(@"%@ · line %lu", nil), field, (unsigned long)[line lineNumber]];
+    }
     if ([kind isEqualToString:@"retained"]) return NSLocalizedString(@"Current note outside search results", nil);
     return @"";
 }
@@ -279,7 +283,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         NSString *key = [rowKeys objectAtIndex:index];
         NSNumber *value = [NSNumber numberWithUnsignedInteger:index];
         [rowIndexesByKey setObject:value forKey:key];
-        NSString *uuid = [key substringFromIndex:[key rangeOfString:@":"].location];
+        NSString *uuid = [[key componentsSeparatedByString:@":"] objectAtIndex:1];
         if (![firstRowIndexesByUUID objectForKey:uuid]) [firstRowIndexesByUUID setObject:value forKey:uuid];
     }
 }
@@ -337,10 +341,12 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     NSMutableDictionary *lookup = [NSMutableDictionary dictionary];
     for (NoteObject *note in [library allNotes]) [lookup setObject:note forKey:NVBrowserNoteUUID(note)];
     notesByUUID = lookup;
-    NSMutableArray *titles = [NSMutableArray array], *fuzzy = [NSMutableArray array];
-    for (NSData *uuid in [result titleNoteUUIDs]) { NoteObject *note = [notesByUUID objectForKey:uuid]; if (note) [titles addObject:note]; }
-    for (NSData *uuid in [result fuzzyNoteUUIDs]) { NoteObject *note = [notesByUUID objectForKey:uuid]; if (note) [fuzzy addObject:note]; }
-    if ([titles count] != [[result titleNoteUUIDs] count] || [fuzzy count] != [[result fuzzyNoteUUIDs] count]) {
+    NSMutableArray *fuzzy = [NSMutableArray array];
+    for (NVSearchMatch *match in [result matches]) {
+        NoteObject *note = [notesByUUID objectForKey:[[match snapshot] noteUUID]];
+        if (note) [fuzzy addObject:note];
+    }
+    if ([fuzzy count] != [[result matches] count]) {
         resultsCurrent = NO;
         searchPending = NO;
         [searchError release];
@@ -348,16 +354,14 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         [self notifySearchStateChanged];
         return;
     }
-    [self sortNotes:titles];
     refreshing = YES;
     [delegate notationListMightChange:(id)self];
     // Delegate hooks can commit edits or replace the query. Fence again before publication.
     if (generation != searchGeneration || ![searchService isRequestCurrent:[result requestID] forOwner:self]) { refreshing = NO; return; }
     NoteObject *current = keepEditorForRequest ? [delegate selectedNoteObject] : nil;
-    [visibleNotes setArray:titles]; [visibleNotes addObjectsFromArray:fuzzy];
+    [visibleNotes setArray:fuzzy];
     [rowKeys removeAllObjects];
-    for (NoteObject *note in titles) [rowKeys addObject:NVBrowserRowKey(note, @"title")];
-    for (NoteObject *note in fuzzy) [rowKeys addObject:NVBrowserRowKey(note, @"fuzzy")];
+    for (NVSearchMatch *match in [result matches]) [rowKeys addObject:[match rowKey]];
     resultCount = [visibleNotes count];
     NSMutableSet *unique = [NSMutableSet set];
     for (NoteObject *note in visibleNotes) [unique addObject:NVBrowserNoteUUID(note)];
@@ -386,7 +390,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     }
     NSUInteger generation = searchGeneration;
     NSString *key = [self rowKeyAtIndex:index];
-    [searchService requestPositionsForNoteUUID:NVBrowserNoteUUID(note) requestID:serviceRequestID owner:self completion:^(NVSearchPositions *positions, NSError *error) {
+    [searchService requestPositionsForRowKey:key requestID:serviceRequestID owner:self positionOwner:self completion:^(NVSearchPositions *positions, NSError *error) {
         if (!error && positions && generation == searchGeneration && [self searchResultsAreCurrent] &&
             [[self rowKeyAtIndex:index] isEqualToString:key]) completion([positions sourceRanges], [[positions snapshot] source]);
     }];
@@ -420,16 +424,16 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     if (![self searchResultsAreCurrent]) return NSNotFound;
     BOOL fuzzy = [searchMode isEqualToString:@"fuzzy"] && [self hasSearchTerms];
     if ([searchString length] && [[GlobalPrefs defaultPrefs] autoCompleteSearches]) {
+        if (fuzzy) return resultCount ? 0 : NSNotFound;
         NSUInteger best = NSNotFound, length = NSUIntegerMax;
         for (NSUInteger i = 0; i < [visibleNotes count]; i++) {
-            if (fuzzy && ![[self matchKindAtIndex:i] isEqualToString:@"title"]) continue;
             NSString *title = ((NoteObject *)[visibleNotes objectAtIndex:i])->titleString;
             if ([title rangeOfString:searchString options:NSCaseInsensitiveSearch | NSAnchoredSearch].location == 0 && [title length] < length) {
                 best = i;
                 length = [title length];
             }
         }
-        return best != NSNotFound ? best : (fuzzy && resultCount ? 0 : NSNotFound);
+        return best;
     }
     return NSNotFound;
 }
@@ -644,7 +648,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     NSUInteger generation = searchGeneration;
     NSString *key = activeExcerptKey;
     NSTableView *table = excerptTable;
-    [searchService requestPositionsForNoteUUID:NVBrowserNoteUUID(note) requestID:serviceRequestID owner:self positionOwner:excerptOwner completion:^(NVSearchPositions *positions, NSError *error) {
+    [searchService requestPositionsForRowKey:key requestID:serviceRequestID owner:self positionOwner:excerptOwner completion:^(NVSearchPositions *positions, NSError *error) {
         if (generation != searchGeneration || ![self searchResultsAreCurrent] || ![activeExcerptKey isEqualToString:key]) return;
         [activeExcerptKey release]; activeExcerptKey = nil;
         NSUInteger row = [self indexForRowKey:key];
@@ -672,28 +676,36 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
         width, [delegate horizontalLayout], [prefs tableColumnsShowPreview]];
     id preview = [previewCache objectForKey:key];
     if (preview) return preview;
-    NSString *source = [[note contentString] string] ?: @"";
+    NVSearchMatch *match = [searchResult matchForRowKey:[self rowKeyAtIndex:index]];
+    NVSearchLine *line = [match line];
+    if ([[line field] isEqual:@"title"]) context = @"";
+    else if ([[line field] isEqual:@"source"])
+        context = [NSString stringWithFormat:NSLocalizedString(@"line:%lu", nil), (unsigned long)[line lineNumber]];
+    NSString *source = line ? [line text] : ([[note contentString] string] ?: @"");
     id cachedPositions = [excerptPositions objectForKey:[self rowKeyAtIndex:index]];
     NSUInteger first = 0;
-    if (cachedPositions && cachedPositions != [NSNull null]) {
+    if (cachedPositions && cachedPositions != [NSNull null] && line) {
         NVSearchPositions *positions = cachedPositions;
-        source = [[positions snapshot] source];
-        NSArray *ranges = [positions sourceRanges];
-        if ([ranges count]) first = [[ranges objectAtIndex:0] rangeValue].location;
+        NSArray *ranges = [[line field] isEqual:@"title"] ? [positions titleRanges] :
+            ([[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges]);
+        if ([ranges count]) first = [[ranges objectAtIndex:0] rangeValue].location - [line range].location;
     }
     NSUInteger start = first > 45 ? first - 45 : 0;
     NSRange excerpt = [source rangeOfComposedCharacterSequencesForRange:NSMakeRange(start, MIN((NSUInteger)220, [source length] - start))];
     source = [NSString stringWithFormat:@"%@%@%@", excerpt.location ? @"…" : @"", [source substringWithRange:excerpt], NSMaxRange(excerpt) < [source length] ? @"…" : @""];
     // Match context is metadata beside the real title. It never becomes a note or an editable title.
     if ([prefs tableColumnsShowPreview]) {
-        NSAttributedString *body = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ · %@", context, source]] autorelease];
+        NSString *excerptText = [context length] ? [NSString stringWithFormat:@"%@ · %@", context, source] : source;
+        NSAttributedString *body = [[[NSAttributedString alloc] initWithString:excerptText] autorelease];
         preview = [delegate horizontalLayout] ? [note->titleString attributedMultiLinePreviewFromBodyText:body upToWidth:width intrusionWidth:0] :
             [note->titleString attributedSingleLinePreviewFromBodyText:body upToWidth:width];
     } else {
         NSMutableAttributedString *title = [[[note->titleString attributedSingleLineTitle] mutableCopy] autorelease];
-        NSAttributedString *label = [[[NSAttributedString alloc] initWithString:[@"  · " stringByAppendingString:context]
-            attributes:@{NSForegroundColorAttributeName: [NSColor secondaryLabelColor]}] autorelease];
-        [title appendAttributedString:label];
+        if ([context length]) {
+            NSAttributedString *label = [[[NSAttributedString alloc] initWithString:[@"  · " stringByAppendingString:context]
+                attributes:@{NSForegroundColorAttributeName: [NSColor secondaryLabelColor]}] autorelease];
+            [title appendAttributedString:label];
+        }
         preview = title;
     }
     if (preview) [previewCache setObject:preview forKey:key];

@@ -262,7 +262,7 @@ static NSArray *FuzzyUUIDs(NVBrowserSession *session) {
 int main(void) {
     @autoreleasepool {
         CheckTagTargetCapture();
-        NoteObject *a = Note(@"qzr Zebra", @"first body"), *b = Note(@"qzr Alpha", @"second body");
+        NoteObject *a = Note(@"qzr Zebra", @"first body\nqzr alternate zebra"), *b = Note(@"qzr Alpha", @"second body\nqzr alternate alpha");
         NoteObject *c = Note(@"Body only", @"q----z----r"), *d = Note(@"Empty", @"none");
         TestLibrary *library = [[[TestLibrary alloc] initWithNotes:@[a, b, c, d]] autorelease];
         NVSearchService *service = [[[NVSearchService alloc] init] autorelease]; Capture(service, library);
@@ -270,18 +270,25 @@ int main(void) {
         TestOwner *owner = [[[TestOwner alloc] init] autorelease]; [session setDelegate:owner];
         [session setSearchService:service]; [session setSearchMode:@"fuzzy"];
         Search(session, @"qzr");
-        Check([Visible(session) count] == 5, "both complete groups include overlapping notes");
+        Check([Visible(session) count] == 5, "matching lines include repeated notes");
         Check([session resultCount] == 5 && [session distinctResultNoteCount] == 3, "row and distinct note counts differ");
-        Check([session noteObjectAtFilteredIndex:0] == b && [session noteObjectAtFilteredIndex:1] == a, "literal title group appears first in column order");
-        Check([[session matchKindAtIndex:0] isEqualToString:@"title"] && [[session matchKindAtIndex:2] isEqualToString:@"fuzzy"], "occurrences carry separate kinds");
+        for (NSUInteger i = 0; i < 5; ++i)
+            Check([[session matchKindAtIndex:i] isEqual:@"fuzzy"], "every row is fuzzy; no strict title group");
         Check([FuzzyUUIDs(session) isEqual:[[session searchResult] fuzzyNoteUUIDs]], "complete fuzzy order equals service order");
         NSArray *nativeOrder = [[FuzzyUUIDs(session) copy] autorelease];
         NSUInteger requestID = [[session searchResult] requestID], generation = [session searchGeneration];
         [session filterNotesFromString:@"qzr"]; [session libraryDidChange];
         Check([[session searchResult] requestID] == requestID && [session searchGeneration] == generation, "equal query and presentation refresh reuse matching identity");
-        NSString *titleKey = [[session rowKeyAtIndex:0] copy];
-        NSUInteger duplicate = NSNotFound;
-        for (NSUInteger i = 2; i < 5; i++) if ([session noteObjectAtFilteredIndex:i] == b) duplicate = i;
+        NSUInteger titleIndex = NSNotFound, duplicate = NSNotFound;
+        for (NSUInteger i = 0; i < 5; i++) if ([session noteObjectAtFilteredIndex:i] == b) {
+            NVSearchLine *line = [[[session searchResult] matchForRowKey:[session rowKeyAtIndex:i]] line];
+            if ([[line field] isEqual:@"title"]) titleIndex = i; else duplicate = i;
+        }
+        Check(titleIndex != NSNotFound && duplicate != NSNotFound, "title and body lines have separate rows");
+        NSString *titleKey = [[session rowKeyAtIndex:titleIndex] copy];
+        NSString *uuid = [[titleKey componentsSeparatedByString:@":"] objectAtIndex:1];
+        Check([session noteObjectAtFilteredIndex:[session indexForRowKey:[@"title:" stringByAppendingString:uuid]]] == b, "legacy title row restores same note");
+        Check([session noteObjectAtFilteredIndex:[session indexForRowKey:[@"fuzzy:" stringByAppendingString:uuid]]] == b, "legacy fuzzy row restores same note");
         NSString *fuzzyKey = [[session rowKeyAtIndex:duplicate] copy];
         Check(![titleKey isEqualToString:fuzzyKey], "one note has distinct occurrence keys");
         Check([session indexForRowKey:fuzzyKey] == duplicate, "row lookup preserves selected occurrence");
@@ -291,7 +298,7 @@ int main(void) {
         PrimaryFixtureOwner *primaryOwner;
         PrimaryFixtureTable *primaryTable = PrimaryTable(session, &primaryOwner);
         [primaryTable selectRowIndexes:[NSIndexSet indexSetWithIndex:duplicate] byExtendingSelection:NO];
-        [primaryTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:YES];
+        [primaryTable selectRowIndexes:[NSIndexSet indexSetWithIndex:titleIndex] byExtendingSelection:YES];
         NSIndexSet *duplicateSelection = [[[primaryTable selectedRowIndexes] copy] autorelease];
         [primaryTable simulateNativeSelectionRebuild:duplicateSelection];
         Check([[primaryTable selectedRowIndexes] isEqualToIndexSet:duplicateSelection], "native selection rebuild preserves duplicate row membership");
@@ -304,12 +311,12 @@ int main(void) {
         Check([[session rowKeyAtIndex:[primaryTable primarySelectedRow]] isEqual:fuzzyKey], "fuzzy occurrence remains primary after complete NSIndexSet restoration");
         NSArray *selectedOccurrenceKeys = [[session rowKeysAtIndexes:duplicateSelection] copy];
         [session setSortColumn:nil reversed:YES];
-        Check([session noteObjectAtFilteredIndex:0] == a && [session noteObjectAtFilteredIndex:1] == b, "column reverse changes title group");
-        Check([FuzzyUUIDs(session) isEqual:nativeOrder] && [[session searchResult] requestID] == requestID, "column reverse leaves native group and matching identity unchanged");
+        Check([FuzzyUUIDs(session) isEqual:nativeOrder], "column reverse does not reorder fuzzy lines");
+        Check([FuzzyUUIDs(session) isEqual:nativeOrder] && [[session searchResult] requestID] == requestID, "column reverse leaves native ranking and matching identity unchanged");
         Check([session noteObjectAtFilteredIndex:[session indexForRowKey:fuzzyKey]] == b && [[session matchKindAtIndex:[session indexForRowKey:fuzzyKey]] isEqualToString:@"fuzzy"], "occurrence survives column sort");
         [primaryTable reloadData];
         [primaryTable selectRowIndexes:[session indexesForRowKeys:selectedOccurrenceKeys] byExtendingSelection:NO];
-        Check([[session rowKeyAtIndex:[primaryTable primarySelectedRow]] isEqual:fuzzyKey], "primary fuzzy key survives title-group reorder");
+        Check([[session rowKeyAtIndex:[primaryTable primarySelectedRow]] isEqual:fuzzyKey], "primary fuzzy key survives sort preference change");
         Check([[session notesAtIndexes:[primaryTable selectedRowIndexes]] count] == 1, "two selected occurrences still project to one edit target");
         NVBrowserSession *peerSession = [[[NVBrowserSession alloc] initWithLibrary:(id)library] autorelease];
         [peerSession setSearchService:service]; [peerSession setSearchMode:@"fuzzy"]; Search(peerSession, @"qzr");
@@ -321,7 +328,7 @@ int main(void) {
         [selectedOccurrenceKeys release];
         [primaryTable setDelegate:nil]; [primaryTable setDataSource:nil];
         Autocomplete = YES;
-        Check([session preferredSelectedNoteIndex] < 2, "autocomplete searches title group first");
+        Check([session preferredSelectedNoteIndex] == 0, "fuzzy autocomplete uses the first native-ranked line");
         Autocomplete = NO;
 
         [session filterNotesFromString:@"Body"];
@@ -399,7 +406,7 @@ int main(void) {
         [session requestSourceHighlightsForRow:0 completion:^(NSArray *ranges, NSString *source) { sourceAlongsideExcerpt = YES; }];
         Check(Spin(^BOOL { return table->reloads > 0 && sourceAlongsideExcerpt; }), "visible excerpt and selected source positions coexist");
         NSString *afterExcerpt = [[session previewForRow:0 inTable:(id)table] string];
-        Check([afterExcerpt containsString:@"l--m--n"] && [afterExcerpt containsString:@"Fuzzy match"], "native source positions place late match in context preview");
+        Check([afterExcerpt containsString:@"l--m--n"] && [afterExcerpt containsString:@"line:1"], "native source positions place late match in context preview");
         table->visibleRows = NSMakeRange(NSNotFound, 0);
         [session previewForRow:0 inTable:(id)table];
         Check([[session valueForKey:@"excerptPositions"] count] == 0, "excerpt positions are bounded to visible rows");

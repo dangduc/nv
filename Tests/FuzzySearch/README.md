@@ -21,8 +21,8 @@ It checks immediate invalidation in two observers before any model commit.
 | Suite | Scope |
 | --- | --- |
 | Core | Full native order, typed terms, fallback, resumed scans, positions, cancellation, explicit limits, and allocation fault injection. |
-| Service | Query parsing, immutable corpus updates, stale requests, independent owners, NFC mapping, source positions, errors, and worker lifetime. |
-| Browser | Title-first groups, overlapping UUIDs, native order, row keys, unique command targets, retained rows, composition, excerpts, and captured inline edits. |
+| Service | Query parsing, line boundaries, native line ranking, repeated lines, Unicode offsets, corpus updates, stale requests, and independent owners. |
+| Browser | Ranked line rows, repeated UUIDs, native order, row keys, unique command targets, retained rows, composition, excerpts, and captured inline edits. |
 | Persistence | Mode and occurrence through bookmarks, saved searches, followed links, and legacy defaults. Negative mutations detect lost rows and changed legacy modes. |
 | Highlights | Shared character edits invalidate source highlights without treating attribute changes as source mutations. |
 | HighlightBounds | Bounded background discovery, exact source compatibility, stale-publication guards, and capped TextKit attributes. |
@@ -32,7 +32,7 @@ It checks immediate invalidation in two observers before any model commit.
 After an Intel Development app build, run the production UI probe:
 
 ```sh
-python3 Tests/FuzzySearch/UI/run.py
+python3 Tests/FuzzySearch/UI/run.py --launch-services
 ```
 
 The probe uses a copied app, disposable notes, isolated defaults, and a shared desktop-test lock.
@@ -43,10 +43,29 @@ It covers Return during pending work, supersession, mutation, Reveal, restoratio
 Run `python3 Tests/FuzzySearch/run-service-tests.py --benchmark` for generated-corpus measurements.
 The fixture uses deterministic UUIDs with distributed bytes, since artificial shared-prefix keys distort Foundation dictionary timings.
 The [service measurement record](Measurements/README.md) contains corpus sizes, query timings, cancellation timings, and memory use.
-The service suite passes 135 checks natively and under ASan/UBSan.
+The line-candidate service suite passes 214 checks natively and under ASan/UBSan.
 The native bridge benchmark and dependency provenance are documented in [ORIGIN.md](../../Sources/Search/ORIGIN.md).
 
-## Local validation limits
+## Line-candidate validation (September 19, 2026)
+
+The Intel Development build succeeds on macOS 13.7.8 with Xcode 15.2.
+The native service, browser, persistence, lifecycle, and position-mapping suites pass.
+The service and browser suites also pass with ASan/UBSan.
+The highlight-bound suite rejects its negative controls.
+The foreground application probe passes 78 checks through Launch Services, including two optional screenshot checks.
+The probe covers five matching lines from three notes, shared editing, Undo, restoration, highlights, and pending searches.
+Long-note fixtures check that each selected body match enters the viewport, with highlighting enabled or disabled.
+They also check stale scroll completions, saved viewport restoration, manual scrolling, selection across notes, and transitions from Preview to Source.
+`NV_UI_ARTIFACTS` selects the screenshot directory.
+Direct executable launch fails the foreground-focus check on this host.
+After rebasing onto master `40dab8c`, the multiple-window suite passes 35 checks and 13 relaunch checks.
+The earlier replacement-library stall was resolved by the library-switch fix on master.
+The full regression suite stops at the direct-launch fuzzy UI focus check after rebase.
+The same UI probe passes through Launch Services. Wrapped-separator checks also pass after rebase.
+The scrolling follow-up regression run stopped at wrapped-separator note reattachment. That check passed on retry and on the unchanged build.
+The backup application probe fails its encrypted-library restore check. The unchanged baseline build reproduces that failure.
+
+## Historical validation limits (September 9, 2026)
 
 The Intel Development app builds on macOS 26.5.2 with Xcode 26.6 and deployment target 10.13.
 Native arm64 tests and sanitizer runs pass for the implemented paths.

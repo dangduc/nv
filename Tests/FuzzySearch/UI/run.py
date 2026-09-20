@@ -18,6 +18,7 @@ from compiler_support import include_flags
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--build-only', action='store_true', help='Compile the injected probe without starting an Intel process.')
+parser.add_argument('--launch-services', action='store_true', help='Use Launch Services so the focus checks can acquire a foreground window.')
 parser.add_argument('--timeout', type=float, default=60, help='Disposable app timeout in seconds.')
 a = parser.parse_args()
 output = ROOT / 'build/FuzzySearchUI'
@@ -56,7 +57,23 @@ with tempfile.TemporaryDirectory(prefix='nvalt-fuzzy-ui-') as temporary:
         (root / directory).mkdir()
     environment = dict(os.environ, NV_WINDOW_TEST_DIRECTORY=str(root), DYLD_INSERT_LIBRARIES=str(dylib), TMPDIR=str(root/'Temp') + '/')
     binary = app/'Contents/MacOS'/info['CFBundleExecutable']
-    process = subprocess.Popen([str(binary), '-ShowDockIcon', 'YES', '-StatusBarItem', 'NO', '-QuitWhenClosingMainWindow', 'NO'], env=environment)
+    arguments = ['-ShowDockIcon', 'YES', '-StatusBarItem', 'NO', '-QuitWhenClosingMainWindow', 'NO']
+    if a.launch_services:
+        log_path = output / 'launch-services.log'
+        log_path.write_text('')
+        launch = ['open', '-W', '-n', '--stdout', str(log_path), '--stderr', str(log_path)]
+        for key in ['NV_WINDOW_TEST_DIRECTORY', 'DYLD_INSERT_LIBRARIES', 'TMPDIR', 'NV_UI_ARTIFACTS']:
+            if key in environment:
+                launch.extend(['--env', key + '=' + environment[key]])
+        try:
+            result = subprocess.run(launch + [str(app), '--args', *arguments], timeout=a.timeout)
+        except subprocess.TimeoutExpired:
+            print(log_path.read_text(), end='')
+            raise SystemExit('Launch Services probe timed out; no completed result.')
+        log = log_path.read_text()
+        print(log, end='')
+        raise SystemExit(0 if result.returncode == 0 and 'FUZZY APP WORKFLOW PASSED' in log else 1)
+    process = subprocess.Popen([str(binary), *arguments], env=environment)
     try:
         code = process.wait(timeout=a.timeout)
     except subprocess.TimeoutExpired:

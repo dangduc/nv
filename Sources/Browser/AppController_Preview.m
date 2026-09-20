@@ -137,6 +137,7 @@ static NSString *NotePresentationKey(NoteObject *note) {
     else {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateViewerSnapshot) object:nil];
         [previewController cancelRendering]; [self restoreSourceScroll];
+        if (searchScrollPending) [self refreshSearchHighlights];
     }
 }
 - (void)focusNoteBody {

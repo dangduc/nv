@@ -25,7 +25,80 @@ static NVSearchResult *Search(NVSearchService *service, id owner, NSString *quer
     if (errorOut) *errorOut = [error autorelease]; else { Check(error == nil, "no search error"); [error release]; }
     return [result autorelease];
 }
+static void CheckLineCandidates(void) {
+    NVSearchService *service = [[[NVSearchService alloc] init] autorelease];
+    NSObject *owner = [[[NSObject alloc] init] autorelease];
+    NSString *body = @"zero\r\nqzr qzr\n\nq---z---r\rne\u0301bula qzr\u2028qzr\u2029qzr\n";
+    NVSearchNoteSnapshot *note = Note(10, @"qzr qzr", @"qzr", body, 1);
+    [service synchronizeWithSnapshots:@[note]];
+    NVSearchResult *result = Search(service, owner, @"qzr", NULL);
+    Check([[result matches] count] == 7 && [result distinctNoteCount] == 1, "one row per matching line, not per repeated occurrence or note");
+    // Independent, explicit candidate list: empty lines and CR/LF terminators
+    // are absent, but original field/line coordinates are retained.
+    NSArray *texts = @[@"qzr qzr", @"qzr", @"zero", @"qzr qzr", @"q---z---r", @"nébula qzr", @"qzr", @"qzr"];
+    NSArray *fields = @[@"title", @"tags", @"source", @"source", @"source", @"source", @"source", @"source"];
+    NSArray *numbers = @[@1, @1, @1, @2, @4, @5, @6, @7];
+    NVFZFCandidate candidates[8];
+    NSMutableArray *bytesOwner = [NSMutableArray array];
+    for (NSUInteger i = 0; i < 8; ++i) {
+        NSData *bytes = [texts[i] dataUsingEncoding:NSUTF8StringEncoding]; [bytesOwner addObject:bytes];
+        candidates[i] = (NVFZFCandidate){[bytes bytes], [bytes length]};
+    }
+    NVFZFEngine *engine = nvfzf_engine_create();
+    NVFZFTerm term = {"qzr", 3, NVFZF_TERM_FUZZY}; NVFZFSearchResult expected = {0};
+    Check(nvfzf_search_terms(engine, candidates, 8, &term, 1, NULL, &expected) == NVFZF_OK, "native reference scores explicit line candidates");
+    Check(expected.count == [[result matches] count], "all native line matches published");
+    NSMutableSet *keys = [NSMutableSet set];
+    NSUInteger sourceRows = 0;
+    for (NSUInteger i = 0; i < expected.count; ++i) {
+        NVSearchMatch *match = [result matches][i]; NVSearchLine *line = [match line];
+        NSUInteger nativeIndex = expected.matches[i].candidate_index;
+        Check([[line field] isEqual:fields[nativeIndex]] && [line lineNumber] == [numbers[nativeIndex] unsignedIntegerValue], "result order equals native rank without title priority");
+        Check(![keys containsObject:[match rowKey]], "identical lines have distinct occurrence keys"); [keys addObject:[match rowKey]];
+        if ([[line field] isEqual:@"source"]) {
+            ++sourceRows;
+            Check([[body substringWithRange:[line range]] isEqual:[line text]], "line offsets refer to original UTF16 source including CRLF and NFD");
+        }
+        __block BOOL positioned = NO;
+        [service requestPositionsForRowKey:[match rowKey] requestID:[result requestID] owner:owner positionOwner:owner completion:^(NVSearchPositions *positions, NSError *error) {
+            Check(!error && positions != nil, "line-specific positions complete");
+            NSArray *ranges = [[line field] isEqual:@"source"] ? [positions sourceRanges] : ([[line field] isEqual:@"title"] ? [positions titleRanges] : [positions tagsRanges]);
+            Check([ranges count] > 0, "selected line has highlight positions");
+            for (NSValue *value in ranges) {
+                NSRange range = [value rangeValue];
+                Check(range.location >= [line range].location && NSMaxRange(range) <= NSMaxRange([line range]), "highlight positions stay in the requested line");
+            }
+            if (![[line field] isEqual:@"source"]) Check(![[positions sourceRanges] count], "title and tag matches do not highlight unrelated body lines");
+            positioned = YES;
+        }];
+        Check(Spin(^BOOL { return positioned; }), "positions finish for each occurrence");
+    }
+    Check(sourceRows == 5, "body keeps five matching lines including repeated identical lines");
+    Check([[[[result matches] firstObject] line].field isEqual:@"tags"], "short exact tag line can outrank literal title");
+    nvfzf_search_result_free(&expected); nvfzf_engine_free(engine);
+    Check(![[Search(service, owner, @"zero qzr", NULL) matches] count], "AND terms cannot be assembled across body lines");
+    [service synchronizeWithSnapshots:@[Note(10, @"qz", @"", @"r", 2)]];
+    Check(![[Search(service, owner, @"qzr", NULL) matches] count], "fuzzy characters cannot be assembled across fields");
+    [service synchronizeWithSnapshots:@[Note(10, @"qzr\nqzr", @"", @"q\nzr", 3)]];
+    Check([[Search(service, owner, @"qzr", NULL) matches] count] == 2, "multiline titles split and body characters cannot cross lines");
+    NSMutableString *dense = [NSMutableString string];
+    for (NSUInteger i = 0; i < 4096; ++i) [dense appendString:@"needle needle\n"];
+    NVSearchNoteSnapshot *denseNote = Note(10, @"Other", @"", dense, 4);
+    [service synchronizeWithSnapshots:@[denseNote]];
+    __block BOOL stale = NO;
+    [service requestForOwner:owner query:@"obsolete" completion:^(NVSearchResult *r, NSError *e) { stale = YES; }];
+    result = Search(service, owner, @"needle", NULL);
+    Check(!stale && [[result matches] count] == 4096, "dense line search is complete and superseded preparation cannot publish");
+    NVSearchMatch *last = [[result matches] lastObject];
+    Check([[last line] lineNumber] == 4096 && [[last line] range].location == 4095 * 14, "identical line ties preserve original line order and offsets");
+    NVSearchLine *cachedLine = [[result matches][0] line];
+    result = Search(service, owner, @"need", NULL);
+    Check([[result matches][0] line] == cachedLine, "repeated queries reuse immutable normalized line preparation");
+    [service cancelRequestsForOwner:owner];
+}
+
 int main(void) { @autoreleasepool {
+    CheckLineCandidates();
     NVSearchQuery *grammar = [[[NVSearchQuery alloc] initWithString:@"road:map\t\"blue sky\" 'x !x ^x $x |x \\x \"unfinished phrase"] autorelease];
     NSArray *terms = [grammar terms]; Check([terms count] == 10, "legacy separator grammar count");
     Check([[[terms objectAtIndex:2] text] isEqualToString:@"blue sky"] && [[terms objectAtIndex:2] isPhrase], "quoted phrase type");
@@ -70,11 +143,10 @@ int main(void) { @autoreleasepool {
     NSObject *peer = [[[NSObject alloc] init] autorelease];
     [service synchronizeWithSnapshots:@[a, b, c]];
     NVSearchResult *result = Search(service, owner, @"road", NULL);
-    Check([[result titleNoteUUIDs] isEqual:@[UUID(2), UUID(3)]], "title group excludes tag/body matches");
-    Check([[result fuzzyNoteUUIDs] count] == 3, "complete fuzzy group includes title overlap");
+    Check([[result fuzzyNoteUUIDs] count] == 5, "each matching title, tag and body line appears once");
     Check([result distinctNoteCount] == 3, "distinct count independent of row count");
-    Check([[result titleNoteUUIDs] count] + [[result fuzzyNoteUUIDs] count] == 5, "duplicate result occurrences retained");
-    Check([[Search(service, owner, @"\"road map\"", NULL) fuzzyNoteUUIDs] count] == 2, "quoted literal phrase accepts title and tags");
+    Check([[result matches] count] == 5, "duplicate result occurrences retained");
+    Check([[Search(service, owner, @"\"road map\"", NULL) fuzzyNoteUUIDs] count] == 3, "quoted literal phrase accepts title, tags and body lines");
     Check([[Search(service, owner, @"\"r d\"", NULL) fuzzyNoteUUIDs] count] == 0, "phrase does not fuzzy match gaps");
     for (NSString *literal in @[@"!bang", @"^anchor", @"$cash", @"|pipe", @"'quote", @"\\slash"]) {
         result = Search(service, owner, literal, NULL);
@@ -133,7 +205,7 @@ int main(void) { @autoreleasepool {
     for (NSString *query in @[@"road", @"newly", @"changed tags", @"body"]) {
         NVSearchResult *cachedResult = Search(service, owner, query, NULL);
         NVSearchResult *freshResult = Search(fresh, peer, query, NULL);
-        Check([[cachedResult titleNoteUUIDs] isEqual:[freshResult titleNoteUUIDs]] && [[cachedResult fuzzyNoteUUIDs] isEqual:[freshResult fuzzyNoteUUIDs]], "incremental cache equals fresh complete result");
+        Check([[cachedResult fuzzyNoteUUIDs] isEqual:[freshResult fuzzyNoteUUIDs]], "incremental cache equals fresh complete result");
     }
     [fresh invalidate];
     __block BOOL closureCalled = NO;
