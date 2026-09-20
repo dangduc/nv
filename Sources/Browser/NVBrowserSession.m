@@ -115,6 +115,20 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     return YES;
 }
 
+// Native positions refer to the original field. Clip them to the displayed slice
+// before translating past the title, context label, and optional leading ellipsis.
+static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray *ranges, NSRange sourceSlice, NSUInteger offset) {
+    if (offset >= [preview length]) return;
+    for (NSValue *value in ranges) {
+        NSRange range = NSIntersectionRange([value rangeValue], sourceSlice);
+        if (!range.length) continue;
+        range.location = offset + range.location - sourceSlice.location;
+        range = NSIntersectionRange(range, NSMakeRange(offset, [preview length] - offset));
+        if (range.length) [preview addAttributes:@{NSBackgroundColorAttributeName: [NSColor colorWithCalibratedRed:1.0 green:0.85 blue:0.3 alpha:1.0],
+            NSForegroundColorAttributeName: [NSColor blackColor]} range:range];
+    }
+}
+
 @implementation NVBrowserSession
 - (id)initWithLibrary:(NotationController *)aLibrary {
     if ((self = [super init])) {
@@ -669,7 +683,7 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     NSString *context = [self accessibilityDescriptionForRow:index];
     if (![context length]) return [self previewForNote:note inTable:table];
     GlobalPrefs *prefs = [GlobalPrefs defaultPrefs];
-    if ([prefs tableColumnsShowPreview]) [self updateExcerptRowsInTable:table];
+    [self updateExcerptRowsInTable:table];
     NSTableColumn *column = [table tableColumnWithIdentifier:NoteTitleColumnString];
     CGFloat width = MAX(1.0, [column width] - [NSScroller scrollerWidth]);
     NSString *key = [NSString stringWithFormat:@"row:%@:%lu:%.1f:%d:%d", [self rowKeyAtIndex:index], (unsigned long)searchGeneration,
@@ -684,9 +698,10 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
     NSString *source = line ? [line text] : ([[note contentString] string] ?: @"");
     id cachedPositions = [excerptPositions objectForKey:[self rowKeyAtIndex:index]];
     NSUInteger first = 0;
+    NSArray *ranges = nil;
     if (cachedPositions && cachedPositions != [NSNull null] && line) {
         NVSearchPositions *positions = cachedPositions;
-        NSArray *ranges = [[line field] isEqual:@"title"] ? [positions titleRanges] :
+        ranges = [[line field] isEqual:@"title"] ? [positions titleRanges] :
             ([[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges]);
         if ([ranges count]) first = [[ranges objectAtIndex:0] rangeValue].location - [line range].location;
     }
@@ -707,6 +722,20 @@ static BOOL NVSearchRefinesTerms(NSArray *previous, NSArray *next) {
             [title appendAttributedString:label];
         }
         preview = title;
+    }
+    if (preview && [ranges count]) {
+        NSMutableAttributedString *highlighted = [[preview mutableCopy] autorelease];
+        if ([[line field] isEqual:@"title"])
+            NVHighlightPreviewRanges(highlighted, ranges, NSMakeRange(0, [note->titleString length]), 0);
+        if ([prefs tableColumnsShowPreview]) {
+            NSUInteger offset = [note->titleString length] + ([delegate horizontalLayout] ? 1 :
+                [NSLocalizedString(@" option-shift-dash ", @"title/description delimiter") length]);
+            offset += [context length] ? [context length] + [@" · " length] : 0;
+            offset += excerpt.location ? 1 : 0;
+            NVHighlightPreviewRanges(highlighted, ranges,
+                NSMakeRange([line range].location + excerpt.location, excerpt.length), offset);
+        }
+        preview = highlighted;
     }
     if (preview) [previewCache setObject:preview forKey:key];
     return preview ?: note->titleString;

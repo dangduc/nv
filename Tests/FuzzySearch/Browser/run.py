@@ -22,6 +22,10 @@ for prefix in ["- (BOOL)searchRowsAreAvailable", "- (NSInteger)primarySelectedRo
     start = table_source.index(prefix)
     selection_methods.append(table_source[start:table_source.index("\n}", start) + 2])
 (out / "primary-selection.inc").write_text("\n".join(selection_methods))
+cell_source = (ROOT / "Sources/UI/UnifiedCell.m").read_text()
+start = cell_source.index("NSAttributedString *AttributedStringForSelection(")
+(out / "selected-preview.inc").write_text(cell_source[start:cell_source.index("\n}", start) + 2])
+
 controller_source = (ROOT / "Sources/Browser/AppController.m").read_text()
 tag_methods = []
 for prefix in ["- (void)captureMultiTagNotes:", "- (NSArray *)pendingMultiTagNotes", "- (void)cancelMultiTagEditing",

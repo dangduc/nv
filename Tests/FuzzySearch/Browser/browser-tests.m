@@ -11,7 +11,7 @@
 NSString *NoteTitleColumnString = @"title";
 NSString *NoteDateModifiedColumnString = @"Date Modified";
 static NSUInteger ContentsReads, LibraryReads, Comparisons, Checks;
-static BOOL Autocomplete;
+static BOOL Autocomplete, HidePreview, MultiLinePreview;
 static NSUInteger LabelWrites, ClosedTagEditors;
 static void Check(BOOL condition, const char *message) {
     if (!condition) { fprintf(stderr, "FAIL: %s\n", message); exit(1); }
@@ -20,7 +20,7 @@ static void Check(BOOL condition, const char *message) {
 @implementation GlobalPrefs
 + (GlobalPrefs *)defaultPrefs { static GlobalPrefs *prefs; if (!prefs) prefs = [[self alloc] init]; return prefs; }
 - (BOOL)tableIsReverseSorted { return NO; }
-- (BOOL)tableColumnsShowPreview { return YES; }
+- (BOOL)tableColumnsShowPreview { return !HidePreview; }
 - (unsigned int)tableColumnsBitmap { return 0; }
 - (BOOL)autoCompleteSearches { return Autocomplete; }
 @end
@@ -74,7 +74,7 @@ static void Check(BOOL condition, const char *message) {
 - (void)notationListDidChange:(id)session { }
 - (void)browserSessionSearchDidComplete:(id)session { completions++; }
 - (void)browserSessionSearchStateDidChange:(id)session { stateChanges++; }
-- (BOOL)horizontalLayout { return NO; }
+- (BOOL)horizontalLayout { return MultiLinePreview; }
 @end
 typedef NSInteger (*CompareNotes)(id *, id *);
 static NSInteger Ascending(id *a, id *b) { Comparisons++; return [((NoteObject *)*a)->titleString compare:((NoteObject *)*b)->titleString]; }
@@ -105,10 +105,10 @@ static NSArray *Visible(NVBrowserSession *session) {
 @implementation NSString (TestPreviewFormatting)
 - (id)attributedSingleLineTitle { return [[[NSAttributedString alloc] initWithString:self] autorelease]; }
 - (id)attributedSingleLinePreviewFromBodyText:(NSAttributedString *)body upToWidth:(CGFloat)width {
-    return [[[NSAttributedString alloc] initWithString:[self stringByAppendingFormat:@" | %@", [body string]]] autorelease];
+    return [[[NSAttributedString alloc] initWithString:[self stringByAppendingFormat:@"%@%@", NSLocalizedString(@" option-shift-dash ", @"title/description delimiter"), [body string]]] autorelease];
 }
 - (id)attributedMultiLinePreviewFromBodyText:(NSAttributedString *)body upToWidth:(CGFloat)width intrusionWidth:(CGFloat)intrusion {
-    return [self attributedSingleLinePreviewFromBodyText:body upToWidth:width];
+    return [[[NSAttributedString alloc] initWithString:[self stringByAppendingFormat:@"\n%@", [body string]]] autorelease];
 }
 @end
 @interface TestPreviewColumn : NSObject
@@ -132,6 +132,7 @@ static NSArray *Visible(NVBrowserSession *session) {
 @end
 // Run the exact production occurrence-selection methods on a native NSTableView.
 // The small owner supplies only a browser and records delivered row context.
+#include "selected-preview.inc"
 @interface PrimaryFixtureTable : NSTableView { NSString *primarySelectionRowKey; }
 - (NSInteger)primarySelectedRow;
 - (void)setPrimarySelectedRow:(NSInteger)row;
@@ -407,10 +408,45 @@ int main(void) {
         Check(Spin(^BOOL { return table->reloads > 0 && sourceAlongsideExcerpt; }), "visible excerpt and selected source positions coexist");
         NSString *afterExcerpt = [[session previewForRow:0 inTable:(id)table] string];
         Check([afterExcerpt containsString:@"l--m--n"] && [afterExcerpt containsString:@"line:1"], "native source positions place late match in context preview");
+        NSAttributedString *marked = [session previewForRow:0 inTable:(id)table];
+        NSUInteger matchStart = [[marked string] rangeOfString:@"l--m--n"].location;
+        for (NSUInteger i = 0; i < [marked length]; i++) {
+            BOOL expected = i == matchStart || i == matchStart + 3 || i == matchStart + 6;
+            Check(([marked attribute:NSBackgroundColorAttributeName atIndex:i effectiveRange:NULL] != nil) == expected,
+                "late excerpt highlights only native characters, excluding gaps and metadata");
+        }
+        NSAttributedString *selectedPreview = AttributedStringForSelection(marked, NO);
+        Check([[selectedPreview attribute:NSForegroundColorAttributeName atIndex:matchStart effectiveRange:NULL] isEqual:[NSColor blackColor]],
+            "selected match retains black text against highlight background");
+        Check([selectedPreview attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL] == nil,
+            "selected nonmatch uses the cell selection text color");
         table->visibleRows = NSMakeRange(NSNotFound, 0);
         [session previewForRow:0 inTable:(id)table];
         Check([[session valueForKey:@"excerptPositions"] count] == 0, "excerpt positions are bounded to visible rows");
         [library removeNote:longNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
+        NoteObject *unicodeNote = Note(@"Café 🐈", @"unmatched first line\nCafe\u0301 🐈");
+        [library addNote:unicodeNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
+        for (NSNumber *layout in @[@NO, @YES]) {
+            MultiLinePreview = [layout boolValue];
+            for (NSNumber *hidden in @[@NO, @YES]) {
+                HidePreview = [hidden boolValue];
+                Search(session, @"café"); table->visibleRows = NSMakeRange(0, [session resultCount]);
+                [session previewForRow:0 inTable:(id)table];
+                Check(Spin(^BOOL { return [[session valueForKey:@"excerptPositions"] count] == 2; }), "title and body native positions arrive with previews on or off");
+                for (NSUInteger row = 0; row < [session resultCount]; row++) {
+                    NSAttributedString *value = [session previewForRow:row inTable:(id)table];
+                    BOOL titleMatch = [[session rowKeyAtIndex:row] containsString:@":title:"];
+                    __block NSUInteger highlightedCount = 0;
+                    [value enumerateAttribute:NSBackgroundColorAttributeName inRange:NSMakeRange(0, [value length]) options:0 usingBlock:^(id color, NSRange range, BOOL *stop) {
+                        if (color) highlightedCount += range.length;
+                    }];
+                    Check(highlightedCount == (titleMatch ? (HidePreview ? 4 : 8) : (HidePreview ? 0 : 5)),
+                        "Unicode title and second-line body highlights retain original UTF-16 ranges in both layouts");
+                }
+            }
+        }
+        HidePreview = MultiLinePreview = NO;
+        [library removeNote:unicodeNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
         Search(session, @"Empty");
 
         TestTable *editingTable = [[[TestTable alloc] init] autorelease];
