@@ -1847,7 +1847,36 @@ terminateApp:
 		}
         reloadingNotesList = NO;
         if (!isFilteringFromTyping) [self processChangedSelectionForTable:notesTableView];
+        [self revealPendingCreatedNoteInList];
 	}
+}
+
+- (void)scheduleCreatedNoteListReveal:(NoteObject *)note {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(revealPendingCreatedNoteInList) object:nil];
+    [pendingCreatedNoteReveal release];
+    pendingCreatedNoteReveal = [note retain];
+    if (pendingCreatedNoteReveal)
+        [self performSelector:@selector(revealPendingCreatedNoteInList) withObject:nil afterDelay:0.0];
+}
+
+- (void)revealPendingCreatedNoteInList {
+    if (!pendingCreatedNoteReveal || reloadingNotesList) return;
+    NoteObject *note = [[pendingCreatedNoteReveal retain] autorelease];
+    if ((currentNote && currentNote != note) ||
+        ![[[self sharedNotationController] allNotes] containsObject:note] ||
+        ![[self browserSession] searchResultsAreCurrent]) {
+        [self cancelPendingCreatedNoteListReveal];
+        return;
+    }
+    NSUInteger row = [[self browserSession] indexInFilteredListForNoteIdenticalTo:note];
+    if (row == NSNotFound) return;
+    [self cancelPendingCreatedNoteListReveal];
+    [notesTableView selectRowAndScroll:(NSInteger)row];
+}
+
+- (void)cancelPendingCreatedNoteListReveal {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(revealPendingCreatedNoteInList) object:nil];
+    [pendingCreatedNoteReveal release]; pendingCreatedNoteReveal = nil;
 }
 
 - (void)titleUpdatedForNote:(NoteObject*)aNoteObject {
@@ -1890,6 +1919,7 @@ terminateApp:
 - (void)windowWillClose:(NSNotification *)notification {
     [self cancelMultiTagEditing];
     [self cancelSearchIntents];
+    [self cancelPendingCreatedNoteListReveal];
     [[self browserSession] invalidateSearch];
     [self finishEditing];
     [self discardViewer];
@@ -1944,6 +1974,7 @@ terminateApp:
     [pendingSearchReturnQuery release];
     [pendingSearchRestoration release];
     [pendingSearchReveal release];
+    [pendingCreatedNoteReveal release];
     [searchStatusField release];
     [typedString release];
     [noteSelections release];

@@ -29,9 +29,15 @@
         [[self browserSession] searchResultsAreCurrent], @"Command-N clears the query and leaves current results");
     Check([prefsController showTitleInTopSection] ? [noteTitleField currentEditor] != nil : [window firstResponder] == textView,
         @"Command-N retains the configured title or source editing focus");
+    NSInteger createdRow = [notesTableView primarySelectedRow];
+    Check(createdRow >= 0 && NSContainsRect([notesTableView visibleRect], [notesTableView rectOfRow:createdRow]),
+        @"Command-N scrolls the created note fully into the notes list viewport");
     for (NSUInteger attempt = 0; attempt < 4; attempt++) Pump();
     Check([self selectedNoteObject] == created && [library totalNoteCount] == count + 1,
         @"late search callbacks preserve the new note and create no extra note");
+    createdRow = [notesTableView primarySelectedRow];
+    Check(createdRow >= 0 && NSContainsRect([notesTableView visibleRect], [notesTableView rectOfRow:createdRow]),
+        @"post-creation list refreshes keep the created note in view");
     [library removeNote:created]; [created release]; Pump();
 }
 
@@ -39,6 +45,19 @@
     BOOL showTitle = [prefsController showTitleInTopSection];
     BOOL showTags = [prefsController showTagsInTopSection];
     BOOL showList = [prefsController showNotesList];
+    NoteAttributeColumn *oldSort = [[[self browserSession] sortColumn] retain];
+    BOOL oldReverse = [[self browserSession] reverseSorted];
+    NSMutableArray *fillerNotes = [NSMutableArray array];
+    for (NSUInteger index = 0; index < 40; index++) {
+        NoteObject *filler = MakeNote([[NVApplicationController sharedController] library],
+            [NSString stringWithFormat:@"Scroll fixture %02lu", (unsigned long)index], @"filler");
+        [fillerNotes addObject:filler];
+    }
+    [[self browserSession] setSortColumn:[notesTableView noteAttributeColumnForIdentifier:NoteDateModifiedColumnString]
+        reversed:YES];
+    [self searchForString:@"" mode:@"exact"]; Pump();
+    Check([notesTableView numberOfRows] > (NSInteger)[notesTableView rowsInRect:[notesTableView visibleRect]].length,
+        @"the New Note visibility fixture spans multiple list viewports");
     [prefsController setShowTitleInTopSection:NO sender:nil];
     [self nv_activateBrowser];
     for (NSString *mode in @[@"exact", @"fuzzy"]) {
@@ -106,4 +125,7 @@
     [prefsController setShowTitleInTopSection:showTitle sender:nil];
     [prefsController setShowTagsInTopSection:showTags sender:nil];
     [prefsController setShowNotesList:showList sender:nil];
+    [[[NVApplicationController sharedController] library] removeNotes:fillerNotes]; Pump();
+    [[self browserSession] setSortColumn:oldSort reversed:oldReverse];
+    [oldSort release];
 }

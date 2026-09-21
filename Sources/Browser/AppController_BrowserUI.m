@@ -328,10 +328,11 @@
     [field setStringValue:@""];
     [typedString release]; typedString = [@"" copy]; typedStringIsCached = YES;
     [[self browserSession] filterNotesFromString:@""];
-    [self createNoteIfNecessaryWithTitle:title];
+    NoteObject *createdNote = [self createNoteIfNecessaryWithTitle:title];
     [self updateNoteHeader];
     if ([prefsController showTitleInTopSection]) [noteTitleField selectText:self];
     else [self focusNoteBody];
+    [self scheduleCreatedNoteListReveal:createdNote];
 }
 - (IBAction)createNoteFromSearch:(id)sender {
     [self fieldAction:sender];
