@@ -87,6 +87,7 @@
     NSString *selectedSearchRowKey, *pendingSearchReturnQuery;
     NSArray *savedSelectedRowKeys;
     NSDictionary *pendingSearchRestoration, *pendingSearchReveal;
+    NoteObject *pendingCreatedNoteReveal;
     NSUInteger searchIntentGeneration, searchHighlightGeneration;
     BOOL searchAutocompletePending, searchApplyingResult, searchSubmitting, searchStatusDelayElapsed;
     BOOL searchScrollPending;
@@ -161,6 +162,9 @@ void outletObjectAwoke(id sender);
 - (NSUInteger)revealNote:(NoteObject*)note options:(NSUInteger)opts;
 - (BOOL)displayContentsForNoteAtIndex:(NSUInteger)noteIndex;
 - (void)processChangedSelectionForTable:(NSTableView*)table;
+- (void)scheduleCreatedNoteListReveal:(NoteObject *)note;
+- (void)revealPendingCreatedNoteInList;
+- (void)cancelPendingCreatedNoteListReveal;
 - (void)setEmptyViewState:(BOOL)state;
 - (void)cancelOperation:(id)sender;
 - (void)_setCurrentNote:(NoteObject*)aNote;

@@ -371,6 +371,7 @@ Title and tag controls commit through the editing session and retain the origina
 New Note creates an empty body and clears the query.
 If the search field has focus and contains text, New Note copies that text into the title.
 Otherwise, it uses the default title. The explicit Create action also uses the query as the title.
+Each browser retains a one-shot list reveal for its newly created note until the coalesced list refresh finishes, then resolves the note's current row and scrolls it into view.
 
 The View menu controls visibility for the notes list, title, tags, and body controls.
 These application preferences apply to all browser windows and persist across launches.
