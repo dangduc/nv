@@ -11,6 +11,8 @@ on:
       - 'Resources/Images/Assets.car*'
       - 'Tests/AppIcons/**'
       - '.github/workflows/app-icons.yml'
+      - 'Config/Info.plist'
+      - 'Notation.xcodeproj/project.pbxproj'
 
 permissions:
   contents: read
@@ -25,6 +27,7 @@ jobs:
         with:
           persist-credentials: false
       - run: python3 docs/artwork/app-icon/build-modern-icon.py
+      - run: python3 Tests/AppIcons/check-resources.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: modern-icon
@@ -48,10 +51,13 @@ jobs:
         with:
           name: modern-icon
           path: build/modern-icon
-      - run: python3 Tests/AppIcons/run.py --catalog build/modern-icon/Assets.car
+      - name: Check the bundled catalog
+        run: python3 Tests/AppIcons/run.py --output build/icon-selection/bundled
+      - name: Check a regenerated catalog
+        run: python3 Tests/AppIcons/run.py --catalog build/modern-icon/Assets.car --output build/icon-selection/regenerated
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
           name: icon-selection-${{ matrix.os }}
-          path: build/icon-selection/*.png
+          path: build/icon-selection/
           if-no-files-found: ignore

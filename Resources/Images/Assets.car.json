@@ -1,0 +1,9 @@
+{
+  "compiler": "Xcode 26.0.1\nBuild version 17A400",
+  "icon_name": "NeoNotationalV",
+  "sha256": "d9c363f94abcc499efee512d3632264e02c71a394fe30b2cc5d96b2718732ae0",
+  "sources": {
+    "docs/artwork/app-icon/NeoNotationalV.icon/Assets/artwork.png": "3612bb91793916f1090281df4e99e9a0eaf52ca606acc41625fa76ca3b9a2e0a",
+    "docs/artwork/app-icon/NeoNotationalV.icon/icon.json": "6ebcd55ff7ed2a78947a5b6ba00255f6068387f7113509599ff54512d25e8a2b"
+  }
+}

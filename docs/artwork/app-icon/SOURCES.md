@@ -98,3 +98,15 @@ An additional 2× scale enlarges the rocket around its antenna tip, keeping that
 The squircle outline clips the crane antenna at the top edge and the lower supports at the bottom edge.
 The gray platform starts below the canvas and is not visible.
 The 32px and 16px compositions remain identical to the classic set.
+
+## Modern system icon
+
+`NeoNotationalV.icon/Assets/artwork.png` is rendered from the same squircle SVG components.
+The paper extends across the canvas because macOS supplies the outer mask and margin.
+The original artwork credits above also apply to this layer.
+`prepare-modern-icon.py` regenerates the layer. `build-modern-icon.py` compiles the catalog with Xcode 26.0.1.
+`Resources/Images/Assets.car.json` records the compiler and input hashes.
+
+The separate-catalog packaging method was checked against
+[psulak's hybrid-icon example](https://github.com/psulak/Tahoe-Sequoia-Hybrid-Icon).
+No artwork or compiled resources from that example are included.

@@ -184,6 +184,7 @@
 		934C3FB914FDA74F000D14BA /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 934C3FB814FDA74F000D14BA /* NSFileManager+DirectoryLocations.m */; };
 		93A158BE133C497400E1E7DA /* Notality.icns in Resources */ = {isa = PBXBuildFile; fileRef = 93A158BD133C497400E1E7DA /* Notality.icns */; };
 		C63F817CAB2B4B19A4E7F502 /* NotalityClassic.icns in Resources */ = {isa = PBXBuildFile; fileRef = C63F817CAB2B4B19A4E7F501 /* NotalityClassic.icns */; };
+		C64F817CAB2B4B19A4E7F502 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = C64F817CAB2B4B19A4E7F501 /* Assets.car */; };
 		93B90E7A1386018200BEC5FB /* ExternalEditorListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E781386018200BEC5FB /* ExternalEditorListController.m */; };
 		93B90E84138601C100BEC5FB /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93B90E7E138601C100BEC5FB /* LICENSE.txt */; };
 		93B90E85138601C100BEC5FB /* NSAppleEventDescriptor-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B90E80138601C100BEC5FB /* NSAppleEventDescriptor-Extensions.m */; };
@@ -652,6 +653,7 @@
 		934C3FB814FDA74F000D14BA /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		93A158BD133C497400E1E7DA /* Notality.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Notality.icns; sourceTree = "<group>"; };
 		C63F817CAB2B4B19A4E7F501 /* NotalityClassic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NotalityClassic.icns; sourceTree = "<group>"; };
+		C64F817CAB2B4B19A4E7F501 /* Assets.car */ = {isa = PBXFileReference; lastKnownFileType = file; path = Assets.car; sourceTree = "<group>"; };
 		93B90E771386018200BEC5FB /* ExternalEditorListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditorListController.h; sourceTree = "<group>"; };
 		93B90E781386018200BEC5FB /* ExternalEditorListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditorListController.m; sourceTree = "<group>"; };
 		93B90E7E138601C100BEC5FB /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 				21A38EE212EA864400CEB5F0 /* MakeDefault_Pressed.tiff */,
 				93A158BD133C497400E1E7DA /* Notality.icns */,
 				C63F817CAB2B4B19A4E7F501 /* NotalityClassic.icns */,
+				C64F817CAB2B4B19A4E7F501 /* Assets.car */,
 				215DEA4609EF6446009A710B /* Notes.tiff */,
 				5C2CC183134989A8006FFE56 /* nvMenuC.png */,
 				5C2CC189134989D7006FFE56 /* nvMenuDark.png */,
@@ -2038,6 +2041,7 @@
 				5CF96E0C132EA29D0079B3FD /* NotationPrefsView.xib in Resources */,
 				93A158BE133C497400E1E7DA /* Notality.icns in Resources */,
 				C63F817CAB2B4B19A4E7F502 /* NotalityClassic.icns in Resources */,
+				C64F817CAB2B4B19A4E7F502 /* Assets.car in Resources */,
 				5C2CC18A134989D7006FFE56 /* nvMenuDark.png in Resources */,
 				93B90E84138601C100BEC5FB /* LICENSE.txt in Resources */,
 				5C43669D1DA268500086FF84 /* This is the title of a note.nvhelp in Resources */,
@@ -2531,7 +2535,8 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ThirdParty/OpenSSL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
-				NV_APP_ICON_FILE = Notality.icns;
+				NV_APP_ICON_FILE = NotalityClassic.icns;
+				NV_APP_ICON_NAME = NeoNotationalV;
 				NV_BUILD_FLAVOR = development;
 				NV_BUNDLE_SIGNATURE = NvDv;
 				NV_DOCUMENT_HANDLER_RANK = None;
@@ -2747,7 +2752,8 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/ThirdParty/OpenSSL/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "";
-				NV_APP_ICON_FILE = Notality.icns;
+				NV_APP_ICON_FILE = NotalityClassic.icns;
+				NV_APP_ICON_NAME = NeoNotationalV;
 				NV_BUILD_FLAVOR = release;
 				NV_BUNDLE_SIGNATURE = "N†l√";
 				NV_DOCUMENT_HANDLER_RANK = Default;
