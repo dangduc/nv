@@ -49,6 +49,33 @@ The [capture probe](capture-source.inc) uses the same disposable sample notes as
 Inspect the image before publication.
 Update the captured revision and executable hash above.
 
+## User Scheme default colors
+
+[`user-scheme-defaults-light.png`](user-scheme-defaults-light.png) and [`user-scheme-defaults-dark.png`](user-scheme-defaults-dark.png) show the default User Scheme palettes from [PR #46](https://github.com/dangduc/nv/pull/46).
+Both images show the same sample note with an active search for `ideas`.
+
+| Appearance | Text | Background | Search highlight |
+| --- | --- | --- | --- |
+| Light | `#000000` | `#FDE9D9` | `#F5C1C0` |
+| Dark | `#000000` | `#FFEFC9` | `#FFC600` |
+
+The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
+The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
+The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
+The capture uses a temporary library and a separate preferences domain with the registered color defaults.
+WindowServer captures one sample window in each appearance without pixel changes.
+The probe passed 21 checks, including the editor background and the text and highlight colors used for drawing.
+The disposable app exited after capture.
+
+To refresh these images after a Development build:
+
+```sh
+NV_USER_SCHEMES_ARTIFACTS="$PWD/docs/screenshots" \
+  python3 Tests/ViewControlsReview/run-probe.py --probe docs/screenshots/capture-user-scheme-defaults.inc --timeout 35
+```
+
+Inspect both images before publication.
+
 ## User Scheme settings
 
 `user-scheme-settings-light.png` and `user-scheme-settings-dark.png` show the separate light and dark palettes in Fonts & Colors.
