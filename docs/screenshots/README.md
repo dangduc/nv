@@ -38,6 +38,30 @@ Select Fuzzy search mode for all four samples.
 Select Org source syntax for the light source, search, and multiple-window samples.
 Inspect each image before publication and update its capture details.
 
+## Interaction recording
+
+[`readme-demo.gif`](readme-demo.gif) shows fuzzy search and independent browser windows with disposable Org notes.
+The recording types `grdn`, selects two matching body lines, and opens a second window to search for `trip`.
+It then closes the second window and clears the first query.
+The README also links to a still screenshot.
+
+The recording lasts 20.32 seconds and loops at 1020 × 780 pixels.
+The GIF contains 52 encoded frames and occupies 480,474 bytes (469 KiB).
+WindowServer captured 135 frames from the sample windows, with recorded timestamps.
+GIF encoding converts the monitor color profile to sRGB and places the native window shadows on a white background.
+It combines unchanged frames and uses one 256-color palette.
+It preserves the recorded timing to the nearest 10 milliseconds, without captions or simulated UI elements.
+
+The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2 and Pillow 12.2.0.
+The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
+The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
+The sample windows use the light User Scheme palette and a separate preferences domain.
+
+The capture passed 53 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
+Every decoded frame matches its captured frame after color and palette conversion.
+The frame durations match the captured timing at GIF precision.
+The capture app exited after the recording.
+
 ## User Scheme default colors
 
 [`user-scheme-defaults-light.png`](user-scheme-defaults-light.png) and [`user-scheme-defaults-dark.png`](user-scheme-defaults-dark.png) show the default User Scheme palettes from [PR #46](https://github.com/dangduc/nv/pull/46).
