@@ -44,6 +44,20 @@
     [self setTarget:nil];
     [self setAction:NULL];
 }
+- (BOOL)performKeyEquivalent:(NSEvent *)event {
+    NSEventModifierFlags modifiers = [event modifierFlags] &
+        (NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagShift);
+    NSString *characters = [event charactersIgnoringModifiers];
+    if (modifiers == NSEventModifierFlagCommand && [characters length] == 1 &&
+        ([characters characterAtIndex:0] == NSCarriageReturnCharacter || [characters characterAtIndex:0] == NSEnterCharacter)) {
+        AppController *controller = NVControllerForView(self);
+        if ([controller searchFieldHasFocus]) {
+            [controller newNote:self];
+            return YES;
+        }
+    }
+    return [super performKeyEquivalent:event];
+}
 - (void)dealloc {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [followedLinks release];

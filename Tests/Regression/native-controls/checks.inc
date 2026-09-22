@@ -197,6 +197,8 @@
         }
         if ([probe isEqual:@"all"] || [probe isEqual:@"new-note"])
             [self nv_checkNewNoteWithPeer:peer alpha:alpha beta:beta];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"command-return"])
+            [self nv_checkCommandReturnWithPeer:peer alpha:alpha beta:beta];
         Check([library totalNoteCount] == 2, @"control commands leave no extra notes");
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
         NSColor *listColor = [[notesTableView backgroundColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
