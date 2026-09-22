@@ -86,6 +86,10 @@ static void CheckBitmap(LinkingEditor *editor, NSRange characters, NSColor *fore
     Check(!NSIsEmptyRect(rect) && NSContainsRect([editor visibleRect], rect), @"capture contains the visible text run");
     NSBitmapImageRep *bitmap = [editor bitmapImageRepForCachingDisplayInRect:rect];
     [editor cacheDisplayInRect:rect toBitmapImageRep:bitmap];
+    // Compare pixels in the same calibrated RGB space as ColorDistance.
+    bitmap = [bitmap bitmapImageRepByConvertingToColorSpace:[NSColorSpace genericRGBColorSpace]
+                                         renderingIntent:NSColorRenderingIntentDefault];
+    Check(bitmap != nil, @"editor capture converts to the comparison color space");
     NSUInteger matchingPixels = 0;
     for (NSInteger y = 0; y < [bitmap pixelsHigh]; y++) {
         for (NSInteger x = 0; x < [bitmap pixelsWide]; x++) {
