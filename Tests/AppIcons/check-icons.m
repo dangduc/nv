@@ -1,6 +1,6 @@
 #import <AppKit/AppKit.h>
 
-// Ask the same system service used for Finder icons, without launching the app.
+// Render resolved system icons into comparable pixels and inspectable PNGs.
 static NSData *RenderImage(NSImage *image, NSString *output) {
     NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc]
         initWithBitmapDataPlanes:NULL pixelsWide:512 pixelsHigh:512

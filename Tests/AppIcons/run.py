@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check Finder icon selection using disposable application bundles."""
+"""Check Finder and Dock icon selection using disposable application bundles."""
 
 import argparse
 from pathlib import Path
@@ -45,7 +45,7 @@ def check(catalog, output):
             (contents / "Info.plist").write_bytes(plistlib.dumps(info))
             subprocess.run([str(executable), "--application", str(work / (name + "-AppKit.png"))],
                            check=True, timeout=30)
-        result = subprocess.run([str(probe), str(work)])
+        result = subprocess.run([str(probe), str(work)], timeout=30)
         for image in work.glob("*.png"):
             shutil.copyfile(image, output / image.name)
         result.check_returncode()
