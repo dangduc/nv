@@ -4,7 +4,7 @@ nvALT is a macOS notes app with lightweight support for editing raw source texts
 
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
-![Light appearance with the default User Scheme colors and highlighted search matches](docs/screenshots/readme-source.png)
+![Light appearance with Org syntax highlighting, default User Scheme colors, and highlighted search matches](docs/screenshots/readme-source.png)
 
 ## What changes in this fork
 
@@ -29,7 +29,7 @@ Each window can show a different note or search. Edits to the same note appear i
 
 The app restores open windows and their saved views after a restart. A change to the notes library applies to all windows.
 
-![Two windows with independent searches and selections in one library](docs/screenshots/readme-windows.png)
+![Two Org notes with independent fuzzy searches and selections in one library](docs/screenshots/readme-windows.png)
 
 ### Search
 
@@ -37,9 +37,10 @@ Choose **Fuzzy** or **Exact** from the search-field menu.
 Fuzzy matches characters in order, so `mtg` can match `meeting`. It searches titles, tags, and complete committed source text.
 Double quotes require a contiguous phrase. Spaces and colons separate terms, and other punctuation remains literal.
 
-Literal title matches appear first. The full fuzzy list follows in the order returned by [`dangduc/fzf-native`](https://github.com/dangduc/fzf-native).
+Each matching title, tag, or body line has a separate result, in the order returned by [`dangduc/fzf-native`](https://github.com/dangduc/fzf-native).
+A note can appear more than once.
 
-![Fuzzy search results above the source editor](docs/screenshots/readme-search.png)
+![Highlighted fuzzy search results above an Org source editor](docs/screenshots/readme-search.png)
 
 ### Native controls and appearance
 
