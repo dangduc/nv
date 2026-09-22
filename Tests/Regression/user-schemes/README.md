@@ -23,6 +23,14 @@ The checks cover:
 - Both custom palettes and the existing User Scheme choice survive relaunch.
 - Named colors from macOS's System color list resolve under each browser's appearance, including asynchronous search highlights.
 
+A separate two-launch probe covers the Syntax Colors sheet:
+
+- All fourteen controls save independent colors and update open editors.
+- Syntax palettes use the editor background brightness, including light backgrounds in Dark appearance.
+- Other color schemes retain the built-in syntax palettes.
+- Colors survive relaunch and sheet closure. Restore Syntax Defaults updates both palettes.
+- Real parser captures use custom drawing colors without changing source attributes or Undo history.
+
 The fixture sets each test window's Aqua or Dark Aqua appearance.
 This exercises AppKit appearance callbacks without changing the user's system setting.
 The drawing checks inspect real layout attributes. They do not compare screenshot pixels.

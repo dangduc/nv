@@ -37,6 +37,8 @@
 	IBOutlet NSButton *highlightSearchTermsButton;
 	IBOutlet NSColorWell *searchHighlightColorWell, *foregroundColorWell, *backgroundColorWell;
     NSColorWell *darkSearchHighlightColorWell, *darkForegroundColorWell, *darkBackgroundColorWell;
+    NSWindow *syntaxColorsSheet;
+    NSArray *syntaxColorWells;
     IBOutlet NSButton *togDockButton;
 	IBOutlet NSTextField *togDockLabel;
 	IBOutlet NSSlider *maxWidthSlider;	
@@ -65,6 +67,10 @@
 - (IBAction)changedDarkBackgroundTextColorWell:(id)sender;
 - (IBAction)changedDarkForegroundTextColorWell:(id)sender;
 - (IBAction)changedDarkSearchHighlightColorWell:(id)sender;
+- (IBAction)showSyntaxColors:(id)sender;
+- (IBAction)changedSyntaxColorWell:(id)sender;
+- (IBAction)resetSyntaxColors:(id)sender;
+- (IBAction)closeSyntaxColors:(id)sender;
 - (IBAction)changedMakeURLsClickable:(id)sender;
 - (IBAction)setAppShortcut:(id)sender;
 - (IBAction)changeBodyFont:(id)sender;

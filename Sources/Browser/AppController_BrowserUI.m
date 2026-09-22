@@ -422,6 +422,7 @@
     }
     [notesTableView setNeedsDisplay:YES];
 }
+- (BOOL)usesUserColorScheme { return userScheme == 2; }
 - (BOOL)usesDarkUserColorScheme {
     if (userScheme != 2) return NO;
     if (@available(macOS 10.14, *)) {

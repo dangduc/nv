@@ -18,6 +18,7 @@ if args.artifacts:
     args.artifacts.mkdir(parents=True, exist_ok=True)
     environment['NV_USER_SCHEMES_ARTIFACTS'] = str(args.artifacts.resolve())
 for probe, prefix, launches in [('checks.inc', 'support.h', '2'),
+                                ('syntax-colors.inc', 'syntax-colors.h', '2'),
                                 ('dynamic-colors.inc', 'dynamic-colors.h', '1')]:
     result = subprocess.run([sys.executable, str(repo / 'Tests/ViewControlsReview/run-probe.py'),
         '--probe', str(here / probe), '--prefix', str(here / prefix),

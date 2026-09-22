@@ -45,6 +45,11 @@ enum { NoteTitleColumn, NoteLabelsColumn, NoteDateModifiedColumn, NoteDateCreate
 
 BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 
+typedef NS_ENUM(NSUInteger, NVSyntaxColorKind) {
+    NVSyntaxColorComment, NVSyntaxColorKey, NVSyntaxColorString, NVSyntaxColorNumber,
+    NVSyntaxColorTitle, NVSyntaxColorPunctuation, NVSyntaxColorOther, NVSyntaxColorCount
+};
+
 @interface GlobalPrefs : NSObject {
 	NSUserDefaults *defaults;
 	
@@ -59,6 +64,7 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 	NSDictionary *noteBodyAttributes;
 	NSFont *noteBodyFont;
 	BOOL autoCompleteSearches;
+	NSArray *syntaxColors[2];
 	
 	NSMutableArray *tableColumns;
 	unsigned int tableColsBitmap;
@@ -111,6 +117,11 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2);
 - (NSColor*)darkForegroundTextColor;
 - (void)setDarkBackgroundTextColor:(NSColor*)color sender:(id)sender;
 - (NSColor*)darkBackgroundTextColor;
+
+- (NSColor *)defaultSyntaxColorForKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark;
+- (NSColor *)syntaxColorForKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark;
+- (void)setSyntaxColor:(NSColor *)color forKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark sender:(id)sender;
+- (void)resetSyntaxColorsFromSender:(id)sender;
 
 - (void)setConfirmNoteDeletion:(BOOL)value sender:(id)sender;
 - (BOOL)confirmNoteDeletion;

@@ -50,6 +50,8 @@ CGFloat _perceptualDarkness(NSColor*a);
 	 @selector(setMakeURLsClickable:sender:),
 	 @selector(setSearchTermHighlightColor:sender:),
 	 @selector(setDarkSearchTermHighlightColor:sender:),
+	 @selector(setSyntaxColor:forKind:darkBackground:sender:),
+	 @selector(resetSyntaxColorsFromSender:),
 	 @selector(setShouldHighlightSearchTerms:sender:), nil];
 	
     self.managesTextWidth=[prefsController managesTextWidthInWindow];
@@ -72,7 +74,11 @@ CGFloat _perceptualDarkness(NSColor*a);
 }
 
 - (void)settingChangedForSelectorString:(NSString*)selectorString {
-    if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
+    if ([selectorString isEqualToString:SEL_STR(setSyntaxColor:forKind:darkBackground:sender:)] ||
+        [selectorString isEqualToString:SEL_STR(resetSyntaxColorsFromSender:)]) {
+        [[self layoutManager] invalidateDisplayForCharacterRange:NSMakeRange(0, [[self textStorage] length])];
+        [self setNeedsDisplay:YES];
+    } else if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 
 		[self setTypingAttributes:[prefsController noteBodyAttributes]];
 		//[textView setFont:[prefsController noteBodyFont]];
@@ -337,14 +343,16 @@ CGFloat _perceptualColorDifference(NSColor*a, NSColor*b) {
 
 - (NSColor *)sourceColorForCapture:(NSString *)capture {
     if (!capture || [capture isEqualToString:@"none"]) return nil;
-    CGFloat hue = 0.61, saturation = 0.72;
-    if ([capture hasPrefix:@"comment"]) { hue = 0.34; saturation = 0.28; }
-    else if ([capture hasSuffix:@".key"] || [capture hasPrefix:@"attribute"]) hue = 0.08;
-    else if ([capture hasPrefix:@"string"] || [capture isEqualToString:@"text.literal"]) hue = 0.34;
-    else if ([capture hasPrefix:@"number"] || [capture hasPrefix:@"constant"]) hue = 0.04;
-    else if ([capture hasPrefix:@"tag"] || [capture isEqualToString:@"text.title"]) hue = 0.78;
-    else if ([capture hasPrefix:@"punctuation"]) { hue = 0.59; saturation = 0.30; }
-    return [NSColor colorWithCalibratedHue:hue saturation:saturation brightness:backgroundIsDark ? 0.94 : 0.58 alpha:1.0];
+    NVSyntaxColorKind kind = NVSyntaxColorOther;
+    if ([capture hasPrefix:@"comment"]) kind = NVSyntaxColorComment;
+    else if ([capture hasSuffix:@".key"] || [capture hasPrefix:@"attribute"]) kind = NVSyntaxColorKey;
+    else if ([capture hasPrefix:@"string"] || [capture isEqualToString:@"text.literal"]) kind = NVSyntaxColorString;
+    else if ([capture hasPrefix:@"number"] || [capture hasPrefix:@"constant"]) kind = NVSyntaxColorNumber;
+    else if ([capture hasPrefix:@"tag"] || [capture isEqualToString:@"text.title"]) kind = NVSyntaxColorTitle;
+    else if ([capture hasPrefix:@"punctuation"]) kind = NVSyntaxColorPunctuation;
+    return [NVControllerForView(self) usesUserColorScheme] ?
+        [prefsController syntaxColorForKind:kind darkBackground:backgroundIsDark] :
+        [prefsController defaultSyntaxColorForKind:kind darkBackground:backgroundIsDark];
 }
 - (NSDictionary *)layoutManager:(NSLayoutManager *)manager shouldUseTemporaryAttributes:(NSDictionary *)attributes
             forDrawingToScreen:(BOOL)screen atCharacterIndex:(NSUInteger)index effectiveRange:(NSRangePointer)range {

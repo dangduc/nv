@@ -326,4 +326,5 @@ void outletObjectAwoke(id sender);
 - (IBAction)setSystemColorScheme:(id)sender;
 - (void)browserAppearanceChanged;
 - (BOOL)usesDarkUserColorScheme;
+- (BOOL)usesUserColorScheme;
 @end
