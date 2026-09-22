@@ -224,6 +224,9 @@ static void CheckEditor(AppController *browser, NSRange url, BOOL clickable, NSS
                 [prefs setMakeURLsClickable:[clickable boolValue] sender:self];
                 for (NSNumber *dark in @[@NO, @YES]) {
                     SetColors(self, [dark boolValue]); SetColors(peer, ![dark boolValue]);
+                    [self searchForString:@"" mode:@"exact"];
+                    RevealFixtureNote(self, note);
+                    [editor scrollRangeToVisible:NSMakeRange(0, [body length])];
                     [editor removeHighlightedTerms]; [peerEditor removeHighlightedTerms];
                     [editor setSelectedRange:NSMakeRange([body length], 0)];
                     [peerEditor setSelectedRange:NSMakeRange([body length], 0)];
@@ -233,7 +236,11 @@ static void CheckEditor(AppController *browser, NSRange url, BOOL clickable, NSS
                     NSString *name = [NSString stringWithFormat:@"typed-%@-clickable-%@-primary-dark-%@", typedClickable, clickable, dark];
                     CheckEditor(self, url, [clickable boolValue], [name stringByAppendingString:@"-primary"]);
                     CheckEditor(peer, url, [clickable boolValue], [name stringByAppendingString:@"-peer"]);
-                    [editor highlightTermsTemporarilyReturningFirstRange:[NSString stringWithFormat:@"\"%@\"", body] avoidHighlight:NO];
+                    [self searchForString:[NSString stringWithFormat:@"\"%@\"", body] mode:@"exact"];
+                    [self revealNote:note options:0];
+                    NSDate *highlightDeadline = [NSDate dateWithTimeIntervalSinceNow:5];
+                    while (![[editor layoutManager] temporaryAttribute:NSBackgroundColorAttributeName atCharacterIndex:0 effectiveRange:NULL] &&
+                           [highlightDeadline timeIntervalSinceNow] > 0) Pump();
                     for (NSNumber *index in @[@0, @(url.location), @(NSMaxRange(url))]) {
                         NSRange range;
                         NSDictionary *temporary = [[editor layoutManager] temporaryAttributesAtCharacterIndex:[index unsignedIntegerValue] effectiveRange:&range];
