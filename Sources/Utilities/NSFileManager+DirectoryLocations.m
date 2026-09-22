@@ -20,6 +20,7 @@
 //
 
 #import "NSFileManager+DirectoryLocations.h"
+#import "NVAppIdentity.h"
 
 enum
 {
@@ -136,14 +137,13 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 //
 - (NSString *)applicationSupportDirectory
 {
-	NSString *executableName =
-		[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleExecutable"];
+	NSString *directoryName = NVApplicationSupportDirectoryName();
 	NSError *error;
 	NSString *result =
 		[self
 			findOrCreateDirectory:NSApplicationSupportDirectory
 			inDomain:NSUserDomainMask
-			appendPathComponent:executableName
+			appendPathComponent:directoryName
 			error:&error];
 	if (!result)
 	{

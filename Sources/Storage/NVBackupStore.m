@@ -313,7 +313,7 @@ static BOOL NVManifestValid(NSDictionary *manifest, NSString *name, NSError **er
 
 static NSDictionary *NVSnapshot(int directory, NSString *name, NSURL *rootURL, NSString *libraryIdentifier, NSData **archive, NSError **error) {
     if (![[name pathExtension] isEqualToString:@"nvbackup"] || !NVUUID([name stringByDeletingPathExtension])) {
-        NVError(error, EINVAL, @"Select a complete nvALT backup package."); return nil;
+        NVError(error, EINVAL, @"Select a complete Neo Notational V backup package."); return nil;
     }
     int package = openat(directory, [name fileSystemRepresentation], O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
     if (package < 0) { NVSystemError(error, @"Cannot open the backup package"); return nil; }

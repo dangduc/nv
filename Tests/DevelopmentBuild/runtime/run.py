@@ -56,7 +56,8 @@ with tempfile.TemporaryDirectory(prefix="nvalt-runtime-isolation-") as temporary
         raise RuntimeError("The probe must not link real keychain operations")
     for flavor in ("development", "release", None):
         app = root / (str(flavor) + ".app")
-        executable = app / "Contents/MacOS/RuntimeIsolation"
+        name = "Neo Notational V Development" if flavor == "development" else "Neo Notational V"
+        executable = app / "Contents/MacOS" / name
         executable.parent.mkdir(parents=True)
         shutil.copy2(binary, executable)
         info = {"CFBundleExecutable": executable.name, "CFBundleIdentifier": "org.nvalt.runtime-probe." + str(flavor),
@@ -65,4 +66,4 @@ with tempfile.TemporaryDirectory(prefix="nvalt-runtime-isolation-") as temporary
             info["NVBuildFlavor"] = flavor
         (app / "Contents/Info.plist").write_bytes(plistlib.dumps(info))
         subprocess.run([str(executable), flavor or "missing"], check=True)
-print("PASS: temporary paths, keychain dispatch, and automatic legacy import are isolated")
+print("PASS: support paths survive the rename; temporary paths, keychain dispatch, and legacy import stay isolated")

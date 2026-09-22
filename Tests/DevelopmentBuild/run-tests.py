@@ -25,8 +25,8 @@ def bundle_info(app):
 def check_metadata(app, flavor):
     info = bundle_info(app)
     expected = {
-        "development": ("nvALT Development", "net.elasticthreads.nv.development", "nvalt-dev"),
-        "release": ("nvALT", "net.elasticthreads.nv", "nvalt"),
+        "development": ("Neo Notational V Development", "net.elasticthreads.nv.development", "nvalt-dev"),
+        "release": ("Neo Notational V", "net.elasticthreads.nv", "nvalt"),
     }[flavor]
     assert info["CFBundleExecutable"] == expected[0], info
     assert info["CFBundleIdentifier"] == expected[1], info
@@ -97,8 +97,8 @@ def run_pair(apps, root, dylib, output, phase):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     products = repo / "build/DerivedData/Build/Products"
-    parser.add_argument("--development-app", type=Path, default=products / "Development/nvALT Development.app")
-    parser.add_argument("--release-app", type=Path, default=products / "ForBuilding/nvALT.app")
+    parser.add_argument("--development-app", type=Path, default=products / "Development/Neo Notational V Development.app")
+    parser.add_argument("--release-app", type=Path, default=products / "ForBuilding/Neo Notational V.app")
     parser.add_argument("--output", type=Path, default=repo / "build/pr-review/development-isolation")
     args = parser.parse_args()
     sources = {"development": args.development_app.resolve(), "release": args.release_app.resolve()}

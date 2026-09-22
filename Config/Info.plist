@@ -83,7 +83,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string>nvALT by David Halter and Brett Terpstra, based on NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
+	<string>Neo Notational V, based on nvALT by David Halter and Brett Terpstra and NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>Notality.icns</string>
 	<key>CFBundleIdentifier</key>

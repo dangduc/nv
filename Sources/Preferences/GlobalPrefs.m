@@ -97,7 +97,7 @@ NSString *NotePreviewString = @"Note Preview";
 
 NSString *NVPTFPboardType = @"Notational Velocity Poor Text Format";
 
-NSString *HotKeyAppToFrontName = @"bring Notational Velocity to the foreground";
+NSString *HotKeyAppToFrontName = @"bring Neo Notational V to the foreground";
 
 static NSData *NVArchivedUserSchemeColor(unsigned int rgb) {
     NSColor *color = [NSColor colorWithSRGBRed:((rgb >> 16) & 0xff) / 255.0

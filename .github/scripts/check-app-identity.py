@@ -10,7 +10,7 @@ import subprocess
 
 IDENTITIES = {
     "release": {
-        "name": "nvALT",
+        "name": "Neo Notational V",
         "identifier": "net.elasticthreads.nv",
         "signature": "N†l√",
         "schemes": ["nvalt", "nv"],
@@ -18,7 +18,7 @@ IDENTITIES = {
         "shortcut": "V",
     },
     "development": {
-        "name": "nvALT Development",
+        "name": "Neo Notational V Development",
         "identifier": "net.elasticthreads.nv.development",
         "signature": "NvDv",
         "schemes": ["nvalt-dev", "nv-dev"],

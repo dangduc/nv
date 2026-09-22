@@ -60,7 +60,7 @@ static NSButton *NVBackupButton(NSView *view, NSString *title, NSRect frame, id 
     enabledButton = NVBackupButton(view, NSLocalizedString(@"Back up notes automatically", nil),
         NSMakeRect(24, 491, 410, 24), self, @selector(settingsChanged:));
     [enabledButton setButtonType:NSSwitchButton];
-    NVBackupLabel(view, NSLocalizedString(@"Backups run while nvALT is open. They contain committed note content; unfinished composition is included in a later backup.", nil), NSMakeRect(28, 450, 564, 36));
+    NVBackupLabel(view, NSLocalizedString(@"Backups run while Neo Notational V is open. They contain committed note content; unfinished composition is included in a later backup.", nil), NSMakeRect(28, 450, 564, 36));
 
     NVBackupLabel(view, NSLocalizedString(@"Back up changed notes every:", nil), NSMakeRect(28, 417, 232, 22));
     intervalButton = [[[NSPopUpButton alloc] initWithFrame:NSMakeRect(265, 414, 154, 27) pullsDown:NO] autorelease];

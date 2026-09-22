@@ -13,10 +13,10 @@ import desktop_test_support as desktop
 class DesktopRunnerTests(unittest.TestCase):
     def test_inventory_excludes_regular_apps_and_command_wrappers(self):
         root = str(Path(tempfile.gettempdir()).resolve())
-        output = ('11 /Applications/nvALT Development.app/Contents/MacOS/nvALT Development\n'
-                  '12 /Users/me/dev/nv/build/nvALT Development.app/Contents/MacOS/nvALT Development\n'
-                  f'13 {root}/nvalt-window-tests-ab/Window Tests.app/Contents/MacOS/nvALT Development -ShowDockIcon YES\n'
-                  f'14 /bin/sh -c {root}/nvalt-window-tests-ab/Window Tests.app/Contents/MacOS/nvALT Development\n')
+        output = ('11 /Applications/Neo Notational V Development.app/Contents/MacOS/Neo Notational V Development\n'
+                  '12 /Users/me/dev/nv/build/Neo Notational V Development.app/Contents/MacOS/Neo Notational V Development\n'
+                  f'13 {root}/nvalt-window-tests-ab/Window Tests.app/Contents/MacOS/Neo Notational V Development -ShowDockIcon YES\n'
+                  f'14 /bin/sh -c {root}/nvalt-window-tests-ab/Window Tests.app/Contents/MacOS/Neo Notational V Development\n')
         with patch.object(desktop.subprocess, 'check_output', return_value=output):
             self.assertEqual([pid for pid, _ in desktop.test_app_processes()], [13])
 

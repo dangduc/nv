@@ -7,9 +7,9 @@ import zipfile
 
 
 def check_archive(path):
-    prefix = "nvALT.app/Contents/"
+    prefix = "Neo Notational V.app/Contents/"
     executables = [
-        "MacOS/nvALT",
+        "MacOS/Neo Notational V",
         "Resources/multimarkdown",
     ]
     syntax_resources = [

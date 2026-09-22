@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-nvALT is a macOS Cocoa application written primarily in Objective-C, with C utilities. Application code lives in `Sources/`, grouped by responsibility.
+Neo Notational V is a macOS Cocoa application written primarily in Objective-C, with C utilities. Application code lives in `Sources/`, grouped by responsibility.
 
 `Notation.xcodeproj` defines the application target and shared schemes. Its navigator groups match the directories on disk.
 
@@ -28,7 +28,7 @@ xcodebuild -project Notation.xcodeproj -scheme 'Notation Develop' \
   GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
 ```
 
-Run `open "build/DerivedData/Build/Products/Development/nvALT Development.app"` to open the app. Replace `build` with `analyze` for Clang static analysis.
+Run `open "build/DerivedData/Build/Products/Development/Neo Notational V Development.app"` to open the app. Replace `build` with `analyze` for Clang static analysis.
 
 ## Coding Style & Naming Conventions
 

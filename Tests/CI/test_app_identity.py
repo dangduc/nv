@@ -16,7 +16,7 @@ SPEC.loader.exec_module(identity)
 
 def fixture(flavor):
     development = flavor == "development"
-    name = "nvALT Development" if development else "nvALT"
+    name = "Neo Notational V Development" if development else "Neo Notational V"
     identifier = "net.elasticthreads.nv.development" if development else "net.elasticthreads.nv"
     return {
         "CFBundleName": name,
@@ -106,7 +106,7 @@ class IdentityTests(unittest.TestCase):
             app, _ = self.make_app(Path(directory), "development")
             strings = app / "Contents/Resources/en.lproj/InfoPlist.strings"
             strings.parent.mkdir(parents=True)
-            strings.write_bytes(plistlib.dumps({"CFBundleName": "nvALT"}))
+            strings.write_bytes(plistlib.dumps({"CFBundleName": "Neo Notational V"}))
             with self.assertRaisesRegex(ValueError, "localized development CFBundleName"):
                 identity.check_app(app, "development")
 

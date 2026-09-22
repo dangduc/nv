@@ -92,7 +92,7 @@
 "No notes were selected for exporting." = "No notes were selected for exporting.";
 
 /* No comment provided by engineer. */
-"nvALT should assume the file quotemark%@quotemark was saved with the encoding:" = "nvALT should assume the file “%@” was saved with the encoding:";
+"Neo Notational V should assume the file quotemark%@quotemark was saved with the encoding:" = "Neo Notational V should assume the file “%@” was saved with the encoding:";
 
 /* No comment provided by engineer. */
 "Note Importing Cancelled" = "Note Importing Cancelled";
@@ -194,7 +194,7 @@
 "Select" = "Select";
 
 /* No Comment */
-"Select the folder that nvALT should use for reading and storing notes." = "Select the folder that nvALT should use for reading and storing notes.";
+"Select the folder that Neo Notational V should use for reading and storing notes." = "Select the folder that Neo Notational V should use for reading and storing notes.";
 
 /* description for no key combination */
 "(None)" = "(None)";
@@ -227,7 +227,7 @@
 "Reverting to current location of %@." = "Reverting to current location of %@.";
 
 /* no comment */
-"Warning: this database was created by a newer version of Notational Velocity. Continue anyway?" = "Warning: this database was created by a newer version of Notational Velocity. Continue anyway?";
+"Warning: this database was created by a newer version of Neo Notational V. Continue anyway?" = "Warning: this database was created by a newer version of Neo Notational V. Continue anyway?";
 
 /* no comment */
 "If you make changes, some settings and metadata could be lost." = "If you make changes, some settings and metadata could be lost.";
@@ -375,7 +375,7 @@
 "No note selected." = "No note selected.";
 
 /* No comment provided by engineer. */
-"nvALT supports encryption only for notes stored in a database file." = "nvALT supports encryption only for notes stored in a database file.";
+"Neo Notational V supports encryption only for notes stored in a database file." = "Neo Notational V supports encryption only for notes stored in a database file.";
 
 /* No comment provided by engineer. */
 "Open Console in /Applications/Utilities/ for more information." = "Open Console in /Applications/Utilities/ for more information.";
@@ -408,7 +408,7 @@
 "rich text" = "rich text";
 
 /* No comment provided by engineer. */
-"Select a new location for your nvALT notes." = "Select a new location for your nvALT notes.";
+"Select a new location for your Neo Notational V notes." = "Select a new location for your Neo Notational V notes.";
 
 /* menu item title for showing bookmarks */
 "Show Bookmarks" = "Show Bookmarks";
@@ -426,7 +426,7 @@
 "Unable to create an FSRef from the chosen directory." = "Unable to create an FSRef from the chosen directory.";
 
 /* No comment provided by engineer. */
-"Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?" = "Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?";
+"Unable to create or access the Interim Note-Changes file. Is another copy of Neo Notational V currently running?" = "Unable to create or access the Interim Note-Changes file. Is another copy of Neo Notational V currently running?";
 
 /* No comment provided by engineer. */
 "Use a single database file" = "Use a single database file";
@@ -498,7 +498,7 @@
 "Switch to Horizontal Layout" = "Switch to Horizontal Layout";
 
 /* for warning about incompatibility with TextExpander, Typinator, etc. */
-"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in nvALT." = "Secure Text Entry will prevent %@, which is currently installed on this computer, from working in nvALT.";
+"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Neo Notational V." = "Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Neo Notational V.";
 
 /* Status message after downloading a URL */
 "Importing content..." = "Importing content…";

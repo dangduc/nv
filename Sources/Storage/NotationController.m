@@ -280,7 +280,7 @@ static BOOL NVSynchronizeBackupCheckpoint(NSData *data, NSURL *directory) {
 			notesChanged = YES;
 			[self flushEverything];
 		} else if ([notationPrefs epochIteration] > EPOC_ITERATION) {
-			if (NSRunCriticalAlertPanel(NSLocalizedString(@"Warning: this database was created by a newer version of Notational Velocity. Continue anyway?", nil), 
+			if (NSRunCriticalAlertPanel(NSLocalizedString(@"Warning: this database was created by a newer version of Neo Notational V. Continue anyway?", nil),
 										NSLocalizedString(@"If you make changes, some settings and metadata will be lost.", nil), 
 										NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Continue", nil), nil) == NSAlertDefaultReturn)
 			exit(0);
@@ -799,7 +799,7 @@ bail:
 	
 	[self flushAllNoteChanges];
 	
-	NSRunAlertPanel(NSLocalizedString(@"Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?",nil), 
+	NSRunAlertPanel(NSLocalizedString(@"Unable to create or access the Interim Note-Changes file. Is another copy of Neo Notational V currently running?",nil),
 			NSLocalizedString(@"Open Console in /Applications/Utilities/ for more information.",nil), NSLocalizedString(@"Quit",nil), NULL, NULL);
 	
 	

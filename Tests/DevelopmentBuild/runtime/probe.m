@@ -2,6 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Security/Security.h>
 #import "NVAppIdentity.h"
+#import "Sources/Utilities/NSFileManager+DirectoryLocations.m"
 #import "Sources/ImportExport/TemporaryFileCachePreparer.m"
 
 static NSString *ExpectedService;
@@ -12,6 +13,18 @@ static unsigned Finds, Adds, Modifies, Deletes, FreedContents;
 static void Check(BOOL condition, NSString *message) {
     if (!condition) { NSLog(@"FAIL: %@", message); exit(1); }
 }
+
+@interface NVSupportDirectoryProbe : NSFileManager
+@end
+@implementation NVSupportDirectoryProbe
+- (NSString *)findOrCreateDirectory:(NSSearchPathDirectory)directory
+    inDomain:(NSSearchPathDomainMask)domain appendPathComponent:(NSString *)component error:(NSError **)error {
+    Check(directory == NSApplicationSupportDirectory && domain == NSUserDomainMask,
+        @"support stays in the user's Application Support directory");
+    return [@"/disposable/Library/Application Support" stringByAppendingPathComponent:component];
+}
+@end
+
 static void CheckIdentity(UInt32 serviceLength, const char *service, UInt32 accountLength, const char *account) {
     NSString *serviceValue = [[[NSString alloc] initWithBytes:service length:serviceLength encoding:NSUTF8StringEncoding] autorelease];
     NSString *accountValue = [[[NSString alloc] initWithBytes:account length:accountLength encoding:NSUTF8StringEncoding] autorelease];
@@ -127,6 +140,11 @@ int main(int argc, const char **argv) {
         Check(argc == 2, @"expected build flavor argument");
         BOOL development = !strcmp(argv[1], "development");
         Check(NVIsDevelopmentBuild() == development, @"flavor comes from the running bundle");
+        NVSupportDirectoryProbe *files = [[[NVSupportDirectoryProbe alloc] init] autorelease];
+        NSString *legacyDirectory = development ? @"nvALT Development" : @"nvALT";
+        Check([[files applicationSupportDirectory] isEqual:
+            [@"/disposable/Library/Application Support" stringByAppendingPathComponent:legacyDirectory]],
+            @"renamed executables retain existing support files and default backups");
         NSString *suffix = development ? @"-Development" : @"";
         Check([RAMDiskMountPath() isEqual:[NSTemporaryDirectory() stringByAppendingPathComponent:
               [@"NVProtectedEditingSpace" stringByAppendingString:suffix]]], @"protected external editing path");

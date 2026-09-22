@@ -27,7 +27,7 @@ The runner checks original bundle names, executable names, bundle identifiers, b
 The probe checks these behaviors:
 
 - Original startup selects separate default notes folders.
-- Application support uses the executable name, and the journal cache uses the bundle identifier.
+- Application support retains the existing directory name, and the journal cache uses the bundle identifier.
 - Only Development displays the `DEV` Dock badge.
 - The two processes save different notes, list font sizes, editor background colors, and backup intervals.
 - Each real backup package contains the exact note title and body from its own library.
