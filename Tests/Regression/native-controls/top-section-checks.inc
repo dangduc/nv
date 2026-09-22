@@ -80,8 +80,8 @@
     NSMenu *syntax = [syntaxParent submenu];
     Check([[syntaxParent title] isEqual:NSLocalizedString(@"Syntax Type", nil)] && syntax != nil,
         @"Syntax Type follows Show Source/Preview as a submenu");
-    Check([[[syntax itemArray] valueForKey:@"representedObject"] isEqual:@[@"plain", @"markdown", @"textile", @"html", @"json"]],
-        @"Syntax Type contains Plain Text, Markdown, Textile, HTML, and JSON in order");
+    Check([[[syntax itemArray] valueForKey:@"representedObject"] isEqual:@[@"plain", @"markdown", @"textile", @"html", @"json", @"org"]],
+        @"Syntax Type contains Plain Text, Markdown, Textile, HTML, JSON, and Org in order");
     for (NSMenuItem *item in [syntax itemArray])
         Check([item action] == @selector(selectSourceSyntax:) && [item target] == app,
             @"syntax choices route through the application coordinator");
@@ -229,7 +229,7 @@
     [peer nv_activateBrowser];
     [self nv_checkSyntaxMenu:syntax selected:@"plain" enabled:YES];
     [peer nv_sendMenuItem:[syntax itemAtIndex:1]];
-    Check([[beta sourceSyntaxIdentifier] isEqual:@"markdown"] && [[alpha sourceSyntaxIdentifier] isEqual:@"json"],
+    Check([[beta sourceSyntaxIdentifier] isEqual:@"markdown"] && [[alpha sourceSyntaxIdentifier] isEqual:@"org"],
         @"the shared Syntax Type menu changes only the active browser's selected note");
     [peer nv_sendMenuItem:mode];
     Check([peer isViewingNote] && ![self isViewingNote], @"the shared mode menu routes to the newly active peer");

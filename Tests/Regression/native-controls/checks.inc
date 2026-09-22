@@ -201,8 +201,8 @@
             [self nv_checkCommandReturnWithPeer:peer alpha:alpha beta:beta];
         Check([library totalNoteCount] == 2, @"control commands leave no extra notes");
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
-        NSColor *listColor = [[notesTableView backgroundColor] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
-        Check([listColor whiteComponent] > .99, @"native controls retain the white notes list");
+        Check([[notesTableView backgroundColor] isEqual:[NSColor textBackgroundColor]],
+            @"native controls retain the system notes list background");
         const char *artifacts = getenv("NV_UI_ARTIFACTS");
         if (artifacts) {
             [self searchForString:@"al"]; [self revealNote:alpha options:0];
