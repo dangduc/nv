@@ -33,7 +33,8 @@ The main rocket remains in use at 128 pixels and larger.
 
 At 32 and 16 pixels, `small/squircle-background.svg` replaces the paper with a blank `#FDE9D9` squircle.
 The rocket and crane retain their size, position, and drawing at these sizes.
-The paper remains at 48 pixels and larger.
+The classic set retains the stacked paper at 48 pixels and larger.
+The squircle set uses `squircle-paper.svg` at those sizes.
 
 ## Launch tower and crane
 
@@ -76,3 +77,24 @@ Each sheet has tractor-feed holes and perforated tear-off margins, like continuo
 The previous white-paper revision is saved in `revisions/01-white-paper/` with its SVGs, credits, and previews.
 
 All three component SVGs use the same canvas. Use `compose.py` to apply the launchpad layout and layer order.
+
+## Squircle variant
+
+`squircle-paper.svg` uses the same peach color and outline as the small icon background.
+Each side has a column of shaded feed holes and a perforated margin.
+Both strips extend to the top and bottom, clipped to the squircle outline.
+The holes are opaque marks, so the icon keeps a solid background inside its outline.
+The drawing was created for this project.
+
+`icon-squircle.svg` combines that background with the printing from `source-page.svg`.
+It retains all listing text and enlarges the code font from 9.3 to 39 units.
+The code uses warm gray `#9b8574`, and the feed holes use light tan shading.
+The title, box outline, and left bar use muted blue-green `#6d9e9a`.
+The title uses 40-unit type in a frame with equal gaps to the left and right perforations.
+A clipping rectangle crops the oversized listing inside the paper margins.
+The rocket, crane, and launcher deck retain their source drawings.
+A wrapper scales the complete foreground to 108%, preserving the rocket's horizontal center.
+An additional 2× scale enlarges the rocket around its antenna tip, keeping that point fixed.
+The squircle outline clips the crane antenna at the top edge and the lower supports at the bottom edge.
+The gray platform starts below the canvas and is not visible.
+The 32px and 16px compositions remain identical to the classic set.
