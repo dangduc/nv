@@ -2,36 +2,37 @@
 
 ## Current images
 
-`readme-source.png` and `readme-dark.png` are exact copies of the light and dark User Scheme screenshots from [PR #46](https://github.com/dangduc/nv/pull/46).
-Both images show plain text with an active search for `ideas`.
-The [User Scheme default colors](#user-scheme-default-colors) section records their palettes, capture environment, and validation.
+The source, search, and multiple-window images show Org syntax highlighting with the light User Scheme palette from [PR #46](https://github.com/dangduc/nv/pull/46).
+`readme-dark.png` is an exact copy of `user-scheme-defaults-dark.png` from that PR.
+The [User Scheme default colors](#user-scheme-default-colors) section records both palettes.
 
 | Image | Content |
 | --- | --- |
-| `readme-source.png` | Light appearance with black text, a peach editor background, and pink search highlights. |
+| `readme-source.png` | Light appearance with Org headings, checkboxes, a table, a source block, and search highlights for `ideas`. |
 | `readme-dark.png` | Dark appearance with black text, a cream editor background, and yellow search highlights. |
-| `readme-search.png` | Active Fuzzy search, literal title priority, duplicate occurrences, and no completed-search summary. |
+| `readme-search.png` | Fuzzy search for `grdn`, separate matching lines, highlighted result text, and the selected match in an Org note. |
 | `readme-preview.png` | A read-only Markdown preview in WebKit. |
-| `readme-windows.png` | Two windows with independent queries, selections, and divider heights in one shared library. |
+| `readme-windows.png` | Two Org notes with independent fuzzy queries, selections, and divider heights in one shared library. |
 
-The other three images show commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`, the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
-Their capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113) and SDK 26.5.
-The Intel app runs under Rosetta.
-Their executable has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
+The source, search, and multiple-window captures date from September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
+The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
+The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
 
-Those captures use four sample notes, a temporary library, and a separate preferences domain.
-The sample notes use Markdown syntax and the header visibility and body font defaults from PR #12.
-WindowServer captures the native windows, including the WebKit preview, without annotations or pixel changes.
+The captures use disposable sample notes and a separate preferences domain.
+WindowServer captures only the sample windows, with no annotations or pixel changes.
+The source capture passed 16 checks for the selected palette, search highlights, and Org syntax colors.
+The search and multiple-window captures passed 29 checks for fuzzy highlights, Org syntax, and independent browser state.
+The capture app exited after each run.
+
+The preview image shows commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`, the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
+Its capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113) and SDK 26.5.
+Its executable has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
+The preview capture uses a disposable Markdown note in the native WebKit viewer.
 The original five-image capture passed 21 state and image checks.
 
-After you refresh the User Scheme screenshots below, copy them to the README image paths:
-
-```sh
-cp docs/screenshots/user-scheme-defaults-light.png docs/screenshots/readme-source.png
-cp docs/screenshots/user-scheme-defaults-dark.png docs/screenshots/readme-dark.png
-```
-
-Inspect both images before publication.
+When you refresh these images, use the same palettes.
+Select Org source syntax for the light source, search, and multiple-window samples.
+Inspect each image before publication and update its capture details.
 
 ## User Scheme default colors
 
