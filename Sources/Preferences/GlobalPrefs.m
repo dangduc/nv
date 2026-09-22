@@ -60,6 +60,8 @@ static NSString *BackgroundTextColorKey = @"BackgroundTextColor";
 static NSString *DarkSearchTermHighlightColorKey = @"DarkSearchTermHighlightColor";
 static NSString *DarkForegroundTextColorKey = @"DarkForegroundTextColor";
 static NSString *DarkBackgroundTextColorKey = @"DarkBackgroundTextColor";
+static NSString *SyntaxColorKeys[] = { @"SyntaxColorsLightBackground", @"SyntaxColorsDarkBackground" };
+static NSString *SyntaxColorNames[] = { @"comment", @"key", @"string", @"number", @"title", @"punctuation", @"other" };
 static NSString *MakeURLsClickableKey = @"MakeURLsClickable";
 static NSString *AppActivationKeyCodeKey = @"AppActivationKeyCode";
 static NSString *AppActivationModifiersKey = @"AppActivationModifiers";
@@ -176,6 +178,8 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 
 - (void)dealloc {
 	
+	[syntaxColors[0] release];
+	[syntaxColors[1] release];
 	[tableColumns release];
 	[super dealloc];
 }
@@ -628,6 +632,65 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 - (NSColor*)darkBackgroundTextColor {
     NSData *data = [defaults dataForKey:DarkBackgroundTextColorKey];
     return data ? [NSUnarchiver unarchiveObjectWithData:data] : nil;
+}
+
+- (NSColor *)defaultSyntaxColorForKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark {
+    static NSArray *palettes[2];
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        CGFloat hues[] = { 0.34, 0.08, 0.34, 0.04, 0.78, 0.59, 0.61 };
+        CGFloat saturations[] = { 0.28, 0.72, 0.72, 0.72, 0.72, 0.30, 0.72 };
+        for (NSUInteger appearance = 0; appearance < 2; appearance++) {
+            NSMutableArray *colors = [NSMutableArray arrayWithCapacity:NVSyntaxColorCount];
+            for (NSUInteger index = 0; index < NVSyntaxColorCount; index++)
+                [colors addObject:[NSColor colorWithCalibratedHue:hues[index] saturation:saturations[index]
+                    brightness:appearance ? 0.94 : 0.58 alpha:1.0]];
+            palettes[appearance] = [colors copy];
+        }
+    });
+    return kind < NVSyntaxColorCount ? [palettes[!!dark] objectAtIndex:kind] : nil;
+}
+
+- (NSColor *)syntaxColorForKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark {
+    if (kind >= NVSyntaxColorCount) return nil;
+    NSUInteger appearance = !!dark;
+    if (!syntaxColors[appearance]) {
+        NSDictionary *saved = [defaults dictionaryForKey:SyntaxColorKeys[appearance]];
+        NSMutableArray *colors = [NSMutableArray arrayWithCapacity:NVSyntaxColorCount];
+        for (NSUInteger index = 0; index < NVSyntaxColorCount; index++) {
+            id data = [saved objectForKey:SyntaxColorNames[index]];
+            NSColor *color = nil;
+            if ([data isKindOfClass:[NSData class]]) {
+                @try {
+                    id decoded = [NSUnarchiver unarchiveObjectWithData:data];
+                    if ([decoded isKindOfClass:[NSColor class]]) color = decoded;
+                } @catch (NSException *exception) { /* Use the default for an unreadable color. */ }
+            }
+            [colors addObject:color ?: [self defaultSyntaxColorForKind:index darkBackground:dark]];
+        }
+        // Drawing resolves many captures; decode preferences once per palette change.
+        syntaxColors[appearance] = [colors copy];
+    }
+    return [syntaxColors[appearance] objectAtIndex:kind];
+}
+
+- (void)setSyntaxColor:(NSColor *)color forKind:(NVSyntaxColorKind)kind darkBackground:(BOOL)dark sender:(id)sender {
+    if (!color || kind >= NVSyntaxColorCount) return;
+    NSUInteger appearance = !!dark;
+    NSMutableDictionary *saved = [[[defaults dictionaryForKey:SyntaxColorKeys[appearance]] mutableCopy] autorelease];
+    if (!saved) saved = [NSMutableDictionary dictionary];
+    [saved setObject:[NSArchiver archivedDataWithRootObject:color] forKey:SyntaxColorNames[kind]];
+    [defaults setObject:saved forKey:SyntaxColorKeys[appearance]];
+    [syntaxColors[appearance] release]; syntaxColors[appearance] = nil;
+    SEND_CALLBACKS();
+}
+
+- (void)resetSyntaxColorsFromSender:(id)sender {
+    for (NSUInteger appearance = 0; appearance < 2; appearance++) {
+        [defaults removeObjectForKey:SyntaxColorKeys[appearance]];
+        [syntaxColors[appearance] release]; syntaxColors[appearance] = nil;
+    }
+    SEND_CALLBACKS();
 }
 
 - (BOOL)tableColumnsShowPreview {

@@ -90,6 +90,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
          @selector(setSearchTermHighlightColor:sender:),
          @selector(setDarkForegroundTextColor:sender:), @selector(setDarkBackgroundTextColor:sender:),
          @selector(setDarkSearchTermHighlightColor:sender:),
+         @selector(setSyntaxColor:forKind:darkBackground:sender:), @selector(resetSyntaxColorsFromSender:),
          @selector(setShouldHighlightSearchTerms:sender:), nil];
     }
     return self;
@@ -99,6 +100,8 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [prefsController unregisterTarget:self];
     [backupPreferencesViewController release];
+    [syntaxColorsSheet release];
+    [syntaxColorWells release];
     [centerStyle release];
     [items release];
     [super dealloc];
@@ -252,6 +255,80 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 - (IBAction)changedDarkSearchHighlightColorWell:(id)sender {
     [prefsController setDarkSearchTermHighlightColor:[darkSearchHighlightColorWell color] sender:self];
 }
+
+- (IBAction)showSyntaxColors:(id)sender {
+    if (!syntaxColorsSheet) {
+        syntaxColorsSheet = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 520, 400)
+            styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
+        [syntaxColorsSheet setReleasedWhenClosed:NO];
+        [syntaxColorsSheet setTitle:NSLocalizedString(@"User Scheme Syntax Colors", nil)];
+        NSView *content = [syntaxColorsSheet contentView];
+        NSTextField *heading = NVSchemeLabel(NSLocalizedString(@"User Scheme Syntax Colors", nil), NSMakeRect(24, 362, 472, 22));
+        [heading setFont:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]];
+        [content addSubview:heading];
+        NSTextField *explanation = NVSchemeLabel(NSLocalizedString(@"Colors apply to User Scheme. The palette follows the editor\nbackground brightness. Changes appear immediately.", nil), NSMakeRect(24, 318, 472, 36));
+        [explanation setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
+        [explanation setTextColor:[NSColor secondaryLabelColor]];
+        [[explanation cell] setWraps:YES];
+        [content addSubview:explanation];
+        NSArray *columns = @[NSLocalizedString(@"Light background", nil), NSLocalizedString(@"Dark background", nil)];
+        NSArray *labels = @[NSLocalizedString(@"Comments", nil), NSLocalizedString(@"Keys and attributes", nil),
+            NSLocalizedString(@"Strings and literals", nil), NSLocalizedString(@"Numbers and constants", nil),
+            NSLocalizedString(@"Tags and headings", nil), NSLocalizedString(@"Punctuation", nil),
+            NSLocalizedString(@"Other highlighted tokens", nil)];
+        NSMutableArray *wells = [NSMutableArray arrayWithCapacity:2 * NVSyntaxColorCount];
+        for (NSUInteger kind = 0; kind < NVSyntaxColorCount; kind++)
+            [content addSubview:NVSchemeLabel(labels[kind], NSMakeRect(24, 259 - 30 * kind, 240, 20))];
+        for (NSUInteger appearance = 0; appearance < 2; appearance++) {
+            NSTextField *label = NVSchemeLabel(columns[appearance], NSMakeRect(258 + 122 * appearance, 289, 122, 20));
+            [label setAlignment:NSCenterTextAlignment];
+            [label setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
+            [content addSubview:label];
+            for (NSUInteger kind = 0; kind < NVSyntaxColorCount; kind++) {
+                NSColorWell *well = [[[NSColorWell alloc] initWithFrame:NSMakeRect(293 + 122 * appearance, 256 - 30 * kind, 52, 24)] autorelease];
+                [well setTag:appearance * NVSyntaxColorCount + kind];
+                [well setTarget:self];
+                [well setAction:@selector(changedSyntaxColorWell:)];
+                [well setAccessibilityLabel:[NSString stringWithFormat:NSLocalizedString(@"%@ — %@", nil), labels[kind], columns[appearance]]];
+                [content addSubview:well];
+                [wells addObject:well];
+            }
+        }
+        syntaxColorWells = [wells copy];
+        NSButton *reset = [[[NSButton alloc] initWithFrame:NSMakeRect(18, 16, 170, 32)] autorelease];
+        [reset setTitle:NSLocalizedString(@"Restore Syntax Defaults", nil)];
+        [reset setBezelStyle:NSBezelStyleRounded];
+        [reset setTarget:self]; [reset setAction:@selector(resetSyntaxColors:)];
+        [content addSubview:reset];
+        NSButton *done = [[[NSButton alloc] initWithFrame:NSMakeRect(406, 16, 96, 32)] autorelease];
+        [done setTitle:NSLocalizedString(@"Done", nil)];
+        [done setBezelStyle:NSBezelStyleRounded];
+        [done setKeyEquivalent:@"\r"];
+        [done setTarget:self]; [done setAction:@selector(closeSyntaxColors:)];
+        [content addSubview:done];
+    }
+    [self refreshUserSchemeControls];
+    if (![syntaxColorsSheet sheetParent]) [window beginSheet:syntaxColorsSheet completionHandler:nil];
+}
+
+- (IBAction)changedSyntaxColorWell:(id)sender {
+    NSUInteger index = [sender tag];
+    [prefsController setSyntaxColor:[sender color] forKind:index % NVSyntaxColorCount
+        darkBackground:index >= NVSyntaxColorCount sender:self];
+}
+
+- (IBAction)resetSyntaxColors:(id)sender {
+    [prefsController resetSyntaxColorsFromSender:self];
+    [self refreshUserSchemeControls];
+}
+
+- (IBAction)closeSyntaxColors:(id)sender {
+    for (NSColorWell *well in syntaxColorWells) [well deactivate];
+    [[NSColorPanel sharedColorPanel] orderOut:nil];
+    [window endSheet:syntaxColorsSheet];
+    [syntaxColorsSheet orderOut:nil];
+}
+
 - (IBAction)changedHighlightSearchTerms:(id)sender {
 	[prefsController setShouldHighlightSearchTerms:[highlightSearchTermsButton state] sender:self];
 }
@@ -485,7 +562,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     }
 
     CGFloat groupHeight = 132.0;
-    CGFloat darkGroupY = lowerControlsTop + 40.0;
+    CGFloat darkGroupY = lowerControlsTop + 76.0;
     CGFloat lightGroupY = darkGroupY + groupHeight + 12.0;
     CGFloat checkboxY = lightGroupY + groupHeight + 12.0;
     CGFloat fontOffset = checkboxY + 32.0 - NSMinY([bodyTextFontField frame]);
@@ -510,6 +587,13 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [[appearanceLabel cell] setWraps:YES];
     [[appearanceLabel cell] setScrollable:NO];
     [appearanceLabel setFrame:NSMakeRect(24.0, lowerControlsTop + 6.0, paneSize.width - 48.0, 28.0)];
+
+    NSButton *syntaxButton = [[[NSButton alloc] initWithFrame:NSMakeRect(18, lowerControlsTop + 38, 154, 32)] autorelease];
+    [syntaxButton setTitle:NSLocalizedString(@"Syntax Colors…", nil)];
+    [syntaxButton setBezelStyle:NSBezelStyleRounded];
+    [syntaxButton setTarget:self];
+    [syntaxButton setAction:@selector(showSyntaxColors:)];
+    [fontsColorsView addSubview:syntaxButton];
 
     darkSearchHighlightColorWell = [[[NSColorWell alloc] initWithFrame:NSZeroRect] autorelease];
     darkForegroundColorWell = [[[NSColorWell alloc] initWithFrame:NSZeroRect] autorelease];
@@ -545,6 +629,10 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [darkForegroundColorWell setColor:[prefsController darkForegroundTextColor]];
     [darkBackgroundColorWell setColor:[prefsController darkBackgroundTextColor]];
     [highlightSearchTermsButton setState:[prefsController highlightSearchTerms]];
+    for (NSColorWell *well in syntaxColorWells) {
+        NSUInteger index = [well tag];
+        [well setColor:[prefsController syntaxColorForKind:index % NVSyntaxColorCount darkBackground:index >= NVSyntaxColorCount]];
+    }
 }
 
 - (void)awakeFromNib {

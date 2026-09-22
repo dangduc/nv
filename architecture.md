@@ -366,6 +366,13 @@ Search highlights blend against each browser's background and remain local to it
 [LinkingEditor](Sources/Editor/LinkingEditor.m) applies display colors and search highlights through each editor's layout manager.
 An appearance change must not rewrite shared note content.
 
+Fonts & Colors includes a Syntax Colors sheet for User Scheme.
+It stores seven syntax categories for light backgrounds and seven for dark backgrounds.
+Each editor selects the syntax palette from its background brightness, independently of the macOS appearance.
+Other color schemes retain the built-in syntax palettes.
+`GlobalPrefs` caches decoded syntax colors and notifies editors after a change or reset.
+Editors invalidate drawing without changing parser captures, shared source attributes, or Undo history.
+
 The search field holds a query independently of the selected note's title.
 Title and tag controls commit through the editing session and retain the original target note during an edit.
 New Note creates an empty body and clears the query.

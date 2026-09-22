@@ -66,6 +66,17 @@ python3 Tests/Regression/user-schemes/run.py --artifacts build/user-schemes-arti
 The final run passed 199 checks across two launches, including eight screenshot checks.
 Inspect `settings-light.png` and `settings-dark.png` in that output directory before replacing the documentation images.
 
+## Syntax colors
+
+[`syntax-colors-light.png`](syntax-colors-light.png) and [`syntax-colors-dark.png`](syntax-colors-dark.png) show the User Scheme syntax matrix.
+The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
+The Intel Development app runs under Rosetta with a temporary library and preferences domain.
+The images show the default syntax colors before the probe changes them.
+WindowServer captures the native sheet without pixel changes.
+
+The User Scheme command above also produces `syntax-settings-light.png` and `syntax-settings-dark.png`.
+Inspect these images before replacing the documentation images.
+
 ## Historical images
 
 Earlier images remain available for the review records that link to them.
