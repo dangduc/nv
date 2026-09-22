@@ -20,6 +20,7 @@
 + (NVApplicationController *)sharedController;
 + (NVApplicationController *)controllerWithInitialBrowser:(AppController *)browser;
 - (AppController *)activeBrowser;
+- (NSColor *)foregrndColor;
 - (NSArray *)browserControllers;
 - (NotationController *)library;
 - (NVBackupController *)backupController;

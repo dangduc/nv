@@ -59,6 +59,7 @@ View actions use `NVControllerForView()` to find their owning browser.
 During a forwarded library call, the coordinator records the originating browser.
 Library reveal callbacks use that browser, falling back to the active browser outside the call.
 Application settings and lifecycle commands still use the initial controller.
+The coordinator exposes foreground color through a read-only accessor. Archive decoding can use it while backup restore blocks forwarded commands.
 
 One compatibility detail matters when reading older code: `AppController`'s `notationController` variable now holds an `NVBrowserSession`.
 Use `browserSession` for window state and `sharedNotationController` for the library.
