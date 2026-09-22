@@ -119,6 +119,18 @@ WindowServer captures the native sheet without pixel changes.
 The User Scheme command above also produces `syntax-settings-light.png` and `syntax-settings-dark.png`.
 Inspect these images before replacing the documentation images.
 
+## Product rename
+
+[`neo-notational-v-about.png`](neo-notational-v-about.png) shows the renamed Development app in the About panel.
+[`neo-notational-v-shortcut.png`](neo-notational-v-shortcut.png) shows the updated keyboard-shortcut dialog.
+
+The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
+The Intel Development app runs under Rosetta, with application source at `18066ce736d48108109b7b8fd59f8a8cde6073eb`.
+The executable has SHA-256 `a609f9fa0f5aa0f85a134f8ef8348d15843764186137a24de8eceb6f90f006b0`.
+The captures use a disposable notes library and a separate preferences domain.
+WindowServer captures the native app windows without pixel changes.
+The disposable app exited after capture.
+
 ## Historical images
 
 Earlier images remain available for the review records that link to them.
