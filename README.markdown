@@ -4,7 +4,7 @@ nvALT is a macOS notes app with lightweight support for editing raw source texts
 
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
-![Full nvALT window with editable note source, hidden header rows, and its shadow against a neutral background](docs/screenshots/readme-source.png)
+![Light appearance with the default User Scheme colors and highlighted search matches](docs/screenshots/readme-source.png)
 
 ## What changes in this fork
 
@@ -70,7 +70,7 @@ The matrix provides seven categories for light backgrounds and seven for dark ba
 User Scheme selects the syntax palette from the editor background brightness.
 Changes appear immediately. **Restore Syntax Defaults** restores both syntax palettes.
 
-![Dark appearance with a native search field and notes list](docs/screenshots/readme-dark.png)
+![Dark appearance with the default User Scheme colors and highlighted search matches](docs/screenshots/readme-dark.png)
 
 All screenshots use disposable sample notes.
 [Screenshot details](docs/screenshots/README.md) record the captured revision and environment.
