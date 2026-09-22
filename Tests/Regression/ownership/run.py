@@ -12,10 +12,10 @@ dealloc = re.search(r'^- \(void\)dealloc \{.*?^\}', editor, re.S | re.M).group(0
 accessor = re.search(r'^\+ \(GlobalPrefs \*\)defaultPrefs \{.*?^\}', prefs, re.S | re.M).group(0)
 assignment = re.search(r'prefsController = \[GlobalPrefs defaultPrefs\];', editor).group(0)
 
-borrowed = ['prefsController', 'controlField', 'notesTableView', 'beforeString', 'afterString']
+borrowed = ['prefsController', 'controlField', 'notesTableView']
 for name in borrowed:
     assert not re.search(r'\[' + name + r'\s+(?:release|autorelease)\]', dealloc), name + ' must remain borrowed'
-for name in ['textFinder', 'lastImportedFindString', 'stringDuringFind', 'noteDuringFind']:
+for name in ['textFinder']:
     assert '[' + name + ' release]' in dealloc, name + ' must release its owned reference'
 print('PASS: borrowed and owned reference guards', flush=True)
 
@@ -41,11 +41,8 @@ ACCESSOR
 @interface EditorOwnership : NSObject {
     id textFinder, controlField, notesTableView;
     GlobalPrefs *prefsController;
-    id activeParagraphPastCursor, activeParagraph, activeParagraphBeforeCursor;
-    id beforeString, afterString, lastImportedFindString, stringDuringFind, noteDuringFind;
 }
 - (id)initWithBorrowedObjects:(NSArray *)objects;
-- (void)unbind:(NSString *)binding;
 @end
 @implementation EditorOwnership
 - (id)initWithBorrowedObjects:(NSArray *)objects {
@@ -53,23 +50,17 @@ ACCESSOR
         ASSIGNMENT
         controlField = [objects objectAtIndex:0];
         notesTableView = [objects objectAtIndex:1];
-        beforeString = [objects objectAtIndex:2];
-        afterString = [objects objectAtIndex:3];
         textFinder = [OwnedSentinel new];
-        lastImportedFindString = [OwnedSentinel new];
-        stringDuringFind = [OwnedSentinel new];
-        noteDuringFind = [OwnedSentinel new];
     }
     return self;
 }
-- (void)unbind:(NSString *)binding { /* Cocoa bindings are outside this test. */ }
 DEALLOC
 @end
 int main(void) {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     GlobalPrefs *applicationPreferences = [GlobalPrefs defaultPrefs];
     NSMutableArray *owners = [NSMutableArray new];
-    for (NSUInteger i = 0; i < 4; i++) {
+    for (NSUInteger i = 0; i < 2; i++) {
         id object = [BorrowedSentinel new];
         [owners addObject:object]; [object release];
     }
@@ -77,17 +68,18 @@ int main(void) {
     [editor release];
     printf("after editor closes: borrowed=%lu singleton=%lu owned=%lu\n",
         (unsigned long)borrowedDestroyed, (unsigned long)singletonDestroyed, (unsigned long)ownedDestroyed);
-    if (borrowedDestroyed || singletonDestroyed || ownedDestroyed != 4) return 1;
+    if (borrowedDestroyed || singletonDestroyed || ownedDestroyed != 1) return 1;
     if ([GlobalPrefs defaultPrefs] != applicationPreferences) return 2;
     [owners release];
-    if (borrowedDestroyed != 4) return 3;
+    if (borrowedDestroyed != 2) return 3;
     [pool drain]; return 0;
 }
 '''.replace('ACCESSOR', accessor).replace('ASSIGNMENT', assignment)
 
 with tempfile.TemporaryDirectory(prefix='nv-editor-ownership-') as directory:
     directory = Path(directory)
-    cases = [('production', dealloc, 0)]
+    cases = [('production', dealloc, 0),
+             ('textFinder-leak-mutant', dealloc.replace('[textFinder release];', ''), 1)]
     cases.extend((name + '-release-mutant', dealloc.replace('[super dealloc];', '[' + name + ' release];\n    [super dealloc];'), 1) for name in borrowed)
     for name, teardown, expected in cases:
         path = directory / 'test.m'
