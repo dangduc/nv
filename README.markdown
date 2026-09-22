@@ -58,6 +58,13 @@ Choose **View > Color Schemes > Follow System Appearance** for system editor col
 **User Scheme** uses separate custom light and dark colors and switches with the macOS appearance.
 **Preferences > Fonts & Colors** contains both groups, each with search highlight, foreground text, and background colors.
 
+User Scheme uses these default sRGB colors. Saved custom colors take precedence.
+
+| Appearance | Text | Background | Search highlight |
+| --- | --- | --- | --- |
+| Light | `#000000` | `#FDE9D9` | `#F5C1C0` |
+| Dark | `#000000` | `#FFEFC9` | `#FFC600` |
+
 To customize syntax highlighting, open **Preferences > Fonts & Colors > Syntax Colors…**.
 The matrix provides seven categories for light backgrounds and seven for dark backgrounds.
 User Scheme selects the syntax palette from the editor background brightness.

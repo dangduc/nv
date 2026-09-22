@@ -99,6 +99,12 @@ NSString *NVPTFPboardType = @"Notational Velocity Poor Text Format";
 
 NSString *HotKeyAppToFrontName = @"bring Notational Velocity to the foreground";
 
+static NSData *NVArchivedUserSchemeColor(unsigned int rgb) {
+    NSColor *color = [NSColor colorWithSRGBRed:((rgb >> 16) & 0xff) / 255.0
+        green:((rgb >> 8) & 0xff) / 255.0 blue:(rgb & 0xff) / 255.0 alpha:1.0];
+    return [NSArchiver archivedDataWithRootObject:color];
+}
+
 
 @implementation GlobalPrefs
 
@@ -150,14 +156,13 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSArchiver archivedDataWithRootObject:
 			 [NSFont userFixedPitchFontOfSize:12.0f]], NoteBodyFontKey,
 			
-			[NSArchiver archivedDataWithRootObject:[NSColor blackColor]], ForegroundTextColorKey,
-			[NSArchiver archivedDataWithRootObject:[NSColor whiteColor]], BackgroundTextColorKey,
-			
-			[NSArchiver archivedDataWithRootObject:
-			 [NSColor colorWithCalibratedRed:0.945 green:0.702 blue:0.702 alpha:1.0f]], SearchTermHighlightColorKey,
-			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:0.90 alpha:1.0]], DarkForegroundTextColorKey,
-			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:0.10 alpha:1.0]], DarkBackgroundTextColorKey,
-			[NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedRed:0.38 green:0.28 blue:0.10 alpha:1.0]], DarkSearchTermHighlightColorKey,
+			// Registered defaults preserve any colors already saved by the user.
+			NVArchivedUserSchemeColor(0x000000), ForegroundTextColorKey,
+			NVArchivedUserSchemeColor(0xFDE9D9), BackgroundTextColorKey,
+			NVArchivedUserSchemeColor(0xF5C1C0), SearchTermHighlightColorKey,
+			NVArchivedUserSchemeColor(0x000000), DarkForegroundTextColorKey,
+			NVArchivedUserSchemeColor(0xFFEFC9), DarkBackgroundTextColorKey,
+			NVArchivedUserSchemeColor(0xFFC600), DarkSearchTermHighlightColorKey,
 			
 			[NSNumber numberWithFloat:[NSFont smallSystemFontSize]], TableFontSizeKey, 
 			[NSArray arrayWithObjects:NoteTitleColumnString, NoteDateModifiedColumnString, nil], NoteAttributesVisibleKey,

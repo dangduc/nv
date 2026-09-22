@@ -4,7 +4,8 @@
 static NSColor *SchemeColor(CGFloat red, CGFloat green, CGFloat blue, CGFloat alpha) {
     return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
 }
-static NSColor *LegacyForeground(void) { return SchemeColor(.14, .19, .23, 1); }
+// Keep the fixture link color distinct from the black foreground defaults.
+static NSColor *LegacyForeground(void) { return SchemeColor(.14, .19, .43, 1); }
 static NSColor *LegacyBackground(void) { return SchemeColor(.93, .96, 1, 1); }
 static NSColor *LegacyHighlight(void) { return SchemeColor(1, .2, .1, .25); }
 static NSArray *FinalLightColors(void) {

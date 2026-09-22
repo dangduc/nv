@@ -42,6 +42,8 @@
         BOOL reopened = atoi(getenv("NV_REVIEW_PHASE")) == 2;
         NVApplicationController *app = [NVApplicationController sharedController];
         NotationController *library = [self sharedNotationController];
+        // Exercise both syntax palettes; Dark appearance now defaults to a light background.
+        [prefsController setDarkBackgroundTextColor:[NSColor colorWithCalibratedWhite:0.10 alpha:1.0] sender:self];
         NoteObject *note = reopened ? [[library allNotes] firstObject] : MakeNote(library, @"Syntax color sample",
             @"{\n  \"title\": \"ordinary source text\",\n  \"count\": 42,\n  \"enabled\": true\n}");
         [note setSourceSyntaxIdentifier:@"json"];
