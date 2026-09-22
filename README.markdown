@@ -4,7 +4,10 @@ nvALT is a macOS notes app with lightweight support for editing raw source texts
 
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
 
-![Light appearance with Org syntax highlighting, default User Scheme colors, and highlighted search matches](docs/screenshots/readme-source.png)
+![Demo of fuzzy search, highlighted matching lines, result selection, and independent searches in two windows](docs/screenshots/readme-demo.gif)
+
+The demo searches for `grdn`, selects matching lines, and opens a second window to search for `trip`.
+[View a still screenshot](docs/screenshots/readme-source.png).
 
 ## What changes in this fork
 
