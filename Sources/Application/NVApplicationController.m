@@ -84,6 +84,10 @@ AppController *NVControllerForView(NSView *view) {
     if ([browsers containsObject:lastActiveBrowser]) return lastActiveBrowser;
     return [browsers count] ? [browsers lastObject] : initialBrowser;
 }
+- (NSColor *)foregrndColor {
+    // Archive decoding needs this read-only value while restore blocks forwarded commands.
+    return [[self activeBrowser] foregrndColor] ?: [NSColor blackColor];
+}
 - (void)browserBecameActive:(AppController *)browser {
     if (![browsers containsObject:browser]) [browsers addObject:browser];
     lastActiveBrowser = browser;

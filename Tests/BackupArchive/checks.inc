@@ -153,7 +153,8 @@
     [[NSFileManager defaultManager] createDirectoryAtPath:failedPath withIntermediateDirectories:NO attributes:nil error:NULL];
     Swap([NotationController class], @selector(initWithRestoredDirectoryRef:unlockedPrefs:error:), @selector(nv_restoredInit:unlockedPrefs:error:));
     NVFailRestoredInitialization = YES;
-    Check(![coordinator restoreBackupArchive:prepared toDirectory:[NSURL fileURLWithPath:failedPath] error:&error] && error,
+    Check(![coordinator restoreBackupArchive:prepared toDirectory:[NSURL fileURLWithPath:failedPath] error:&error] &&
+        error && NVRestoredInitializationFailures == 1,
         @"coordinator reports a restored-library initialization failure");
     NVFailRestoredInitialization = NO;
     Swap([NotationController class], @selector(initWithRestoredDirectoryRef:unlockedPrefs:error:), @selector(nv_restoredInit:unlockedPrefs:error:));

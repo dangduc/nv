@@ -27,7 +27,8 @@ lock_path = repo / 'build/pr-review/gui.lock'
 lock_path.parent.mkdir(parents=True, exist_ok=True)
 with lock_path.open('w') as lock, tempfile.TemporaryDirectory(prefix='nvalt-view-review-') as directory:
     fcntl.flock(lock, fcntl.LOCK_EX)
-    root = Path(directory)
+    # Descriptor-based backup checks reject symlink ancestors such as /var.
+    root = Path(directory).resolve()
     app = root / 'View Review.app'
     shutil.copytree(args.app, app, symlinks=True)
     info_path = app / 'Contents/Info.plist'

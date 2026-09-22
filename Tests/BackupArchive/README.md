@@ -1,6 +1,6 @@
 # Backup archive checks
 
-The desktop probe uses a copied app and disposable notes.
+The desktop probe uses a copied app and disposable notes. Its temporary root uses a physical path without symlink ancestors.
 It covers capture generations, checkpoint errors, archive recovery, journal closure, and the application restore coordinator.
 
 After the Development build, run the desktop probe:
@@ -20,6 +20,8 @@ The probe includes these checks:
 - A new library cannot recover the active library journal.
 - Recovery opens an encrypted archive after the original directory moves away and its journal closes.
 - Coordinator failure preserves the original library. Coordinator success attaches the recovered library to its browsers.
+- Restore keeps foreground color available for archive decoding while it blocks new-window commands.
+- The initialization failure fixture must reach its injected failure before rollback can pass.
 
 ## Native offline checks
 
