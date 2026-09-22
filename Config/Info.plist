@@ -85,7 +85,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>Neo Notational V, based on nvALT by David Halter and Brett Terpstra and NV 2.0 β5 Copyright © 2010 Zachary Schneirov, All Rights Reserved.</string>
 	<key>CFBundleIconFile</key>
-	<string>Notality.icns</string>
+	<string>$(NV_APP_ICON_FILE)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

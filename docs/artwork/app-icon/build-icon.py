@@ -88,16 +88,17 @@ def legacy_rgb(image):
     return bytes(result)
 
 
-def build(chrome, destination):
-    subprocess.run([sys.executable, str(ARTWORK / "compose.py")], check=True)
-    iconset = OUTPUT / "NeoNotationalV.iconset"
+def build(chrome, destination, style):
+    stem = "NeoNotationalV-" + style
+    iconset = OUTPUT / f"{stem}.iconset"
     iconset.mkdir(exist_ok=True)
     entries = []
     expected = {}
     for size, scale, kind in REPRESENTATIONS:
         suffix = "@2x" if scale == 2 else ""
         png = iconset / f"icon_{size}x{size}{suffix}.png"
-        source = OUTPUT / (f"composed-{size}.svg" if size in (16, 32, 48) else "composed.svg")
+        prefix = "composed" if style == "classic" else "squircle"
+        source = OUTPUT / (f"{prefix}-{size}.svg" if size in (16, 32, 48) else f"{prefix}.svg")
         render(chrome, source, size * scale, png)
         with Image.open(png) as image:
             rgba = image.convert("RGBA")
@@ -109,14 +110,14 @@ def build(chrome, destination):
                 entries.extend([chunk(kind, legacy_rgb(rgba)), chunk(alpha_kind, rgba.getchannel("A").tobytes())])
             else:
                 entries.append(chunk(kind, png.read_bytes()))
-        print(f"Rendered {size}px at {scale}x", flush=True)
+        print(f"Rendered {style}: {size}px at {scale}x", flush=True)
 
     # Keep the logical 16px and 32px designs distinct from larger pixel dimensions.
     # ImageIO can alias PNG-based 32px entries to the 16px Retina image.
     # Legacy RGB/mask pairs preserve the distinct 1x drawings in the native decoder.
     table = chunk(b"TOC ", b"".join(entry[:8] for entry in entries))
     data = chunk(b"icns", table + b"".join(entries))
-    candidate = OUTPUT / "NeoNotationalV.icns"
+    candidate = OUTPUT / f"{stem}.icns"
     candidate.write_bytes(data)
     with candidate.open("rb") as file:
         decoded = IcnsImagePlugin.IcnsFile(file)
@@ -135,8 +136,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--chrome", type=Path,
                         default=Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
-    parser.add_argument("--output", type=Path, default=ROOT / "Resources/Images/Notality.icns")
+    parser.add_argument("--style", choices=("classic", "squircle", "both"), default="both",
+                        help="Build both bundled icons by default")
+    parser.add_argument("--output", type=Path,
+                        help="Output ICNS path; requires a single --style")
     args = parser.parse_args()
     if not args.chrome.is_file():
         parser.error("Chrome was not found; set --chrome to its executable")
-    build(args.chrome, args.output)
+    if args.output and args.style == "both":
+        parser.error("--output requires --style classic or --style squircle")
+    subprocess.run([sys.executable, str(ARTWORK / "compose.py")], check=True)
+    styles = ("classic", "squircle") if args.style == "both" else (args.style,)
+    for style in styles:
+        filename = "NotalityClassic.icns" if style == "classic" else "Notality.icns"
+        build(args.chrome, args.output or ROOT / "Resources/Images" / filename, style)
