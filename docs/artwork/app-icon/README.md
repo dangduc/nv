@@ -142,6 +142,12 @@ The Release bundle also passed the resource checks with Xcode 15.2 on macOS 13.7
 
 ## Preview
 
+These images come from the native `NSWorkspace` probe on each system:
+
+| macOS 15.7.9 | macOS 26.6.2 |
+| --- | --- |
+| ![Classic system icon](system-icon-macos15.png) | ![Modern system icon](system-icon-macos26.png) |
+
 Run this command on macOS with Pillow to compare the packaged icons:
 
 ```sh
