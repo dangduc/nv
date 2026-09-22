@@ -205,11 +205,14 @@
             }
             [[GlobalPrefs defaultPrefs] setBackgroundTextColor:[NSColor colorWithCalibratedRed:.88 green:.72 blue:.32 alpha:1] sender:self];
             [self setUserColorScheme:self];
-            NSColor *custom = [[self backgrndColor] retain];
+            NSColor *lightCustom = [NSColor colorWithCalibratedRed:.88 green:.72 blue:.32 alpha:1];
+            NSColor *darkCustom = [NSColor colorWithCalibratedRed:.22 green:.36 blue:.48 alpha:1];
+            [[GlobalPrefs defaultPrefs] setDarkBackgroundTextColor:darkCustom sender:self];
             [[GlobalPrefs defaultPrefs] setAlternatingRows:NO sender:self];
             for (NSString *appearance in @[NSAppearanceNameDarkAqua, NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
                 [browserWindow setAppearance:[NSAppearance appearanceNamed:appearance]]; Pump();
-                Check([[self backgrndColor] isEqual:custom], @"explicit editor colors survive appearance changes");
+                NSColor *expected = [appearance isEqual:NSAppearanceNameDarkAqua] ? darkCustom : lightCustom;
+                Check([[self backgrndColor] isEqual:expected], @"User Scheme selects the saved background for each appearance");
                 Check(![notesTableView usesAlternatingRowBackgroundColors], @"custom editor checks exercise plain note rows");
                 CheckNativeListAppearance(notesTableView, appearance);
                 [notesTableView setNeedsDisplay:YES];
@@ -219,7 +222,6 @@
                     CheckNativeListRowPixels(notesTableView, row, titleColumn, appearance);
                 }
             }
-            [custom release];
         }
         [created release]; [alpha release]; [beta release];
         [library flushAllNoteChanges]; [library closeJournal];
