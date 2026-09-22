@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — red Saturn V launch tower and crane</title>
+  <desc>A red open-lattice launch tower, service platforms, flared lower supports, and a left-facing hammerhead crane. Drawn from the user-supplied launchpad photograph. The transparent spaces between the girders remain open. Layer this drawing behind the Saturn V.</desc>
+  <metadata>Original vector reconstruction from the user-supplied Screenshot 2026-09-22 at 00.50.27.png. The source photograph is a visual reference and is not embedded. See SOURCES.md for composition details.</metadata>
+  <defs>
+    <linearGradient id="tower-red" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#791813"/>
+      <stop offset=".34" stop-color="#d33b27"/>
+      <stop offset=".57" stop-color="#e75133"/>
+      <stop offset="1" stop-color="#a3221a"/>
+    </linearGradient>
+    <linearGradient id="tower-deck" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#607076"/>
+      <stop offset="1" stop-color="#354248"/>
+    </linearGradient>
+    <linearGradient id="tower-crane-house" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#ee6345"/>
+      <stop offset=".48" stop-color="#c83827"/>
+      <stop offset="1" stop-color="#862017"/>
+    </linearGradient>
+    <g id="tower-front-bay" fill="none" stroke-linejoin="round">
+      <path d="M685 0H779V70H685Z" stroke="#6d1916" stroke-width="6"/>
+      <path d="M686 2H778M686 69H778" stroke="#e24930" stroke-width="3"/>
+      <path d="M688 4L776 66M776 4L688 66" stroke="#921f19" stroke-width="5"/>
+      <path d="M688 3L776 65M776 3L688 65" stroke="#de4830" stroke-width="2.4"/>
+      <path d="M685 0V70M779 0V70" stroke="#ef6441" stroke-width="1.4"/>
+    </g>
+    <g id="tower-side-bay" fill="none" stroke-linejoin="round">
+      <path d="M779 0L802 -15V55L779 70Z" stroke="#5c1b17" stroke-width="5"/>
+      <path d="M780 4L801 52M800 -10L781 64" stroke="#ac2c21" stroke-width="3.5"/>
+      <path d="M780 1L801 -14M780 69L801 54" stroke="#e04a31" stroke-width="1.4"/>
+    </g>
+    <g id="tower-service-platform">
+      <path d="M673 0H784L811 -10H699Z" fill="#bc3b2b" stroke="#682018" stroke-width="1.5"/>
+      <path d="M673 0H784V7H673Z" fill="#7c201b"/>
+      <path d="M784 0L811 -10V-3L784 7Z" fill="#511b17"/>
+      <path d="M673 -17V0M692 -17V0M711 -17V0M730 -17V0M749 -17V0M768 -17V0M784 -17V0M811 -27V-10M673 -17H784L811 -27M673 -9H784L811 -19" fill="none" stroke="#d1674a" stroke-width="1.8"/>
+      <path d="M676 7L692 22M782 7L767 22" fill="none" stroke="#a22b21" stroke-width="3"/>
+    </g>
+    <g id="tower-service-arm">
+      <path d="M684 0H763V9H684Z" fill="#c84b32" stroke="#661d19" stroke-width="1.5"/>
+      <path d="M688 9L714 31L759 9M713 10V29" fill="none" stroke="#9e2b20" stroke-width="4"/>
+      <path d="M687 -11H760M688 -11V0M706 -11V0M724 -11V0M742 -11V0M760 -11V0" fill="none" stroke="#d39678" stroke-width="1.6"/>
+      <path d="M682 4H769" stroke="#ea7651" stroke-width="2"/>
+    </g>
+  </defs>
+  <g id="launch-tower" stroke-linejoin="round">
+    <!-- The far side of the steel tower remains visible through its open front. -->
+    <g id="tower-rear-frame" fill="none">
+      <path d="M709 144V909M802 129V908" stroke="#591a17" stroke-width="10"/>
+      <path d="M711 145V906M803 130V906" stroke="#a32c21" stroke-width="3"/>
+      <path d="M711 145L800 199L711 285L800 339L711 425L800 479L711 565L800 619L711 705L800 759L711 845L800 899" stroke="#6e201a" stroke-width="4"/>
+      <path d="M711 215H800M711 285H800M711 355H800M711 425H800M711 495H800M711 565H800M711 635H800M711 705H800M711 775H800M711 845H800" stroke="#96291f" stroke-width="5"/>
+    </g>
+    <g id="tower-side-braces">
+      <use href="#tower-side-bay" y="160"/><use href="#tower-side-bay" y="230"/>
+      <use href="#tower-side-bay" y="300"/><use href="#tower-side-bay" y="370"/>
+      <use href="#tower-side-bay" y="440"/><use href="#tower-side-bay" y="510"/>
+      <use href="#tower-side-bay" y="580"/><use href="#tower-side-bay" y="650"/>
+      <use href="#tower-side-bay" y="720"/><use href="#tower-side-bay" y="790"/>
+    </g>
+    <!-- An elevator shaft and a narrow ladder run up the left side. -->
+    <path d="M696 168H713V900H696Z" fill="#502a24" stroke="#7f291f" stroke-width="2"/>
+    <path d="M701 176V895M709 176V895" stroke="#ca7c5b" stroke-width="1.6"/>
+    <path d="M701 185H709M701 205H709M701 225H709M701 245H709M701 265H709M701 285H709M701 305H709M701 325H709M701 345H709M701 365H709M701 385H709M701 405H709M701 425H709M701 445H709M701 465H709M701 485H709M701 505H709M701 525H709M701 545H709M701 565H709M701 585H709M701 605H709M701 625H709M701 645H709M701 665H709M701 685H709M701 705H709M701 725H709M701 745H709M701 765H709M701 785H709M701 805H709M701 825H709M701 845H709M701 865H709M701 885H709" stroke="#d38b69" stroke-width="1.7"/>
+    <g id="tower-front-braces">
+      <use href="#tower-front-bay" y="160"/><use href="#tower-front-bay" y="230"/>
+      <use href="#tower-front-bay" y="300"/><use href="#tower-front-bay" y="370"/>
+      <use href="#tower-front-bay" y="440"/><use href="#tower-front-bay" y="510"/>
+      <use href="#tower-front-bay" y="580"/><use href="#tower-front-bay" y="650"/>
+      <use href="#tower-front-bay" y="720"/><use href="#tower-front-bay" y="790"/>
+    </g>
+    <path d="M680 152H691V923H680ZM774 152H785V923H774Z" fill="url(#tower-red)" stroke="#791c17" stroke-width="1"/>
+    <path d="M682 159V918M776 159V918" stroke="#f47c53" stroke-width="1.2"/>
+    <g id="tower-platforms">
+      <use href="#tower-service-platform" y="230"/>
+      <use href="#tower-service-platform" y="370"/>
+      <use href="#tower-service-platform" y="510"/>
+      <use href="#tower-service-platform" y="650"/>
+      <use href="#tower-service-platform" y="790"/>
+    </g>
+    <g id="tower-swing-arms">
+      <use href="#tower-service-arm" y="276"/>
+      <use href="#tower-service-arm" y="337"/>
+      <use href="#tower-service-arm" y="426"/>
+      <use href="#tower-service-arm" y="566"/>
+      <use href="#tower-service-arm" y="697"/>
+      <use href="#tower-service-arm" y="845"/>
+    </g>
+    <!-- Splayed lower supports echo the triangular base in the photograph. -->
+    <g id="tower-base-supports" fill="none">
+      <path d="M684 758L604 947M780 758L859 947M686 858L618 945M779 858L845 945" stroke="#651b17" stroke-width="10"/>
+      <path d="M683 758L603 947M779 758L858 947M685 858L617 945M778 858L844 945" stroke="#d43e29" stroke-width="6"/>
+      <path d="M653 830H682L637 867H682L620 906H682L604 945H685M812 832H782L828 870H782L845 910H782L859 945H779" stroke="#c23725" stroke-width="4"/>
+      <path d="M639 866H682M621 906H682M782 868H828M782 909H844M683 887H780M683 922H780" stroke="#e85836" stroke-width="4"/>
+      <path d="M678 774L606 944M785 774L860 944" stroke="#ef8053" stroke-width="1.5"/>
+    </g>
+    <!-- Compact mobile launcher deck; the rocket is drawn above this layer. -->
+    <g id="tower-launch-platform">
+      <path d="M599 946L817 929L885 955L665 977Z" fill="#778487" stroke="#333d40" stroke-width="2"/>
+      <path d="M665 977L885 955V989L665 1010Z" fill="url(#tower-deck)" stroke="#303b40" stroke-width="2"/>
+      <path d="M599 946L665 977V1010L599 976Z" fill="#3d4a4f" stroke="#303b40" stroke-width="2"/>
+      <path d="M676 978V1007M689 977V1006M702 976V1005M715 974V1004M728 973V1002M741 972V1001M754 971V1000M767 970V998M780 968V997M793 967V996M806 966V995M819 965V993M832 963V992M845 962V991M858 961V990M871 960V989" stroke="#819096" stroke-width="1.8" opacity=".7"/>
+      <path d="M611 955V980M624 961V986M637 967V993M650 973V1000" stroke="#68797f" stroke-width="1.6"/>
+      <path d="M618 947L818 933L865 953L666 970Z" fill="none" stroke="#abb0aa" stroke-width="1.4"/>
+      <path d="M669 979L883 958M600 950L661 979" fill="none" stroke="#abb8b9" stroke-width="1.2"/>
+    </g>
+    <!-- The crane turns on a circular bearing above the tower. -->
+    <g id="tower-crane">
+      <path d="M677 151L704 138H805L787 157H677Z" fill="#62231c" stroke="#5d1916" stroke-width="2"/>
+      <path d="M677 151H788V161H677Z" fill="#be3626"/>
+      <path d="M691 163H732V188H691Z" fill="#344a4e" stroke="#57271f" stroke-width="3"/>
+      <path d="M695 167H711V180H695ZM715 167H728V180H715Z" fill="#90a8a6"/>
+      <path d="M695 179H728" stroke="#5e777b" stroke-width="2"/>
+      <ellipse cx="741" cy="137" rx="42" ry="11" fill="#70241c" stroke="#e45b3a" stroke-width="2"/>
+      <path d="M731 32V105M731 32L736 40" fill="none" stroke="#7b5246" stroke-width="3"/>
+      <path d="M730 33V102" stroke="#dd9b70" stroke-width="1"/>
+      <!-- Tapered lattice jib, pointing left as in the reference. -->
+      <path d="M462 132L496 116L727 91L746 132Z" fill="none" stroke="#661b17" stroke-width="5"/>
+      <path d="M463 130H746M495 115L727 90" fill="none" stroke="#dd4930" stroke-width="3"/>
+      <path d="M496 116V131L531 111V131L567 107V131L603 103V131L640 99V131L677 95V131L713 92V131L727 92L745 130" fill="none" stroke="#ae2d22" stroke-width="2.8"/>
+      <path d="M466 133H745" stroke="#e77851" stroke-width="1.6"/>
+      <path d="M478 128L731 87L804 102M731 45V87" fill="none" stroke="#6f6256" stroke-width="1.3"/>
+      <path d="M506 111V99M562 105V92M620 99V86M678 93V80" stroke="#ac674b" stroke-width="2"/>
+      <path d="M481 134V149" stroke="#51453d" stroke-width="1.5"/>
+      <path d="M478 148Q483 155 486 148" fill="none" stroke="#61473a" stroke-width="2"/>
+      <!-- Red machinery house and the short counterweight behind it. -->
+      <path d="M734 102L751 91H818L819 122L802 136H734Z" fill="url(#tower-crane-house)" stroke="#70231a" stroke-width="2"/>
+      <path d="M734 102H802L818 91H751Z" fill="#ee7850"/>
+      <path d="M802 103L818 94V122L802 136Z" fill="#84251c"/>
+      <path d="M744 107H765V128H744Z" fill="#91291f" stroke="#e96543" stroke-width="1"/>
+      <path d="M772 107H791M772 111H791M772 115H791M772 119H791M772 123H791" stroke="#75281f" stroke-width="1.7"/>
+      <path d="M747 101V91M765 100V91M784 100V91M804 99V91M747 90H815" fill="none" stroke="#d89b76" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
