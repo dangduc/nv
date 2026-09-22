@@ -72,14 +72,28 @@
         [[NSFileManager defaultManager] setTextEncodingAttribute:NSWindowsCP1252StringEncoding atFSPath:[cpPath fileSystemRepresentation]];
         NoteObject *cpNote = [importer noteWithFile:cpPath];
         Check([[[cpNote contentString] string] isEqualToString:macText] && fileEncodingOfNote(cpNote) == NSWindowsCP1252StringEncoding, @"an explicit CP-1252 file attribute preserves its intended characters");
-        const unsigned char gbAliasBytes[] = {0xA3, 0xA0};
         NSStringEncoding gbEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        NSData *gbBytes = [NSData dataWithBytes:gbAliasBytes length:sizeof(gbAliasBytes)];
+        // CoreFoundation's GB18030 mapping differs between macOS releases.
+        // Require a real noncanonical sequence without assuming A3 A0 is U+3000.
+        const unsigned char aliases[][4] = {{0xA3, 0xA0}, {0x84, 0x31, 0x95, 0x33}};
+        const NSUInteger lengths[] = {2, 4};
+        NSData *gbBytes = nil;
+        NSString *gbText = nil;
+        for (NSUInteger i = 0; i < 2; i++) {
+            NSData *candidate = [NSData dataWithBytes:aliases[i] length:lengths[i]];
+            NSString *decoded = [[[NSString alloc] initWithData:candidate encoding:gbEncoding] autorelease];
+            NSData *encoded = [decoded dataUsingEncoding:gbEncoding allowLossyConversion:NO];
+            if ([decoded length] && encoded && ![encoded isEqual:candidate]) {
+                gbBytes = candidate; gbText = decoded; break;
+            }
+        }
+        Check(gbBytes != nil, @"GB18030 fixture has a decodable noncanonical byte sequence");
         NSString *gbPath = [TestDirectory stringByAppendingPathComponent:@"tagged-gb18030.txt"];
         Check([gbBytes writeToFile:gbPath atomically:YES], @"write a supported GB18030 alias fixture");
         [[NSFileManager defaultManager] setTextEncodingAttribute:gbEncoding atFSPath:[gbPath fileSystemRepresentation]];
         NoteObject *gbNote = [importer noteWithFile:gbPath];
-        Check([[[gbNote contentString] string] isEqualToString:@"\u3000"] && fileEncodingOfNote(gbNote) == gbEncoding && ![[@"\u3000" dataUsingEncoding:gbEncoding] isEqual:gbBytes], @"GB18030 fixture has valid source characters and noncanonical original bytes");
+        Check([[[gbNote contentString] string] isEqualToString:gbText] && fileEncodingOfNote(gbNote) == gbEncoding,
+            @"GB18030 import retains the platform-decoded characters and encoding");
         [gbNote markAsSourceConflictCopyOfNote:firstImported];
         Check([[gbNote sourceDataReturningError:NULL] isEqual:gbBytes], @"unarchived GB18030 source preserves its byte alias");
         NoteObject *gbRestored = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:gbNote]];
