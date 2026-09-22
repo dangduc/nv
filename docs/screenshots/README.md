@@ -125,8 +125,10 @@ Inspect these images before replacing the documentation images.
 [`neo-notational-v-shortcut.png`](neo-notational-v-shortcut.png) shows the updated keyboard-shortcut dialog.
 
 The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
-The Intel Development app runs under Rosetta, with application source at `18066ce736d48108109b7b8fd59f8a8cde6073eb`.
+The Intel Development executable runs under Rosetta, built from source at `18066ce736d48108109b7b8fd59f8a8cde6073eb`.
 The executable has SHA-256 `a609f9fa0f5aa0f85a134f8ef8348d15843764186137a24de8eceb6f90f006b0`.
+The About capture loads the updated `Resources/Help/Credits.html` into the disposable app copy.
+It shows `© @dangduc, 2026` above the upstream credits.
 The captures use a disposable notes library and a separate preferences domain.
 WindowServer captures the native app windows without pixel changes.
 The disposable app exited after capture.
