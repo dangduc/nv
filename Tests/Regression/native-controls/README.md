@@ -16,7 +16,7 @@ After a Development build, run:
 python3 Tests/Regression/native-controls/run.py
 ```
 
-Use `--probe search`, `--probe tab`, `--probe tags`, `--probe view`, or `--probe new-note` to select one group.
+Use `--probe search`, `--probe tab`, `--probe tags`, `--probe view`, `--probe new-note`, or `--probe command-return` to select one group.
 Use `--app PATH` to select another build.
 Set `NV_UI_ARTIFACTS` to an existing directory to save a screenshot of restored Search.
 The Search, Tab, and Tags groups reject the preserved pre-correction app at `build/NativeUIReview/round1/nvALT.app`.
@@ -28,6 +28,11 @@ The New Note group sends Command-N through the application menu.
 It checks focused Exact and Fuzzy queries, live field text, pending searches, and input-method composition.
 It also checks empty queries, focus in other controls, and routing between browser windows.
 New notes keep an empty body and Plain Text syntax. Pending search callbacks must preserve the new selection.
+
+The Command-Return group sends keyboard events through `NSApplication` to the focused search field.
+It covers Exact and Fuzzy matches, pending searches, live text, empty queries, and numeric-keypad Enter.
+Plain Return still opens a matching note. Command-Return creates no note when another control has focus.
+The new note must remain selected and visible. A second browser must keep its query and selection.
 
 An earlier sequential run reported a Search focus failure while the peer browser remained active.
 The intended window was not key, and its Search field had no editor.

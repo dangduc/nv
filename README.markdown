@@ -88,6 +88,7 @@ All screenshots use disposable sample notes.
 | Find a note | Type in **Search or Create**. Use **Command-J** or **Command-K** to move through the results. |
 | Edit a search result | Select the note. Then press **Return**. |
 | Create from a search | If no note matches, press **Return** or click **Create**. |
+| Create from any search | With the search field focused, press **Command-Return**. The current search text becomes the new title, even with matching results. |
 | Edit the title | Choose **Note > Rename**. Press **Return** to commit, or **Escape** to cancel. |
 | Edit tags | Choose **Note > Tag**. Press **Return** to commit, or **Escape** to cancel. |
 | Resize the list | Drag the divider between the list and the editor. |
