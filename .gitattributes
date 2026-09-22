@@ -2,3 +2,6 @@
 ThirdParty/fzf-native/** linguist-vendored -whitespace
 Sources/Search/NativePattern.inc linguist-vendored -whitespace
 Sources/Search/NativeRanking.inc linguist-vendored -whitespace
+
+# Preserve byte-for-byte artwork backups, including their saved formatting.
+docs/artwork/app-icon/revisions/** -whitespace

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — Apollo 11 source page</title>
+  <desc>Two stacked white printed pages with the supplied excerpt from Comanche055/REENTRY_CONTROL.agc, Apollo 11 AGC assembly source, printed in black. Tabs are expanded to eight-column stops. Layer saturn-v.svg above this file without resizing either canvas.</desc>
+  <metadata>Source: https://github.com/chrislgarry/Apollo-11/blob/master/Comanche055/REENTRY_CONTROL.agc . The source header identifies the code as public domain. The excerpt text was supplied by the user. See SOURCES.md.</metadata>
+  <defs>
+    <filter id="page-shadow" x="-30%" y="-20%" width="160%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="14"/>
+      <feOffset dx="0" dy="16" result="blur"/>
+      <feFlood flood-color="#0b1626" flood-opacity="0.28"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="page-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#e0e3e5"/>
+      <stop offset="1" stop-color="#a4a9af"/>
+    </linearGradient>
+    <g id="source-sheet">
+    <g filter="url(#page-shadow)">
+      <path d="M144 150 Q144 141 153 141 H683 L735 194 V856 Q735 867 724 867 H155 Q144 867 144 856Z" fill="url(#page-edge)" stroke="#8e9399" stroke-width="2"/>
+      <path d="M141 143 Q141 134 150 134 H680 L731 186 V848 Q731 859 720 859 H152 Q141 859 141 848Z" fill="#fff" stroke="#b5b9be" stroke-width="2"/>
+    </g>
+    <path d="M680 135 V176 Q680 186 690 186 H730" fill="#eff0f1" stroke="#b5b9be" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M681 188 H724 L681 198Z" fill="#000" opacity="0.05"/>
+    <g fill="#000" font-family="Menlo, 'DejaVu Sans Mono', monospace">
+      <rect x="182" y="167" width="482" height="44" fill="none" stroke="#000" stroke-width="2"/>
+      <rect x="182" y="167" width="16" height="44" fill="#000"/>
+      <text x="210" y="196" font-size="20" font-weight="700">REENTRY_CONTROL.agc</text>
+      <text id="apollo-listing" x="182" y="235" font-size="9.3" xml:space="preserve" style="white-space:pre">
+        <tspan x="182" y="235.0"># Notations on the hardcopy document read, in part:</tspan>
+        <tspan x="182" y="244.6">#</tspan>
+        <tspan x="182" y="254.2">#       Assemble revision 055 of AGC program Comanche by NASA</tspan>
+        <tspan x="182" y="263.8">#       2021113-051.  10:28 APR. 1, 1969</tspan>
+        <tspan x="182" y="273.4">#</tspan>
+        <tspan x="182" y="283.0">#       This AGC program shall also be referred to as</tspan>
+        <tspan x="182" y="292.6">#                       Colossus 2A</tspan>
+        <tspan x="182" y="302.2"></tspan>
+        <tspan x="182" y="311.8"># Page 844</tspan>
+        <tspan x="182" y="321.4"># ENTRY INITIALIZATION ROUTINE</tspan>
+        <tspan x="182" y="331.0"># ----------------------------</tspan>
+        <tspan x="182" y="340.6"></tspan>
+        <tspan x="182" y="350.2">                BANK    25</tspan>
+        <tspan x="182" y="359.8">                SETLOC  REENTRY</tspan>
+        <tspan x="182" y="369.4">                BANK</tspan>
+        <tspan x="182" y="379.0"></tspan>
+        <tspan x="182" y="388.6">                COUNT*  $$/ENTRY</tspan>
+        <tspan x="182" y="398.2">                EBANK=  RTINIT</tspan>
+        <tspan x="182" y="407.8"></tspan>
+        <tspan x="182" y="417.4">EBENTRY         =       EBANK7</tspan>
+        <tspan x="182" y="427.0">EBAOG           EQUALS  EBANK6</tspan>
+        <tspan x="182" y="436.6">NTRYPRIO        EQUALS  PRIO20          # (SERVICER)</tspan>
+        <tspan x="182" y="446.2">CM/FLAGS        EQUALS  STATE +6</tspan>
+        <tspan x="182" y="455.8"></tspan>
+        <tspan x="182" y="465.4">STARTENT        EXIT                    # MM = 63</tspan>
+        <tspan x="182" y="475.0"></tspan>
+        <tspan x="182" y="484.6">                                        # COME HERE FROM CM/POSE.  RESTARTED IN CM/POSE.</tspan>
+        <tspan x="182" y="494.2">                CS      ENTMASK         # INITIALIZE ALL SWITCHES TO ZERO</tspan>
+        <tspan x="182" y="503.8">                                        # EXCEPT LATSW, ENTRYDSP, AND GONEPAST.</tspan>
+        <tspan x="182" y="513.4">                                        # GONEBY 112D BIT8 FLAG7, SELF-INITIALIZING.</tspan>
+        <tspan x="182" y="523.0">                INHINT</tspan>
+        <tspan x="182" y="532.6">                MASK    CM/FLAGS</tspan>
+        <tspan x="182" y="542.2">                                        # ENTRYDSP = 92D B13</tspan>
+        <tspan x="182" y="551.8">                                        # GONEPAST=95D B10.     RELVELSW=96D B9</tspan>
+        <tspan x="182" y="561.4">                                        # EGSW = 97D B8         NOSWITCH = 98D B7</tspan>
+        <tspan x="182" y="571.0">                                        # HIND=99D B6           INRLSW=100D B5</tspan>
+        <tspan x="182" y="580.6">                                        # LATSW=101D B4         .05GSW=102D B3</tspan>
+        <tspan x="182" y="590.2"></tspan>
+        <tspan x="182" y="599.8">                AD      ENTRYSW         # SET ENTRYDSP, LATSW, GONEPAST.</tspan>
+        <tspan x="182" y="609.4">                TS      CM/FLAGS</tspan>
+        <tspan x="182" y="619.0"></tspan>
+        <tspan x="182" y="628.6">                RELINT</tspan>
+        <tspan x="182" y="638.2"></tspan>
+        <tspan x="182" y="647.8">                TC      INTPRET</tspan>
+        <tspan x="182" y="657.4"></tspan>
+        <tspan x="182" y="667.0">                SLOAD</tspan>
+        <tspan x="182" y="676.6">                        LODPAD</tspan>
+        <tspan x="182" y="686.2">                STORE   LOD</tspan>
+        <tspan x="182" y="695.8"></tspan>
+        <tspan x="182" y="705.4">                SLOAD</tspan>
+        <tspan x="182" y="715.0">                        LADPAD</tspan>
+        <tspan x="182" y="724.6">                STORE   LAD</tspan>
+        <tspan x="182" y="734.2"></tspan>
+        <tspan x="182" y="743.8">                DMP                     # L/DCMINR = LAD COS(15)</tspan>
+        <tspan x="182" y="753.4">                        COS15</tspan>
+        <tspan x="182" y="763.0">                STODL   L/DCMINR</tspan>
+        <tspan x="182" y="772.6">                        LATSLOPE</tspan>
+        <tspan x="182" y="782.2">                DMP     SR1             # KLAT = LAD/24</tspan>
+        <tspan x="182" y="791.8">                        LAD</tspan>
+      </text>
+      <path d="M182 811 H686" stroke="#000" stroke-width="1"/>
+      <text x="182" y="834" font-size="10" letter-spacing="1.5">NEO NOTATIONAL V</text>
+      <text x="686" y="834" font-size="10" text-anchor="end">844</text>
+    </g>
+    </g>
+  </defs>
+  <use id="rear-source-page" xlink:href="#source-sheet" transform="translate(24 22) rotate(-29 424 518)"/>
+  <use id="front-source-page" xlink:href="#source-sheet" transform="translate(56 0) rotate(-24 424 518)"/>
+</svg>
