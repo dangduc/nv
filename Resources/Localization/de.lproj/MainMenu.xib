@@ -12,7 +12,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="nvALT" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="NotationWindow" animationBehavior="default" id="1220" userLabel="notation">
+        <window title="Neo Notational V" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="NotationWindow" animationBehavior="default" id="1220" userLabel="notation">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="280" y="392" width="397" height="464"/>
@@ -29,10 +29,10 @@
         </window>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
-                <menuItem title="nvALT" id="56">
-                    <menu key="submenu" title="nvALT" systemMenu="apple" id="57">
+                <menuItem title="Neo Notational V" id="56">
+                    <menu key="submenu" title="Neo Notational V" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="Über nvALT" id="58">
+                            <menuItem title="Über Neo Notational V" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -55,7 +55,7 @@
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="nvALT ausblenden" keyEquivalent="h" id="134">
+                            <menuItem title="Neo Notational V ausblenden" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-2" id="152"/>
                                 </connections>
@@ -74,7 +74,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="nvALT beenden" keyEquivalent="q" id="136">
+                            <menuItem title="Neo Notational V beenden" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="-2" id="139"/>
                                 </connections>
@@ -535,7 +535,7 @@ CA
                             <menuItem isSeparatorItem="YES" id="1058">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="nvALT Home" tag="5" id="1292">
+                            <menuItem title="Neo Notational V Home" tag="5" id="1292">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showHelpDocument:" target="213" id="1295"/>
@@ -739,7 +739,7 @@ CA
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="1138"/>
-                <menuItem title="Über nvALT" id="Eh7-wx-CCX">
+                <menuItem title="Über Neo Notational V" id="Eh7-wx-CCX">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="orderFrontStandardAboutPanel:" target="-2" id="XZy-fI-t9S"/>
@@ -750,7 +750,7 @@ CA
                         <action selector="showPreferencesWindow:" target="213" id="1183"/>
                     </connections>
                 </menuItem>
-                <menuItem title="nvALT beenden" keyEquivalent="q" id="1185">
+                <menuItem title="Neo Notational V beenden" keyEquivalent="q" id="1185">
                     <connections>
                         <action selector="terminate:" target="-2" id="1186"/>
                     </connections>

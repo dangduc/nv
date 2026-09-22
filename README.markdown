@@ -1,6 +1,6 @@
-# nvALT
+# Neo Notational V
 
-nvALT is a macOS notes app with lightweight support for editing raw source texts with additional support for previewing Markdown, Textile, HTML, and Org notes.
+Neo Notational V is a macOS notes app for editing source text. It also previews Markdown, Textile, HTML, and Org notes.
 
 This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups. And removes support for SimpleNote sync.
 
@@ -102,7 +102,7 @@ All screenshots use disposable sample notes.
 
 ## Automatic backups
 
-Automatic backups run while nvALT is open, with a default 15-minute interval.
+Automatic backups run while Neo Notational V is open, with a default 15-minute interval.
 Unchanged libraries do not create duplicate automatic snapshots.
 **Preferences > Backups** controls the destination, interval, and retention.
 It also offers **Back Up Now**, **Show Backups in Finder**, and **Restore Backup…**.
@@ -115,8 +115,8 @@ The [macOS build workflow](https://github.com/dangduc/nv/actions/workflows/macos
 It uses an Intel macOS 15 runner with Xcode 16.4.
 
 1. Open a successful workflow run.
-2. Download `nvALT-macos-x86_64-<run number>-<attempt>.zip` from **Artifacts**.
-3. Extract `nvALT.app` from the ZIP file.
+2. Download `Neo-Notational-V-macos-x86_64-<run number>-<attempt>.zip` from **Artifacts**.
+3. Extract `Neo Notational V.app` from the ZIP file.
 
 Downloads require a GitHub login. App archives expire after 30 days.
 These are unsigned builds with the release identity without notarization. Apple Silicon Macs require Rosetta.
@@ -164,7 +164,7 @@ The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK.
 3. Run the app beside your release copy:
 
    ```sh
-   open "build/DerivedData/Build/Products/Development/nvALT Development.app"
+   open "build/DerivedData/Build/Products/Development/Neo Notational V Development.app"
    ```
 
 The Development app has a separate name, a DEV Dock badge, and its own settings and default notes library.
@@ -173,11 +173,13 @@ You can change its notes folder, colors, and backup settings independently.
 
 | Location or identity | Release | Development |
 | --- | --- | --- |
-| App | `nvALT.app` | `nvALT Development.app` |
+| App | `Neo Notational V.app` | `Neo Notational V Development.app` |
 | Preferences domain | `net.elasticthreads.nv` | `net.elasticthreads.nv.development` |
 | Default notes folder under `~/Library/Application Support/` | `Notational Data` | `Notational Data Development` |
 | Support and backup folder under `~/Library/Application Support/` | `nvALT` | `nvALT Development` |
 | Note link scheme | `nvalt://` | `nvalt-dev://` |
+
+The rename preserves existing settings, notes folders, backup paths, and note links.
 
 Development adds an `nvALT Development` subfolder inside a custom backup destination, so copied libraries retain separate backup histories.
 Custom notes locations remain your choice. Use separate notes folders while both apps run.
@@ -185,7 +187,7 @@ To try existing notes, import source files or restore a backup into a separate d
 Opening the same notes folder in both apps does not provide coordinated editing between processes.
 
 For a release build, use the same command with `-scheme 'Notation Release'`.
-The release app is `build/DerivedData/Build/Products/ForBuilding/nvALT.app` and uses existing release settings and notes.
+The release app is `build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app` and uses existing release settings and notes.
 The built-in updater is disabled. Updates require a new local build or CI artifact.
 
 ## Development checks
@@ -260,6 +262,6 @@ Quick Look previews are not included.
 
 [AGENTS.md](AGENTS.md) describes the source layout, coding conventions, and pull request requirements. Reports about this fork belong in [dangduc/nv issues](https://github.com/dangduc/nv/issues).
 
-nvALT comes from Brett Terpstra and David Halter. It builds on Zachary Schneirov's [Notational Velocity](https://github.com/scrod/nv) and [DivineDominion's MultiMarkdown fork](https://github.com/DivineDominion/nv).
+Neo Notational V is based on nvALT by Brett Terpstra and David Halter. It builds on Zachary Schneirov's [Notational Velocity](https://github.com/scrod/nv) and [DivineDominion's MultiMarkdown fork](https://github.com/DivineDominion/nv).
 
 The repository includes the [GNU General Public License, version 3](COPYING.txt). Bundled components retain their own license notices.

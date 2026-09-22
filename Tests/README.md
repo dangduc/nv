@@ -131,7 +131,7 @@ The optional full-screen run uses Launch Services. The UI runners use a shared l
 Compare two builds with the same temporary library of 10,000 notes:
 
 ```sh
-python3 Tests/Regression/native-ui/run.py --benchmark --app /path/to/baseline/nvALT.app
+python3 Tests/Regression/native-ui/run.py --benchmark --app '/path/to/baseline/Neo Notational V.app'
 python3 Tests/Regression/native-ui/run.py --benchmark
 ```
 
@@ -152,7 +152,7 @@ Keep library I/O in the application controller. Before opening another library, 
 The multiple-window runner, full regression runner, and fuzzy UI runner stop if a disposable nvALT test app remains alive.
 Close that app before retrying. This prevents repeated runs from adding more test windows.
 If the app survives force-quit, log out or restart before you run more desktop tests.
-The check excludes regular nvALT apps and builds outside disposable test directories.
+The check excludes regular app installations and builds outside disposable test directories.
 
 The multiple-window and fuzzy UI runners use bounded waits during timeout cleanup.
 Launch Services cleanup targets the copied app as well as its `open` process.

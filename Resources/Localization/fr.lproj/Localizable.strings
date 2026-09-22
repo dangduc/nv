@@ -93,7 +93,7 @@
 "No notes were selected for exporting." = "Aucune note sélectionnée pour l'exportation.";
 
 /* No comment provided by engineer. */
-"Notational Velocity should assume the file quotemark%@quotemark was saved with the encoding:" = "Notational Velocity doit supposer que le fichier “%@” a été sauvegardé avec l'encodage :";
+"Neo Notational V should assume the file quotemark%@quotemark was saved with the encoding:" = "Neo Notational V doit supposer que le fichier “%@” a été sauvegardé avec l'encodage :";
 
 /* No comment provided by engineer. */
 "Note Importing Cancelled" = "Importation de la note annulée";
@@ -195,7 +195,7 @@
 "Select" = "Sélectionner";
 
 /* No Comment */
-"Select the folder that Notational Velocity should use for reading and storing notes." = "Sélectionnez le dossier que Notational Velocity utilisera pour lire et stocker les notes.";
+"Select the folder that Neo Notational V should use for reading and storing notes." = "Sélectionnez le dossier que Neo Notational V utilisera pour lire et stocker les notes.";
 
 /* description for no key combination */
 "(None)" = "(Aucun)";
@@ -228,7 +228,7 @@
 "Reverting to current location of %@." = "Revenir à l'emplacement courant de %@.";
 
 /* no comment */
-"Warning: this database was created by a newer version of Notational Velocity. Continue anyway?" = "Attention : cette base de données a été créée avec une version plus récente de Notational Velocity. Continuer malgré tout ?";
+"Warning: this database was created by a newer version of Neo Notational V. Continue anyway?" = "Attention : cette base de données a été créée avec une version plus récente de Neo Notational V. Continuer malgré tout ?";
 
 /* no comment */
 "If you make changes, some settings and metadata could be lost." = "Si vous apportez des modifications, certains réglages et métadonnées pourraient être perdus.";
@@ -375,7 +375,7 @@
 "No note selected." = "Aucune note sélectionnée.";
 
 /* No comment provided by engineer. */
-"Notational Velocity supports encryption only for notes stored in a database file." = "Notational Velocity permet le chiffrement uniquement pour les notes stockées dans sa base de données.";
+"Neo Notational V supports encryption only for notes stored in a database file." = "Neo Notational V permet le chiffrement uniquement pour les notes stockées dans sa base de données.";
 
 /* No comment provided by engineer. */
 "Open Console in /Applications/Utilities/ for more information." = "Ouvrir la Console dans /Applications/Utilities/ pour avoir plus d'informations.";
@@ -408,7 +408,7 @@
 "rich text" = "Texte formaté";
 
 /* No comment provided by engineer. */
-"Select a new location for your Notational Velocity notes." = "Sélectionnez un nouvel emplacement pour vos notes Notational Velocity.";
+"Select a new location for your Neo Notational V notes." = "Sélectionnez un nouvel emplacement pour vos notes Neo Notational V.";
 
 /* menu item title for showing bookmarks */
 "Show Bookmarks" = "Afficher les signets";
@@ -426,7 +426,7 @@
 "Unable to create an FSRef from the chosen directory." = "Impossible de créer un FSRef à partir du dossier choisi.";
 
 /* No comment provided by engineer. */
-"Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?" = "Impossible de créer ou d'accéder au fichier Interim Note-Changes. Une autre copie de Notational Velocity est-elle exécutée ?";
+"Unable to create or access the Interim Note-Changes file. Is another copy of Neo Notational V currently running?" = "Impossible de créer ou d'accéder au fichier Interim Note-Changes. Une autre copie de Neo Notational V est-elle exécutée ?";
 
 /* No comment provided by engineer. */
 "Use a single database file" = "Utiliser une base de données";
@@ -497,7 +497,7 @@
 "Switch to Horizontal Layout" = "Présentation horizontale";
 
 /* for warning about incompatibility with TextExpander, Typinator, etc. */
-"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Notational Velocity." = "Sécuriser les entrées empêchera %@, qui est actuellement installé sur cet ordinateur, de fonctionner dans Notational Velocity";
+"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Neo Notational V." = "Sécuriser les entrées empêchera %@, qui est actuellement installé sur cet ordinateur, de fonctionner dans Neo Notational V";
 
 /* Status message after downloading a URL */
 "Importing content..." = "Importation du contenu…";

@@ -13,9 +13,9 @@ Separate tag and release jobs have write access after a successful build and art
 
 ## Artifacts
 
-Each successful build uploads `nvALT-macos-x86_64-<run number>-<attempt>.zip` for 30 days.
-The archive contains the stable `nvALT.app` from `ForBuilding`.
-CI also builds and checks `nvALT Development.app` as a separate product.
+Each successful build uploads `Neo-Notational-V-macos-x86_64-<run number>-<attempt>.zip` for 30 days.
+The archive contains the stable `Neo Notational V.app` from `ForBuilding`.
+CI also builds and checks `Neo Notational V Development.app` as a separate product.
 The build log remains available for seven days, including failed builds.
 The ZIP file preserves app permissions.
 
@@ -55,7 +55,7 @@ A conflicting tag stops publication. Existing tags never move.
 Each workflow rerun uses a new attempt number and release tag.
 These tags do not change the application version fields.
 
-The release contains the unsigned Intel `nvALT.app` ZIP from the build job.
+The release contains the unsigned Intel `Neo Notational V.app` ZIP from the build job.
 The download step selects its artifact ID and preserves the ZIP without extraction.
 The release job repeats the archive check, uploads the ZIP into a draft, then publishes the release.
 A failed upload leaves an unpublished draft. A workflow rerun creates a new release instead of replacing an existing download.
@@ -81,17 +81,17 @@ After a local build, create an app archive:
 
 ```sh
 ditto -c -k --sequesterRsrc --keepParent \
-  build/DerivedData/Build/Products/ForBuilding/nvALT.app build/nvALT-ci-check.zip
-python3 .github/scripts/check-app-archive.py build/nvALT-ci-check.zip
+  'build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app' build/Neo-Notational-V-ci-check.zip
+python3 .github/scripts/check-app-archive.py build/Neo-Notational-V-ci-check.zip
 ```
 
 After building both schemes, check their application identities:
 
 ```sh
 python3 .github/scripts/check-app-identity.py \
-  build/DerivedData/Build/Products/ForBuilding/nvALT.app release
+  'build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app' release
 python3 .github/scripts/check-app-identity.py \
-  'build/DerivedData/Build/Products/Development/nvALT Development.app' development
+  'build/DerivedData/Build/Products/Development/Neo Notational V Development.app' development
 ```
 
 The [desktop integration suites](../README.md) require a separate run in an active desktop session.

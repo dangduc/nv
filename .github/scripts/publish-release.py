@@ -42,7 +42,7 @@ def publish_release(environment, archive, command=gh):
         raise ValueError("GH_TOKEN is required.")
     archive = Path(archive)
     if not archive.is_file() or not re.fullmatch(
-            r"nvALT-macos-x86_64-" + number + r"-[1-9][0-9]*\.zip", archive.name):
+            r"Neo-Notational-V-macos-x86_64-" + number + r"-[1-9][0-9]*\.zip", archive.name):
         raise ValueError("The app archive must come from this workflow run.")
 
     tag = "release-" + number + "-" + attempt
@@ -59,14 +59,14 @@ def publish_release(environment, archive, command=gh):
 
     branch = ref.removeprefix("refs/heads/")
     notes = (
-        "Unsigned Intel Release build of nvALT. Apple Silicon requires Rosetta.\n\n"
+        "Unsigned Intel Release build of Neo Notational V. Apple Silicon requires Rosetta.\n\n"
         "This app is not code-signed or notarized.\n\n"
         f"Branch: `{branch}`\n\nCommit: `{commit}`\n\n"
         f"[Build log](https://github.com/{repository}/actions/runs/{run_id})\n"
     )
     # Upload into a draft first, so a failed upload cannot publish an empty release.
     command(["release", "create", tag, str(archive), "--repo", repository,
-             "--verify-tag", "--draft", "--title", f"nvALT {branch} (build {number}.{attempt})",
+             "--verify-tag", "--draft", "--title", f"Neo Notational V {branch} (build {number}.{attempt})",
              "--notes-file", "-"], notes)
     command(["release", "edit", tag, "--repo", repository, "--draft=false", "--latest=false"])
     return f"https://github.com/{repository}/releases/tag/{tag}"

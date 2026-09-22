@@ -6,7 +6,7 @@ Run these checks after a Development build from an active macOS desktop session:
 python3 Tests/WordWrappingApp/run.py
 ```
 
-Use `--app /absolute/path/nvALT.app` to select another build.
+Use `--app '/absolute/path/Neo Notational V.app'` to select another build.
 Use `--compile-only` to compile the checks without starting an application.
 
 The runner copies the app and gives it a unique preference domain.

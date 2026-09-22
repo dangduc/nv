@@ -119,13 +119,13 @@ class ArchiveTests(unittest.TestCase):
                      missing_notice=None, notice_body="fixture", notice_mode=None):
         with zipfile.ZipFile(path, "w") as archive:
             def add(name, body, mode):
-                info = zipfile.ZipInfo("nvALT.app/Contents/" + name)
+                info = zipfile.ZipInfo("Neo Notational V.app/Contents/" + name)
                 info.create_system = 3
                 info.external_attr = mode << 16
                 archive.writestr(info, body)
 
             add("Info.plist", "fixture", stat.S_IFREG | 0o644)
-            add("MacOS/nvALT", "fixture", stat.S_IFREG | (0o755 if executable else 0o644))
+            add("MacOS/Neo Notational V", "fixture", stat.S_IFREG | (0o755 if executable else 0o644))
             add("Resources/multimarkdown", "fixture", stat.S_IFREG | (0o755 if markdown_executable else 0o644))
             for name in self.syntax_resources:
                 if name != missing_syntax:

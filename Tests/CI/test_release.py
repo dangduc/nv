@@ -17,7 +17,7 @@ class ReleaseTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
-        self.archive = Path(self.directory.name) / "nvALT-macos-x86_64-12-1.zip"
+        self.archive = Path(self.directory.name) / "Neo-Notational-V-macos-x86_64-12-1.zip"
         self.archive.write_bytes(b"archive fixture")
         self.environment = {
             "GITHUB_EVENT_NAME": "push",
@@ -140,7 +140,7 @@ class ReleaseTests(unittest.TestCase):
                     publishing.publish_release(dict(self.environment, **{key: value}), self.archive, command)
                 command.assert_not_called()
         for archive in (self.archive.with_name("missing.zip"),
-                        self.archive.with_name("nvALT-macos-x86_64-99-1.zip")):
+                        self.archive.with_name("Neo-Notational-V-macos-x86_64-99-1.zip")):
             command = Mock()
             with self.assertRaises(ValueError):
                 publishing.publish_release(self.environment, archive, command)

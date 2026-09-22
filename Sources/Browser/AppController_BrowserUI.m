@@ -186,7 +186,7 @@
     if (metadataControl != noteTagsField) [noteTagsField setStringValue:currentNote ? labelsOfNote(currentNote) ?: @"" : @""];
     [noteTitleField setEnabled:currentNote != nil];
     [noteTagsField setEnabled:currentNote != nil];
-    [window setTitle:currentNote ? titleOfNote(currentNote) : @"nvALT"];
+    [window setTitle:currentNote ? titleOfNote(currentNote) : @"Neo Notational V"];
     [toolbar validateVisibleItems];
 }
 

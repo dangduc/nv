@@ -5,6 +5,11 @@ static inline BOOL NVIsDevelopmentBuild(void) {
     return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NVBuildFlavor"] isEqualToString:@"development"];
 }
 
+// Keep existing support files and backup histories across product renames.
+static inline NSString *NVApplicationSupportDirectoryName(void) {
+    return NVIsDevelopmentBuild() ? @"nvALT Development" : @"nvALT";
+}
+
 static inline NSString *NVNoteURLScheme(void) {
     return NVIsDevelopmentBuild() ? @"nvalt-dev" : @"nvalt";
 }

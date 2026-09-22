@@ -1,6 +1,6 @@
 # Architecture
 
-nvALT is a Cocoa application written mainly in Objective-C, with C utilities and manual memory management.
+Neo Notational V is a Cocoa application written mainly in Objective-C, with C utilities and manual memory management.
 This fork supports multiple browser windows over **one shared notes library**.
 Each window keeps the notes list above the editable source or a read-only viewer.
 
@@ -67,14 +67,16 @@ The session forwards remaining library methods through `performLibraryInvocation
 
 ## Development and release installations
 
-The Development configuration builds `nvALT Development.app` with bundle identifier `net.elasticthreads.nv.development`.
-The ForBuilding configuration retains the release app name and identifier.
+The Development configuration builds `Neo Notational V Development.app` with bundle identifier `net.elasticthreads.nv.development`.
+The ForBuilding configuration builds `Neo Notational V.app` with the existing release identifier.
 `NVBuildFlavor` selects the few legacy locations that do not derive from bundle metadata.
 `NVAppIdentity.h` exposes that choice and the exported note-link scheme.
 
 Each app uses its own defaults domain for notes-folder aliases, colors, browser restoration, and backup settings.
 The default development notes folder is `~/Library/Application Support/Notational Data Development`.
-Application support and default backups derive from the executable name, so development uses `~/Library/Application Support/nvALT Development`.
+Application support and default backups retain the legacy directory names: `nvALT` for release and `nvALT Development` for Development.
+`NVApplicationSupportDirectoryName()` keeps these paths independent of the renamed executable.
+The rename also preserves defaults domains, notes folders, URL schemes, keychain services, and custom backup namespaces.
 Development also adds an `nvALT Development` subfolder inside a custom backup root.
 This separates backup histories when copied libraries retain the same UUID.
 The coordinator canonicalizes the selected parent before appending the namespace and captures that parent's filesystem identity.

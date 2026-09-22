@@ -92,7 +92,7 @@
 "No notes were selected for exporting." = "未选择要导出的笔记。";
 
 /* No comment provided by engineer. */
-"Notational Velocity should assume the file quotemark%@quotemark was saved with the encoding:" = "Notational Velocity 假设文件 “%@” 使用的是下列编码：";
+"Neo Notational V should assume the file quotemark%@quotemark was saved with the encoding:" = "Neo Notational V 假设文件 “%@” 使用的是下列编码：";
 
 /* No comment provided by engineer. */
 "Note Importing Cancelled" = "导入笔记已取消";
@@ -194,7 +194,7 @@
 "Select" = "Select";
 
 /* No Comment */
-"Select the folder that Notational Velocity should use for reading and storing notes." = "选择 Notational Velocity 用于读取和存储笔记的文件夹。";
+"Select the folder that Neo Notational V should use for reading and storing notes." = "选择 Neo Notational V 用于读取和存储笔记的文件夹。";
 
 /* description for no key combination */
 "(None)" = "(无)";
@@ -227,7 +227,7 @@
 "Reverting to current location of %@." = "返回到 %@ 的当前位置。";
 
 /* no comment */
-"Warning: this database was created by a newer version of Notational Velocity. Continue anyway?" = "警告: 数据库由较新版本的 Notational Velocity 创建，确认继续？";
+"Warning: this database was created by a newer version of Neo Notational V. Continue anyway?" = "警告: 数据库由较新版本的 Neo Notational V 创建，确认继续？";
 
 /* no comment */
 "If you make changes, some settings and metadata could be lost." = "如果您修改它，部分设置和元数据可能会丢失。";
@@ -375,7 +375,7 @@
 "No note selected." = "未选择笔记。";
 
 /* No comment provided by engineer. */
-"Notational Velocity supports encryption only for notes stored in a database file." = "Notational Velocity 的加密功能只能用于单独的数据库存储模式。";
+"Neo Notational V supports encryption only for notes stored in a database file." = "Neo Notational V 的加密功能只能用于单独的数据库存储模式。";
 
 /* No comment provided by engineer. */
 "Open Console in /Applications/Utilities/ for more information." = "在 /应用程序/实用工具/ 中打开控制台来查看详细信息。";
@@ -408,7 +408,7 @@
 "rich text" = "多信息文本";
 
 /* No comment provided by engineer. */
-"Select a new location for your Notational Velocity notes." = "为您的 Notational Velocity 笔记选择新地址。";
+"Select a new location for your Neo Notational V notes." = "为您的 Neo Notational V 笔记选择新地址。";
 
 /* menu item title for showing bookmarks */
 "Show Bookmarks" = "显示书签";
@@ -426,7 +426,7 @@
 "Unable to create an FSRef from the chosen directory." = "无法从选定的目录中创建 FSRef。";
 
 /* No comment provided by engineer. */
-"Unable to create or access the Interim Note-Changes file. Is another copy of Notational Velocity currently running?" = "无法创建或访问临时文件，是否当前有另一个 Notational Velocity 正在运行？";
+"Unable to create or access the Interim Note-Changes file. Is another copy of Neo Notational V currently running?" = "无法创建或访问临时文件，是否当前有另一个 Neo Notational V 正在运行？";
 
 /* No comment provided by engineer. */
 "Use a single database file" = "使用单文件数据库";
@@ -498,7 +498,7 @@
 "Switch to Horizontal Layout" = "切换到横向排版";
 
 /* for warning about incompatibility with TextExpander, Typinator, etc. */
-"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Notational Velocity." = "安全文本输入会阻止 %@ 的访问，并且可能影响 Notational Velocity 的正常运行。";
+"Secure Text Entry will prevent %@, which is currently installed on this computer, from working in Neo Notational V." = "安全文本输入会阻止 %@ 的访问，并且可能影响 Neo Notational V 的正常运行。";
 
 /* Status message after downloading a URL */
 "Importing content..." = "正在导入内容…";

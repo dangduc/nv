@@ -426,7 +426,7 @@
 	} else {
 		NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Your notes are currently stored as plain text files on disk, but encryption requires a single database. Switch to a database format?",nil)
 										 defaultButton:NSLocalizedString(@"Use a single database file",nil) alternateButton:NSLocalizedString(@"Cancel",nil) otherButton:nil
-							 informativeTextWithFormat:NSLocalizedString(@"Notational Velocity supports encryption only for notes stored in a database file.",nil)];
+							 informativeTextWithFormat:NSLocalizedString(@"Neo Notational V supports encryption only for notes stored in a database file.",nil)];
 		
 		[alert beginSheetModalForWindow:[view window] modalDelegate:self 
 						 didEndSelector:@selector(encryptionFormatMismatchSheetDidEnd:returnCode:contextInfo:) contextInfo:NULL];
@@ -483,7 +483,7 @@
 - (IBAction)switchToFinderTags:(id)sender{
     if (IsMavericksOrLater) {
         NSAlert *tagWarning=[NSAlert new];
-        [tagWarning setMessageText:NSLocalizedString(@"This will permanently convert all your nvALT tags to Finder tags, and use Finder tags from here on out.", @"Finder tag warning message text")];
+        [tagWarning setMessageText:NSLocalizedString(@"This will permanently convert all your Neo Notational V tags to Finder tags, and use Finder tags from here on out.", @"Finder tag warning message text")];
         [tagWarning setInformativeText:NSLocalizedString(@"This cannot be undone.", @"Finder tag warning informative text")];
         [tagWarning addButtonWithTitle:NSLocalizedString(@"Do It", @"name of delete button")];
         [tagWarning addButtonWithTitle:NSLocalizedString(@"Cancel", @"name of cancel button")];

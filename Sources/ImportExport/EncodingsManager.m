@@ -191,7 +191,7 @@ static const NSStringEncoding AllowedEncodings[] = {
 			}
 		}
 		
-		[helpStringField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Notational Velocity should assume the file quotemark%@quotemark was saved with the encoding:",nil), filenameOfNote(note)]];
+		[helpStringField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Neo Notational V should assume the file quotemark%@quotemark was saved with the encoding:",nil), filenameOfNote(note)]];
 		[encodingsPopUpButton setMenu:[self textConversionsMenu]];
 		
 		//setup panel for given note

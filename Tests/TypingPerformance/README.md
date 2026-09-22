@@ -33,7 +33,7 @@ python3 Tests/TypingPerformance/run.py
 To compare another app, supply its path and a separate output directory:
 
 ```sh
-python3 Tests/TypingPerformance/run.py --app /path/to/nvALT.app --output build/TypingPerformance/baseline
+python3 Tests/TypingPerformance/run.py --app '/path/to/Neo Notational V.app' --output build/TypingPerformance/baseline
 ```
 
 The runner writes `timings.json`, `results.json`, and `native.log` under the output directory.

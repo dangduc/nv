@@ -930,8 +930,8 @@ terminateApp:
 		case 4:		//development site
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/ttscoff/nv/wiki"]];
 			break;
-        case 5:     //nvALT home
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://brettterpstra.com/project/nvalt/"]];
+        case 5:     //Neo Notational V home
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/dangduc/nv"]];
             break;
         case 6:     //ElasticThreads
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://elasticthreads.tumblr.com/nv"]];

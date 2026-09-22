@@ -312,10 +312,10 @@ AppController *NVControllerForView(NSView *view) {
         }
         @try {
             NSInteger response = NSRunCriticalAlertPanel(
-                terminating ? NSLocalizedString(@"nvALT could not finish quitting.", nil) :
+                terminating ? NSLocalizedString(@"Neo Notational V could not finish quitting.", nil) :
                     NSLocalizedString(@"The original library cannot resume saving.", nil),
                 terminating ? NSLocalizedString(@"Your notes are saved. Choose Quit to try again.", nil) :
-                    NSLocalizedString(@"Your notes are saved. Quit any other copy of nvALT, then choose Retry. You can also quit and reopen nvALT.", nil),
+                    NSLocalizedString(@"Your notes are saved. Quit any other copy of Neo Notational V, then choose Retry. You can also quit and reopen Neo Notational V.", nil),
                 terminating ? NSLocalizedString(@"Quit", nil) : NSLocalizedString(@"Retry", nil),
                 terminating ? nil : NSLocalizedString(@"Quit", nil), nil);
             if (terminating || response == NSAlertAlternateReturn) [NSApp terminate:self];

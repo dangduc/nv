@@ -12,7 +12,7 @@ For compilation without an app launch, run:
 python3 Tests/WrappedSeparatorsApp/run.py --compile-only
 ```
 
-The default app is `build/DerivedData/Build/Products/Development/nvALT Development.app`.
+The default app is `build/DerivedData/Build/Products/Development/Neo Notational V Development.app`.
 The `--app` argument selects another app. The `--output` argument selects another output directory.
 
 The runner copies the app and uses disposable notes, a unique preference domain, isolated support files, and a private pasteboard.

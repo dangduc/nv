@@ -176,7 +176,7 @@ static void CheckSettings(void) {
         Check([notesPath isEqualToString:HomePath(Development() ? @"Library/Application Support/Notational Data Development" : @"Library/Application Support/Notational Data")],
             @"original startup selects the correct default notes folder");
         Check([support isEqualToString:HomePath(Development() ? @"Library/Application Support/nvALT Development" : @"Library/Application Support/nvALT")],
-            @"application support derives the build's executable name");
+            @"application support preserves the existing build-specific directory");
         Check([cache isEqualToString:[HomePath(@"Library/Caches") stringByAppendingPathComponent:[bundle bundleIdentifier]]],
             @"journal cache derives the copied bundle's unique identifier");
         Check([[[[backup destinationURL] path] stringByDeletingLastPathComponent] isEqualToString:Canonical([support stringByAppendingPathComponent:@"Backups"])],
