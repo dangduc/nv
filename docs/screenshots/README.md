@@ -45,8 +45,8 @@ The recording types `grdn`, selects two matching body lines, and opens a second 
 It then closes the second window and clears the first query.
 The README also links to a still screenshot.
 
-The recording lasts 20.32 seconds and loops at 1020 × 780 pixels.
-The GIF contains 52 encoded frames and occupies 480,474 bytes (469 KiB).
+The recording lasts 20.31 seconds and loops at 1020 × 780 pixels.
+The GIF contains 51 encoded frames and occupies 525,867 bytes (514 KiB).
 WindowServer captured 135 frames from the sample windows, with recorded timestamps.
 GIF encoding converts the monitor color profile to sRGB and places the native window shadows on a white background.
 It combines unchanged frames and uses one 256-color palette.
@@ -57,7 +57,9 @@ The Intel Development app runs under Rosetta, with application source at `be518d
 The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
 The sample windows use the light User Scheme palette and a separate preferences domain.
 
-The capture passed 53 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
+The capture passed 55 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
+Automatic note selection was enabled during the capture.
+Both completed fuzzy searches had a selected note before the next interaction.
 Every decoded frame matches its captured frame after color and palette conversion.
 The frame durations match the captured timing at GIF precision.
 The capture app exited after the recording.
