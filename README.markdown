@@ -2,12 +2,11 @@
 
 nvALT is a macOS notes app with lightweight support for editing raw source texts with additional support for previewing Markdown, Textile, HTML, and Org notes.
 
-This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups.
+This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, fuzzy search, native macOS controls, and automatic backups. And removes support for SimpleNote sync.
 
 ![Demo of fuzzy search, highlighted matching lines, result selection, and independent searches in two windows](docs/screenshots/readme-demo.gif)
 
-The demo searches for `grdn`, selects matching lines, and opens a second window to search for `trip`.
-[View a still screenshot](docs/screenshots/readme-source.png).
+[View a still screenshot](docs/screenshots/readme-source.png)
 
 ## What changes in this fork
 
@@ -23,6 +22,7 @@ The demo searches for `grdn`, selects matching lines, and opens a second window 
 | Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. |
 | Editor | Editable rich-text in Markdown, Textile, and HTML(?). | Editable source with syntax-highlighting and readonly rich-text previews  in MD, Textile, HTML, Org|
 | Preview | Non-editable source code | Non-editable rich-text |
+| Data Sync | SimpleNote supported | Unsupported |
 
 When migrating to this fork: Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
 
