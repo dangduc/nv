@@ -41,6 +41,12 @@ def build(destination, developer):
             raise RuntimeError("actool did not produce Assets.car.")
         records = json.loads(subprocess.check_output(
             ["xcrun", "assetutil", "--info", str(catalog)], env=environment))
+        if not any(record.get("Name") == ICON.stem for record in records):
+            raise RuntimeError("The catalog does not contain the modern icon.")
+        if any(record.get("AssetType") == "MultiSized Image" or
+               (record.get("Name") == ICON.stem and record.get("AssetType") == "Image")
+               for record in records):
+            raise RuntimeError("The catalog contains a flattened fallback that can override the classic icon.")
         (output / "asset-info.json").write_text(json.dumps(records, indent=2) + "\n")
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(catalog, destination / "Assets.car")

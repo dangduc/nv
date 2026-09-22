@@ -22,6 +22,9 @@ The ZIP file preserves app permissions.
 Before packaging, CI checks each app's name, executable, bundle identifier, build flavor, and creator signature.
 It also checks URL registrations, document handler ranks, service names and shortcuts, and localized application names.
 Development must use its own identity and URL schemes. Its document handler rank is `None`, and its service has no default shortcut.
+The build also checks the compiled icon catalog's source hashes and both apps' icon keys and resource bytes.
+The separate [App icon compatibility workflow](../../.github/workflows/app-icons.yml) checks system icon selection on macOS 15 and 26.
+See [AppIcons/README.md](../AppIcons/README.md) for the native checks and local commands.
 
 The archive check reads the ZIP file and checks these properties.
 Its tests reject archives with lost executable permissions for the app or MultiMarkdown.

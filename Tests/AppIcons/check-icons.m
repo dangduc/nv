@@ -1,8 +1,7 @@
 #import <AppKit/AppKit.h>
 
 // Ask the same system service used for Finder icons, without launching the app.
-static NSData *RenderIcon(NSString *path, NSString *output) {
-    NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+static NSData *RenderImage(NSImage *image, NSString *output) {
     NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc]
         initWithBitmapDataPlanes:NULL pixelsWide:512 pixelsHigh:512
         bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO
@@ -21,13 +20,19 @@ static NSData *RenderIcon(NSString *path, NSString *output) {
 
 int main(int argc, const char **argv) {
     @autoreleasepool {
+        if (argc == 3 && strcmp(argv[1], "--application") == 0) {
+            [NSApplication sharedApplication];
+            NSString *output = [NSString stringWithUTF8String:argv[2]];
+            NSData *pixels = RenderImage([NSApp applicationIconImage], output);
+            return [pixels writeToFile:[output stringByAppendingString:@".rgba"] atomically:YES] ? 0 : 1;
+        }
         if (argc != 2) return 2;
         NSString *directory = [NSString stringWithUTF8String:argv[1]];
         NSMutableDictionary *images = [NSMutableDictionary dictionary];
         for (NSString *name in @[@"Hybrid", @"Classic", @"Modern"]) {
             NSString *path = [directory stringByAppendingPathComponent:[name stringByAppendingString:@".app"]];
             NSString *output = [directory stringByAppendingPathComponent:[name stringByAppendingString:@".png"]];
-            images[name] = RenderIcon(path, output);
+            images[name] = RenderImage([[NSWorkspace sharedWorkspace] iconForFile:path], output);
         }
         NSInteger major = [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion;
         NSString *expected = major >= 26 ? @"Modern" : @"Classic";
