@@ -2,8 +2,6 @@ name: App icon compatibility
 
 on:
   workflow_dispatch:
-  push:
-    branches: [codex/automatic-app-icons]
   pull_request:
     paths:
       - 'docs/artwork/app-icon/**'
@@ -35,7 +33,7 @@ jobs:
           if-no-files-found: error
 
   selection:
-    name: Check Finder selection (${{ matrix.os }})
+    name: Check Finder and Dock selection (${{ matrix.os }})
     needs: compile
     strategy:
       fail-fast: false
