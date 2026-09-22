@@ -46,11 +46,13 @@ It then closes the second window and clears the first query.
 The README also links to a still screenshot.
 
 The recording lasts 20.31 seconds and loops at 1020 × 780 pixels.
-The GIF contains 51 encoded frames and occupies 525,867 bytes (514 KiB).
+The GIF contains 51 encoded frames and occupies 2,264,893 bytes (2.16 MiB).
 WindowServer captured 135 frames from the sample windows, with recorded timestamps.
-GIF encoding converts the monitor color profile to sRGB and places the native window shadows on a white background.
-It combines unchanged frames and uses one 256-color palette.
+GIF encoding converts the monitor color profile to sRGB and leaves the background transparent.
+GIF supports only fully opaque or fully transparent pixels, so this version removes the soft shadows outside the windows.
+It combines unchanged frames and uses one palette with 255 colors and a transparent entry.
 It preserves the recorded timing to the nearest 10 milliseconds, without captions or simulated UI elements.
+The transparent version uses the same captured frames and timing as the original white-background recording.
 
 The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2 and Pillow 12.2.0.
 The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
@@ -60,7 +62,8 @@ The sample windows use the light User Scheme palette and a separate preferences 
 The capture passed 55 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
 Automatic note selection was enabled during the capture.
 Both completed fuzzy searches had a selected note before the next interaction.
-Every decoded frame matches its captured frame after color and palette conversion.
+Every decoded frame matches its captured frame after color, palette, and binary transparency conversion.
+The decoded frames pass comparison checks on white and charcoal backgrounds, including after the second window closes.
 The frame durations match the captured timing at GIF precision.
 The capture app exited after the recording.
 
