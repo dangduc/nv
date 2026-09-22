@@ -3,24 +3,27 @@
 ## Current images
 
 The source, search, and multiple-window images show Org syntax highlighting with the light User Scheme palette from [PR #46](https://github.com/dangduc/nv/pull/46).
-`readme-dark.png` is an exact copy of `user-scheme-defaults-dark.png` from that PR.
+The dark image shows the dark User Scheme palette with plain source text.
+All four refreshed images use Fuzzy mode and show highlighted matches in the notes list.
 The [User Scheme default colors](#user-scheme-default-colors) section records both palettes.
 
 | Image | Content |
 | --- | --- |
-| `readme-source.png` | Light appearance with Org headings, checkboxes, a table, a source block, and search highlights for `ideas`. |
-| `readme-dark.png` | Dark appearance with black text, a cream editor background, and yellow search highlights. |
+| `readme-source.png` | Light appearance with Org syntax and fuzzy highlights for `ideas` in the notes list and editor. |
+| `readme-dark.png` | Dark appearance with a cream editor background and yellow fuzzy highlights in the notes list and editor. |
 | `readme-search.png` | Fuzzy search for `grdn`, separate matching lines, highlighted result text, and the selected match in an Org note. |
 | `readme-preview.png` | A read-only Markdown preview in WebKit. |
 | `readme-windows.png` | Two Org notes with independent fuzzy queries, selections, and divider heights in one shared library. |
 
-The source, search, and multiple-window captures date from September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
+The four refreshed captures date from September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
 The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
 The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
 
 The captures use disposable sample notes and a separate preferences domain.
 WindowServer captures only the sample windows, with no annotations or pixel changes.
-The source capture passed 16 checks for the selected palette, search highlights, and Org syntax colors.
+The light source capture passed 20 checks, and the dark capture passed 16 checks.
+These checks include the palette, completed fuzzy results, and drawn highlight pixels in every visible result row.
+The light capture also checks Org syntax colors.
 The search and multiple-window captures passed 29 checks for fuzzy highlights, Org syntax, and independent browser state.
 The capture app exited after each run.
 
@@ -31,6 +34,7 @@ The preview capture uses a disposable Markdown note in the native WebKit viewer.
 The original five-image capture passed 21 state and image checks.
 
 When you refresh these images, use the same palettes.
+Select Fuzzy search mode for all four samples.
 Select Org source syntax for the light source, search, and multiple-window samples.
 Inspect each image before publication and update its capture details.
 
