@@ -40,6 +40,8 @@ Inspect each image before publication and update its capture details.
 
 ## Interaction recording
 
+The [README demo tools](../../Scripts/readme-demo/README.md) contain the capture scripts, sample notes, encoder, and regeneration commands.
+
 [`readme-demo.gif`](readme-demo.gif) shows fuzzy search and independent browser windows with disposable Org notes.
 The recording types `grdn`, selects two matching body lines, and opens a second window to search for `trip`.
 It then closes the second window and clears the first query.
