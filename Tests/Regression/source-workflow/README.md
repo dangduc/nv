@@ -9,7 +9,7 @@ python3 Tests/Regression/source-workflow/run.py
 The suite uses real AppKit controls in a copied application with isolated settings and temporary notes.
 It checks source and viewer switching, Undo, selection, scroll, local syntax, peer windows, composition, stale requests, and window restoration.
 It checks visible syntax captures, separate viewer scroll positions, and malformed saved presentation data.
-It also checks that the hidden source editor rejects editing commands.
+It also checks that Preview disables source editing menu commands and that hidden source Undo and Redo preserve the note.
 The suite blocks application network requests and uses a private pasteboard.
 All preview fixtures contain local text without remote resources.
 

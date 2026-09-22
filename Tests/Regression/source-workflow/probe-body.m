@@ -282,18 +282,17 @@
         Check([[a selectedViewerIdentifier] isEqualToString:@"textile"] && [[note sourceSyntaxIdentifier] isEqualToString:@"json"], @"source syntax changes leave the viewer selection unchanged");
         [a selectSourceSyntax:SourceItem(@"markdown", @selector(selectSourceSyntax:))];
 
-        // Source commands must not mutate an editor that Preview hides.
+        // Preview disables source menu commands. Do not bypass AppKit validation
+        // by calling inherited NSTextView editing methods on a hidden view.
         NSString *beforeHidden = [[[note contentString] string] copy];
-        [ea setSelectedRange:NSMakeRange(0, 2)];
-        [ea insertText:@"UNWANTED" replacementRange:NSMakeRange(0, 0)];
-        [ea deleteBackward:self];
-        [ea bold:self];
-        [ea undo:self];
-        [pasteboard declareTypes:@[NSStringPboardType] owner:nil];
-        [pasteboard setString:@"UNWANTED PASTE" forType:NSStringPboardType];
-        Check(![ea readSelectionFromPasteboard:pasteboard type:NSStringPboardType], @"hidden source editor rejects paste");
+        Check([[a window] firstResponder] != ea, @"Preview keeps keyboard focus out of the source editor");
+        for (NSString *name in @[@"cut:", @"paste:", @"undo:", @"redo:"]) {
+            NSMenuItem *item = SourceItem(@"", NSSelectorFromString(name));
+            Check(![ea validateMenuItem:item], @"Preview disables source editing menu commands");
+        }
+        [ea undo:self]; [ea redo:self];
         [a finishEditing];
-        Check([[[note contentString] string] isEqualToString:beforeHidden], @"Preview blocks source insertion, deletion, formatting, and Undo commands");
+        Check([[[note contentString] string] isEqualToString:beforeHidden], @"hidden source Undo and Redo preserve the note");
         [beforeHidden release];
 
         [app newWindow:self];

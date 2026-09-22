@@ -80,7 +80,14 @@
             Check([self interpretNVURL:[NSURL URLWithString:[@"nvalt://find/Unmatched%20fixture/?" stringByAppendingString:query]]] && [self selectedNoteObject] == nil,
                   @"short UUIDs and removed remote identifiers safely fall back to title search");
         LinkingEditor *editor = [self valueForKey:@"textView"];
-        Check(![[editor readablePasteboardTypes] containsObject:NSHTMLPboardType] && ![editor readSelectionFromPasteboard:pboard type:NSHTMLPboardType], @"editor paste excludes HTML readers");
+        NSTextView *nativeEditor = [[[NSTextView alloc] initWithFrame:NSZeroRect] autorelease];
+        [nativeEditor setRichText:NO]; [nativeEditor setImportsGraphics:NO];
+        [nativeEditor setUsesFontPanel:NO]; [nativeEditor setUsesRuler:NO];
+        Check([[editor readablePasteboardTypes] isEqual:[nativeEditor readablePasteboardTypes]],
+            @"source editor inherits native plain-text pasteboard types");
+        Check(class_getMethodImplementation([LinkingEditor class], @selector(readSelectionFromPasteboard:type:)) ==
+            class_getMethodImplementation([NSTextView class], @selector(readSelectionFromPasteboard:type:)),
+            @"source paste uses the native reader without a custom HTML importer");
 
         Check(NSClassFromString(@"SUUpdater") == Nil && NSClassFromString(@"AHHyperlinkScanner") == Nil && NSClassFromString(@"MAAttachedWindow") == Nil && NSClassFromString(@"URLGetter") == Nil, @"removed dependency classes are absent from the app");
         Check([[[NSBundle mainBundle] infoDictionary] objectForKey:@"SUCheckAtStartup"] == nil, @"Sparkle configuration is absent");

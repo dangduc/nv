@@ -12,7 +12,7 @@
             Check(![browser isViewingNote] && [browser valueForKey:@"previewController"] == nil, @"source-only browser does not allocate a viewer");
             LinkingEditor *editor = [browser valueForKey:@"textView"];
             [editor setSelectedRange:NSMakeRange(5, 0)];
-            [editor beforeString]; [editor afterString];
+            Check([editor valueForKey:@"textFinder"] != nil, @"source editor owns its native text finder before teardown");
             [[browser window] close]; Pump();
             [pool drain]; Pump();
         }
