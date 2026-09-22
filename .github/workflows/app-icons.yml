@@ -1,0 +1,57 @@
+name: App icon compatibility
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/automatic-app-icons]
+  pull_request:
+    paths:
+      - 'docs/artwork/app-icon/**'
+      - 'Resources/Images/*.icns'
+      - 'Resources/Images/Assets.car*'
+      - 'Tests/AppIcons/**'
+      - '.github/workflows/app-icons.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    name: Compile modern icon with classic fallback
+    runs-on: macos-15-intel
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 docs/artwork/app-icon/build-modern-icon.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: modern-icon
+          path: build/modern-icon/
+          if-no-files-found: error
+
+  selection:
+    name: Check Finder selection (${{ matrix.os }})
+    needs: compile
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15-intel, macos-26]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: modern-icon
+          path: build/modern-icon
+      - run: python3 Tests/AppIcons/run.py --catalog build/modern-icon/Assets.car
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: icon-selection-${{ matrix.os }}
+          path: build/icon-selection/*.png
+          if-no-files-found: ignore
