@@ -449,6 +449,11 @@ terminateApp:
 	SEL selector = [menuItem action];
 	NSInteger numberSelected = [[[self browserSession] notesAtIndexes:[notesTableView selectedRowIndexes]] count];
     if (selector == @selector(newNote:)) return [self sharedNotationController] != nil;
+    if (selector == @selector(toggleSearchInTitleBar:)) {
+        [menuItem setState:[prefsController searchInTitleBar] ? NSControlStateValueOn : NSControlStateValueOff];
+        if (@available(macOS 11.0, *)) return YES;
+        return NO;
+    }
     if (selector == @selector(toggleTitleInTopSection:)) {
         [menuItem setTitle:[prefsController showTitleInTopSection] ? NSLocalizedString(@"Hide Title in Top Section", nil) : NSLocalizedString(@"Show Title in Top Section", nil)];
         return YES;
@@ -798,6 +803,10 @@ terminateApp:
 }
 
 - (void)settingChangedForSelectorString:(NSString*)selectorString {
+    if ([selectorString isEqualToString:SEL_STR(setSearchInTitleBar:sender:)]) {
+        [self updateSearchFieldPlacement];
+        return;
+    }
     if ([selectorString isEqualToString:SEL_STR(setShowTitleInTopSection:sender:)] ||
         [selectorString isEqualToString:SEL_STR(setShowTagsInTopSection:sender:)] ||
         [selectorString isEqualToString:SEL_STR(setShowBodyControlsInTopSection:sender:)]) {

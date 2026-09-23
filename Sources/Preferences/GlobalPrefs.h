@@ -101,6 +101,8 @@ typedef NS_ENUM(NSUInteger, NVSyntaxColorKind) {
 - (void)setShowBodyControlsInTopSection:(BOOL)value sender:(id)sender;
 - (BOOL)showNotesList;
 - (void)setShowNotesList:(BOOL)value sender:(id)sender;
+- (BOOL)searchInTitleBar;
+- (void)setSearchInTitleBar:(BOOL)value sender:(id)sender;
 
 - (void)resolveNoteBodyFontFromNotationPrefsFromSender:(id)sender;
 - (void)setNoteBodyFont:(NSFont*)aFont sender:(id)sender;

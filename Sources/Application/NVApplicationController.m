@@ -129,7 +129,7 @@ AppController *NVControllerForView(NSView *view) {
             BOOL hasColors = NO, hasSystem = NO;
             BOOL hasPreview = NO, hasViewerMenu = NO;
             NSInteger notePreviewsIndex = -1;
-            BOOL hasTopSectionControls = NO;
+            BOOL hasTopSectionControls = NO, hasSearchPlacement = NO;
             for (NSMenuItem *item in [candidate itemArray]) {
                 if ([item submenu]) [pending addObject:[item submenu]];
                 if ([item action] == @selector(setBWColorScheme:)) hasColors = YES;
@@ -146,6 +146,13 @@ AppController *NVControllerForView(NSView *view) {
                 if ([item tag] == 24001) hasViewerMenu = YES;
                 if ([item action] == @selector(toggleNoteBodyPreviews:)) notePreviewsIndex = [candidate indexOfItem:item];
                 if ([item action] == @selector(toggleTitleInTopSection:)) hasTopSectionControls = YES;
+                if ([item action] == @selector(toggleSearchInTitleBar:)) hasSearchPlacement = YES;
+            }
+            if (notePreviewsIndex >= 0 && !hasSearchPlacement) {
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Search in Title Bar", nil)
+                    action:@selector(toggleSearchInTitleBar:) keyEquivalent:@""] autorelease];
+                [item setTarget:self];
+                [candidate insertItem:item atIndex:notePreviewsIndex++];
             }
             if (notePreviewsIndex >= 0 && !hasTopSectionControls) {
                 NSInteger insertionIndex = notePreviewsIndex + 1;

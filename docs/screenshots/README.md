@@ -138,6 +138,25 @@ The captures use a disposable notes library and a separate preferences domain.
 WindowServer captures the native app windows without pixel changes.
 The disposable app exited after capture.
 
+## Search placement
+
+[`search-below-title-bar.png`](search-below-title-bar.png) shows the default search row between the window title bar and notes list.
+[`search-in-title-bar.png`](search-in-title-bar.png) shows the optional compact layout selected through View > Search in Title Bar.
+
+The capture date is September 22, 2026, on macOS 13.7.8 with Xcode 15.2.
+The Intel Development app runs under Rosetta with disposable notes and a separate preferences domain.
+WindowServer captures the native window without annotations or pixel changes. The capture app exits after the checks.
+
+To refresh these images after a Development build:
+
+```sh
+mkdir -p build/search-placement-artifacts
+NV_UI_ARTIFACTS="$PWD/build/search-placement-artifacts" \
+  python3 Tests/Regression/native-controls/run.py --probe placement
+```
+
+Inspect both images in that directory before replacing the documentation copies.
+
 ## Historical images
 
 Earlier images remain available for the review records that link to them.

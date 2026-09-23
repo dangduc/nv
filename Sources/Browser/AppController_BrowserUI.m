@@ -345,7 +345,7 @@
     [field removeFromSuperview];
     [wrapper removeFromSuperview];
     [field setFrame:NSMakeRect(0, 0, 260, 24)];
-    // A single resizable item gives search all space beside the window controls.
+    // A single resizable item gives search the available toolbar width.
     dualFieldItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"Search"];
     // Let the container expand instead of using NSSearchField's intrinsic width.
     NSView *searchContainer = [[NSView alloc] initWithFrame:[field frame]];
@@ -362,10 +362,7 @@
     [searchContainer release];
     [dualFieldItem setMinSize:NSMakeSize(140, 24)];
     [dualFieldItem setMaxSize:NSMakeSize(CGFLOAT_MAX, 24)];
-    if (@available(macOS 11.0, *)) {
-        [window setToolbarStyle:NSWindowToolbarStyleUnifiedCompact];
-    }
-    [window setTitleVisibility:NSWindowTitleHidden];
+    [self updateSearchFieldPlacement];
     [field release];
     [dualFieldItem setLabel:NSLocalizedString(@"Search or Create", nil)];
     [dualFieldItem setPaletteLabel:[dualFieldItem label]];
@@ -382,6 +379,18 @@
     [toolbar setDelegate:self];
     [window setToolbar:toolbar];
     [window setInitialFirstResponder:field];
+    [prefsController registerWithTarget:self forChangesInSettings:@selector(setSearchInTitleBar:sender:), nil];
+}
+- (void)updateSearchFieldPlacement {
+    BOOL inTitleBar = NO;
+    if (@available(macOS 11.0, *)) {
+        inTitleBar = [prefsController searchInTitleBar];
+        [window setToolbarStyle:inTitleBar ? NSWindowToolbarStyleUnifiedCompact : NSWindowToolbarStyleExpanded];
+    }
+    [window setTitleVisibility:inTitleBar ? NSWindowTitleHidden : NSWindowTitleVisible];
+}
+- (IBAction)toggleSearchInTitleBar:(id)sender {
+    [prefsController setSearchInTitleBar:![prefsController searchInTitleBar] sender:nil];
 }
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)aToolbar {
     return @[@"Search"];

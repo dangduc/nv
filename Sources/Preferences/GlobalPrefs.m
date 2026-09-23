@@ -49,6 +49,7 @@ static NSString *ShowTitleInTopSectionKey = @"ShowTitleInTopSection";
 static NSString *ShowTagsInTopSectionKey = @"ShowTagsInTopSection";
 static NSString *ShowBodyControlsInTopSectionKey = @"ShowBodyControlsInTopSection";
 static NSString *ShowNotesListKey = @"ShowNotesList";
+static NSString *SearchInTitleBarKey = @"SearchInTitleBar";
 static NSString *NoteBodyFontKey = @"NoteBodyFont";
 static NSString *ConfirmNoteDeletionKey = @"ConfirmNoteDeletion";
 static NSString *QuitWhenClosingMainWindowKey = @"QuitWhenClosingMainWindow";
@@ -141,6 +142,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:NO], ShowTagsInTopSectionKey,
 			[NSNumber numberWithBool:NO], ShowBodyControlsInTopSectionKey,
 			[NSNumber numberWithBool:YES], ShowNotesListKey,
+			[NSNumber numberWithBool:NO], SearchInTitleBarKey,
 			[NSNumber numberWithDouble:0.0], LastScrollOffsetKey,
 			@"General", LastSelectedPreferencesPaneKey, 
 			[NSNumber numberWithBool:NO], StatusBarItem, 
@@ -741,6 +743,15 @@ BOOL ColorsEqualWith8BitChannels(NSColor *c1, NSColor *c2) {
 
 - (void)setShowNotesList:(BOOL)value sender:(id)sender {
 	[defaults setBool:value forKey:ShowNotesListKey];
+	SEND_CALLBACKS();
+}
+
+- (BOOL)searchInTitleBar {
+	return [defaults boolForKey:SearchInTitleBarKey];
+}
+
+- (void)setSearchInTitleBar:(BOOL)value sender:(id)sender {
+	[defaults setBool:value forKey:SearchInTitleBarKey];
 	SEND_CALLBACKS();
 }
 

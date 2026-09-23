@@ -47,7 +47,9 @@ A note can appear more than once.
 
 ### Native controls and appearance
 
-The title bar contains one search field beside the window controls.
+The search field fills a row directly below the window title bar, above the notes list.
+**View > Search in Title Bar** moves it beside the window controls on macOS 11 or later.
+This setting applies to all windows and persists after restart.
 Note commands remain available through menus and shortcuts.
 
 The **View** menu can show or hide the notes list, title, tags, and Source/Preview controls.
