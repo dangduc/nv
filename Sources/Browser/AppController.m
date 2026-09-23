@@ -449,6 +449,10 @@ terminateApp:
 	SEL selector = [menuItem action];
 	NSInteger numberSelected = [[[self browserSession] notesAtIndexes:[notesTableView selectedRowIndexes]] count];
     if (selector == @selector(newNote:)) return [self sharedNotationController] != nil;
+    if (selector == @selector(switchViewLayout:)) {
+        [menuItem setState:browserHorizontalLayout ? NSControlStateValueOn : NSControlStateValueOff];
+        return YES;
+    }
     if (selector == @selector(toggleSearchInTitleBar:)) {
         [menuItem setState:[prefsController searchInTitleBar] ? NSControlStateValueOn : NSControlStateValueOff];
         if (@available(macOS 11.0, *)) return YES;
@@ -608,10 +612,8 @@ terminateApp:
     
 }
 
-// Kept as an action endpoint for old nibs and stored commands. Browser windows
-// always use the stacked layout; restoring an old orientation cannot change it.
 - (IBAction)switchViewLayout:(id)sender {
-    browserHorizontalLayout = NO;
+    [self setHorizontalLayout:!browserHorizontalLayout];
 }
 
 - (void)createFromSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
@@ -2236,12 +2238,22 @@ terminateApp:
 }
 - (BOOL)dualFieldIsVisible { return [toolbar isVisible]; }
 - (IBAction)toggleCollapse:(id)sender {
-    [self setNotesListHeight:[self notesListHeight] > 90 ? 84 : NSHeight([splitView bounds]) / 3.0];
+    CGFloat minimum = browserHorizontalLayout ? 180 : 84;
+    CGFloat extent = browserHorizontalLayout ? NSWidth([splitView bounds]) : NSHeight([splitView bounds]);
+    [self setNotesListHeight:[self notesListHeight] > minimum + 6 ? minimum : extent / 3.0];
 }
 - (BOOL)isInFullScreen { return ([window styleMask] & NSWindowStyleMaskFullScreen) != 0; }
 - (IBAction)switchFullScreen:(id)sender { [window toggleFullScreen:sender]; }
-- (void)windowDidEnterFullScreen:(NSNotification *)notification { [textView updateInsetAndForceLayout:YES]; }
-- (void)windowDidExitFullScreen:(NSNotification *)notification { [textView updateInsetAndForceLayout:YES]; }
+- (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    [self layoutNoteHeader];
+    [self resizeSourceEditorToViewport];
+    [textView updateInsetAndForceLayout:YES];
+}
+- (void)windowDidExitFullScreen:(NSNotification *)notification {
+    [self layoutNoteHeader];
+    [self resizeSourceEditorToViewport];
+    [textView updateInsetAndForceLayout:YES];
+}
 - (void)postToggleToolbar:(NSNumber *)visible { [self setDualFieldIsVisible:[visible boolValue]]; }
 
 #pragma mark color scheme methods

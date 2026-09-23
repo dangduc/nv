@@ -202,7 +202,7 @@ NSAttributedString *AttributedStringForSelection(NSAttributedString *str, BOOL w
 		BOOL showDateCreated = NO;
 		
 		if (ColumnIsSet(NoteDateCreatedColumn, columnsBitmap) && ColumnIsSet(NoteDateModifiedColumn, columnsBitmap)) {
-			showDateCreated = [[[GlobalPrefs defaultPrefs] sortedTableColumnKey] isEqualToString:NoteDateCreatedColumnString];
+			showDateCreated = [[tv browserSortKey] isEqualToString:NoteDateCreatedColumnString];
 		} else if (ColumnIsSet(NoteDateCreatedColumn, columnsBitmap)) {
 			showDateCreated = YES;
 		}

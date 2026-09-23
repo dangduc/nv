@@ -222,3 +222,23 @@ NV_UI_ARTIFACTS="$PWD/build/org-preview-artifacts" python3 Tests/Regression/org-
 ```
 
 The capture run passed 59 checks. Inspect the output image before replacing this file.
+
+## Side notes list
+
+`notes-list-side.png` shows the side list with Search below the title bar.
+`notes-list-side-title-bar.png` shows the same list with Search in the title bar.
+Both captures show separate title and body results with fuzzy match highlights.
+
+Captured on September 22, 2026, on macOS 13.7.8 with Xcode 15.2.
+The unsigned Intel Development app ran under Rosetta with disposable notes and preferences.
+The files are native WindowServer captures without pixel edits.
+
+To regenerate:
+
+```sh
+mkdir -p build/side-list-artifacts
+NV_UI_ARTIFACTS="$PWD/build/side-list-artifacts" \
+  python3 Tests/Regression/native-controls/run.py --probe layout
+```
+
+Inspect the captures before copying them into this directory.

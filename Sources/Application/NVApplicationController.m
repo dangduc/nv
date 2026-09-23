@@ -99,8 +99,7 @@ AppController *NVControllerForView(NSView *view) {
     if ([(id)[menu delegate] isKindOfClass:[NSView class]]) [menu setDelegate:(id)self];
     for (NSMenuItem *item in [menu itemArray]) {
         if ([item action] == @selector(switchViewLayout:)) {
-            [menu removeItem:item];
-            continue;
+            [item setTitle:NSLocalizedString(@"Notes List on Side", nil)];
         }
         if ([[item target] isKindOfClass:[AppController class]] || [[item target] isKindOfClass:[NSView class]]) [item setTarget:self];
         if ([item submenu]) [self retargetMenu:[item submenu]];

@@ -43,7 +43,12 @@
 static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, SEL aSel, id target, NSInteger tag);
 
 @implementation NotesTableView
-- (BOOL)browserHorizontalLayout { return NO; }
+- (BOOL)browserHorizontalLayout {
+    // During nib decoding this table has no owner yet. Do not borrow another
+    // window's layout: that would pair its cells with the wrong row accessor.
+    id browser = [self delegate];
+    return [browser isKindOfClass:[AppController class]] && [browser horizontalLayout];
+}
 - (BOOL)searchRowsAreAvailable {
     NVBrowserSession *session = [NVControllerForView(self) browserSession];
     return !session || [session searchResultsAreCurrent];
@@ -450,6 +455,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	[lm release];
 	[self setIntercellSpacing:NSMakeSize(10.0, 3.0)];
     if (@available(macOS 11.0, *)) [self setStyle:NSTableViewStyleFullWidth];
+    // Changing the native style can reset the table's background color.
+    [self setBackgroundColor:[NSColor textBackgroundColor]];
 	
 	//[self setGridStyleMask:horiz ? NSTableViewSolidHorizontalGridLineMask : NSTableViewGridNone];
 }
@@ -471,6 +478,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
         
         [self updateTitleDereferencorState];
         [self updateHeaderViewForColumns];
+        [self applySavedColumnLayout];
 
 		viewMenusValid = NO;
 	}else if (([selectorString isEqualToString:SEL_STR(setShowGrid:sender:)])||([selectorString isEqualToString:SEL_STR(setAlternatingRows:sender:)]) ) {

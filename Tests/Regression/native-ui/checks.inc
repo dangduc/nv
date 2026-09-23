@@ -137,6 +137,11 @@
         [self setNotesListHeight:190]; [self restoreBrowserWindowState:state]; Pump();
         Check(fabs([self notesListHeight] - 110) < 2, @"native divider height survives state restoration");
         if (getenv("NV_UI_FULL_SCREEN")) {
+            __block BOOL enteredFullScreen = NO, exitedFullScreen = NO;
+            id enteredObserver = [[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidEnterFullScreenNotification
+                object:browserWindow queue:nil usingBlock:^(NSNotification *note) { enteredFullScreen = YES; }];
+            id exitedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidExitFullScreenNotification
+                object:browserWindow queue:nil usingBlock:^(NSNotification *note) { exitedFullScreen = YES; }];
             [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
             [NSApp activateIgnoringOtherApps:YES];
             [browserWindow makeKeyAndOrderFront:self];
@@ -144,9 +149,14 @@
             Check([NSApp isActive], @"full-screen test requires the foreground app in an unlocked desktop session");
             [self switchFullScreen:self];
             NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:5];
-            while (![self isInFullScreen] && [deadline timeIntervalSinceNow] > 0) Pump();
+            while (!enteredFullScreen && [deadline timeIntervalSinceNow] > 0) Pump();
             for (NSUInteger i = 0; i < 30; i++) Pump();
-            Check([self isInFullScreen] && ![split isVertical], @"native full screen retains the stacked layout");
+            Check(enteredFullScreen && [self isInFullScreen] && ![split isVertical], @"native full screen retains the stacked layout");
+            [self setHorizontalLayout:YES]; Pump();
+            Check([split isVertical] && NSWidth([notesSubview frame]) >= 180,
+                @"full screen supports the side notes list");
+            Check(fabs(NSWidth([textView frame]) - NSWidth([[textScrollView contentView] bounds])) < 1,
+                @"switching layout in full screen keeps the source editor as wide as its viewport");
             if (@available(macOS 11.0, *)) {
                 for (NSNumber *inTitleBar in @[@YES, @NO]) {
                     [prefsController setSearchInTitleBar:[inTitleBar boolValue] sender:nil];
@@ -158,14 +168,20 @@
             }
             [self switchFullScreen:self];
             deadline = [NSDate dateWithTimeIntervalSinceNow:5];
-            while ([self isInFullScreen] && [deadline timeIntervalSinceNow] > 0) Pump();
+            while (!exitedFullScreen && [deadline timeIntervalSinceNow] > 0) Pump();
             for (NSUInteger i = 0; i < 30; i++) Pump();
-            Check(![self isInFullScreen] && ![split isVertical], @"leaving full screen retains the stacked layout");
+            Check(exitedFullScreen && ![self isInFullScreen] && [split isVertical], @"leaving full screen retains the side layout");
+            Check(fabs(NSWidth([textView frame]) - NSWidth([[textScrollView contentView] bounds])) < 1,
+                @"leaving full screen preserves the source editor width");
+            [[NSNotificationCenter defaultCenter] removeObserver:enteredObserver];
+            [[NSNotificationCenter defaultCenter] removeObserver:exitedObserver];
+            [self setHorizontalLayout:NO]; Pump();
         }
         NSMutableDictionary *legacy = [[state mutableCopy] autorelease];
         legacy[@"horizontalLayout"] = @YES; legacy[@"divider"] = @1000;
         [self restoreBrowserWindowState:legacy]; Pump();
-        Check(![split isVertical] && [self notesListHeight] < 1000, @"legacy side-by-side geometry migrates to the vertical stack");
+        Check([split isVertical] && [self notesListHeight] < 1000, @"legacy side-by-side geometry restores with a clamped divider");
+        [self setHorizontalLayout:NO]; Pump();
         for (NSValue *size in @[[NSValue valueWithSize:NSMakeSize(480, 320)], [NSValue valueWithSize:NSMakeSize(800, 650)]]) {
             [browserWindow setContentSize:[size sizeValue]]; Pump();
             [split layoutSubtreeIfNeeded];

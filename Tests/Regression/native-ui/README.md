@@ -9,7 +9,7 @@ The checks restore an old toolbar configuration and verify that action icons rem
 - Type in Search or Create to filter notes. Selection does not replace the query.
 - If no note matches, press Return or click Create to create a note with that title.
 - Edit the title or tags above the body. Return commits the edit. Escape cancels it.
-- Drag the horizontal divider to resize the notes list. Each window saves its own height.
+- Drag the divider to resize the notes list. Each window saves separate sizes for stacked and side views.
 - Select Follow System Appearance in the color menu for automatic editor colors. The notes list always uses system light and dark colors.
 
 `probes.m` exercises these controls in the application with disposable notes and a separate preferences domain. `benchmark.m` compares query and drawing costs across builds. See `Tests/README.md` for the commands.

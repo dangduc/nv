@@ -58,3 +58,10 @@ Word Count must release its temporary substring observers before other shared ed
 
 The View group runs before the Search group changes the toolbar. Its wide window keeps Search expanded before header commands. Its peer retains the minimum window width.
 With `NV_UI_ARTIFACTS`, this group also saves the expanded and collapsed note views.
+
+## Side notes list
+
+Run `python3 Tests/Regression/native-controls/run.py --probe layout` for the restored side view.
+The probe checks native menu routing, independent browser layouts, divider sizes, multiline fuzzy highlights, source and preview selection, and hidden lists.
+Set `NV_UI_ARTIFACTS` to capture both Search placements with the side list.
+The multiwindow suite checks layout and both divider sizes after relaunch.

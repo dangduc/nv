@@ -131,8 +131,8 @@ static NSDictionary *ValidatedBodyState(id value) {
     [self captureBodyPresentation];
     NSMutableDictionary *state = [NSMutableDictionary dictionary];
     [state setObject:[window stringWithSavedFrame] ?: @"" forKey:@"frame"];
-    [state setObject:@2 forKey:@"layoutVersion"];
-    [state setObject:@NO forKey:@"horizontalLayout"];
+    [state setObject:@3 forKey:@"layoutVersion"];
+    [state setObject:@(browserHorizontalLayout) forKey:@"horizontalLayout"];
     [state setObject:@1 forKey:@"presentationVersion"];
     [state setObject:@(viewingNote) forKey:@"viewingNote"];
     [state setObject:selectedViewerIdentifier forKey:@"viewerIdentifier"];
@@ -142,6 +142,8 @@ static NSDictionary *ValidatedBodyState(id value) {
     [state setObject:[[[self browserSession] sortColumn] identifier] ?: NoteTitleColumnString forKey:@"sort"];
     [state setObject:@([[self browserSession] reverseSorted]) forKey:@"reverse"];
     [state setObject:@([self notesListHeight]) forKey:@"divider"];
+    [state setObject:@(browserHorizontalLayout ? pendingListHeight : [self notesListHeight]) forKey:@"stackedListHeight"];
+    [state setObject:@(browserHorizontalLayout ? [self notesListHeight] : pendingListWidth) forKey:@"sideListWidth"];
     [state setObject:[notesTableView columnLayoutState] forKey:@"columns"];
     [state setObject:NSStringFromPoint([[notesScrollView contentView] bounds].origin) forKey:@"listScroll"];
     if (currentNote) {
@@ -166,7 +168,10 @@ static NSDictionary *ValidatedBodyState(id value) {
     presentationStateGeneration++;
     [self discardViewer];
     if ([[state objectForKey:@"frame"] isKindOfClass:[NSString class]]) [window setFrameFromString:state[@"frame"]];
-    browserHorizontalLayout = NO;
+    [self setHorizontalLayout:[state[@"horizontalLayout"] boolValue]];
+    id stackedHeight = state[@"stackedListHeight"], sideWidth = state[@"sideListWidth"];
+    if ([stackedHeight isKindOfClass:[NSNumber class]] && isfinite([stackedHeight doubleValue])) pendingListHeight = [stackedHeight doubleValue];
+    if ([sideWidth isKindOfClass:[NSNumber class]] && isfinite([sideWidth doubleValue])) pendingListWidth = [sideWidth doubleValue];
     NSString *query = [state[@"search"] isKindOfClass:[NSString class]] ? state[@"search"] : @"";
     [typedString release]; typedString = [query copy]; typedStringIsCached = YES;
     [field setStringValue:query];
@@ -179,8 +184,7 @@ static NSDictionary *ValidatedBodyState(id value) {
     [self setupSearchControls];
     [[self browserSession] filterNotesFromString:query];
     id divider = state[@"divider"];
-    if ([state[@"horizontalLayout"] boolValue]) [self setNotesListHeight:NSHeight([splitView bounds]) / 3.0];
-    else if ([divider isKindOfClass:[NSNumber class]]) [self setNotesListHeight:[divider doubleValue]];
+    if ([divider isKindOfClass:[NSNumber class]]) [self setNotesListHeight:[divider doubleValue]];
     [notesTableView restoreColumnLayoutState:state[@"columns"]];
     searchApplyingResult = NO;
     if ([[self browserSession] searchResultsAreCurrent]) {
@@ -189,8 +193,9 @@ static NSDictionary *ValidatedBodyState(id value) {
         searchApplyingResult = NO;
     } else pendingSearchRestoration = [state copy];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restoreNotesListHeight) object:nil];
-    if (![state[@"horizontalLayout"] boolValue] && [divider isKindOfClass:[NSNumber class]]) {
-        pendingListHeight = [divider doubleValue];
+    if ([divider isKindOfClass:[NSNumber class]] && isfinite([divider doubleValue])) {
+        if (browserHorizontalLayout) pendingListWidth = [divider doubleValue];
+        else pendingListHeight = [divider doubleValue];
         [self performSelector:@selector(restoreNotesListHeight) withObject:nil afterDelay:0];
     }
     [self updateSearchAffordance];
