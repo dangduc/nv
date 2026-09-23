@@ -361,10 +361,13 @@ Each browser retains separate stacked heights, side widths, and column settings.
 After layout and full-screen transitions, the source editor fills its clip view. This clears stale trailing margins from legacy body-width handling.
 Automatic macOS window tabbing is disabled.
 
-The notes list inherits the window appearance and uses system colors for backgrounds, text, and selection.
-The table inherits AppKit's opacity behavior because native row fills can be translucent.
-The scroll and clip views paint their background so partial redraws replace old pixels before drawing the rows.
-Cached previews retain dynamic text colors. Cached tag images use the resolved drawing color as part of their key.
+The notes list uses its browser's body foreground and background colors in both layouts.
+`NotesTableView` paints alternating rows with a 5% blend toward white on dark backgrounds, or black on light backgrounds.
+Its scroll view selects Aqua or Dark Aqua from the body background's brightness.
+Native selection, secondary text, tags, headers, and scrollers resolve within that appearance, independently of the window theme.
+Column header cells retain their own body foreground and background colors. Native header views still handle sorting, resizing, and column menus.
+The table retains AppKit's opacity behavior. The scroll and clip views paint the same body background during partial redraws.
+Cached previews retain dynamic secondary colors. Cached tag images use the resolved drawing color as part of their key.
 The editor can follow system appearance or use configured colors.
 User Scheme keeps separate light and dark palettes for foreground, background, and search highlights.
 Each browser selects its palette from its effective macOS appearance. The User Scheme menu selection remains the same.

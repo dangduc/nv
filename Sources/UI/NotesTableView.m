@@ -157,7 +157,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		for (i=0; i<sizeof(colStrings)/sizeof(NSString*); i++) {
 			NoteAttributeColumn *column = [[NoteAttributeColumn alloc] initWithIdentifier:colStrings[i]];
 			[column setEditable:(colMutators[i] != NULL)];
-			[column setHeaderCell:[[[NSTableHeaderCell alloc] initTextCell:[[NSBundle mainBundle] localizedStringForKey:colStrings[i] value:@"" table:nil]] autorelease]];
+			[column setHeaderCell:[[[NotesTableHeaderCell alloc] initTextCell:[[NSBundle mainBundle] localizedStringForKey:colStrings[i] value:@"" table:nil]] autorelease]];
 			
 			[column setMutatingSelector:colMutators[i]];
 			[column setDereferencingFunction:colReferencors[i]];
@@ -456,7 +456,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	[self setIntercellSpacing:NSMakeSize(10.0, 3.0)];
     if (@available(macOS 11.0, *)) [self setStyle:NSTableViewStyleFullWidth];
     // Changing the native style can reset the table's background color.
-    [self setBackgroundColor:[NSColor textBackgroundColor]];
+    [self updateBodyColors];
 	
 	//[self setGridStyleMask:horiz ? NSTableViewSolidHorizontalGridLineMask : NSTableViewGridNone];
 }
@@ -1560,6 +1560,52 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 		return;
 	}
         [super highlightSelectionInClipRect:clipRect];
+}
+
+- (void)updateBodyColors {
+    // Nib decoding can precede the connection to this table's browser.
+    AppController *browser = (id)[self delegate];
+    if (![browser isKindOfClass:[AppController class]]) return;
+    NSColor *background = [browser backgrndColor];
+    NSColor *foreground = [browser foregrndColor];
+    CGFloat white = [[background colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent];
+    NSScrollView *scroll = [self enclosingScrollView];
+    if (@available(macOS 10.14, *)) {
+        // Native selection, secondary text, tags, and scrollers must contrast
+        // with the body palette, even when it differs from the window theme.
+        [scroll setAppearance:[NSAppearance appearanceNamed:white < 0.5 ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+    }
+    [self setBackgroundColor:background];
+    [scroll setBackgroundColor:background];
+    [[scroll contentView] setBackgroundColor:background];
+    for (NSTableColumn *column in allColumns) {
+        [[column headerCell] setBackgroundColor:background];
+        [[column headerCell] setTextColor:foreground];
+    }
+    [headerView setNeedsDisplay:YES];
+    CGFloat gridWhite = white < 0.25 ? white + 0.22 : (white < 0.75 ? white + 0.16 : white - 0.20);
+    [self setGridColor:[[background blendedColorWithFraction:0.18 ofColor:foreground]
+        blendedColorWithFraction:0.26 ofColor:[NSColor colorWithCalibratedWhite:gridWhite alpha:1]]];
+    [scroll setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)drawBackgroundInClipRect:(NSRect)clipRect {
+    NSColor *background = [self backgroundColor];
+    [background setFill];
+    NSRectFill(clipRect);
+    if (![self usesAlternatingRowBackgroundColors]) return;
+    CGFloat height = [self rowHeight] + [self intercellSpacing].height;
+    if (height <= 0) return;
+    BOOL dark = [[background colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent] < 0.5;
+    NSColor *alternate = [background blendedColorWithFraction:0.05 ofColor:dark ? [NSColor whiteColor] : [NSColor blackColor]];
+    NSInteger row = (NSInteger)floor(NSMinY(clipRect) / height);
+    for (CGFloat y = row * height; y < NSMaxY(clipRect); y += height, row++) {
+        if (row % 2) {
+            [alternate setFill];
+            NSRectFill(NSIntersectionRect(clipRect, NSMakeRect(NSMinX(clipRect), y, NSWidth(clipRect), height)));
+        }
+    }
 }
 
 @end

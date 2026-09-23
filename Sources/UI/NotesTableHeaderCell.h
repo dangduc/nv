@@ -9,12 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NotesTableHeaderCell : NSTableHeaderCell {
-}
-
-+ (void)setBColor:(NSColor *)inColor;
-+ (void)setTxtColor:(NSColor *)inColor;
-
+@interface NotesTableHeaderCell : NSTableHeaderCell
 @end
-
 

@@ -16,19 +16,7 @@
 @end
 
 
-NSColor *bColor;
-NSColor *tColor;
-
 @implementation NotesTableHeaderCell
-
-+ (void)initialize{
-    if (!bColor) {
-        bColor = [[[NSColor whiteColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
-    }
-    if (!tColor) {
-        tColor = [[[NSColor blackColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
-    }
-}
 
 - (id)initTextCell:(NSString *)text{
     if ((self = [super initTextCell:text])) {
@@ -67,53 +55,49 @@ NSColor *tColor;
 
 
 - (void)drawWithFrame:(NSRect)inFrame inView:(NSView*)inView{
-    [self setTextColor:tColor];
-//    [super drawWithFrame:inFrame inView:inView];
-    [self _drawGradientFromColor:bColor inRect:inFrame];
+    // NSTextFieldCell retains the colors supplied by this column's browser.
+    NSColor *background = [self backgroundColor] ?: [NSColor controlBackgroundColor];
+    if ([self isHighlighted]) background = [background blendedColorWithFraction:0.05 ofColor:[self textColor]];
+    [background setFill];
+    NSRectFill(inFrame);
     [self drawInteriorWithFrame:inFrame inView:inView];
+    if ([inView isKindOfClass:[NSTableHeaderView class]]) {
+        NSTableView *table = [(NSTableHeaderView *)inView tableView];
+        NSTableColumn *column = [table highlightedTableColumn];
+        NSImage *indicator = [table indicatorImageInTableColumn:column];
+        if ([column headerCell] == self && indicator)
+            [self drawSortIndicatorWithFrame:inFrame inView:inView
+                ascending:[[indicator name] isEqualToString:@"NSAscendingSortIndicator"] priority:0];
+    }
     [self _drawBorderWithFrame:inFrame];
 }
 
-#define kSelectedCellEmphasisLevel 0.24f
-#define kSelectedCellTextEmphasisLevel 0.3f
+- (void)drawInteriorWithFrame:(NSRect)frame inView:(NSView *)view {
+    NSRect titleRect = [self drawingRectForBounds:frame];
+    if ([view isKindOfClass:[NSTableHeaderView class]]) {
+        NSTableView *table = [(NSTableHeaderView *)view tableView];
+        if ([[table highlightedTableColumn] headerCell] == self)
+            titleRect.size.width = MAX(0, MIN(NSMaxX(titleRect), NSMinX([self sortIndicatorRectForBounds:frame]) - 4) - NSMinX(titleRect));
+    }
+    NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+    [style setLineBreakMode:NSLineBreakByTruncatingTail];
+    [style setAlignment:[self alignment]];
+    NSDictionary *attributes = @{NSFontAttributeName: [self font] ?: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]],
+        NSForegroundColorAttributeName: [self textColor] ?: [NSColor controlTextColor], NSParagraphStyleAttributeName: style};
+    CGFloat height = [[self stringValue] sizeWithAttributes:attributes].height;
+    titleRect.origin.y = floor(NSMidY(frame) - height / 2);
+    titleRect.size.height = height;
+    [[self stringValue] drawInRect:titleRect withAttributes:attributes];
+}
 
 - (void)highlight:(BOOL)hBool withFrame:(NSRect)inFrame inView:(NSView *)controlView{
-    NSColor *theBack;
-    if ([[bColor colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent]<0.5f) {
-        theBack=[bColor highlightWithLevel:kSelectedCellEmphasisLevel];
-        [self setTextColor:[tColor highlightWithLevel:kSelectedCellTextEmphasisLevel]];
-	}else {
-        theBack=[bColor shadowWithLevel:kSelectedCellEmphasisLevel];
-        [self setTextColor:[tColor shadowWithLevel:kSelectedCellTextEmphasisLevel]];
-	}
-    [self _drawGradientFromColor:theBack inRect:inFrame];
-    [self drawInteriorWithFrame:inFrame inView:controlView];
-    [self _drawBorderWithFrame:inFrame];
+    BOOL previous = [self isHighlighted];
+    [self setHighlighted:hBool];
+    [self drawWithFrame:inFrame inView:controlView];
+    [self setHighlighted:previous];
 }
 
 
-
-#pragma mark - nvALT additions
-
-+ (void)setBColor:(NSColor *)inColor{
-    if (bColor) {
-        [bColor release];
-    }
-	bColor = [[inColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
-}
-
-+ (void)setTxtColor:(NSColor *)inColor{
-    if (tColor) {
-        [tColor release];
-    }
-    if ([[inColor colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent]>0.5f) {
-        inColor=[inColor highlightWithLevel:kSelectedCellEmphasisLevel];
-    }else{
-        inColor=[inColor shadowWithLevel:kSelectedCellEmphasisLevel];
-    }
-    inColor=[inColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	tColor = [inColor retain];
-}
 
 @end
 
@@ -127,7 +111,7 @@ NSColor *tColor;
     [thePath moveToPoint:NSMakePoint(NSMaxX(cellFrame),pt.y)];
     [thePath lineToPoint:pt];
     
-    [[tColor blendedColorWithFraction:0.33f ofColor:bColor] setStroke];
+    [[[self backgroundColor] blendedColorWithFraction:0.20 ofColor:[self textColor]] setStroke];
     [thePath setLineWidth:1.0f];
     [thePath stroke];
     

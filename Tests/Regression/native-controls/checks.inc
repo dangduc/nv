@@ -141,6 +141,7 @@
 #include "top-section-checks.inc"
 #include "search-placement-checks.inc"
 #include "layout-checks.inc"
+#include "color-checks.inc"
 #include "new-note-checks.inc"
 
 - (void)nv_runTests {
@@ -160,6 +161,8 @@
             [self nv_checkSearchPlacementWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"layout"])
             [self nv_checkSideLayoutWithPeer:peer alpha:alpha beta:beta];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"colors"])
+            [self nv_checkListColorsWithPeer:peer alpha:alpha beta:beta];
         // Exercise View before the Search group customizes the native toolbar.
         if ([probe isEqual:@"all"] || [probe isEqual:@"view"])
             [self nv_checkViewMenuWithPeer:peer alpha:alpha beta:beta];
@@ -207,8 +210,8 @@
             [self nv_checkCommandReturnWithPeer:peer alpha:alpha beta:beta];
         Check([library totalNoteCount] == 2, @"control commands leave no extra notes");
         Check(![splitView isVertical], @"native controls retain the list-above-editor stack");
-        Check([[notesTableView backgroundColor] isEqual:[NSColor textBackgroundColor]],
-            @"native controls retain the system notes list background");
+        Check([[notesTableView backgroundColor] isEqual:[self backgrndColor]],
+            @"native controls retain the body background in the notes list");
         const char *artifacts = getenv("NV_UI_ARTIFACTS");
         if (artifacts) {
             [self searchForString:@"al"]; [self revealNote:alpha options:0];
