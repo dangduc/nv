@@ -19,7 +19,7 @@ This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, 
 | Windows | One main notes window. | Multiple windows, one shared notes list. |
 | Layout | The notes list is stacked or side-by-side panes. | Each window supports stacked or side-by-side panes. |
 | Search | Exact match strings on note titles. | Fuzzy searches on note title and text. Exact remains available. |
-| Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. |
+| Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that adapts to the body palette. |
 | Editor | Editable rich-text in Markdown, Textile, and HTML(?). | Editable source with syntax-highlighting and readonly rich-text previews  in MD, Textile, HTML, Org|
 | Preview | Non-editable source code | Non-editable rich-text |
 | Data Sync | SimpleNote supported | Unsupported |
@@ -61,7 +61,10 @@ Hidden rows release space to the body. Showing the notes list restores each wind
 **Note > Rename** and **Note > Tag** reveal hidden fields before editing.
 Tags offer completion from the library.
 
-The notes list follows system light and dark appearance.
+The notes list uses the editor's text and background colors in both layouts.
+Column titles and their backgrounds use the same palette.
+Alternating rows shade the background 5% lighter or darker.
+Native selection colors adapt to the body background's brightness, independently of the window theme.
 The editor can follow the system appearance or use custom colors and fonts.
 Choose **View > Color Schemes > Follow System Appearance** for system editor colors.
 **User Scheme** uses separate custom light and dark colors and switches with the macOS appearance.

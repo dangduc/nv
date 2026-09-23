@@ -65,3 +65,11 @@ Run `python3 Tests/Regression/native-controls/run.py --probe layout` for the res
 The probe checks native menu routing, independent browser layouts, divider sizes, multiline fuzzy highlights, source and preview selection, and hidden lists.
 Set `NV_UI_ARTIFACTS` to capture both Search placements with the side list.
 The multiwindow suite checks layout and both divider sizes after relaunch.
+
+## Adaptive list colors
+
+Run `python3 Tests/Regression/native-controls/run.py --probe colors` for the body-derived list palette.
+The probe checks both layouts, alternating and plain rows, and selected text with list focus, body focus, or an inactive window.
+Two browser windows use opposite body palettes and window themes. Color changes must preserve the shared source.
+The pixel checks also require column titles and header backgrounds to use the body palette.
+Set `NV_UI_ARTIFACTS` to capture the four layout and palette combinations.

@@ -2067,7 +2067,8 @@ terminateApp:
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
     if (aTableView == notesTableView && [cell respondsToSelector:@selector(setTextColor:)]) {
         BOOL active = [window isKeyWindow] && ([window firstResponder] == notesTableView || [notesTableView editedRow] == row);
-        [cell setTextColor:[cell isHighlighted] && active ? [NSColor alternateSelectedControlTextColor] : [NSColor labelColor]];
+        [cell setTextColor:[cell isHighlighted] ? (active ? [NSColor alternateSelectedControlTextColor] :
+            [NSColor selectedControlTextColor]) : [self foregrndColor]];
     }
 }
 
@@ -2318,8 +2319,7 @@ terminateApp:
     
 - (void)updateColorScheme{
     [mainView setBackgroundColor:[NSColor windowBackgroundColor]];
-    [notesTableView setGridColor:[NSColor gridColor]];
-    [notesTableView setBackgroundColor:[NSColor textBackgroundColor]];
+    [notesTableView updateBodyColors];
     [textView setBackgroundColor:backgrndColor];
     [textView updateTextColors];
     if (currentNote) [self refreshSearchHighlights];

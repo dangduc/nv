@@ -242,3 +242,24 @@ NV_UI_ARTIFACTS="$PWD/build/side-list-artifacts" \
 ```
 
 Inspect the captures before copying them into this directory.
+
+## Adaptive notes-list colors
+
+`adaptive-list-light-body-stacked.png` and `adaptive-list-light-body-side.png` show peach paper inside a dark window.
+`adaptive-list-dark-body-stacked.png` and `adaptive-list-dark-body-side.png` show a dark blue body inside a light window.
+The list uses the body palette in both layouts. Column titles and header backgrounds use the same colors.
+Both fuzzy title and body results retain their match highlights.
+
+Captured on September 23, 2026, on macOS 13.7.8 with Xcode 15.2.
+The unsigned Intel Development app ran under Rosetta with disposable notes and preferences.
+These files are native WindowServer captures without pixel edits.
+
+To regenerate:
+
+```sh
+mkdir -p build/adaptive-list-artifacts
+NV_UI_ARTIFACTS="$PWD/build/adaptive-list-artifacts" \
+  python3 Tests/Regression/native-controls/run.py --probe colors
+```
+
+Inspect the four captures before copying them into this directory.
