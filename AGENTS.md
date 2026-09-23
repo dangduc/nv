@@ -13,7 +13,7 @@ Neo Notational V is a macOS Cocoa application written primarily in Objective-C, 
 - `Scripts/`: development utilities.
 - `Tests/` and `docs/`: test suites, review records, and documentation assets.
 
-Read [architecture.md](architecture.md) before changing controller ownership, shared editing, or window lifecycle. Keep one shared library across browser windows. Keep the notes list above the editor. Add new source files and resources to the Xcode target.
+Read [architecture.md](architecture.md) before changing controller ownership, shared editing, or window lifecycle. Keep one shared library across browser windows. Keep the notes list above the editor by default. Preserve the optional side layout. Add new source files and resources to the Xcode target.
 
 ## Build, Test, and Development Commands
 

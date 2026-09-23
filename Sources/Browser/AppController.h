@@ -91,7 +91,7 @@
     NSUInteger searchIntentGeneration, searchHighlightGeneration;
     BOOL searchAutocompletePending, searchApplyingResult, searchSubmitting, searchStatusDelayElapsed;
     BOOL searchScrollPending;
-    CGFloat pendingListHeight;
+    CGFloat pendingListHeight, pendingListWidth;
     IBOutlet ETScrollView *notesScrollView;
     IBOutlet ETNoteScrollView *textScrollView;
     IBOutlet NotesTableView *notesTableView;
@@ -153,6 +153,8 @@ void outletObjectAwoke(id sender);
 - (IBAction)tagNote:(id)sender;
 - (IBAction)importNotes:(id)sender;
 - (IBAction)switchViewLayout:(id)sender;
+- (void)setHorizontalLayout:(BOOL)horizontal;
+- (void)resizeSourceEditorToViewport;
 
 - (IBAction)fieldAction:(id)sender;
 - (NoteObject*)createNoteIfNecessary;

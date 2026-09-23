@@ -2,7 +2,7 @@
 
 Neo Notational V is a Cocoa application written mainly in Objective-C, with C utilities and manual memory management.
 This fork supports multiple browser windows over **one shared notes library**.
-Each window keeps the notes list above the editable source or a read-only viewer.
+Each window places the notes list above or to the left of the editable source or a read-only viewer.
 
 This document describes the current implementation. See [README.markdown](README.markdown) for features and build instructions.
 
@@ -182,7 +182,7 @@ Empty-query edits do not request source highlights or clear absent search backgr
 Browser detachment cancels its delayed row work before releasing the library.
 Explicit sorting and library replacement cancel pending body refreshes and use the regular publication path.
 
-Selection, editor scroll, list scroll, divider height, and column layout belong to the browser.
+Selection, editor scroll, list scroll, divider sizes, and column layout belong to the browser.
 Application settings can supply defaults or update shared display choices.
 Do not move query state into the library or reuse another window's list-preview cache.
 
@@ -354,7 +354,11 @@ Global preference callbacks run after all browsers attach to the restored librar
 
 [AppController_BrowserUI.m](Sources/Browser/AppController_BrowserUI.m) builds the native toolbar, title and tag fields, and `NSSplitViewController` layout.
 The localized nibs supply reusable views and connections.
-The split view uses `setVertical:NO`: its horizontal divider keeps the list above the body.
+The split view defaults to `setVertical:NO`, with the list above the body.
+View > Notes List on Side changes only the active browser to `setVertical:YES`, with the list on the left.
+Side view uses the existing multiline note cells, including fuzzy result excerpts and highlights.
+Each browser retains separate stacked heights, side widths, and column settings. Switching layouts preserves the query, selection, and attached editor.
+After layout and full-screen transitions, the source editor fills its clip view. This clears stale trailing margins from legacy body-width handling.
 Automatic macOS window tabbing is disabled.
 
 The notes list inherits the window appearance and uses system colors for backgrounds, text, and selection.
@@ -389,7 +393,7 @@ Hidden header rows release their space to the body. Word Count retains its separ
 
 Hiding a metadata field commits its pending edit before moving focus to the body.
 Rename and Tags reveal their fields. New Note focuses the source when the title is hidden.
-The notes list collapses within the existing window frame and retains each window's expanded height for restoration.
+The notes list collapses within the existing window frame and retains each window's expanded height or width for restoration.
 
 Show Source/Show Preview and the checked Syntax Type submenu remain available when the body controls are hidden.
 These commands use the active browser. Syntax remains a local property of the selected note, independent of its preview format.
@@ -501,10 +505,11 @@ Termination saves window state, commits editing sessions, and flushes local note
 
 [AppController_MultipleWindows.m](Sources/Browser/AppController_MultipleWindows.m) serializes browser state.
 `NVApplicationController` stores it under the `NVBrowserWindows` defaults key and restores up to 20 windows.
-Saved state includes query, mode, selected result row key, note UUID, sort, selection, scroll positions, frame, columns, and divider height.
+Saved state includes query, mode, selected result row key, note UUID, sort, selection, scroll positions, frame, columns, layout, and divider sizes.
 Bookmarks and followed links also preserve search mode and result occurrence. Legacy entries retain Exact behavior.
 Versioned presentation state adds Source/Preview mode, viewer identifier, and separate source and viewer scroll positions.
-Restoration checks selection bounds and converts old side-by-side layouts into a vertical stack.
+Restoration checks selection bounds and restores the saved layout, including older side-by-side states.
+Divider sizes are clamped so the editor retains usable space. Missing layout state defaults to stacked panes.
 
 ## Working on the architecture
 

@@ -101,7 +101,7 @@ Set `NV_UI_ARTIFACTS` to an output directory when running `source-workflow/run.p
 
 ## Native browser UI
 
-The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Control checks exercise menu dispatch, keyboard focus, and tag completion. Rendering checks compare URL and ordinary-text pixels across two windows. Every browser keeps the notes list above the editor. Old side-by-side layouts restore as a vertical stack.
+The native UI checks cover search composition, explicit creation, title and tag edits, metadata undo, shared updates, appearance, and layout restoration. Control checks exercise menu dispatch, keyboard focus, and tag completion. Rendering checks compare URL and ordinary-text pixels across two windows. Browsers default to a list above the editor. View > Notes List on Side restores the left-pane layout per window. Checks cover both layouts, fuzzy highlights, hidden lists, and saved divider sizes.
 
 The row checks require light backgrounds with dark titles in Aqua, and dark backgrounds with light titles in Dark Aqua. See `Tests/Regression/native-list/README.md` for the pixel thresholds and appearance checks.
 The [appearance review record](NotesListAppearanceReview/README.md) contains both review rounds, executable evidence, and validation limits.
@@ -141,7 +141,7 @@ The benchmark reports median and p95 times for four queries and for table scroll
 
 `NVApplicationController` owns one `NotationController` and the open browsers. Each `AppController` has an `NVBrowserSession` for its query, filtered list, sort and previews. The initial MainMenu owner remains the bridge to application preferences and status UI. Localized `BrowserWindow.xib` files contain the reusable window interface.
 
-`AppController_BrowserUI.m` replaces the legacy window layout with a native toolbar, metadata header, and `NSSplitViewController`. Each browser stores its own divider height. Appearance changes affect the editor display without changing shared note text.
+`AppController_BrowserUI.m` replaces the legacy window layout with a native toolbar, metadata header, and `NSSplitViewController`. Each browser stores its layout and separate divider sizes for stacked and side views. Appearance changes affect the editor display without changing shared note text.
 
 `NVNoteEditingSession` owns shared text and up to 200 undo actions per note. Each browser attaches a separate layout manager. When switching notes, remove that layout manager from its old storage and add it to the new storage. `replaceTextStorage:` moves all attached layout managers.
 

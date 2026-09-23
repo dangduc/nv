@@ -140,6 +140,7 @@
 
 #include "top-section-checks.inc"
 #include "search-placement-checks.inc"
+#include "layout-checks.inc"
 #include "new-note-checks.inc"
 
 - (void)nv_runTests {
@@ -157,6 +158,8 @@
         NSString *probe = [NSString stringWithUTF8String:getenv("NV_NATIVE_CONTROLS_PROBE") ?: "all"];
         if ([probe isEqual:@"all"] || [probe isEqual:@"placement"])
             [self nv_checkSearchPlacementWithPeer:peer alpha:alpha beta:beta];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"layout"])
+            [self nv_checkSideLayoutWithPeer:peer alpha:alpha beta:beta];
         // Exercise View before the Search group customizes the native toolbar.
         if ([probe isEqual:@"all"] || [probe isEqual:@"view"])
             [self nv_checkViewMenuWithPeer:peer alpha:alpha beta:beta];

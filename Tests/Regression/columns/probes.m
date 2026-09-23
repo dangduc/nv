@@ -129,9 +129,10 @@ static NSDictionary *RoundTripState(AppController *browser) {
         [horizontalState setObject:@900 forKey:@"divider"];
         [horizontalState removeObjectForKey:@"layoutVersion"];
         [restoredSecond restoreBrowserWindowState:horizontalState]; Pump();
-        Check(![restoredSecond horizontalLayout], @"legacy side-by-side windows migrate to the stacked layout");
+        Check([restoredSecond horizontalLayout], @"legacy side-by-side windows restore the side layout");
         Check([restoredSecond notesListHeight] < 900 && [restoredSecond notesListHeight] >= 84,
-            @"legacy divider width is replaced by a usable list height");
+            @"legacy divider width is clamped to leave a usable editor");
+        [restoredSecond setHorizontalLayout:NO]; Pump();
         Check(fabs(TitleWidth(restoredSecondTable)-firstWidth) < 1 && [ColumnOrder(restoredSecondTable) isEqual:firstOrder],
             @"legacy state preserves its stored vertical columns");
         // Exercise the actual shared preference callbacks through generated menu items.

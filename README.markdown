@@ -17,14 +17,14 @@ This fork of [ttscoff/nv](https://github.com/ttscoff/nv) adds multiple windows, 
 | Area | Upstream nvALT | This fork |
 | --- | --- | --- |
 | Windows | One main notes window. | Multiple windows, one shared notes list. |
-| Layout | The notes list is stacked or side-by-side panes. | The notes list is stacked. |
+| Layout | The notes list is stacked or side-by-side panes. | Each window supports stacked or side-by-side panes. |
 | Search | Exact match strings on note titles. | Fuzzy searches on note title and text. Exact remains available. |
 | Appearance | Legacy window controls and color schemes. | Native macOS controls and a notes list that follows system light and dark modes. |
 | Editor | Editable rich-text in Markdown, Textile, and HTML(?). | Editable source with syntax-highlighting and readonly rich-text previews  in MD, Textile, HTML, Org|
 | Preview | Non-editable source code | Non-editable rich-text |
 | Data Sync | SimpleNote supported | Unsupported |
 
-When migrating to this fork: Saved side-by-side layouts restore as stacked panes. The fork retains note links, tags, source import/export, and custom editor fonts.
+Saved windows retain their stacked or side-by-side layout. The fork retains note links, tags, source import/export, and custom editor fonts.
 
 ### Multiple windows
 
@@ -48,13 +48,16 @@ A note can appear more than once.
 ### Native controls and appearance
 
 The search field fills a row directly below the window title bar, above the notes list.
-**View > Search in Title Bar** moves it beside the window controls on macOS 11 or later.
+**View > Notes List on Side** (Command-Option-L) places the list to the left of the editor in the current window.
+Each window saves its layout and divider sizes.
+
+**View > Search in Title Bar** moves Search beside the window controls on macOS 11 or later.
 This setting applies to all windows and persists after restart.
 Note commands remain available through menus and shortcuts.
 
 The **View** menu can show or hide the notes list, title, tags, and Source/Preview controls.
 These visibility preferences apply to all windows.
-Hidden rows release space to the body. Showing the notes list restores each window's previous divider height.
+Hidden rows release space to the body. Showing the notes list restores each window's previous divider size.
 **Note > Rename** and **Note > Tag** reveal hidden fields before editing.
 Tags offer completion from the library.
 

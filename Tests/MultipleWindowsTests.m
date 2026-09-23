@@ -93,6 +93,10 @@ static void Swap(Class cls, SEL original, SEL replacement) {
             Check([[[first browserSession] searchString] isEqualToString:@"beta"] &&
                 [[[second browserSession] searchString] isEqualToString:@"only"],
                 @"relaunch restores distinct non-empty browser queries");
+            Check([first horizontalLayout] && ![second horizontalLayout], @"relaunch restores independent side and stacked layouts");
+            Check(fabs([first notesListHeight] - 240) < 2, @"relaunch restores the side list width");
+            [first setHorizontalLayout:NO]; Pump();
+            Check(fabs([first notesListHeight] - 120) < 2, @"relaunch retains the inactive stacked divider height");
             DualField *firstField = [first valueForKey:@"field"], *secondField = [second valueForKey:@"field"];
             Check([[firstField stringValue] isEqualToString:@"beta"] && [[secondField stringValue] isEqualToString:@"only"] &&
                 [[firstField snapbackString] isEqualToString:@"beta"],
@@ -225,6 +229,8 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         AppController *secondRestored = [[app browserControllers] lastObject];
         [[secondRestored window] makeKeyAndOrderFront:self]; [secondRestored searchForString:@"only"]; Pump();
         [[GlobalPrefs defaultPrefs] setSearchInTitleBar:YES sender:nil];
+        [reopened setNotesListHeight:120];
+        [reopened setHorizontalLayout:YES]; [reopened setNotesListHeight:240]; Pump();
         [app saveWindowStates];
         Check([[[NSUserDefaults standardUserDefaults] arrayForKey:@"NVBrowserWindows"] count] == 2, @"persistence records only open browser windows");
         Check([library flushAllNoteChanges], @"shared library flushes successfully");

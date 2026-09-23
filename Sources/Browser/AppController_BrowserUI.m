@@ -143,22 +143,71 @@
         @selector(setShowBodyControlsInTopSection:sender:), @selector(setShowNotesList:sender:),
         @selector(setShowWordCount:), nil];
     pendingListHeight = NSHeight([mainView bounds]) / 3.0;
+    pendingListWidth = 280;
     [self updateNotesListVisibility];
     [self performSelector:@selector(restoreNotesListHeight) withObject:nil afterDelay:0];
 }
 
 - (CGFloat)notesListHeight {
-    return [[[browserSplitController splitViewItems] firstObject] isCollapsed] ? pendingListHeight : NSHeight([notesSubview frame]);
+    // The legacy selector denotes the divider extent: width in side view.
+    if ([[[browserSplitController splitViewItems] firstObject] isCollapsed])
+        return browserHorizontalLayout ? pendingListWidth : pendingListHeight;
+    return browserHorizontalLayout ? NSWidth([notesSubview frame]) : NSHeight([notesSubview frame]);
 }
-- (void)restoreNotesListHeight { [self setNotesListHeight:pendingListHeight]; }
+- (void)restoreNotesListHeight { [self setNotesListHeight:browserHorizontalLayout ? pendingListWidth : pendingListHeight]; }
 - (void)setNotesListHeight:(CGFloat)height {
     if (!isfinite(height)) return;
     [mainView layoutSubtreeIfNeeded];
-    CGFloat maximum = MAX(84, NSHeight([splitView bounds]) - 212 - [splitView dividerThickness]);
-    pendingListHeight = MIN(maximum, MAX(84, height));
+    CGFloat minimum = browserHorizontalLayout ? 180 : 84;
+    CGFloat extent = browserHorizontalLayout ? NSWidth([splitView bounds]) : NSHeight([splitView bounds]);
+    CGFloat maximum = MAX(minimum, extent - (browserHorizontalLayout ? 360 : 212) - [splitView dividerThickness]);
+    CGFloat position = MIN(maximum, MAX(minimum, height));
+    if (browserHorizontalLayout) pendingListWidth = position;
+    else pendingListHeight = position;
     if ([[[browserSplitController splitViewItems] firstObject] isCollapsed]) return;
-    [splitView setPosition:pendingListHeight ofDividerAtIndex:0];
+    [splitView setPosition:position ofDividerAtIndex:0];
     [mainView layoutSubtreeIfNeeded];
+}
+
+- (void)setHorizontalLayout:(BOOL)horizontal {
+    if (browserHorizontalLayout == horizontal) return;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restoreNotesListHeight) object:nil];
+    if (browserHorizontalLayout) pendingListWidth = [self notesListHeight];
+    else pendingListHeight = [self notesListHeight];
+    browserHorizontalLayout = horizontal;
+    [splitView setVertical:horizontal];
+    NSArray *items = [browserSplitController splitViewItems];
+    [items[0] setMinimumThickness:horizontal ? 180 : 84];
+    [items[1] setMinimumThickness:horizontal ? 360 : 212];
+    CGFloat minimumWidth = horizontal ? 640 : 480;
+    [window setContentMinSize:NSMakeSize(minimumWidth, 320)];
+    NSRect frame = [window frame];
+    if (NSWidth(frame) < minimumWidth) {
+        frame.size.width = minimumWidth;
+        [window setFrame:frame display:YES];
+    }
+    [self restoreNotesListHeight];
+    [notesTableView settingChangedForSelectorString:NSStringFromSelector(@selector(setHorizontalLayout:sender:))];
+    [self _forceRegeneratePreviewsForTitleColumn];
+    [notesTableView reloadData];
+    NSInteger selected = [notesTableView primarySelectedRow];
+    if (selected >= 0) [notesTableView scrollRowToVisible:selected];
+    [self layoutNoteHeader];
+    [self resizeSourceEditorToViewport];
+    [self updateSearchAffordance];
+}
+
+- (void)resizeSourceEditorToViewport {
+    [mainView layoutSubtreeIfNeeded];
+    [textScrollView tile];
+    // Rotating a full-screen split can leave the legacy clip view's editor
+    // narrower than its viewport, with a fixed trailing Auto Layout margin.
+    NSRect sourceFrame = [textView frame];
+    CGFloat sourceWidth = NSWidth([[textScrollView contentView] bounds]);
+    if (NSWidth(sourceFrame) != sourceWidth) {
+        sourceFrame.size.width = sourceWidth;
+        [textView setFrame:sourceFrame];
+    }
 }
 
 - (void)updateNotesListVisibility {
@@ -166,7 +215,8 @@
     BOOL show = [prefsController showNotesList];
     if (!item || [item isCollapsed] == !show) return;
     if (!show) {
-        pendingListHeight = [self notesListHeight];
+        if (browserHorizontalLayout) pendingListWidth = [self notesListHeight];
+        else pendingListHeight = [self notesListHeight];
         NSResponder *responder = [window firstResponder];
         if ([responder isKindOfClass:[NSView class]] && [(NSView *)responder isDescendantOf:notesSubview]) {
             if (currentNote) [self focusNoteBody];
