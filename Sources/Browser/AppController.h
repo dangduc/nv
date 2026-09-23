@@ -201,6 +201,8 @@ void outletObjectAwoke(id sender);
 - (IBAction)multiTag:(id)sender;
 - (void)releaseTagEditor:(NSNotification *)note;
 - (void)setDualFieldInToolbar;
+- (void)updateSearchFieldPlacement;
+- (IBAction)toggleSearchInTitleBar:(id)sender;
 - (void)setDualFieldIsVisible:(BOOL)isVis;
 //- (void)hideDualFieldView;
 //- (void)showDualFieldView;

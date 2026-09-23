@@ -394,8 +394,12 @@ The notes list collapses within the existing window frame and retains each windo
 Show Source/Show Preview and the checked Syntax Type submenu remain available when the body controls are hidden.
 These commands use the active browser. Syntax remains a local property of the selected note, independent of its preview format.
 
-The toolbar contains one search field that fills the available width beside the window controls.
-The window hides its title but retains the note title for the Window menu and accessibility.
+The toolbar contains one search field. By default, its expanded style places Search directly below the visible window title, above the notes list.
+View > Search in Title Bar selects the compact unified style on macOS 11 or later.
+That style hides the visible title and places Search beside the window controls.
+The note title remains available to the Window menu and accessibility.
+GlobalPrefs persists the placement and updates all browsers without replacing the field or its search state.
+Older macOS versions retain the separate toolbar row and disable the placement toggle.
 The toolbar ignores saved layouts from the previous toolbar. Note commands remain available through menus.
 Search commands restore the toolbar and complete window layout before they focus the field directly.
 

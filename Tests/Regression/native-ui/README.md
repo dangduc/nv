@@ -1,6 +1,7 @@
 # Native browser controls
 
-The toolbar contains Search or Create, which fills the available width beside the window controls. The window hides its title.
+The toolbar contains Search or Create in a row directly below the visible window title and above the notes list.
+The checks cover the default placement and field width after resizing.
 Note commands remain available through menus. The toolbar ignores saved layouts from the previous toolbar.
 The checks restore an old toolbar configuration and verify that action icons remain absent.
 

@@ -1,5 +1,9 @@
 # Native control acceptance checks
 
+The placement checks dispatch View > Search in Title Bar and cover both positions, resizing, focus, query selection, and peer windows.
+They also check new windows and the Search command after hiding the toolbar. Run only these checks with `--probe placement`.
+The multiple-window suite checks placement persistence after relaunch.
+
 The probe sends Search through the application menu after removing its toolbar item.
 It checks that Search restores and focuses the field without changing the query or selection.
 It also checks hidden toolbars, repeated Search commands, and a peer browser.

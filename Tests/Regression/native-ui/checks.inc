@@ -11,7 +11,8 @@
         NSToolbar *nativeToolbar = [browserWindow toolbar];
         Check(![nativeToolbar allowsUserCustomization] && ![nativeToolbar autosavesConfiguration],
               @"search-only toolbar does not restore customizable layouts");
-        Check([browserWindow titleVisibility] == NSWindowTitleHidden, @"note title is hidden in the title bar");
+        Check(![prefsController searchInTitleBar] && [browserWindow titleVisibility] == NSWindowTitleVisible,
+              @"search defaults to a separate row below the visible window title");
         Check([[self toolbarDefaultItemIdentifiers:nativeToolbar] isEqual:@[@"Search"]] &&
               [[self toolbarAllowedItemIdentifiers:nativeToolbar] isEqual:@[@"Search"]], @"search is the only toolbar item");
         NSDictionary *savedToolbarConfiguration = [[[nativeToolbar configurationDictionary] copy] autorelease];
@@ -26,7 +27,7 @@
         NSMenuItem *newNoteItem = [noteMenu itemAtIndex:[noteMenu indexOfItemWithTarget:app andAction:@selector(newNote:)]];
         Check([[newNoteItem keyEquivalent] isEqual:@"n"], @"Note menu exposes Command-N for New Note");
         if (@available(macOS 11.0, *)) {
-            Check([browserWindow toolbarStyle] == NSWindowToolbarStyleUnifiedCompact, @"window uses the compact unified toolbar");
+            Check([browserWindow toolbarStyle] == NSWindowToolbarStyleExpanded, @"window uses a separate toolbar row");
         }
         NSRect originalWindowFrame = [browserWindow frame];
         for (NSNumber *width in @[@480, @780, @1200]) {
@@ -35,7 +36,12 @@
             [browserWindow setFrame:frame display:YES]; Pump();
             NSRect searchFrame = [field convertRect:[field bounds] toView:nil];
             Check(NSWidth(searchFrame) >= NSWidth(frame) - 130 && NSMaxX(searchFrame) >= NSWidth(frame) - 30,
-                @"search fills the title bar beside native window controls after resizing");
+                @"search fills the toolbar row after resizing");
+            NSButton *closeButton = [browserWindow standardWindowButton:NSWindowCloseButton];
+            NSRect closeFrame = [closeButton convertRect:[closeButton bounds] toView:nil];
+            NSRect listFrame = [notesScrollView convertRect:[notesScrollView bounds] toView:nil];
+            Check(NSMaxY(searchFrame) <= NSMinY(closeFrame) && NSMinY(searchFrame) >= NSMaxY(listFrame),
+                @"search stays below the title bar and above the notes list after resizing");
         }
         [browserWindow setFrame:originalWindowFrame display:YES]; Pump();
         [self searchForString:@"al"]; Pump();
@@ -141,6 +147,15 @@
             while (![self isInFullScreen] && [deadline timeIntervalSinceNow] > 0) Pump();
             for (NSUInteger i = 0; i < 30; i++) Pump();
             Check([self isInFullScreen] && ![split isVertical], @"native full screen retains the stacked layout");
+            if (@available(macOS 11.0, *)) {
+                for (NSNumber *inTitleBar in @[@YES, @NO]) {
+                    [prefsController setSearchInTitleBar:[inTitleBar boolValue] sender:nil];
+                    [self bringFocusToControlField:self]; Pump();
+                    Check([field currentEditor] != nil && ![field isHiddenOrHasHiddenAncestor] &&
+                        [browserWindow toolbarStyle] == ([inTitleBar boolValue] ? NSWindowToolbarStyleUnifiedCompact : NSWindowToolbarStyleExpanded),
+                        @"both Search positions remain editable in full screen");
+                }
+            }
             [self switchFullScreen:self];
             deadline = [NSDate dateWithTimeIntervalSinceNow:5];
             while ([self isInFullScreen] && [deadline timeIntervalSinceNow] > 0) Pump();

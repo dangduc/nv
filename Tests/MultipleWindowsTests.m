@@ -77,6 +77,12 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         NotationController *library = [app library];
         if (getenv("NV_WINDOW_TEST_RELAUNCH")) {
             Check([[app browserControllers] count] == 2, @"relaunch restores both browser windows");
+            Check([[GlobalPrefs defaultPrefs] searchInTitleBar], @"relaunch retains the Search placement preference");
+            if (@available(macOS 11.0, *)) {
+                for (AppController *browser in [app browserControllers])
+                    Check([[browser window] toolbarStyle] == NSWindowToolbarStyleUnifiedCompact,
+                        @"restored windows place Search in the title bar");
+            }
             Check([[library allNotes] count] == 1 && [((NoteObject *)[[library allNotes] lastObject])->titleString isEqualToString:@"Beta"], @"relaunch reads the saved library");
             Check([[[((NoteObject *)[[library allNotes] lastObject]) contentString] string] isEqualToString:@"beta only persisted edit"],
                 @"relaunch preserves the exact body edited in a browser");
@@ -218,6 +224,7 @@ static void Swap(Class cls, SEL original, SEL replacement) {
         [durableEditor insertText:@" persisted edit" replacementRange:NSMakeRange([[durableEditor string] length], 0)]; Pump();
         AppController *secondRestored = [[app browserControllers] lastObject];
         [[secondRestored window] makeKeyAndOrderFront:self]; [secondRestored searchForString:@"only"]; Pump();
+        [[GlobalPrefs defaultPrefs] setSearchInTitleBar:YES sender:nil];
         [app saveWindowStates];
         Check([[[NSUserDefaults standardUserDefaults] arrayForKey:@"NVBrowserWindows"] count] == 2, @"persistence records only open browser windows");
         Check([library flushAllNoteChanges], @"shared library flushes successfully");
