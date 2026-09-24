@@ -144,6 +144,7 @@
 #include "color-checks.inc"
 #include "new-note-checks.inc"
 #include "focus-checks.inc"
+#include "tab-preference-checks.inc"
 
 - (void)nv_runTests {
     @try {
@@ -160,6 +161,8 @@
         NSString *probe = [NSString stringWithUTF8String:getenv("NV_NATIVE_CONTROLS_PROBE") ?: "all"];
         if ([probe isEqual:@"all"] || [probe isEqual:@"shift-tab"] || [probe isEqual:@"arrows"])
             [self nv_checkKeyboardFocusWithPeer:peer alpha:alpha beta:beta probe:probe];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"tab-preference"])
+            [self nv_checkTabPreferenceWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"placement"])
             [self nv_checkSearchPlacementWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"layout"])

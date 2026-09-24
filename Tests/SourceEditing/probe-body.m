@@ -147,7 +147,7 @@
         BOOL nativeSpelling = [reference isContinuousSpellCheckingEnabled];
         NSWritingDirection nativeDirection = [reference baseWritingDirection];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        for (NSString *key in @[@"CheckSpellingInNoteBody", @"TabKeyIndents", @"AutoSuggestLinks", @"UseSoftTabs", @"UseAutoPairing", @"rtl"])
+        for (NSString *key in @[@"CheckSpellingInNoteBody", @"AutoSuggestLinks", @"UseSoftTabs", @"UseAutoPairing", @"rtl"])
             [defaults setBool:YES forKey:key];
         [defaults synchronize]; Pump();
         Check([editor isContinuousSpellCheckingEnabled] == nativeSpelling,
@@ -155,8 +155,7 @@
         Check([editor baseWritingDirection] == nativeDirection,
               @"removed global RTL preference cannot override NSTextView direction");
 
-        Check(![prefsController respondsToSelector:@selector(tabKeyIndents)] &&
-              ![prefsController respondsToSelector:@selector(checkSpellingAsYouType)] &&
+        Check(![prefsController respondsToSelector:@selector(checkSpellingAsYouType)] &&
               ![prefsController respondsToSelector:@selector(linksAutoSuggested)] &&
               ![prefsController respondsToSelector:@selector(softTabs)] &&
               ![prefsController respondsToSelector:@selector(useAutoPairing)] &&

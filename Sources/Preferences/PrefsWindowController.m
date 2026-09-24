@@ -115,6 +115,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 		}
 	}
     [self refreshUserSchemeControls];
+    [tabKeyRadioMatrix selectCellAtRow:[prefsController tabKeyIndents] ? 0 : 1 column:0];
     [backupPreferencesViewController refreshControls];
 	if (![window isVisible])
 		[window center];
@@ -334,6 +335,10 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
 }
 - (IBAction)changedMakeURLsClickable:(id)sender {
 	[prefsController setMakeURLsClickable:[makeURLsClickable state] sender:self];
+}
+
+- (IBAction)changedTabBehavior:(id)sender {
+    [prefsController setTabIndenting:[tabKeyRadioMatrix selectedRow] == 0 sender:self];
 }
 
 - (IBAction)changedNoteDeletion:(id)sender {
@@ -659,6 +664,7 @@ static void NVAddUserSchemeGroup(NSView *pane, NSString *title, NSRect frame, NS
     [confirmDeletionButton setState:[prefsController confirmNoteDeletion]];
     [quitWhenClosingButton setState:[prefsController quitWhenClosingWindow]];
 	[makeURLsClickable setState:[prefsController URLsAreClickable]];
+    [tabKeyRadioMatrix selectCellAtRow:[prefsController tabKeyIndents] ? 0 : 1 column:0];
     [self previewNoteBodyFont];
 	[appShortcutField setStringValue:[[prefsController appActivationKeyCombo] description]];
     [self configureUserSchemeControls];

@@ -12,6 +12,7 @@
 #import "LinkingEditor.h"
 #import "DualField.h"
 #import "GlobalPrefs.h"
+#import "PrefsWindowController.h"
 #import "NSFileManager_NV.h"
 #import "ODBEditor.h"
 #import "PreviewController.h"
@@ -65,6 +66,7 @@ static void Swap(Class cls, SEL original, SEL replacement) {
 - (void)nv_finishTests { [NSApp terminate:self]; }
 - (void)nv_testLaunch:(NSNotification *)notification {
     [self setupViewsAfterAppAwakened];
+    prefsWindowController = [[PrefsWindowController alloc] init];
     FSRef directory; OSStatus err = FSPathMakeRef((const UInt8 *)[[TestDirectory stringByAppendingPathComponent:@"Notes"] fileSystemRepresentation], &directory, NULL);
     Check(err == noErr, @"temporary library directory exists");
     NotationController *library = [[[NotationController alloc] initWithDirectoryRef:&directory error:&err] autorelease];

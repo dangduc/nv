@@ -34,6 +34,7 @@
 	IBOutlet NSButton *confirmDeletionButton;
 	IBOutlet NSButton *quitWhenClosingButton;
 	IBOutlet NSButton *makeURLsClickable;
+    IBOutlet NSMatrix *tabKeyRadioMatrix;
 	IBOutlet NSButton *highlightSearchTermsButton;
 	IBOutlet NSColorWell *searchHighlightColorWell, *foregroundColorWell, *backgroundColorWell;
     NSColorWell *darkSearchHighlightColorWell, *darkForegroundColorWell, *darkBackgroundColorWell;
@@ -72,6 +73,7 @@
 - (IBAction)resetSyntaxColors:(id)sender;
 - (IBAction)closeSyntaxColors:(id)sender;
 - (IBAction)changedMakeURLsClickable:(id)sender;
+- (IBAction)changedTabBehavior:(id)sender;
 - (IBAction)setAppShortcut:(id)sender;
 - (IBAction)changeBodyFont:(id)sender;
 - (void)previewNoteBodyFont;
