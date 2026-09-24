@@ -2,6 +2,22 @@
 #import "NVMarkupRenderer.h"
 #import <math.h>
 
+@interface NVPreviewWebView : WKWebView
+@end
+@implementation NVPreviewWebView
+- (void)keyDown:(NSEvent *)event {
+    NSEventModifierFlags modifiers = [event modifierFlags] &
+        (NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagCommand);
+    NSString *characters = [event characters];
+    if (modifiers == NSEventModifierFlagShift && [characters length] == 1 &&
+        ([characters characterAtIndex:0] == NSBackTabCharacter || [characters characterAtIndex:0] == NSTabCharacter)) {
+        // Use the browser's existing Search command without reading its note state.
+        if ([NSApp sendAction:@selector(bringFocusToControlField:) to:nil from:self]) return;
+    }
+    [super keyDown:event];
+}
+@end
+
 @interface NVScopedAssetHandler : NSObject <WKURLSchemeHandler> {
     NSURL *_rootURL;
     NSString *_requestIdentifier;
@@ -116,7 +132,7 @@ static NSString *ViewerDocumentBaseWithoutFragment(NSString *base) {
     [[configuration preferences] setJavaScriptCanOpenWindowsAutomatically:NO];
     _assetHandler = [[NVScopedAssetHandler alloc] init];
     [configuration setURLSchemeHandler:_assetHandler forURLScheme:@"nvalt-asset"];
-    _webView = [[WKWebView alloc] initWithFrame:[container bounds] configuration:configuration];
+    _webView = [[NVPreviewWebView alloc] initWithFrame:[container bounds] configuration:configuration];
     [_webView setNavigationDelegate:self]; [_webView setUIDelegate:self];
     [_webView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [_webView setAccessibilityLabel:NSLocalizedString(@"Read-only note preview", nil)];

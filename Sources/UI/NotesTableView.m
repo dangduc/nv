@@ -1009,6 +1009,14 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 //    [NVControllerForView(self) resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	unichar keyChar = [theEvent firstCharacter];
+    if ((keyChar == NSBackTabCharacter || keyChar == NSTabCharacter) &&
+        ([theEvent modifierFlags] & (NSEventModifierFlagShift | NSEventModifierFlagControl |
+         NSEventModifierFlagOption | NSEventModifierFlagCommand)) == NSEventModifierFlagShift) {
+        AppController *browser = NVControllerForView(self);
+        if ([browser selectedNoteObject]) [browser focusNoteBody];
+        else [browser bringFocusToControlField:self];
+        return;
+    }
     if (![self searchRowsAreAvailable] && (keyChar < 0x20 || keyChar >= 0xF700 || keyChar == NSDeleteCharacter)) return;
 
     if (keyChar == NSNewlineCharacter || keyChar == NSCarriageReturnCharacter || keyChar == NSEnterCharacter) {

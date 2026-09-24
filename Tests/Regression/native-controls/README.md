@@ -11,6 +11,10 @@ The editor must be visible after Search, with at least 140 points of field width
 Later navigation to the body must retain focus after pending toolbar actions finish.
 
 Keyboard checks send Tab through the actual search field editor, with and without a selected note.
+The `--probe shift-tab` checks send Backtab events through the AppKit queue and cycle between Search and the open Source or Preview.
+They also enter from the notes list, skip the empty body, restore hidden Search, and preserve body selection and text.
+The `--probe arrows` checks require Up and Down to move list selection while Search retains focus and its query.
+Both groups cover Exact and Fuzzy search, both layouts, both Search positions, and peer-window state.
 Completion checks use the header field editor and existing library tags.
 They cover multiple tags, duplicate exclusion, peer updates, and unchanged title dictionary completion.
 
