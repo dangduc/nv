@@ -366,8 +366,11 @@ Automatic macOS window tabbing is disabled.
 
 The notes list uses its browser's body foreground and background colors in both layouts.
 `NotesTableView` paints alternating rows with a 5% blend toward white on dark backgrounds, or black on light backgrounds.
-Its scroll view selects Aqua or Dark Aqua from the body background's brightness.
-Native selection, secondary text, tags, headers, and scrollers resolve within that appearance, independently of the window theme.
+The table and column headers select Aqua or Dark Aqua from the body background's brightness.
+Native list selection, secondary text, tags, and headers resolve within that appearance, independently of the window theme.
+The enclosing scroll views retain the window's macOS appearance, so native scrollbars use the system colors in both panes.
+`ETScrollView` selects the native overlay knob shade from that appearance and updates it when the window theme changes.
+Both scroll views paint their background so native scrollbar transparency has consistent backing.
 With Use Neo Notational V Scrollbars enabled, custom scrollers read their owning scroll view's body background.
 Legacy gutters match that background; tracks and thumbs use a contrasting light or dark shade. Overlay tracks retain native fading and transparency.
 `ETScrollView` invalidates its scrollbar when the background changes, so open windows update without replacing the scroller.

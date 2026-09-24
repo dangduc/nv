@@ -84,4 +84,5 @@ Set `NV_UI_ARTIFACTS` to capture the four layout and palette combinations.
 Run `--probe scrollbars` for the Use Neo Notational V Scrollbars setting.
 WindowServer pixel checks cover matching gutters and header corners, contrasting thumbs, overlay transparency, and live palette changes in two windows and both list layouts.
 The probe also checks native thumb hit targets, the Settings toggle, and unchanged shared source text.
-Set `NV_UI_ARTIFACTS` to save the four scrollbar palette and layout captures.
+With custom scrollbars disabled, it compares both panes with a standard macOS scroll view and requires the window's appearance, independently of the body palette. Overlay checks allow independent fades and compare the native shade over the same background.
+Set `NV_UI_ARTIFACTS` to save custom and native scrollbar captures in both palettes and layouts.
