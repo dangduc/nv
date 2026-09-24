@@ -49,6 +49,7 @@
 - (id)highlightLinkAtIndex:(NSUInteger)givenIndex;
 
 - (void)indicateRange:(NSValue*)rangeValue;
+- (void)indentSelectedLines;
 
 - (BOOL)didRenderFully;
 

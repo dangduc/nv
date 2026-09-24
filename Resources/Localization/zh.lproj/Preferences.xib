@@ -27,6 +27,7 @@
                 <outlet property="quitWhenClosingButton" destination="174" id="267"/>
                 <outlet property="searchHighlightColorWell" destination="354" id="412"/>
                 <outlet property="showGridButton" destination="549" id="559"/>
+                <outlet property="tabKeyRadioMatrix" destination="271" id="294"/>
                 <outlet property="tableTextMenuButton" destination="158" id="249"/>
                 <outlet property="tableTextSizeField" destination="178" id="246"/>
                 <outlet property="togDockButton" destination="430" id="450"/>
@@ -243,9 +244,53 @@
             </subviews>
         </customView>
         <customView id="268" userLabel="editing view">
-            <rect key="frame" x="0.0" y="0.0" width="368" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="368" height="250"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <textField verticalHuggingPriority="750" id="274">
+                    <rect key="frame" x="32" y="206" width="65" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Tab 键:" id="340">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="271">
+                    <rect key="frame" x="100" y="190" width="248" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="248" height="18"/>
+                    <size key="intercellSpacing" width="4" height="2"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="351">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="行缩进" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="272">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="移动到下一焦点" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="273">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                    <connections>
+                        <action selector="changedTabBehavior:" target="-2" id="297"/>
+                    </connections>
+                </matrix>
+                <textField verticalHuggingPriority="750" id="275">
+                    <rect key="frame" x="118" y="134" width="230" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Option-Tab 总是执行缩进；Shift-Tab 总是反向切换焦点" id="341">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button id="311">
                     <rect key="frame" x="100" y="82" width="183" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>

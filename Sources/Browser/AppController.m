@@ -1038,8 +1038,14 @@ terminateApp:
 
 
 - (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)command {
-    if (aTextView == textView && command == @selector(insertBacktab:)) {
+    if (aTextView != textView) return NO;
+    if (command == @selector(insertBacktab:) ||
+        (command == @selector(insertTab:) && ![prefsController tabKeyIndents])) {
         [self bringFocusToControlField:aTextView];
+        return YES;
+    }
+    if (command == @selector(insertTab:) || command == @selector(insertTabIgnoringFieldEditor:)) {
+        [textView indentSelectedLines];
         return YES;
     }
     return NO;

@@ -131,6 +131,9 @@ typedef NS_ENUM(NSUInteger, NVSyntaxColorKind) {
 - (void)setQuitWhenClosingWindow:(BOOL)value sender:(id)sender;
 - (BOOL)quitWhenClosingWindow;
 
+- (void)setTabIndenting:(BOOL)value sender:(id)sender;
+- (BOOL)tabKeyIndents;
+
 - (void)setAppActivationKeyCombo:(PTKeyCombo*)aCombo sender:(id)sender;
 - (PTKeyCombo*)appActivationKeyCombo;
 - (PTHotKey*)appActivationHotKey;

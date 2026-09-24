@@ -15,6 +15,9 @@ The `--probe shift-tab` checks send Backtab events through the AppKit queue and 
 They also enter from the notes list, skip the empty body, restore hidden Search, and preserve body selection and text.
 The `--probe arrows` checks require Up and Down to move list selection while Search retains focus and its query.
 Both groups cover Exact and Fuzzy search, both layouts, both Search positions, and peer-window state.
+The `--probe tab-preference` group checks the Editing radios, saved choices, and both Tab behaviors using queued key events.
+It covers Option-Tab, Shift-Tab, shared-window edits, block Undo/Redo, Unicode, and line-ending boundaries.
+With `NV_UI_ARTIFACTS`, it saves `tab-key-settings.png` from the Editing pane.
 Completion checks use the header field editor and existing library tags.
 They cover multiple tags, duplicate exclusion, peer updates, and unchanged title dictionary completion.
 

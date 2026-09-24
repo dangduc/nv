@@ -53,6 +53,7 @@ static NSString *SearchInTitleBarKey = @"SearchInTitleBar";
 static NSString *NoteBodyFontKey = @"NoteBodyFont";
 static NSString *ConfirmNoteDeletionKey = @"ConfirmNoteDeletion";
 static NSString *QuitWhenClosingMainWindowKey = @"QuitWhenClosingMainWindow";
+static NSString *TabKeyIndentsKey = @"TabKeyIndents";
 static NSString *AutoFormatsDoneTagKey = @"AutoFormatsDoneTag";
 static NSString *HighlightSearchTermsKey = @"HighlightSearchTerms";
 static NSString *SearchTermHighlightColorKey = @"SearchTermHighlightColor";
@@ -133,6 +134,7 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 			[NSNumber numberWithBool:YES], ConfirmNoteDeletionKey,
 			[NSNumber numberWithBool:YES], AutoCompleteSearchesKey,
 			[NSNumber numberWithBool:YES], QuitWhenClosingMainWindowKey, 
+			[NSNumber numberWithBool:YES], TabKeyIndentsKey,
 			[NSNumber numberWithBool:NO], TriedToImportBlorKey,
 			[NSNumber numberWithBool:NO], HorizontalLayoutKey,
 			[NSNumber numberWithBool:YES], MakeURLsClickableKey,
@@ -299,6 +301,15 @@ static void sendCallbacksForGlobalPrefs(GlobalPrefs* self, SEL selector, id orig
 }
 - (BOOL)quitWhenClosingWindow {
     return [defaults boolForKey:QuitWhenClosingMainWindowKey];
+}
+
+- (void)setTabIndenting:(BOOL)value sender:(id)sender {
+    [defaults setBool:value forKey:TabKeyIndentsKey];
+    SEND_CALLBACKS();
+}
+
+- (BOOL)tabKeyIndents {
+    return [defaults boolForKey:TabKeyIndentsKey];
 }
 
 - (void)setAppActivationKeyCombo:(PTKeyCombo*)aCombo sender:(id)sender {

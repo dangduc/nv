@@ -9,7 +9,7 @@ Build the Intel Development app, then run:
 python3 Tests/SourceEditing/run.py
 ```
 
-The native probe covers Return, Backspace, Tab, character pairs, word
+The native probe covers Return, Backspace, inherited Tab insertion, character pairs, word
 selection, the absence of source title completion, spelling, writing direction,
 Smart Copy/Paste, character wrapping with otherwise native paragraph and tab layout,
 source persistence, and shared Undo. It also verifies that removed preference APIs cannot affect the editor
@@ -20,3 +20,5 @@ must update links in both windows, and Find Next must preserve AppKit's active
 Find pasteboard term. A static preflight checks the editor defaults, the absence
 of the hidden tab-width and finder compatibility paths, status-menu structure,
 and shortcut help in every localization.
+
+The native-controls `tab-preference` probe tests the browser's Tab command routing and Settings choices with real key events.

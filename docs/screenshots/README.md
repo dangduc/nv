@@ -263,3 +263,16 @@ NV_UI_ARTIFACTS="$PWD/build/adaptive-list-artifacts" \
 ```
 
 Inspect the four captures before copying them into this directory.
+
+## Tab key settings
+
+`tab-key-settings.png` shows the restored Editing controls and the fixed Option-Tab and Shift-Tab shortcuts.
+Captured on September 23, 2026, on macOS 13.7.8 with Xcode 15.2.
+The unsigned Intel Development app ran under Rosetta with disposable notes and preferences.
+The image is a native WindowServer capture without pixel edits.
+
+To regenerate, set `NV_UI_ARTIFACTS` to an existing directory and run:
+
+```sh
+python3 Tests/Regression/native-controls/run.py --probe tab-preference
+```

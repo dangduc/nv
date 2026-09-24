@@ -61,6 +61,9 @@ Hidden rows release space to the body. Showing the notes list restores each wind
 **Note > Rename** and **Note > Tag** reveal hidden fields before editing.
 Tags offer completion from the library.
 
+**Settings > Editing > Tab Key** selects **Indent lines** or **Move typing focus to next field**.
+Indentation inserts a tab at the caret or indents each selected line. The focus option sends Tab from the source editor to Search.
+**Option-Tab** always indents in the source editor.
 **Shift-Tab** cycles between Search and the open note body, including Preview.
 From the notes list, it moves to the body and then joins that cycle.
 Without an open note, it keeps or moves focus to Search.

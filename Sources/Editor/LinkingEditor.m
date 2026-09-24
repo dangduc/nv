@@ -31,6 +31,32 @@
 - (void)undo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] undo]; }
 - (void)redo:(id)sender { if ([self isHiddenOrHasHiddenAncestor]) return; [[[NVApplicationController sharedController] editingSessionForNote:[NVControllerForView(self) selectedNoteObject]] redo]; }
 
+- (void)indentSelectedLines {
+    if (![self isEditable] || [self isHiddenOrHasHiddenAncestor]) return;
+    NSString *source = [self string];
+    NSRange selection = [self selectedRange];
+    if (!selection.length || [source rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]
+        options:0 range:selection].location == NSNotFound) {
+        [self insertText:@"\t" replacementRange:selection];
+        return;
+    }
+
+    NSRange lines = [source lineRangeForRange:selection];
+    NSMutableString *indented = [NSMutableString string];
+    NSUInteger lineCount = 0;
+    for (NSUInteger start = lines.location; start < NSMaxRange(lines);) {
+        NSUInteger end;
+        [source getLineStart:NULL end:&end contentsEnd:NULL forRange:NSMakeRange(start, 0)];
+        [indented appendString:@"\t"];
+        [indented appendString:[source substringWithRange:NSMakeRange(start, end - start)]];
+        start = end;
+        lineCount++;
+    }
+    // A single native replacement keeps shared-session Undo and line endings intact.
+    [self insertText:indented replacementRange:lines];
+    [self setSelectedRange:NSMakeRange(selection.location + 1, selection.length + lineCount - 1)];
+}
+
 
 @synthesize managesTextWidth;
 

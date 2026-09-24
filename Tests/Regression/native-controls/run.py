@@ -17,7 +17,7 @@ from compiler_support import include_flags
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/Neo Notational V Development.app')
-parser.add_argument('--probe', choices=['all', 'search', 'tab', 'tags', 'view', 'new-note', 'command-return', 'placement', 'layout', 'colors', 'shift-tab', 'arrows'], default='all')
+parser.add_argument('--probe', choices=['all', 'search', 'tab', 'tags', 'view', 'new-note', 'command-return', 'placement', 'layout', 'colors', 'shift-tab', 'arrows', 'tab-preference'], default='all')
 arguments = parser.parse_args()
 if not arguments.app.exists():
     raise SystemExit('Build the Development app into build/DerivedData first.')

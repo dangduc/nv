@@ -208,12 +208,15 @@ The note's undo manager also records title and tag changes.
 Body editors disable Cocoa's automatic Undo registration to avoid a second history.
 
 `LinkingEditor` inherits ordinary editing commands from `NSTextView`, including
-Return, Tab, Backspace, paste, completion, and word selection. Its subclass code
-only integrates source text with note sessions and adds display behavior such as
+Return, Backspace, paste, completion, and word selection. The browser delegate routes
+Tab according to Settings > Editing, using the original `TabKeyIndents` preference.
+It defaults to indentation. Option-Tab always indents; Shift-Tab always moves focus backward.
+Indentation inserts a literal tab at the caret or prefixes each selected logical line.
+The editor performs block indentation as one native text replacement, preserving line endings and shared-session Undo.
+Its subclass code also integrates source text with note sessions and adds display behavior such as
 syntax colors, search highlights, and layout. Link attributes belong to the shared
 editing session so every attached layout observes the same result. Cocoa owns
-editor-local text features such as spelling and writing direction; nvALT does not
-persist global editing-behavior overrides.
+editor-local text features such as spelling and writing direction.
 
 The editor's layout delegate clears the elastic glyph flag for trailing, repeated, and indented U+0020 spaces.
 These spaces occupy their font width and wrap onto subsequent visual lines.
