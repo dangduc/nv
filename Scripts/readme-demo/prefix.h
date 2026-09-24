@@ -8,19 +8,22 @@ static BOOL CaptureAwait(BOOL (^condition)(void), NSTimeInterval seconds) {
     return condition();
 }
 
-static NSUInteger HighlightPixels(NSTableView *table, NSUInteger row) {
+static NSUInteger HighlightPixels(NSTableView *table, NSUInteger row, NSColor *expected) {
     NSRect rect = [table rectOfRow:row];
     if (!NSContainsRect([table visibleRect], rect)) return 0;
     NSBitmapImageRep *bitmap = [table bitmapImageRepForCachingDisplayInRect:rect];
     [table cacheDisplayInRect:rect toBitmapImageRep:bitmap];
+    expected = [expected colorUsingColorSpace:[bitmap colorSpace]];
+    if (!expected) return 0;
     NSUInteger highlighted = 0;
     for (NSInteger y = 0; y < [bitmap pixelsHigh]; y++) {
         for (NSInteger x = 0; x < [bitmap pixelsWide]; x++) {
-            NSColor *color = [[bitmap colorAtX:x y:y] colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
-            if ([color alphaComponent] > .8 && [color redComponent] > .65 &&
-                [color greenComponent] > .55 && [color blueComponent] < .4 &&
-                [color redComponent] - [color blueComponent] > .35 &&
-                [color greenComponent] - [color blueComponent] > .25) highlighted++;
+            // colorAtX:y: exposes captured channel values as calibrated RGB.
+            NSColor *color = [[bitmap colorAtX:x y:y] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+            if ([color alphaComponent] > .8 &&
+                fabs([color redComponent] - [expected redComponent]) < .04 &&
+                fabs([color greenComponent] - [expected greenComponent]) < .04 &&
+                fabs([color blueComponent] - [expected blueComponent]) < .04) highlighted++;
         }
     }
     return highlighted;

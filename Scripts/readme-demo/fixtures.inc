@@ -14,6 +14,13 @@
              "** Before leaving\n- [ ] Save the route\n- [ ] Water the garden before the trip\n\n"
              "** A useful reminder\nBring /less stuff/ and make *more memories*.\n");
         NoteObject *fieldNote = MakeNote(library, @"Field notes",
-            @"#+TITLE: Field notes\n\n* TODO Collect a few ideas\n- [ ] Sketch a garden path in the notebook\n"
-             "- [ ] Write down a thought before it disappears\n\n** Today\nKeep the tools quiet and the text close.\n");
+            @"#+TITLE: Field notes\n#+FILETAGS: :notebook:\n\n"
+             "* TODO Capture the small things\nA small place for ideas, plans, and things worth keeping.\n\n"
+             "** Today [1/3]\n- [X] Write down *ideas* while they are fresh.\n"
+             "- [ ] Find a thought with a few remembered words.\n- [ ] Leave room for something unexpected.\n\n"
+             "** Reading notes\nKeep /useful passages/ and =exact words= close to hand.\n"
+             "[[https://orgmode.org][Org mode documentation]]\n\n"
+             "** A little structure\n| Topic   | Next step        |\n|---------+------------------|\n"
+             "| Garden  | Plant rosemary   |\n| Reading | Start a new book |\n\n"
+             "#+BEGIN_SRC json\n{\"topic\": \"ideas\", \"status\": \"growing\"}\n#+END_SRC\n");
         for (NoteObject *note in @[garden, reading, trip, fieldNote]) [note setSourceSyntaxIdentifier:@"org"];
