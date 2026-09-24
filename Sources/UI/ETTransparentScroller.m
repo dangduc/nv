@@ -98,38 +98,52 @@
     fillBackground=fillIt;
 }
 
+- (NSColor *)bodyBackgroundColor {
+    // enclosingScrollView only finds a scroll view through its document hierarchy;
+    // the scroller itself is a sibling of the clip view.
+    NSView *ancestor = [self superview];
+    while (ancestor && ![ancestor isKindOfClass:[NSScrollView class]]) ancestor = [ancestor superview];
+    return [(NSScrollView *)ancestor backgroundColor] ?: [NSColor textBackgroundColor];
+}
+
 - (void)drawRect:(NSRect)aRect;
-{       
-        // Only draw if the slot is larger than the knob
+{
+    // AppKit owns overlay fading and invokes the individual parts below.
     if (IsLionOrLater) {
         [super drawRect:aRect];
-    }else{
-        if (([self bounds].size.height - verticalPaddingTop - verticalPaddingBottom + 1) > minKnobHeight){
-
-            if (fillBackground) {                
-                [[[[self window] contentView] backgroundColor] setFill];
-                NSRectFill([self bounds]);
-            }
-            [self drawKnobSlotInRect:[self rectForPart:NSScrollerKnobSlot] highlight:NO];
-            
-            if ([self knobProportion] > 0.0)	
-                [self drawKnob];
-        }
+    } else if ((NSHeight([self bounds]) - verticalPaddingTop - verticalPaddingBottom + 1) > minKnobHeight) {
+        [self drawKnobSlotInRect:[self rectForPart:NSScrollerKnobSlot] highlight:NO];
+        if ([self knobProportion] > 0.0) [self drawKnob];
     }
 }
 
-- (void)drawKnobSlotInRect:(NSRect)slotRect highlight:(BOOL)flag{  
-   
-    NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, slotAlpha, NO);
-   
+- (BOOL)isOpaque {
+    return fillBackground || [self scrollerStyle] == NSScrollerStyleLegacy;
+}
+
+- (NSColor *)contrastColorWithAlpha:(CGFloat)alpha {
+    NSColor *background = [self bodyBackgroundColor];
+    BOOL dark = [[background colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent] < 0.5;
+    return [NSColor colorWithCalibratedWhite:dark ? 1.0 : 0.0 alpha:alpha];
+}
+
+- (void)drawKnobSlotInRect:(NSRect)slotRect highlight:(BOOL)flag {
+    // The body palette can differ from the window's Aqua/Dark Aqua appearance.
+    // Overlay tracks leave content visible; legacy tracks also paint the gutter.
+    if ([self isOpaque]) {
+        [[self bodyBackgroundColor] setFill];
+        NSRectFill([self bounds]);
+    }
+    slotRect = NSIntersectionRect(slotRect, [self rectForPart:NSScrollerKnobSlot]);
+    [[self contrastColorWithAlpha:0.10] setFill];
+    [[NSBezierPath bezierPathWithRoundedRect:slotRect xRadius:4 yRadius:4] fill];
 }
 
 - (void)drawKnob;
 {
 	NSRect knobRect = [self rectForPart:NSScrollerKnob];
-
-	NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, knobAlpha, NO);
-   
+    [[self contrastColorWithAlpha:knobAlpha] setFill];
+    [[NSBezierPath bezierPathWithRoundedRect:knobRect xRadius:4 yRadius:4] fill];
 }
 //
 //- (NSRect)_drawingRectForPart:(NSScrollerPart)aPart;

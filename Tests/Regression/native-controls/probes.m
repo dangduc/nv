@@ -17,6 +17,7 @@
 #import "ODBEditor.h"
 #import "PreviewController.h"
 #import "ETNoteScrollView.h"
+#import "ETTransparentScroller.h"
 
 static NSString *TestDirectory;
 static NSUInteger Checks;

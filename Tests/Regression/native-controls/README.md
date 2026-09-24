@@ -80,3 +80,8 @@ The probe checks both layouts, alternating and plain rows, and selected text wit
 Two browser windows use opposite body palettes and window themes. Color changes must preserve the shared source.
 The pixel checks also require column titles and header backgrounds to use the body palette.
 Set `NV_UI_ARTIFACTS` to capture the four layout and palette combinations.
+
+Run `--probe scrollbars` for the Use Neo Notational V Scrollbars setting.
+WindowServer pixel checks cover matching gutters and header corners, contrasting thumbs, overlay transparency, and live palette changes in two windows and both list layouts.
+The probe also checks native thumb hit targets, the Settings toggle, and unchanged shared source text.
+Set `NV_UI_ARTIFACTS` to save the four scrollbar palette and layout captures.

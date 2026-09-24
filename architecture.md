@@ -368,7 +368,11 @@ The notes list uses its browser's body foreground and background colors in both 
 `NotesTableView` paints alternating rows with a 5% blend toward white on dark backgrounds, or black on light backgrounds.
 Its scroll view selects Aqua or Dark Aqua from the body background's brightness.
 Native selection, secondary text, tags, headers, and scrollers resolve within that appearance, independently of the window theme.
+With Use Neo Notational V Scrollbars enabled, custom scrollers read their owning scroll view's body background.
+Legacy gutters match that background; tracks and thumbs use a contrasting light or dark shade. Overlay tracks retain native fading and transparency.
+`ETScrollView` invalidates its scrollbar when the background changes, so open windows update without replacing the scroller.
 Column header cells retain their own body foreground and background colors. Native header views still handle sorting, resizing, and column menus.
+The empty corner above the notes scrollbar also uses the body background and follows header visibility.
 The table retains AppKit's opacity behavior. The scroll and clip views paint the same body background during partial redraws.
 Cached previews retain dynamic secondary colors. Cached tag images use the resolved drawing color as part of their key.
 The editor can follow system appearance or use configured colors.

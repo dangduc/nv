@@ -142,6 +142,7 @@
 #include "search-placement-checks.inc"
 #include "layout-checks.inc"
 #include "color-checks.inc"
+#include "scrollbar-checks.inc"
 #include "new-note-checks.inc"
 #include "focus-checks.inc"
 #include "tab-preference-checks.inc"
@@ -169,6 +170,8 @@
             [self nv_checkSideLayoutWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"colors"])
             [self nv_checkListColorsWithPeer:peer alpha:alpha beta:beta];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"scrollbars"])
+            [self nv_checkScrollbarsWithPeer:peer alpha:alpha beta:beta];
         // Exercise View before the Search group customizes the native toolbar.
         if ([probe isEqual:@"all"] || [probe isEqual:@"view"])
             [self nv_checkViewMenuWithPeer:peer alpha:alpha beta:beta];

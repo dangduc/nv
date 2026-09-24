@@ -73,6 +73,7 @@ The notes list uses the editor's text and background colors in both layouts.
 Column titles and their backgrounds use the same palette.
 Alternating rows shade the background 5% lighter or darker.
 Native selection colors adapt to the body background's brightness, independently of the window theme.
+**Preferences > Fonts & Colors > Use Neo Notational V Scrollbars** also adapts scrollbar tracks and thumbs to the body background.
 The editor can follow the system appearance or use custom colors and fonts.
 Choose **View > Color Schemes > Follow System Appearance** for system editor colors.
 **User Scheme** uses separate custom light and dark colors and switches with the macOS appearance.
