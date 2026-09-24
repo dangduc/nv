@@ -61,6 +61,11 @@ Hidden rows release space to the body. Showing the notes list restores each wind
 **Note > Rename** and **Note > Tag** reveal hidden fields before editing.
 Tags offer completion from the library.
 
+**Shift-Tab** cycles between Search and the open note body, including Preview.
+From the notes list, it moves to the body and then joins that cycle.
+Without an open note, it keeps or moves focus to Search.
+**Up** and **Down** in Search move the notes-list selection and keep Search focused.
+
 The notes list uses the editor's text and background colors in both layouts.
 Column titles and their backgrounds use the same palette.
 Alternating rows shade the background 5% lighter or darker.

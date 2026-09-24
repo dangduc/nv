@@ -143,6 +143,7 @@
 #include "layout-checks.inc"
 #include "color-checks.inc"
 #include "new-note-checks.inc"
+#include "focus-checks.inc"
 
 - (void)nv_runTests {
     @try {
@@ -157,6 +158,8 @@
         [peer searchForString:@"Beta"]; [peer revealNote:beta options:0]; Pump();
         [window makeKeyAndOrderFront:self]; Pump();
         NSString *probe = [NSString stringWithUTF8String:getenv("NV_NATIVE_CONTROLS_PROBE") ?: "all"];
+        if ([probe isEqual:@"all"] || [probe isEqual:@"shift-tab"] || [probe isEqual:@"arrows"])
+            [self nv_checkKeyboardFocusWithPeer:peer alpha:alpha beta:beta probe:probe];
         if ([probe isEqual:@"all"] || [probe isEqual:@"placement"])
             [self nv_checkSearchPlacementWithPeer:peer alpha:alpha beta:beta];
         if ([probe isEqual:@"all"] || [probe isEqual:@"layout"])

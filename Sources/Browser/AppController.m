@@ -1037,6 +1037,14 @@ terminateApp:
 
 
 
+- (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)command {
+    if (aTextView == textView && command == @selector(insertBacktab:)) {
+        [self bringFocusToControlField:aTextView];
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)aTextView doCommandBySelector:(SEL)command {
     if (control == noteTitleField || control == noteTagsField) {
         if (command == @selector(cancelOperation:)) {
@@ -1051,6 +1059,11 @@ terminateApp:
         return NO;
     }
 	if (control == (NSControl*)field) {
+        if (command == @selector(insertBacktab:)) {
+            // Consume reverse navigation even when the empty body has no focus target.
+            if (currentNote) [self focusNoteBody];
+            return YES;
+        }
         if (command == @selector(insertNewline:)) { [self fieldAction:control]; return YES; }
         if (![[self browserSession] searchResultsAreCurrent] &&
             (command == @selector(moveDown:) || command == @selector(moveUp:) ||

@@ -409,6 +409,10 @@ GlobalPrefs persists the placement and updates all browsers without replacing th
 Older macOS versions retain the separate toolbar row and disable the placement toggle.
 The toolbar ignores saved layouts from the previous toolbar. Note commands remain available through menus.
 Search commands restore the toolbar and complete window layout before they focus the field directly.
+Shift-Tab cycles between Search and the open Source or Preview body. From the notes list, it moves to the body first.
+Without an open note, Shift-Tab keeps or moves focus to Search and skips the empty-body view.
+Browser text delegates handle Backtab before native traversal. Source and Preview return through the existing Search command.
+Up and Down from Search change the list selection while the search field retains keyboard focus.
 
 The body header selects Source or Preview. New notes and windows start in Source with Plain Text syntax.
 A restored window can return to its saved preview.
