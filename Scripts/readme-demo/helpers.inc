@@ -14,6 +14,21 @@
     }, 5), @"every result preview has its fuzzy match highlights");
 }
 
+- (void)nv_checkVisibleMatches {
+    NVBrowserSession *session = [self browserSession];
+    NSUInteger visible = 0;
+    for (NSUInteger row = 0; row < [session resultCount]; row++) {
+        if (!NSContainsRect([notesTableView visibleRect], [notesTableView rectOfRow:row])) continue;
+        NSAttributedString *preview = [session previewForRow:row inTable:notesTableView];
+        __block NSColor *highlight = nil;
+        [preview enumerateAttribute:NSBackgroundColorAttributeName inRange:NSMakeRange(0, [preview length]) options:0
+            usingBlock:^(id color, NSRange range, BOOL *stop) { if (color) { highlight = color; *stop = YES; } }];
+        Check(HighlightPixels(notesTableView, row, highlight) > 5, @"the visible result draws its match highlight color");
+        visible++;
+    }
+    Check(visible > 0, @"the capture contains visible fuzzy results");
+}
+
 - (void)nv_selectNote:(NoteObject *)note matchingLine:(NSString *)line {
     NVBrowserSession *session = [self browserSession];
     NSUInteger found = NSNotFound;
@@ -32,9 +47,11 @@
     Check([self selectedNoteObject] == note && [[note sourceSyntaxIdentifier] isEqual:@"org"],
         @"the browser selects the intended Org note");
     NSColor *background = [[textView backgroundColor] colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
-    Check(fabs([background redComponent] - 253 / 255.0) < .005 &&
-        fabs([background greenComponent] - 233 / 255.0) < .005 && fabs([background blueComponent] - 217 / 255.0) < .005,
-        @"the editor uses the light User Scheme background");
+    BOOL dark = [self usesDarkUserColorScheme];
+    Check(fabs([background redComponent] - (dark ? 255 : 253) / 255.0) < .005 &&
+        fabs([background greenComponent] - (dark ? 239 : 233) / 255.0) < .005 &&
+        fabs([background blueComponent] - (dark ? 201 : 217) / 255.0) < .005,
+        @"the editor uses the default User Scheme background for its appearance");
     NSRange todo = [[textView string] rangeOfString:@"TODO"];
     Check([[[textView layoutManager] temporaryAttribute:NVSourceCaptureAttributeName atCharacterIndex:todo.location
         effectiveRange:NULL] isEqual:@"keyword.todo"], @"Org TODO syntax is active");

@@ -1,11 +1,13 @@
-# README demo recording
+# README media capture
 
 These scripts preserve the capture and encoding tools used for `docs/screenshots/readme-demo.gif`.
 They record fuzzy searches, result selection, and two browser windows with disposable Org notes.
+The same runner also captures the five README screenshots.
 
 ## Requirements
 
 - An active macOS desktop with at least 1020 × 780 points of usable display space.
+- macOS 10.14 or later for the dark screenshot.
 - Full Xcode and an unsigned Intel Development app built from the current checkout.
 - Rosetta on Apple Silicon.
 - Python 3.10 or later and Pillow 12.2.0 for encoding.
@@ -56,6 +58,25 @@ cp build/readme-demo/readme-demo.gif docs/screenshots/readme-demo.gif
 Update the capture details in [the screenshot notes](../../docs/screenshots/README.md).
 Frame counts, duration, and file size can vary between recordings.
 
+## Still screenshots
+
+Capture all five README screenshots:
+
+```sh
+python3 Scripts/readme-demo/run-capture.py --stills --output build/readme-stills
+```
+
+The screenshots show light and dark Org source, fuzzy results, independent windows with both list layouts, and a read-only Markdown preview.
+The source views use the default User Scheme palettes and adaptive scrollbars.
+The capture checks syntax colors, visible row highlights, selected notes, and preview content.
+It uses the same app isolation and cleanup as the recording.
+
+Inspect all five images before replacing the documentation assets:
+
+```sh
+cp build/readme-stills/readme-{source,dark,search,windows,preview}.png docs/screenshots/
+```
+
 ## Alternate paths
 
 Use `--app` for a different Development app and `--output` for a different capture directory:
@@ -75,7 +96,7 @@ The encoder can reuse existing frames without launching the app.
 ## Implementation notes
 
 `run-capture.py` reuses the native-controls test harness in `Tests/Regression/native-controls`.
-It compiles `prefix.h`, `capture.inc`, `helpers.inc`, and `fixtures.inc` into a temporary library loaded by the copied app.
+It compiles `prefix.h`, `helpers.inc`, `fixtures.inc`, and either `capture.inc` or `stills.inc` into a temporary library loaded by the copied app.
 The capture uses Launch Services to give the sample windows keyboard focus.
 Changes to app internals or the test harness can require updates to these scripts.
 

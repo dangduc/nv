@@ -2,40 +2,36 @@
 
 ## Current images
 
-The source, search, and multiple-window images show Org syntax highlighting with the light User Scheme palette from [PR #46](https://github.com/dangduc/nv/pull/46).
-The dark image shows the dark User Scheme palette with plain source text.
-All four refreshed images use Fuzzy mode and show highlighted matches in the notes list.
+The source and dark images show the same Org note with the default light and dark User Scheme palettes.
+The search and multiple-window images also show Org syntax highlighting.
+All four source images use Fuzzy mode and show highlighted matches in the notes list.
+The images include the restored search row, adaptive list and header colors, alternating rows, and adaptive scrollbars.
 The [User Scheme default colors](#user-scheme-default-colors) section records both palettes.
 
 | Image | Content |
 | --- | --- |
 | `readme-source.png` | Light appearance with Org syntax and fuzzy highlights for `ideas` in the notes list and editor. |
-| `readme-dark.png` | Dark appearance with a cream editor background and yellow fuzzy highlights in the notes list and editor. |
+| `readme-dark.png` | Dark appearance with Org syntax, a cream background, and yellow fuzzy highlights in the notes list and editor. |
 | `readme-search.png` | Fuzzy search for `grdn`, separate matching lines, highlighted result text, and the selected match in an Org note. |
-| `readme-preview.png` | A read-only Markdown preview in WebKit. |
-| `readme-windows.png` | Two Org notes with independent fuzzy queries, selections, and divider heights in one shared library. |
+| `readme-preview.png` | A read-only Markdown preview with the Source/Preview controls visible. |
+| `readme-windows.png` | Two Org notes with independent fuzzy queries and selections, using stacked and side layouts in one shared library. |
 
-The four refreshed captures date from September 21, 2026, on macOS 13.7.8 with Xcode 15.2.
-The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
-The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
+All five captures date from September 24, 2026, on macOS 13.7.8 with Xcode 15.2 (15C500b).
+The Intel Development app runs under Rosetta, with application source at `097a5973e7c89132b0637484ccfd774081fb8f25`.
+The executable has SHA-256 `3d2c82f958e50a9bc41cf8a319de07ea6be355b01095abd2f1e40a4f9345004f`.
 
 The captures use disposable sample notes and a separate preferences domain.
 WindowServer captures only the sample windows, with no annotations or pixel changes.
-The light source capture passed 20 checks, and the dark capture passed 16 checks.
-These checks include the palette, completed fuzzy results, and drawn highlight pixels in every visible result row.
-The light capture also checks Org syntax colors.
-The search and multiple-window captures passed 29 checks for fuzzy highlights, Org syntax, and independent browser state.
-The capture app exited after each run.
+The still capture passed 106 checks for palettes, completed fuzzy results, visible highlight pixels, Org syntax, and independent browser state.
+The checks also require rendered Markdown text in a read-only WebKit document.
+The capture app exited after the screenshots.
 
-The preview image shows commit `3627e17cd88794bfc7f818e23d2ec8606af2aec5`, the defaults change in [PR #12](https://github.com/dangduc/nv/pull/12).
-Its capture date is September 9, 2026, on macOS 26.5.2 (25F84), with Xcode 26.6 (17F113) and SDK 26.5.
-Its executable has SHA-256 `798218090127f5c89128ae718efccf7eb63d82eb86f5641b70386709f13c5ea5`.
-The preview capture uses a disposable Markdown note in the native WebKit viewer.
-The original five-image capture passed 21 state and image checks.
+To refresh all five screenshots:
 
-When you refresh these images, use the same palettes.
-Select Fuzzy search mode for all four samples.
-Select Org source syntax for the light source, search, and multiple-window samples.
+```sh
+python3 Scripts/readme-demo/run-capture.py --stills --output build/readme-stills
+```
+
 Inspect each image before publication and update its capture details.
 
 ## Interaction recording
@@ -44,26 +40,26 @@ The [README demo tools](../../Scripts/readme-demo/README.md) contain the capture
 
 [`readme-demo.gif`](readme-demo.gif) shows fuzzy search and independent browser windows with disposable Org notes.
 The recording types `grdn`, selects two matching body lines, and opens a second window to search for `trip`.
-It then closes the second window and clears the first query.
+It then closes the second window, clears the first query, and selects the garden note again.
 The README also links to a still screenshot.
 
-The recording lasts 20.31 seconds and loops at 1020 × 780 pixels.
-The GIF contains 51 encoded frames and occupies 2,264,893 bytes (2.16 MiB).
-WindowServer captured 135 frames from the sample windows, with recorded timestamps.
+The recording lasts 19.85 seconds and loops at 1020 × 780 pixels.
+The GIF contains 51 encoded frames and occupies 2,467,483 bytes (2.35 MiB).
+WindowServer captured 132 frames from the sample windows, with recorded timestamps.
 GIF encoding converts the monitor color profile to sRGB and leaves the background transparent.
 GIF supports only fully opaque or fully transparent pixels, so this version removes the soft shadows outside the windows.
 It combines unchanged frames and uses one palette with 255 colors and a transparent entry.
 It preserves the recorded timing to the nearest 10 milliseconds, without captions or simulated UI elements.
-The transparent version uses the same captured frames and timing as the original white-background recording.
 
-The capture date is September 21, 2026, on macOS 13.7.8 with Xcode 15.2 and Pillow 12.2.0.
-The Intel Development app runs under Rosetta, with application source at `be518de1d57a8d28f9b574805d01c532ef931f65`.
-The executable has SHA-256 `0fccb78b9b677701d5987d9c1eb008031b7f42c33901d8379a321ec21d476849`.
+The capture date is September 24, 2026, on macOS 13.7.8 with Xcode 15.2 and Pillow 12.2.0.
+The Intel Development app runs under Rosetta, with application source at `097a5973e7c89132b0637484ccfd774081fb8f25`.
+The executable has SHA-256 `3d2c82f958e50a9bc41cf8a319de07ea6be355b01095abd2f1e40a4f9345004f`.
 The sample windows use the light User Scheme palette and a separate preferences domain.
 
-The capture passed 55 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
+The capture passed 60 checks for search input, separate matching lines, drawn row highlights, Org syntax, and independent browser state.
 Automatic note selection was enabled during the capture.
 Both completed fuzzy searches had a selected note before the next interaction.
+The final check requires the garden note to remain selected after the query clears.
 Every decoded frame matches its captured frame after color, palette, and binary transparency conversion.
 The decoded frames pass comparison checks on white and charcoal backgrounds, including after the second window closes.
 The frame durations match the captured timing at GIF precision.

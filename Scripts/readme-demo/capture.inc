@@ -41,9 +41,7 @@
     Check([[self browserSession] resultCount] == 0 ||
         ([notesTableView primarySelectedRow] >= 0 && [self selectedNoteObject] != nil),
         @"a completed nonempty fuzzy search has a selected note");
-    for (NSUInteger row = 0; row < [[self browserSession] resultCount]; row++)
-        if (NSContainsRect([notesTableView visibleRect], [notesTableView rectOfRow:row]))
-            Check(HighlightPixels(notesTableView, row) > 5, @"the visible result draws yellow match highlights");
+    [self nv_checkVisibleMatches];
 }
 
 - (void)nv_runTests {
@@ -54,6 +52,8 @@
 #include "fixtures.inc"
         [prefsController setAutoCompleteSearches:YES sender:self];
         [prefsController setShouldHighlightSearchTerms:YES sender:self];
+        [prefsController setUseETScrollbarsOnLion:YES sender:self];
+        Check(![prefsController searchInTitleBar], @"the capture uses the default search row below the title bar");
         [window setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
         [self setUserColorScheme:self];
         NSRect visible = [[NSScreen mainScreen] visibleFrame];
@@ -108,11 +108,13 @@
         [self bringFocusToControlField:self];
         NSTextView *searchEditor = (id)[field currentEditor];
         [searchEditor insertText:@"" replacementRange:NSMakeRange(0, [[searchEditor string] length])];
-        [self nv_hold:.4];
         [self revealNote:garden options:0];
         [self focusNoteBody];
         [textView setSelectedRange:NSMakeRange(0, 0)];
         [textView scrollRangeToVisible:NSMakeRange(0, 0)];
+        Check(CaptureAwait(^BOOL { return [[[self browserSession] searchString] length] == 0 &&
+            [[self browserSession] searchResultsAreCurrent] && [self selectedNoteObject] == garden; }, 5),
+            @"clearing the query ends with the garden note selected");
         [self nv_hold:1];
         [timer invalidate];
         Check([DemoFrames count] > 80, @"the interaction recording contains more than 80 native frames");

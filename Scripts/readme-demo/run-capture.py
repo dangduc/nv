@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Record the README demo in a copied app with disposable notes."""
+"""Capture README media in a copied app with disposable notes."""
 import argparse
 import fcntl
 import os
@@ -21,6 +21,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--app', type=Path, default=repo / 'build/DerivedData/Build/Products/Development/Neo Notational V Development.app')
 parser.add_argument('--output', type=Path, default=repo / 'build/readme-demo')
 parser.add_argument('--timeout', type=float, default=120)
+parser.add_argument('--stills', action='store_true', help='Capture the five README screenshots instead of the demo.')
 args = parser.parse_args()
 args.app = args.app.expanduser().resolve()
 args.output = args.output.expanduser().resolve()
@@ -44,7 +45,8 @@ with lock_path.open('w') as lock, tempfile.TemporaryDirectory(prefix='nvalt-view
     base = (repo / 'Tests/Regression/native-controls/probes.m').read_text()
     helpers = (repo / 'Tests/Regression/native-controls/checks.inc').read_text().split('- (void)nv_focusSearch {')[0]
     base = base.replace('[self setupViewsAfterAppAwakened];', 'unsetenv("DYLD_INSERT_LIBRARIES"); [self setupViewsAfterAppAwakened];')
-    base = base.replace('#include "checks.inc"', helpers + '\n' + (source / 'capture.inc').read_text())
+    capture = 'stills.inc' if args.stills else 'capture.inc'
+    base = base.replace('#include "checks.inc"', helpers + '\n' + (source / capture).read_text())
     prefix = (source / 'prefix.h').read_text()
     harness = root / 'Review.m'
     harness.write_text(prefix + '\n' + base)
@@ -69,7 +71,8 @@ with lock_path.open('w') as lock, tempfile.TemporaryDirectory(prefix='nvalt-view
             '-SUEnableAutomaticChecks', 'NO'], timeout=args.timeout, app_binary=binary)
         log = log_path.read_text()
         print(log, end='')
-        if result or 'README_DEMO_CAPTURE_PASS' not in log:
+        marker = 'README_STILLS_CAPTURE_PASS' if args.stills else 'README_DEMO_CAPTURE_PASS'
+        if result or marker not in log:
             raise SystemExit(result or 1)
         require_clean_desktop()
     finally:

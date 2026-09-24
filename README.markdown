@@ -32,7 +32,7 @@ Each window can show a different note or search. Edits to the same note appear i
 
 The app restores open windows and their saved views after a restart. A change to the notes library applies to all windows.
 
-![Two Org notes with independent fuzzy searches and selections in one library](docs/screenshots/readme-windows.png)
+![Two Org notes with independent fuzzy searches in stacked and side layouts](docs/screenshots/readme-windows.png)
 
 ### Search
 
@@ -91,7 +91,7 @@ The matrix provides seven categories for light backgrounds and seven for dark ba
 User Scheme selects the syntax palette from the editor background brightness.
 Changes appear immediately. **Restore Syntax Defaults** restores both syntax palettes.
 
-![Dark appearance with the default User Scheme colors and highlighted search matches](docs/screenshots/readme-dark.png)
+![Dark appearance with Org syntax, default User Scheme colors, and highlighted search matches](docs/screenshots/readme-dark.png)
 
 All screenshots use disposable sample notes.
 [Screenshot details](docs/screenshots/README.md) record the captured revision and environment.
