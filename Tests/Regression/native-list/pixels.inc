@@ -20,22 +20,23 @@ static void CheckNativeListAppearance(NSTableView *table, NSString *appearance) 
         NSScrollView *scroll = [table enclosingScrollView];
         NSClipView *clip = [scroll contentView];
         Check(scroll != nil && clip != nil, @"list appearance checks include the scroll and clip views");
-        NSArray *views = @[table, scroll, clip];
         NSArray *backgrounds = @[[table backgroundColor], [scroll backgroundColor], [clip backgroundColor]];
         NSColor *body = [(AppController *)[table delegate] backgrndColor];
         BOOL dark = [[body colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent] < .5;
         NSString *expectedAppearance = dark ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua;
-        for (NSUInteger index = 0; index < [views count]; index++) {
-            NSView *view = [views objectAtIndex:index];
-            NSAppearance *effective = [view effectiveAppearance];
-            Check([[effective bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]] isEqual:expectedAppearance],
-                @"the table, scroll view, and clip view adapt their native appearance to body brightness");
+        Check([[[table effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]] isEqual:expectedAppearance],
+            @"the table adapts its native appearance to body brightness");
+        for (NSView *view in @[scroll, clip])
+            Check([[[view effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]]
+                isEqual:[[[scroll window] effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]]],
+                @"the scroll and clip views retain the window's native appearance");
+        for (NSColor *background in backgrounds) {
             NSAppearance *previous = [[NSAppearance currentAppearance] retain];
             @try {
-                [NSAppearance setCurrentAppearance:effective];
-                NSColor *resolved = [[backgrounds objectAtIndex:index] colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
+                [NSAppearance setCurrentAppearance:[table effectiveAppearance]];
+                NSColor *resolved = [background colorUsingColorSpaceName:NSCalibratedWhiteColorSpace];
                 Check(resolved != nil, @"list backgrounds resolve to measurable colors");
-                Check(ListColorDistance(backgrounds[index], body) < .01,
+                Check(ListColorDistance(background, body) < .01,
                     @"the table, scroll view, and clip view use the body background");
             } @finally {
                 [NSAppearance setCurrentAppearance:previous];

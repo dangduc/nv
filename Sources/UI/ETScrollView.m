@@ -40,7 +40,33 @@
 
 - (void)setBackgroundColor:(NSColor *)color {
     [super setBackgroundColor:color];
+    [self setDrawsBackground:YES];
     [[self verticalScroller] setNeedsDisplay:YES];
+}
+
+- (void)updateNativeScrollerAppearance {
+    if (@available(macOS 10.14, *)) {
+        if ([[self verticalScroller] class] == [NSScroller class]) {
+            // AppKit derives default overlay knobs from the document appearance.
+            // The table has a body-palette override, so use the window's native shade.
+            NSString *appearance = [[[self window] effectiveAppearance]
+                bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+            [self setScrollerKnobStyle:[appearance isEqual:NSAppearanceNameDarkAqua] ?
+                NSScrollerKnobStyleLight : NSScrollerKnobStyleDark];
+        }
+    }
+}
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    [self updateNativeScrollerAppearance];
+}
+
+- (void)viewDidChangeEffectiveAppearance {
+    if (@available(macOS 10.14, *)) {
+        [super viewDidChangeEffectiveAppearance];
+        [self updateNativeScrollerAppearance];
+    }
 }
 
 
@@ -64,6 +90,7 @@
         style=[[theScroller class] preferredScrollerStyle];
     }
     [self setVerticalScroller:theScroller];
+    [self updateNativeScrollerAppearance];
 
     if (IsLionOrLater) {
         [theScroller setScrollerStyle:style];

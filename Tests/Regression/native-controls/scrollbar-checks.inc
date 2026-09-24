@@ -71,6 +71,73 @@
     Check(knobPixels > 10, @"custom scrollbar thumbs contrast with the body independently of the window theme");
 }
 
+- (void)nv_checkNativeScrollbarPair {
+    // Overlay scrollers blend with their content; compare them over the same paper.
+    BOOL alternating = [prefsController alternatingRows];
+    [prefsController setAlternatingRows:NO sender:nil];
+    NSScrollView *reference = [[[NSScrollView alloc] initWithFrame:NSMakeRect(20, 20, 80, 140)] autorelease];
+    [reference setBorderType:NSNoBorder];
+    [reference setHasVerticalScroller:YES];
+    [reference setBackgroundColor:[self backgrndColor]];
+    [reference setDrawsBackground:YES];
+    [reference setDocumentView:[[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 60, 1600)] autorelease]];
+    [reference setScrollerStyle:[notesScrollView scrollerStyle]];
+    [[window contentView] addSubview:reference];
+    [reference tile]; [reference reflectScrolledClipView:[reference contentView]];
+    [reference flashScrollers];
+    for (NSUInteger tick = 0; tick < 6; tick++) Pump();
+    [window displayIfNeeded]; Pump();
+    CGImageRef full = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow,
+        (CGWindowID)[window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+    Check(full != NULL, @"the desktop captures both native scrollbars");
+    NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:full] autorelease];
+    CGImageRelease(full);
+    CGFloat scale = [bitmap pixelsWide] / NSWidth([window frame]);
+    NSMutableArray *thumbs = [NSMutableArray array], *tracks = [NSMutableArray array];
+    BOOL darkWindow = NO;
+    for (NSScrollView *scroll in @[notesScrollView, textScrollView, reference]) {
+        NSScroller *scroller = [scroll verticalScroller];
+        Check([scroller class] == [NSScroller class] && ![scroller isHidden] && [scroller isEnabled] &&
+            [scroller knobProportion] > 0 && [scroller knobProportion] < 1,
+            @"both views have visible native scrollbars with scrollable content");
+        if (@available(macOS 10.14, *)) {
+            NSArray *names = @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua];
+            NSString *windowAppearance = [[window effectiveAppearance] bestMatchFromAppearancesWithNames:names];
+            darkWindow = [windowAppearance isEqual:NSAppearanceNameDarkAqua];
+            if ([scroll scrollerStyle] == NSScrollerStyleLegacy)
+                Check([[[scroller effectiveAppearance] bestMatchFromAppearancesWithNames:names] isEqual:windowAppearance],
+                    @"native legacy scrollbars follow the window appearance independently of the body palette");
+        }
+        NSRect knob = [scroller rectForPart:NSScrollerKnob];
+        NSPoint thumb = [scroller convertPoint:NSMakePoint(NSMidX(knob), NSMidY(knob)) toView:nil];
+        NSPoint track = [scroller convertPoint:NSMakePoint(2, NSMidY(knob)) toView:nil];
+        [thumbs addObject:[bitmap colorAtX:floor(thumb.x * scale) y:floor((NSHeight([window frame]) - thumb.y) * scale)]];
+        [tracks addObject:[bitmap colorAtX:floor(track.x * scale) y:floor((NSHeight([window frame]) - track.y) * scale)]];
+    }
+    NSLog(@"NATIVE_SCROLLBAR_PIXELS style=%ld thumbs=%@ tracks=%@", (long)[notesScrollView scrollerStyle], thumbs, tracks);
+    if ([notesScrollView scrollerStyle] == NSScrollerStyleLegacy) {
+        for (NSUInteger index = 0; index < 2; index++) {
+            Check(ListColorDistance([thumbs objectAtIndex:index], [thumbs objectAtIndex:2]) < .04,
+                @"native scrollbar thumbs match a standard macOS scroll view");
+            Check(ListColorDistance([tracks objectAtIndex:index], [tracks objectAtIndex:2]) < .04,
+                @"native scrollbar tracks match a standard macOS scroll view");
+        }
+    } else {
+        // AppKit animates each overlay thumb's opacity independently.
+        for (NSUInteger index = 0; index < [thumbs count]; index++) {
+            NSColor *thumb = [[thumbs objectAtIndex:index] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+            NSColor *track = [[tracks objectAtIndex:index] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+            CGFloat delta = darkWindow ? MAX([thumb redComponent] - [track redComponent], [thumb blueComponent] - [track blueComponent]) :
+                MAX([track redComponent] - [thumb redComponent], [track blueComponent] - [thumb blueComponent]);
+            Check(delta > .02, @"native overlay thumbs use the window's macOS shade, including the reference control");
+        }
+    }
+    Check(ListColorDistance([tracks objectAtIndex:0], [tracks objectAtIndex:1]) < .04,
+        @"native scrollbar tracks have matching colors in the notes list and body");
+    [reference removeFromSuperview];
+    [prefsController setAlternatingRows:alternating sender:nil];
+}
+
 - (void)nv_checkScrollbarsWithPeer:(AppController *)peer alpha:(NoteObject *)alpha beta:(NoteObject *)beta {
     if (@available(macOS 11.0, *)) {
         BOOL oldCustom = [prefsController useETScrollbarsOnLion];
@@ -89,7 +156,7 @@
         [self setViewingNote:NO]; [peer setViewingNote:NO];
         [self searchForString:@""]; [self revealNote:alpha options:0];
         [peer searchForString:@""]; [peer revealNote:alpha options:0];
-        NSMutableString *longBody = [NSMutableString stringWithString:@"Scrollbars follow the note's paper color.\n\n"];
+        NSMutableString *longBody = [NSMutableString stringWithString:@"Custom scrollbars follow the paper; native scrollbars follow macOS.\n\n"];
         for (NSUInteger line = 0; line < 80; line++)
             [longBody appendFormat:@"Line %02lu — Notes, ideas, and things worth keeping.\n", (unsigned long)line + 1];
         [textView insertText:longBody replacementRange:NSMakeRange(0, [[textView string] length])]; Pump();
@@ -131,6 +198,20 @@
                 for (NSUInteger tick = 0; tick < 6; tick++) Pump();
                 [self nv_checkScrollbarPixels:notesScrollView];
                 [notesScrollView setScrollerStyle:NSScrollerStyleLegacy];
+                [prefsController setUseETScrollbarsOnLion:NO sender:nil];
+                for (NSNumber *style in @[@(NSScrollerStyleLegacy), @(NSScrollerStyleOverlay)]) {
+                    for (NSScrollView *scroll in @[notesScrollView, textScrollView]) {
+                        [scroll setScrollerStyle:[style integerValue]];
+                        [scroll tile]; [scroll reflectScrolledClipView:[scroll contentView]];
+                        [scroll flashScrollers];
+                    }
+                    for (NSUInteger tick = 0; tick < 6; tick++) Pump();
+                    [self nv_checkNativeScrollbarPair];
+                    if ([style integerValue] == NSScrollerStyleLegacy)
+                        [self nv_captureViewControls:[NSString stringWithFormat:@"native-scrollbars-%@-%@.png",
+                            [appearance isEqual:NSAppearanceNameAqua] ? @"dark-body" : @"light-body", [side boolValue] ? @"side" : @"stacked"]];
+                }
+                [prefsController setUseETScrollbarsOnLion:YES sender:nil];
             }
             [peer nv_activateBrowser];
             for (NSScrollView *scroll in @[[peer valueForKey:@"notesScrollView"], [peer valueForKey:@"textScrollView"]]) {
@@ -139,6 +220,12 @@
                 [peer nv_checkScrollbarPixels:scroll];
             }
             [peer nv_checkHeaderCornerPixels];
+            [prefsController setUseETScrollbarsOnLion:NO sender:nil];
+            for (NSScrollView *scroll in @[[peer valueForKey:@"notesScrollView"], [peer valueForKey:@"textScrollView"]]) {
+                [scroll setScrollerStyle:NSScrollerStyleLegacy]; [scroll tile];
+            }
+            [peer nv_checkNativeScrollbarPair];
+            [prefsController setUseETScrollbarsOnLion:YES sender:nil];
             [self nv_activateBrowser];
         }
         NSScroller *existing = [[textScrollView verticalScroller] retain];
@@ -153,11 +240,35 @@
             for (NSString *key in @[@"notesScrollView", @"textScrollView"])
                 Check([[[browser valueForKey:key] verticalScroller] class] == [NSScroller class],
                     @"disabling custom scrollbars restores standard macOS scrollers in every browser");
-            [[browser valueForKey:@"notesScrollView"] setScrollerStyle:NSScrollerStyleLegacy];
+            for (NSString *key in @[@"notesScrollView", @"textScrollView"]) {
+                NSScrollView *scroll = [browser valueForKey:key];
+                [scroll setScrollerStyle:NSScrollerStyleLegacy]; [scroll tile];
+            }
             [browser nv_activateBrowser];
             [browser nv_checkHeaderCornerPixels];
+            [browser nv_checkNativeScrollbarPair];
         }
         [self nv_activateBrowser];
+        NSScroller *nativeScroller = [[textScrollView verticalScroller] retain];
+        [prefsController setDarkBackgroundTextColor:paper sender:nil];
+        Check([textScrollView verticalScroller] == nativeScroller,
+            @"live palette changes preserve the existing native scrollbar");
+        [self nv_checkNativeScrollbarPair];
+        NSScroller *nativeListScroller = [[notesScrollView verticalScroller] retain];
+        for (NSNumber *style in @[@(NSScrollerStyleLegacy), @(NSScrollerStyleOverlay)]) {
+            for (NSScrollView *scroll in @[notesScrollView, textScrollView])
+                [scroll setScrollerStyle:[style integerValue]];
+            for (NSString *appearance in @[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]) {
+                [window setAppearance:[NSAppearance appearanceNamed:appearance]];
+                Pump();
+                Check([notesScrollView verticalScroller] == nativeListScroller && [textScrollView verticalScroller] == nativeScroller,
+                    @"live window appearance changes preserve both native scrollbars");
+                [notesScrollView flashScrollers]; [textScrollView flashScrollers];
+                for (NSUInteger tick = 0; tick < 6; tick++) Pump();
+                [self nv_checkNativeScrollbarPair];
+            }
+        }
+        [nativeListScroller release]; [nativeScroller release];
         [prefsController setUseETScrollbarsOnLion:YES sender:nil];
         [self nv_checkScrollbarPixels:textScrollView];
         Check([[textView string] isEqual:longBody] && [[[peer valueForKey:@"textView"] string] isEqual:longBody],

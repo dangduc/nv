@@ -1591,9 +1591,10 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
     CGFloat white = [[background colorUsingColorSpaceName:NSCalibratedWhiteColorSpace] whiteComponent];
     NSScrollView *scroll = [self enclosingScrollView];
     if (@available(macOS 10.14, *)) {
-        // Native selection, secondary text, tags, and scrollers must contrast
-        // with the body palette, even when it differs from the window theme.
-        [scroll setAppearance:[NSAppearance appearanceNamed:white < 0.5 ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua]];
+        // List content follows the body palette; scrollers inherit the window theme.
+        NSAppearance *appearance = [NSAppearance appearanceNamed:white < 0.5 ? NSAppearanceNameDarkAqua : NSAppearanceNameAqua];
+        [self setAppearance:appearance];
+        [headerView setAppearance:appearance];
     }
     [self setBackgroundColor:background];
     [scroll setBackgroundColor:background];

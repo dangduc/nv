@@ -293,3 +293,14 @@ To regenerate, set `NV_UI_ARTIFACTS` to an existing directory and run:
 ```sh
 python3 Tests/Regression/native-controls/run.py --probe scrollbars
 ```
+
+## Matching native scrollbars
+
+`native-scrollbars-dark-body-stacked.png` and `native-scrollbars-dark-body-side.png` show native scrollbars with dark blue paper in a light window.
+`native-scrollbars-light-body-stacked.png` and `native-scrollbars-light-body-side.png` show native scrollbars with peach paper in a dark window.
+The notes list and editor use the same native track and thumb colors from the window's macOS appearance, independently of the body background.
+
+Captured on September 23, 2026, on macOS 13.7.8 with Xcode 15.2.
+The unsigned Intel Development app ran under Rosetta with disposable notes and preferences.
+These files are native WindowServer captures without pixel edits.
+Regenerate them with the scrollbar probe and `NV_UI_ARTIFACTS` command above.
