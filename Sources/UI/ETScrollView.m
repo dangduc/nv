@@ -38,6 +38,11 @@
     [self changeUseETScrollbarsOnLion];
 }
 
+- (void)setBackgroundColor:(NSColor *)color {
+    [super setBackgroundColor:color];
+    [[self verticalScroller] setNeedsDisplay:YES];
+}
+
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 - (void)settingChangedForSelectorString:(NSString*)selectorString{

@@ -276,3 +276,20 @@ To regenerate, set `NV_UI_ARTIFACTS` to an existing directory and run:
 ```sh
 python3 Tests/Regression/native-controls/run.py --probe tab-preference
 ```
+
+## Adaptive custom scrollbars
+
+`adaptive-scrollbars-light-body-stacked.png` and `adaptive-scrollbars-light-body-side.png` show peach paper in a dark window.
+`adaptive-scrollbars-dark-body-stacked.png` and `adaptive-scrollbars-dark-body-side.png` show dark blue paper in a light window.
+The custom scrollbars use the body background and contrasting thumbs in the notes list and source editor.
+The empty corner beside the column headers also uses the body background.
+
+Captured on September 23, 2026, on macOS 13.7.8 with Xcode 15.2.
+The unsigned Intel Development app ran under Rosetta with disposable notes and preferences.
+These files are native WindowServer captures without pixel edits.
+
+To regenerate, set `NV_UI_ARTIFACTS` to an existing directory and run:
+
+```sh
+python3 Tests/Regression/native-controls/run.py --probe scrollbars
+```

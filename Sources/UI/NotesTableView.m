@@ -113,6 +113,20 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 - (NSString *)browserSortKey { return [[[NVControllerForView(self) browserSession] sortColumn] identifier] ?: [globalPrefs sortedTableColumnKey]; }
 - (BOOL)browserReverseSorted { NVBrowserSession *session = [NVControllerForView(self) browserSession]; return session ? [session reverseSorted] : [globalPrefs tableIsReverseSorted]; }
 
+- (void)updateHeaderCorner {
+    if (![self headerView]) {
+        [self setCornerView:nil];
+        return;
+    }
+    // AppKit's empty header corner otherwise keeps its system background.
+    NSBox *corner = [[[NSBox alloc] initWithFrame:NSZeroRect] autorelease];
+    [corner setBoxType:NSBoxCustom];
+    [corner setTitlePosition:NSNoTitle];
+    [corner setBorderType:NSNoBorder];
+    [corner setFillColor:[self backgroundColor]];
+    [self setCornerView:corner];
+}
+
 
 //there's something wrong with this initialization under panther, I think
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -178,10 +192,8 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		
 		BOOL hideHeader = (([columnsToDisplay count] == 1 && [columnsToDisplay containsObject:NoteTitleColumnString]) || [self browserHorizontalLayout]);
 
-        [[self cornerView] setFrameOrigin:NSMakePoint(-1000,-1000)];
-        [self setCornerView:nil];
-
 		[self setHeaderView:hideHeader ? nil : headerView];
+		[self updateHeaderCorner];
 		
 		[[self noteAttributeColumnForIdentifier:NoteTitleColumnString] setResizingMask:NSTableColumnUserResizingMask | NSTableColumnAutoresizingMask];
 		[self setColumnAutoresizingStyle:NSTableViewUniformColumnAutoresizingStyle];
@@ -626,7 +638,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	if (oldHeader != newHeader) {
 		//[headerView setTableView:newHeader ? self : nil];
 		[self setHeaderView:newHeader];
-		[self setCornerView: nil];
+		[self updateHeaderCorner];
 		
 		if ([self respondsToSelector:@selector(_sizeRowHeaderToFitIfNecessary)]) {
 			//hopefully 10.5 has this
@@ -1591,6 +1603,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
         [[column headerCell] setTextColor:foreground];
     }
     [headerView setNeedsDisplay:YES];
+    [(NSBox *)[self cornerView] setFillColor:background];
     CGFloat gridWhite = white < 0.25 ? white + 0.22 : (white < 0.75 ? white + 0.16 : white - 0.20);
     [self setGridColor:[[background blendedColorWithFraction:0.18 ofColor:foreground]
         blendedColorWithFraction:0.26 ofColor:[NSColor colorWithCalibratedWhite:gridWhite alpha:1]]];
