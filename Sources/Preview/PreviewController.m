@@ -40,11 +40,11 @@
         NSString *relative = [[URL path] stringByRemovingPercentEncoding];
         while ([relative hasPrefix:@"/"]) relative = [relative substringFromIndex:1];
         NSString *path = [[[root stringByAppendingPathComponent:relative] stringByStandardizingPath] stringByResolvingSymlinksInPath];
-        // Only passive, bounded assets within this explicit note scope are served.
+        // Only passive assets within this explicit note scope are served.
         NSDictionary *types = @{@"png":@"image/png", @"jpg":@"image/jpeg", @"jpeg":@"image/jpeg", @"gif":@"image/gif", @"webp":@"image/webp", @"svg":@"image/svg+xml", @"css":@"text/css", @"woff":@"font/woff", @"woff2":@"font/woff2", @"ttf":@"font/ttf"};
         MIME = [types objectForKey:[[path pathExtension] lowercaseString]];
         NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
-        if ([path hasPrefix:[root stringByAppendingString:@"/"]] && MIME && [[attributes objectForKey:NSFileType] isEqual:NSFileTypeRegular] && [attributes fileSize] <= 8 * 1024 * 1024)
+        if ([path hasPrefix:[root stringByAppendingString:@"/"]] && MIME && [[attributes objectForKey:NSFileType] isEqual:NSFileTypeRegular])
             data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:&error];
     }
     if (!data) {
