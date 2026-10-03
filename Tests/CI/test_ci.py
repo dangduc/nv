@@ -187,6 +187,11 @@ class ArchiveTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "executable permissions"):
                 packaging.check_archive(path)
 
+    def test_matching_cpu_dylib_is_not_an_app_executable(self):
+        dylib = struct.pack("<8I", 0xfeedfacf, 0x0100000c, 0, 6, 0, 0, 0, 0)
+        with self.assertRaisesRegex(ValueError, "Mach-O executable"):
+            packaging.check_architecture(dylib, "arm64", "app")
+
     def test_lost_executable_permissions_fail(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "app.zip"
