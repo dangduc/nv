@@ -6,13 +6,13 @@ rocket, crane, paper curl and platform stay inside every composition.
 
 ## Current delivery status
 
-The classic and static squircle ICNS resources have been replaced with Flowing
-Fanfold. The modern Icon Composer source has also been updated, but its compiled
-`Resources/Images/Assets.car` still contains the previous artwork. This host has
-macOS 13.7.8 and Xcode 15.2; the pinned Xcode 26.0.1 compiler is unavailable.
-`Tests/AppIcons/check-resources.py` deliberately reports the stale catalog until
-it is regenerated. The existing modern icon remains active on macOS 26 and later
-until that final compile-and-copy step is completed.
+The classic and static squircle ICNS resources and the compiled modern catalog
+use Flowing Fanfold. `Resources/Images/Assets.car` and its source-hash manifest
+were regenerated with Xcode 26.0.1 (17A400) by the
+[App icon compatibility workflow](https://github.com/dangduc/nv/actions/runs/37153156903).
+The catalog contains the current Icon Composer artwork without a flattened
+fallback. `Tests/AppIcons/check-resources.py` verifies the catalog and source
+hashes against the compiler-generated manifest.
 
 ## Masters and variants
 
@@ -26,7 +26,7 @@ until that final compile-and-copy step is completed.
 | `fanfold/generation-prompts.json` | Built-in imagegen adaptation briefs. |
 | `icon-composition.svg` | Generated classic composition. |
 | `icon-squircle.svg` | Generated static squircle composition. |
-| `NeoNotationalV.icon/Assets/artwork.png` | Opaque modern shared artwork, ready to compile. |
+| `NeoNotationalV.icon/Assets/artwork.png` | Opaque modern shared artwork used by the compiled catalog. |
 
 All master PNGs retain their generated alpha. `compose.py` fits the visible
 subject within a safe area using alpha >= 64 to determine its bounds; it does
@@ -58,7 +58,7 @@ its rendered PNG before replacing the resource. Intermediates remain in
 `build/app-icon-design/`. `--style classic` or `--style squircle` builds one set;
 `--output build/candidate.icns` saves a single candidate elsewhere.
 
-## Complete the modern replacement
+## Rebuild the modern catalog
 
 On a Mac with Xcode 26.0.1 installed:
 
@@ -69,6 +69,11 @@ cp build/modern-icon/Assets.car.json Resources/Images/Assets.car.json
 python3 -B Tests/AppIcons/check-resources.py
 python3 -B Tests/AppIcons/run.py
 ```
+
+When this compiler is unavailable locally, use the workflow artifact procedure in
+[`Tests/AppIcons/README.md`](../../../Tests/AppIcons/README.md). The workflow keeps
+the compiler output available even when the committed catalog is stale; its
+resource validation remains mandatory.
 
 Do not edit the manifest hashes to conceal a stale catalog. The compiler rejects
 flattened fallbacks that can override the separate classic design. The app keeps
