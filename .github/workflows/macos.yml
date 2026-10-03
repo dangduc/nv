@@ -33,6 +33,7 @@ jobs:
         run: |
           python3 -m unittest discover -s Tests/CI -v
           python3 Tests/AppIcons/check-resources.py
+          python3 Tests/Regression/org-preview/rebuild-tests.py
 
       - name: Check native fuzzy search
         shell: bash
@@ -84,7 +85,7 @@ jobs:
           test -x "$app/Contents/MacOS/Neo Notational V"
           lipo "$app/Contents/MacOS/Neo Notational V" -verify_arch x86_64
           ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
-          python3 .github/scripts/check-app-archive.py "$archive"
+          python3 .github/scripts/check-app-archive.py "$archive" --arch x86_64
           echo "archive=$archive" >> "$GITHUB_OUTPUT"
 
       - name: Upload the app
@@ -112,9 +113,119 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  build-arm64:
+    name: Build Apple Silicon app
+    runs-on: macos-15
+    timeout-minutes: 30
+    outputs:
+      archive: ${{ steps.package.outputs.archive }}
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check CI scripts
+        run: |
+          python3 -m unittest discover -s Tests/CI -v
+          python3 Tests/AppIcons/check-resources.py
+          python3 Tests/Regression/org-preview/rebuild-tests.py
+
+      - name: Rebuild native dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64
+          mkdir -p build
+          python3 .github/scripts/build-arm64-dependencies.py --install 2>&1 | tee build/arm64-dependencies.log
+
+      - name: Check native fuzzy search
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 Tests/FuzzySearch/Core/run.py --arch arm64
+          python3 Tests/FuzzySearch/run-service-tests.py --arch arm64
+          python3 Tests/FuzzySearch/Browser/run.py --arch arm64
+          python3 Tests/FuzzySearch/Persistence/run.py --arch arm64
+          python3 Tests/FuzzySearch/Highlights/run.py --arch arm64
+          python3 Tests/FuzzySearch/HighlightBounds/run.py --arch arm64 --negative-controls
+          python3 Tests/FuzzySearch/Lifecycle/run.py --arch arm64
+          python3 Tests/FuzzySearch/PositionMapping/run.py --arch arm64
+
+      - name: Build both configurations without signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          xcodebuild -version
+          for scheme in 'Notation Release' 'Notation Develop'; do
+            xcodebuild -project Notation.xcodeproj -scheme "$scheme" \
+              -derivedDataPath build/DerivedData ARCHS=arm64 \
+              MACOSX_DEPLOYMENT_TARGET=11.0 CODE_SIGNING_ALLOWED=NO \
+              GENERATE_PROFILING_CODE=NO OTHER_CFLAGS= WARNING_LDFLAGS= build
+          done 2>&1 | tee build/macos-build.log
+
+      - name: Check application identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/check-app-identity.py \
+            'build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app' release
+          python3 .github/scripts/check-app-identity.py \
+            'build/DerivedData/Build/Products/Development/Neo Notational V Development.app' development
+          python3 Tests/AppIcons/check-resources.py \
+            --app 'build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app'
+          python3 Tests/AppIcons/check-resources.py \
+            --app 'build/DerivedData/Build/Products/Development/Neo Notational V Development.app'
+          lipo 'build/DerivedData/Build/Products/Development/Neo Notational V Development.app/Contents/MacOS/Neo Notational V Development' -verify_arch arm64
+
+      - name: Package the app
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          app='build/DerivedData/Build/Products/ForBuilding/Neo Notational V.app'
+          archive="build/Neo-Notational-V-macos-arm64-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}.zip"
+          test -x "$app/Contents/MacOS/Neo Notational V"
+          lipo "$app/Contents/MacOS/Neo Notational V" -verify_arch arm64
+          ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
+          python3 .github/scripts/check-app-archive.py "$archive" --arch arm64
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the app
+        id: upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.package.outputs.archive }}
+          archive: false
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Record the build
+        env:
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+        run: |
+          printf 'Commit: `%s`\n\n[Download the Apple Silicon app](%s)\n\nUnsigned release build. The separate Development app also passed build and identity checks. The app and both preview helpers are native arm64. Native search and dependency checks ran on Apple Silicon; desktop integration suites are separate.\n' \
+            "$GITHUB_SHA" "$ARTIFACT_URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the build log
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: macos-arm64-build-log-${{ github.run_number }}-${{ github.run_attempt }}
+          path: |
+            build/macos-build.log
+            build/arm64-dependencies.log
+            build/arm64-dependencies/build.json
+            build/org-preview-rebuild.log
+          if-no-files-found: ignore
+          retention-days: 7
+
   tag:
     name: Tag successful master build
-    needs: build
+    needs: [build, build-arm64]
     if: >-
       github.ref == 'refs/heads/master' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
@@ -134,7 +245,7 @@ jobs:
 
   release:
     name: Publish unsigned release
-    needs: build
+    needs: [build, build-arm64]
     if: >-
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
       startsWith(github.ref, 'refs/heads/') &&
@@ -162,5 +273,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           APP_ARCHIVE: ${{ needs.build.outputs.archive }}
         run: |
-          python3 .github/scripts/check-app-archive.py "$APP_ARCHIVE"
+          python3 .github/scripts/check-app-archive.py "$APP_ARCHIVE" --arch x86_64
           python3 .github/scripts/publish-release.py "$APP_ARCHIVE"

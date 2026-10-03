@@ -1,0 +1,42 @@
+[
+  {
+    "helper": "multimarkdown",
+    "arguments": [],
+    "source": "Tests/CI/fixtures/preview.md",
+    "expected": "markdown.html"
+  },
+  {
+    "helper": "multimarkdown",
+    "arguments": [
+      "--complete"
+    ],
+    "source": "Tests/CI/fixtures/preview.md",
+    "expected": "markdown-complete.html"
+  },
+  {
+    "helper": "multimarkdown",
+    "arguments": [
+      "--compatibility"
+    ],
+    "source": "Tests/CI/fixtures/preview.md",
+    "expected": "markdown-compatible.html"
+  },
+  {
+    "helper": "nv-org-preview",
+    "arguments": [],
+    "source": "Tests/Regression/org-preview/core.org",
+    "expected": "org-core.html"
+  },
+  {
+    "helper": "nv-org-preview",
+    "arguments": [],
+    "source": "Tests/Regression/org-preview/heading-links.org",
+    "expected": "org-heading-links.html"
+  },
+  {
+    "helper": "nv-org-preview",
+    "arguments": [],
+    "source": "Tests/Regression/org-preview/no-effects.org",
+    "expected": "org-no-effects.html"
+  }
+]

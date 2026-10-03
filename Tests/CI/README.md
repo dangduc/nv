@@ -1,10 +1,35 @@
 # CI checks
 
-The [macOS workflow](../../.github/workflows/macos.yml) builds both Intel app configurations with Xcode 16.4 on `macos-15-intel`.
+The [macOS workflow](../../.github/workflows/macos.yml) builds both app configurations with Xcode 16.4 in two independent jobs:
+
+| Job | Runner | Binary architecture | Minimum macOS |
+| --- | --- | --- | --- |
+| Intel | `macos-15-intel` | `x86_64` | 10.13 |
+| Apple Silicon | `macos-15` | `arm64` | 11.0 |
+
+These are [standard GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
+The [Apple Silicon runner image](https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md) includes Xcode 16.4 and the pinned Rust toolchain.
 It builds `Notation Release` (`ForBuilding`), then `Notation Develop` (`Development`).
 CI disables code signing. It does not require repository secrets.
-Before the app build, CI runs the [native search suites](../FuzzySearch/README.md) on Intel.
+Before the app build, CI compiles and executes the [native search suites](../FuzzySearch/README.md) for each job's architecture on its matching hardware.
 These checks cover native order, the search service, duplicate rows, persistence, and shared-source invalidation.
+This is native test execution, not just cross-compilation. It does not run the full desktop integration suites.
+
+## Apple Silicon dependencies
+
+The checked-in OpenSSL archive and preview executables remain Intel artifacts for existing local builds.
+The Apple Silicon job runs [build-arm64-dependencies.py](../../.github/scripts/build-arm64-dependencies.py) before Xcode.
+It downloads the exact existing OpenSSL 1.0.2d and MultiMarkdown 4.7.1 source revisions, plus MultiMarkdown's pinned greg parser generator.
+[arm64-dependencies.json](../../.github/arm64-dependencies.json) records immutable source URLs and SHA-256 checksums, verified before extraction.
+OpenSSL uses its portable 64-bit C target without assembly; this is an architecture rebuild, not a crypto library upgrade.
+The Org helper uses the existing vendored sources and Rust 1.98.1 with `--locked --offline`, targeting `aarch64-apple-darwin`.
+Only the disposable job checkout receives the rebuilt library, generated OpenSSL headers and native helpers.
+
+The job verifies each dependency with `lipo`, runs MD5 and AES-256-CBC/PKCS7 checks against fixed/system references,
+and compares six native Markdown/Org outputs byte-for-byte with the checked Intel reference fixtures.
+The Org rebuild also verifies deployment target, system-only linkage, stripped symbols and native conversion.
+Dependency logs and a manifest of downloaded sources and generated binary hashes accompany the build log.
+The separate Xcode 26.0.1 icon compiler and committed icon resources are unchanged.
 
 The workflow runs for pull requests to `master`, pushes to `master` or `*-release`, and manual runs.
 The `*-release` pattern matches top-level branches such as `2026.09-release`. It does not match `codex/example-release` or `example-release-candidate`.
@@ -13,7 +38,7 @@ Separate tag and release jobs have write access after a successful build and art
 
 ## Artifacts
 
-Each successful build uploads `Neo-Notational-V-macos-x86_64-<run number>-<attempt>.zip` for 30 days.
+Each successful job uploads `Neo-Notational-V-macos-<architecture>-<run number>-<attempt>.zip` for 30 days (`x86_64` or `arm64`).
 The archive contains the stable `Neo Notational V.app` from `ForBuilding`.
 CI also builds and checks `Neo Notational V Development.app` as a separate product.
 The build log remains available for seven days, including failed builds.
@@ -27,7 +52,9 @@ The separate [App icon compatibility workflow](../../.github/workflows/app-icons
 See [AppIcons/README.md](../AppIcons/README.md) for the native checks and local commands.
 
 The archive check reads the ZIP file and checks these properties.
-Its tests reject archives with lost executable permissions for the app or MultiMarkdown.
+Its tests reject archives with lost executable permissions for the app, MultiMarkdown or Org helper.
+Both jobs pass `--arch` to inspect all three executable payloads' Mach-O headers inside the ZIP.
+An arm64 app with an Intel preview helper fails; runner labels and archive filenames do not establish binary architecture.
 The archive must also contain four highlighting queries and `ThirdPartyNotices.txt` under `Contents/Resources/Syntax/`.
 It must contain the three search dependency notices under `Contents/Resources/SearchLicenses/`.
 These resources must be nonempty regular files. The checks reject missing, empty, or whitespace-only resources, directories, and symbolic links.
@@ -36,7 +63,7 @@ These resources must be nonempty regular files. The checks reject missing, empty
 
 Successful pushes and manual runs on `master` create `build-<run number>` at `GITHUB_SHA`.
 This SHA identifies the commit that CI built. Pull requests and other branches cannot create tags.
-Tag creation occurs after the complete build job succeeds.
+Tag creation occurs after both build jobs succeed.
 
 If a tag points directly to the same commit, a rerun reuses it.
 A conflicting tag causes a failure. The script never moves an existing tag.
@@ -58,7 +85,8 @@ A conflicting tag stops publication. Existing tags never move.
 Each workflow rerun uses a new attempt number and release tag.
 These tags do not change the application version fields.
 
-The release contains the unsigned Intel `Neo Notational V.app` ZIP from the build job.
+The existing automatic release contains the unsigned Intel `Neo Notational V.app` ZIP from the Intel build job.
+The Apple Silicon ZIP is available as a workflow artifact. Both build jobs must pass before publication.
 The download step selects its artifact ID and preserves the ZIP without extraction.
 The release job repeats the archive check, uploads the ZIP into a draft, then publishes the release.
 A failed upload leaves an unpublished draft. A workflow rerun creates a new release instead of replacing an existing download.

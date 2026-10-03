@@ -63,6 +63,9 @@ python3 Tests/Regression/source-viewers/run.py
 ```
 
 If Cargo is outside `PATH`, pass its absolute path with `--cargo`.
+For the native Apple Silicon CI artifact, use `--arch arm64 --output /path/to/nv-org-preview`.
+This targets macOS 11.0 with the same pinned Rust version and offline sources; it leaves the checked-in Intel helper and manifest unchanged.
+The compiler needs the `aarch64-apple-darwin` standard library, which is native on the Apple Silicon runner.
 The script supplies the toolchain library path that direct Cargo invocations require for symbol stripping.
 It rejects failed stripping, including warnings that Cargo reports with a successful exit status.
 The script checks the compiler version, architecture, deployment target, linked libraries, stripped symbols, and a native conversion.

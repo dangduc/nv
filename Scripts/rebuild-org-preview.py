@@ -25,13 +25,14 @@ def source_files():
     return {str(p.relative_to(SOURCE)): digest(p) for p in sorted(files)}
 
 
-def inspect(binary):
+def inspect(binary, expected_arch="x86_64"):
     arch = subprocess.check_output(["xcrun", "lipo", "-archs", str(binary)], text=True).strip()
-    if arch != "x86_64":
-        raise SystemExit("The Org helper must contain only the x86_64 architecture.")
+    deployment = "11.0" if expected_arch == "arm64" else "10.13"
+    if arch != expected_arch:
+        raise SystemExit(f"The Org helper must contain only the {expected_arch} architecture.")
     version = subprocess.check_output(["xcrun", "vtool", "-show-build", str(binary)], text=True)
-    if "version 10.13" not in version and "minos 10.13" not in version:
-        raise SystemExit("The Org helper must target macOS 10.13.")
+    if f"version {deployment}" not in version and f"minos {deployment}" not in version:
+        raise SystemExit(f"The Org helper must target macOS {deployment}.")
     libraries = subprocess.check_output(["xcrun", "otool", "-L", str(binary)], text=True)
     linked = [line.strip().split(" (", 1)[0] for line in libraries.splitlines()[1:] if line.strip()]
     if linked != ["/usr/lib/libSystem.B.dylib"]:
@@ -49,19 +50,24 @@ def main():
     parser.add_argument("--verify-only", action="store_true", help="check the bundle and source hashes without Rust")
     parser.add_argument("--cargo", default=shutil.which("cargo"), help="path to Cargo")
     parser.add_argument("--output", type=Path, default=SOURCE / "nv-org-preview")
+    parser.add_argument("--arch", choices=("x86_64", "arm64"), default="x86_64")
     parser.add_argument("--update-manifest", action="store_true", help="record the rebuilt binary and source hashes")
     args = parser.parse_args()
     manifest = json.loads(MANIFEST.read_text())
+    target = "aarch64-apple-darwin" if args.arch == "arm64" else "x86_64-apple-darwin"
+    deployment = "11.0" if args.arch == "arm64" else "10.13"
     inputs = source_files()
     if args.verify_only:
+        if manifest["target"] != target:
+            raise SystemExit("The recorded Org helper manifest describes a different architecture.")
         if inputs != manifest.get("source_sha256"):
             raise SystemExit("Org helper sources differ from the recorded build inputs. Rebuild the helper.")
         if digest(args.output) != manifest.get("binary_sha256"):
             raise SystemExit("The bundled Org helper differs from the recorded binary hash.")
         if digest(REPO / "Resources/OrgPreviewNotices.txt") != manifest.get("resource_notices_sha256"):
             raise SystemExit("The Org dependency notices differ from the recorded distribution notices.")
-        inspect(args.output)
-        print("Org helper: source hashes, binary hash, x86_64, macOS 10.13, and system library verified")
+        inspect(args.output, args.arch)
+        print(f"Org helper: source hashes, binary hash, {args.arch}, macOS {deployment}, and system library verified")
         return
     if not args.cargo:
         raise SystemExit("Rebuilding the helper requires Cargo and Rust 1.98.1. App builds use the bundled helper.")
@@ -69,8 +75,8 @@ def main():
     env = os.environ.copy()
     env["PATH"] = str(cargo.parent) + os.pathsep + env.get("PATH", "")
     env["RUSTUP_TOOLCHAIN"] = manifest["rust_version"]
-    env["MACOSX_DEPLOYMENT_TARGET"] = manifest["deployment_target"]
-    env["CARGO_TARGET_DIR"] = str(REPO / "build/OrgPreviewRebuild")
+    env["MACOSX_DEPLOYMENT_TARGET"] = deployment
+    env["CARGO_TARGET_DIR"] = str(REPO / "build/OrgPreviewRebuild" / args.arch)
     env["RUSTFLAGS"] = "--remap-path-prefix=" + str(REPO) + "=/nv-org-preview"
     version = subprocess.check_output(["rustc", "--version"], cwd=SOURCE, env=env, text=True).strip()
     if not version.startswith("rustc " + manifest["rust_version"] + " "):
@@ -81,7 +87,7 @@ def main():
     log_path = REPO / "build/org-preview-rebuild.log"
     log_path.parent.mkdir(exist_ok=True)
     with log_path.open("w") as log:
-        result = subprocess.run([str(cargo), "build", "--release", "--locked", "--offline", "--target", manifest["target"]],
+        result = subprocess.run([str(cargo), "build", "--release", "--locked", "--offline", "--target", target],
                                 cwd=SOURCE, env=env, stdout=log, stderr=subprocess.STDOUT)
     if result.returncode:
         print(log_path.read_text(), file=sys.stderr)
@@ -89,12 +95,14 @@ def main():
     if any("stripping" in line and "failed:" in line for line in log_path.read_text().splitlines()):
         print(log_path.read_text(), file=sys.stderr)
         raise SystemExit("Rust could not strip the Org helper. The bundled artifact was not updated.")
-    built = Path(env["CARGO_TARGET_DIR"]) / manifest["target"] / "release/nv-org-preview"
-    inspect(built)
+    built = Path(env["CARGO_TARGET_DIR"]) / target / "release/nv-org-preview"
+    inspect(built, args.arch)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(built, args.output)
     args.output.chmod(0o755)
     if args.update_manifest:
+        manifest["target"] = target
+        manifest["deployment_target"] = deployment
         manifest["source_sha256"] = inputs
         manifest["binary_sha256"] = digest(args.output)
         manifest["binary_bytes"] = args.output.stat().st_size

@@ -4,6 +4,7 @@ import importlib.util
 import io
 from pathlib import Path
 import stat
+import struct
 import tempfile
 import unittest
 from unittest.mock import Mock
@@ -116,7 +117,8 @@ class ArchiveTests(unittest.TestCase):
 
     def make_archive(self, path, executable=True, markdown_executable=True,
                      missing_syntax=None, invalid_syntax=None, syntax_body="fixture", syntax_mode=None,
-                     missing_notice=None, notice_body="fixture", notice_mode=None):
+                     missing_notice=None, notice_body="fixture", notice_mode=None,
+                     arch=None, wrong_arch=None, org_executable=True):
         with zipfile.ZipFile(path, "w") as archive:
             def add(name, body, mode):
                 info = zipfile.ZipInfo("Neo Notational V.app/Contents/" + name)
@@ -124,9 +126,18 @@ class ArchiveTests(unittest.TestCase):
                 info.external_attr = mode << 16
                 archive.writestr(info, body)
 
+            def binary(name):
+                if not arch:
+                    return "fixture"
+                cpu = 0x0100000c if arch == "arm64" else 0x01000007
+                if name == wrong_arch:
+                    cpu = 0x01000007 if arch == "arm64" else 0x0100000c
+                return struct.pack("<8I", 0xfeedfacf, cpu, 0, 2, 0, 0, 0, 0)
+
             add("Info.plist", "fixture", stat.S_IFREG | 0o644)
-            add("MacOS/Neo Notational V", "fixture", stat.S_IFREG | (0o755 if executable else 0o644))
-            add("Resources/multimarkdown", "fixture", stat.S_IFREG | (0o755 if markdown_executable else 0o644))
+            add("MacOS/Neo Notational V", binary("app"), stat.S_IFREG | (0o755 if executable else 0o644))
+            add("Resources/multimarkdown", binary("multimarkdown"), stat.S_IFREG | (0o755 if markdown_executable else 0o644))
+            add("Resources/nv-org-preview", binary("org"), stat.S_IFREG | (0o755 if org_executable else 0o644))
             for name in self.syntax_resources:
                 if name != missing_syntax:
                     body = syntax_body if name == invalid_syntax else "fixture"
@@ -153,6 +164,28 @@ class ArchiveTests(unittest.TestCase):
             path = Path(directory) / "app.zip"
             self.make_archive(path)
             packaging.check_archive(path)
+
+    def test_archive_architecture_includes_both_preview_helpers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            for arch in ("x86_64", "arm64"):
+                self.make_archive(path, arch=arch)
+                packaging.check_archive(path, arch)
+                for wrong in ("app", "multimarkdown", "org"):
+                    with self.subTest(arch=arch, wrong=wrong):
+                        self.make_archive(path, arch=arch, wrong_arch=wrong)
+                        with self.assertRaisesRegex(ValueError, "Mach-O executable"):
+                            packaging.check_archive(path, arch)
+            self.make_archive(path)
+            with self.assertRaisesRegex(ValueError, "Mach-O executable"):
+                packaging.check_archive(path, "arm64")
+
+    def test_lost_org_executable_permissions_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "app.zip"
+            self.make_archive(path, org_executable=False)
+            with self.assertRaisesRegex(ValueError, "executable permissions"):
+                packaging.check_archive(path)
 
     def test_lost_executable_permissions_fail(self):
         with tempfile.TemporaryDirectory() as directory:
