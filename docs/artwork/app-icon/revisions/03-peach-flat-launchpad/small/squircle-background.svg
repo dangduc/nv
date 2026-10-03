@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — small icon background</title>
+  <desc>A blank squircle filled with #FDE9D9, used instead of the paper at 32 and 16 pixels.</desc>
+  <path id="small-icon-squircle" fill="#FDE9D9"
+        d="M512 32 C948.8 32 992 75.2 992 512
+           C992 948.8 948.8 992 512 992
+           C75.2 992 32 948.8 32 512
+           C32 75.2 75.2 32 512 32 Z"/>
+</svg>

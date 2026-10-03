@@ -17,10 +17,10 @@ def main():
     grid = Image.new("RGB", (1248, 1460), "#f5f4f1")
     draw = ImageDraw.Draw(grid)
     draw.text((48, 28), "Neo Notational V · App icon designs", font=font(28), fill="#20252b")
-    draw.text((48, 70), "Flowing Fanfold: detailed large artwork, compact 48px art, and simplified 32px / 16px art.",
+    draw.text((48, 70), "Two complete icon sets; unchanged drawings of the Saturn V and red launch tower.",
               font=font(15), fill="#60666e")
-    draw.text((152, 116), "Classic · transparent fanfold", font=font(19), fill="#20252b")
-    draw.text((688, 116), "Squircle · complete launchpad", font=font(19), fill="#20252b")
+    draw.text((152, 116), "Classic · stacked feed paper", font=font(19), fill="#20252b")
+    draw.text((688, 116), "Squircle · punched feed paper", font=font(19), fill="#20252b")
     paths = [ROOT / "Resources/Images" / name for name in ("NotalityClassic.icns", "Notality.icns")]
     with paths[0].open("rb") as classic_file, paths[1].open("rb") as squircle_file:
         icons = [IcnsImagePlugin.IcnsFile(file) for file in (classic_file, squircle_file)]

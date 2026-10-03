@@ -1,10 +1,10 @@
 {
-  "fill": {"solid": "srgb:0.95294,0.94118,0.91765,1.00000"},
+  "fill": {"solid": "srgb:0.99216,0.91373,0.85098,1.00000"},
   "groups": [
     {
       "blur-material": null,
       "layers": [
-        {"image-name": "artwork.png", "name": "Flowing Fanfold and Saturn V launchpad"}
+        {"image-name": "artwork.png", "name": "Apollo paper and launch tower"}
       ],
       "shadow": {"kind": "neutral", "opacity": 0},
       "translucency": {"enabled": false, "value": 0}
