@@ -395,10 +395,10 @@
   },
   "native_selection": "PASS: NSWorkspace and NSApplication select the new classic icon on macOS 13.7.8.",
   "modern_catalog": {
-    "status": "blocked",
-    "reason": "Xcode 26.0.1 unavailable. Prepared source differs from the still-old Assets.car. check-resources.py correctly fails and macOS26 continues to use the old compiled modern artwork.",
+    "status": "completed",
+    "validation": "modern-validation.json",
     "modern_source_opaque": true,
-    "compiler_check": "Default Xcode 26.0.1 path is absent; --developer-dir pointing to installed Xcode 15.2 is rejected by the existing version check."
+    "compiler_check": "Regenerated on CI with pinned Xcode 26.0.1 (17A400); catalog and source hashes pass check-resources.py."
   },
   "multiple_windows": {
     "status": "passed",
@@ -421,5 +421,6 @@
       "launch_services_result": "Passed all 140 checks.",
       "reference": "Tests/FuzzySearch/README.md"
     }
-  }
+  },
+  "scope": "Original Flowing Fanfold ICNS adaptation validation from PR75. See modern-validation.json for the subsequent catalog replacement and system renders."
 }
