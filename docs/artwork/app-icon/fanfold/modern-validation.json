@@ -1,0 +1,43 @@
+{
+  "compiler": "Xcode 26.0.1\nBuild version 17A400",
+  "compiler_run": "https://github.com/dangduc/nv/actions/runs/37153156903",
+  "compiler_head": "add8103b20e6f831303672aae0e37b1dcc27a776",
+  "compiler_artifact": {
+    "name": "modern-icon",
+    "id": 11284742137
+  },
+  "catalog_sha256": "2513e1e6ff1405e77585187fb5ee2d3d6c1befa0fa30afdee601ea216b2cd987",
+  "complete_source_hashes_match": true,
+  "flattened_fallback_present": false,
+  "selection_run": "https://github.com/dangduc/nv/actions/runs/37153347249",
+  "selection_head": "f8f2631ceb07da7770ee30bcb822065d092d3cc5",
+  "systems": [
+    {
+      "macos": "15.7.9",
+      "expected_icon": "Classic",
+      "NSWorkspace": "passed",
+      "NSApplication.applicationIconImage": "passed",
+      "bundled_and_regenerated_pixels_match": true,
+      "render": "system-icon-macos15.png",
+      "render_sha256": "ab72dfb1d0d2535dc39303ec358b64aea2372bcd109e35692f501ac448e8bf6e"
+    },
+    {
+      "macos": "26.6.2",
+      "expected_icon": "Modern",
+      "NSWorkspace": "passed",
+      "NSApplication.applicationIconImage": "passed",
+      "bundled_and_regenerated_pixels_match": true,
+      "render": "system-icon-macos26.png",
+      "render_sha256": "baea4f178924385b921ec51cc1a0ba3db1e2bb0df5c6293e6e28b0354a2a1053"
+    }
+  ],
+  "local_fallback": {
+    "macos": "13.7.8",
+    "xcode": "15.2 (15C500b)",
+    "NSWorkspace": "passed: Classic",
+    "NSApplication.applicationIconImage": "passed: Classic"
+  },
+  "visual_inspection": "The macOS 26 NSWorkspace render contains Flowing Fanfold with the complete rocket, tower, paper curl and platform inside the system mask. The macOS 15 render preserves the classic silhouette.",
+  "appearance_scope": "Runner default appearance only. Dark and tintable treatments were not separately rendered. These are native API renders from disposable bundles, not screenshots of Finder or Dock UI. The modern appearance was rendered remotely on macOS 26, not on the local macOS 13 host.",
+  "recompile_note": "The fresh catalog has a different binary hash; asset-info differs only in its Timestamp. Bundled and regenerated renders have identical pixels for all six control/API images on each CI OS."
+}

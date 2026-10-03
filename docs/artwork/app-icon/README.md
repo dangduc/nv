@@ -81,9 +81,29 @@ flattened fallbacks that can override the separate classic design. The app keeps
 macOS 26+ selects the compiled catalog; earlier systems select the classic ICNS.
 `Notality.icns` remains a separately bundled static squircle alternative.
 
-The system-rendered modern appearance must be checked on macOS 26. The prepared
-square artwork and static squircle preview do not establish its final system
-mask, lighting, dark appearance or tintable treatment.
+## System appearance validation
+
+The [compatibility run](https://github.com/dangduc/nv/actions/runs/37153347249)
+verified both `NSWorkspace` (Finder icon resolution) and `NSApplication` (Dock icon
+resolution): macOS 15.7.9 selects the classic icon and macOS 26.6.2 selects the
+modern catalog. Bundled and freshly regenerated catalogs produce identical
+pixels for every captured control/API image on each system. The local macOS
+13.7.8 probe also selects the classic icon through both APIs.
+
+These are unmodified `NSWorkspace` renders from the CI probe's disposable hybrid
+bundle. The complete rocket, tower, fanfold curl and platform fit within the
+modern system mask. The probe uses the runner's default appearance; dark and
+tintable treatments were not separately rendered. The modern icon was rendered
+on the macOS 26 runner, not on the local macOS 13 host.
+
+| macOS 15.7.9 classic fallback | macOS 26.6.2 modern catalog |
+| --- | --- |
+| ![Classic system render](system-icon-macos15.png) | ![Modern system render](system-icon-macos26.png) |
+
+`fanfold/modern-validation.json` records the compiler artifact, catalog hash,
+system checks and render provenance. `fanfold/validation.json` retains the
+original ICNS adaptation checks, including the unrelated desktop regression
+runner activation limitation recorded with PR75.
 
 ## History and comparison
 
