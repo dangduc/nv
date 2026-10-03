@@ -1,0 +1,15 @@
+{
+  "generation": "Built-in imagegen, reference-preserving edits",
+  "files": {
+    "selected-composition.png": "d1d0501b15dd06bfca23ba9515f71c8c22544615279c37c5c7f8927f7067bb50",
+    "full.png": "e01ffdf51e9066bd21615f70776e1eee9d5581f2d5a4f31c593d63435bad96a2",
+    "compact.png": "831ca22e2af88ce21ef3b0a073ca90a77555d3755fb46d1611ec7a97c3fa95f4",
+    "micro.png": "c42079d2a14e0189f79eae3f5a8671d1bb063ec5b0a54fdd7f74f38c675ec0e0"
+  },
+  "variants": {
+    "full.png": "Detailed selected composition, cleaned and reframed for large icons.",
+    "compact.png": "Wider rocket, chunky tower braces and simplified print strokes for 48 pt.",
+    "micro.png": "No printing, broader shapes and fewer tower bays for 16 and 32 pt."
+  },
+  "selected_source": "User-approved combined R2 architectural-isometric launchpad and P2 Flowing Fanfold composition, preserved as selected-composition.png."
+}

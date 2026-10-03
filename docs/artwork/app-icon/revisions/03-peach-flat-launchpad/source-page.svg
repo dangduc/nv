@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — Apollo 11 continuous-feed paper</title>
+  <desc>Two stacked sheets of peach (#FDE9D9) continuous-feed dot-matrix printer paper, with punched tractor-feed holes and perforated tear-off margins. The supplied Apollo 11 AGC assembly excerpt is printed in black. Layer saturn-v.svg above this file on the same 1024 by 1024 canvas.</desc>
+  <metadata>Source: https://github.com/chrislgarry/Apollo-11/blob/master/Comanche055/REENTRY_CONTROL.agc . The source header identifies the code as public domain. The excerpt text was supplied by the user. See SOURCES.md.</metadata>
+  <defs>
+    <filter id="page-shadow" x="-30%" y="-20%" width="160%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="14" />
+      <feOffset dx="0" dy="16" result="blur" />
+      <feFlood flood-color="#0b1626" flood-opacity="0.28" />
+      <feComposite in2="blur" operator="in" />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="page-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#ecd4c0" />
+      <stop offset="1" stop-color="#c4a88f" />
+    </linearGradient>
+    <mask id="tractor-feed-holes" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="139" y="132" width="598" height="738" style="mask-type:luminance">
+      <rect x="139" y="132" width="598" height="738" fill="#fff" />
+      <circle cx="156" cy="152" r="5.2" fill="#000" />
+      <circle cx="156" cy="182" r="5.2" fill="#000" />
+      <circle cx="156" cy="212" r="5.2" fill="#000" />
+      <circle cx="156" cy="242" r="5.2" fill="#000" />
+      <circle cx="156" cy="272" r="5.2" fill="#000" />
+      <circle cx="156" cy="302" r="5.2" fill="#000" />
+      <circle cx="156" cy="332" r="5.2" fill="#000" />
+      <circle cx="156" cy="362" r="5.2" fill="#000" />
+      <circle cx="156" cy="392" r="5.2" fill="#000" />
+      <circle cx="156" cy="422" r="5.2" fill="#000" />
+      <circle cx="156" cy="452" r="5.2" fill="#000" />
+      <circle cx="156" cy="482" r="5.2" fill="#000" />
+      <circle cx="156" cy="512" r="5.2" fill="#000" />
+      <circle cx="156" cy="542" r="5.2" fill="#000" />
+      <circle cx="156" cy="572" r="5.2" fill="#000" />
+      <circle cx="156" cy="602" r="5.2" fill="#000" />
+      <circle cx="156" cy="632" r="5.2" fill="#000" />
+      <circle cx="156" cy="662" r="5.2" fill="#000" />
+      <circle cx="156" cy="692" r="5.2" fill="#000" />
+      <circle cx="156" cy="722" r="5.2" fill="#000" />
+      <circle cx="156" cy="752" r="5.2" fill="#000" />
+      <circle cx="156" cy="782" r="5.2" fill="#000" />
+      <circle cx="156" cy="812" r="5.2" fill="#000" />
+      <circle cx="156" cy="842" r="5.2" fill="#000" />
+      <circle cx="716" cy="152" r="5.2" fill="#000" />
+      <circle cx="716" cy="182" r="5.2" fill="#000" />
+      <circle cx="716" cy="212" r="5.2" fill="#000" />
+      <circle cx="716" cy="242" r="5.2" fill="#000" />
+      <circle cx="716" cy="272" r="5.2" fill="#000" />
+      <circle cx="716" cy="302" r="5.2" fill="#000" />
+      <circle cx="716" cy="332" r="5.2" fill="#000" />
+      <circle cx="716" cy="362" r="5.2" fill="#000" />
+      <circle cx="716" cy="392" r="5.2" fill="#000" />
+      <circle cx="716" cy="422" r="5.2" fill="#000" />
+      <circle cx="716" cy="452" r="5.2" fill="#000" />
+      <circle cx="716" cy="482" r="5.2" fill="#000" />
+      <circle cx="716" cy="512" r="5.2" fill="#000" />
+      <circle cx="716" cy="542" r="5.2" fill="#000" />
+      <circle cx="716" cy="572" r="5.2" fill="#000" />
+      <circle cx="716" cy="602" r="5.2" fill="#000" />
+      <circle cx="716" cy="632" r="5.2" fill="#000" />
+      <circle cx="716" cy="662" r="5.2" fill="#000" />
+      <circle cx="716" cy="692" r="5.2" fill="#000" />
+      <circle cx="716" cy="722" r="5.2" fill="#000" />
+      <circle cx="716" cy="752" r="5.2" fill="#000" />
+      <circle cx="716" cy="782" r="5.2" fill="#000" />
+      <circle cx="716" cy="812" r="5.2" fill="#000" />
+      <circle cx="716" cy="842" r="5.2" fill="#000" />
+    </mask>
+    <g id="source-sheet">
+      <g filter="url(#page-shadow)">
+        <g mask="url(#tractor-feed-holes)">
+          <rect x="144" y="141" width="590" height="726" fill="url(#page-edge)" stroke="#a78d78" stroke-width="1.5" />
+          <rect id="continuous-feed-paper" x="141" y="134" width="590" height="725" fill="#FDE9D9" stroke="#b39781" stroke-width="1.5" />
+          <path d="M172 134 V859 M700 134 V859" fill="none" stroke="#a88870" stroke-width="1" stroke-dasharray="2 4" opacity="0.8" />
+          <path d="M141 143 H731 M141 850 H731" fill="none" stroke="#b99a80" stroke-width="0.9" stroke-dasharray="1.5 4" opacity="0.75" />
+        </g>
+      </g>
+      <g fill="#000" font-family="Menlo, 'DejaVu Sans Mono', monospace">
+        <rect x="182" y="167" width="482" height="44" fill="none" stroke="#000" stroke-width="2" />
+        <rect x="182" y="167" width="16" height="44" fill="#000" />
+        <text x="210" y="196" font-size="20" font-weight="700">REENTRY_CONTROL.agc</text>
+        <text id="apollo-listing" x="182" y="235" font-size="9.3" xml:space="preserve" style="white-space:pre">
+          <tspan x="182" y="235.0"># Notations on the hardcopy document read, in part:</tspan>
+          <tspan x="182" y="244.6">#</tspan>
+          <tspan x="182" y="254.2">#       Assemble revision 055 of AGC program Comanche by NASA</tspan>
+          <tspan x="182" y="263.8">#       2021113-051.  10:28 APR. 1, 1969</tspan>
+          <tspan x="182" y="273.4">#</tspan>
+          <tspan x="182" y="283.0">#       This AGC program shall also be referred to as</tspan>
+          <tspan x="182" y="292.6">#                       Colossus 2A</tspan>
+          <tspan x="182" y="302.2" />
+          <tspan x="182" y="311.8"># Page 844</tspan>
+          <tspan x="182" y="321.4"># ENTRY INITIALIZATION ROUTINE</tspan>
+          <tspan x="182" y="331.0"># ----------------------------</tspan>
+          <tspan x="182" y="340.6" />
+          <tspan x="182" y="350.2">                BANK    25</tspan>
+          <tspan x="182" y="359.8">                SETLOC  REENTRY</tspan>
+          <tspan x="182" y="369.4">                BANK</tspan>
+          <tspan x="182" y="379.0" />
+          <tspan x="182" y="388.6">                COUNT*  $$/ENTRY</tspan>
+          <tspan x="182" y="398.2">                EBANK=  RTINIT</tspan>
+          <tspan x="182" y="407.8" />
+          <tspan x="182" y="417.4">EBENTRY         =       EBANK7</tspan>
+          <tspan x="182" y="427.0">EBAOG           EQUALS  EBANK6</tspan>
+          <tspan x="182" y="436.6">NTRYPRIO        EQUALS  PRIO20          # (SERVICER)</tspan>
+          <tspan x="182" y="446.2">CM/FLAGS        EQUALS  STATE +6</tspan>
+          <tspan x="182" y="455.8" />
+          <tspan x="182" y="465.4">STARTENT        EXIT                    # MM = 63</tspan>
+          <tspan x="182" y="475.0" />
+          <tspan x="182" y="484.6">                                        # COME HERE FROM CM/POSE.  RESTARTED IN CM/POSE.</tspan>
+          <tspan x="182" y="494.2">                CS      ENTMASK         # INITIALIZE ALL SWITCHES TO ZERO</tspan>
+          <tspan x="182" y="503.8">                                        # EXCEPT LATSW, ENTRYDSP, AND GONEPAST.</tspan>
+          <tspan x="182" y="513.4">                                        # GONEBY 112D BIT8 FLAG7, SELF-INITIALIZING.</tspan>
+          <tspan x="182" y="523.0">                INHINT</tspan>
+          <tspan x="182" y="532.6">                MASK    CM/FLAGS</tspan>
+          <tspan x="182" y="542.2">                                        # ENTRYDSP = 92D B13</tspan>
+          <tspan x="182" y="551.8">                                        # GONEPAST=95D B10.     RELVELSW=96D B9</tspan>
+          <tspan x="182" y="561.4">                                        # EGSW = 97D B8         NOSWITCH = 98D B7</tspan>
+          <tspan x="182" y="571.0">                                        # HIND=99D B6           INRLSW=100D B5</tspan>
+          <tspan x="182" y="580.6">                                        # LATSW=101D B4         .05GSW=102D B3</tspan>
+          <tspan x="182" y="590.2" />
+          <tspan x="182" y="599.8">                AD      ENTRYSW         # SET ENTRYDSP, LATSW, GONEPAST.</tspan>
+          <tspan x="182" y="609.4">                TS      CM/FLAGS</tspan>
+          <tspan x="182" y="619.0" />
+          <tspan x="182" y="628.6">                RELINT</tspan>
+          <tspan x="182" y="638.2" />
+          <tspan x="182" y="647.8">                TC      INTPRET</tspan>
+          <tspan x="182" y="657.4" />
+          <tspan x="182" y="667.0">                SLOAD</tspan>
+          <tspan x="182" y="676.6">                        LODPAD</tspan>
+          <tspan x="182" y="686.2">                STORE   LOD</tspan>
+          <tspan x="182" y="695.8" />
+          <tspan x="182" y="705.4">                SLOAD</tspan>
+          <tspan x="182" y="715.0">                        LADPAD</tspan>
+          <tspan x="182" y="724.6">                STORE   LAD</tspan>
+          <tspan x="182" y="734.2" />
+          <tspan x="182" y="743.8">                DMP                     # L/DCMINR = LAD COS(15)</tspan>
+          <tspan x="182" y="753.4">                        COS15</tspan>
+          <tspan x="182" y="763.0">                STODL   L/DCMINR</tspan>
+          <tspan x="182" y="772.6">                        LATSLOPE</tspan>
+          <tspan x="182" y="782.2">                DMP     SR1             # KLAT = LAD/24</tspan>
+          <tspan x="182" y="791.8">                        LAD</tspan>
+        </text>
+        <path d="M182 811 H686" stroke="#000" stroke-width="1" />
+        <text x="182" y="834" font-size="10" letter-spacing="1.5">NEO NOTATIONAL V</text>
+        <text x="686" y="834" font-size="10" text-anchor="end">844</text>
+      </g>
+    </g>
+  </defs>
+  <use id="rear-source-page" xlink:href="#source-sheet" transform="translate(24 22) rotate(-29 424 518)" />
+  <use id="front-source-page" xlink:href="#source-sheet" transform="translate(56 0) rotate(-24 424 518)" />
+</svg>

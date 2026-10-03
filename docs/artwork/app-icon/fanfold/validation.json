@@ -1,0 +1,425 @@
+{
+  "host": "macOS 13.7.8",
+  "xcode": "15.2 (15C500b)",
+  "icns": {
+    "NotalityClassic.icns": [
+      {
+        "logical_pt": 16,
+        "scale": 1,
+        "pixels": 16,
+        "alpha_128_bounds": [
+          2,
+          0,
+          14,
+          16
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 16,
+        "scale": 2,
+        "pixels": 32,
+        "alpha_128_bounds": [
+          3,
+          1,
+          29,
+          31
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 32,
+        "scale": 1,
+        "pixels": 32,
+        "alpha_128_bounds": [
+          3,
+          1,
+          29,
+          31
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 32,
+        "scale": 2,
+        "pixels": 64,
+        "alpha_128_bounds": [
+          6,
+          2,
+          58,
+          62
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 48,
+        "scale": 1,
+        "pixels": 48,
+        "alpha_128_bounds": [
+          4,
+          1,
+          44,
+          47
+        ],
+        "decoded_matches_render": true,
+        "master": "compact.png"
+      },
+      {
+        "logical_pt": 128,
+        "scale": 1,
+        "pixels": 128,
+        "alpha_128_bounds": [
+          16,
+          5,
+          112,
+          123
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 128,
+        "scale": 2,
+        "pixels": 256,
+        "alpha_128_bounds": [
+          32,
+          10,
+          225,
+          246
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 256,
+        "scale": 1,
+        "pixels": 256,
+        "alpha_128_bounds": [
+          32,
+          10,
+          225,
+          246
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 256,
+        "scale": 2,
+        "pixels": 512,
+        "alpha_128_bounds": [
+          63,
+          20,
+          449,
+          492
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 512,
+        "scale": 1,
+        "pixels": 512,
+        "alpha_128_bounds": [
+          63,
+          20,
+          449,
+          492
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 512,
+        "scale": 2,
+        "pixels": 1024,
+        "alpha_128_bounds": [
+          127,
+          41,
+          898,
+          983
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      }
+    ],
+    "Notality.icns": [
+      {
+        "logical_pt": 16,
+        "scale": 1,
+        "pixels": 16,
+        "alpha_128_bounds": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 16,
+        "scale": 2,
+        "pixels": 32,
+        "alpha_128_bounds": [
+          1,
+          1,
+          31,
+          31
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 32,
+        "scale": 1,
+        "pixels": 32,
+        "alpha_128_bounds": [
+          1,
+          1,
+          31,
+          31
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 32,
+        "scale": 2,
+        "pixels": 64,
+        "alpha_128_bounds": [
+          2,
+          2,
+          62,
+          62
+        ],
+        "decoded_matches_render": true,
+        "master": "micro.png"
+      },
+      {
+        "logical_pt": 48,
+        "scale": 1,
+        "pixels": 48,
+        "alpha_128_bounds": [
+          1,
+          1,
+          47,
+          47
+        ],
+        "decoded_matches_render": true,
+        "master": "compact.png"
+      },
+      {
+        "logical_pt": 128,
+        "scale": 1,
+        "pixels": 128,
+        "alpha_128_bounds": [
+          4,
+          4,
+          124,
+          124
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 128,
+        "scale": 2,
+        "pixels": 256,
+        "alpha_128_bounds": [
+          8,
+          8,
+          248,
+          248
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 256,
+        "scale": 1,
+        "pixels": 256,
+        "alpha_128_bounds": [
+          8,
+          8,
+          248,
+          248
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 256,
+        "scale": 2,
+        "pixels": 512,
+        "alpha_128_bounds": [
+          16,
+          16,
+          496,
+          496
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 512,
+        "scale": 1,
+        "pixels": 512,
+        "alpha_128_bounds": [
+          16,
+          16,
+          496,
+          496
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      },
+      {
+        "logical_pt": 512,
+        "scale": 2,
+        "pixels": 1024,
+        "alpha_128_bounds": [
+          32,
+          32,
+          992,
+          992
+        ],
+        "decoded_matches_render": true,
+        "master": "full.png"
+      }
+    ]
+  },
+  "subject_frames": [
+    {
+      "style": "classic",
+      "logical_pt": null,
+      "subject_bounds_on_1024_canvas": [
+        125.99832118181818,
+        39.999999555023926,
+        898.0016798468899,
+        983.9999997296651
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "classic",
+      "logical_pt": 48,
+      "subject_bounds_on_1024_canvas": [
+        95.62962957894737,
+        27.99999974960128,
+        928.3703705007975,
+        995.9999999601278
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "classic",
+      "logical_pt": 32,
+      "subject_bounds_on_1024_canvas": [
+        102.10526289473681,
+        27.999999999999986,
+        921.8947365789472,
+        995.9999999999998
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "classic",
+      "logical_pt": 16,
+      "subject_bounds_on_1024_canvas": [
+        102.10526289473681,
+        27.999999999999986,
+        921.8947365789472,
+        995.9999999999998
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "squircle",
+      "logical_pt": null,
+      "subject_bounds_on_1024_canvas": [
+        184.87993236363636,
+        111.99999968899522,
+        839.1200664306219,
+        911.9999993540669
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "squircle",
+      "logical_pt": 48,
+      "subject_bounds_on_1024_canvas": [
+        133.48148178947366,
+        72.0000000414673,
+        890.5185189170653,
+        952.0000001467304
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "squircle",
+      "logical_pt": 32,
+      "subject_bounds_on_1024_canvas": [
+        139.36842063157894,
+        72.0,
+        884.6315785263157,
+        952.0
+      ],
+      "full_subject_inside_canvas": true
+    },
+    {
+      "style": "squircle",
+      "logical_pt": 16,
+      "subject_bounds_on_1024_canvas": [
+        139.36842063157894,
+        72.0,
+        884.6315785263157,
+        952.0
+      ],
+      "full_subject_inside_canvas": true
+    }
+  ],
+  "development_build": "passed",
+  "app_icon_keys": {
+    "CFBundleIconFile": "NotalityClassic.icns",
+    "CFBundleIconName": "NeoNotationalV"
+  },
+  "bundled_resources_match": {
+    "NotalityClassic.icns": true,
+    "Notality.icns": true,
+    "Assets.car": true
+  },
+  "native_selection": "PASS: NSWorkspace and NSApplication select the new classic icon on macOS 13.7.8.",
+  "modern_catalog": {
+    "status": "blocked",
+    "reason": "Xcode 26.0.1 unavailable. Prepared source differs from the still-old Assets.car. check-resources.py correctly fails and macOS26 continues to use the old compiled modern artwork.",
+    "modern_source_opaque": true,
+    "compiler_check": "Default Xcode 26.0.1 path is absent; --developer-dir pointing to installed Xcode 15.2 is rejected by the existing version check."
+  },
+  "multiple_windows": {
+    "status": "passed",
+    "initial_checks": 35,
+    "relaunch_checks": 19
+  },
+  "regression_suite": {
+    "status": "failed",
+    "passed_suites_before_failure": 36,
+    "failed_check": "Tests/FuzzySearch/UI/run.py: fuzzy workflow owns active disposable browser",
+    "focused_retry": "failed at the same browser activation assertion",
+    "remaining_suites": "not run after runner stopped",
+    "focus_diagnosis": {
+      "conclusion": "Existing direct-executable activation issue, reproduced with old and new icons.",
+      "control": "Same application executable SHA-256 for both disposable copies; icon resources were the only changed application files.",
+      "executable_sha256": "c06af6802fab888f2a4c796f765e7b41961561848c4aff64cf59aa18afe36944",
+      "old_icons_direct_launch": "Failed: app inactive and target window not key; window visible.",
+      "new_icons_direct_launch": "Failed: app inactive and target window not key; window visible.",
+      "documented_launch_services_command": "python3 -B Tests/FuzzySearch/UI/run.py --launch-services",
+      "launch_services_result": "Passed all 140 checks.",
+      "reference": "Tests/FuzzySearch/README.md"
+    }
+  }
+}

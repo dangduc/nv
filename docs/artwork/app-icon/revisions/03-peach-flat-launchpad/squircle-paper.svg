@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — continuous-feed squircle</title>
+  <desc>Peach printer paper with shaded feed holes and perforated margins on both sides. The holes keep an opaque interior for the app icon silhouette.</desc>
+  <defs>
+    <radialGradient id="feed-hole" cx="50%" cy="65%" r="65%">
+      <stop stop-color="#d7c1ad"/>
+      <stop offset=".7" stop-color="#c7ad96"/>
+      <stop offset="1" stop-color="#a78b74"/>
+    </radialGradient>
+    <clipPath id="paper-feed-boundary" clipPathUnits="userSpaceOnUse">
+      <use href="#paper-squircle"/>
+    </clipPath>
+  </defs>
+  <path id="paper-squircle" fill="#FDE9D9"
+        d="M512 32 C948.8 32 992 75.2 992 512
+           C992 948.8 948.8 992 512 992
+           C75.2 992 32 948.8 32 512
+           C32 75.2 75.2 32 512 32 Z"/>
+  <g id="paper-feed-strips" clip-path="url(#paper-feed-boundary)">
+    <path d="M144 0 V1024 M880 0 V1024" fill="none"
+          stroke="#a7876e" stroke-width="6" stroke-dasharray="48 36"/>
+    <g id="feed-holes" fill="url(#feed-hole)" stroke="#ecd4c1" stroke-width="6">
+      <circle cx="94" cy="72" r="30"/>
+      <circle cx="94" cy="160" r="30"/>
+      <circle cx="94" cy="248" r="30"/>
+      <circle cx="94" cy="336" r="30"/>
+      <circle cx="94" cy="424" r="30"/>
+      <circle cx="94" cy="512" r="30"/>
+      <circle cx="94" cy="600" r="30"/>
+      <circle cx="94" cy="688" r="30"/>
+      <circle cx="94" cy="776" r="30"/>
+      <circle cx="94" cy="864" r="30"/>
+      <circle cx="94" cy="952" r="30"/>
+      <circle cx="930" cy="72" r="30"/>
+      <circle cx="930" cy="160" r="30"/>
+      <circle cx="930" cy="248" r="30"/>
+      <circle cx="930" cy="336" r="30"/>
+      <circle cx="930" cy="424" r="30"/>
+      <circle cx="930" cy="512" r="30"/>
+      <circle cx="930" cy="600" r="30"/>
+      <circle cx="930" cy="688" r="30"/>
+      <circle cx="930" cy="776" r="30"/>
+      <circle cx="930" cy="864" r="30"/>
+      <circle cx="930" cy="952" r="30"/>
+    </g>
+  </g>
+</svg>

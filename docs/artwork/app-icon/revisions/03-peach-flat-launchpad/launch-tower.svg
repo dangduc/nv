@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Neo Notational V — red launch tower, front elevation</title>
+  <desc>A flat orthographic front view of a red launch tower and left-facing crane. Open lattice girders, service platforms, lower supports, and a rectangular launcher deck use solid colors and fine outlines. There are no perspective side faces. Layer this drawing behind the Saturn V.</desc>
+  <metadata>Original vector reconstruction from the user-supplied Screenshot 2026-09-22 at 00.50.27.png, revised as a front elevation. The photograph is not embedded. The original perspective drawing is preserved in revisions/02-perspective-launch-tower/. See SOURCES.md.</metadata>
+  <defs>
+    <g id="tower-front-bay" fill="none" stroke-linejoin="miter">
+      <path d="M687 3L797 67M797 3L687 67" stroke="#692019" stroke-width="5"/>
+      <path d="M687 3L797 67M797 3L687 67" stroke="#d33b27" stroke-width="3"/>
+      <path d="M685 -3H799V3H685ZM685 67H799V73H685Z" fill="#d33b27" stroke="#692019" stroke-width="1"/>
+      <path d="M691 5H704V13H691ZM780 5H793V13H780ZM691 57H704V65H691ZM780 57H793V65H780Z" fill="#d33b27" stroke="#692019" stroke-width=".8"/>
+      <path d="M695 8H700M784 8H789M695 61H700M784 61H789" stroke="#692019" stroke-width="1"/>
+    </g>
+    <g id="tower-service-platform" stroke="#692019">
+      <rect x="673" y="0" width="138" height="7" fill="#d33b27" stroke-width="1.2"/>
+      <path d="M675 -17V0M694 -17V0M713 -17V0M732 -17V0M752 -17V0M771 -17V0M790 -17V0M809 -17V0M674 -17H810M674 -9H810" fill="none" stroke="#a52c20" stroke-width="1.8"/>
+      <path d="M675 8L685 22M809 8L799 22" fill="none" stroke-width="4"/>
+      <path d="M675 8L685 22M809 8L799 22" fill="none" stroke="#d33b27" stroke-width="2.2"/>
+    </g>
+    <g id="tower-service-arm" stroke="#692019">
+      <path d="M689 9L718 29L767 9M718 10V28" fill="none" stroke-width="4.5"/>
+      <path d="M689 9L718 29L767 9M718 10V28" fill="none" stroke="#d33b27" stroke-width="2.5"/>
+      <rect x="685" y="0" width="86" height="9" fill="#d33b27" stroke-width="1"/>
+      <path d="M687 -12H769M688 -12V0M708 -12V0M728 -12V0M748 -12V0M768 -12V0M687 -6H769" fill="none" stroke="#a52c20" stroke-width="1.5"/>
+    </g>
+  </defs>
+  <g id="launch-tower" stroke-linejoin="miter">
+    <!-- The ladder and elevator are seen straight on through the front lattice. -->
+    <g id="tower-elevator">
+      <rect x="695" y="167" width="18" height="745" fill="#a52c20" stroke="#692019" stroke-width="1"/>
+      <path d="M700 174V906M708 174V906" stroke="#f2c5b7" stroke-width="1.4"/>
+      <path d="M700 185H708M700 205H708M700 225H708M700 245H708M700 265H708M700 285H708M700 305H708M700 325H708M700 345H708M700 365H708M700 385H708M700 405H708M700 425H708M700 445H708M700 465H708M700 485H708M700 505H708M700 525H708M700 545H708M700 565H708M700 585H708M700 605H708M700 625H708M700 645H708M700 665H708M700 685H708M700 705H708M700 725H708M700 745H708M700 765H708M700 785H708M700 805H708M700 825H708M700 845H708M700 865H708M700 885H708M700 905H708" stroke="#f2c5b7" stroke-width="1.4"/>
+    </g>
+    <g id="tower-front-braces">
+      <use href="#tower-front-bay" y="160"/><use href="#tower-front-bay" y="230"/>
+      <use href="#tower-front-bay" y="300"/><use href="#tower-front-bay" y="370"/>
+      <use href="#tower-front-bay" y="440"/><use href="#tower-front-bay" y="510"/>
+      <use href="#tower-front-bay" y="580"/><use href="#tower-front-bay" y="650"/>
+      <use href="#tower-front-bay" y="720"/><use href="#tower-front-bay" y="790"/>
+      <use href="#tower-front-bay" y="860"/>
+    </g>
+    <g id="tower-front-columns" fill="#d33b27" stroke="#692019" stroke-width="1.2">
+      <rect x="680" y="152" width="10" height="795"/>
+      <rect x="794" y="152" width="10" height="795"/>
+    </g>
+    <g id="tower-platforms">
+      <use href="#tower-service-platform" y="230"/>
+      <use href="#tower-service-platform" y="370"/>
+      <use href="#tower-service-platform" y="510"/>
+      <use href="#tower-service-platform" y="650"/>
+      <use href="#tower-service-platform" y="790"/>
+    </g>
+    <g id="tower-swing-arms">
+      <use href="#tower-service-arm" y="276"/>
+      <use href="#tower-service-arm" y="337"/>
+      <use href="#tower-service-arm" y="426"/>
+      <use href="#tower-service-arm" y="566"/>
+      <use href="#tower-service-arm" y="697"/>
+      <use href="#tower-service-arm" y="845"/>
+    </g>
+    <!-- Both base supports lie in the same elevation, reflected about x=742. -->
+    <g id="tower-base-supports" fill="none">
+      <path d="M684 758L604 950M800 758L880 950M685 858L618 950M799 858L866 950" stroke="#692019" stroke-width="9"/>
+      <path d="M684 758L604 950M800 758L880 950M685 858L618 950M799 858L866 950" stroke="#d33b27" stroke-width="6"/>
+      <path d="M654 830H684L638 869H684L622 908H684L604 950H684M830 830H800L846 869H800L862 908H800L880 950H800M684 888H800M684 925H800" stroke="#692019" stroke-width="5"/>
+      <path d="M654 830H684L638 869H684L622 908H684L604 950H684M830 830H800L846 869H800L862 908H800L880 950H800M684 888H800M684 925H800" stroke="#d33b27" stroke-width="3"/>
+      <path d="M597 949H611M873 949H887M678 949H692M792 949H806" stroke="#692019" stroke-width="4"/>
+    </g>
+    <!-- The launcher deck has a horizontal top edge and one rectangular face. -->
+    <g id="tower-launch-platform" stroke="#303b40">
+      <rect x="599" y="952" width="286" height="42" fill="#65747a" stroke-width="1.5"/>
+      <rect x="599" y="950" width="286" height="5" fill="#929da1" stroke-width="1"/>
+      <path d="M611 956V990M624 956V990M637 956V990M650 956V990M663 956V990M676 956V990M689 956V990M702 956V990M715 956V990M728 956V990M741 956V990M754 956V990M767 956V990M780 956V990M793 956V990M806 956V990M819 956V990M832 956V990M845 956V990M858 956V990M871 956V990" stroke-width="1"/>
+      <path d="M600 990H884" fill="none" stroke-width="1"/>
+    </g>
+    <g id="tower-crane">
+      <!-- Crane bearing and operator cabin, shown without top or side faces. -->
+      <rect x="677" y="151" width="130" height="10" fill="#d33b27" stroke="#692019" stroke-width="1.2"/>
+      <rect x="700" y="136" width="84" height="15" fill="#d33b27" stroke="#692019" stroke-width="1.2"/>
+      <path d="M704 141H780M704 147H780" stroke="#692019" stroke-width="1"/>
+      <rect x="691" y="164" width="42" height="26" fill="#d33b27" stroke="#692019" stroke-width="1"/>
+      <path d="M695 168H710V182H695ZM714 168H729V182H714Z" fill="#a8bec1" stroke="#303b40" stroke-width="1"/>
+      <path d="M731 32V102" fill="none" stroke="#692019" stroke-width="2.2"/>
+      <!-- The jib tapers in profile; every truss lies in this same flat plane. -->
+      <path d="M462 132L496 116L727 91L746 132Z" fill="none" stroke="#692019" stroke-width="4.5"/>
+      <path d="M462 132L496 116L727 91L746 132Z" fill="none" stroke="#d33b27" stroke-width="2.5"/>
+      <path d="M496 116V131L531 111V131L567 107V131L603 103V131L640 99V131L677 95V131L713 92V131L727 92L745 130" fill="none" stroke="#a52c20" stroke-width="2.4"/>
+      <path d="M478 128L731 87L805 101M731 45V87" fill="none" stroke="#692019" stroke-width="1"/>
+      <path d="M506 111V99M562 105V92M620 99V86M678 93V80" stroke="#a52c20" stroke-width="1.5"/>
+      <path d="M481 134V149M478 148Q482 154 486 148" fill="none" stroke="#303b40" stroke-width="1.4"/>
+      <!-- Machinery housing and counterweight have only rectangular front faces. -->
+      <rect x="734" y="101" width="84" height="35" fill="#d33b27" stroke="#692019" stroke-width="1.2"/>
+      <rect x="744" y="107" width="21" height="24" fill="none" stroke="#692019" stroke-width="1"/>
+      <path d="M759 118V122M773 107H806M773 111H806M773 115H806M773 119H806M773 123H806M773 127H806" stroke="#692019" stroke-width="1.2"/>
+      <path d="M747 101V91M767 101V91M787 101V91M807 101V91M747 91H815" fill="none" stroke="#a52c20" stroke-width="1.4"/>
+    </g>
+  </g>
+</svg>
