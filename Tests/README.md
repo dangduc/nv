@@ -26,7 +26,7 @@ The regression runner checks editor and preview ownership, incremental search, u
 ## Fuzzy search checks
 
 The [search test guide](FuzzySearch/README.md) covers native ordering, immutable corpus updates, duplicate result rows, persistence, and shared-source highlights.
-These headless checks run natively on either architecture. CI runs them on Intel.
+These headless checks run natively on either architecture. CI runs them on Intel and Apple Silicon.
 The separate copied-app probe requires an active desktop and working Intel runtime.
 
 ## Backup checks

@@ -11,7 +11,8 @@ def check_architecture(data, arch, name):
     # CI publishes separate thin 64-bit builds. Inspect the archive payload,
     # not its filename or the machine which happened to produce it.
     expected_cpu = {"x86_64": 0x01000007, "arm64": 0x0100000c}[arch]
-    if len(data) < 32 or struct.unpack_from("<II", data) != (0xfeedfacf, expected_cpu):
+    header = struct.unpack_from("<4I", data) if len(data) >= 32 else None
+    if not header or header[:2] != (0xfeedfacf, expected_cpu) or header[3] != 2:
         raise ValueError(f"Expected a thin {arch} Mach-O executable: {name}")
 
 

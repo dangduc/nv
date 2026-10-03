@@ -14,6 +14,7 @@ CI disables code signing. It does not require repository secrets.
 Before the app build, CI compiles and executes the [native search suites](../FuzzySearch/README.md) for each job's architecture on its matching hardware.
 These checks cover native order, the search service, duplicate rows, persistence, and shared-source invalidation.
 This is native test execution, not just cross-compilation. It does not run the full desktop integration suites.
+The cached preference-callback dispatch also executes on each architecture, checking the Objective-C method arguments and sender exclusion.
 
 ## Apple Silicon dependencies
 

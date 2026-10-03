@@ -34,6 +34,7 @@ jobs:
           python3 -m unittest discover -s Tests/CI -v
           python3 Tests/AppIcons/check-resources.py
           python3 Tests/Regression/org-preview/rebuild-tests.py
+          python3 Tests/CI/check-preference-callbacks.py --arch x86_64
 
       - name: Check native fuzzy search
         shell: bash
@@ -132,6 +133,7 @@ jobs:
           python3 -m unittest discover -s Tests/CI -v
           python3 Tests/AppIcons/check-resources.py
           python3 Tests/Regression/org-preview/rebuild-tests.py
+          python3 Tests/CI/check-preference-callbacks.py --arch arm64
 
       - name: Rebuild native dependencies
         shell: bash

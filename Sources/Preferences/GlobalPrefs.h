@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, NVSyntaxColorKind) {
 @interface GlobalPrefs : NSObject {
 	NSUserDefaults *defaults;
 	
-	IMP runCallbacksIMP;
+	void (*runCallbacksIMP)(id, SEL, SEL, id);
 	NSMutableDictionary *selectorObservers;
 	
 	PTKeyCombo *appActivationKeyCombo;
