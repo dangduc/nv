@@ -1,0 +1,16 @@
+{
+  "openssl": {
+    "version": "1.0.2d",
+    "url": "https://codeload.github.com/openssl/openssl/tar.gz/33dd08320648ac71d7d9d732be774ed3818dccc5",
+    "sha256": "efefee6e2b768a41b20458aeb766f3c093be8e5d9411ac7122a639632b9ff43b"
+  },
+  "multimarkdown": {
+    "version": "4.7.1",
+    "url": "https://codeload.github.com/fletcher/MultiMarkdown-4/tar.gz/3083076038cdaceb666581636ef9e1fc68472ff0",
+    "sha256": "aa27fa679fe3fdb3f075c5ae91df8297be309f81a53aef74937fdab6b2f26529"
+  },
+  "greg": {
+    "url": "https://codeload.github.com/nddrylliog/greg/tar.gz/98ecf13c3502b47e342b09fb7b0cad453e1bb797",
+    "sha256": "de0cd368e22fc218c38fbf52ea5cd3e6aa0f7eecadadcfa4ca15d7ee7c27d7cb"
+  }
+}

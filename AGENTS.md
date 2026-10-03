@@ -50,7 +50,8 @@ The suites use temporary notes and a copied app. See [Tests/README.md](Tests/REA
 Use disposable notes for manual checks of affected preview and import/export paths.
 
 For CI changes, run `python3 -B -m unittest discover -s Tests/CI -v`.
-CI builds an unsigned Intel app and tags successful builds on `master`.
+CI builds unsigned Intel and native Apple Silicon apps and tags successful builds on `master` after both jobs pass.
+The Apple Silicon job rebuilds the existing dependency versions in its disposable checkout; checked-in dependencies remain Intel-only for the local command above.
 Successful builds on top-level `*-release` branches also publish a GitHub Release with the app ZIP.
 CI does not run the desktop suites.
 See [Tests/CI/README.md](Tests/CI/README.md) for artifact and tag rules.

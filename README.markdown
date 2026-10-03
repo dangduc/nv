@@ -159,6 +159,8 @@ You can type or paste HTML source and select the HTML viewer. Rendered HTML expo
 
 The build requires full Xcode. Command Line Tools alone are insufficient.
 The bundled MultiMarkdown executable and OpenSSL archive require an Intel build. Apple Silicon Macs need Rosetta.
+CI also produces a native Apple Silicon app with rebuilt arm64 dependencies, available as a separate workflow artifact.
+See [CI build and artifact coverage](Tests/CI/README.md) for architectures, checks and download naming.
 
 The command below passed on macOS 26.5.2 with Xcode 26.6 and the macOS 26.5 SDK. Other runtime versions need separate checks.
 
