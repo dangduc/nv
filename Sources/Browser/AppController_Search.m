@@ -55,10 +55,6 @@
     [[self browserSession] refilterNotes];
     [self updateSearchAffordance];
 }
-- (void)showSearchProgress {
-    searchStatusDelayElapsed = YES;
-    [self updateSearchAffordance];
-}
 - (void)browserSessionSearchStateDidChange:(NVBrowserSession *)session {
     if (session != [self browserSession]) return;
     if (![session searchResultsAreCurrent]) {
@@ -66,14 +62,11 @@
         searchScrollPending = NO;
         [textView removeHighlightedTerms];
     }
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showSearchProgress) object:nil];
-    searchStatusDelayElapsed = NO;
     if ([session searchPending]) {
         if (!searchSubmitting) {
             searchAutocompletePending = NO;
             [pendingSearchReturnQuery release]; pendingSearchReturnQuery = nil;
         }
-        [self performSelector:@selector(showSearchProgress) withObject:nil afterDelay:0.1];
     }
     [self updateSearchAffordance];
     if ([session searchResultsAreCurrent]) {

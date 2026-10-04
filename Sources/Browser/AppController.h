@@ -89,7 +89,7 @@
     NSDictionary *pendingSearchRestoration, *pendingSearchReveal;
     NoteObject *pendingCreatedNoteReveal;
     NSUInteger searchIntentGeneration, searchHighlightGeneration;
-    BOOL searchAutocompletePending, searchApplyingResult, searchSubmitting, searchStatusDelayElapsed;
+    BOOL searchAutocompletePending, searchApplyingResult, searchSubmitting;
     BOOL searchScrollPending;
     CGFloat pendingListHeight, pendingListWidth;
     IBOutlet ETScrollView *notesScrollView;
