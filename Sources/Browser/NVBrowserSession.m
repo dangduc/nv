@@ -143,6 +143,7 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         rowIndexesByKey = [[NSMutableDictionary alloc] init];
         firstRowIndexesByUUID = [[NSMutableDictionary alloc] init];
         excerptPositions = [[NSMutableDictionary alloc] init];
+        excerptLines = [[NSMutableDictionary alloc] init];
         excerptOwner = [[NSObject alloc] init];
         resultsCurrent = YES;
         reverseSorted = [[GlobalPrefs defaultPrefs] tableIsReverseSorted];
@@ -162,6 +163,8 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     [rowIndexesByKey release];
     [firstRowIndexesByUUID release];
     [excerptPositions release];
+    [excerptLines release];
+    [excerptQuery release];
     [excerptOwner release];
     [activeExcerptKey release];
     [library release];
@@ -203,7 +206,9 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     [self cancelBodyRefresh];
     searchGeneration++;
     [searchService cancelRequestsForOwner:self];
-    [excerptPositions removeAllObjects];
+    // Visible rows keep their immutable excerpt and positions while the new
+    // search runs. These display snapshots never authorize result actions.
+    [previewCache removeAllObjects];
     nextExcerptRow = 0;
     excerptPassFinished = NO;
     [activeExcerptKey release]; activeExcerptKey = nil;
@@ -271,7 +276,7 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
 - (NSString *)accessibilityDescriptionForRow:(NSUInteger)index {
     NSString *kind = [self matchKindAtIndex:index];
     if ([kind isEqualToString:@"fuzzy"]) {
-        NVSearchLine *line = [[searchResult matchForRowKey:[self rowKeyAtIndex:index]] line];
+        NVSearchLine *line = [excerptLines objectForKey:[self rowKeyAtIndex:index]];
         NSString *field = [[line field] isEqual:@"title"] ? NSLocalizedString(@"Title", nil) :
             ([[line field] isEqual:@"tags"] ? NSLocalizedString(@"Tags", nil) : NSLocalizedString(@"Body", nil));
         return [NSString stringWithFormat:NSLocalizedString(@"%@ · line %lu", nil), field, (unsigned long)[line lineNumber]];
@@ -280,6 +285,9 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     return @"";
 }
 - (void)rebuildSingleRows {
+    [excerptLines removeAllObjects];
+    [excerptPositions removeAllObjects];
+    [excerptQuery release]; excerptQuery = nil;
     [rowKeys removeAllObjects];
     NSHashTable *members = [NSHashTable hashTableWithOptions:NSPointerFunctionsObjectPointerPersonality];
     for (NoteObject *note in matchingNotes) [members addObject:note];
@@ -384,6 +392,22 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
     [matchingNotes removeAllObjects];
     [dataSource fillArrayFromArray:visibleNotes];
     [searchResult autorelease]; searchResult = [result retain];
+    if (![excerptQuery isEqualToString:searchString]) {
+        [excerptLines removeAllObjects];
+        [excerptPositions removeAllObjects];
+    }
+    [excerptQuery release]; excerptQuery = [searchString copy];
+    for (NSString *key in [excerptLines allKeys]) {
+        if (![result matchForRowKey:key]) {
+            [excerptLines removeObjectForKey:key];
+            [excerptPositions removeObjectForKey:key];
+        }
+    }
+    for (NVSearchMatch *match in [result matches]) {
+        NSString *key = [match rowKey];
+        if (![excerptPositions objectForKey:key] || [excerptPositions objectForKey:key] == [NSNull null])
+            [excerptLines setObject:[match line] forKey:key];
+    }
     searchPending = NO;
     resultsCurrent = YES;
     [previewCache removeAllObjects];
@@ -653,7 +677,13 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         NSUInteger row = [self indexForRowKey:key];
         if (row != NSNotFound) {
             // Mark a failed position lookup too, so repainting cannot start an endless retry loop.
-            [excerptPositions setObject:positions ?: (id)[NSNull null] forKey:key];
+            NVSearchLine *line = [[searchResult matchForRowKey:key] line];
+            NSArray *ranges = [[line field] isEqual:@"title"] ? [positions titleRanges] :
+                ([[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges]);
+            // Retain only this line and its ranges, not old whole-note snapshots
+            // from successive edits while a long result list is being prepared.
+            [excerptPositions setObject:ranges ?: (id)[NSNull null] forKey:key];
+            [excerptLines setObject:line forKey:key];
             [previewCache removeAllObjects];
             NSInteger column = [table columnWithIdentifier:NoteTitleColumnString];
             // Invalidate AppKit's row content even when it is outside the viewport.
@@ -678,15 +708,16 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         width, [delegate horizontalLayout], [prefs tableColumnsShowPreview]];
     id preview = [previewCache objectForKey:key];
     if (preview) return preview;
-    NVSearchMatch *match = [searchResult matchForRowKey:[self rowKeyAtIndex:index]];
-    NVSearchLine *line = [match line];
+    NVSearchLine *line = [excerptLines objectForKey:[self rowKeyAtIndex:index]];
     id cachedPositions = [excerptPositions objectForKey:[self rowKeyAtIndex:index]];
+    NSArray *ranges = cachedPositions == [NSNull null] ? nil : cachedPositions;
     if ([[line field] isEqual:@"title"]) {
         preview = [self previewForNote:note inTable:table];
         if (![preview isKindOfClass:[NSAttributedString class]]) preview = [note->titleString attributedSingleLineTitle];
-        if (cachedPositions && cachedPositions != [NSNull null]) {
+        if ([ranges count] && NSMaxRange([line range]) <= [note->titleString length] &&
+            [[note->titleString substringWithRange:[line range]] isEqualToString:[line text]]) {
             NSMutableAttributedString *highlighted = [[preview mutableCopy] autorelease];
-            NVHighlightPreviewRanges(highlighted, [cachedPositions titleRanges], NSMakeRange(0, [note->titleString length]), 0);
+            NVHighlightPreviewRanges(highlighted, ranges, NSMakeRange(0, [note->titleString length]), 0);
             preview = highlighted;
         }
         if (preview) [previewCache setObject:preview forKey:key];
@@ -696,12 +727,7 @@ static void NVHighlightPreviewRanges(NSMutableAttributedString *preview, NSArray
         context = [NSString stringWithFormat:NSLocalizedString(@"line:%lu", nil), (unsigned long)[line lineNumber]];
     NSString *source = line ? [line text] : ([[note contentString] string] ?: @"");
     NSUInteger first = 0;
-    NSArray *ranges = nil;
-    if (cachedPositions && cachedPositions != [NSNull null] && line) {
-        NVSearchPositions *positions = cachedPositions;
-        ranges = [[line field] isEqual:@"tags"] ? [positions tagsRanges] : [positions sourceRanges];
-        if ([ranges count]) first = [[ranges objectAtIndex:0] rangeValue].location - [line range].location;
-    }
+    if ([ranges count] && line) first = [[ranges objectAtIndex:0] rangeValue].location - [line range].location;
     NSUInteger start = first > 45 ? first - 45 : 0;
     NSRange excerpt = [source rangeOfComposedCharacterSequencesForRange:NSMakeRange(start, MIN((NSUInteger)220, [source length] - start))];
     source = [NSString stringWithFormat:@"%@%@%@", excerpt.location ? @"…" : @"", [source substringWithRange:excerpt], NSMaxRange(excerpt) < [source length] ? @"…" : @""];

@@ -140,7 +140,10 @@ An edited open note can remain as one retained row after the matches, without in
 Fuzzy rows use native positions for their specific line. Excerpts show text from that line.
 The browser prepares positions asynchronously in one pass from the first result to the last.
 Scrolling does not change the processing order or cancel pending work.
-Computed positions remain in the browser until query or corpus invalidation, so returning rows retain their highlights.
+Displayed excerpts retain their immutable line snapshots and matching positions while an edit triggers another search.
+For the same query, each surviving row replaces its excerpt and positions together when its new positions arrive.
+New queries discard the old excerpts when their results publish. Removed rows discard their excerpts too.
+Search invalidation still disables result actions immediately; display snapshots cannot authorize those actions.
 Each completion updates the browser cache and notifies the table to reload that row, including offscreen rows.
 When the pass finishes, the browser reloads the table once and draws its visible rectangle so AppKit cannot leave stale cells on screen.
 Scrolling ahead of this work can still require asynchronous position requests.

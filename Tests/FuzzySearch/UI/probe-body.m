@@ -397,7 +397,7 @@
                 [resultTable scrollRowToVisible:initialRow withVerticalOffset:0];
                 [trace addObject:@(initialRow)];
                 NSDate *positionDeadline = [NSDate dateWithTimeIntervalSinceNow:10];
-                while ([[sa valueForKey:@"excerptPositions"] count] < [sa resultCount]) {
+                while (![[sa valueForKey:@"excerptPassFinished"] boolValue]) {
                     if (naturalTiming) {
                         if ([positionDeadline timeIntervalSinceNow] <= 0) {
                             NSLog(@"FUZZ_SCHEDULER_STALL seed=%lu iteration=%lu active=%@ next=%@ positions=%lu trace=%@",
@@ -503,6 +503,64 @@
         method_setImplementation(restoreMethod, originalRestore); imp_removeBlock(countRestores);
         [a searchForString:@"selectionlatency" mode:@"exact"];
         Check(![[editor layoutManager] allowsNonContiguousLayout], @"Exact selection retains contiguous layout for saved scroll restoration");
+
+        // Hold list positions after real edits, so pending redraws cannot hide a
+        // jump to the start of the line behind a fast worker completion.
+        NSMutableArray *excerptDeliveries = [NSMutableArray array];
+        __block BOOL holdExcerpts = NO;
+        SEL excerptSelector = @selector(requestPositionsForRowKey:requestID:owner:positionOwner:completion:);
+        Method excerptMethod = class_getInstanceMethod([NVSearchService class], excerptSelector);
+        IMP originalExcerpt = method_getImplementation(excerptMethod);
+        id excerptOwner = [sa valueForKey:@"excerptOwner"];
+        IMP heldExcerpt = imp_implementationWithBlock(^(NVSearchService *service, NSString *key, NSUInteger requestID,
+            id owner, id positionOwner, NVSearchPositionsCompletion completion) {
+            ((void(*)(id, SEL, id, NSUInteger, id, id, id))originalExcerpt)(service, excerptSelector, key, requestID, owner, positionOwner,
+                ^(NVSearchPositions *positions, NSError *error) {
+                    if (holdExcerpts && owner == sa && positionOwner == excerptOwner)
+                        [excerptDeliveries addObject:[[^{ completion(positions, error); } copy] autorelease]];
+                    else completion(positions, error);
+                });
+        });
+        method_setImplementation(excerptMethod, heldExcerpt);
+        [[a window] setContentSize:NSMakeSize(1000, 600)];
+        NSString *padding = [@"i" stringByPaddingToLength:400 withString:@"i" startingAtIndex:0];
+        NSString *excerptSource = [NSString stringWithFormat:@"%@q--z--v%@", padding, padding];
+        NoteObject *excerptNote = MakeNote(library, @"Long excerpt", excerptSource);
+        for (NSUInteger layout = 0; layout < 2; layout++) {
+            if ([a horizontalLayout] != (layout == 1)) [a switchViewLayout:self];
+            [excerptNote setContentString:[[[NSAttributedString alloc] initWithString:excerptSource] autorelease]];
+            [a searchForString:@"qzv" mode:@"fuzzy"];
+            Check(FuzzyAwait(^BOOL {
+                if (![sa searchResultsAreCurrent]) return NO;
+                [sa previewForRow:0 inTable:resultTable];
+                return [[sa valueForKey:@"excerptPassFinished"] boolValue];
+            }, 10), @"long excerpt positions finish before editing in each layout");
+            NSUInteger row = FuzzyFieldRow(sa, excerptNote, @"source");
+            Check(row != NSNotFound && [sa resultCount] == 1, @"long excerpt fixture has one matching source line");
+            FuzzySelect(a, row); [[a window] makeFirstResponder:editor];
+            NSAttributedString *beforeEdit = [[[sa previewForRow:row inTable:resultTable] copy] autorelease];
+            Check([[beforeEdit string] containsString:@"· …"] && [[beforeEdit string] containsString:@"q--z--v"],
+                @"long excerpt shows the leading ellipsis and centered match");
+            holdExcerpts = YES;
+            [editor insertText:@"-" replacementRange:NSMakeRange(402, 0)];
+            [[a valueForKey:@"editingSession"] commitTextChanges];
+            Check(![sa searchResultsAreCurrent] && [[sa previewForRow:row inTable:resultTable] isEqualToAttributedString:beforeEdit],
+                @"native edit preserves the displayed excerpt while stale actions are disabled");
+            Check(FuzzyAwait(^BOOL { return [sa searchResultsAreCurrent] && [excerptDeliveries count] > 0; }, 10),
+                @"edited result publishes while its new list positions remain held");
+            [resultTable reloadData]; [[a window] displayIfNeeded];
+            Check([[sa previewForRow:row inTable:resultTable] isEqualToAttributedString:beforeEdit],
+                @"redraw retains ellipsis and highlights until replacement positions are ready");
+            holdExcerpts = NO;
+            NSArray *ready = [[excerptDeliveries copy] autorelease]; [excerptDeliveries removeAllObjects];
+            for (void (^delivery)(void) in ready) delivery();
+            NSAttributedString *afterEdit = [sa previewForRow:row inTable:resultTable];
+            Check([[afterEdit string] containsString:@"· …"] && [[afterEdit string] containsString:@"q---z--v"],
+                @"fresh excerpt displays edited text without losing its leading ellipsis");
+            NSUInteger pixels = FuzzyDrawnHighlightPixelsForRow(resultTable, row);
+            Check(pixels != NSNotFound && pixels > 0, @"edited result paints its new match highlights");
+        }
+        method_setImplementation(excerptMethod, originalExcerpt); imp_removeBlock(heldExcerpt);
         NSLog(@"FUZZY APP WORKFLOW PASSED (%lu checks)", (unsigned long)Checks);
         [library flushAllNoteChanges]; [library closeJournal];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];

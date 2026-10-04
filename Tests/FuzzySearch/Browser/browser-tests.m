@@ -408,7 +408,9 @@ int main(void) {
         Search(session, @"Empty");
         Check(!staleHighlights, "superseded source positions do not publish");
 
-        NoteObject *longNote = Note(@"Long source", [[@"x" stringByPaddingToLength:3000 withString:@"x" startingAtIndex:0] stringByAppendingString:@"l--m--n ending"]);
+        NSString *longSource = [[[@"x" stringByPaddingToLength:3000 withString:@"x" startingAtIndex:0]
+            stringByAppendingString:@"l--m--n"] stringByAppendingString:[@"x" stringByPaddingToLength:400 withString:@"x" startingAtIndex:0]];
+        NoteObject *longNote = Note(@"Long source", longSource);
         [library addNote:longNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
         Search(session, @"lmn");
         Check([Visible(session) isEqual:@[longNote]], "long-note excerpt fixture has one native result");
@@ -435,6 +437,29 @@ int main(void) {
         table->visibleRows = NSMakeRange(NSNotFound, 0);
         [session previewForRow:0 inTable:(id)table];
         Check([[session valueForKey:@"excerptPositions"] count] == 1, "offscreen match positions remain cached for the current search");
+        Check([afterExcerpt containsString:@"· …"] && [afterExcerpt hasSuffix:@"…"], "long match excerpt has both truncation ellipses");
+        NSString *editedSource = [longSource stringByReplacingOccurrencesOfString:@"l--m--n" withString:@"l---m---n"];
+        [longNote setContentString:[[[NSAttributedString alloc] initWithString:editedSource] autorelease]];
+        [service invalidate]; [session noteBodyDidChange:longNote]; Capture(service, library);
+        Check(![session searchResultsAreCurrent] && [[session notesAtIndexes:[NSIndexSet indexSetWithIndex:0]] count] == 0,
+            "edit immediately disables stale result actions");
+        Check([[[session previewForRow:0 inTable:(id)table] string] isEqual:afterExcerpt],
+            "pending edit redraw preserves the complete excerpt and its ellipses");
+        [session libraryDidChange];
+        Check(Spin(^BOOL { return [session searchResultsAreCurrent]; }), "edited line receives a new search result");
+        NSUInteger reloadsBeforeEditPositions = table->reloads;
+        Check([[[session previewForRow:0 inTable:(id)table] string] isEqual:afterExcerpt],
+            "replacement result preserves the old excerpt until its own positions arrive");
+        Check(Spin(^BOOL { return table->reloads > reloadsBeforeEditPositions; }), "edited excerpt receives fresh positions");
+        NSAttributedString *editedExcerpt = [session previewForRow:0 inTable:(id)table];
+        Check([[editedExcerpt string] containsString:@"· …"] && [[editedExcerpt string] hasSuffix:@"…"] &&
+            [[editedExcerpt string] containsString:@"l---m---n"], "edited excerpt retains both ellipses around the updated match");
+        NSUInteger editedStart = [[editedExcerpt string] rangeOfString:@"l---m---n"].location;
+        for (NSUInteger i = 0; i < [editedExcerpt length]; i++) {
+            BOOL expected = i == editedStart || i == editedStart + 4 || i == editedStart + 8;
+            Check(([editedExcerpt attribute:NSBackgroundColorAttributeName atIndex:i effectiveRange:NULL] != nil) == expected,
+                "edited excerpt uses only the new text's match positions");
+        }
         [library removeNote:longNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
         NoteObject *unicodeNote = Note(@"Café 🐈", @"unmatched first line\nCafe\u0301 🐈");
         [library addNote:unicodeNote]; [service invalidate]; [session invalidateSearch]; Capture(service, library);
@@ -514,12 +539,13 @@ int main(void) {
             "the completed pass reloads the table once and forces one visible draw");
         [service->positionRequests release]; service->positionRequests = nil;
         [session invalidateSearch];
-        Check([[session valueForKey:@"excerptPositions"] count] == 0, "search invalidation discards positions from every visited viewport");
+        Check(![session searchResultsAreCurrent] && [[session valueForKey:@"excerptPositions"] count] == 120,
+            "search invalidation retains display snapshots without keeping result actions current");
         [scrollNote setContentString:[[[NSAttributedString alloc] initWithString:@"prefix scrollprobe"] autorelease]];
         [service invalidate]; Capture(service, library); Search(session, @"scrollprobe");
         table->visibleRows = NSMakeRange(0, [session resultCount]);
         [session previewForRow:0 inTable:(id)table];
-        Check(Spin(^BOOL { return [[session valueForKey:@"excerptPositions"] count] == 2; }), "edited source receives fresh title and body positions");
+        Check(Spin(^BOOL { return [[session valueForKey:@"excerptPassFinished"] boolValue]; }), "edited source receives fresh title and body positions");
         for (NSUInteger row = 0; row < [session resultCount]; row++) {
             NSAttributedString *value = [session previewForRow:row inTable:(id)table];
             NSUInteger at = [[session rowKeyAtIndex:row] containsString:@":title:"] ? 0 :
