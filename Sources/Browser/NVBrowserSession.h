@@ -30,6 +30,8 @@
     NSUInteger resultCount, distinctResultNoteCount;
     BOOL searchPending, resultsCurrent, compositionSuspended, keepEditorForRequest, searchHasTerms;
     NSMutableDictionary *excerptPositions;
+    NSMutableDictionary *excerptLines; // display snapshots paired with excerptPositions
+    NSString *excerptQuery;
     NSObject *excerptOwner;
     NSString *activeExcerptKey;
     NSTableView *excerptTable; // non-owning; cleared when the browser detaches
