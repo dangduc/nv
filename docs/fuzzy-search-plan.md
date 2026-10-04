@@ -218,7 +218,7 @@ Partial scans or an empty title group cannot establish zero matches.
 | Browser state | UI and action rules |
 | --- | --- |
 | Current result | Rows and their actions are available. Counts, positions, and identities belong to the same result. |
-| Pending request | Prior rows remain visible with an unavailable state. A delayed “Searching…” label appears after 100 ms. |
+| Pending request | Prior rows remain visible with an unavailable state. The list keeps its full height. |
 | Failed request | Show one error with Retry. Retained rows remain unavailable, and failure does not imply zero matches. |
 | No terms | Cancel pending work and show the configured all-notes order immediately. |
 

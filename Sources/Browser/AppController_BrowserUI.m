@@ -350,9 +350,7 @@
     NSError *error = [session searchError];
     [createNoteButton setHidden:!canCreate && !error];
     [createNoteButton setAction:error ? @selector(retrySearch:) : @selector(createNoteFromSearch:)];
-    NSString *status = @"";
-    if (error) status = [error localizedDescription];
-    else if ([session searchPending]) status = searchStatusDelayElapsed ? NSLocalizedString(@"Searching…", nil) : @"";
+    NSString *status = error ? [error localizedDescription] : @"";
     BOOL showStatus = fuzzy && [status length] > 0;
     [searchStatusField setHidden:!showStatus];
     NSRect listFrame = [notesSubview bounds];
